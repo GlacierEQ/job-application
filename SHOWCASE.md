@@ -4,7 +4,7 @@
 Operator: **GlacierEQ** · Hireable systems: **AKOS**, **pro-code**, **Pro-*** / motion families.  
 Targets: **xAI** · **SpaceX** · **Anthropic** · **NVIDIA** · **Notion**.
 
-> **Visibility:** private-first portfolio. Legal/case: **ABSOLUTE_PRIVATE_UNTIL_PROCESSED** — never linked here.  
+> **Visibility:** private-first portfolio. Litigation material: **ABSOLUTE_PRIVATE_UNTIL_PROCESSED** — never linked here.  
 > Regenerated: 2026-07-13 UTC · source maps under `GlacierEQ_Swarm/state/`
 
 ---
@@ -35,8 +35,8 @@ Targets: **xAI** · **SpaceX** · **Anthropic** · **NVIDIA** · **Notion**.
 | **xAI** | Colossus-class infra (cooling, energy, security, gateway, helix) | [https://github.com/GlacierEQ/xai-colossus-cooling](https://github.com/GlacierEQ/xai-colossus-cooling) · [https://github.com/GlacierEQ/colossus-gateway](https://github.com/GlacierEQ/colossus-gateway) · [https://github.com/GlacierEQ/xai-colossus-2](https://github.com/GlacierEQ/xai-colossus-2) · [xai-colossus-community-alpha](https://github.com/GlacierEQ/xai-colossus-community-alpha) · [xai-colossus-cooling-alpha](https://github.com/GlacierEQ/xai-colossus-cooling-alpha) · [xai-colossus-energy-alpha](https://github.com/GlacierEQ/xai-colossus-energy-alpha) · [xai-colossus-microcode-alpha](https://github.com/GlacierEQ/xai-colossus-microcode-alpha) · [xai-colossus-nanosphere-alpha](https://github.com/GlacierEQ/xai-colossus-nanosphere-alpha) · [xai-colossus-nexus-alpha](https://github.com/GlacierEQ/xai-colossus-nexus-alpha) |
 | **SpaceX** | Flight / ground / thermal / orbital helix | [https://github.com/GlacierEQ/spacex-thermal-protection](https://github.com/GlacierEQ/spacex-thermal-protection) · [https://github.com/GlacierEQ/spacex-orbital-mechanics](https://github.com/GlacierEQ/spacex-orbital-mechanics) · [https://github.com/GlacierEQ/spacex-telemetry](https://github.com/GlacierEQ/spacex-telemetry) · [spacex-autonomy](https://github.com/GlacierEQ/spacex-autonomy) · [spacex-cryogenics](https://github.com/GlacierEQ/spacex-cryogenics) · [spacex-ground-network](https://github.com/GlacierEQ/spacex-ground-network) · [spacex-launch-sequencer](https://github.com/GlacierEQ/spacex-launch-sequencer) · [spacex-mission-control](https://github.com/GlacierEQ/spacex-mission-control) · [spacex-orbital-assembly](https://github.com/GlacierEQ/spacex-orbital-assembly) · [spacex-orbital-mechanics](https://github.com/GlacierEQ/spacex-orbital-mechanics) · [spacex-propulsion-monitor](https://github.com/GlacierEQ/spacex-propulsion-monitor) |
 | **Anthropic** | Agent OS, MCP discipline, tool-use orchestration | [https://github.com/GlacierEQ/AKOS](https://github.com/GlacierEQ/AKOS) · [https://github.com/GlacierEQ/pro-code](https://github.com/GlacierEQ/pro-code) · [https://github.com/GlacierEQ/Pro-comet-agent](https://github.com/GlacierEQ/Pro-comet-agent) · [AEON-777](https://github.com/GlacierEQ/AEON-777) · [AEON-BRAIN-777](https://github.com/GlacierEQ/AEON-BRAIN-777) · [AKOS](https://github.com/GlacierEQ/AKOS) · [job-application](https://github.com/GlacierEQ/job-application) · [mastermind](https://github.com/GlacierEQ/mastermind) · [pro-code](https://github.com/GlacierEQ/pro-code) |
-| **NVIDIA** | GPU/NPU thermal & acceleration-aware compute | [https://github.com/GlacierEQ/xai-colossus-cooling](https://github.com/GlacierEQ/xai-colossus-cooling) · colossus energy/servers pillars |
-| **Notion** | Cathedral ops craft (linked views, structured DBs) — *engineering only* | Notion MCP cathedrals · local `state/cathedrals_cases_distill.json` (no case dumps) |
+| **NVIDIA** | GPU/NPU thermal & acceleration-aware compute | [https://github.com/GlacierEQ/xai-colossus-cooling](https://github.com/GlacierEQ/xai-colossus-cooling) · [https://github.com/GlacierEQ/xai-colossus-energy](https://github.com/GlacierEQ/xai-colossus-energy) · [https://github.com/GlacierEQ/xai-colossus-servers](https://github.com/GlacierEQ/xai-colossus-servers) · [https://github.com/GlacierEQ/nvidia-gpu-health](https://github.com/GlacierEQ/nvidia-gpu-health) · [https://github.com/GlacierEQ/nvidia-deep-reasoning](https://github.com/GlacierEQ/nvidia-deep-reasoning) |
+| **Notion** | Workspace / MCP ops craft (automation, optimizer, MCP bridge) — *engineering only* | [https://github.com/GlacierEQ/notion-workflow-intelligence](https://github.com/GlacierEQ/notion-workflow-intelligence) · [https://github.com/GlacierEQ/notion-workspace-optimizer](https://github.com/GlacierEQ/notion-workspace-optimizer) · [https://github.com/GlacierEQ/notion-mcp-empowerment-engine](https://github.com/GlacierEQ/notion-mcp-empowerment-engine) · [https://github.com/GlacierEQ/glaciereq-mcp-stack](https://github.com/GlacierEQ/glaciereq-mcp-stack) |
 | **APEX runtime** | CLI / control plane / workers | [https://github.com/GlacierEQ/apex-cli](https://github.com/GlacierEQ/apex-cli) · [apex-alpha](https://github.com/GlacierEQ/apex-alpha) · [apex-boot-core](https://github.com/GlacierEQ/apex-boot-core) · [apex-bootup-core](https://github.com/GlacierEQ/apex-bootup-core) · [apex-browser-ops](https://github.com/GlacierEQ/apex-browser-ops) · [apex-cli](https://github.com/GlacierEQ/apex-cli) · [apex-control-plane](https://github.com/GlacierEQ/apex-control-plane) |
 
 ---
@@ -72,7 +72,7 @@ Targets: **xAI** · **SpaceX** · **Anthropic** · **NVIDIA** · **Notion**.
 ## 5. Policy
 | Rule | Statement |
 |------|-----------|
-| Legal/case | Absolute private until processed — **not in this showcase** |
+| Litigation material | Absolute private until processed — **not in this showcase** |
 | Metrics | No invented scores |
 | Secrets | Never embedded |
 
