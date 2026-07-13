@@ -27,8 +27,11 @@ MUST = (
     "Notion",
 )
 
+# Block case-PII / court labels in *repo names* and body (avoid matching policy prose)
 LEGAL_BLOCK = re.compile(
-    r"1FDV|FEDERAL.?WARFARE|CASE.?MATRIX|SUPERLUMINAL|DOCKET|KEKOA|CATACLYSM|ASPEN.?GROVE",
+    r"1FDV|FEDERAL.?WARFARE|CASE.?MATRIX|SUPERLUMINAL|DOCKETS?\b|KEKOA|CATACLYSM|ASPEN.?GROVE|"
+    r"cathedrals_cases|legal-case|legal_case|family.?court|criminal.?court|"
+    r"\bcsea\b|civil.?rico|§1983|apex-legal|Pro-Legal|Pro-Kekoa|casey-legal",
     re.I,
 )
 
@@ -74,7 +77,7 @@ def build() -> str:
 Operator: **GlacierEQ** · Hireable systems: **AKOS**, **pro-code**, **Pro-*** / motion families.  
 Targets: **xAI** · **SpaceX** · **Anthropic** · **NVIDIA** · **Notion**.
 
-> **Visibility:** private-first portfolio. Legal/case: **{legal_policy}** — never linked here.  
+> **Visibility:** private-first portfolio. Litigation material: **{legal_policy}** — never linked here.  
 > Regenerated: {ts} · source maps under `GlacierEQ_Swarm/state/`
 
 ---
@@ -105,8 +108,8 @@ Targets: **xAI** · **SpaceX** · **Anthropic** · **NVIDIA** · **Notion**.
 | **xAI** | Colossus-class infra (cooling, energy, security, gateway, helix) | [{gh("xai-colossus-cooling")}]({gh("xai-colossus-cooling")}) · [{gh("colossus-gateway")}]({gh("colossus-gateway")}) · [{gh("xai-colossus-2")}]({gh("xai-colossus-2")}) · {bullets(colossus)} |
 | **SpaceX** | Flight / ground / thermal / orbital helix | [{gh("spacex-thermal-protection")}]({gh("spacex-thermal-protection")}) · [{gh("spacex-orbital-mechanics")}]({gh("spacex-orbital-mechanics")}) · [{gh("spacex-telemetry")}]({gh("spacex-telemetry")}) · {bullets(spacex)} |
 | **Anthropic** | Agent OS, MCP discipline, tool-use orchestration | [{gh("AKOS")}]({gh("AKOS")}) · [{gh("pro-code")}]({gh("pro-code")}) · [{gh("Pro-comet-agent")}]({gh("Pro-comet-agent")}) · {bullets(akos)} |
-| **NVIDIA** | GPU/NPU thermal & acceleration-aware compute | [{gh("xai-colossus-cooling")}]({gh("xai-colossus-cooling")}) · colossus energy/servers pillars |
-| **Notion** | Cathedral ops craft (linked views, structured DBs) — *engineering only* | Notion MCP cathedrals · local `state/cathedrals_cases_distill.json` (no case dumps) |
+| **NVIDIA** | GPU/NPU thermal & acceleration-aware compute | [{gh("xai-colossus-cooling")}]({gh("xai-colossus-cooling")}) · [{gh("xai-colossus-energy")}]({gh("xai-colossus-energy")}) · [{gh("xai-colossus-servers")}]({gh("xai-colossus-servers")}) · [{gh("nvidia-gpu-health")}]({gh("nvidia-gpu-health")}) · [{gh("nvidia-deep-reasoning")}]({gh("nvidia-deep-reasoning")}) |
+| **Notion** | Workspace / MCP ops craft (automation, optimizer, MCP bridge) — *engineering only* | [{gh("notion-workflow-intelligence")}]({gh("notion-workflow-intelligence")}) · [{gh("notion-workspace-optimizer")}]({gh("notion-workspace-optimizer")}) · [{gh("notion-mcp-empowerment-engine")}]({gh("notion-mcp-empowerment-engine")}) · [{gh("glaciereq-mcp-stack")}]({gh("glaciereq-mcp-stack")}) |
 | **APEX runtime** | CLI / control plane / workers | [{gh("apex-cli")}]({gh("apex-cli")}) · {bullets(apex)} |
 
 ---
@@ -142,7 +145,7 @@ Targets: **xAI** · **SpaceX** · **Anthropic** · **NVIDIA** · **Notion**.
 ## 5. Policy
 | Rule | Statement |
 |------|-----------|
-| Legal/case | Absolute private until processed — **not in this showcase** |
+| Litigation material | Absolute private until processed — **not in this showcase** |
 | Metrics | No invented scores |
 | Secrets | Never embedded |
 
