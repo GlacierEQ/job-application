@@ -13,7 +13,3 @@ python3 test_showcase.py
 ```
 
 Legal/case material is excluded by design.
-
-
----
-Local twin: `~/GlacierEQ_Swarm/jobapp_showcase/`
