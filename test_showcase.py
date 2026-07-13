@@ -19,9 +19,35 @@ import generate_showcase  # noqa: E402
 
 MUST_NAMES = ["AKOS", "pro-code", "Pro-", "xAI", "SpaceX", "Anthropic", "NVIDIA", "Notion"]
 LEGAL_RE = re.compile(
-    r"1FDV-23|FEDERAL-WARFARE|SUPERLUMINAL_CASE|DOCKETS|AspenGrove-KEKOA",
+    r"1FDV-23|FEDERAL-WARFARE|SUPERLUMINAL_CASE|DOCKETS|AspenGrove-KEKOA|"
+    r"cathedrals_cases_distill|Family Court|Criminal Court|CSEA|Civil RICO|§1983",
     re.I,
 )
+
+# Per-company concrete exhibit that must appear as a real GitHub path/name
+COMPANY_POINTERS = {
+    "xAI": ["xai-colossus-cooling", "colossus-gateway"],
+    "SpaceX": ["spacex-thermal-protection", "spacex-orbital-mechanics"],
+    "Anthropic": ["AKOS", "pro-code", "Pro-comet-agent"],
+    "NVIDIA": [
+        "xai-colossus-energy",
+        "xai-colossus-servers",
+        "nvidia-gpu-health",
+    ],
+    "Notion": [
+        "notion-workflow-intelligence",
+        "notion-workspace-optimizer",
+        "notion-mcp-empowerment-engine",
+    ],
+}
+
+
+def _row_for(company: str, text: str) -> str:
+    """Extract the markdown table row that starts with **Company**."""
+    for line in text.splitlines():
+        if line.strip().startswith(f"| **{company}**"):
+            return line
+    raise AssertionError(f"no table row for {company}")
 
 
 class ShowcaseTests(unittest.TestCase):
@@ -46,11 +72,12 @@ class ShowcaseTests(unittest.TestCase):
         generate_showcase.main()
         text = (ROOT / "SHOWCASE.md").read_text()
         self.assertIsNone(LEGAL_RE.search(text), "legal/case docket content must not appear")
+        self.assertNotIn("cathedrals_cases_distill", text)
+        self.assertNotIn("cases_distill", text)
 
     def test_framework_cards_have_role_and_location(self) -> None:
         generate_showcase.main()
         text = (ROOT / "SHOWCASE.md").read_text()
-        # AKOS + pro-code + at least one motion sample with github pointer
         self.assertIn("Apex Knowledge OS", text)
         self.assertIn("pro-code", text)
         self.assertIn("https://github.com/GlacierEQ/AKOS", text)
@@ -61,14 +88,30 @@ class ShowcaseTests(unittest.TestCase):
         )
         self.assertIn("spacex-thermal-protection", text)
 
-    def test_company_map_rows(self) -> None:
+    def test_company_map_rows_have_concrete_pointers(self) -> None:
+        """VP step 2: each company row points at real portfolio artifacts (not placeholders)."""
         generate_showcase.main()
         text = (ROOT / "SHOWCASE.md").read_text()
-        for company in ("xAI", "SpaceX", "Anthropic", "NVIDIA", "Notion"):
-            self.assertIn(company, text)
-        # each should have a concrete pointer nearby (github or local state)
-        self.assertIn("github.com/GlacierEQ", text)
-        self.assertIn("cathedrals_cases_distill.json", text)
+        for company, pointers in COMPANY_POINTERS.items():
+            row = _row_for(company, text)
+            self.assertIn("github.com/GlacierEQ", row, f"{company} row needs github pointer")
+            hits = [p for p in pointers if p in row]
+            self.assertTrue(
+                len(hits) >= 1,
+                f"{company} row missing concrete exhibit; want one of {pointers}; row={row}",
+            )
+            # ban vague filler that previously failed NVIDIA
+            if company == "NVIDIA":
+                self.assertIn("xai-colossus-energy", row)
+                self.assertIn("xai-colossus-servers", row)
+                self.assertNotIn("energy/servers pillars", row)
+            if company == "Notion":
+                self.assertNotIn("cathedrals", row.lower())
+                self.assertNotIn("cases_distill", row)
+                self.assertTrue(
+                    any(n in row for n in ("notion-workflow", "notion-workspace", "notion-mcp")),
+                    f"Notion row needs engineering notion-* repo; row={row}",
+                )
 
 
 if __name__ == "__main__":
