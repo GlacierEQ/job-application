@@ -111,7 +111,11 @@ def build(data: dict[str, Any]) -> str:
 
     sections: list[str] = []
     for index, item in enumerate(flagships, start=1):
-        access = "Public and directly inspectable" if item["visibility"] == "public" else "Private; curated review required"
+        access = (
+            "Public and directly inspectable"
+            if item["visibility"] == "public"
+            else "Private; curated review required"
+        )
         sections.append(
             f"""## {index}. {item['name']}
 
@@ -141,6 +145,7 @@ def build(data: dict[str, Any]) -> str:
         f"| **{item['name']}** | {item['visibility']} | {item['status']} | {compact_signal(item['demonstrates'])} |"
         for item in flagships
     )
+    joined_sections = "\n---\n\n".join(sections)
 
     return f"""# GlacierEQ — Engineering Portfolio
 
@@ -163,7 +168,7 @@ This portfolio is intentionally narrow: **one public product and two deeper arch
 |---|---|---|---|
 {table_rows}
 
-{"\n---\n\n".join(sections)}
+{joined_sections}
 
 ---
 
