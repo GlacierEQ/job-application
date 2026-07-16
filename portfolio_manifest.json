@@ -97,7 +97,7 @@
   ],
   "private_operations_repo": "job-app",
   "exclusions": [
-    "legal or family-court material",
+    "sensitive personal records and dispute-related material",
     "personal outreach contacts",
     "application tracking data",
     "credentials or runtime secrets",
