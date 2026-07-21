@@ -1,0 +1,41 @@
+name: Portfolio verification
+
+on:
+  push:
+    paths:
+      - 'portfolio_manifest.json'
+      - 'generate_showcase.py'
+      - 'SHOWCASE.md'
+      - 'test_showcase.py'
+      - 'scripts/**'
+      - '.github/workflows/portfolio-verify.yml'
+  pull_request:
+    paths:
+      - 'portfolio_manifest.json'
+      - 'generate_showcase.py'
+      - 'SHOWCASE.md'
+      - 'test_showcase.py'
+      - 'scripts/**'
+      - '.github/workflows/portfolio-verify.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Verify evidence-bound portfolio
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Validate manifest JSON
+        run: python3 -m json.tool portfolio_manifest.json >/dev/null
+
+      - name: Run generator, tests, and committed-output drift check
+        run: python3 scripts/runner_verify.py
