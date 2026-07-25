@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "owner": "GlacierEQ",
+  "identity": "Systems architect and full-stack engineer building AI operating systems, connector infrastructure, failure-tolerant workflows, and verifiable artifact pipelines.",
+  "positioning": "Ship capabilities, not prompt piles.",
+  "flagships": [
+    {
+      "id": "resume-shapeshifter",
+      "name": "Resume Shapeshifter",
+      "repo": "JOB-RESUME-BUILDER-",
+      "visibility": "public",
+      "status": "hardening",
+      "demonstrates": [
+        "Next.js product engineering",
+        "model-backed document analysis",
+        "schema-validated structured output",
+        "deterministic truthfulness enforcement",
+        "human review before completion"
+      ],
+      "evidence_paths": [
+        "README.md",
+        "app/api/analyze/route.ts",
+        "app/api/tailor/route.ts",
+        "lib/truthfulness.ts",
+        "tests/truthfulness.test.ts",
+        "services/tailoring-engine.ts"
+      ],
+      "verified_proof": [
+        "Model-service failures no longer return canned success data.",
+        "Generated employers and titles are checked against the source resume.",
+        "New numeric claims and unsupported skills are rejected.",
+        "The deterministic guard has an executable Node test suite."
+      ],
+      "current_gaps": [
+        "Repository name still needs cleanup.",
+        "Production deployment has not been verified.",
+        "Document export is not implemented yet.",
+        "Match-score calibration has not been benchmarked."
+      ]
+    },
+    {
+      "id": "akos-pro-code",
+      "name": "AKOS + pro-code",
+      "repos": [
+        "AKOS",
+        "pro-code"
+      ],
+      "visibility": "private",
+      "status": "private-review",
+      "demonstrates": [
+        "agent governance",
+        "engineering operating contracts",
+        "multi-repository orchestration",
+        "continuity across tools and sessions",
+        "truth and completion boundaries"
+      ],
+      "evidence_paths": [
+        "AKOS: IDENTITY.md, GOVERNANCE.md, REPOS.md",
+        "pro-code: engineering standards and control-surface modules"
+      ],
+      "verified_proof": [
+        "The repositories exist and are accessible to the owner.",
+        "They are intentionally private and require a curated public case study or review grant before recruiter use."
+      ],
+      "current_gaps": [
+        "Recruiters cannot access the repositories while they remain private.",
+        "A compact architecture case study and runnable proof path are still required."
+      ]
+    },
+    {
+      "id": "colossus-cooling",
+      "name": "xAI Colossus Cooling",
+      "repo": "xai-colossus-cooling",
+      "visibility": "private",
+      "status": "private-review",
+      "demonstrates": [
+        "infrastructure systems thinking",
+        "thermal and capacity modeling",
+        "target-company technical research",
+        "architecture documentation"
+      ],
+      "evidence_paths": [
+        "Curated technical overview",
+        "assumptions and source ledger",
+        "model or simulation entry point",
+        "tests and reproducible examples"
+      ],
+      "verified_proof": [
+        "The repository exists and is accessible to the owner.",
+        "The repository is private, so its technical claims are not presented here as publicly reviewable proof."
+      ],
+      "current_gaps": [
+        "Recruiters cannot inspect the implementation while the repository remains private.",
+        "The public portfolio needs a bounded case study with citations, assumptions, and reproducible calculations."
+      ]
+    }
+  ],
+  "private_operations_repo": "job-app",
+  "exclusions": [
+    "sensitive personal records and dispute-related material",
+    "personal outreach contacts",
+    "application tracking data",
+    "credentials or runtime secrets",
+    "invented metrics",
+    "unverified production claims"
+  ]
+}

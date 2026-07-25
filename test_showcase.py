@@ -1,11 +1,8 @@
 #!/usr/bin/env python3
-"""Real-path tests for the hireable showcase.
-
-Drives generate_showcase.main() and reads SHOWCASE.md / README.md from disk.
-No hard-coded success without opening the real entry artifacts.
-"""
+"""Tests for the evidence-bound recruiter showcase."""
 from __future__ import annotations
 
+import copy
 import re
 import sys
 import unittest
@@ -16,102 +13,74 @@ sys.path.insert(0, str(ROOT))
 
 import generate_showcase  # noqa: E402
 
-
-MUST_NAMES = ["AKOS", "pro-code", "Pro-", "xAI", "SpaceX", "Anthropic", "NVIDIA", "Notion"]
 LEGAL_RE = re.compile(
-    r"1FDV-23|FEDERAL-WARFARE|SUPERLUMINAL_CASE|DOCKETS|AspenGrove-KEKOA|"
-    r"cathedrals_cases_distill|Family Court|Criminal Court|CSEA|Civil RICO|§1983",
+    r"1FDV|SUPERLUMINAL_CASE|FEDERAL.?WARFARE|family.?court|court.?case|"
+    r"docket|Kekoa|CSEA|civil.?rico|§1983|apex-legal|legal.?warfare",
     re.I,
 )
 
-# Per-company concrete exhibit that must appear as a real GitHub path/name
-COMPANY_POINTERS = {
-    "xAI": ["xai-colossus-cooling", "colossus-gateway"],
-    "SpaceX": ["spacex-thermal-protection", "spacex-orbital-mechanics"],
-    "Anthropic": ["AKOS", "pro-code", "Pro-comet-agent"],
-    "NVIDIA": [
-        "xai-colossus-energy",
-        "xai-colossus-servers",
-        "nvidia-gpu-health",
-    ],
-    "Notion": [
-        "notion-workflow-intelligence",
-        "notion-workspace-optimizer",
-        "notion-mcp-empowerment-engine",
-    ],
-}
-
-
-def _row_for(company: str, text: str) -> str:
-    """Extract the markdown table row that starts with **Company**."""
-    for line in text.splitlines():
-        if line.strip().startswith(f"| **{company}**"):
-            return line
-    raise AssertionError(f"no table row for {company}")
-
 
 class ShowcaseTests(unittest.TestCase):
-    def test_generate_writes_showcase(self) -> None:
+    def setUp(self) -> None:
+        self.manifest = generate_showcase.load_manifest()
+
+    def test_manifest_has_exactly_three_evidence_bound_flagships(self) -> None:
+        flagships = self.manifest["flagships"]
+        self.assertEqual(len(flagships), 3)
+        self.assertEqual(flagships[0]["id"], "resume-shapeshifter")
+
+        for item in flagships:
+            self.assertTrue(item["demonstrates"])
+            self.assertTrue(item["evidence_paths"])
+            self.assertTrue(item["verified_proof"])
+            self.assertTrue(item["current_gaps"])
+
+    def test_generate_writes_concentrated_showcase(self) -> None:
         rc = generate_showcase.main()
         self.assertEqual(rc, 0)
-        path = ROOT / "SHOWCASE.md"
-        self.assertTrue(path.is_file(), "SHOWCASE.md must exist after generate")
-        text = path.read_text()
-        self.assertGreater(len(text), 800, "showcase must be non-empty substantive content")
-        for name in MUST_NAMES:
-            self.assertIn(name, text, f"missing {name}")
 
-    def test_readme_is_entry_path(self) -> None:
-        readme = ROOT / "README.md"
-        self.assertTrue(readme.is_file())
-        body = readme.read_text()
-        self.assertIn("SHOWCASE.md", body)
-        self.assertIn("AKOS", body)
+        text = (ROOT / "SHOWCASE.md").read_text(encoding="utf-8")
+        self.assertGreater(len(text), 1_500)
+        self.assertIn("three-minute proof", text.lower())
+        self.assertIn("Ten-minute engineering review", text)
+        self.assertIn("Release gates", text)
 
-    def test_no_legal_case_leak(self) -> None:
-        generate_showcase.main()
-        text = (ROOT / "SHOWCASE.md").read_text()
-        self.assertIsNone(LEGAL_RE.search(text), "legal/case docket content must not appear")
-        self.assertNotIn("cathedrals_cases_distill", text)
-        self.assertNotIn("cases_distill", text)
+        for item in self.manifest["flagships"]:
+            self.assertEqual(text.count(f"## {self.manifest['flagships'].index(item) + 1}. {item['name']}"), 1)
 
-    def test_framework_cards_have_role_and_location(self) -> None:
-        generate_showcase.main()
-        text = (ROOT / "SHOWCASE.md").read_text()
-        self.assertIn("Apex Knowledge OS", text)
-        self.assertIn("pro-code", text)
-        self.assertIn("https://github.com/GlacierEQ/AKOS", text)
-        self.assertIn("https://github.com/GlacierEQ/pro-code", text)
-        self.assertTrue(
-            "xai-colossus-cooling" in text or "colossus-gateway" in text,
-            "need a colossus/xAI motion sample",
-        )
-        self.assertIn("spacex-thermal-protection", text)
+    def test_public_product_is_the_direct_entry_path(self) -> None:
+        text = generate_showcase.build(self.manifest)
+        public_url = "https://github.com/GlacierEQ/JOB-RESUME-BUILDER-"
+        self.assertIn(public_url, text)
+        self.assertIn("lib/truthfulness.ts", text)
+        self.assertIn("tests/truthfulness.test.ts", text)
 
-    def test_company_map_rows_have_concrete_pointers(self) -> None:
-        """VP step 2: each company row points at real portfolio artifacts (not placeholders)."""
-        generate_showcase.main()
-        text = (ROOT / "SHOWCASE.md").read_text()
-        for company, pointers in COMPANY_POINTERS.items():
-            row = _row_for(company, text)
-            self.assertIn("github.com/GlacierEQ", row, f"{company} row needs github pointer")
-            hits = [p for p in pointers if p in row]
-            self.assertTrue(
-                len(hits) >= 1,
-                f"{company} row missing concrete exhibit; want one of {pointers}; row={row}",
-            )
-            # ban vague filler that previously failed NVIDIA
-            if company == "NVIDIA":
-                self.assertIn("xai-colossus-energy", row)
-                self.assertIn("xai-colossus-servers", row)
-                self.assertNotIn("energy/servers pillars", row)
-            if company == "Notion":
-                self.assertNotIn("cathedrals", row.lower())
-                self.assertNotIn("cases_distill", row)
-                self.assertTrue(
-                    any(n in row for n in ("notion-workflow", "notion-workspace", "notion-mcp")),
-                    f"Notion row needs engineering notion-* repo; row={row}",
-                )
+    def test_private_repositories_are_not_presented_as_public_links(self) -> None:
+        text = generate_showcase.build(self.manifest)
+        for repo in ("AKOS", "pro-code", "xai-colossus-cooling"):
+            self.assertNotIn(f"https://github.com/GlacierEQ/{repo}", text)
+            self.assertIn(f"`{repo}`", text)
+
+    def test_showcase_rejects_repo_count_hype_and_legal_material(self) -> None:
+        text = generate_showcase.build(self.manifest)
+        self.assertNotIn("1,052", text)
+        self.assertNotIn("hundreds of repos", text.lower())
+        self.assertIsNone(LEGAL_RE.search(text))
+
+    def test_manifest_requires_a_public_flagship(self) -> None:
+        invalid = copy.deepcopy(self.manifest)
+        for item in invalid["flagships"]:
+            item["visibility"] = "private"
+
+        with self.assertRaisesRegex(ValueError, "at least one public flagship"):
+            generate_showcase.validate_manifest(invalid)
+
+    def test_manifest_rejects_legal_or_case_content(self) -> None:
+        invalid = copy.deepcopy(self.manifest)
+        invalid["flagships"][0]["verified_proof"].append("family court case material")
+
+        with self.assertRaisesRegex(ValueError, "legal or case material"):
+            generate_showcase.validate_manifest(invalid)
 
 
 if __name__ == "__main__":

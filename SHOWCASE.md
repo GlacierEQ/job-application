@@ -1,83 +1,166 @@
-# GlacierEQ — Hireable Framework Showcase
+# GlacierEQ — Engineering Portfolio
 
-**Single entry for recruiters & engineers.**  
-Operator: **GlacierEQ** · Hireable systems: **AKOS**, **pro-code**, **Pro-*** / motion families.  
-Targets: **xAI** · **SpaceX** · **Anthropic** · **NVIDIA** · **Notion**.
+> **Ship capabilities, not prompt piles.**
 
-> **Visibility:** private-first portfolio. Litigation material: **ABSOLUTE_PRIVATE_UNTIL_PROCESSED** — never linked here.  
-> Regenerated: 2026-07-13 UTC · source maps under `GlacierEQ_Swarm/state/`
+Systems architect and full-stack engineer building AI operating systems, connector infrastructure, failure-tolerant workflows, and verifiable artifact pipelines.
 
----
+This portfolio is intentionally narrow: **one public product and two deeper architecture systems**. It does not use repository count as a quality claim, and it does not present private work as publicly inspectable proof.
 
-## 1. Core frameworks
+## Start here: three-minute proof
 
-| Framework | Role | Location | Use |
-|-----------|------|----------|-----|
-| **AKOS** | Apex Knowledge OS — identity, sessions, governance, portfolio map, swarm bridge | [https://github.com/GlacierEQ/AKOS](https://github.com/GlacierEQ/AKOS) | Canonical how-we-work; IDENTITY / GOVERNANCE / REPOS / EASTER_EGGS |
-| **pro-code** | Pro_Code standards + APEX control-surface strand | [https://github.com/GlacierEQ/pro-code](https://github.com/GlacierEQ/pro-code) | Engineering law for agents that ship real code |
-| **Pro-*** | Productized motion agents/tools (Pro-comet-agent, Pro-Mastermind, Pro-Swarm, …) | e.g. [https://github.com/GlacierEQ/Pro-comet-agent](https://github.com/GlacierEQ/Pro-comet-agent) | Ship capabilities, not prompt piles |
-| **token_saver** | Token-efficiency stack (pure_pointer, MICROWAVE, ledgers) | [https://github.com/GlacierEQ/token_saver](https://github.com/GlacierEQ/token_saver) | Measure savings; keep agent context lean |
-| **mastermind** | Control-plane / multi-repo orchestration | [https://github.com/GlacierEQ/mastermind](https://github.com/GlacierEQ/mastermind) | Boss API + piston coordination |
-| **Double Helix** | Alpha (what) ↔ Omega (how) | Colossus `*-alpha` / `*-omega` | Split recognition from execution |
+1. Open **[Resume Shapeshifter](https://github.com/GlacierEQ/JOB-RESUME-BUILDER-)**.
+2. Read `lib/truthfulness.ts` and `tests/truthfulness.test.ts`.
+3. Inspect the fail-closed model boundary and API orchestration.
+4. Use the private architecture systems only through a curated case study or explicit access grant.
 
-### Genius instructs
-- **AKOS** GOVERNANCE · IDENTITY · EASTER_EGGS · REPOS  
-- **pro-code** standards / KNOWLEDGE  
-- **AGENTS.md** L0–L5 progressive agent OS (`~/.grok/AGENTS.md`)  
-- **repo-public-promotion-flipper** — intelligent private→public (legal hard-lock)
+## Flagship systems
 
----
+| System | Access | Readiness | Primary signal |
+|---|---|---|---|
+| **Resume Shapeshifter** | public | hardening | Next.js product engineering, model-backed document analysis, schema-validated structured output |
+| **AKOS + pro-code** | private | private-review | agent governance, engineering operating contracts, multi-repository orchestration |
+| **xAI Colossus Cooling** | private | private-review | infrastructure systems thinking, thermal and capacity modeling, target-company technical research |
 
-## 2. Motion families × company targets
+## 1. Resume Shapeshifter
 
-| Target | Motion family | Concrete exhibits |
-|--------|---------------|-------------------|
-| **xAI** | Colossus-class infra (cooling, energy, security, gateway, helix) | [https://github.com/GlacierEQ/xai-colossus-cooling](https://github.com/GlacierEQ/xai-colossus-cooling) · [https://github.com/GlacierEQ/colossus-gateway](https://github.com/GlacierEQ/colossus-gateway) · [https://github.com/GlacierEQ/xai-colossus-2](https://github.com/GlacierEQ/xai-colossus-2) · [xai-colossus-community-alpha](https://github.com/GlacierEQ/xai-colossus-community-alpha) · [xai-colossus-cooling-alpha](https://github.com/GlacierEQ/xai-colossus-cooling-alpha) · [xai-colossus-energy-alpha](https://github.com/GlacierEQ/xai-colossus-energy-alpha) · [xai-colossus-microcode-alpha](https://github.com/GlacierEQ/xai-colossus-microcode-alpha) · [xai-colossus-nanosphere-alpha](https://github.com/GlacierEQ/xai-colossus-nanosphere-alpha) · [xai-colossus-nexus-alpha](https://github.com/GlacierEQ/xai-colossus-nexus-alpha) |
-| **SpaceX** | Flight / ground / thermal / orbital helix | [https://github.com/GlacierEQ/spacex-thermal-protection](https://github.com/GlacierEQ/spacex-thermal-protection) · [https://github.com/GlacierEQ/spacex-orbital-mechanics](https://github.com/GlacierEQ/spacex-orbital-mechanics) · [https://github.com/GlacierEQ/spacex-telemetry](https://github.com/GlacierEQ/spacex-telemetry) · [spacex-autonomy](https://github.com/GlacierEQ/spacex-autonomy) · [spacex-cryogenics](https://github.com/GlacierEQ/spacex-cryogenics) · [spacex-ground-network](https://github.com/GlacierEQ/spacex-ground-network) · [spacex-launch-sequencer](https://github.com/GlacierEQ/spacex-launch-sequencer) · [spacex-mission-control](https://github.com/GlacierEQ/spacex-mission-control) · [spacex-orbital-assembly](https://github.com/GlacierEQ/spacex-orbital-assembly) · [spacex-orbital-mechanics](https://github.com/GlacierEQ/spacex-orbital-mechanics) · [spacex-propulsion-monitor](https://github.com/GlacierEQ/spacex-propulsion-monitor) |
-| **Anthropic** | Agent OS, MCP discipline, tool-use orchestration | [https://github.com/GlacierEQ/AKOS](https://github.com/GlacierEQ/AKOS) · [https://github.com/GlacierEQ/pro-code](https://github.com/GlacierEQ/pro-code) · [https://github.com/GlacierEQ/Pro-comet-agent](https://github.com/GlacierEQ/Pro-comet-agent) · [AEON-777](https://github.com/GlacierEQ/AEON-777) · [AEON-BRAIN-777](https://github.com/GlacierEQ/AEON-BRAIN-777) · [AKOS](https://github.com/GlacierEQ/AKOS) · [job-application](https://github.com/GlacierEQ/job-application) · [mastermind](https://github.com/GlacierEQ/mastermind) · [pro-code](https://github.com/GlacierEQ/pro-code) |
-| **NVIDIA** | GPU/NPU thermal & acceleration-aware compute | [https://github.com/GlacierEQ/xai-colossus-cooling](https://github.com/GlacierEQ/xai-colossus-cooling) · [https://github.com/GlacierEQ/xai-colossus-energy](https://github.com/GlacierEQ/xai-colossus-energy) · [https://github.com/GlacierEQ/xai-colossus-servers](https://github.com/GlacierEQ/xai-colossus-servers) · [https://github.com/GlacierEQ/nvidia-gpu-health](https://github.com/GlacierEQ/nvidia-gpu-health) · [https://github.com/GlacierEQ/nvidia-deep-reasoning](https://github.com/GlacierEQ/nvidia-deep-reasoning) |
-| **Notion** | Workspace / MCP ops craft (automation, optimizer, MCP bridge) — *engineering only* | [https://github.com/GlacierEQ/notion-workflow-intelligence](https://github.com/GlacierEQ/notion-workflow-intelligence) · [https://github.com/GlacierEQ/notion-workspace-optimizer](https://github.com/GlacierEQ/notion-workspace-optimizer) · [https://github.com/GlacierEQ/notion-mcp-empowerment-engine](https://github.com/GlacierEQ/notion-mcp-empowerment-engine) · [https://github.com/GlacierEQ/glaciereq-mcp-stack](https://github.com/GlacierEQ/glaciereq-mcp-stack) |
-| **APEX runtime** | CLI / control plane / workers | [https://github.com/GlacierEQ/apex-cli](https://github.com/GlacierEQ/apex-cli) · [apex-alpha](https://github.com/GlacierEQ/apex-alpha) · [apex-boot-core](https://github.com/GlacierEQ/apex-boot-core) · [apex-bootup-core](https://github.com/GlacierEQ/apex-bootup-core) · [apex-browser-ops](https://github.com/GlacierEQ/apex-browser-ops) · [apex-cli](https://github.com/GlacierEQ/apex-cli) · [apex-control-plane](https://github.com/GlacierEQ/apex-control-plane) |
+**Repository:** [JOB-RESUME-BUILDER-](https://github.com/GlacierEQ/JOB-RESUME-BUILDER-)  
+**Access:** Public and directly inspectable  
+**Status:** `hardening`
 
----
+### What it demonstrates
 
-## 3. Three checkable deep-dives
+- Next.js product engineering
+- model-backed document analysis
+- schema-validated structured output
+- deterministic truthfulness enforcement
+- human review before completion
 
-### AKOS
-**Role:** Operator OS for knowledge, governance, portfolio truth.  
-**Location:** https://github.com/GlacierEQ/AKOS  
-**Read:** IDENTITY.md · GOVERNANCE.md · REPOS.md · EASTER_EGGS.md
+### Verified proof
 
-### pro-code
-**Role:** Pro_Code engineering standards for hireable agent work.  
-**Location:** https://github.com/GlacierEQ/pro-code  
-**Pairs with:** AKOS + mastermind
+- Model-service failures no longer return canned success data.
+- Generated employers and titles are checked against the source resume.
+- New numeric claims and unsupported skills are rejected.
+- The deterministic guard has an executable Node test suite.
 
-### Pro-* / motion sample (xAI cooling)
-**Role:** Physics-first Colossus thermal motion (H100/H200-class).  
-**Location:** https://github.com/GlacierEQ/xai-colossus-cooling  
-**Also:** https://github.com/GlacierEQ/colossus-gateway · https://github.com/GlacierEQ/spacex-thermal-protection (SpaceX family)
+### Evidence path
 
----
+- README.md
+- app/api/analyze/route.ts
+- app/api/tailor/route.ts
+- lib/truthfulness.ts
+- tests/truthfulness.test.ts
+- services/tailoring-engine.ts
 
-## 4. 10-minute review path
-1. This file  
-2. AKOS → IDENTITY + REPOS  
-3. pro-code  
-4. xai-colossus-cooling + spacex-thermal-protection  
-5. Pro-comet-agent  
+### Current gaps
+
+- Repository name still needs cleanup.
+- Production deployment has not been verified.
+- Document export is not implemented yet.
+- Match-score calibration has not been benchmarked.
 
 ---
 
-## 5. Policy
-| Rule | Statement |
-|------|-----------|
-| Litigation material | Absolute private until processed — **not in this showcase** |
-| Metrics | No invented scores |
-| Secrets | Never embedded |
+## 2. AKOS + pro-code
 
-Local maps: `state/ultimate_repo_map.md` · `ecosystem_map.json` · `repo_visibility_policy.json`
+**Repository:** `AKOS` · `pro-code`  
+**Access:** Private; curated review required  
+**Status:** `private-review`
+
+### What it demonstrates
+
+- agent governance
+- engineering operating contracts
+- multi-repository orchestration
+- continuity across tools and sessions
+- truth and completion boundaries
+
+### Verified proof
+
+- The repositories exist and are accessible to the owner.
+- They are intentionally private and require a curated public case study or review grant before recruiter use.
+
+### Evidence path
+
+- AKOS: IDENTITY.md, GOVERNANCE.md, REPOS.md
+- pro-code: engineering standards and control-surface modules
+
+### Current gaps
+
+- Recruiters cannot access the repositories while they remain private.
+- A compact architecture case study and runnable proof path are still required.
 
 ---
 
-*GlacierEQ live job application — frameworks are real code and instruct systems.*
+## 3. xAI Colossus Cooling
+
+**Repository:** `xai-colossus-cooling`  
+**Access:** Private; curated review required  
+**Status:** `private-review`
+
+### What it demonstrates
+
+- infrastructure systems thinking
+- thermal and capacity modeling
+- target-company technical research
+- architecture documentation
+
+### Verified proof
+
+- The repository exists and is accessible to the owner.
+- The repository is private, so its technical claims are not presented here as publicly reviewable proof.
+
+### Evidence path
+
+- Curated technical overview
+- assumptions and source ledger
+- model or simulation entry point
+- tests and reproducible examples
+
+### Current gaps
+
+- Recruiters cannot inspect the implementation while the repository remains private.
+- The public portfolio needs a bounded case study with citations, assumptions, and reproducible calculations.
+
+---
+
+## Ten-minute engineering review
+
+1. **Product surface:** open the public Resume Shapeshifter repository and read its README.
+2. **Control boundary:** inspect the deterministic truthfulness validator.
+3. **Tests:** run `npm test` and review the adversarial cases.
+4. **Service behavior:** inspect the analyze and tailor API routes plus the fail-closed model-service path.
+5. **Architecture depth:** request the curated AKOS/pro-code or Colossus cooling case study only after its access path is ready.
+
+## Repository roles
+
+```text
+job-application
+└── recruiter-facing portfolio portal
+
+JOB-RESUME-BUILDER-
+└── public product proof; branded as Resume Shapeshifter
+
+job-app
+└── private resumes, applications, outreach, and status tracking
+```
+
+## Release gates
+
+- Verify this repository is public before sending its URL to a recruiter.
+- Do not link private flagship repositories as though they are inspectable.
+- Publish a bounded architecture case study or grant access before using private work as proof.
+- Deploy and verify the public product before describing it as live.
+- Rename `JOB-RESUME-BUILDER-` only after redirects and portfolio references are planned.
+
+## Excluded by design
+
+- sensitive personal records and dispute-related material
+- personal outreach contacts
+- application tracking data
+- credentials or runtime secrets
+- invented metrics
+- unverified production claims
+
+---
+
+_Generated from `portfolio_manifest.json`. Edit the manifest, run `python3 generate_showcase.py`, then run `python3 test_showcase.py`._
