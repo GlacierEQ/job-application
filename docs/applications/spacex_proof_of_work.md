@@ -1,79 +1,44 @@
-# Proof of Work — SpaceX / Starlink Infrastructure Engineering
-**Casey Barton | Honolulu, Hawaii | GlacierEQ on GitHub**
+# SpaceX / Starlink — Proof of Work Narrative
 
----
+## Draft
 
-## The Parallel
+I build control-plane systems for complex operations.
 
-SpaceX builds mission-critical systems where reliability is not a nice-to-have — it is the only outcome that matters. A control plane failure during launch is not a bug report. It is a mission abort.
+My work combines infrastructure automation, telemetry-oriented thinking, persistent system memory, deployment workflows, and auditable routing. The recurring theme is simple: connect fragmented tools and state into one reliable operating model that can be inspected, tested, and improved.
 
-I build infrastructure systems that operate under the same discipline. Auditability, fault tolerance, and operational integrity are not afterthoughts in my architecture. They are first principles.
+The strongest examples are:
 
----
+- `GlacierEQ/colossus-gateway`
+- `GlacierEQ/apex-stack`
+- `GlacierEQ/xai-colossus-cooling`
+- `GlacierEQ/xai-colossus-energy`
+- CI/CD and connector automation across multiple repositories
 
-## What I Built
+In `apex-stack`, I organized GitHub, Supabase, Vercel, Supermemory, Notion, and Aspen Grove / M2A into a single deployment and memory sequence. In the Colossus-inspired projects, I applied the same systems approach to physical infrastructure domains such as cooling, energy, water, security, and server operations.
 
-### Control Plane Architecture
+The relevance to SpaceX and Starlink is not a claim that these projects replicate flight or network systems. It is the operating discipline behind them:
 
-The `GlacierEQ/apex-stack` repository is the operational spine of my infrastructure ecosystem. It implements:
+- define the source of truth
+- make state observable
+- automate repeatable operations
+- separate public and protected system layers
+- design for partial failure
+- document the sequence clearly
+- keep deployment and verification close to the code
 
-- **Multi-agent routing** — the M2A (MCP-to-All) protocol selects responders based on declared intent, domain match, and capability scoring
-- **Registry validation** — every node registration is validated at runtime; invalid configurations are rejected before they can corrupt routing
-- **Audit event sourcing** — every routing decision, node activation, and response bundle is written to the Aspen audit sink with full traceability
-- **Graceful degradation** — the persistence layer has three fallback modes (connector → webhook → offline) so no audit event is ever lost
-- **CI enforcement** — GitHub Actions runs a Vitest test suite on every change to the M2A config, schemas, and dashboard routes
+I am interested in software infrastructure, operations tooling, telemetry, Starlink systems, mission support, manufacturing software, or reliability engineering roles where broad technical ownership is valuable.
 
-This maps directly to the kind of control-plane discipline that Starlink ground software, launch telemetry processing, and satellite constellation management demand.
+What I would bring:
 
-### Telemetry and Monitoring Architecture
+- fast independent execution
+- strong GitHub and CI workflow discipline
+- TypeScript, Python, Node.js, and Bash
+- connector and API integration
+- memory-aware agent systems
+- operational documentation
+- ability to move from problem framing to working implementation
 
-The xAI Colossus infrastructure stack I built includes thermal, power, and security telemetry domains:
+I would be glad to provide a concise technical walkthrough of the selected projects and explain how I would adapt the same architecture to a mission-critical environment.
 
-- `GlacierEQ/xai-colossus-cooling` — zone-level thermal sensor telemetry, fault detection, cooling control loop
-- `GlacierEQ/xai-colossus-energy` — power draw analytics, load balancing models, fault-tolerant delivery simulation
-- `GlacierEQ/xai-colossus-security` — access control event sourcing, perimeter monitoring, audit trail generation
-
-Each service emits structured events. The gateway (`GlacierEQ/colossus-gateway`) aggregates and routes them. The apex-stack processes and persists them. This is a real telemetry pipeline architecture.
-
-### Deployment Automation
-
-`GlacierEQ/xai-colossus-build` implements:
-- Infrastructure-as-code deployment pipelines
-- Staged rollout with health gates
-- CI/CD orchestration via GitHub Actions
-- Environment-specific configuration management
-
-This reflects the same deployment discipline required for satellite firmware, ground station software, and constellation management tooling.
-
----
-
-## Technical Profile
-
-| Layer | Technology |
-|---|---|
-| Languages | TypeScript, Python, SQL, Bash |
-| Databases | Postgres (Supabase, Neon), DuckDB/MotherDuck |
-| Deployment | Vercel, GitHub Actions, Docker |
-| Orchestration | n8n, MCP protocol, custom M2A routing |
-| Memory | Supermemory.ai, Pinecone, Qdrant |
-| API | REST, gRPC patterns, webhook mesh |
-
----
-
-## What I Want to Build at SpaceX
-
-- **Ground software control planes** — distributed systems that coordinate telemetry, commands, and state across constellation-scale infrastructure
-- **Mission-critical reliability tooling** — audit, replay, and recovery systems that make complex distributed systems observable and recoverable
-- **Deployment automation** — CI/CD pipelines that enforce correctness gates before any change reaches production
-- **Telemetry infrastructure** — high-throughput event pipelines that process sensor data from satellites, ground stations, and launch systems
-
----
-
-## Proof Links
-
-- GitHub Organization: [github.com/GlacierEQ](https://github.com/GlacierEQ)
-- Application Hub: [github.com/GlacierEQ/job-application](https://github.com/GlacierEQ/job-application)
-- Technical Brief: [TECHNICAL_BRIEF.md](../TECHNICAL_BRIEF.md)
-- Engineering Innovations: [ENGINEERING_INNOVATIONS.md](../ENGINEERING_INNOVATIONS.md)
-
-*Reliable systems. Auditable decisions. Production discipline.*
+— Casey Barton
+Honolulu, Hawaii
