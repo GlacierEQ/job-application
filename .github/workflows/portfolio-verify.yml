@@ -28,6 +28,9 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -35,7 +38,7 @@ jobs:
           python-version: '3.12'
 
       - name: Validate manifest JSON
-        run: python3 -m json.tool portfolio_manifest.json >/dev/null
+        run: python -m json.tool portfolio_manifest.json >/dev/null
 
       - name: Run generator, tests, and committed-output drift check
-        run: python3 scripts/runner_verify.py
+        run: python scripts/runner_verify.py
