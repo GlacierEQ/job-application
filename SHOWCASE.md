@@ -78,7 +78,6 @@ This portfolio is intentionally narrow: **one public product and two deeper arch
 
 - The repositories exist and are accessible to the owner.
 - They are intentionally private and require a curated public case study or review grant before recruiter use.
-
 ### Evidence path
 
 - AKOS: IDENTITY.md, GOVERNANCE.md, REPOS.md
@@ -120,6 +119,7 @@ This portfolio is intentionally narrow: **one public product and two deeper arch
 
 - Recruiters cannot inspect the implementation while the repository remains private.
 - The public portfolio needs a bounded case study with citations, assumptions, and reproducible calculations.
+
 
 ---
 
