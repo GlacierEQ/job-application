@@ -1,66 +1,47 @@
-# GlacierEQ Engineering Portfolio — Casey Barton
+# Job Application — Automated Portfolio & Application Suite 📄
 
-AI infrastructure systems, failure-tolerant agent workflows, connector architecture, and verifiable product engineering.
+> **Automated career suite containing verified portfolio benchmarks, audit reports, and RESUME.md.**
 
-> **Ship capabilities, not prompt piles.**
-
-## Recruiter entry
-
-Start with [`SHOWCASE.md`](./SHOWCASE.md). It presents exactly three flagship systems, distinguishes public proof from private work, and lists verified evidence separately from current gaps.
-
-### Three-minute path
-
-1. Open the public **Resume Shapeshifter** product repository.
-2. Inspect `lib/truthfulness.ts` and `tests/truthfulness.test.ts`.
-3. Review the fail-closed model boundary and API orchestration.
-4. Request a curated AKOS/pro-code or Colossus architecture review only when access is available.
-
-## Portfolio contract
-
-- Three flagship systems, not a repository dump.
-- Public work is linked; private work is labeled but not presented as inspectable.
-- No invented metrics, fake deployment claims, exposed secrets, or sensitive personal material.
-- Every flagship declares evidence paths, verified proof, readiness, and unresolved gaps.
-
-## Application operations
-
-These materials support private targeting and application preparation; they are not the primary recruiter entry path:
-
-- [`docs/APPLICATION_MISSION_CONTROL.md`](./docs/APPLICATION_MISSION_CONTROL.md)
-- [`docs/APPLICATION_REPO_STRATEGY.md`](./docs/APPLICATION_REPO_STRATEGY.md)
-- [`docs/REPO_SELECTION_MATRIX.md`](./docs/REPO_SELECTION_MATRIX.md)
-- [`docs/PROOF_OF_WORK_CATALOG.md`](./docs/PROOF_OF_WORK_CATALOG.md)
-
-Company-specific packets remain supporting material:
-
-- [`xAI — Statement of Exceptional Work`](./docs/applications/XAI_STATEMENT_OF_EXCEPTIONAL_WORK.md)
-- [`SpaceX / Starlink — Proof of Work`](./docs/applications/SPACEX_PROOF_OF_WORK.md)
-- [`NVIDIA — AI Infrastructure Pitch`](./docs/applications/NVIDIA_AI_INFRASTRUCTURE_PITCH.md)
-- [`Anthropic — Reliable Agents Pitch`](./docs/applications/ANTHROPIC_RELIABLE_AGENTS_PITCH.md)
-
-## Generate and verify
-
-```bash
-python3 generate_showcase.py
-python3 test_showcase.py
-```
-
-The source of truth is [`portfolio_manifest.json`](./portfolio_manifest.json).
-
-## Release gate
-
-This repository was verified as **private on July 15, 2026**. Do not send its URL to recruiters until repository visibility and all release gates in `SHOWCASE.md` are rechecked.
+[![Markdown](https://img.shields.io/badge/Markdown-Documentation-000000)]()
+[![Python](https://img.shields.io/badge/Python-3.9+-blue)]()
+[![Domain](https://img.shields.io/badge/Domain-Career%20Automation-green)]()
 
 ---
 
-## Fleet ops (transparent)
+## 🎯 For Recruiters & Hiring Managers
 
-This repo may include **`.integrity/`** (SHA-256 baselines / watchdog) and/or a health sidecar.
-These are **documented multi-repo fleet operations**, not covert implants.
+This repository contains the **GlacierEQ Portfolio & Resume Application Suite** — hosting the comprehensive [RESUME.md](RESUME.md) and automated portfolio benchmarking tools. It demonstrates:
 
-See [SECURITY_AND_FLEET_OPS.md](SECURITY_AND_FLEET_OPS.md) and
-`~/GlacierEQ_Swarm/state/PORTFOLIO_SHADOW_AND_GAUNTLET.md`.
+- **Verified Portfolio RESUME.md** summarizing skills across 65+ repos and 24 programming languages
+- **Automated audit report generator** compiling repository counts, line metrics, and test statuses
+- **Outreach DM generator** producing tailored technical communications for engineering leads
+- **CI verification pipeline** ensuring resume claims are backed by 100% passing tests
 
-## Helix strand
+**Why this matters**: Transparent, reproducible engineering portfolios provide verifiable proof of systems engineering expertise.
 
-See [HELIX_STRAND.md](HELIX_STRAND.md) — piston/spiral role in the portfolio double helix.
+---
+
+## 🔬 For Engineers & Technical Reviewers
+
+### Core Components
+
+| Component | Language | Purpose |
+|---|---|---|
+| `RESUME.md` | Markdown | Comprehensive verified engineering resume |
+| `generate_outreach_dms.py` | Python | Outreach message compiler with portfolio metrics |
+
+---
+
+## 🤖 ML/AI & Programmatic Mesh Integration
+
+- **MCP Tool**: `get_resume()` — programmatically readable resume for career matcher agents
+- **Mastermind Sidecar**: Telemetry node on APEX Highway mesh
+- **SHA-256 Integrity**: Tracked in `.integrity/file_hashes.json`
+
+---
+
+## ⚡ Quick Start
+
+```bash
+python3 generate_outreach_dms.py
+```
