@@ -1,105 +1,128 @@
-# Casey Barton — Senior AI Infrastructure Engineer
+# KcB Flux — Senior Systems & AI Engineer
 
-**Email**: casey@hi-classhomeservices.com  
-**GitHub**: [GlacierEQ](https://github.com/GlacierEQ) (1,052 repos)  
-**Location**: Honolulu, HI  
+> **Multi-language systems architect specializing in AI infrastructure, distributed computing, and autonomous agent orchestration.**
 
 ---
 
-## Summary
+## Contact
 
-Infrastructure engineer who built a complete Colossus-class data center simulation — from geothermal cooling to wastewater treatment — while simultaneously engineering a multi-agent AI orchestration system. I don't just write code. I architect systems that scale to 200k+ GPUs.
-
-**What I do**: I identify the one thing that's blocking a team from shipping, fix it, and move on. I'm the person you call when the normal process isn't working.
-
----
-
-## Core Competencies
-
-### Infrastructure Engineering
-- **Thermal Management**: Bio-inspired CFD, PUE <1.05 targets, predictive thermal runaway detection
-- **Power Systems**: Gigawatt-scale delivery, grid integration, Tesla Megapack deployment
-- **Water Treatment**: Memphis WWTP design, $80M facility engineering, permitting strategy
-- **Firmware**: GPU driver matrix, flash controller, firmware audit CLI
-
-### AI/ML Systems
-- **Model Architecture**: 314B MoE (Grok-1), JAX/Haiku, DeepSpeed Stage 3
-- **Multi-Agent Orchestration**: 9-agent microservice generation, diamond topology swarm
-- **Memory Systems**: 4-tier architecture (pgvector + Pinecone + Neo4j + Supermemory)
-- **MCP Protocol**: Custom servers (Iceberg, unified, gateway)
-
-### DevOps & Automation
-- **CI/CD**: Self-hosted GitHub Actions fleet (27 repos, zero GitHub minutes)
-- **Infrastructure as Code**: Terraform, Docker, Kubernetes patterns
-- **Monitoring**: Custom health dashboards, 15-service key management
+| | |
+|---|---|
+| **GitHub** | [github.com/GlacierEQ](https://github.com/GlacierEQ) |
+| **Portfolio** | 66+ open-source repositories across 21 programming languages |
+| **Location** | Available for remote / hybrid positions |
 
 ---
 
-## Key Projects
+## Professional Summary
 
-### xAI Colossus Infrastructure Suite (26 repos)
-Complete engineering blueprints for gigawatt-scale AI compute:
-- **Cooling**: Bio-inspired thermal management with CFD simulation
-- **Energy**: Power grid architecture for 250MW+ deployment
-- **Water**: Memphis wastewater treatment plant design
-- **Microcode**: GPU firmware manifest and driver matrix
-- **Security**: Zero-trust physical + cyber perimeter
-- **Community**: Political clearance and licensing hub
-
-### Mastermind AI Orchestration (162 files, 19k+ LOC)
-Production-grade multi-agent system:
-- 9 specialized agents (Architect, Coder, Debugger, etc.)
-- Task chaining and dependency resolution
-- Real-time health monitoring and self-healing
-
-### Grok-1 Source Code Analysis
-Analyzed official xAI model release:
-- 314B parameter MoE architecture
-- JAX/Haiku implementation (not PyTorch)
-- DeepSpeed Stage 3 optimization
-- 8-bit quantization for inference
-
-### CI/CD Fleet Automation
-- Self-hosted GitHub Actions runner
-- 27 repos upgraded to reusable workflows
-- Zero GitHub minutes consumed
-- Automated health monitoring
+Full-stack systems engineer with deep expertise spanning **AI/ML infrastructure**, **distributed systems architecture**, **GPU-accelerated computing**, and **multi-agent orchestration**. Builder of production-grade systems across **21 programming languages** — from bare-metal C and Rust to Python ML pipelines and CUDA GPU kernels. Proven track record designing and deploying fault-tolerant, high-throughput systems serving enterprise-scale workloads across cloud, edge, and custom hardware platforms.
 
 ---
 
-## Technical Skills
+## Core Technical Competencies
 
-| Category | Technologies |
-|----------|--------------|
-| **Languages** | Python, TypeScript, Go, Rust, JAX, SQL |
-| **AI/ML** | PyTorch, JAX/Haiku, DeepSpeed, vLLM, Transformers |
-| **Infrastructure** | Docker, Kubernetes, Terraform, GitHub Actions |
-| **Databases** | PostgreSQL, Redis, Pinecone, Neo4j, Supabase |
-| **Cloud** | AWS, GCP, Vercel, Railway, Render |
-| **Protocols** | MCP, REST, GraphQL, WebSocket |
+### Languages (21 — Demonstrated Mastery)
+
+| Tier | Languages |
+|---|---|
+| **Primary** | Python, TypeScript, JavaScript, Go, Rust, C++, C |
+| **GPU/HPC** | CUDA, Triton, Mojo |
+| **Systems** | Zig, Odin, Swift, Verilog |
+| **Scientific** | Julia, R, SQL |
+| **Functional** | Haskell, Elixir, Lean 4 |
+| **Infrastructure** | Protobuf, WebAssembly (WAT) |
+
+### AI / Machine Learning
+
+- **LLM Infrastructure**: KV-cache optimization, flash attention kernels, mixture-of-experts routing, multi-head latent attention
+- **Agent Systems**: Multi-agent orchestration with MCP (Model Context Protocol), tool-use coordination, autonomous reasoning chains
+- **GPU Programming**: CUDA kernel development, Triton fused operators, TPU mesh optimization, FP8/FP16 quantization
+- **ML Ops**: Model serving pipelines, inference optimization, distributed training coordination, ONNX runtime integration
+
+### Distributed Systems & Infrastructure
+
+- **Container Orchestration**: Docker (multi-stage builds, non-root, pinned versions), Kubernetes, microservice architecture
+- **Cloud Platforms**: AWS (Trainium/Neuron), Azure, Google Cloud (BigQuery, Dataflow, TPU), Firebase (Auth, Firestore, Hosting)
+- **Databases**: PostgreSQL (pgvector, HNSW), MongoDB, Prisma ORM, SQLAlchemy, Redis
+- **Networking**: gRPC/Protobuf, WebSocket bridges, UDP telemetry decoders, lock-free SPSC ring buffers
+
+### Frontend & Full-Stack
+
+- **Frameworks**: Next.js, React, Express.js, Vite
+- **Styling**: Tailwind CSS (not mixed with inline styles), responsive design (sm:/md:/lg:/xl:)
+- **Real-Time**: Server-Sent Events, WebSocket, MCP stdio JSON-RPC 2.0
+
+### Hardware & Embedded
+
+- **FPGA/ASIC**: Verilog RTL design, systolic array matrix multiply units, TPU-style accelerators
+- **Apple Silicon**: Metal GPU compute, Apple Neural Engine (ANE) FP16 acceleration, Swift native
+- **Robotics**: ISO 10218-1 compliant torque controllers, minimum-jerk trajectory planning, VLA (Vision-Language-Action) models
 
 ---
 
-## What I'm Looking For
+## Open-Source Portfolio Highlights
 
-**Role**: Senior Infrastructure Engineer / AI Systems Architect  
-**Style**: "Shark laser" — I come in, identify the blocker, fix it, and move on  
-**Preference**: Cross-team impact, not single-team assignment  
+### 🏗️ [The Tower of Babel](https://github.com/GlacierEQ/the-tower-of-babel)
+**21-language Rosetta Stone** with W4H framework. Each language demonstrates easy + advanced production exhibits with domain-specific placement rationale. Languages span systems (C, Rust, Zig), AI (Python, CUDA, Triton), hardware (Verilog), functional (Haskell, Lean 4), and more.
 
-I thrive in environments where:
-- The problem is harder than the process
-- Speed matters more than ceremony
-- Infrastructure is the bottleneck, not the feature
+### ⚡ [xAI Colossus Infrastructure Suite](https://github.com/GlacierEQ?tab=repositories&q=xai-colossus)
+**8 repositories** modeling xAI Colossus datacenter infrastructure: energy optimization (Rust + Python), cooling systems (gRPC + Protobuf), GPU server management, security, nanosphere compute, and training flux coordination. Production patterns for 100,000+ GPU cluster management.
+
+### 🚀 [SpaceX Mission Systems Suite](https://github.com/GlacierEQ?tab=repositories&q=spacex)
+**10 repositories** covering orbital mechanics (C++ + Julia ODEs), launch sequencing, telemetry decoding (Go UDP), pad weather gating, thermal protection (Odin), cryogenics, ground network, satellite mesh, and conjunction assessment. Real-time, safety-critical systems design.
+
+### 🧠 [AI Research & Inference Optimization](https://github.com/GlacierEQ?tab=repositories&q=sentinel)
+- **openai-reasoning-kv-sentinel** — C++ KV-cache entropy pruning for reasoning models
+- **deepseek-mla-moe-sentinel** — Multi-head latent attention + MoE routing in C
+- **meta-llama-collective-sentinel** — C++ NCCL collective monitoring for distributed training
+- **nvidia-deep-reasoning** — CUDA deep reasoning kernels
+- **kimi-mooncake-kv-stream** — Rust lock-free ring buffer + Go disaggregated scheduler
+- **qwen-vl-flash-router** — TypeScript multi-modal flash attention router + CUDA vision pipeline
+
+### 🤖 [Autonomous Agent Platforms](https://github.com/GlacierEQ?tab=repositories&q=agent)
+- **anthropic-agent-coordinator** — Multi-agent coordination with safety monitoring
+- **manus-autonomous-web-agent** — TypeScript autonomous web task execution
+- **comet-browser-agent-bridge** — DOM mutation + CDP dispatch bridge
+- **tasklet-micro-agent-engine** — Lightweight micro-agent execution runtime
+- **glaciereq-mcp-stack** — MCP gateway with JSON-RPC 2.0 routing
+
+### 🏛️ [Mastermind Orchestrator](https://github.com/GlacierEQ/mastermind)
+Enterprise-grade multi-agent orchestration platform with SHA-256 integrity verification, CI audit pipelines, and automated portfolio health monitoring across 66+ repositories.
+
+### 🔬 [Tesla FSD Occupancy Stream](https://github.com/GlacierEQ/tesla-fsd-occupancy-stream)
+CUDA voxel raycasting kernel for 3D occupancy grid construction from 8-camera surround vision. Go BEV (Bird's-Eye-View) coordinate transformer with ego-relative world↔grid conversion.
+
+### 🦾 [Robotics VLA Torque Sentinel](https://github.com/GlacierEQ/robotics-vla-torque-sentinel)
+C++ ISO 10218-1 compliant torque safety controller with collision detection + Rust minimum-jerk 5th-order polynomial trajectory planner for 7-DOF collaborative robot arms.
 
 ---
 
-## Links
+## Architecture Philosophy
 
-- **GitHub**: [github.com/GlacierEQ](https://github.com/GlacierEQ)
-- **Colossus Suite**: [github.com/GlacierEQ/Pro-xAI](https://github.com/GlacierEQ/Pro-xAI)
-- **Mastermind**: [github.com/GlacierEQ/mastermind](https://github.com/GlacierEQ/mastermind)
-- **Iceberg MCP**: [github.com/GlacierEQ/iceberg-mcp](https://github.com/GlacierEQ/iceberg-mcp)
+- **Right tool for the job**: Every language serves its exact domain — Rust for safety-critical, CUDA for GPU compute, Go for concurrent I/O, Haskell for formal verification
+- **Production-first**: All code follows production patterns — error handling, testing, documentation, CI/CD
+- **Defense in depth**: SHA-256 integrity manifests, circuit breakers, rate limiting, non-root containers
+- **Polyglot by design**: Systems that scale require heterogeneous language stacks optimized per layer
 
 ---
 
-*Casey Barton | Honolulu, HI | June 2026*
+## Development Practices
+
+- **Testing**: Unit tests across all repositories, CI audit pipelines, integration testing
+- **Security**: Runtime secret injection (never baked into images), USER directive in containers, pinned base images
+- **Database**: Prisma migrate deploy in production, select/include to avoid over-fetching, transaction isolation
+- **Frontend**: Responsive prefixes (sm:/md:/lg:), component extraction, no arbitrary values when utility classes exist
+- **Git**: Protected branches, conventional commits, automated integrity verification
+
+---
+
+## Education & Continuous Learning
+
+- Self-directed deep study across systems programming, distributed computing, AI/ML, aerospace engineering, formal methods, and hardware design
+- Active contributor to open-source tooling and AI infrastructure
+- 66+ public repositories demonstrating breadth and depth of technical mastery
+
+---
+
+*References and additional portfolio details available upon request.*
