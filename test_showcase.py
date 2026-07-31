@@ -1,5 +1,5 @@
-#!/usr/bin/env python3
 """Tests for the evidence-bound recruiter showcase."""
+
 from __future__ import annotations
 
 import copy
@@ -11,12 +11,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
 
-import generate_showcase  # noqa: E402
+import generate_showcase
 
 LEGAL_RE = re.compile(
     r"1FDV|SUPERLUMINAL_CASE|FEDERAL.?WARFARE|family.?court|court.?case|"
     r"docket|Kekoa|CSEA|civil.?rico|§1983|apex-legal|legal.?warfare",
-    re.I,
+    re.IGNORECASE,
 )
 
 
@@ -62,7 +62,9 @@ class ShowcaseTests(unittest.TestCase):
         self.assertNotIn("private architecture systems", text.lower())
 
         for item in self.manifest["flagships"]:
-            heading = f"## {self.manifest['flagships'].index(item) + 1}. {item['name']}"
+            heading = (
+                f"## {self.manifest['flagships'].index(item) + 1}. {item['name']}"
+            )
             self.assertEqual(text.count(heading), 1)
 
     def test_public_product_is_the_direct_entry_path(self) -> None:
