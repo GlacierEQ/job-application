@@ -1,0 +1,56 @@
+name: Portfolio truth gate
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - README.md
+      - docs/PORTFOLIO_ORCHESTRATION.md
+      - portfolio_manifest.json
+      - generate_showcase.py
+      - SHOWCASE.md
+      - test_showcase.py
+      - tests/**
+      - scripts/**
+      - .github/workflows/portfolio-verify.yml
+  pull_request:
+    branches: [main]
+    paths:
+      - README.md
+      - docs/PORTFOLIO_ORCHESTRATION.md
+      - portfolio_manifest.json
+      - generate_showcase.py
+      - SHOWCASE.md
+      - test_showcase.py
+      - tests/**
+      - scripts/**
+      - .github/workflows/portfolio-verify.yml
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Verify recruiter-surface truth contract
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Validate portfolio manifest
+        run: python -m json.tool portfolio_manifest.json >/dev/null
+
+      - name: Rebuild and verify generated recruiter surface
+        run: python scripts/runner_verify.py
+
+      - name: Verify baseline portfolio artifacts
+        run: python tests/test_job_application.py
