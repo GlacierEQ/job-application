@@ -4,22 +4,22 @@
 
 Systems architect and full-stack engineer building AI operating systems, connector infrastructure, failure-tolerant workflows, and verifiable artifact pipelines.
 
-This portfolio is intentionally narrow: **one public product and two deeper architecture systems**. It does not use repository count as a quality claim, and it does not present private work as publicly inspectable proof.
+This portfolio is intentionally concentrated around **three evidence-bearing systems** rather than repository-count marketing. All three flagship systems are public and directly inspectable. Every claim below is paired with an evidence path and an explicit boundary.
 
 ## Start here: three-minute proof
 
 1. Open **[Resume Shapeshifter](https://github.com/GlacierEQ/JOB-RESUME-BUILDER-)**.
-2. Read `lib/truthfulness.ts` and `tests/truthfulness.test.ts`.
-3. Inspect the fail-closed model boundary and API orchestration.
-4. Use the private architecture systems only through a curated case study or explicit access grant.
+2. Follow its listed evidence paths into the implementation and tests.
+3. Compare the verified proof with the stated gaps; the gaps are part of the product record.
+4. Open **[job-app-helix](https://github.com/GlacierEQ/job-app-helix)** to inspect how portfolio evidence, README contracts, and repository relationships are governed.
 
 ## Flagship systems
 
 | System | Access | Readiness | Primary signal |
 |---|---|---|---|
 | **Resume Shapeshifter** | public | hardening | Next.js product engineering, model-backed document analysis, schema-validated structured output |
-| **AKOS + pro-code** | private | private-review | agent governance, engineering operating contracts, multi-repository orchestration |
-| **xAI Colossus Cooling** | private | private-review | infrastructure systems thinking, thermal and capacity modeling, target-company technical research |
+| **AKOS + pro-code** | public | hardening | agent governance, engineering operating contracts, multi-repository orchestration |
+| **xAI Colossus Cooling** | public | hardening | infrastructure systems thinking, thermal and capacity modeling, target-company technical research |
 
 ## 1. Resume Shapeshifter
 
@@ -62,9 +62,9 @@ This portfolio is intentionally narrow: **one public product and two deeper arch
 
 ## 2. AKOS + pro-code
 
-**Repository:** `AKOS` · `pro-code`  
-**Access:** Private; curated review required  
-**Status:** `private-review`
+**Repository:** [AKOS](https://github.com/GlacierEQ/AKOS) · [pro-code](https://github.com/GlacierEQ/pro-code)  
+**Access:** Public and directly inspectable  
+**Status:** `hardening`
 
 ### What it demonstrates
 
@@ -76,8 +76,9 @@ This portfolio is intentionally narrow: **one public product and two deeper arch
 
 ### Verified proof
 
-- The repositories exist and are accessible to the owner.
-- They are intentionally private and require a curated public case study or review grant before recruiter use.
+- Both repositories are public and directly inspectable.
+- AKOS exposes identity, governance, repository topology, and completion semantics as explicit documents.
+- pro-code carries reusable engineering standards and control-surface modules.
 
 ### Evidence path
 
@@ -86,16 +87,16 @@ This portfolio is intentionally narrow: **one public product and two deeper arch
 
 ### Current gaps
 
-- Recruiters cannot access the repositories while they remain private.
-- A compact architecture case study and runnable proof path are still required.
+- A unified cross-repository demonstration and evidence receipt are not yet linked from this portal.
+- Runtime and deployment claims remain repository-native and must be verified in each project.
 
 ---
 
 ## 3. xAI Colossus Cooling
 
-**Repository:** `xai-colossus-cooling`  
-**Access:** Private; curated review required  
-**Status:** `private-review`
+**Repository:** [xai-colossus-cooling](https://github.com/GlacierEQ/xai-colossus-cooling)  
+**Access:** Public and directly inspectable  
+**Status:** `hardening`
 
 ### What it demonstrates
 
@@ -106,36 +107,43 @@ This portfolio is intentionally narrow: **one public product and two deeper arch
 
 ### Verified proof
 
-- The repository exists and is accessible to the owner.
-- The repository is private, so its technical claims are not presented here as publicly reviewable proof.
+- The repository is public and its source and documentation are directly inspectable.
+- This portal treats the implementation as reviewable engineering evidence, not proof of deployed xAI infrastructure.
 
 ### Evidence path
 
-- Curated technical overview
+- README.md and technical overview
 - assumptions and source ledger
 - model or simulation entry point
 - tests and reproducible examples
 
 ### Current gaps
 
-- Recruiters cannot inspect the implementation while the repository remains private.
-- The public portfolio needs a bounded case study with citations, assumptions, and reproducible calculations.
+- Model assumptions and calculations still require repository-native reproducibility receipts.
+- Deployment, scale, and production-performance claims remain unverified.
 
 ---
 
 ## Ten-minute engineering review
 
-1. **Product surface:** open the public Resume Shapeshifter repository and read its README.
-2. **Control boundary:** inspect the deterministic truthfulness validator.
-3. **Tests:** run `npm test` and review the adversarial cases.
-4. **Service behavior:** inspect the analyze and tailor API routes plus the fail-closed model-service path.
-5. **Architecture depth:** request the curated AKOS/pro-code or Colossus cooling case study only after its access path is ready.
+1. **Product behavior:** inspect Resume Shapeshifter's API routes, truthfulness boundary, and adversarial tests.
+2. **Governance architecture:** inspect AKOS and pro-code for explicit authority, completion, and engineering-contract surfaces.
+3. **Systems modeling:** inspect xAI Colossus Cooling's assumptions, calculations, and reproducibility path.
+4. **Evidence discipline:** verify that each system separates public source, executable proof, deployment proof, and unresolved scope.
+5. **Portfolio control:** inspect `job-app-helix` for deterministic inventory, planning, verification receipts, and the typed README Mesh.
 
 ## Repository roles
 
 ```text
 job-application
-└── recruiter-facing portfolio portal
+├── recruiter-facing portfolio and application portal
+├── evidence-bound flagship manifest
+└── generated showcase and resume entrypoints
+
+job-app-helix
+├── portfolio inventory and verification control plane
+├── README contract and typed repository mesh
+└── deterministic plans and atomic receipts
 
 JOB-RESUME-BUILDER-
 └── public product proof; branded as Resume Shapeshifter
@@ -146,11 +154,11 @@ job-app
 
 ## Release gates
 
-- Verify this repository is public before sending its URL to a recruiter.
-- Do not link private flagship repositories as though they are inspectable.
-- Publish a bounded architecture case study or grant access before using private work as proof.
-- Deploy and verify the public product before describing it as live.
-- Rename `JOB-RESUME-BUILDER-` only after redirects and portfolio references are planned.
+- Regenerate `SHOWCASE.md` whenever `portfolio_manifest.json` changes.
+- Verify every public repository link before publishing the portal.
+- Require repository-native tests or receipts before promoting runtime claims.
+- Keep deployment, scale, and performance claims unverified until provider-backed evidence exists.
+- Keep private operations, personal contacts, and credentials outside this public repository.
 
 ## Excluded by design
 
