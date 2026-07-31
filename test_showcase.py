@@ -61,9 +61,7 @@ class ShowcaseTests(unittest.TestCase):
         declared_public_repositories = {
             repository
             for item in self.manifest["flagships"]
-            for repository in (
-                [item["repo"]] if item.get("repo") else item["repos"]
-            )
+            for repository in ([item["repo"]] if item.get("repo") else item["repos"])
         }
         self.assertSetEqual(
             declared_public_repositories,
