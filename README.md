@@ -4,13 +4,14 @@
 
 `job-application` is not a pile of application files and it is not a repository-count advertisement. It is the public presentation layer for a hiring portfolio: three flagship systems, the proof each one exposes, the boundaries each one still carries, and the control plane that keeps those statements synchronized with the underlying repositories.
 
-**Current posture:** `HARDENING` — the portal, generator, tests, and public repository links are present; runtime, deployment, scale, and performance remain repository-native claims that require their own receipts.
+**Current posture:** `HARDENING` — the portal, generator, tests, and public repository links are present; runtime, deployment, scale, and performance remain repository-native claims that require their own receipts.  
+**Governance synchronization:** reconciled July 31, 2026 against the Job-App Helix live boundary of one root plus sixty-six public portfolio children.
 
 ## The portfolio front door
 
 A hiring reviewer should be able to answer four questions quickly:
 
-1. **What does Casey build?** AI operating systems, connector infrastructure, governed automation, and verifiable artifact pipelines.
+1. **What does Casey build?** AI operating systems, connector infrastructure, governed automation, product systems, and verifiable artifact pipelines.
 2. **Where is the strongest proof?** In a deliberately small set of public flagship repositories with explicit evidence paths.
 3. **What is verified versus unfinished?** Every flagship separates inspectable proof from current gaps.
 4. **How does the work connect?** `job-app-helix` supplies the inventory, verification, README, and repository-mesh control plane.
@@ -21,7 +22,8 @@ A hiring reviewer should be able to answer four questions quickly:
 |---|---|
 | [`SHOWCASE.md`](SHOWCASE.md) | The concentrated recruiter review: three flagships, evidence paths, gaps, and review sequence. |
 | [`RESUME.md`](RESUME.md) | The long-form engineering resume and portfolio narrative. |
-| [`portfolio_manifest.json`](portfolio_manifest.json) | The source of truth used to generate the public showcase. |
+| [`portfolio_manifest.json`](portfolio_manifest.json) | The source of truth used to generate the public showcase, including the current governance binding. |
+| [`docs/PORTFOLIO_SYNC_2026-07-31.md`](docs/PORTFOLIO_SYNC_2026-07-31.md) | The dated reconciliation between this portal, Helix, Resume Shapeshifter, and private application operations. |
 | [`generate_showcase.py`](generate_showcase.py) | The deterministic standard-library generator for the recruiter surface. |
 | [`test_showcase.py`](test_showcase.py) | Guards against stale visibility, unsupported hype, legal/case leakage, and broken portfolio structure. |
 | [`job-app-helix`](https://github.com/GlacierEQ/job-app-helix) | The evidence and governance control plane behind the wider portfolio. |
@@ -30,9 +32,19 @@ A hiring reviewer should be able to answer four questions quickly:
 
 | System | Role in the portfolio | Public evidence boundary |
 |---|---|---|
-| [Resume Shapeshifter](https://github.com/GlacierEQ/JOB-RESUME-BUILDER-) | Product engineering and truth-constrained resume transformation | Source, API routes, truthfulness logic, and tests are inspectable; production deployment is not claimed here. |
+| [Resume Shapeshifter](https://github.com/GlacierEQ/JOB-RESUME-BUILDER-) | Product engineering and truth-constrained resume transformation | Source, API routes, truthfulness logic, tests, and CI are inspectable; production deployment is not claimed here. |
 | [AKOS](https://github.com/GlacierEQ/AKOS) + [pro-code](https://github.com/GlacierEQ/pro-code) | Agent governance, engineering contracts, and multi-repository operating structure | Public governance and standards surfaces are inspectable; cross-repository runtime proof remains repository-native. |
 | [xAI Colossus Cooling](https://github.com/GlacierEQ/xai-colossus-cooling) | Infrastructure modeling, technical research, and architecture communication | Public source is reviewable; deployed xAI infrastructure, production scale, and performance are not claimed. |
+
+### Governance synchronization
+
+The public portal and Helix now share an explicit boundary:
+
+- all four repositories used by the three public flagship systems are named in Helix's live inventory;
+- Resume Shapeshifter is routed through `wave-3-technical-exhibits` rather than inheriting a proof state from portal prose;
+- `job-app` remains private and outside the recruiter inventory because it carries application operations, contacts, outreach, and tracking;
+- the prior 66-repository evidence audit remains a historical snapshot; the live Helix boundary is now 67 repositories total;
+- repositories discovered in the wider GitHub estate are admitted only after provenance, differentiated value, evidence paths, and duplication are reviewed.
 
 ## How the portal stays honest
 
@@ -41,10 +53,9 @@ The public surface is generated from a checked-in manifest instead of being main
 ```text
 portfolio_manifest.json
         │
-        ▼
-manifest validation
-identity • visibility • status • evidence • gaps
-        │
+        ├── flagship validation
+        ├── visibility and evidence boundaries
+        ├── governance synchronization
         ▼
 generate_showcase.py
         │
@@ -62,15 +73,16 @@ The contract is intentionally strict:
 - at least one directly inspectable public flagship;
 - every flagship declares what it demonstrates, where the evidence lives, what is verified, and what remains unresolved;
 - public repositories render as direct links;
-- private repositories, if introduced later, render as labeled references rather than implied public proof;
+- private repositories render as labeled references rather than implied public proof;
 - sensitive personal, legal, contact, credential, and application-tracking material is blocked from the recruiter manifest;
-- generated output must be reproducible from the checked-in source.
+- generated output must be reproducible from the checked-in source;
+- portal presentation cannot promote a repository beyond its repository-native or Helix-recorded evidence.
 
 ## Engineering anatomy
 
 | Component | Responsibility | Failure behavior |
 |---|---|---|
-| [`portfolio_manifest.json`](portfolio_manifest.json) | Canonical identity, positioning, flagship inventory, visibility, proof, gaps, and exclusions | Missing fields, duplicate IDs, unsupported states, or unsafe content fail validation. |
+| [`portfolio_manifest.json`](portfolio_manifest.json) | Canonical identity, positioning, flagship inventory, visibility, proof, gaps, exclusions, and governance binding | Missing fields, duplicate IDs, unsupported states, or unsafe content fail validation. |
 | [`generate_showcase.py`](generate_showcase.py) | Validates the manifest and renders the human-facing portfolio surface | Refuses to generate when the manifest is invalid or blocked content is detected. |
 | [`SHOWCASE.md`](SHOWCASE.md) | Generated recruiter and engineering review path | Treated as derived output; changes belong in the manifest or generator first. |
 | [`test_showcase.py`](test_showcase.py) | Contract, visibility, public-link, concentration, and content-boundary tests | A stale private/public classification or leaked blocked term fails the suite. |
@@ -105,9 +117,10 @@ When a flagship changes state:
 
 1. update `portfolio_manifest.json` first;
 2. preserve the distinction between inspectable source, executable proof, deployment proof, and unresolved scope;
-3. regenerate `SHOWCASE.md`;
-4. run both test surfaces;
-5. commit the manifest, generator changes when necessary, generated output, and tests together.
+3. reconcile the repository with the Helix inventory and rollout program;
+4. regenerate `SHOWCASE.md`;
+5. run both test surfaces;
+6. commit the manifest, generated output when changed, tests, and synchronization record together.
 
 This keeps the public narrative downstream from evidence rather than allowing the narrative to become its own source of truth.
 
@@ -125,6 +138,7 @@ state: HARDENING
 inputs:
   - portfolio_manifest.json
   - RESUME.md
+  - docs/PORTFOLIO_SYNC_2026-07-31.md
   - repository-native evidence paths
 
 transforms:
@@ -141,6 +155,8 @@ invariants:
   - recruiter_manifest_excludes_sensitive_operational_material
   - generated_showcase_is_reproducible
   - repository_source_is_not_deployment_proof
+  - public_flagships_are_present_in_helix_inventory
+  - private_application_operations_remain_outside_public_inventory
 
 outputs:
   human:
@@ -211,11 +227,11 @@ relationships:
 ├── README.md                    public orientation and machine entrypoint
 ├── SHOWCASE.md                  generated flagship review
 ├── RESUME.md                    long-form resume
-├── portfolio_manifest.json     canonical recruiter-facing source data
+├── portfolio_manifest.json     canonical recruiter-facing source data and governance binding
 ├── generate_showcase.py        deterministic renderer and validator
 ├── test_showcase.py             focused evidence-bound contract tests
 ├── tests/                       baseline repository tests
-├── docs/                        application strategy, outreach, and technical exhibits
+├── docs/                        application strategy, outreach, synchronization, and technical exhibits
 ├── scripts/                     verification helpers
 ├── .integrity/                  file-integrity inventory and watchdog tooling
 └── .github/workflows/           reusable CI entrypoint
