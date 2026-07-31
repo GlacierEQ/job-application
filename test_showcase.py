@@ -62,9 +62,7 @@ class ShowcaseTests(unittest.TestCase):
         self.assertNotIn("private architecture systems", text.lower())
 
         for item in self.manifest["flagships"]:
-            heading = (
-                f"## {self.manifest['flagships'].index(item) + 1}. {item['name']}"
-            )
+            heading = f"## {self.manifest['flagships'].index(item) + 1}. {item['name']}"
             self.assertEqual(text.count(heading), 1)
 
     def test_public_product_is_the_direct_entry_path(self) -> None:
