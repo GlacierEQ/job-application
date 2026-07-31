@@ -49,6 +49,29 @@ class ShowcaseTests(unittest.TestCase):
         ):
             self.assertIn(f"https://github.com/GlacierEQ/{repo}", text)
 
+    def test_governance_reconciles_public_flagships_with_helix(self) -> None:
+        governance = self.manifest["governance"]
+        self.assertEqual(governance["control_plane"], "job-app-helix")
+        self.assertEqual(governance["live_inventory_total"], 67)
+        self.assertEqual(governance["live_workspace_children"], 66)
+        self.assertTrue(governance["public_flagships_present_in_control_plane"])
+        self.assertEqual(governance["private_operations_repository"], "job-app")
+        self.assertTrue(governance["private_operations_excluded_from_public_inventory"])
+
+        declared_public_repositories = {
+            repository
+            for item in self.manifest["flagships"]
+            for repository in ([item["repo"]] if item.get("repo") else item["repos"])
+        }
+        self.assertSetEqual(
+            declared_public_repositories,
+            set(governance["public_flagship_repositories"]),
+        )
+        self.assertNotIn(
+            governance["private_operations_repository"],
+            governance["public_flagship_repositories"],
+        )
+
     def test_generate_writes_concentrated_showcase(self) -> None:
         rc = generate_showcase.main()
         self.assertEqual(rc, 0)
