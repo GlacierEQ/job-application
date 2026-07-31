@@ -66,7 +66,9 @@ def validate_manifest(data: dict[str, Any]) -> None:
         }
         missing_item = sorted(required - item.keys())
         if missing_item:
-            raise ValueError(f"flagship {index} missing fields: {', '.join(missing_item)}")
+            raise ValueError(
+                f"flagship {index} missing fields: {', '.join(missing_item)}"
+            )
 
         if item["id"] in seen_ids:
             raise ValueError(f"duplicate flagship id: {item['id']}")
@@ -136,9 +138,7 @@ def visibility_summary(flagships: list[dict[str, Any]]) -> str:
 def build(data: dict[str, Any]) -> str:
     owner = data["owner"]
     flagships = data["flagships"]
-    public_flagship = next(
-        item for item in flagships if item["visibility"] == "public"
-    )
+    public_flagship = next(item for item in flagships if item["visibility"] == "public")
     control_plane = data.get("integration_control_plane", "job-app-helix")
 
     sections: list[str] = []
@@ -149,27 +149,27 @@ def build(data: dict[str, Any]) -> str:
             else "Private; curated review required"
         )
         sections.append(
-            f"""## {index}. {item['name']}
+            f"""## {index}. {item["name"]}
 
 **Repository:** {repository_label(owner, item)}  
 **Access:** {access}  
-**Status:** `{item['status']}`
+**Status:** `{item["status"]}`
 
 ### What it demonstrates
 
-{bullets(item['demonstrates'])}
+{bullets(item["demonstrates"])}
 
 ### Verified proof
 
-{bullets(item['verified_proof'])}
+{bullets(item["verified_proof"])}
 
 ### Evidence path
 
-{bullets(item['evidence_paths'])}
+{bullets(item["evidence_paths"])}
 
 ### Current gaps
 
-{bullets(item['current_gaps'])}
+{bullets(item["current_gaps"])}
 """
         )
 
@@ -182,15 +182,15 @@ def build(data: dict[str, Any]) -> str:
 
     return f"""# GlacierEQ — Engineering Portfolio
 
-> **{data['positioning']}**
+> **{data["positioning"]}**
 
-{data['identity']}
+{data["identity"]}
 
 This portfolio is intentionally concentrated around **three evidence-bearing systems** rather than repository-count marketing. {visibility_summary(flagships)} Every claim below is paired with an evidence path and an explicit boundary.
 
 ## Start here: three-minute proof
 
-1. Open **[{public_flagship['name']}]({github_url(owner, repositories(public_flagship)[0])})**.
+1. Open **[{public_flagship["name"]}]({github_url(owner, repositories(public_flagship)[0])})**.
 2. Follow its listed evidence paths into the implementation and tests.
 3. Compare the verified proof with the stated gaps; the gaps are part of the product record.
 4. Open **[{control_plane}]({github_url(owner, control_plane)})** to inspect how portfolio evidence, README contracts, and repository relationships are governed.
@@ -243,7 +243,7 @@ job-app
 
 ## Excluded by design
 
-{bullets(data['exclusions'])}
+{bullets(data["exclusions"])}
 
 ---
 
