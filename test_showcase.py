@@ -35,31 +35,42 @@ class ShowcaseTests(unittest.TestCase):
             self.assertTrue(item["verified_proof"])
             self.assertTrue(item["current_gaps"])
 
+    def test_current_flagships_are_public_and_linkable(self) -> None:
+        flagships = self.manifest["flagships"]
+        self.assertTrue(all(item["visibility"] == "public" for item in flagships))
+
+        text = generate_showcase.build(self.manifest)
+        for repo in (
+            "JOB-RESUME-BUILDER-",
+            "AKOS",
+            "pro-code",
+            "xai-colossus-cooling",
+            "job-app-helix",
+        ):
+            self.assertIn(f"https://github.com/GlacierEQ/{repo}", text)
+
     def test_generate_writes_concentrated_showcase(self) -> None:
         rc = generate_showcase.main()
         self.assertEqual(rc, 0)
 
         text = (ROOT / "SHOWCASE.md").read_text(encoding="utf-8")
-        self.assertGreater(len(text), 1_500)
+        self.assertGreater(len(text), 2_000)
         self.assertIn("three-minute proof", text.lower())
         self.assertIn("Ten-minute engineering review", text)
+        self.assertIn("Portfolio control", text)
         self.assertIn("Release gates", text)
+        self.assertNotIn("private architecture systems", text.lower())
 
         for item in self.manifest["flagships"]:
-            self.assertEqual(text.count(f"## {self.manifest['flagships'].index(item) + 1}. {item['name']}"), 1)
+            heading = f"## {self.manifest['flagships'].index(item) + 1}. {item['name']}"
+            self.assertEqual(text.count(heading), 1)
 
     def test_public_product_is_the_direct_entry_path(self) -> None:
         text = generate_showcase.build(self.manifest)
         public_url = "https://github.com/GlacierEQ/JOB-RESUME-BUILDER-"
         self.assertIn(public_url, text)
-        self.assertIn("lib/truthfulness.ts", text)
-        self.assertIn("tests/truthfulness.test.ts", text)
-
-    def test_private_repositories_are_not_presented_as_public_links(self) -> None:
-        text = generate_showcase.build(self.manifest)
-        for repo in ("AKOS", "pro-code", "xai-colossus-cooling"):
-            self.assertNotIn(f"https://github.com/GlacierEQ/{repo}", text)
-            self.assertIn(f"`{repo}`", text)
+        self.assertIn("truthfulness boundary", text)
+        self.assertIn("adversarial tests", text)
 
     def test_showcase_rejects_repo_count_hype_and_legal_material(self) -> None:
         text = generate_showcase.build(self.manifest)
