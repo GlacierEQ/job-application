@@ -98,6 +98,27 @@
   ],
   "integration_control_plane": "job-app-helix",
   "private_operations_repo": "job-app",
+  "governance": {
+    "schema": "glaciereq.job-application.governance.v1",
+    "last_reconciled": "2026-07-31",
+    "control_plane": "job-app-helix",
+    "control_plane_inventory": "manifests/portfolio_repositories.json",
+    "live_inventory_total": 67,
+    "live_workspace_children": 66,
+    "public_portal_repository": "job-application",
+    "public_flagship_repositories": [
+      "JOB-RESUME-BUILDER-",
+      "AKOS",
+      "pro-code",
+      "xai-colossus-cooling"
+    ],
+    "public_flagships_present_in_control_plane": true,
+    "private_operations_repository": "job-app",
+    "private_operations_excluded_from_public_inventory": true,
+    "sync_record": "docs/PORTFOLIO_SYNC_2026-07-31.md",
+    "historical_audit_boundary": 66,
+    "historical_audit_is_not_rewritten": true
+  },
   "exclusions": [
     "sensitive personal records and dispute-related material",
     "personal outreach contacts",
