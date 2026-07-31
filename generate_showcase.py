@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Generate the recruiter showcase from an evidence-bound manifest.
 
 The generator favors a small number of inspectable systems over portfolio-count
@@ -6,6 +5,7 @@ marketing. Public repositories become links. Private repositories, when present,
 remain clearly labeled so the generated surface cannot imply access or proof that
 is not available.
 """
+
 from __future__ import annotations
 
 import json
@@ -22,7 +22,7 @@ ALLOWED_STATUS = {"hardening", "private-review", "ready"}
 LEGAL_BLOCK = re.compile(
     r"1FDV|SUPERLUMINAL_CASE|FEDERAL.?WARFARE|family.?court|court.?case|"
     r"docket|Kekoa|CSEA|civil.?rico|§1983|apex-legal|legal.?warfare",
-    re.I,
+    re.IGNORECASE,
 )
 
 
@@ -79,10 +79,17 @@ def validate_manifest(data: dict[str, Any]) -> None:
         if not item.get("repo") and not item.get("repos"):
             raise ValueError(f"flagship {item['id']} requires repo or repos")
 
-        for field in ("demonstrates", "evidence_paths", "verified_proof", "current_gaps"):
+        for field in (
+            "demonstrates",
+            "evidence_paths",
+            "verified_proof",
+            "current_gaps",
+        ):
             value = item[field]
             if not isinstance(value, list) or not value:
-                raise ValueError(f"flagship {item['id']} requires a non-empty {field} list")
+                raise ValueError(
+                    f"flagship {item['id']} requires a non-empty {field} list"
+                )
 
     if not any(item["visibility"] == "public" for item in flagships):
         raise ValueError("manifest requires at least one public flagship")
@@ -129,7 +136,9 @@ def visibility_summary(flagships: list[dict[str, Any]]) -> str:
 def build(data: dict[str, Any]) -> str:
     owner = data["owner"]
     flagships = data["flagships"]
-    public_flagship = next(item for item in flagships if item["visibility"] == "public")
+    public_flagship = next(
+        item for item in flagships if item["visibility"] == "public"
+    )
     control_plane = data.get("integration_control_plane", "job-app-helix")
 
     sections: list[str] = []
