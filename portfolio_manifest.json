@@ -45,8 +45,8 @@
         "AKOS",
         "pro-code"
       ],
-      "visibility": "private",
-      "status": "private-review",
+      "visibility": "public",
+      "status": "hardening",
       "demonstrates": [
         "agent governance",
         "engineering operating contracts",
@@ -59,20 +59,21 @@
         "pro-code: engineering standards and control-surface modules"
       ],
       "verified_proof": [
-        "The repositories exist and are accessible to the owner.",
-        "They are intentionally private and require a curated public case study or review grant before recruiter use."
+        "Both repositories are public and directly inspectable.",
+        "AKOS exposes identity, governance, repository topology, and completion semantics as explicit documents.",
+        "pro-code carries reusable engineering standards and control-surface modules."
       ],
       "current_gaps": [
-        "Recruiters cannot access the repositories while they remain private.",
-        "A compact architecture case study and runnable proof path are still required."
+        "A unified cross-repository demonstration and evidence receipt are not yet linked from this portal.",
+        "Runtime and deployment claims remain repository-native and must be verified in each project."
       ]
     },
     {
       "id": "colossus-cooling",
       "name": "xAI Colossus Cooling",
       "repo": "xai-colossus-cooling",
-      "visibility": "private",
-      "status": "private-review",
+      "visibility": "public",
+      "status": "hardening",
       "demonstrates": [
         "infrastructure systems thinking",
         "thermal and capacity modeling",
@@ -80,21 +81,22 @@
         "architecture documentation"
       ],
       "evidence_paths": [
-        "Curated technical overview",
+        "README.md and technical overview",
         "assumptions and source ledger",
         "model or simulation entry point",
         "tests and reproducible examples"
       ],
       "verified_proof": [
-        "The repository exists and is accessible to the owner.",
-        "The repository is private, so its technical claims are not presented here as publicly reviewable proof."
+        "The repository is public and its source and documentation are directly inspectable.",
+        "This portal treats the implementation as reviewable engineering evidence, not proof of deployed xAI infrastructure."
       ],
       "current_gaps": [
-        "Recruiters cannot inspect the implementation while the repository remains private.",
-        "The public portfolio needs a bounded case study with citations, assumptions, and reproducible calculations."
+        "Model assumptions and calculations still require repository-native reproducibility receipts.",
+        "Deployment, scale, and production-performance claims remain unverified."
       ]
     }
   ],
+  "integration_control_plane": "job-app-helix",
   "private_operations_repo": "job-app",
   "exclusions": [
     "sensitive personal records and dispute-related material",

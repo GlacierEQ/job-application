@@ -102,23 +102,25 @@ Memphis has water, but:
 class WaterQualityMonitor:
     def __init__(self):
         self.parameters = {
-            "temperature": (0, 25),    # °C
-            "ph": (6.5, 8.5),         # pH units
-            "tds": (0, 500),          # ppm
-            "chlorine": (0, 0.5),     # ppm
-            "turbidity": (0, 1),      # NTU
+            "temperature": (0, 25),  # °C
+            "ph": (6.5, 8.5),  # pH units
+            "tds": (0, 500),  # ppm
+            "chlorine": (0, 0.5),  # ppm
+            "turbidity": (0, 1),  # NTU
         }
-    
+
     def check_quality(self, readings):
         violations = []
         for param, (min_val, max_val) in self.parameters.items():
             value = readings.get(param)
             if value and (value < min_val or value > max_val):
-                violations.append({
-                    "parameter": param,
-                    "value": value,
-                    "acceptable": (min_val, max_val)
-                })
+                violations.append(
+                    {
+                        "parameter": param,
+                        "value": value,
+                        "acceptable": (min_val, max_val),
+                    }
+                )
         return violations
 ```
 

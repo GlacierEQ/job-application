@@ -1,10 +1,11 @@
-#!/usr/bin/env python3
 """Generate the recruiter showcase from an evidence-bound manifest.
 
-The generator intentionally favors three inspectable systems over a broad repo
-catalog. Public repositories become links; private repositories remain labeled
-references so the portfolio never implies access that a recruiter does not have.
+The generator favors a small number of inspectable systems over portfolio-count
+marketing. Public repositories become links. Private repositories, when present,
+remain clearly labeled so the generated surface cannot imply access or proof that
+is not available.
 """
+
 from __future__ import annotations
 
 import json
@@ -21,7 +22,7 @@ ALLOWED_STATUS = {"hardening", "private-review", "ready"}
 LEGAL_BLOCK = re.compile(
     r"1FDV|SUPERLUMINAL_CASE|FEDERAL.?WARFARE|family.?court|court.?case|"
     r"docket|Kekoa|CSEA|civil.?rico|§1983|apex-legal|legal.?warfare",
-    re.I,
+    re.IGNORECASE,
 )
 
 
@@ -35,7 +36,14 @@ def load_manifest(path: Path = MANIFEST_PATH) -> dict[str, Any]:
 
 
 def validate_manifest(data: dict[str, Any]) -> None:
-    required_root = {"schema_version", "owner", "identity", "positioning", "flagships", "exclusions"}
+    required_root = {
+        "schema_version",
+        "owner",
+        "identity",
+        "positioning",
+        "flagships",
+        "exclusions",
+    }
     missing = sorted(required_root - data.keys())
     if missing:
         raise ValueError(f"manifest missing required fields: {', '.join(missing)}")
@@ -58,7 +66,9 @@ def validate_manifest(data: dict[str, Any]) -> None:
         }
         missing_item = sorted(required - item.keys())
         if missing_item:
-            raise ValueError(f"flagship {index} missing fields: {', '.join(missing_item)}")
+            raise ValueError(
+                f"flagship {index} missing fields: {', '.join(missing_item)}"
+            )
 
         if item["id"] in seen_ids:
             raise ValueError(f"duplicate flagship id: {item['id']}")
@@ -71,13 +81,19 @@ def validate_manifest(data: dict[str, Any]) -> None:
         if not item.get("repo") and not item.get("repos"):
             raise ValueError(f"flagship {item['id']} requires repo or repos")
 
-        for field in ("demonstrates", "evidence_paths", "verified_proof", "current_gaps"):
+        for field in (
+            "demonstrates",
+            "evidence_paths",
+            "verified_proof",
+            "current_gaps",
+        ):
             value = item[field]
             if not isinstance(value, list) or not value:
-                raise ValueError(f"flagship {item['id']} requires a non-empty {field} list")
+                raise ValueError(
+                    f"flagship {item['id']} requires a non-empty {field} list"
+                )
 
-    public_items = [item for item in flagships if item["visibility"] == "public"]
-    if not public_items:
+    if not any(item["visibility"] == "public" for item in flagships):
         raise ValueError("manifest requires at least one public flagship")
 
     serialized = json.dumps(data)
@@ -89,8 +105,12 @@ def github_url(owner: str, repo: str) -> str:
     return f"https://github.com/{owner}/{repo}"
 
 
+def repositories(item: dict[str, Any]) -> list[str]:
+    return [item["repo"]] if item.get("repo") else list(item["repos"])
+
+
 def repository_label(owner: str, item: dict[str, Any]) -> str:
-    repos = [item["repo"]] if item.get("repo") else list(item["repos"])
+    repos = repositories(item)
     if item["visibility"] == "public":
         return " · ".join(f"[{repo}]({github_url(owner, repo)})" for repo in repos)
     return " · ".join(f"`{repo}`" for repo in repos)
@@ -104,10 +124,22 @@ def compact_signal(values: list[str]) -> str:
     return ", ".join(values[:3])
 
 
+def visibility_summary(flagships: list[dict[str, Any]]) -> str:
+    public_count = sum(item["visibility"] == "public" for item in flagships)
+    private_count = len(flagships) - public_count
+    if private_count == 0:
+        return "All three flagship systems are public and directly inspectable."
+    return (
+        f"{public_count} flagship system(s) are public and directly inspectable; "
+        f"{private_count} remain explicitly labeled for curated review."
+    )
+
+
 def build(data: dict[str, Any]) -> str:
     owner = data["owner"]
     flagships = data["flagships"]
     public_flagship = next(item for item in flagships if item["visibility"] == "public")
+    control_plane = data.get("integration_control_plane", "job-app-helix")
 
     sections: list[str] = []
     for index, item in enumerate(flagships, start=1):
@@ -117,50 +149,51 @@ def build(data: dict[str, Any]) -> str:
             else "Private; curated review required"
         )
         sections.append(
-            f"""## {index}. {item['name']}
+            f"""## {index}. {item["name"]}
 
 **Repository:** {repository_label(owner, item)}  
 **Access:** {access}  
-**Status:** `{item['status']}`
+**Status:** `{item["status"]}`
 
 ### What it demonstrates
 
-{bullets(item['demonstrates'])}
+{bullets(item["demonstrates"])}
 
 ### Verified proof
 
-{bullets(item['verified_proof'])}
+{bullets(item["verified_proof"])}
 
 ### Evidence path
 
-{bullets(item['evidence_paths'])}
+{bullets(item["evidence_paths"])}
 
 ### Current gaps
 
-{bullets(item['current_gaps'])}
+{bullets(item["current_gaps"])}
 """
         )
 
     table_rows = "\n".join(
-        f"| **{item['name']}** | {item['visibility']} | {item['status']} | {compact_signal(item['demonstrates'])} |"
+        f"| **{item['name']}** | {item['visibility']} | {item['status']} | "
+        f"{compact_signal(item['demonstrates'])} |"
         for item in flagships
     )
     joined_sections = "\n---\n\n".join(sections)
 
     return f"""# GlacierEQ — Engineering Portfolio
 
-> **{data['positioning']}**
+> **{data["positioning"]}**
 
-{data['identity']}
+{data["identity"]}
 
-This portfolio is intentionally narrow: **one public product and two deeper architecture systems**. It does not use repository count as a quality claim, and it does not present private work as publicly inspectable proof.
+This portfolio is intentionally concentrated around **three evidence-bearing systems** rather than repository-count marketing. {visibility_summary(flagships)} Every claim below is paired with an evidence path and an explicit boundary.
 
 ## Start here: three-minute proof
 
-1. Open **[{public_flagship['name']}]({github_url(owner, public_flagship['repo'])})**.
-2. Read `lib/truthfulness.ts` and `tests/truthfulness.test.ts`.
-3. Inspect the fail-closed model boundary and API orchestration.
-4. Use the private architecture systems only through a curated case study or explicit access grant.
+1. Open **[{public_flagship["name"]}]({github_url(owner, repositories(public_flagship)[0])})**.
+2. Follow its listed evidence paths into the implementation and tests.
+3. Compare the verified proof with the stated gaps; the gaps are part of the product record.
+4. Open **[{control_plane}]({github_url(owner, control_plane)})** to inspect how portfolio evidence, README contracts, and repository relationships are governed.
 
 ## Flagship systems
 
@@ -174,17 +207,24 @@ This portfolio is intentionally narrow: **one public product and two deeper arch
 
 ## Ten-minute engineering review
 
-1. **Product surface:** open the public Resume Shapeshifter repository and read its README.
-2. **Control boundary:** inspect the deterministic truthfulness validator.
-3. **Tests:** run `npm test` and review the adversarial cases.
-4. **Service behavior:** inspect the analyze and tailor API routes plus the fail-closed model-service path.
-5. **Architecture depth:** request the curated AKOS/pro-code or Colossus cooling case study only after its access path is ready.
+1. **Product behavior:** inspect Resume Shapeshifter's API routes, truthfulness boundary, and adversarial tests.
+2. **Governance architecture:** inspect AKOS and pro-code for explicit authority, completion, and engineering-contract surfaces.
+3. **Systems modeling:** inspect xAI Colossus Cooling's assumptions, calculations, and reproducibility path.
+4. **Evidence discipline:** verify that each system separates public source, executable proof, deployment proof, and unresolved scope.
+5. **Portfolio control:** inspect `{control_plane}` for deterministic inventory, planning, verification receipts, and the typed README Mesh.
 
 ## Repository roles
 
 ```text
 job-application
-└── recruiter-facing portfolio portal
+├── recruiter-facing portfolio and application portal
+├── evidence-bound flagship manifest
+└── generated showcase and resume entrypoints
+
+{control_plane}
+├── portfolio inventory and verification control plane
+├── README contract and typed repository mesh
+└── deterministic plans and atomic receipts
 
 JOB-RESUME-BUILDER-
 └── public product proof; branded as Resume Shapeshifter
@@ -195,15 +235,15 @@ job-app
 
 ## Release gates
 
-- Verify this repository is public before sending its URL to a recruiter.
-- Do not link private flagship repositories as though they are inspectable.
-- Publish a bounded architecture case study or grant access before using private work as proof.
-- Deploy and verify the public product before describing it as live.
-- Rename `JOB-RESUME-BUILDER-` only after redirects and portfolio references are planned.
+- Regenerate `SHOWCASE.md` whenever `portfolio_manifest.json` changes.
+- Verify every public repository link before publishing the portal.
+- Require repository-native tests or receipts before promoting runtime claims.
+- Keep deployment, scale, and performance claims unverified until provider-backed evidence exists.
+- Keep private operations, personal contacts, and credentials outside this public repository.
 
 ## Excluded by design
 
-{bullets(data['exclusions'])}
+{bullets(data["exclusions"])}
 
 ---
 

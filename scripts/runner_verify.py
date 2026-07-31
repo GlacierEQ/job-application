@@ -1,5 +1,5 @@
-#!/usr/bin/env python3
 """Run the recruiter-portfolio verification contract on the public action face."""
+
 from __future__ import annotations
 
 import subprocess
