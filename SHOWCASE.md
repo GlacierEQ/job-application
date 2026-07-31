@@ -122,6 +122,7 @@ This portfolio is intentionally concentrated around **three evidence-bearing sys
 - Model assumptions and calculations still require repository-native reproducibility receipts.
 - Deployment, scale, and production-performance claims remain unverified.
 
+
 ---
 
 ## Ten-minute engineering review
