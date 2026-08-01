@@ -1,210 +1,318 @@
-# Job Application — Evidence-Bound Portfolio Portal
+# Job Application — Evidence-Bound Hiring Portfolio Portal
 
-> A recruiter-facing front door that turns a curated engineering manifest into an inspectable showcase, a durable resume entrypoint, and a machine-readable map into the wider GlacierEQ system.
+> Gives recruiters one concentrated, inspectable path into the strongest GlacierEQ work while keeping private application operations and unsupported claims out of the public surface.
 
-`job-application` is not a pile of application files and it is not a repository-count advertisement. It is the public presentation layer for a hiring portfolio: three flagship systems, the proof each one exposes, the boundaries each one still carries, and the control plane that keeps those statements synchronized with the underlying repositories.
+**Role:** `PUBLIC_PORTAL`  
+**Visibility:** `PUBLIC`  
+**Canonical branch:** `main`  
+**Status:** `PARTIALLY_VERIFIED` — the manifest-driven showcase, governance reconciliation, focused tests, baseline tests, and CI truth gate passed on the July 31, 2026 synchronization change; deployment, portfolio-wide runtime, scale, performance, and child-repository behavior remain repository-native evidence questions.
 
-**Current posture:** `HARDENING` — the portal, generator, tests, and public repository links are present; runtime, deployment, scale, and performance remain repository-native claims that require their own receipts.  
-**Governance synchronization:** reconciled July 31, 2026 against the Job-App Helix live boundary of one root plus sixty-six public portfolio children.
+## For recruiters and non-technical reviewers
 
-## The portfolio front door
+`job-application` is the public front door to the GlacierEQ hiring portfolio. It does not ask a reviewer to evaluate hundreds of repositories or accept repository count as evidence. It presents a deliberately small flagship set, explains what each system demonstrates, points to inspectable proof, and names what remains unfinished.
 
-A hiring reviewer should be able to answer four questions quickly:
+### What this portal answers
 
-1. **What does Casey build?** AI operating systems, connector infrastructure, governed automation, product systems, and verifiable artifact pipelines.
-2. **Where is the strongest proof?** In a deliberately small set of public flagship repositories with explicit evidence paths.
-3. **What is verified versus unfinished?** Every flagship separates inspectable proof from current gaps.
-4. **How does the work connect?** `job-app-helix` supplies the inventory, verification, README, and repository-mesh control plane.
+1. **What does Casey build?** Governed AI systems, connector infrastructure, product software, automation, and evidence-bearing artifact pipelines.
+2. **Where should a reviewer start?** With three flagship systems rather than the full repository estate.
+3. **What is real versus unresolved?** Each flagship carries an evidence boundary and explicit gaps.
+4. **How is the narrative controlled?** A checked-in manifest generates the showcase, while Job-App Helix governs inventory and evidence promotion.
 
-### Proof in three minutes
+### Proof in 60 seconds
 
-| Open | What it gives you |
-|---|---|
-| [`SHOWCASE.md`](SHOWCASE.md) | The concentrated recruiter review: three flagships, evidence paths, gaps, and review sequence. |
-| [`RESUME.md`](RESUME.md) | The long-form engineering resume and portfolio narrative. |
-| [`portfolio_manifest.json`](portfolio_manifest.json) | The source of truth used to generate the public showcase, including the current governance binding. |
-| [`docs/PORTFOLIO_SYNC_2026-07-31.md`](docs/PORTFOLIO_SYNC_2026-07-31.md) | The dated reconciliation between this portal, Helix, Resume Shapeshifter, and private application operations. |
-| [`generate_showcase.py`](generate_showcase.py) | The deterministic standard-library generator for the recruiter surface. |
-| [`test_showcase.py`](test_showcase.py) | Guards against stale visibility, unsupported hype, legal/case leakage, and broken portfolio structure. |
-| [`job-app-helix`](https://github.com/GlacierEQ/job-app-helix) | The evidence and governance control plane behind the wider portfolio. |
-
-### Flagship signal
-
-| System | Role in the portfolio | Public evidence boundary |
+| Open or run | What it proves | Current state |
 |---|---|---|
-| [Resume Shapeshifter](https://github.com/GlacierEQ/JOB-RESUME-BUILDER-) | Product engineering and truth-constrained resume transformation | Source, API routes, truthfulness logic, tests, and CI are inspectable; production deployment is not claimed here. |
-| [AKOS](https://github.com/GlacierEQ/AKOS) + [pro-code](https://github.com/GlacierEQ/pro-code) | Agent governance, engineering contracts, and multi-repository operating structure | Public governance and standards surfaces are inspectable; cross-repository runtime proof remains repository-native. |
-| [xAI Colossus Cooling](https://github.com/GlacierEQ/xai-colossus-cooling) | Infrastructure modeling, technical research, and architecture communication | Public source is reviewable; deployed xAI infrastructure, production scale, and performance are not claimed. |
+| [`SHOWCASE.md`](SHOWCASE.md) | The concentrated three-flagship review path | Generated recruiter surface |
+| [`portfolio_manifest.json`](portfolio_manifest.json) | Identity, visibility, proof, gaps, exclusions, and Helix governance binding | Canonical portal source |
+| [`generate_showcase.py`](generate_showcase.py) | The public surface is reproducibly generated rather than maintained as freehand marketing | Verified in prior CI |
+| [`test_showcase.py`](test_showcase.py) | Public/private separation, flagship concentration, governance counts, and blocked-content rules | Verified in prior CI |
+| [`docs/PORTFOLIO_SYNC_2026-07-31.md`](docs/PORTFOLIO_SYNC_2026-07-31.md) | The dated reconciliation among the portal, Helix, Resume Shapeshifter, and private operations | Historical synchronization record |
+| [`job-app-helix`](https://github.com/GlacierEQ/job-app-helix) | The wider portfolio inventory, rollout, proof planning, and README authority | External control plane |
 
-### Governance synchronization
+### Flagship review
 
-The public portal and Helix now share an explicit boundary:
+| System | Portfolio role | Evidence boundary |
+|---|---|---|
+| [Resume Shapeshifter](https://github.com/GlacierEQ/JOB-RESUME-BUILDER-) | Lead product flagship: source-grounded résumé tailoring | Source, API routes, deterministic truthfulness checks, tests, lint, build workflow, and failure behavior are inspectable; production deployment and hiring-outcome prediction are not claimed. |
+| [AKOS](https://github.com/GlacierEQ/AKOS) + [pro-code](https://github.com/GlacierEQ/pro-code) | Agent authority, governance, engineering contracts, and multi-repository operating structure | Public governance and standards are inspectable; cross-repository runtime proof remains repository-native. |
+| [xAI Colossus Cooling](https://github.com/GlacierEQ/xai-colossus-cooling) | Infrastructure modeling and technical architecture exhibit | Public source is reviewable; deployed xAI infrastructure, production scale, and performance are not claimed. |
 
-- all four repositories used by the three public flagship systems are named in Helix's live inventory;
-- Resume Shapeshifter is routed through `wave-3-technical-exhibits` rather than inheriting a proof state from portal prose;
-- `job-app` remains private and outside the recruiter inventory because it carries application operations, contacts, outreach, and tracking;
-- the prior 66-repository evidence audit remains a historical snapshot; the live Helix boundary is now 67 repositories total;
-- repositories discovered in the wider GitHub estate are admitted only after provenance, differentiated value, evidence paths, and duplication are reviewed.
+### Claim boundary
 
-## How the portal stays honest
+This portal does **not** claim:
 
-The public surface is generated from a checked-in manifest instead of being maintained as freehand marketing copy.
+- that every GlacierEQ repository is original, complete, tested, or production-ready;
+- that a public source repository proves deployment;
+- that portfolio language count proves engineering depth;
+- that child repositories inherit the portal's verification state;
+- that private application tracking, contacts, outreach, or personal data are public;
+- that company-specific technical exhibits establish affiliation, access, deployment, or use by that company;
+- that the current public flagship set represents every project worth reviewing.
+
+## For senior engineers and domain experts
+
+### System boundary
+
+**This repository owns**
+
+- the public hiring-portfolio identity and review sequence;
+- the canonical recruiter manifest;
+- public/private repository presentation rules;
+- deterministic generation of the showcase;
+- portal-level tests for concentration, visibility, leakage, and governance synchronization;
+- the public handoff into repository-native proof.
+
+**This repository does not own**
+
+- child-repository source correctness, builds, tests, benchmarks, or deployments;
+- private application operations;
+- live job openings, outreach, or application state;
+- portfolio-wide proof execution;
+- production hosting or operational guarantees for presented systems.
+
+### Architecture
 
 ```text
-portfolio_manifest.json
-        │
-        ├── flagship validation
-        ├── visibility and evidence boundaries
-        ├── governance synchronization
-        ▼
-generate_showcase.py
-        │
-        ▼
-SHOWCASE.md
-        │
-        ├── test_showcase.py
-        ├── tests/test_job_application.py
-        └── reusable GitHub Actions CI
+repository-native evidence + Helix governance
+                    │
+                    ▼
+          portfolio_manifest.json
+ identity • positioning • visibility • proof • gaps • exclusions
+                    │
+                    ▼
+             manifest validation
+   exact flagships • blocked content • governance reconciliation
+                    │
+                    ▼
+             generate_showcase.py
+                    │
+                    ▼
+                 SHOWCASE.md
+                    │
+                    ├── recruiter review
+                    ├── engineering handoff
+                    └── links to repository-native proof
 ```
 
-The contract is intentionally strict:
+The manifest is the source of truth. `SHOWCASE.md` is derived output. Narrative changes belong in the manifest or generator first.
 
-- exactly three flagship systems;
-- at least one directly inspectable public flagship;
-- every flagship declares what it demonstrates, where the evidence lives, what is verified, and what remains unresolved;
-- public repositories render as direct links;
-- private repositories render as labeled references rather than implied public proof;
-- sensitive personal, legal, contact, credential, and application-tracking material is blocked from the recruiter manifest;
-- generated output must be reproducible from the checked-in source;
-- portal presentation cannot promote a repository beyond its repository-native or Helix-recorded evidence.
+### Core engineering decisions
 
-## Engineering anatomy
-
-| Component | Responsibility | Failure behavior |
+| Decision | Value | Cost or limitation |
 |---|---|---|
-| [`portfolio_manifest.json`](portfolio_manifest.json) | Canonical identity, positioning, flagship inventory, visibility, proof, gaps, exclusions, and governance binding | Missing fields, duplicate IDs, unsupported states, or unsafe content fail validation. |
-| [`generate_showcase.py`](generate_showcase.py) | Validates the manifest and renders the human-facing portfolio surface | Refuses to generate when the manifest is invalid or blocked content is detected. |
-| [`SHOWCASE.md`](SHOWCASE.md) | Generated recruiter and engineering review path | Treated as derived output; changes belong in the manifest or generator first. |
-| [`test_showcase.py`](test_showcase.py) | Contract, visibility, public-link, concentration, and content-boundary tests | A stale private/public classification or leaked blocked term fails the suite. |
-| [`tests/test_job_application.py`](tests/test_job_application.py) | Baseline artifact and manifest sanity checks | Missing resume/manifest or wrong owner identity fails the suite. |
-| [`.github/workflows/ci.yml`](.github/workflows/ci.yml) | Delegates Python verification to the shared GlacierEQ reusable CI workflow | Pull requests and pushes do not receive a clean verification path when the reusable job fails. |
-| [`.integrity/file_hashes.json`](.integrity/file_hashes.json) | Checked-in integrity inventory for repository artifacts | Hash inventory is evidence of file identity, not runtime or deployment proof. |
+| Exactly three flagship systems | concentrates reviewer attention | requires deliberate exclusion of other strong work |
+| Manifest-driven showcase | makes the public narrative reproducible and testable | requires generated output to stay synchronized |
+| Public/private visibility contract | prevents operational material from leaking into recruiter surfaces | requires a separate private workspace |
+| Helix governance binding | prevents portal prose from outrunning the live inventory and evidence ladder | cross-repository synchronization must be maintained |
+| Explicit gaps beside proof | increases trust and review efficiency | reduces the freedom to use broad promotional language |
 
-### Run the evidence loop
+### Correctness and failure behavior
+
+| Condition | Required behavior | Evidence |
+|---|---|---|
+| flagship identity is missing or duplicated | fail validation | `generate_showcase.py`, `test_showcase.py` |
+| public/private classification drifts | fail the portal truth gate | `test_showcase.py` |
+| private `job-app` enters recruiter inventory | fail governance reconciliation | `test_showcase.py` |
+| blocked personal, legal, credential, or tracking content appears | refuse generation or fail tests | generator and content-boundary tests |
+| generated showcase is stale | regenerated output creates a Git diff | `python3 generate_showcase.py` + `git diff --exit-code` |
+| child repository lacks proof | retain its unresolved boundary; do not promote it | manifest gaps and Helix policy |
+| Helix inventory changes | update governance metadata and synchronization record before promotion | manifest reconciliation contract |
+
+### Security and privacy boundary
+
+- **Untrusted inputs:** repository descriptions, copied technical claims, external links, and AI-generated portfolio prose.
+- **Private source:** `GlacierEQ/job-app` contains application operations and must remain outside the public inventory.
+- **Blocked material:** personal contact data, credentials, legal or case material, private outreach, application tracking, and unsupported company affiliation.
+- **External links:** public links are presentation paths, not endorsements or deployment receipts.
+- **Secrets:** this repository should require no runtime secret for standard generation and tests; credentials must not be embedded in the manifest.
+- **Mutation boundary:** the generator writes the derived showcase locally; it does not send applications, publish posts, or mutate external systems.
+
+### Verification
 
 The generator and tests use the Python standard library.
 
 ```bash
-# Rebuild the public showcase from its source manifest
+# Rebuild the public showcase from the canonical manifest
 python3 generate_showcase.py
 
-# Verify the focused showcase contract
+# Verify the focused recruiter-surface contract
 python3 test_showcase.py
 
 # Verify baseline repository artifacts
 python3 tests/test_job_application.py
 
-# Confirm the generated surface is committed and current
+# Prove the generated surface is committed and current
 python3 generate_showcase.py
 git diff --exit-code -- SHOWCASE.md
 ```
 
-A successful generator run proves that the checked-in manifest satisfies this portal's contract and can reproduce `SHOWCASE.md`. It does **not** prove that every connected repository builds, deploys, or performs correctly. Those are separate evidence levels governed by each repository and coordinated by Job-App Helix.
+Prior synchronization verification:
+
+- PR head: `a4e40e3fa41af772e39b9a8051c86ac9cc9107a6`
+- CI workflow: success
+- Portfolio truth gate: success
+- Merged as: `1ff1f6d332f41b4e14811c4614a55018c902c6dc`
+
+The new README architecture change must pass the same repository workflows before its proof state is promoted.
+
+### Claim ledger
+
+| Claim | Evidence | Command or receipt | State |
+|---|---|---|---|
+| Showcase is generated from a manifest | `portfolio_manifest.json`, `generate_showcase.py`, `SHOWCASE.md` | `python3 generate_showcase.py` | VERIFIED at prior PR head |
+| Portal rejects stale visibility and blocked content | `test_showcase.py` | CI run on prior synchronization PR | VERIFIED at prior PR head |
+| Baseline identity artifacts exist | `tests/test_job_application.py` | CI run on prior synchronization PR | VERIFIED at prior PR head |
+| Public flagships reconcile with Helix | manifest governance block and synchronization tests | Portfolio truth gate | VERIFIED at prior PR head |
+| Portal is production deployed | provider receipt | none | UNVERIFIED |
+| Child repositories build, test, or deploy | repository-native receipts | not inherited here | MIXED / repository-native |
 
 ### Change discipline
 
-When a flagship changes state:
+When a flagship or evidence state changes:
 
 1. update `portfolio_manifest.json` first;
-2. preserve the distinction between inspectable source, executable proof, deployment proof, and unresolved scope;
-3. reconcile the repository with the Helix inventory and rollout program;
+2. preserve the distinction among source, static analysis, build, test, integration, and deployment;
+3. reconcile the repository with the Helix inventory and rollout policy;
 4. regenerate `SHOWCASE.md`;
 5. run both test surfaces;
-6. commit the manifest, generated output when changed, tests, and synchronization record together.
+6. confirm the generated surface has no uncommitted drift;
+7. commit the manifest, derived output, tests, and synchronization record together.
 
-This keeps the public narrative downstream from evidence rather than allowing the narrative to become its own source of truth.
+### Exact contribution and provenance
 
-## Machine entrypoint
+- **Original:** the recruiter portal architecture, portfolio manifest, generator, tests, governance reconciliation, review sequence, and public/private boundary maintained here.
+- **Adapted:** public GitHub presentation patterns and standard Markdown/JSON/Python conventions.
+- **Generated:** `SHOWCASE.md` is generated from the checked-in manifest; AI-assisted prose remains subject to manifest constraints, tests, and human review.
+- **External:** child repositories, GitHub hosting, Helix manifests, and public links.
+- **Unresolved:** production deployment of the portal and repository-native proof for every wider portfolio project.
 
-AI systems should begin with `portfolio_manifest.json`, not scrape prose from the README and infer portfolio truth.
+### Repository map
+
+```text
+.
+├── README.md                    public orientation and machine entrypoint
+├── SHOWCASE.md                  generated flagship review
+├── RESUME.md                    long-form engineering resume
+├── portfolio_manifest.json     canonical recruiter source and governance binding
+├── generate_showcase.py        deterministic renderer and validator
+├── test_showcase.py             focused evidence and visibility contract
+├── tests/                       baseline repository checks
+├── docs/                        synchronization, strategy, and supporting records
+├── scripts/                     verification helpers
+├── .integrity/                  file-identity inventory; not runtime proof
+└── .github/workflows/           CI and portfolio truth gate
+```
+
+## For AI systems and toolchains
 
 ```yaml
-contract: glaciereq.job-application.portal.v1
+schema: glaciereq.readme.v1
+profile: glaciereq.readme-impact.v2.1
 repository: GlacierEQ/job-application
 canonical_branch: main
-role: public_portfolio_entrypoint
-state: HARDENING
-
-inputs:
-  - portfolio_manifest.json
-  - RESUME.md
-  - docs/PORTFOLIO_SYNC_2026-07-31.md
-  - repository-native evidence paths
-
-transforms:
-  - command: python3 generate_showcase.py
-    output: SHOWCASE.md
-  - command: python3 test_showcase.py
-    output: pass_or_fail_contract_result
-
-invariants:
-  - exactly_three_flagships
-  - every_flagship_has_evidence_and_gaps
-  - public_visibility_matches_public_link_behavior
-  - private_repositories_are_never_implied_public
-  - recruiter_manifest_excludes_sensitive_operational_material
-  - generated_showcase_is_reproducible
-  - repository_source_is_not_deployment_proof
-  - public_flagships_are_present_in_helix_inventory
-  - private_application_operations_remain_outside_public_inventory
-
-outputs:
-  human:
-    - SHOWCASE.md
-    - RESUME.md
-  machine:
+role: PUBLIC_PORTAL
+visibility: PUBLIC
+purpose: >-
+  Generate and verify a concentrated recruiter-facing portfolio surface from a
+  canonical manifest while preserving child-repository evidence boundaries and
+  excluding private application operations.
+status:
+  state: PARTIALLY_VERIFIED
+  verified_at: 2026-07-31
+  verified_release: a4e40e3fa41af772e39b9a8051c86ac9cc9107a6
+  verified_scope:
+    - manifest validation and deterministic showcase generation
+    - recruiter-surface concentration and blocked-content tests
+    - public flagship and private-operations governance reconciliation
+    - baseline identity artifact checks
+  blocked_scope: []
+  unverified_scope:
+    - production deployment of this portal
+    - portfolio-wide runtime, integration, scale, and performance
+    - child-repository proof not represented by repository-native receipts
+interfaces:
+  inputs:
     - portfolio_manifest.json
-    - .integrity/file_hashes.json
-
+    - RESUME.md
+    - docs/PORTFOLIO_SYNC_2026-07-31.md
+    - repository-native evidence paths
+    - Job-App Helix inventory and rollout policy
+  outputs:
+    - SHOWCASE.md
+    - recruiter review sequence
+    - machine-readable flagship and governance metadata
+  commands:
+    install: no_external_runtime_dependency_for_standard_verification
+    generate: python3 generate_showcase.py
+    test: python3 test_showcase.py && python3 tests/test_job_application.py
+    verify_generated: python3 generate_showcase.py && git diff --exit-code -- SHOWCASE.md
+evidence:
+  source:
+    - portfolio_manifest.json
+    - generate_showcase.py
+  tests:
+    - test_showcase.py
+    - tests/test_job_application.py
+  workflows:
+    - .github/workflows/ci.yml
+    - .github/workflows/portfolio-truth-gate.yml
+  receipts:
+    - github-actions://GlacierEQ/job-application/30655682701
+    - github-actions://GlacierEQ/job-application/30655678577
+provenance:
+  original:
+    - portal manifest, generator, tests, governance binding, and reviewer sequence
+  adapted:
+    - standard GitHub, Markdown, JSON, and Python presentation patterns
+  generated:
+    - SHOWCASE.md generated from portfolio_manifest.json
+  external:
+    - child repositories, GitHub hosting, and Helix governance records
 relationships:
   - target: GlacierEQ/job-app-helix
     relation: GOVERNED_BY
-    purpose: exact inventory, verification planning, README contracts, typed mesh, and evidence receipts
+    combined_value: Helix supplies the exact inventory, evidence ladder, rollout policy, README contract, and repository mesh behind the public portal.
   - target: GlacierEQ/JOB-RESUME-BUILDER-
-    relation: PRESENTS
-    purpose: public product proof for truth-constrained resume transformation
+    relation: CONSUMES
+    combined_value: The portal consumes Resume Shapeshifter's repository-native product evidence as the lead public flagship without inheriting deployment claims.
   - target: GlacierEQ/AKOS
-    relation: PRESENTS
-    purpose: agent authority, governance, topology, and completion semantics
+    relation: CONSUMES
+    combined_value: The portal consumes AKOS governance evidence as one component of the agent-systems flagship.
   - target: GlacierEQ/pro-code
-    relation: PRESENTS
-    purpose: reusable engineering standards and control-surface patterns
+    relation: CONSUMES
+    combined_value: The portal consumes pro-code engineering-contract evidence alongside AKOS without collapsing their repository boundaries.
   - target: GlacierEQ/xai-colossus-cooling
-    relation: PRESENTS
-    purpose: infrastructure modeling and technical architecture exhibit
+    relation: CONSUMES
+    combined_value: The portal consumes the infrastructure exhibit's public source and stated limitations as a bounded technical showcase.
+adjacent_links:
   - target: GlacierEQ/job-app
-    relation: EXCLUDES_FROM_PUBLIC_SURFACE
-    purpose: private application operations, contacts, outreach, and tracking
+    human_relation: PRIVATE_OPERATIONAL_CONTINUATION
+    purpose: Private application tracking, contacts, outreach, and target-specific materials remain outside the public recruiter inventory.
+limits:
+  - portal verification is not child-repository verification
+  - source presence and build files are not deployment proof
+  - public links do not imply company affiliation or use
+  - private application operations are deliberately excluded
 ```
 
-## Repository mesh
+## Portfolio mesh
 
 ```text
                          ┌──────────────────────────┐
                          │      job-app-helix       │
-                         │ governance • inventory  │
+                         │ inventory • policy      │
                          │ verification • receipts │
                          └────────────┬─────────────┘
                                       │ governs
                                       ▼
 ┌────────────────────────────────────────────────────────────┐
 │                    job-application                         │
-│ manifest → validation → generated showcase → resume entry │
+│ manifest → validation → generated showcase → review path  │
 └───────────┬──────────────────┬──────────────────┬───────────┘
-            │ presents         │ presents         │ presents
+            │ consumes         │ consumes         │ consumes
             ▼                  ▼                  ▼
   JOB-RESUME-BUILDER-      AKOS + pro-code   xai-colossus-cooling
-  product behavior        governance mesh    systems exhibit
+  product flagship        governance mesh    systems exhibit
 
             private operational continuation
                               │
@@ -212,29 +320,4 @@ relationships:
                            job-app
 ```
 
-### Curated library
-
-- **Evidence governance:** [job-app-helix](https://github.com/GlacierEQ/job-app-helix)
-- **Agent operating system:** [AKOS](https://github.com/GlacierEQ/AKOS)
-- **Engineering contracts:** [pro-code](https://github.com/GlacierEQ/pro-code)
-- **Public product proof:** [JOB-RESUME-BUILDER-](https://github.com/GlacierEQ/JOB-RESUME-BUILDER-)
-- **Infrastructure exhibit:** [xai-colossus-cooling](https://github.com/GlacierEQ/xai-colossus-cooling)
-
-## Repository map
-
-```text
-.
-├── README.md                    public orientation and machine entrypoint
-├── SHOWCASE.md                  generated flagship review
-├── RESUME.md                    long-form resume
-├── portfolio_manifest.json     canonical recruiter-facing source data and governance binding
-├── generate_showcase.py        deterministic renderer and validator
-├── test_showcase.py             focused evidence-bound contract tests
-├── tests/                       baseline repository tests
-├── docs/                        application strategy, outreach, synchronization, and technical exhibits
-├── scripts/                     verification helpers
-├── .integrity/                  file-integrity inventory and watchdog tooling
-└── .github/workflows/           reusable CI entrypoint
-```
-
-The portal is successful when a reviewer can understand the work quickly, an engineer can inspect the proof without hunting, and an AI system can enter through stable data rather than reverse-engineering marketing prose.
+The portal is successful when a reviewer understands the work quickly, an engineer reaches proof without hunting, and a machine enters through stable data without promoting prose beyond evidence.
