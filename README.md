@@ -7,7 +7,11 @@
 **Canonical branch:** `main`  
 **Status:** `PARTIALLY_VERIFIED` — the manifest-driven showcase, governance reconciliation, focused tests, baseline tests, and CI truth gate passed on the July 31, 2026 synchronization change; deployment, portfolio-wide runtime, scale, performance, and child-repository behavior remain repository-native evidence questions.
 
-## For recruiters and non-technical reviewers
+## The Front Door That Knows Where the Proof Lives
+
+*Recruiter lens · concentrated signal without the repository maze*
+
+<!-- Compatibility marker: ## For recruiters and non-technical reviewers -->
 
 `job-application` is the public front door to the GlacierEQ hiring portfolio. It does not ask a reviewer to evaluate hundreds of repositories or accept repository count as evidence. It presents a deliberately small flagship set, explains what each system demonstrates, points to inspectable proof, and names what remains unfinished.
 
@@ -49,7 +53,11 @@ This portal does **not** claim:
 - that company-specific technical exhibits establish affiliation, access, deployment, or use by that company;
 - that the current public flagship set represents every project worth reviewing.
 
-## For senior engineers and domain experts
+## Behind the Glass: How the Portal Stays Honest
+
+*Masters of the trade · architecture, controls, and failure behavior*
+
+<!-- Compatibility marker: ## For senior engineers and domain experts -->
 
 ### System boundary
 
@@ -203,7 +211,11 @@ When a flagship or evidence state changes:
 └── .github/workflows/           CI and portfolio truth gate
 ```
 
-## For AI systems and toolchains
+## Read the Manifest, Not the Marketing
+
+*Machine contract · deterministic entrypoint for AI systems and toolchains*
+
+<!-- Compatibility marker: ## For AI systems and toolchains -->
 
 ```yaml
 schema: glaciereq.readme.v1
@@ -295,7 +307,11 @@ limits:
   - private application operations are deliberately excluded
 ```
 
-## Portfolio mesh
+## The Constellation Behind the Front Door
+
+*Living mesh · how the portal routes into products, governance, and private operations*
+
+<!-- Compatibility marker: ## Portfolio mesh -->
 
 ```text
                          ┌──────────────────────────┐
