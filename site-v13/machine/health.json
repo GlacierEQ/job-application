@@ -1,0 +1,7 @@
+{
+  "status": "ok",
+  "service": "glaciereq-invention-portfolio",
+  "version": "13.0.0-rc1",
+  "narrative_sections": 11,
+  "mode": "invention-first"
+}
