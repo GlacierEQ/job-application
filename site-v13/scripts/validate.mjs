@@ -10,7 +10,15 @@ const assert = (condition, message) => {
 };
 
 const html = read("index.html");
-const css = read("assets/site.css");
+const cssFiles = [
+  "assets/site.css",
+  "assets/site.base.css",
+  "assets/site.constellation.css",
+  "assets/site.gallery.css",
+  "assets/site.foundation.css",
+  "assets/site.responsive.css"
+];
+const css = cssFiles.map(read).join("\n");
 const js = read("assets/site.js");
 const graph = JSON.parse(read("data/portfolio.graph.json"));
 const bootstrap = JSON.parse(read("machine/bootstrap.json"));
@@ -88,6 +96,7 @@ assert(js.includes("renderEvidenceClaim"), "evidence renderer missing");
 assert(css.includes(".constellation-node"), "constellation visual styles missing");
 assert(css.includes(".story-node"), "story diagram styles missing");
 assert(css.includes(".foundation-runtime"), "foundation visual styles missing");
+assert(css.includes("prefers-reduced-motion"), "reduced-motion protection missing");
 
 assert(bootstrap.graph === "/data/portfolio.graph.json", "bootstrap graph path drift");
 assert(runtime.human_routes.machine === "/#machine-interfaces", "runtime route contract drift");
@@ -96,7 +105,7 @@ assert(vercel.rewrites.some((route) => route.source === "/api/portfolio"), "port
 
 for (const file of [
   "index.html",
-  "assets/site.css",
+  ...cssFiles,
   "assets/site.js",
   "assets/favicon.svg",
   "assets/og-card.svg",
@@ -138,6 +147,7 @@ console.log(JSON.stringify({
   systems: graph.systems.length,
   featured_stories: graph.systems.filter((system) => system.featured).map((system) => system.id),
   akos_role: "foundation_only",
+  stylesheets: cssFiles.length,
   files: releaseFiles.length,
   release_digest: digest.digest("hex")
 }, null, 2));
