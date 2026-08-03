@@ -1,0 +1,13 @@
+{
+  "name": "glaciereq-invention-portfolio",
+  "private": true,
+  "version": "13.0.0-rc1",
+  "type": "module",
+  "scripts": {
+    "check": "node --check assets/site.js && node scripts/validate.mjs",
+    "test": "npm run check"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
