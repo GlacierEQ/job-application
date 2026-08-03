@@ -1,0 +1,16 @@
+{
+  "schema": "glaciereq.machine-bootstrap.v13",
+  "version": "13.0.0-rc1",
+  "candidate": "Casey Barton",
+  "studio": "GlacierEQ",
+  "mode": "invention-first",
+  "human_entry": "/#who-casey-is",
+  "invention_entry": "/#innovation-constellation",
+  "evidence_entry": "/#evidence-demonstrations",
+  "resume_entry": "/#resume-role-alignment",
+  "graph": "/data/portfolio.graph.json",
+  "runtime": "/machine/runtime.json",
+  "evidence": "/machine/evidence.json",
+  "authority": "none_by_ingestion",
+  "truth_boundary": "Public source, tests, live routes, generated artifacts, architecture, and deployment are separate evidence states. Private architecture is labeled as such. No company affiliation, customer deployment, production scale, hiring outcome, or unrestricted capability is implied."
+}
