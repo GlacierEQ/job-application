@@ -1,0 +1,54 @@
+{
+  "schema": "glaciereq.evidence-contract.v13",
+  "version": "13.0.0-rc1",
+  "states": [
+    {
+      "id": "claim",
+      "label": "Claim",
+      "meaning": "A bounded statement worth testing."
+    },
+    {
+      "id": "source",
+      "label": "Source",
+      "meaning": "The exact repository or artifact path."
+    },
+    {
+      "id": "behavior",
+      "label": "Behavior",
+      "meaning": "Executable or inspectable implementation."
+    },
+    {
+      "id": "test",
+      "label": "Test",
+      "meaning": "A check with a defined scope."
+    },
+    {
+      "id": "artifact",
+      "label": "Artifact",
+      "meaning": "A generated output or receipt."
+    },
+    {
+      "id": "verification",
+      "label": "Verification",
+      "meaning": "Independent confirmation of the target state."
+    },
+    {
+      "id": "boundary",
+      "label": "Boundary",
+      "meaning": "What the evidence does not establish."
+    }
+  ],
+  "separate_axes": [
+    "implementation_state",
+    "evidence_level",
+    "deployment_state",
+    "visibility"
+  ],
+  "rules": [
+    "Repository presence is not deployment proof.",
+    "A test count is scoped to the recorded revision and environment.",
+    "Private architecture remains labeled private.",
+    "Company alignment never implies affiliation or use.",
+    "Every major claim must expose a limitation or unresolved promotion gate."
+  ]
+}
