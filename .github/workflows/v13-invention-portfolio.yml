@@ -1,0 +1,35 @@
+name: V13 Invention Portfolio
+
+on:
+  pull_request:
+    paths:
+      - "site-v13/**"
+      - ".github/workflows/v13-invention-portfolio.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "site-v13/**"
+      - ".github/workflows/v13-invention-portfolio.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out source without persistent credentials
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Verify invention-first source, visuals, and contracts
+        working-directory: site-v13
+        run: npm run check
