@@ -88,7 +88,7 @@ assert(!/\b\d{3}[-.) ]?\d{3}[-. ]?\d{4}\b/.test(html + read("README.md")), "publ
 assert(!html.includes("AWS Cloud Institute master"), "unsupported degree language detected");
 assert(!html.includes("production-grade"), "unsupported production-grade language detected");
 
-assert(js.includes('fetch("/data/portfolio.graph.json"'), "site does not load canonical graph");
+assert(js.includes('fetch("/data/portfolio.graph.json")'), "site does not load canonical graph");
 assert(js.includes("renderConstellation"), "constellation renderer missing");
 assert(js.includes("renderStory"), "story renderer missing");
 assert(js.includes("renderGallery"), "gallery renderer missing");
