@@ -1,0 +1,9 @@
+{
+  "schema": "glaciereq.portfolio-depth.v1",
+  "flagship_registry": "/data/flagship-registry.json",
+  "company_suites": "/data/company-suites.json",
+  "curated_systems": "/data/portfolio.graph.json",
+  "governed_portfolio": "https://github.com/GlacierEQ/job-app-helix/blob/main/manifests/portfolio_repositories.json",
+  "presentation_rule": "Show promoted systems first, coherent company suites second, and the full governed inventory on demand.",
+  "states": ["CROWN_JEWEL", "EMERGING_FLAGSHIP", "SUPPORTING", "TECHNICAL_EXHIBIT", "BLOCKED", "PRIVATE_REFERENCE", "REFERENCE_ONLY", "HISTORICAL"]
+}
