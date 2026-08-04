@@ -1,128 +1,137 @@
-# KcB Flux — Senior Systems & AI Engineer
+# Casey Del Carpio Barton
 
-> **Multi-language systems architect specializing in AI infrastructure, distributed computing, and autonomous agent orchestration.**
+**Applied AI Systems Architect · Forward-Deployed AI Engineer · Agent Infrastructure Engineer**
 
----
+Honolulu, Hawaiʻi · glacier.equilibrium@gmail.com  
+[Portfolio](https://casey-barton-glaciereq.vercel.app) · [GitHub](https://github.com/GlacierEQ)
 
-## Contact
+> Public contact boundary: direct phone and private application details are intentionally excluded from this repository and belong only in submission-specific packets.
 
-| | |
-|---|---|
-| **GitHub** | [github.com/GlacierEQ](https://github.com/GlacierEQ) |
-| **Portfolio** | 66+ open-source repositories across 21 programming languages |
-| **Location** | Available for remote / hybrid positions |
+## Professional Profile
 
----
+Applied AI systems builder focused on the missing operating layer between model capability and usable outcomes. I design interconnected systems for application intelligence, multi-agent coordination, polyglot architecture, document evidence, portable context, and human-machine interaction.
 
-## Professional Summary
+My working pattern comes from field inspection as much as software: identify the actual failure, distinguish observation from inference, build the narrowest useful system, test the claimed behavior, expose the limitation, and leave an artifact another person or machine can inspect.
 
-Full-stack systems engineer with deep expertise spanning **AI/ML infrastructure**, **distributed systems architecture**, **GPU-accelerated computing**, and **multi-agent orchestration**. Builder of production-grade systems across **21 programming languages** — from bare-metal C and Rust to Python ML pipelines and CUDA GPU kernels. Proven track record designing and deploying fault-tolerant, high-throughput systems serving enterprise-scale workloads across cloud, edge, and custom hardware platforms.
+## What I Build
 
----
+- **Application intelligence:** systems that connect role research, repository evidence, truthful résumé generation, portfolio presentation, package state, and follow-up.
+- **Agent coordination:** deterministic ownership, dependency ordering, budgets, bounded retries, status transitions, and visible closure.
+- **Polyglot architecture:** explicit language boundaries based on measurable system value rather than novelty.
+- **Document and evidence systems:** preservation, extraction, transformation, rendering, provenance, validation, and artifact packaging.
+- **Human and machine interfaces:** different views of one factual graph without allowing claims to drift between audiences.
+- **Runtime foundations:** reusable authority, evidence, and completion primitives that support the inventions without replacing them.
 
-## Core Technical Competencies
+## Selected Invention Systems
 
-### Languages (21 — Demonstrated Mastery)
+### [Job Application Helix](https://github.com/GlacierEQ/job-app-helix)
+**Application intelligence and portfolio orchestration**
 
-| Tier | Languages |
-|---|---|
-| **Primary** | Python, TypeScript, JavaScript, Go, Rust, C++, C |
-| **GPU/HPC** | CUDA, Triton, Mojo |
-| **Systems** | Zig, Odin, Swift, Verilog |
-| **Scientific** | Julia, R, SQL |
-| **Functional** | Haskell, Elixir, Lean 4 |
-| **Infrastructure** | Protobuf, WebAssembly (WAT) |
+- Treats a job application as a coordinated system rather than a résumé plus disconnected repository links.
+- Routes opportunity context and project evidence into role-specific human and machine surfaces.
+- Separates repository presence, test evidence, promotion state, public visibility, and application-package state.
+- Current recorded workstream evidence: **148/148 repository tests**; promotion remains bounded by receipt refresh and release-specific verification.
 
-### AI / Machine Learning
+### [The Tower of Babel](https://github.com/GlacierEQ/the-tower-of-babel)
+**Polyglot architecture where every language earns its boundary**
 
-- **LLM Infrastructure**: KV-cache optimization, flash attention kernels, mixture-of-experts routing, multi-head latent attention
-- **Agent Systems**: Multi-agent orchestration with MCP (Model Context Protocol), tool-use coordination, autonomous reasoning chains
-- **GPU Programming**: CUDA kernel development, Triton fused operators, TPU mesh optimization, FP8/FP16 quantization
-- **ML Ops**: Model serving pipelines, inference optimization, distributed training coordination, ONNX runtime integration
+- Defines TypeScript for orchestration, Python for analysis and document intelligence, SQL for canonical state, Rust for justified integrity work, and optional Go for service boundaries.
+- Makes ownership, contracts, failure modes, and adoption evidence explicit for each language boundary.
+- Prevents both language monoculture and résumé-driven technology theater.
+- Public architecture and contracts are inspectable; every adopting implementation remains independently testable.
 
-### Distributed Systems & Infrastructure
+### [Agent Coordinator](https://github.com/GlacierEQ/anthropic-agent-coordinator)
+**Deterministic multi-agent scheduling and resource control**
 
-- **Container Orchestration**: Docker (multi-stage builds, non-root, pinned versions), Kubernetes, microservice architecture
-- **Cloud Platforms**: AWS (Trainium/Neuron), Azure, Google Cloud (BigQuery, Dataflow, TPU), Firebase (Auth, Firestore, Hosting)
-- **Databases**: PostgreSQL (pgvector, HNSW), MongoDB, Prisma ORM, SQLAlchemy, Redis
-- **Networking**: gRPC/Protobuf, WebSocket bridges, UDP telemetry decoders, lock-free SPSC ring buffers
+- Assigns task ownership, dependency order, resource ceilings, state transitions, and closure semantics.
+- Prioritizes accountable coordination over unconstrained swarm behavior.
+- Current recorded evidence: **62/62 Python 3.13 tests**; hosted matrix and build-wheel promotion remain open.
 
-### Frontend & Full-Stack
+### [Résumé Shapeshifter](https://github.com/GlacierEQ/JOB-RESUME-BUILDER-)
+**One factual identity, multiple role-calibrated presentations**
 
-- **Frameworks**: Next.js, React, Express.js, Vite
-- **Styling**: Tailwind CSS (not mixed with inline styles), responsive design (sm:/md:/lg:/xl:)
-- **Real-Time**: Server-Sent Events, WebSocket, MCP stdio JSON-RPC 2.0
+- Separates source facts from presentation strategy so tailored outputs remain consistent and reviewable.
+- Preserves original content beside proposed changes and rejects represented fabrication modes.
+- Public source and generated résumé artifacts are inspectable; ATS ranking and hiring outcomes are not claimed.
 
-### Hardware & Embedded
+### [Recruiter Runtime Portfolio](https://github.com/GlacierEQ/job-application)
+**Human and machine presentation from one evidence graph**
 
-- **FPGA/ASIC**: Verilog RTL design, systolic array matrix multiply units, TPU-style accelerators
-- **Apple Silicon**: Metal GPU compute, Apple Neural Engine (ANE) FP16 acceleration, Swift native
-- **Robotics**: ISO 10218-1 compliant torque controllers, minimum-jerk trajectory planning, VLA (Vision-Language-Action) models
+- Builds an invention-first recruiter experience with an interactive constellation, visual case studies, repository filters, combination workflows, evidence chains, role maps, and machine contracts.
+- V12 is currently observable at the public Vercel URL; V13 is a self-contained source release candidate under `site-v13/`.
+- V13 deployment is not claimed until a commit-bound deployment and route receipt are attached.
 
----
+### [PSYSOC-X](https://github.com/GlacierEQ/AKOS/tree/main/stones/psysoc-x)
+**Deterministic human calibration with evidence and dignity boundaries**
 
-## Open-Source Portfolio Highlights
+- Changes tone, density, skepticism, ordering, and humor without changing evidence, uncertainty, dignity, or authority.
+- Uses inspectable calibration loadouts and critical-context safeguards.
+- Current public AKOS evidence records **4/4 PSYSOC-X tests**; no psychological diagnosis or manipulation capability is claimed.
 
-### 🏗️ [The Tower of Babel](https://github.com/GlacierEQ/the-tower-of-babel)
-**21-language Rosetta Stone** with W4H framework. Each language demonstrates easy + advanced production exhibits with domain-specific placement rationale. Languages span systems (C, Rust, Zig), AI (Python, CUDA, Triton), hardware (Verilog), functional (Haskell, Lean 4), and more.
+### [AKOS](https://github.com/GlacierEQ/AKOS)
+**Supporting authority, evidence, and closure foundation**
 
-### ⚡ [xAI Colossus Infrastructure Suite](https://github.com/GlacierEQ?tab=repositories&q=xai-colossus)
-**8 repositories** modeling xAI Colossus datacenter infrastructure: energy optimization (Rust + Python), cooling systems (gRPC + Protobuf), GPU server management, security, nanosphere compute, and training flux coordination. Production patterns for 100,000+ GPU cluster management.
+- Separates capability, authentication, authorization, invocation, return, verification, and persistence.
+- Supplies reusable runtime discipline beneath higher-level products.
+- Current public README records **118/118 full tests, 10/10 forge tests, and 4/4 PSYSOC-X tests** at repository scope.
+- AKOS is intentionally presented as foundation infrastructure—not as the primary output of the portfolio.
 
-### 🚀 [SpaceX Mission Systems Suite](https://github.com/GlacierEQ?tab=repositories&q=spacex)
-**10 repositories** covering orbital mechanics (C++ + Julia ODEs), launch sequencing, telemetry decoding (Go UDP), pad weather gating, thermal protection (Odin), cryogenics, ground network, satellite mesh, and conjunction assessment. Real-time, safety-critical systems design.
+## Active Private Architecture
 
-### 🧠 [AI Research & Inference Optimization](https://github.com/GlacierEQ?tab=repositories&q=sentinel)
-- **openai-reasoning-kv-sentinel** — C++ KV-cache entropy pruning for reasoning models
-- **deepseek-mla-moe-sentinel** — Multi-head latent attention + MoE routing in C
-- **meta-llama-collective-sentinel** — C++ NCCL collective monitoring for distributed training
-- **nvidia-deep-reasoning** — CUDA deep reasoning kernels
-- **kimi-mooncake-kv-stream** — Rust lock-free ring buffer + Go disaggregated scheduler
-- **qwen-vl-flash-router** — TypeScript multi-modal flash attention router + CUDA vision pipeline
+These systems are described at architecture level and are not presented as publicly verified repositories:
 
-### 🤖 [Autonomous Agent Platforms](https://github.com/GlacierEQ?tab=repositories&q=agent)
-- **anthropic-agent-coordinator** — Multi-agent coordination with safety monitoring
-- **manus-autonomous-web-agent** — TypeScript autonomous web task execution
-- **comet-browser-agent-bridge** — DOM mutation + CDP dispatch bridge
-- **tasklet-micro-agent-engine** — Lightweight micro-agent execution runtime
-- **glaciereq-mcp-stack** — MCP gateway with JSON-RPC 2.0 routing
+- **Echoes:** portable conversation continuity with separate raw-history, durable-fact, hypothesis, and task-memory layers.
+- **MEGA-PDF:** source preservation, extraction, claim mapping, transformation, render inspection, packaging, and provenance receipts.
+- **Sigma Federation:** independent products coordinated through explicit integration state and authority ownership.
+- **FILEBOSS:** file intelligence that separates inventory, classification, proposal, authorization, mutation, and verification.
 
-### 🏛️ [Mastermind Orchestrator](https://github.com/GlacierEQ/mastermind)
-Enterprise-grade multi-agent orchestration platform with SHA-256 integrity verification, CI audit pipelines, and automated portfolio health monitoring across 66+ repositories.
+## Independent Technical Exhibits
 
-### 🔬 [Tesla FSD Occupancy Stream](https://github.com/GlacierEQ/tesla-fsd-occupancy-stream)
-CUDA voxel raycasting kernel for 3D occupancy grid construction from 8-camera surround vision. Go BEV (Bird's-Eye-View) coordinate transformer with ego-relative world↔grid conversion.
+Company-aligned work is bounded independent research. It does not imply employment, affiliation, endorsement, proprietary access, production deployment, or customer impact.
 
-### 🦾 [Robotics VLA Torque Sentinel](https://github.com/GlacierEQ/robotics-vla-torque-sentinel)
-C++ ISO 10218-1 compliant torque safety controller with collision detection + Rust minimum-jerk 5th-order polynomial trajectory planner for 7-DOF collaborative robot arms.
+- **xAI-aligned:** [Colossus Cooling Exhibit](https://github.com/GlacierEQ/xai-colossus-cooling), connecting field-observation discipline to bounded infrastructure modeling.
+- **Anthropic-aligned:** Agent Coordinator and related reliable-agent experiments.
+- **Other company-aligned exhibits:** selected public-domain studies for AI infrastructure, hardware, cloud, distributed systems, and mission software, each limited to its inspectable repository evidence.
 
----
+## Professional Experience
 
-## Architecture Philosophy
+### GlacierEQ — Independent Applied AI Systems Studio
+**Founder / Applied AI Systems Builder · January 2025–Present**
 
-- **Right tool for the job**: Every language serves its exact domain — Rust for safety-critical, CUDA for GPU compute, Go for concurrent I/O, Haskell for formal verification
-- **Production-first**: All code follows production patterns — error handling, testing, documentation, CI/CD
-- **Defense in depth**: SHA-256 integrity manifests, circuit breakers, rate limiting, non-root containers
-- **Polyglot by design**: Systems that scale require heterogeneous language stacks optimized per layer
+- Designs, implements, audits, and documents interconnected AI, agent, document, memory, evidence, infrastructure, and hiring systems.
+- Converts broad architectural ideas into structured contracts, runnable slices, failure behavior, test gates, machine surfaces, and recruiter-ready explanations.
+- Maintains explicit public/private boundaries, provenance, current evidence levels, and promotion criteria.
+- Uses AI-assisted development as an inspectable workflow: source review, bounded generation, deterministic validation, human judgment, and current-state verification.
 
----
+### Diamond Head Home Inspections — Certified Home Inspector
+**Honolulu, Hawaiʻi · 2020–2024**
 
-## Development Practices
+- Inspected residential systems and translated field observations into clear, decision-ready reports.
+- Developed disciplined habits around evidence capture, uncertainty, safety, system interaction, defect priority, and communication under time constraints.
+- Carries the same method into software: observe first, distinguish symptoms from causes, test the boundary, and avoid unsupported conclusions.
 
-- **Testing**: Unit tests across all repositories, CI audit pipelines, integration testing
-- **Security**: Runtime secret injection (never baked into images), USER directive in containers, pinned base images
-- **Database**: Prisma migrate deploy in production, select/include to avoid over-fetching, transaction isolation
-- **Frontend**: Responsive prefixes (sm:/md:/lg:), component extraction, no arbitrary values when utility classes exist
-- **Git**: Protected branches, conventional commits, automated integrity verification
+## Education
 
----
+**University of Hawaiʻi at Mānoa** — B.S., Marine Biology, 2016  
+**AWS Cloud Institute** — Cloud Application Developer program, 2025–2026, in progress
 
-## Education & Continuous Learning
+## Technical Profile
 
-- Self-directed deep study across systems programming, distributed computing, AI/ML, aerospace engineering, formal methods, and hardware design
-- Active contributor to open-source tooling and AI infrastructure
-- 66+ public repositories demonstrating breadth and depth of technical mastery
+**Primary implementation:** Python, TypeScript, JavaScript, SQL, Bash, Node.js, React, Next.js, FastAPI  
+**Architecture and contracts:** REST, JSON-RPC, MCP, JSON Schema, Protocol Buffers, event and state-machine design, idempotency, evidence and authority models  
+**Data and documents:** SQLite, PostgreSQL concepts, structured extraction, document generation and inspection, provenance, integrity hashing  
+**Delivery and verification:** Git, GitHub Actions, Docker, Vercel, automated tests, static analysis, dependency auditing, deterministic release checks  
+**Additional project exposure:** Go, Rust, C, C++, CUDA, Swift/Metal, Julia, R, Verilog/SystemVerilog, WebAssembly, and cloud or accelerator-specific systems—claimed only at the evidence level shown by each repository
 
----
+## Working Principles
 
-*References and additional portfolio details available upon request.*
+- Build the invention before explaining the framework.
+- Capability is not authority, and a returned response is not verified completion.
+- Source presence is not current behavioral proof.
+- A language must earn its architectural boundary.
+- A successful build is not a production deployment.
+- Completion requires a usable artifact, verification, persistence, and an honest boundary.
+
+## Evidence Boundary
+
+This résumé describes independently built or governed GlacierEQ systems and bounded technical exhibits. It does not claim company affiliation, proprietary access, customer use, production scale, measured business impact, recruiter conversion, or hiring outcomes unless an exact cited receipt independently establishes that fact.

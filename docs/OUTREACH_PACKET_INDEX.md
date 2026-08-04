@@ -1,180 +1,128 @@
 # Outreach Packet Index
-**GlacierEQ/job-application — Execution Reference**
 
-This document defines the exact outreach packet composition for each target company, the send sequence, and the channel strategy. Use this as the operational playbook when initiating contact.
+**GlacierEQ/job-application — evidence-bound execution reference**
 
----
+This document defines the minimum recruiter packet for each opportunity. It uses the canonical public [`RESUME.md`](../RESUME.md) and the invention-first portfolio. `RESUME_STRATEGIC.md` is historical and must not be sent unless it is regenerated from the canonical résumé and passes the same privacy and truth gates.
 
 ## Packet Anatomy
 
-Every outreach packet has five layers, customized per company:
+Every packet contains only the material needed for the specific role:
 
-```
-[1] INTRO MESSAGE       — 3-4 sentence direct outreach (not a cover letter)
-[2] RESUME              — RESUME_STRATEGIC.md (not RESUME.md — strategic variant always)
-[3] TECHNICAL BRIEF     — TECHNICAL_BRIEF.md (trimmed to company-relevant sections)
-[4] COMPANY PACKET      — docs/applications/<company>_*.md (the tailored proof doc)
-[5] PROOF REPOS         — Selected GitHub repos (not all — just the relevant ones)
-```
-
-Never send all 24+ docs. Send the 4-5 pieces that speak directly to this company's problems.
-
----
-
-## Company-Specific Packets
-
-### xAI
-
-**Primary angle:** Colossus-class AI infrastructure, M2A protocol, control plane engineering
-
-**Send in this order:**
-| # | Document | Purpose |
-|---|---|---|
-| 1 | Intro message (see template below) | Door opener |
-| 2 | `RESUME_STRATEGIC.md` | Credentials |
-| 3 | `docs/applications/xai_statement_of_exceptional_work.md` | The proof |
-| 4 | `XAI_COLOSSUS_AUDIT.md` | Domain mastery |
-| 5 | `TECHNICAL_DEEP_DIVE_COOLING.md` or `POWER.md` | Technical depth (choose 1) |
-
-**Repos to link:** `xai-colossus-cooling`, `xai-colossus-energy`, `apex-stack`, `colossus-gateway`
-
-**Channel:** Direct to engineering team member (not careers page). Target: infrastructure leads, ML systems engineers, or someone who has tweeted/posted about Colossus.
-
-**xAI Intro Message Template:**
-```
-I'm a systems architect who has spent the past two years building a 
-Colossus-inspired AI infrastructure stack — cooling, power, security, 
-deployment, and a multi-agent control plane. The work is live on GitHub. 
-I'd like to show you what I built and talk about joining the team that 
-is building the real thing.
-
-[github.com/GlacierEQ/job-application]
+```text
+1. DIRECT INTRODUCTION
+2. RESUME.md
+3. ONE ROLE-RELEVANT INVENTION STORY
+4. TWO OR THREE CANONICAL REPOSITORY LINKS
+5. OPTIONAL TECHNICAL BRIEF
 ```
 
----
+Do not send a repository dump. Do not attach private contact data to public artifacts. Direct phone and submission-specific details belong only in the private application package.
 
-### SpaceX / Starlink
+## Selection Rule
 
-**Primary angle:** Mission-critical control planes, telemetry pipelines, deployment automation
+Choose evidence in this order:
 
-**Send in this order:**
-| # | Document | Purpose |
-|---|---|---|
-| 1 | Intro message | Door opener |
-| 2 | `RESUME_STRATEGIC.md` | Credentials |
-| 3 | `docs/applications/spacex_proof_of_work.md` | The proof |
-| 4 | `TECHNICAL_BRIEF.md` | Technical overview |
-| 5 | `ENGINEERING_VERIFIED.md` | Reliability discipline |
+1. A working public repository directly relevant to the role
+2. A scoped test or artifact receipt
+3. A visual invention story showing problem → mechanism → output
+4. A bounded company-aligned exhibit only when it adds real domain relevance
+5. Private architecture only when clearly labeled as architecture, never as public implementation
 
-**Repos to link:** `apex-stack`, `colossus-gateway`, `xai-colossus-build`
+## Role Packets
 
-**Channel:** LinkedIn direct to ground software or flight software engineers. SpaceX careers page as parallel track.
+### Applied AI Systems Architect
 
-**SpaceX Intro Message Template:**
-```
-I'm a distributed systems architect with a production-grade control 
-plane and telemetry pipeline stack. I build systems where audit 
-trails and graceful degradation are non-negotiable first principles — 
-the same discipline that matters at SpaceX scale. The work is live 
-and verifiable.
+**Primary narrative:** Casey repeatedly identifies missing coordination, evidence, memory, or artifact layers and turns them into connected systems.
 
-[github.com/GlacierEQ/job-application]
-```
+**Core material:**
 
----
+- [`RESUME.md`](../RESUME.md)
+- [Job Application Helix](https://github.com/GlacierEQ/job-app-helix)
+- [The Tower of Babel](https://github.com/GlacierEQ/the-tower-of-babel)
+- [Recruiter Runtime Portfolio](https://github.com/GlacierEQ/job-application)
+- Portfolio invention constellation and combination workflows
 
-### NVIDIA
+### Forward-Deployed Engineer
 
-**Primary angle:** AI factory infrastructure, NIM microservices, platform orchestration
+**Primary narrative:** Casey translates ambiguous real-world operations into inspectable software, artifacts, and feedback loops.
 
-**Send in this order:**
-| # | Document | Purpose |
-|---|---|---|
-| 1 | Intro message | Door opener |
-| 2 | `RESUME_STRATEGIC.md` | Credentials |
-| 3 | `docs/applications/nvidia_ai_infra_pitch.md` | The proof |
-| 4 | `PROJECT_SHOWCASE.md` | Breadth of work |
-| 5 | `SKILLS_MATRIX.md` | Technical depth map |
+**Core material:**
 
-**Repos to link:** `apex-stack`, `xai-colossus-cooling`, `xai-colossus-energy`
+- [`RESUME.md`](../RESUME.md)
+- [Job Application Helix](https://github.com/GlacierEQ/job-app-helix)
+- [Résumé Shapeshifter](https://github.com/GlacierEQ/JOB-RESUME-BUILDER-)
+- [Colossus Cooling Exhibit](https://github.com/GlacierEQ/xai-colossus-cooling)
+- One role-specific problem → implementation → evidence explanation
 
-**Channel:** LinkedIn direct to Developer Relations, Platform Engineering, or AI Infrastructure teams. NVIDIA careers portal as parallel track.
+### Agent Infrastructure Engineer
 
-**NVIDIA Intro Message Template:**
-```
-I build AI infrastructure orchestration systems — routing, registry 
-validation, audit persistence, and connector mesh. I've been studying 
-the NIM microservices model and the DGX AI factory architecture closely. 
-I want to build the control plane software that sits on top of your 
-hardware. Here's what I've built so far.
+**Primary narrative:** Casey builds bounded coordination, runtime state, language boundaries, and durable evidence for agent systems.
 
-[github.com/GlacierEQ/job-application]
-```
+**Core material:**
 
----
+- [`RESUME.md`](../RESUME.md)
+- [Agent Coordinator](https://github.com/GlacierEQ/anthropic-agent-coordinator)
+- [The Tower of Babel](https://github.com/GlacierEQ/the-tower-of-babel)
+- [AKOS](https://github.com/GlacierEQ/AKOS) as supporting infrastructure
+- The evidence-chain and runtime-boundary surfaces
 
-### Anthropic
+## Company-Aligned Routing
 
-**Primary angle:** Agent memory infrastructure, audit trails, reliable tool use
+Company alignment changes the order of evidence, not the truth level of the evidence.
 
-**Send in this order:**
-| # | Document | Purpose |
-|---|---|---|
-| 1 | Intro message | Door opener |
-| 2 | `RESUME_STRATEGIC.md` | Credentials |
-| 3 | `docs/applications/anthropic_reliable_agents_pitch.md` | The proof |
-| 4 | `TECHNICAL_BRIEF.md` | Technical overview |
-| 5 | `ENGINEERING_VERIFIED.md` | Reliability discipline |
+### Anthropic-aligned opportunities
 
-**Repos to link:** `apex-stack` (M2A + Aspen memory), `colossus-gateway`
+Lead with Agent Coordinator and reliable-agent infrastructure. Describe repository-scoped tests precisely. Do not imply Anthropic affiliation or production use.
 
-**Channel:** Anthropic careers page (they have a structured process — respect it). Parallel: LinkedIn to Research Engineers or Trust & Safety Infrastructure team.
+### xAI-aligned opportunities
 
-**Anthropic Intro Message Template:**
-```
-I build the infrastructure layer that makes AI agents reliable — 
-persistent memory, auditable routing, structured decision trails, 
-and graceful degradation. I've been thinking carefully about the 
-engineering problems underneath the model layer, and I believe 
-reliable agent infrastructure is the most important unsolved problem 
-in applied AI right now. Here's what I've built.
+Lead with the bounded Colossus Cooling Exhibit and the field-inspection-to-infrastructure reasoning transfer. Do not imply Colossus site access, proprietary data, deployment, or measured performance impact.
 
-[github.com/GlacierEQ/job-application]
+### Cloud and AI-platform opportunities
+
+Lead with Job Application Helix, Tower of Babel, Recruiter Runtime, and the machine-contract layer. Select the platform-specific exhibit only when its public source supports the stated claim.
+
+### Mission or physical-systems opportunities
+
+Lead with field inspection discipline, bounded modeling, and failure-state reasoning. Avoid scale language unless a cited artifact measures it.
+
+## Introduction Pattern
+
+Use this structure rather than a generic claim-heavy pitch:
+
+```text
+I build applied AI systems around the operational gaps that appear after a model can generate an answer: coordination, evidence, document closure, memory, and human handoffs.
+
+For this role, the most relevant examples are [INVENTION 1] and [INVENTION 2]. The attached résumé and portfolio show the problem each system addresses, how it works, what can be inspected now, and what remains outside the evidence.
+
+[PORTFOLIO URL]
 ```
 
----
+## Send Gate
 
-## Send Sequence
+Before sending, confirm:
 
-```
-Week 1:  xAI (highest priority)
-Week 2:  SpaceX
-Week 3:  NVIDIA
-Week 4:  Anthropic
-```
+- the role and company are named correctly;
+- the canonical `RESUME.md` is used;
+- no public artifact contains a direct phone number or private contact data;
+- every project link resolves to the intended public repository;
+- test counts are scoped to a repository and recorded workstream;
+- architecture-only systems are labeled architecture-only;
+- company alignment does not imply affiliation, endorsement, proprietary access, or deployment;
+- the packet contains no stale “production-grade,” scale, mastery, or hiring-outcome claims;
+- the portfolio route shown to the recipient matches the role.
 
-Do not batch-send. Each company deserves a focused, deliberate outreach moment.
+## Follow-Up State
 
----
+Track each opportunity with:
 
-## Follow-Up Cadence
+- company and role;
+- source URL for the opening;
+- date and channel of first contact;
+- exact packet version sent;
+- repositories included;
+- response status;
+- next action and due date;
+- evidence or résumé changes required before another send.
 
-| Day | Action |
-|---|---|
-| Day 0 | Send intro + packet |
-| Day 5 | Brief follow-up: "Wanted to make sure this landed." |
-| Day 14 | Final follow-up: reference a specific recent development at the company |
-| Day 21 | Move to passive track (quarterly check-in) |
-
-See `FOLLOW_UP_TEMPLATES.md` for full message templates.
-
----
-
-## Tracking
-
-Use `JOB_SEARCH_STRATEGY.md` for status tracking. Each company should have:
-- Date of first outreach
-- Channel used
-- Contact name (if known)
-- Response status
-- Next action + due date
+The outreach system should remain focused, truthful, and easy for the reviewer to verify. The objective is not to make the portfolio sound larger. It is to make the strongest inventions impossible to miss.

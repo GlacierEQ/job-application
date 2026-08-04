@@ -1,0 +1,31 @@
+{
+  "schema": "glaciereq.runtime-contract.v13",
+  "version": "13.0.0-rc1",
+  "mode": "static-first",
+  "external_runtime_dependencies": [],
+  "human_routes": {
+    "identity": "/#who-casey-is",
+    "capabilities": "/#what-he-builds",
+    "constellation": "/#innovation-constellation",
+    "stories": "/#invention-stories",
+    "repositories": "/#repository-gallery",
+    "combinations": "/#repository-combinations",
+    "evidence": "/#evidence-demonstrations",
+    "resume": "/#resume-role-alignment",
+    "foundation": "/#runtime-governance",
+    "laws": "/#frontier-laws",
+    "machine": "/#machine-interfaces"
+  },
+  "data_routes": [
+    "/data/portfolio.graph.json",
+    "/machine/bootstrap.json",
+    "/machine/runtime.json",
+    "/machine/evidence.json",
+    "/llms.txt"
+  ],
+  "failure_semantics": {
+    "graph_unavailable": "Render the static identity shell and report that the portfolio graph is unavailable.",
+    "private_architecture": "Display the architecture boundary without inventing a public repository link.",
+    "unsupported_claim": "Do not promote beyond the evidence state stored in the graph."
+  }
+}

@@ -1,0 +1,392 @@
+{
+  "schema": "glaciereq.invention-portfolio.v13",
+  "version": "13.0.0-rc1",
+  "generated_at": "2026-08-03T04:45:00-10:00",
+  "identity": {
+    "name": "Casey Barton",
+    "studio": "GlacierEQ",
+    "location": "Honolulu, Hawaiʻi",
+    "headline": "Applied AI Systems Architect",
+    "thesis": "I build original AI systems that preserve context, coordinate specialized tools, transform complex evidence, and turn unfinished workflows into inspectable outcomes.",
+    "github": "https://github.com/GlacierEQ",
+    "email": "glacier.equilibrium@gmail.com"
+  },
+  "site_order": [
+    "who-casey-is",
+    "what-he-builds",
+    "innovation-constellation",
+    "invention-stories",
+    "repository-gallery",
+    "repository-combinations",
+    "evidence-demonstrations",
+    "resume-role-alignment",
+    "runtime-governance",
+    "frontier-laws",
+    "machine-interfaces"
+  ],
+  "capability_families": [
+    {
+      "id": "memory-context",
+      "name": "Memory & Context",
+      "promise": "Keep knowledge portable, attributable, and useful across tools and sessions.",
+      "systems": ["echoes", "psysoc-x"]
+    },
+    {
+      "id": "documents-evidence",
+      "name": "Documents & Evidence",
+      "promise": "Turn source material into traceable, validated, human-ready artifacts.",
+      "systems": ["mega-pdf", "recruiter-runtime", "resume-shapeshifter"]
+    },
+    {
+      "id": "agents-workflows",
+      "name": "Agents & Workflows",
+      "promise": "Coordinate bounded work, preserve state, and finish with visible outcomes.",
+      "systems": ["job-app-helix", "agent-coordinator", "fileboss"]
+    },
+    {
+      "id": "federation-infrastructure",
+      "name": "Federation & Infrastructure",
+      "promise": "Connect independent systems without erasing ownership, authority, or proof.",
+      "systems": ["tower-of-babel", "sigma", "akos"]
+    }
+  ],
+  "systems": [
+    {
+      "id": "job-app-helix",
+      "name": "Job Application Helix",
+      "tagline": "A job application treated as a continuously verified system.",
+      "problem": "Résumés, project evidence, role research, application artifacts, and follow-up state usually drift apart.",
+      "insight": "The application should be a governed data flow, not a stack of disconnected documents.",
+      "mechanism": "A candidate-and-evidence mesh routes verified project claims into role-specific human and machine surfaces.",
+      "output": "Recruiter packages, evidence ledgers, role routing, and controlled continuation state.",
+      "innovation": "Connects source projects, role intelligence, résumé generation, portfolio presentation, evidence promotion, and package state.",
+      "url": "https://github.com/GlacierEQ/job-app-helix",
+      "public": true,
+      "maturity": "implemented",
+      "evidence_level": "repository-tested",
+      "proof_note": "148/148 repository tests were recorded on the current canonical workstream; promotion remains pending receipt refresh.",
+      "roles": ["applied-ai-architect", "forward-deployed-engineer"],
+      "domains": ["application-intelligence", "orchestration", "evidence", "documents"],
+      "languages": ["TypeScript", "Python", "JSON", "Markdown"],
+      "featured": true,
+      "story_order": 1
+    },
+    {
+      "id": "tower-of-babel",
+      "name": "The Tower of Babel",
+      "tagline": "Polyglot architecture where every language earns its boundary.",
+      "problem": "Teams force every workload into one language or add languages as résumé theater.",
+      "insight": "Language diversity creates value only when ownership, contracts, failure modes, and benefits are explicit.",
+      "mechanism": "TypeScript orchestrates, Python analyzes, SQL preserves truth, Rust hardens integrity, and Go remains optional for services.",
+      "output": "A repeatable architecture for placing languages where they provide real leverage.",
+      "innovation": "Turns language choice into a governed systems decision rather than an aesthetic preference.",
+      "url": "https://github.com/GlacierEQ/the-tower-of-babel",
+      "public": true,
+      "maturity": "implemented",
+      "evidence_level": "repository-evidence",
+      "proof_note": "Public architecture and contracts are inspectable; each adopting boundary remains independently testable.",
+      "roles": ["applied-ai-architect", "agent-infrastructure-engineer"],
+      "domains": ["polyglot", "architecture", "integrity", "interoperability"],
+      "languages": ["TypeScript", "Python", "SQL", "Rust", "Go"],
+      "featured": true,
+      "story_order": 2
+    },
+    {
+      "id": "agent-coordinator",
+      "name": "Agent Coordinator",
+      "tagline": "Deterministic multi-agent scheduling with explicit budgets and ownership.",
+      "problem": "Agent swarms obscure task ownership, resource bounds, and why a run stopped.",
+      "insight": "Coordination should be scheduled and accountable before it is autonomous.",
+      "mechanism": "Tasks receive ownership, dependency order, resource ceilings, status transitions, and closure semantics.",
+      "output": "A bounded coordination layer for multi-agent work that remains reviewable under failure.",
+      "innovation": "Prioritizes deterministic scheduling and budget control over theatrical autonomy.",
+      "url": "https://github.com/GlacierEQ/anthropic-agent-coordinator",
+      "public": true,
+      "maturity": "implemented",
+      "evidence_level": "repository-tested",
+      "proof_note": "62/62 Python 3.13 tests were recorded; hosted matrix and build-wheel promotion remain pending.",
+      "roles": ["agent-infrastructure-engineer", "applied-ai-architect"],
+      "domains": ["agents", "coordination", "budgeting", "governance"],
+      "languages": ["Python"],
+      "featured": true,
+      "story_order": 3
+    },
+    {
+      "id": "resume-shapeshifter",
+      "name": "Résumé Shapeshifter",
+      "tagline": "One factual identity, many role-calibrated presentations.",
+      "problem": "Tailored résumés introduce factual drift, duplicate maintenance, and unsupported role language.",
+      "insight": "Facts and presentation strategy should be separate layers.",
+      "mechanism": "A structured evidence source produces ATS, human, and role-specific outputs under truthfulness checks.",
+      "output": "Consistent résumé variants and role-fit artifacts generated from one evidence base.",
+      "innovation": "Makes truthful tailoring reproducible rather than manually rewritten.",
+      "url": "https://github.com/GlacierEQ/JOB-RESUME-BUILDER-",
+      "public": true,
+      "maturity": "implemented",
+      "evidence_level": "repository-evidence",
+      "proof_note": "Public source and generated résumé artifacts are inspectable; hiring outcomes are not claimed.",
+      "roles": ["forward-deployed-engineer", "applied-ai-architect"],
+      "domains": ["documents", "human-interface", "application-intelligence"],
+      "languages": ["TypeScript", "Python", "JSON"],
+      "featured": false
+    },
+    {
+      "id": "recruiter-runtime",
+      "name": "Recruiter Runtime Portfolio",
+      "tagline": "One evidence graph rendered for people, recruiters, engineers, and machines.",
+      "problem": "Portfolio sites separate polished storytelling from machine-readable truth and source evidence.",
+      "insight": "Different audiences can receive different views without changing the underlying facts.",
+      "mechanism": "A canonical graph drives visual narratives, repository routing, résumé surfaces, and machine interfaces.",
+      "output": "A recruiter-facing site with structured portfolio data, proof boundaries, and stable entrypoints.",
+      "innovation": "Treats the portfolio itself as a runtime contract rather than a static gallery.",
+      "url": "https://github.com/GlacierEQ/job-application",
+      "public": true,
+      "maturity": "release-candidate",
+      "evidence_level": "live-behavior-partial",
+      "proof_note": "The V12 deployment is live, but full source-to-deployment parity and a commit-bound release receipt remain open.",
+      "roles": ["applied-ai-architect", "forward-deployed-engineer", "agent-infrastructure-engineer"],
+      "domains": ["presentation", "machine-ingestion", "evidence", "application-intelligence"],
+      "languages": ["HTML", "CSS", "JavaScript", "JSON", "Protobuf"],
+      "featured": false
+    },
+    {
+      "id": "psysoc-x",
+      "name": "PSYSOC-X",
+      "tagline": "Deterministic human calibration without changing evidence.",
+      "problem": "AI interfaces adapt tone through hidden persuasion, vague personality prompts, or inconsistent judgment.",
+      "insight": "Tone, density, skepticism, and humor can change while evidence, dignity, uncertainty, and authority remain fixed.",
+      "mechanism": "Inspectable calibration loadouts apply bounded communication transformations with critical-context safeguards.",
+      "output": "Human-facing output that is easier to understand without weakening its truth boundary.",
+      "innovation": "Makes communication calibration deterministic and reviewable.",
+      "url": "https://github.com/GlacierEQ/AKOS/tree/main/stones/psysoc-x",
+      "public": true,
+      "maturity": "implemented",
+      "evidence_level": "repository-tested",
+      "proof_note": "The current AKOS evidence surface records 4/4 PSYSOC-X tests; this is not a claim of diagnosis or manipulation.",
+      "roles": ["applied-ai-architect", "forward-deployed-engineer"],
+      "domains": ["human-interface", "calibration", "evidence"],
+      "languages": ["Python", "JSON"],
+      "featured": false
+    },
+    {
+      "id": "akos",
+      "name": "AKOS",
+      "tagline": "A compact runtime foundation for authority, evidence, and closure.",
+      "problem": "Tool-capable systems collapse capability, permission, execution, verification, and completion into one vague state.",
+      "insight": "Those states should remain separate and inspectable.",
+      "mechanism": "Authority separation, capability-state tracking, evidence classes, and closure receipts support higher-level systems.",
+      "output": "A shared foundation that makes other inventions safer and easier to verify.",
+      "innovation": "Provides reusable runtime discipline without becoming the public narrative center.",
+      "url": "https://github.com/GlacierEQ/AKOS",
+      "public": true,
+      "maturity": "implemented",
+      "evidence_level": "repository-tested",
+      "proof_note": "The current public AKOS README records 118/118 full tests, 10/10 forge tests, and 4/4 PSYSOC-X tests.",
+      "roles": ["applied-ai-architect", "agent-infrastructure-engineer"],
+      "domains": ["runtime", "governance", "evidence", "agent-infrastructure"],
+      "languages": ["Python", "TypeScript", "SQL"],
+      "featured": false,
+      "foundation_only": true
+    },
+    {
+      "id": "colossus-cooling",
+      "name": "Colossus Cooling Exhibit",
+      "tagline": "Field-observation discipline translated into computational infrastructure modeling.",
+      "problem": "Frontier infrastructure analysis can overstate access, precision, or operational impact.",
+      "insight": "Physical-system reasoning becomes more credible when assumptions and uncertainty are explicit.",
+      "mechanism": "A bounded modeling exhibit connects inspection discipline, computational analysis, and transparent non-affiliation.",
+      "output": "An inspectable technical architecture and analysis surface.",
+      "innovation": "Transfers real-world inspection habits into frontier infrastructure reasoning.",
+      "url": "https://github.com/GlacierEQ/xai-colossus-cooling",
+      "public": true,
+      "maturity": "exhibit",
+      "evidence_level": "repository-evidence",
+      "proof_note": "Independent public exhibit; no xAI affiliation, site access, deployment, or performance impact is claimed.",
+      "roles": ["forward-deployed-engineer", "applied-ai-architect"],
+      "domains": ["infrastructure", "physical-systems", "modeling"],
+      "languages": ["Python"],
+      "featured": false
+    },
+    {
+      "id": "echoes",
+      "name": "Echoes",
+      "tagline": "Portable continuity across conversation platforms.",
+      "problem": "Useful context becomes trapped inside individual AI platforms and loses provenance when copied.",
+      "insight": "Raw history, durable facts, hypotheses, and task-specific memory should remain distinct while becoming portable.",
+      "mechanism": "A conversation graph supports capture, search, labeling, recall, summarization, and export with source-aware layers.",
+      "output": "Cross-platform continuity without silently promoting recollection into fact.",
+      "innovation": "Treats memory portability as a provenance problem, not only a storage problem.",
+      "url": null,
+      "public": false,
+      "maturity": "architecture",
+      "evidence_level": "private-architecture",
+      "proof_note": "Active private architecture direction; no public repository verification is claimed.",
+      "roles": ["applied-ai-architect", "agent-infrastructure-engineer"],
+      "domains": ["memory", "retrieval", "provenance"],
+      "languages": ["TypeScript", "Python", "SQL"],
+      "featured": false
+    },
+    {
+      "id": "mega-pdf",
+      "name": "MEGA-PDF",
+      "tagline": "Document intelligence from preserved source to validated artifact.",
+      "problem": "Document workflows stop at extraction or generation and lose traceability across transformations.",
+      "insight": "The machine artifact and rendered document should behave as evidence-linked twins.",
+      "mechanism": "Preservation, extraction, claim mapping, transformation, render inspection, packaging, and receipts form one lifecycle.",
+      "output": "Human-ready document packages whose source and transformations remain inspectable.",
+      "innovation": "Treats artifact closure as a first-class systems problem.",
+      "url": null,
+      "public": false,
+      "maturity": "architecture",
+      "evidence_level": "private-architecture",
+      "proof_note": "Private architecture and generated artifact patterns; public source verification is not claimed.",
+      "roles": ["applied-ai-architect", "forward-deployed-engineer"],
+      "domains": ["documents", "evidence", "integrity"],
+      "languages": ["Python", "TypeScript", "SQL"],
+      "featured": false
+    },
+    {
+      "id": "sigma",
+      "name": "Sigma Federation",
+      "tagline": "Independent products coordinated through governed integration state.",
+      "problem": "Multi-system platforms drift toward a monolith or an unaccountable collection of agents.",
+      "insight": "Components own function, federation owns integration state, and a gatekeeper owns authority.",
+      "mechanism": "Typed contracts and explicit handoff states connect independent products without collapsing boundaries.",
+      "output": "A federation model that preserves ownership and accountability.",
+      "innovation": "Creates a middle path between monolithic control and loose orchestration.",
+      "url": null,
+      "public": false,
+      "maturity": "architecture",
+      "evidence_level": "private-architecture",
+      "proof_note": "Private architecture reference; no public implementation claim is made.",
+      "roles": ["applied-ai-architect", "agent-infrastructure-engineer"],
+      "domains": ["federation", "integration", "governance"],
+      "languages": ["TypeScript", "JSON", "SQL"],
+      "featured": false
+    },
+    {
+      "id": "fileboss",
+      "name": "FILEBOSS",
+      "tagline": "File intelligence that proposes broadly and mutates narrowly.",
+      "problem": "File assistants blur recommendation, permission, and actual mutation.",
+      "insight": "Inventory, classification, proposal, authorization, execution, and verification should be separate states.",
+      "mechanism": "A controlled action model preserves explicit delegated authority and durable mutation receipts.",
+      "output": "File intelligence that remains useful without becoming silently destructive.",
+      "innovation": "Treats proposal and execution as different products inside one workflow.",
+      "url": null,
+      "public": false,
+      "maturity": "architecture",
+      "evidence_level": "private-architecture",
+      "proof_note": "Private architecture reference; public visitors cannot inspect implementation.",
+      "roles": ["forward-deployed-engineer", "agent-infrastructure-engineer"],
+      "domains": ["files", "authority", "automation"],
+      "languages": ["TypeScript", "Python"],
+      "featured": false
+    }
+  ],
+  "combination_flows": [
+    {
+      "id": "job-application",
+      "name": "Opportunity → submitted evidence package",
+      "description": "The portfolio’s own end-to-end product workflow.",
+      "steps": [
+        {"system": "job-app-helix", "label": "Model the opportunity and select evidence"},
+        {"system": "resume-shapeshifter", "label": "Generate role-calibrated human and ATS surfaces"},
+        {"system": "recruiter-runtime", "label": "Present the relevant invention path and proof"},
+        {"system": "agent-coordinator", "label": "Schedule continuation and bounded follow-up"}
+      ]
+    },
+    {
+      "id": "portable-intelligence",
+      "name": "Context → coordinated work",
+      "description": "A future-facing composition showing how private architecture and public systems connect.",
+      "steps": [
+        {"system": "echoes", "label": "Retrieve source-aware prior context"},
+        {"system": "psysoc-x", "label": "Calibrate the human interface"},
+        {"system": "agent-coordinator", "label": "Assign bounded work"},
+        {"system": "sigma", "label": "Preserve federation state"},
+        {"system": "akos", "label": "Support authority and closure beneath the flow"}
+      ]
+    },
+    {
+      "id": "document-intelligence",
+      "name": "Source material → validated artifact",
+      "description": "A document lifecycle built around traceability rather than extraction alone.",
+      "steps": [
+        {"system": "mega-pdf", "label": "Preserve and parse the source"},
+        {"system": "tower-of-babel", "label": "Route specialized language-boundary services"},
+        {"system": "fileboss", "label": "Prepare controlled file actions"},
+        {"system": "akos", "label": "Record verified closure beneath the workflow"}
+      ]
+    }
+  ],
+  "roles": [
+    {
+      "id": "applied-ai-architect",
+      "name": "Applied AI Systems Architect",
+      "summary": "Designs connected AI systems whose data, authority, human interfaces, and evidence remain coherent.",
+      "primary": ["job-app-helix", "tower-of-babel", "recruiter-runtime", "psysoc-x"],
+      "supporting": ["agent-coordinator", "akos", "mega-pdf"]
+    },
+    {
+      "id": "forward-deployed-engineer",
+      "name": "Forward-Deployed Engineer",
+      "summary": "Translates ambiguous real-world operations into inspectable software, artifacts, and feedback loops.",
+      "primary": ["job-app-helix", "resume-shapeshifter", "colossus-cooling"],
+      "supporting": ["psysoc-x", "recruiter-runtime", "fileboss"]
+    },
+    {
+      "id": "agent-infrastructure-engineer",
+      "name": "Agent Infrastructure Engineer",
+      "summary": "Builds bounded coordination, runtime state, language boundaries, and durable evidence for agent systems.",
+      "primary": ["agent-coordinator", "tower-of-babel", "akos"],
+      "supporting": ["job-app-helix", "sigma", "echoes"]
+    }
+  ],
+  "frontier_laws": [
+    {
+      "id": "portable-memory",
+      "failure": "Context disappears or loses provenance across platforms.",
+      "derived_from": ["echoes", "job-app-helix"],
+      "principle": "Memory must preserve source, confidence, temporal scope, and retrieval purpose—not merely text."
+    },
+    {
+      "id": "earned-language-boundaries",
+      "failure": "Polyglot systems become accidental complexity or résumé theater.",
+      "derived_from": ["tower-of-babel"],
+      "principle": "Every language must earn a measurable architectural boundary."
+    },
+    {
+      "id": "artifact-closure",
+      "failure": "Strong reasoning stops before a usable, verified artifact exists.",
+      "derived_from": ["mega-pdf", "recruiter-runtime", "job-app-helix"],
+      "principle": "Every run ends with completed, verified, blocked, unresolved, and next action."
+    },
+    {
+      "id": "federated-ownership",
+      "failure": "Multi-system work loses ownership and integration state.",
+      "derived_from": ["sigma", "agent-coordinator"],
+      "principle": "Components own their function; federation owns integration state; a gatekeeper owns authority."
+    },
+    {
+      "id": "truthful-calibration",
+      "failure": "Communication adapts by weakening evidence or manipulating the reader.",
+      "derived_from": ["psysoc-x", "resume-shapeshifter"],
+      "principle": "Calibration may change tone, density, order, and humor—but never evidence, dignity, uncertainty, or authority."
+    },
+    {
+      "id": "capability-is-not-completion",
+      "failure": "A tool or connector is treated as proof that useful work happened.",
+      "derived_from": ["akos", "fileboss", "job-app-helix"],
+      "principle": "Connected, authenticated, authorized, invoked, returned, verified, and persisted are different states."
+    }
+  ],
+  "machine_interfaces": [
+    {"label": "Canonical invention graph", "href": "/data/portfolio.graph.json", "type": "application/json"},
+    {"label": "Machine bootstrap", "href": "/machine/bootstrap.json", "type": "application/json"},
+    {"label": "Runtime contract", "href": "/machine/runtime.json", "type": "application/json"},
+    {"label": "Evidence contract", "href": "/machine/evidence.json", "type": "application/json"},
+    {"label": "LLM orientation", "href": "/llms.txt", "type": "text/plain"}
+  ],
+  "truth_boundary": "Public source, tests, live routes, generated artifacts, architecture, and deployment are separate evidence states. Private architecture is labeled as such. No company affiliation, customer deployment, production scale, hiring outcome, or unrestricted capability is implied."
+}

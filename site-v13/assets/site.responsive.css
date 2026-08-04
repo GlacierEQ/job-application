@@ -1,0 +1,56 @@
+@media (max-width: 1060px) {
+  .desktop-nav { display: none; }
+  .mobile-only { display: grid; }
+  .hero-grid, .section-heading, .constellation-layout, .story-stage, .role-layout, .machine-grid { grid-template-columns: 1fr; }
+  .hero { min-height: auto; }
+  .identity-stage { min-height: 500px; }
+  .section-heading { gap: 22px; align-items: start; }
+  .capability-grid { grid-template-columns: repeat(2, 1fr); }
+  .story-diagram { border-left: 0; border-top: 1px solid var(--line); }
+  .repository-grid { grid-template-columns: repeat(2, 1fr); }
+  .flow-diagram { grid-auto-flow: row; grid-auto-columns: 1fr; gap: 38px; }
+  .flow-step:not(:last-child)::after { content: "↓"; right: 50%; top: auto; bottom: -34px; transform: translateX(50%); }
+  .evidence-lab { grid-template-columns: 1fr; }
+  .claim-selector { border-right: 0; border-bottom: 1px solid var(--line); }
+  .evidence-chain { grid-template-columns: repeat(4, 1fr); }
+  .evidence-node:not(:last-child)::after { display: none; }
+  .foundation-products { grid-template-columns: repeat(3, 1fr); }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .footer-grid > div:first-child { grid-column: 1 / -1; }
+}
+@media (max-width: 720px) {
+  .shell { width: min(100% - 26px, var(--shell)); }
+  .brand-copy span { display: none; }
+  .section { padding: 82px 0; }
+  .section-indexed::before { display: none; }
+  h1 { font-size: clamp(3.2rem, 15vw, 5.2rem); }
+  .hero-grid { gap: 38px; }
+  .identity-stage { min-height: 440px; }
+  .identity-card { padding: 21px; }
+  .card-main { margin-top: 48px; grid-template-columns: 72px 1fr; }
+  .portrait-monogram { width: 70px; height: 70px; font-size: 1.2rem; }
+  .card-thesis { left: 21px; right: 21px; bottom: 64px; }
+  .card-footer { left: 21px; right: 21px; bottom: 20px; }
+  .signal-orbit { display: none; }
+  .capability-grid, .repository-grid, .laws-grid, .proof-metrics, .dialog-columns { grid-template-columns: 1fr; }
+  .constellation-toolbar { align-items: flex-start; flex-direction: column; }
+  #constellationSvg { min-height: 430px; }
+  .story-copy { padding: 26px; }
+  .story-diagram { min-height: 440px; }
+  .gallery-controls { grid-template-columns: 1fr; }
+  .evidence-chain { grid-template-columns: repeat(2, 1fr); }
+  .role-evidence-row { grid-template-columns: 1fr; gap: 5px; }
+  .foundation-products { grid-template-columns: repeat(2, 1fr); }
+  .foundation-shared { grid-template-columns: repeat(2, 1fr); }
+  .truth-boundary { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-grid > div:first-child { grid-column: auto; }
+  .footer-bottom { flex-direction: column; }
+  .dialog-shell { padding: 25px; }
+  .dialog-shell h2 { font-size: 2.2rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+  .reveal { opacity: 1; transform: none; }
+}
