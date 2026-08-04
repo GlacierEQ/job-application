@@ -1,0 +1,31 @@
+name: V14 Canonical Homepage
+
+on:
+  pull_request:
+    paths:
+      - 'site-v14/**'
+      - '.github/workflows/v14-canonical-home.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'site-v14/**'
+      - '.github/workflows/v14-canonical-home.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Validate canonical homepage
+        run: node site-v14/scripts/validate.mjs
+      - name: Verify static payload paths
+        run: |
+          test -f site-v14/index.html
+          test -f site-v14/assets/site.css
+          test -f site-v14/vercel.json
