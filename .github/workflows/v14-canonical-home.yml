@@ -22,10 +22,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
-      - name: Validate canonical homepage
+      - name: Validate canonical homepage and hierarchy
         run: node site-v14/scripts/validate.mjs
       - name: Verify static payload paths
         run: |
           test -f site-v14/index.html
           test -f site-v14/assets/site.css
+          test -f site-v14/system-map/index.html
+          test -f site-v14/assets/system-map.css
           test -f site-v14/vercel.json
