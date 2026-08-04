@@ -33,6 +33,13 @@ for (const company of ['Anthropic', 'SpaceX', 'xAI / Colossus', 'NVIDIA', 'Apple
   assert(html.includes(`<h3>${company}</h3>`), `Missing company suite: ${company}`);
 }
 
+assert((html.match(/<strong>How:<\/strong>/g) || []).length >= 14, 'Major cards must include concise How explanations');
+assert((html.match(/<dt>HOW IT WORKS<\/dt>/g) || []).length === 3, 'Each headline invention must explain how it works');
+assert(html.includes('inventories governed repositories'), 'Helix mechanism is missing');
+assert(html.includes('converts a task graph into assignments'), 'Agent Coordinator mechanism is missing');
+assert(html.includes('fingerprints conversations and files'), 'ECHO mechanism is missing');
+assert(html.includes('wraps each connected system in a capability contract'), 'Sigma Glue mechanism is missing');
+
 const moduleList = html.match(/<div class="module-list">([\s\S]*?)<\/div>/)?.[1] ?? '';
 assert((moduleList.match(/<span>/g) || []).length === 12, 'SpaceX suite must list exactly twelve modules');
 assert(html.includes('47 pass / 10 fail'), 'Tower repair status is missing');
@@ -58,6 +65,7 @@ console.log(JSON.stringify({
   status: 'PASS',
   canonical_site: 'casey-barton-glaciereq.vercel.app',
   headline_count: 1,
+  how_explanations: (html.match(/<strong>How:<\/strong>/g) || []).length + (html.match(/<dt>HOW IT WORKS<\/dt>/g) || []).length,
   portfolio_metrics: { governed_repositories: 67, flagship_class_systems: 10, company_suites: 7, spacex_modules: 12 },
   sections: ['inventions', 'depth', 'companies', 'proof', 'roles'],
   scripts: 0,
