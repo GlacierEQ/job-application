@@ -1,8 +1,0 @@
-{
-  "name": "glaciereq-job-application-portfolio",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "test": "python3 scripts/runner_verify.py"
-  }
-}
