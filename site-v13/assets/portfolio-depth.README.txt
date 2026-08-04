@@ -1,0 +1,1 @@
+Load portfolio-depth.css and portfolio-depth.js from site-v13/index.html. The renderer inserts a visible section before repository combinations or evidence demonstrations and fetches the flagship and company suite registries.
