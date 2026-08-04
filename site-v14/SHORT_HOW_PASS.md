@@ -1,0 +1,1 @@
+This branch replaces vague system summaries with concise explanations of how each system operates. It preserves the canonical homepage, visual identity, sections, proof states, and production target.
