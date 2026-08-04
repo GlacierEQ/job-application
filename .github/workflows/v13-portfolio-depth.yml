@@ -1,0 +1,37 @@
+name: V13 Portfolio Depth
+
+on:
+  pull_request:
+    paths:
+      - "site-v13/depth/**"
+      - "site-v13/data/flagship-registry.json"
+      - "site-v13/data/company-suites.json"
+      - "site-v13/scripts/validate-depth.mjs"
+      - ".github/workflows/v13-portfolio-depth.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "site-v13/depth/**"
+      - "site-v13/data/flagship-registry.json"
+      - "site-v13/data/company-suites.json"
+      - "site-v13/scripts/validate-depth.mjs"
+      - ".github/workflows/v13-portfolio-depth.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  verify-depth:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Validate portfolio depth contracts and visible route
+        working-directory: site-v13
+        run: node scripts/validate-depth.mjs
