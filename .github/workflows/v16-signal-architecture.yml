@@ -1,0 +1,73 @@
+name: V16 Signal Architecture
+
+on:
+  pull_request:
+    paths:
+      - 'site-v15/**'
+      - 'deployment-receipts/V16_*'
+      - '.github/workflows/v16-signal-architecture.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'site-v15/**'
+      - 'deployment-receipts/V16_*'
+      - '.github/workflows/v16-signal-architecture.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: v16-signal-architecture-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Validate V16 PSYSOC-X signal architecture
+        run: node site-v15/scripts/validate.mjs
+      - name: Verify résumé PDF
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          pdf = Path('site-v15/downloads/Casey_Barton_Resume.pdf').read_bytes()
+          assert pdf.startswith(b'%PDF-')
+          assert len(pdf) > 8_000
+          print({'pdf_bytes': len(pdf), 'status': 'PASS'})
+          PY
+      - name: Emit exact-head receipt
+        run: |
+          mkdir -p .verification-artifacts
+          python3 - <<'PY'
+          import hashlib, json, os
+          from pathlib import Path
+          paths = [
+            'site-v15/index.html','site-v15/resume/index.html','site-v15/master/index.html',
+            'site-v15/mesh/index.html','site-v15/machine/index.html','site-v15/assets/site.css','site-v15/assets/site.systems.css',
+            'site-v15/assets/social-card.svg','site-v15/assets/favicon.svg',
+            'site-v15/data/portfolio.json','site-v15/data/company-families.json',
+            'site-v15/data/psysoc-x-profiles.json','site-v15/downloads/Casey_Barton_Resume.pdf'
+          ]
+          files={}
+          for p in paths:
+            data=Path(p).read_bytes(); files[p]={'bytes':len(data),'sha256':hashlib.sha256(data).hexdigest()}
+          receipt={'schema':'glaciereq.v16-signal-architecture-validation.v1','commit':os.environ.get('GITHUB_SHA'),'status':'PASS','routes':['/','/resume/','/master/','/mesh/','/machine/'],'facts_invariant':True,'scripts':0,'visual_system':['cockpit','radar','bento','terminal','reduced-motion','print'],'files':files}
+          Path('.verification-artifacts/v16-validation-receipt.json').write_text(json.dumps(receipt,indent=2,sort_keys=True)+'\n')
+          PY
+      - name: Upload V16 verification receipt
+        uses: actions/upload-artifact@v4
+        with:
+          name: v16-signal-architecture-receipt
+          path: .verification-artifacts/v16-validation-receipt.json
+          if-no-files-found: error
+          retention-days: 14
+          include-hidden-files: true
