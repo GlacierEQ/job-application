@@ -41,8 +41,20 @@ jobs:
               Path('site-v15/404.html'),
           ]
 
+          def decode_source(path: Path) -> str:
+              data = path.read_bytes()
+              try:
+                  return data.decode('utf-8')
+              except UnicodeDecodeError:
+                  for encoding in ('cp1252', 'latin-1'):
+                      try:
+                          return data.decode(encoding)
+                      except UnicodeDecodeError:
+                          continue
+                  raise
+
           for path in html_paths:
-              text = fix_text(path.read_text(encoding='utf-8'))
+              text = fix_text(decode_source(path))
               text = text.replace('<span external actions</span>', '<span>external actions</span>')
               if 'href="/assets/site.systems.css"' not in text:
                   text = text.replace(
