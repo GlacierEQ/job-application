@@ -13,9 +13,10 @@ replacements = {
     "    set_cell_margins(boundary.cell(0, 0), 110, 130, 110, 130)": "    set_cell_margins(boundary.cell(0, 0), 65, 120, 65, 120)",
 }
 for old, new in replacements.items():
-    if old not in text:
+    if old in text:
+        text = text.replace(old, new)
+    elif new not in text:
         raise RuntimeError(f"expected DOCX compaction anchor not found: {old}")
-    text = text.replace(old, new)
 generator.write_text(text, encoding="utf-8")
 runpy.run_path(
     str(root / ".github/scripts/v17_finalize_artifacts.py"), run_name="__main__"
