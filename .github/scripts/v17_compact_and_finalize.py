@@ -1,5 +1,5 @@
-from pathlib import Path
 import runpy
+from pathlib import Path
 
 root = Path(__file__).resolve().parents[2]
 generator = root / "site-v15/scripts/generate-resume-v17.py"
@@ -17,4 +17,6 @@ for old, new in replacements.items():
         raise RuntimeError(f"expected DOCX compaction anchor not found: {old}")
     text = text.replace(old, new)
 generator.write_text(text, encoding="utf-8")
-runpy.run_path(str(root / ".github/scripts/v17_finalize_artifacts.py"), run_name="__main__")
+runpy.run_path(
+    str(root / ".github/scripts/v17_finalize_artifacts.py"), run_name="__main__"
+)

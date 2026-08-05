@@ -5,7 +5,6 @@ import json
 from pathlib import Path
 
 from docx import Document
-from docx.enum.section import WD_SECTION
 from docx.enum.table import WD_CELL_VERTICAL_ALIGNMENT, WD_TABLE_ALIGNMENT
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml import OxmlElement
@@ -19,7 +18,6 @@ from reportlab.lib.units import inch
 from reportlab.platypus import (
     BaseDocTemplate,
     Frame,
-    KeepTogether,
     PageBreak,
     PageTemplate,
     Paragraph,
@@ -123,15 +121,36 @@ EXPERIENCE = [
 ]
 
 DOMAINS = [
-    ("SCIENTIFIC MEASUREMENT", "Sea-urchin morphometric research", "University of Hawaii, 2016-2017. Processed physical measurements of gill structures to support visual species identification."),
-    ("COMPRESSED-GAS SYSTEMS", "Scuba Tank Technician", "Hawaiian Diving Adventures and UH Dive Office, 2016-2017. Tank filling, transport, inspection and repair support, and gas mixing under safety-critical procedures."),
-    ("FIELD SYSTEMS", "Inspection and repair operations", "Practical judgment around interacting systems, uncertainty, failure consequences, client communication, and closeout quality."),
+    (
+        "SCIENTIFIC MEASUREMENT",
+        "Sea-urchin morphometric research",
+        "University of Hawaii, 2016-2017. Processed physical measurements of gill structures to support visual species identification.",
+    ),
+    (
+        "COMPRESSED-GAS SYSTEMS",
+        "Scuba Tank Technician",
+        "Hawaiian Diving Adventures and UH Dive Office, 2016-2017. Tank filling, transport, inspection and repair support, and gas mixing under safety-critical procedures.",
+    ),
+    (
+        "FIELD SYSTEMS",
+        "Inspection and repair operations",
+        "Practical judgment around interacting systems, uncertainty, failure consequences, client communication, and closeout quality.",
+    ),
 ]
 
 CAPABILITIES = [
-    ("Architecture", "Agent infrastructure, multi-agent coordination, application intelligence, authority and approval models, state machines, event design, idempotency, failure and recovery, human-in-the-loop systems."),
-    ("Evidence and delivery", "Provenance, claim-to-source mapping, deterministic testing, JSON Schema, CI/CD, static analysis, dependency auditing, integrity hashing, release receipts, and machine-readable interfaces."),
-    ("Primary technology", "Python, TypeScript, JavaScript, SQL, Bash, Node.js, React, Next.js, FastAPI, REST, JSON-RPC 2.0, MCP, GitHub Actions, Docker, and Vercel. Prior scientific computing: R and MATLAB."),
+    (
+        "Architecture",
+        "Agent infrastructure, multi-agent coordination, application intelligence, authority and approval models, state machines, event design, idempotency, failure and recovery, human-in-the-loop systems.",
+    ),
+    (
+        "Evidence and delivery",
+        "Provenance, claim-to-source mapping, deterministic testing, JSON Schema, CI/CD, static analysis, dependency auditing, integrity hashing, release receipts, and machine-readable interfaces.",
+    ),
+    (
+        "Primary technology",
+        "Python, TypeScript, JavaScript, SQL, Bash, Node.js, React, Next.js, FastAPI, REST, JSON-RPC 2.0, MCP, GitHub Actions, Docker, and Vercel. Prior scientific computing: R and MATLAB.",
+    ),
 ]
 
 BOUNDARY = (
@@ -148,56 +167,302 @@ def sha256(path: Path) -> str:
 def pdf_styles():
     s = getSampleStyleSheet()
     return {
-        "name": ParagraphStyle("name", parent=s["Normal"], fontName="Helvetica-Bold", fontSize=28, leading=29, textColor=WHITE, spaceAfter=5),
-        "title": ParagraphStyle("title", parent=s["Normal"], fontName="Helvetica-Bold", fontSize=10.2, leading=13, textColor=MINT),
-        "contact": ParagraphStyle("contact", parent=s["Normal"], fontName="Helvetica", fontSize=7.7, leading=10.2, textColor=colors.HexColor("#D4E6E2")),
-        "section": ParagraphStyle("section", parent=s["Normal"], fontName="Helvetica-Bold", fontSize=12.4, leading=14, textColor=INK, spaceBefore=5, spaceAfter=6),
-        "tag": ParagraphStyle("tag", parent=s["Normal"], fontName="Helvetica-Bold", fontSize=6.3, leading=8, textColor=TEAL, spaceAfter=3),
-        "body": ParagraphStyle("body", parent=s["Normal"], fontName="Helvetica", fontSize=8.15, leading=11.1, textColor=INK),
-        "small": ParagraphStyle("small", parent=s["Normal"], fontName="Helvetica", fontSize=7.1, leading=9.5, textColor=MUTED),
-        "card_title": ParagraphStyle("card_title", parent=s["Normal"], fontName="Helvetica-Bold", fontSize=9, leading=10.5, textColor=INK, spaceAfter=4),
-        "card_state": ParagraphStyle("card_state", parent=s["Normal"], fontName="Helvetica-Bold", fontSize=5.8, leading=7, textColor=TEAL, spaceAfter=5),
-        "metric": ParagraphStyle("metric", parent=s["Normal"], fontName="Helvetica-Bold", fontSize=16.5, leading=17, textColor=MINT, alignment=TA_LEFT),
-        "metric_label": ParagraphStyle("metric_label", parent=s["Normal"], fontName="Helvetica", fontSize=6.5, leading=8, textColor=colors.HexColor("#D8E8E5")),
-        "role": ParagraphStyle("role", parent=s["Normal"], fontName="Helvetica-Bold", fontSize=8.6, leading=10, textColor=INK),
-        "date": ParagraphStyle("date", parent=s["Normal"], fontName="Helvetica-Bold", fontSize=7.2, leading=9, textColor=TEAL, alignment=TA_LEFT),
-        "bullet": ParagraphStyle("bullet", parent=s["Normal"], fontName="Helvetica", fontSize=7.6, leading=10.3, leftIndent=10, firstLineIndent=-7, bulletIndent=0, textColor=INK),
-        "boundary": ParagraphStyle("boundary", parent=s["Normal"], fontName="Helvetica", fontSize=6.7, leading=9, textColor=colors.HexColor("#5F5032")),
+        "name": ParagraphStyle(
+            "name",
+            parent=s["Normal"],
+            fontName="Helvetica-Bold",
+            fontSize=28,
+            leading=29,
+            textColor=WHITE,
+            spaceAfter=5,
+        ),
+        "title": ParagraphStyle(
+            "title",
+            parent=s["Normal"],
+            fontName="Helvetica-Bold",
+            fontSize=10.2,
+            leading=13,
+            textColor=MINT,
+        ),
+        "contact": ParagraphStyle(
+            "contact",
+            parent=s["Normal"],
+            fontName="Helvetica",
+            fontSize=7.7,
+            leading=10.2,
+            textColor=colors.HexColor("#D4E6E2"),
+        ),
+        "section": ParagraphStyle(
+            "section",
+            parent=s["Normal"],
+            fontName="Helvetica-Bold",
+            fontSize=12.4,
+            leading=14,
+            textColor=INK,
+            spaceBefore=5,
+            spaceAfter=6,
+        ),
+        "tag": ParagraphStyle(
+            "tag",
+            parent=s["Normal"],
+            fontName="Helvetica-Bold",
+            fontSize=6.3,
+            leading=8,
+            textColor=TEAL,
+            spaceAfter=3,
+        ),
+        "body": ParagraphStyle(
+            "body",
+            parent=s["Normal"],
+            fontName="Helvetica",
+            fontSize=8.15,
+            leading=11.1,
+            textColor=INK,
+        ),
+        "small": ParagraphStyle(
+            "small",
+            parent=s["Normal"],
+            fontName="Helvetica",
+            fontSize=7.1,
+            leading=9.5,
+            textColor=MUTED,
+        ),
+        "card_title": ParagraphStyle(
+            "card_title",
+            parent=s["Normal"],
+            fontName="Helvetica-Bold",
+            fontSize=9,
+            leading=10.5,
+            textColor=INK,
+            spaceAfter=4,
+        ),
+        "card_state": ParagraphStyle(
+            "card_state",
+            parent=s["Normal"],
+            fontName="Helvetica-Bold",
+            fontSize=5.8,
+            leading=7,
+            textColor=TEAL,
+            spaceAfter=5,
+        ),
+        "metric": ParagraphStyle(
+            "metric",
+            parent=s["Normal"],
+            fontName="Helvetica-Bold",
+            fontSize=16.5,
+            leading=17,
+            textColor=MINT,
+            alignment=TA_LEFT,
+        ),
+        "metric_label": ParagraphStyle(
+            "metric_label",
+            parent=s["Normal"],
+            fontName="Helvetica",
+            fontSize=6.5,
+            leading=8,
+            textColor=colors.HexColor("#D8E8E5"),
+        ),
+        "role": ParagraphStyle(
+            "role",
+            parent=s["Normal"],
+            fontName="Helvetica-Bold",
+            fontSize=8.6,
+            leading=10,
+            textColor=INK,
+        ),
+        "date": ParagraphStyle(
+            "date",
+            parent=s["Normal"],
+            fontName="Helvetica-Bold",
+            fontSize=7.2,
+            leading=9,
+            textColor=TEAL,
+            alignment=TA_LEFT,
+        ),
+        "bullet": ParagraphStyle(
+            "bullet",
+            parent=s["Normal"],
+            fontName="Helvetica",
+            fontSize=7.6,
+            leading=10.3,
+            leftIndent=10,
+            firstLineIndent=-7,
+            bulletIndent=0,
+            textColor=INK,
+        ),
+        "boundary": ParagraphStyle(
+            "boundary",
+            parent=s["Normal"],
+            fontName="Helvetica",
+            fontSize=6.7,
+            leading=9,
+            textColor=colors.HexColor("#5F5032"),
+        ),
     }
 
 
 def make_pdf() -> None:
     styles = pdf_styles()
-    doc = BaseDocTemplate(str(PDF_PATH), pagesize=letter, leftMargin=0.42 * inch, rightMargin=0.42 * inch, topMargin=0.37 * inch, bottomMargin=0.34 * inch, title="Casey Barton - Applied AI Systems Architect Resume", author="Casey Del Carpio Barton")
-    frame = Frame(doc.leftMargin, doc.bottomMargin, doc.width, doc.height, id="main", leftPadding=0, rightPadding=0, topPadding=0, bottomPadding=0)
+    doc = BaseDocTemplate(
+        str(PDF_PATH),
+        pagesize=letter,
+        leftMargin=0.42 * inch,
+        rightMargin=0.42 * inch,
+        topMargin=0.37 * inch,
+        bottomMargin=0.34 * inch,
+        title="Casey Barton - Applied AI Systems Architect Resume",
+        author="Casey Del Carpio Barton",
+    )
+    frame = Frame(
+        doc.leftMargin,
+        doc.bottomMargin,
+        doc.width,
+        doc.height,
+        id="main",
+        leftPadding=0,
+        rightPadding=0,
+        topPadding=0,
+        bottomPadding=0,
+    )
     doc.addPageTemplates([PageTemplate(id="resume", frames=[frame])])
     story = []
 
-    header_left = [Paragraph("CASEY DEL CARPIO BARTON", styles["name"]), Paragraph("APPLIED AI SYSTEMS ARCHITECT | AGENT INFRASTRUCTURE ENGINEER", styles["title"]), Spacer(1, 6), Paragraph("Builds the operating layer that makes powerful AI dependable enough to use.", styles["contact"])]
-    header_right = [Paragraph("Honolulu, Hawaii", styles["contact"]), Paragraph("glacier.equilibrium@gmail.com", styles["contact"]), Paragraph("casey-barton-glaciereq.vercel.app", styles["contact"]), Paragraph("github.com/GlacierEQ", styles["contact"])]
-    header = Table([[header_left, header_right]], colWidths=[4.85 * inch, 2.05 * inch], hAlign="LEFT")
-    header.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, -1), DARK), ("BOX", (0, 0), (-1, -1), 0.6, DARK_2), ("VALIGN", (0, 0), (-1, -1), "BOTTOM"), ("LEFTPADDING", (0, 0), (0, 0), 18), ("RIGHTPADDING", (1, 0), (1, 0), 16), ("TOPPADDING", (0, 0), (-1, -1), 17), ("BOTTOMPADDING", (0, 0), (-1, -1), 16)]))
+    header_left = [
+        Paragraph("CASEY DEL CARPIO BARTON", styles["name"]),
+        Paragraph(
+            "APPLIED AI SYSTEMS ARCHITECT | AGENT INFRASTRUCTURE ENGINEER",
+            styles["title"],
+        ),
+        Spacer(1, 6),
+        Paragraph(
+            "Builds the operating layer that makes powerful AI dependable enough to use.",
+            styles["contact"],
+        ),
+    ]
+    header_right = [
+        Paragraph("Honolulu, Hawaii", styles["contact"]),
+        Paragraph("glacier.equilibrium@gmail.com", styles["contact"]),
+        Paragraph("casey-barton-glaciereq.vercel.app", styles["contact"]),
+        Paragraph("github.com/GlacierEQ", styles["contact"]),
+    ]
+    header = Table(
+        [[header_left, header_right]],
+        colWidths=[4.85 * inch, 2.05 * inch],
+        hAlign="LEFT",
+    )
+    header.setStyle(
+        TableStyle(
+            [
+                ("BACKGROUND", (0, 0), (-1, -1), DARK),
+                ("BOX", (0, 0), (-1, -1), 0.6, DARK_2),
+                ("VALIGN", (0, 0), (-1, -1), "BOTTOM"),
+                ("LEFTPADDING", (0, 0), (0, 0), 18),
+                ("RIGHTPADDING", (1, 0), (1, 0), 16),
+                ("TOPPADDING", (0, 0), (-1, -1), 17),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 16),
+            ]
+        )
+    )
     story.extend([header, Spacer(1, 10)])
 
     metric_cells = []
     for value, label in PROOF:
-        metric_cells.append([Paragraph(value, styles["metric"]), Paragraph(label, styles["metric_label"])])
+        metric_cells.append(
+            [
+                Paragraph(value, styles["metric"]),
+                Paragraph(label, styles["metric_label"]),
+            ]
+        )
     metrics = Table([metric_cells], colWidths=[doc.width / 4] * 4)
-    metrics.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, -1), DARK_2), ("BOX", (0, 0), (-1, -1), 0.5, DARK_2), ("INNERGRID", (0, 0), (-1, -1), 0.35, colors.HexColor("#2D6662")), ("LEFTPADDING", (0, 0), (-1, -1), 10), ("RIGHTPADDING", (0, 0), (-1, -1), 8), ("TOPPADDING", (0, 0), (-1, -1), 8), ("BOTTOMPADDING", (0, 0), (-1, -1), 8)]))
-    story.extend([metrics, Spacer(1, 10), Paragraph("SYSTEMS POSITIONING", styles["tag"]), Paragraph("Inspection discipline for AI systems.", styles["section"]), Paragraph(SUMMARY, styles["body"]), Spacer(1, 8)])
+    metrics.setStyle(
+        TableStyle(
+            [
+                ("BACKGROUND", (0, 0), (-1, -1), DARK_2),
+                ("BOX", (0, 0), (-1, -1), 0.5, DARK_2),
+                ("INNERGRID", (0, 0), (-1, -1), 0.35, colors.HexColor("#2D6662")),
+                ("LEFTPADDING", (0, 0), (-1, -1), 10),
+                ("RIGHTPADDING", (0, 0), (-1, -1), 8),
+                ("TOPPADDING", (0, 0), (-1, -1), 8),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
+            ]
+        )
+    )
+    story.extend(
+        [
+            metrics,
+            Spacer(1, 10),
+            Paragraph("SYSTEMS POSITIONING", styles["tag"]),
+            Paragraph("Inspection discipline for AI systems.", styles["section"]),
+            Paragraph(SUMMARY, styles["body"]),
+            Spacer(1, 8),
+        ]
+    )
 
     project_cells = []
     for p in PROJECTS:
         state_color = AMBER if p["state"] == "EXECUTION BLOCKED" else TEAL
-        block = [Paragraph(p["state"], ParagraphStyle("state", parent=styles["card_state"], textColor=state_color)), Paragraph(p["name"], styles["card_title"]), Paragraph(p["text"], styles["small"]), Spacer(1, 4), Paragraph(p["proof"], styles["small"])]
+        block = [
+            Paragraph(
+                p["state"],
+                ParagraphStyle(
+                    "state", parent=styles["card_state"], textColor=state_color
+                ),
+            ),
+            Paragraph(p["name"], styles["card_title"]),
+            Paragraph(p["text"], styles["small"]),
+            Spacer(1, 4),
+            Paragraph(p["proof"], styles["small"]),
+        ]
         project_cells.append(block)
-    project_table = Table([[project_cells[0], project_cells[1]], [project_cells[2], project_cells[3]]], colWidths=[doc.width / 2 - 4, doc.width / 2 - 4], hAlign="LEFT")
-    project_table.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, -1), colors.white), ("BOX", (0, 0), (-1, -1), 0.5, LINE), ("INNERGRID", (0, 0), (-1, -1), 0.5, LINE), ("VALIGN", (0, 0), (-1, -1), "TOP"), ("LEFTPADDING", (0, 0), (-1, -1), 11), ("RIGHTPADDING", (0, 0), (-1, -1), 11), ("TOPPADDING", (0, 0), (-1, -1), 9), ("BOTTOMPADDING", (0, 0), (-1, -1), 9), ("BACKGROUND", (1, 1), (1, 1), AMBER_BG)]))
-    story.extend([Paragraph("SELECTED EXECUTION", styles["tag"]), Paragraph("Proof that reveals engineering judgment.", styles["section"]), project_table, Spacer(1, 10), Paragraph("EXPERIENCE", styles["tag"])])
+    project_table = Table(
+        [[project_cells[0], project_cells[1]], [project_cells[2], project_cells[3]]],
+        colWidths=[doc.width / 2 - 4, doc.width / 2 - 4],
+        hAlign="LEFT",
+    )
+    project_table.setStyle(
+        TableStyle(
+            [
+                ("BACKGROUND", (0, 0), (-1, -1), colors.white),
+                ("BOX", (0, 0), (-1, -1), 0.5, LINE),
+                ("INNERGRID", (0, 0), (-1, -1), 0.5, LINE),
+                ("VALIGN", (0, 0), (-1, -1), "TOP"),
+                ("LEFTPADDING", (0, 0), (-1, -1), 11),
+                ("RIGHTPADDING", (0, 0), (-1, -1), 11),
+                ("TOPPADDING", (0, 0), (-1, -1), 9),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 9),
+                ("BACKGROUND", (1, 1), (1, 1), AMBER_BG),
+            ]
+        )
+    )
+    story.extend(
+        [
+            Paragraph("SELECTED EXECUTION", styles["tag"]),
+            Paragraph("Proof that reveals engineering judgment.", styles["section"]),
+            project_table,
+            Spacer(1, 10),
+            Paragraph("EXPERIENCE", styles["tag"]),
+        ]
+    )
 
     first = EXPERIENCE[0]
-    exp_head = Table([[Paragraph(f"{first[0]} - {first[1]}", styles["role"]), Paragraph(first[2], styles["date"])]], colWidths=[5.35 * inch, 1.55 * inch])
-    exp_head.setStyle(TableStyle([("VALIGN", (0, 0), (-1, -1), "TOP"), ("ALIGN", (1, 0), (1, 0), "RIGHT"), ("BOTTOMPADDING", (0, 0), (-1, -1), 4)]))
+    exp_head = Table(
+        [
+            [
+                Paragraph(f"{first[0]} - {first[1]}", styles["role"]),
+                Paragraph(first[2], styles["date"]),
+            ]
+        ],
+        colWidths=[5.35 * inch, 1.55 * inch],
+    )
+    exp_head.setStyle(
+        TableStyle(
+            [
+                ("VALIGN", (0, 0), (-1, -1), "TOP"),
+                ("ALIGN", (1, 0), (1, 0), "RIGHT"),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 4),
+            ]
+        )
+    )
     story.append(exp_head)
     for b in first[3]:
         story.append(Paragraph(f"- {b}", styles["bullet"]))
@@ -205,31 +470,138 @@ def make_pdf() -> None:
     story.append(PageBreak())
     story.extend([Paragraph("EXPERIENCE CONTINUED", styles["tag"])])
     for org, role, period, bullets in EXPERIENCE[1:]:
-        head = Table([[Paragraph(f"{org} - {role}", styles["role"]), Paragraph(period, styles["date"])]], colWidths=[5.35 * inch, 1.55 * inch])
-        head.setStyle(TableStyle([("VALIGN", (0, 0), (-1, -1), "TOP"), ("ALIGN", (1, 0), (1, 0), "RIGHT"), ("TOPPADDING", (0, 0), (-1, -1), 7), ("BOTTOMPADDING", (0, 0), (-1, -1), 4)]))
+        head = Table(
+            [
+                [
+                    Paragraph(f"{org} - {role}", styles["role"]),
+                    Paragraph(period, styles["date"]),
+                ]
+            ],
+            colWidths=[5.35 * inch, 1.55 * inch],
+        )
+        head.setStyle(
+            TableStyle(
+                [
+                    ("VALIGN", (0, 0), (-1, -1), "TOP"),
+                    ("ALIGN", (1, 0), (1, 0), "RIGHT"),
+                    ("TOPPADDING", (0, 0), (-1, -1), 7),
+                    ("BOTTOMPADDING", (0, 0), (-1, -1), 4),
+                ]
+            )
+        )
         story.append(head)
         for b in bullets:
             story.append(Paragraph(f"- {b}", styles["bullet"]))
 
-    story.extend([Spacer(1, 8), Paragraph("CROSS-DOMAIN FOUNDATION", styles["tag"]), Paragraph("A rare operating perspective.", styles["section"])])
+    story.extend(
+        [
+            Spacer(1, 8),
+            Paragraph("CROSS-DOMAIN FOUNDATION", styles["tag"]),
+            Paragraph("A rare operating perspective.", styles["section"]),
+        ]
+    )
     domain_cells = []
     for tag, title, text in DOMAINS:
-        domain_cells.append([Paragraph(tag, styles["card_state"]), Paragraph(title, styles["card_title"]), Paragraph(text, styles["small"])])
+        domain_cells.append(
+            [
+                Paragraph(tag, styles["card_state"]),
+                Paragraph(title, styles["card_title"]),
+                Paragraph(text, styles["small"]),
+            ]
+        )
     domains = Table([domain_cells], colWidths=[doc.width / 3] * 3)
-    domains.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, -1), PALE), ("BOX", (0, 0), (-1, -1), 0.5, LINE), ("INNERGRID", (0, 0), (-1, -1), 0.5, LINE), ("VALIGN", (0, 0), (-1, -1), "TOP"), ("LEFTPADDING", (0, 0), (-1, -1), 9), ("RIGHTPADDING", (0, 0), (-1, -1), 9), ("TOPPADDING", (0, 0), (-1, -1), 8), ("BOTTOMPADDING", (0, 0), (-1, -1), 8)]))
+    domains.setStyle(
+        TableStyle(
+            [
+                ("BACKGROUND", (0, 0), (-1, -1), PALE),
+                ("BOX", (0, 0), (-1, -1), 0.5, LINE),
+                ("INNERGRID", (0, 0), (-1, -1), 0.5, LINE),
+                ("VALIGN", (0, 0), (-1, -1), "TOP"),
+                ("LEFTPADDING", (0, 0), (-1, -1), 9),
+                ("RIGHTPADDING", (0, 0), (-1, -1), 9),
+                ("TOPPADDING", (0, 0), (-1, -1), 8),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
+            ]
+        )
+    )
     story.extend([domains, Spacer(1, 8), Paragraph("CAPABILITIES", styles["tag"])])
     cap_cells = []
     for title, text in CAPABILITIES:
-        cap_cells.append([Paragraph(title, styles["card_title"]), Paragraph(text, styles["small"])])
+        cap_cells.append(
+            [Paragraph(title, styles["card_title"]), Paragraph(text, styles["small"])]
+        )
     caps = Table([cap_cells], colWidths=[doc.width / 3] * 3)
-    caps.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, -1), colors.white), ("BOX", (0, 0), (-1, -1), 0.5, LINE), ("INNERGRID", (0, 0), (-1, -1), 0.5, LINE), ("VALIGN", (0, 0), (-1, -1), "TOP"), ("LEFTPADDING", (0, 0), (-1, -1), 9), ("RIGHTPADDING", (0, 0), (-1, -1), 9), ("TOPPADDING", (0, 0), (-1, -1), 8), ("BOTTOMPADDING", (0, 0), (-1, -1), 8)]))
+    caps.setStyle(
+        TableStyle(
+            [
+                ("BACKGROUND", (0, 0), (-1, -1), colors.white),
+                ("BOX", (0, 0), (-1, -1), 0.5, LINE),
+                ("INNERGRID", (0, 0), (-1, -1), 0.5, LINE),
+                ("VALIGN", (0, 0), (-1, -1), "TOP"),
+                ("LEFTPADDING", (0, 0), (-1, -1), 9),
+                ("RIGHTPADDING", (0, 0), (-1, -1), 9),
+                ("TOPPADDING", (0, 0), (-1, -1), 8),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
+            ]
+        )
+    )
     story.extend([caps, Spacer(1, 8)])
 
-    edu = Table([[Paragraph("University of Hawaii at Manoa", styles["role"]), Paragraph("B.S., Marine Biology - 2016", styles["small"]), Paragraph("AWS Cloud Institute", styles["role"]), Paragraph("Cloud Application Developer program - 2025-2026, in progress", styles["small"])]], colWidths=[1.55 * inch, 1.75 * inch, 1.35 * inch, 2.25 * inch])
-    edu.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, -1), PALE), ("BOX", (0, 0), (-1, -1), 0.5, LINE), ("VALIGN", (0, 0), (-1, -1), "MIDDLE"), ("LEFTPADDING", (0, 0), (-1, -1), 8), ("RIGHTPADDING", (0, 0), (-1, -1), 8), ("TOPPADDING", (0, 0), (-1, -1), 7), ("BOTTOMPADDING", (0, 0), (-1, -1), 7)]))
-    story.extend([Paragraph("EDUCATION", styles["tag"]), edu, Spacer(1, 7), Paragraph("Earlier technical certifications recorded in prior resumes: PSI Visual Cylinder Inspector, Eddy Current Technician, Valve Repair Technician, Oxygen Cleaning Cylinder Technician; NAUI Rescue and Master Diver; PADI Enriched Air Diver. Current status should be confirmed before role-specific use.", styles["small"]), Spacer(1, 7)])
-    boundary = Table([[Paragraph(f"<b>Evidence boundary.</b> {BOUNDARY}", styles["boundary"])]], colWidths=[doc.width])
-    boundary.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, -1), AMBER_BG), ("BOX", (0, 0), (-1, -1), 0.5, colors.HexColor("#E7C77E")), ("LEFTPADDING", (0, 0), (-1, -1), 10), ("RIGHTPADDING", (0, 0), (-1, -1), 10), ("TOPPADDING", (0, 0), (-1, -1), 8), ("BOTTOMPADDING", (0, 0), (-1, -1), 8)]))
+    edu = Table(
+        [
+            [
+                Paragraph("University of Hawaii at Manoa", styles["role"]),
+                Paragraph("B.S., Marine Biology - 2016", styles["small"]),
+                Paragraph("AWS Cloud Institute", styles["role"]),
+                Paragraph(
+                    "Cloud Application Developer program - 2025-2026, in progress",
+                    styles["small"],
+                ),
+            ]
+        ],
+        colWidths=[1.55 * inch, 1.75 * inch, 1.35 * inch, 2.25 * inch],
+    )
+    edu.setStyle(
+        TableStyle(
+            [
+                ("BACKGROUND", (0, 0), (-1, -1), PALE),
+                ("BOX", (0, 0), (-1, -1), 0.5, LINE),
+                ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+                ("LEFTPADDING", (0, 0), (-1, -1), 8),
+                ("RIGHTPADDING", (0, 0), (-1, -1), 8),
+                ("TOPPADDING", (0, 0), (-1, -1), 7),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 7),
+            ]
+        )
+    )
+    story.extend(
+        [
+            Paragraph("EDUCATION", styles["tag"]),
+            edu,
+            Spacer(1, 7),
+            Paragraph(
+                "Earlier technical certifications recorded in prior resumes: PSI Visual Cylinder Inspector, Eddy Current Technician, Valve Repair Technician, Oxygen Cleaning Cylinder Technician; NAUI Rescue and Master Diver; PADI Enriched Air Diver. Current status should be confirmed before role-specific use.",
+                styles["small"],
+            ),
+            Spacer(1, 7),
+        ]
+    )
+    boundary = Table(
+        [[Paragraph(f"<b>Evidence boundary.</b> {BOUNDARY}", styles["boundary"])]],
+        colWidths=[doc.width],
+    )
+    boundary.setStyle(
+        TableStyle(
+            [
+                ("BACKGROUND", (0, 0), (-1, -1), AMBER_BG),
+                ("BOX", (0, 0), (-1, -1), 0.5, colors.HexColor("#E7C77E")),
+                ("LEFTPADDING", (0, 0), (-1, -1), 10),
+                ("RIGHTPADDING", (0, 0), (-1, -1), 10),
+                ("TOPPADDING", (0, 0), (-1, -1), 8),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 8),
+            ]
+        )
+    )
     story.append(boundary)
     doc.build(story)
 
@@ -309,11 +681,34 @@ def make_docx() -> None:
     p = header.cell(0, 0).paragraphs[0]
     add_run(p, "CASEY DEL CARPIO BARTON", 24, True, "FFFFFF")
     p = header.cell(0, 0).add_paragraph()
-    add_run(p, "APPLIED AI SYSTEMS ARCHITECT | AGENT INFRASTRUCTURE ENGINEER", 9.2, True, "B8F5DF")
+    add_run(
+        p,
+        "APPLIED AI SYSTEMS ARCHITECT | AGENT INFRASTRUCTURE ENGINEER",
+        9.2,
+        True,
+        "B8F5DF",
+    )
     p = header.cell(0, 0).add_paragraph()
-    add_run(p, "Builds the operating layer that makes powerful AI dependable enough to use.", 8, False, "D4E6E2")
-    for i, text in enumerate(["Honolulu, Hawaii", "glacier.equilibrium@gmail.com", "casey-barton-glaciereq.vercel.app", "github.com/GlacierEQ"]):
-        p = header.cell(0, 1).paragraphs[0] if i == 0 else header.cell(0, 1).add_paragraph()
+    add_run(
+        p,
+        "Builds the operating layer that makes powerful AI dependable enough to use.",
+        8,
+        False,
+        "D4E6E2",
+    )
+    for i, text in enumerate(
+        [
+            "Honolulu, Hawaii",
+            "glacier.equilibrium@gmail.com",
+            "casey-barton-glaciereq.vercel.app",
+            "github.com/GlacierEQ",
+        ]
+    ):
+        p = (
+            header.cell(0, 1).paragraphs[0]
+            if i == 0
+            else header.cell(0, 1).add_paragraph()
+        )
         p.alignment = WD_ALIGN_PARAGRAPH.RIGHT
         add_run(p, text, 7.5, False, "D4E6E2")
 
@@ -343,7 +738,13 @@ def make_docx() -> None:
         shade(cell, "FFF6E3" if project["state"] == "EXECUTION BLOCKED" else "FFFFFF")
         set_cell_margins(cell, 100, 120, 100, 120)
         p = cell.paragraphs[0]
-        add_run(p, project["state"], 6.3, True, "9A6500" if project["state"] == "EXECUTION BLOCKED" else "0D766C")
+        add_run(
+            p,
+            project["state"],
+            6.3,
+            True,
+            "9A6500" if project["state"] == "EXECUTION BLOCKED" else "0D766C",
+        )
         p = cell.add_paragraph()
         add_run(p, project["name"], 9.2, True, "14262C")
         p = cell.add_paragraph()
@@ -365,7 +766,11 @@ def make_docx() -> None:
         add_bullet(doc, b)
 
     doc.add_page_break()
-    add_heading(doc, "Experience continued", "Field systems, operations, and evidence discipline.")
+    add_heading(
+        doc,
+        "Experience continued",
+        "Field systems, operations, and evidence discipline.",
+    )
     for org, role, period, bullets in EXPERIENCE[1:]:
         t = doc.add_table(rows=1, cols=2)
         t.columns[0].width = Inches(5.8)
@@ -391,7 +796,11 @@ def make_docx() -> None:
         p = cell.add_paragraph()
         add_run(p, text, 7.2, False, "536A6D")
 
-    add_heading(doc, "Capabilities", "Built for applied AI roles where the model is only one component.")
+    add_heading(
+        doc,
+        "Capabilities",
+        "Built for applied AI roles where the model is only one component.",
+    )
     caps = doc.add_table(rows=1, cols=3)
     for i, (title, text) in enumerate(CAPABILITIES):
         cell = caps.cell(0, i)
@@ -413,12 +822,24 @@ def make_docx() -> None:
     p = edu.cell(0, 1).paragraphs[0]
     add_run(p, "AWS Cloud Institute", 8.6, True, "14262C")
     p = edu.cell(0, 1).add_paragraph()
-    add_run(p, "Cloud Application Developer program - 2025-2026, in progress", 7.5, False, "536A6D")
+    add_run(
+        p,
+        "Cloud Application Developer program - 2025-2026, in progress",
+        7.5,
+        False,
+        "536A6D",
+    )
 
     p = doc.add_paragraph()
     p.paragraph_format.space_before = Pt(4)
     p.paragraph_format.space_after = Pt(5)
-    add_run(p, "Earlier technical certifications recorded in prior resumes: PSI Visual Cylinder Inspector, Eddy Current Technician, Valve Repair Technician, Oxygen Cleaning Cylinder Technician; NAUI Rescue and Master Diver; PADI Enriched Air Diver. Current status should be confirmed before role-specific use.", 7.1, False, "536A6D")
+    add_run(
+        p,
+        "Earlier technical certifications recorded in prior resumes: PSI Visual Cylinder Inspector, Eddy Current Technician, Valve Repair Technician, Oxygen Cleaning Cylinder Technician; NAUI Rescue and Master Diver; PADI Enriched Air Diver. Current status should be confirmed before role-specific use.",
+        7.1,
+        False,
+        "536A6D",
+    )
 
     boundary = doc.add_table(rows=1, cols=1)
     shade(boundary.cell(0, 0), "FFF6E3")
@@ -430,7 +851,13 @@ def make_docx() -> None:
     for section in doc.sections:
         footer = section.footer.paragraphs[0]
         footer.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        add_run(footer, "Casey Del Carpio Barton | Resume Intelligence V17 | Evidence-bound presentation", 6.5, False, "6A7C7E")
+        add_run(
+            footer,
+            "Casey Del Carpio Barton | Resume Intelligence V17 | Evidence-bound presentation",
+            6.5,
+            False,
+            "6A7C7E",
+        )
 
     props = doc.core_properties
     props.title = "Casey Barton - Applied AI Systems Architect Resume"
@@ -447,11 +874,21 @@ def main() -> None:
         "schema": "glaciereq.resume-artifacts.v17",
         "generator": "site-v15/scripts/generate-resume-v17.py",
         "artifacts": {
-            "pdf": {"path": str(PDF_PATH.relative_to(ROOT)), "bytes": PDF_PATH.stat().st_size, "sha256": sha256(PDF_PATH)},
-            "docx": {"path": str(DOCX_PATH.relative_to(ROOT)), "bytes": DOCX_PATH.stat().st_size, "sha256": sha256(DOCX_PATH)},
+            "pdf": {
+                "path": str(PDF_PATH.relative_to(ROOT)),
+                "bytes": PDF_PATH.stat().st_size,
+                "sha256": sha256(PDF_PATH),
+            },
+            "docx": {
+                "path": str(DOCX_PATH.relative_to(ROOT)),
+                "bytes": DOCX_PATH.stat().st_size,
+                "sha256": sha256(DOCX_PATH),
+            },
         },
     }
-    MANIFEST_PATH.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    MANIFEST_PATH.write_text(
+        json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
     print(json.dumps(manifest, indent=2, sort_keys=True))
 
 
