@@ -4,7 +4,8 @@
 **Repository:** `GlacierEQ/job-application`  
 **Parent source:** `release/v16-signal-architecture` at `1cc8b22a8f675ea10edfc454508b7fd0013f8da2`  
 **Candidate branch:** `release/v17-resume-intelligence`  
-**State:** `SOURCE_COMPLETE_EXACT_HEAD_GATES_REQUIRED`
+**Generated artifact commit:** `6f0ef4c2745268b6331ca334e021eb54b3ed67f5`  
+**State:** `GENERATED_ARTIFACTS_COMMITTED_EXACT_HEAD_GATES_PENDING`
 
 ## Purpose
 
@@ -69,19 +70,22 @@ These records are not transformed into current certification, executive, enterpr
 
 ## Required exact-head gates
 
-- inherited V16 factual-invariance validator;
+- inherited V15 and V16 factual-invariance validators;
 - V17 HTML structure, accessibility, script-free, and visual-contract checks;
 - ATS identity, headings, minimum content, evidence-state, and prohibited-inflation checks;
 - JSON Resume identity, work history, project state, proof totals, and limitation checks;
 - exact PDF and DOCX signatures, sizes, and SHA-256 identities;
 - `llms.txt` machine-route contract;
+- independent visual inspection of the exact GitHub-generated PDF and DOCX;
 - hashed GitHub Actions receipt artifact.
+
+## Generated artifact identities
+
+- PDF: `8,287 bytes`; SHA-256 `7ed445caf8ea73392868fdf29ca150476c8ef89ca6c622bb136aa143ca405bab`
+- DOCX: `41,576 bytes`; SHA-256 `e88a77e588fbcf98425adac8e4920837794c67985edee9d764d536049b5f79da`
+- Generator: `site-v15/scripts/generate-resume-v17.py`
+- Manifest: `site-v15/data/resume-artifacts.json`
 
 ## Promotion boundary
 
-This candidate receipt does not claim CI success, merge, preview deployment, production promotion, accessibility certification, ATS vendor acceptance, recruiter response, hiring outcome, current certification status, company affiliation, customer impact, or production-system operation. Those states require their own receipts.
-## Generated artifact identities
-
-- PDF SHA-256: `7ed445caf8ea73392868fdf29ca150476c8ef89ca6c622bb136aa143ca405bab`
-- DOCX SHA-256: `e88a77e588fbcf98425adac8e4920837794c67985edee9d764d536049b5f79da`
-- Generator: `site-v15/scripts/generate-resume-v17.py`
+This candidate receipt does not claim exact-head CI success, merge, preview deployment, production promotion, accessibility certification, ATS vendor acceptance, recruiter response, hiring outcome, current certification status, company affiliation, customer impact, or production-system operation. Those states require their own receipts.
