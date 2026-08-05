@@ -1,0 +1,45 @@
+name: V17 Resume Intelligence
+
+on:
+  pull_request:
+    paths:
+      - 'site-v15/resume/**'
+      - 'site-v15/assets/resume.v17.css'
+      - 'site-v15/data/resume.json'
+      - 'site-v15/downloads/Casey_Barton_Resume.*'
+      - 'site-v15/llms.txt'
+      - 'site-v15/scripts/validate-resume-v17.mjs'
+      - 'RESUME_ATS.md'
+      - '.github/workflows/v17-resume-intelligence.yml'
+      - 'deployment-receipts/V17_RESUME_INTELLIGENCE_CANDIDATE_2026-08-05.md'
+  push:
+    branches:
+      - release/v17-resume-intelligence
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Preserve V16 factual invariance
+        run: node site-v15/scripts/validate.mjs
+      - name: Validate V17 resume intelligence
+        run: |
+          mkdir -p .verification-artifacts
+          node site-v15/scripts/validate-resume-v17.mjs | tee .verification-artifacts/v17-resume-validation.json
+      - name: Hash validation receipt
+        run: sha256sum .verification-artifacts/v17-resume-validation.json > .verification-artifacts/v17-resume-validation.sha256
+      - name: Upload validation receipt
+        uses: actions/upload-artifact@v4
+        with:
+          name: v17-resume-intelligence-receipt
+          path: .verification-artifacts/
+          retention-days: 14
+          if-no-files-found: error

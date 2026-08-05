@@ -1,29 +1,28 @@
-# CASEY DEL CARPIO BARTON
-
+CASEY DEL CARPIO BARTON
 Applied AI Systems Architect | Agent Infrastructure Engineer | Forward-Deployed AI Engineer
 Honolulu, Hawaii | glacier.equilibrium@gmail.com
 Portfolio: https://casey-barton-glaciereq.vercel.app/
 GitHub: https://github.com/GlacierEQ
 
-## Professional Summary
+PROFESSIONAL SUMMARY
 Applied AI systems architect who builds the operating layer around model capability: task ownership, tool contracts, authority, evidence states, controlled failure, persistence, and completion receipts. Builds across agent orchestration, application intelligence, document and evidence pipelines, memory and continuity, infrastructure governance, and human-machine interfaces. Brings cross-domain discipline from home inspection, scientific measurement, residential operations, and compressed-gas safety: observe the actual system, isolate the governing failure, bound the risk, test the claim, and leave an inspectable artifact.
 
-## Selected Execution Proof
+SELECTED EXECUTION PROOF
 - Portfolio Receipt Router: rebuilt an overstated autonomous-control surface as a local fail-closed evidence router. 69 of 69 tests passed through direct and reusable CI; artifact 8910423397; zero external queries and actions.
 - Bounded infrastructure sources: 166 source tests passed across Cooling, Energy, Servers, Security, and Nanosphere, plus 19 Energy memory tests and five hashed artifacts.
 - Job Application Helix: evidence-governed hiring and portfolio orchestration with 148 of 148 recorded repository tests.
 - Agent Coordinator: deterministic task ownership, dependency, capacity, priority, and shared-budget coordination with 62 of 62 recorded Python tests.
 - Microcode Governance: firmware manifest, drift, SBOM, provenance, compatibility policy, and approval-gated rollout planning. Reviewed, execution blocked, and not represented as test verified.
 
-## Core Competencies
+CORE COMPETENCIES
 Applied AI architecture; agent infrastructure; multi-agent orchestration; tool contracts; Model Context Protocol (MCP); JSON-RPC 2.0; REST APIs; JSON Schema; state machines; event-driven systems; idempotency; authority and approval models; human-in-the-loop systems; evidence governance; provenance; claim-to-source mapping; deterministic testing; failure and recovery design; CI/CD; machine-readable interfaces; portfolio engineering.
 
-## Technologies
+TECHNOLOGIES
 Python; TypeScript; JavaScript; SQL; Bash; Node.js; React; Next.js; FastAPI; Git; GitHub Actions; Docker; Vercel; REST; JSON-RPC 2.0; MCP; JSON Schema; Protocol Buffers; static analysis; dependency auditing; integrity hashing.
 Prior scientific computing: R and MATLAB.
 Additional evidence-bounded project exposure: Go, Rust, C, C++, CUDA, Swift/Metal, Julia, Verilog/SystemVerilog, WebAssembly.
 
-## Professional Experience
+PROFESSIONAL EXPERIENCE
 GLACIEREQ | Founder / Applied AI Systems Builder | Honolulu, Hawaii | January 2025-Present
 - Design and implement evidence-bound systems spanning agent orchestration, application intelligence, document and evidence pipelines, memory and continuity, infrastructure governance, and human-machine interfaces.
 - Convert ambiguous architectures into typed contracts, runnable slices, deterministic tests, explicit refusal behavior, machine-readable facts, and reviewable completion receipts.
@@ -41,26 +40,26 @@ HI-CLASS HOME SERVICES / HI CLASS MAINTENANCE OAHU LLC | Owner-Operator, Buildin
 - Work across practical building-system problems including minor carpentry, plumbing, electrical fixture replacement, drywall, painting, flooring, and maintenance planning.
 - Translate incomplete real-world requirements into bounded work packages, explicit assumptions, and usable closeout artifacts.
 
-## Earlier Technical Experience
+EARLIER TECHNICAL EXPERIENCE
 UNIVERSITY OF HAWAII AT MANOA | Sea Urchin Morphometric Research | 2016-2017
 - Processed physical measurements of sea-urchin gill structures to support visual species identification.
 
 HAWAIIAN DIVING ADVENTURES AND UH DIVE OFFICE | Scuba Tank Technician | 2016-2017
 - Supported tank filling, transport, inspection and repair, and gas mixing under safety-critical procedures.
 
-## Selected Systems
+SELECTED SYSTEMS
 Portfolio Receipt Router - compatibility-safe architecture repair and evidence routing; TEST VERIFIED, 69/69.
 Job Application Helix - evidence-governed hiring and portfolio orchestration; 148/148 recorded tests.
 Agent Coordinator - deterministic multi-agent scheduling and resource control; 62/62 recorded tests.
 Microcode Governance - firmware manifest and rollout governance; REVIEWED_EXECUTION_BLOCKED.
 PSYSOC-X - audience calibration without factual, uncertainty, dignity, or authority drift; bounded test scope.
 
-## Education
+EDUCATION
 University of Hawaii at Manoa - Bachelor of Science, Marine Biology, 2016
 AWS Cloud Institute - Cloud Application Developer program, 2025-2026, in progress
 
-## Earlier Technical Certifications Recorded In Prior Resumes
+EARLIER TECHNICAL CERTIFICATIONS RECORDED IN PRIOR RESUMES
 PSI Visual Cylinder Inspector; PSI Eddy Current Technician; PSI Valve Repair Technician; PSI Oxygen Cleaning Cylinder Technician; NAUI Rescue Diver; NAUI Master Diver; PADI Enriched Air Diver. Current status should be confirmed before role-specific use.
 
-## Evidence Boundary
+EVIDENCE BOUNDARY
 Independent GlacierEQ work and bounded technical exhibits. Test counts refer only to their stated repository and scope. No company affiliation, proprietary access, production use, customer impact, formal people-management experience, current certification status, or hardware validation is claimed without direct evidence.
