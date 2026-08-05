@@ -13,6 +13,10 @@
     {
       "source": "/api/runtime",
       "destination": "/machine/runtime.json"
+    },
+    {
+      "source": "/api/estate",
+      "destination": "https://kjebemdgvjvuutzvhbtp.supabase.co/functions/v1/application-estate-public"
     }
   ],
   "headers": [

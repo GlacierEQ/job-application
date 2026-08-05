@@ -1,0 +1,57 @@
+{
+  "schema": "glaciereq.application-estate.static-receipt.v1",
+  "authority": {
+    "audit_id": "089e7f91-3010-48fd-93d9-ed78cf176e3e",
+    "audited_at": "2026-08-05T09:57:38.188535+00:00",
+    "validator_version": "full-estate-v1",
+    "hashes": {
+      "inventory_set_sha256": "2d2f188ea72dc8d4fc6111f9e3e444ea8ecb15c11d558fe3f70edbb24453dc3c",
+      "graph_sha256": "8c036ef6c766e547f5868f19d2090c717ae55797fec7b7c3cb35ea0933a78ef8",
+      "capability_edges_sha256": "49090e0e5ee2374354ed36ed21926dda9385a586dce0ae2b298459d35b6941e0",
+      "employer_edges_sha256": "747ba1beaf0a30bf151fe607c9160cf8c5f463e9ec4424c13a1cd92add76831f"
+    }
+  },
+  "summary": {
+    "live_repositories": 1179,
+    "known_repository_identities": 1181,
+    "recovered_beyond_old_baseline": 1114,
+    "old_baseline_repositories": 67,
+    "old_baseline_still_live": 65,
+    "historical_identities_not_live": 2,
+    "company_systems": 101,
+    "capability_systems": 32,
+    "unresolved_relevance": 21,
+    "silent_omissions": 0,
+    "public_repositories_exposed": 618,
+    "private_repositories_counted_not_named": 523
+  },
+  "company_systems": [],
+  "capability_systems": [],
+  "public_repositories": [],
+  "private_system_contribution": {
+    "repository_count": 523,
+    "dispositions": {},
+    "relevance": {},
+    "capability_membership_counts": {}
+  },
+  "historical_repository_identities": [
+    {
+      "repo_name": "infinity-gauntlet-mcp-stack",
+      "record_state": "HISTORICAL_BASELINE_NOT_LIVE"
+    },
+    {
+      "repo_name": "polyglot-systems-architecture",
+      "record_state": "HISTORICAL_BASELINE_NOT_LIVE"
+    }
+  ],
+  "truth_boundary": {
+    "every_live_repository_has_a_disposition": true,
+    "every_live_repository_has_a_capability_record": true,
+    "private_repository_names_redacted_from_public_payload": true,
+    "sensitive_and_archived_repository_names_omitted_from_public_payload": true,
+    "forks_are_reference_evidence_not_authorship_claims": true,
+    "company_alignment_is_not_employer_affiliation": true,
+    "semantic_source_review_complete": false,
+    "static_receipt_does_not_contain_full_registry": true
+  }
+}

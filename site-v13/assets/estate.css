@@ -1,0 +1,406 @@
+.estate-section {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 12% 10%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 30rem),
+    radial-gradient(circle at 88% 65%, color-mix(in srgb, var(--accent-2, var(--accent)) 10%, transparent), transparent 34rem),
+    var(--bg);
+}
+
+.estate-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .22;
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--line) 45%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--line) 45%, transparent) 1px, transparent 1px);
+  background-size: 34px 34px;
+  mask-image: linear-gradient(to bottom, transparent, black 14%, black 86%, transparent);
+}
+
+.estate-section > .shell { position: relative; z-index: 1; }
+
+.estate-metrics {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: .8rem;
+  margin: 2rem 0;
+}
+
+.estate-metric,
+.estate-system-card,
+.estate-capability-card,
+.estate-repository-card,
+.estate-private-card,
+.estate-boundary,
+.estate-controls,
+.estate-status {
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--panel-solid) 92%, transparent);
+  box-shadow: var(--shadow-sm, 0 12px 40px rgba(0,0,0,.12));
+}
+
+.estate-metric {
+  min-height: 9.2rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  border-radius: 16px;
+}
+
+.estate-metric strong {
+  color: var(--accent);
+  font-size: clamp(1.65rem, 3vw, 2.8rem);
+  line-height: .95;
+  letter-spacing: -.05em;
+}
+
+.estate-metric span {
+  margin-top: .55rem;
+  color: var(--text);
+  font-size: .76rem;
+  font-weight: 850;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.estate-metric p {
+  margin: .35rem 0 0;
+  color: var(--muted);
+  font-size: .75rem;
+  line-height: 1.45;
+}
+
+.estate-controls {
+  border-radius: 18px;
+  padding: 1rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.estate-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+
+.estate-tabs button {
+  appearance: none;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: .78rem;
+  font-weight: 800;
+  padding: .65rem .9rem;
+  cursor: pointer;
+}
+
+.estate-tabs button:hover,
+.estate-tabs button.active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--text);
+}
+
+.estate-filters {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(12rem, 18rem);
+  gap: .8rem;
+}
+
+.estate-filters label { display: grid; gap: .35rem; }
+.estate-filters label > span {
+  color: var(--muted);
+  font-size: .7rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.estate-filters input,
+.estate-filters select {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--text);
+  padding: .8rem .9rem;
+  font: inherit;
+}
+
+.estate-filters select:disabled { opacity: .4; }
+
+.estate-status {
+  margin: .8rem 0 1rem;
+  padding: .75rem 1rem;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  color: var(--muted);
+  font-size: .78rem;
+}
+
+.estate-audit-state {
+  flex: 0 0 auto;
+  border: 1px solid color-mix(in srgb, var(--accent) 65%, var(--line));
+  border-radius: 999px;
+  color: var(--accent);
+  padding: .35rem .55rem;
+  font-size: .65rem;
+  font-weight: 900;
+  letter-spacing: .1em;
+}
+
+.estate-audit-state.degraded { color: #f2b36d; border-color: #f2b36d; }
+
+.estate-company-grid,
+.estate-capability-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.estate-system-card,
+.estate-capability-card,
+.estate-private-card {
+  border-radius: 18px;
+  padding: 1rem;
+}
+
+.estate-card-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: .8rem;
+  flex-wrap: wrap;
+}
+
+.estate-card-heading h3,
+.estate-capability-card h3,
+.estate-private-card h3 {
+  margin: .3rem 0 .8rem;
+  font-size: 1.15rem;
+}
+
+.estate-card-kicker {
+  color: var(--accent);
+  font-size: .64rem;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.estate-card-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .5rem;
+  margin-top: .8rem;
+}
+
+.estate-card-stats.compact { margin-top: 1rem; }
+
+.estate-card-stat {
+  padding: .6rem;
+  border: 1px solid color-mix(in srgb, var(--line) 80%, transparent);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--bg) 70%, transparent);
+}
+
+.estate-card-stat span {
+  display: block;
+  color: var(--muted);
+  font-size: .63rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+.estate-card-stat strong {
+  display: block;
+  margin-top: .2rem;
+  color: var(--text);
+  font-size: 1.05rem;
+}
+
+.estate-lifecycle-bar {
+  display: flex;
+  height: 7px;
+  margin: .7rem 0 .2rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--line);
+}
+
+.estate-segment.promote { background: #65d6a6; }
+.estate-segment.harden { background: var(--accent); }
+.estate-segment.rebuild { background: #f2b36d; }
+.estate-segment.reference { background: #8792a5; }
+
+.estate-card-note {
+  margin: .85rem 0 0;
+  color: var(--muted);
+  font-size: .78rem;
+  line-height: 1.55;
+}
+
+.estate-capability-total {
+  color: var(--accent);
+  font-size: 1.35rem;
+}
+
+.estate-repository-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .8rem;
+}
+
+.estate-repository-card {
+  border-radius: 15px;
+  padding: .9rem;
+  min-width: 0;
+}
+
+.estate-repository-card h3 {
+  margin: .65rem 0 .45rem;
+  font-size: 1rem;
+  overflow-wrap: anywhere;
+}
+
+.estate-repository-card h3 a { color: var(--text); text-decoration: none; }
+.estate-repository-card h3 a:hover { color: var(--accent); }
+
+.estate-repository-card > p {
+  min-height: 3.6em;
+  margin: 0;
+  color: var(--muted);
+  font-size: .75rem;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.estate-repo-state {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: .5rem;
+  color: var(--muted);
+  font-size: .58rem;
+  font-weight: 850;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.estate-disposition {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: .25rem .4rem;
+}
+
+.estate-disposition.promote { color: #65d6a6; border-color: #65d6a6; }
+.estate-disposition.harden { color: var(--accent); border-color: var(--accent); }
+.estate-disposition.rebuild { color: #f2b36d; border-color: #f2b36d; }
+.estate-disposition.reference { color: #aab3c2; }
+
+.estate-repo-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .3rem;
+  margin-top: .75rem;
+}
+
+.estate-repo-tags span {
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  color: var(--muted);
+  padding: .25rem .4rem;
+  font-size: .58rem;
+}
+
+.estate-repo-tags span.direct {
+  background: color-mix(in srgb, #65d6a6 13%, transparent);
+  color: #65d6a6;
+}
+
+.estate-load-more {
+  display: block;
+  margin: 1.2rem auto 0;
+}
+
+.estate-private-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.estate-private-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .5rem;
+  margin-top: 1rem;
+}
+
+.estate-private-capabilities {
+  display: grid;
+  gap: .35rem;
+  margin-top: .8rem;
+}
+
+.estate-private-capabilities > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .45rem 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: .72rem;
+}
+
+.estate-private-capabilities strong { color: var(--text); }
+
+.estate-boundary {
+  margin-top: 1rem;
+  border-radius: 15px;
+  padding: 1rem;
+}
+
+.estate-boundary strong { color: var(--accent); }
+.estate-boundary p { color: var(--muted); line-height: 1.55; }
+.estate-boundary code {
+  display: block;
+  overflow-wrap: anywhere;
+  color: var(--text);
+  font-size: .7rem;
+}
+
+@media (max-width: 1080px) {
+  .estate-metrics { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .estate-company-grid,
+  .estate-capability-grid,
+  .estate-repository-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 720px) {
+  .estate-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .estate-filters,
+  .estate-company-grid,
+  .estate-capability-grid,
+  .estate-repository-grid,
+  .estate-private-layout { grid-template-columns: 1fr; }
+  .estate-private-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .estate-status { align-items: flex-start; flex-direction: column; }
+}
+
+@media (max-width: 430px) {
+  .estate-metrics { grid-template-columns: 1fr; }
+  .estate-tabs button { flex: 1 1 45%; }
+}
