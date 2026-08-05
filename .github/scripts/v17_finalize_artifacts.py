@@ -14,9 +14,9 @@ BOOTSTRAP = ROOT / ".github/workflows/v17-regenerate-final-artifacts.yml"
 
 def patch_generator() -> None:
     text = GENERATOR.read_text(encoding="utf-8")
-    old = '''            "Govern a multi-repository portfolio by separating source presence, review, execution, deployment, authority, and verified completion so recruiter, technical, and machine views cannot drift.",
-            "Use AI-assisted development as an inspectable engineering process combining source review, bounded generation, adversarial checking, deterministic validation, and human judgment.",'''
-    new = '''            "Govern a multi-repository portfolio by separating source presence, review, execution, deployment, authority, and verified completion; use AI-assisted development as an inspectable process combining source review, bounded generation, adversarial checking, deterministic validation, and human judgment.",'''
+    old = """            "Govern a multi-repository portfolio by separating source presence, review, execution, deployment, authority, and verified completion so recruiter, technical, and machine views cannot drift.",
+            "Use AI-assisted development as an inspectable engineering process combining source review, bounded generation, adversarial checking, deterministic validation, and human judgment.","""
+    new = """            "Govern a multi-repository portfolio by separating source presence, review, execution, deployment, authority, and verified completion; use AI-assisted development as an inspectable process combining source review, bounded generation, adversarial checking, deterministic validation, and human judgment.","""
     if old not in text:
         raise RuntimeError("expected GlacierEQ bullet block not found")
     text = text.replace(old, new)
@@ -27,13 +27,13 @@ def patch_generator() -> None:
         raise RuntimeError("expected DOCX page break not found")
     text = text.replace(forced, replacement)
 
-    needle = '    boundary = doc.add_table(rows=1, cols=1)\n'
-    insertion = '''    boundary = doc.add_table(rows=1, cols=1)
+    needle = "    boundary = doc.add_table(rows=1, cols=1)\n"
+    insertion = """    boundary = doc.add_table(rows=1, cols=1)
     tr_pr = boundary.rows[0]._tr.get_or_add_trPr()
     cant_split = OxmlElement("w:cantSplit")
     tr_pr.append(cant_split)
-'''
-    if 'w:cantSplit' not in text:
+"""
+    if "w:cantSplit" not in text:
         if needle not in text:
             raise RuntimeError("boundary table anchor not found")
         text = text.replace(needle, insertion)
@@ -100,7 +100,9 @@ def bind_identities() -> dict:
     text = inherited.read_text(encoding="utf-8")
     text = re.sub(
         r"const allowedResumePdfs=new Set\(\[[^\]]+\]\);",
-        "const allowedResumePdfs=new Set(['e4d189910b324555f63e8d4214d9f47be582c3e501fdb87136f712db443fad88','" + pdf["sha256"] + "']);",
+        "const allowedResumePdfs=new Set(['e4d189910b324555f63e8d4214d9f47be582c3e501fdb87136f712db443fad88','"
+        + pdf["sha256"]
+        + "']);",
         text,
     )
     inherited.write_text(text, encoding="utf-8")
@@ -119,7 +121,9 @@ def bind_identities() -> dict:
     )
     v17.write_text(text, encoding="utf-8")
 
-    receipt = ROOT / "deployment-receipts/V17_RESUME_INTELLIGENCE_CANDIDATE_2026-08-05.md"
+    receipt = (
+        ROOT / "deployment-receipts/V17_RESUME_INTELLIGENCE_CANDIDATE_2026-08-05.md"
+    )
     body = receipt.read_text(encoding="utf-8")
     body = re.sub(
         r"\*\*State:\*\* `[^`]+`",
@@ -127,11 +131,15 @@ def bind_identities() -> dict:
         body,
     )
     marker = "\n## Generated artifact identities\n"
-    body = body.split(marker)[0].rstrip() + marker + (
-        f"\n- PDF: `{pdf['bytes']:,} bytes`; SHA-256 `{pdf['sha256']}`"
-        f"\n- DOCX: `{docx['bytes']:,} bytes`; SHA-256 `{docx['sha256']}`"
-        "\n- Generator: `site-v15/scripts/generate-resume-v17.py`"
-        "\n- Manifest: `site-v15/data/resume-artifacts.json`\n"
+    body = (
+        body.split(marker)[0].rstrip()
+        + marker
+        + (
+            f"\n- PDF: `{pdf['bytes']:,} bytes`; SHA-256 `{pdf['sha256']}`"
+            f"\n- DOCX: `{docx['bytes']:,} bytes`; SHA-256 `{docx['sha256']}`"
+            "\n- Generator: `site-v15/scripts/generate-resume-v17.py`"
+            "\n- Manifest: `site-v15/data/resume-artifacts.json`\n"
+        )
     )
     receipt.write_text(body, encoding="utf-8")
     return manifest
@@ -146,9 +154,17 @@ def verify(manifest: dict) -> None:
             raise RuntimeError(f"{key} byte count drift")
         if hashlib.sha256(data).hexdigest() != entry["sha256"]:
             raise RuntimeError(f"{key} hash drift")
-    if not (ROOT / "site-v15/downloads/Casey_Barton_Resume.pdf").read_bytes().startswith(b"%PDF-"):
+    if (
+        not (ROOT / "site-v15/downloads/Casey_Barton_Resume.pdf")
+        .read_bytes()
+        .startswith(b"%PDF-")
+    ):
         raise RuntimeError("PDF signature invalid")
-    if not (ROOT / "site-v15/downloads/Casey_Barton_Resume.docx").read_bytes().startswith(b"PK"):
+    if (
+        not (ROOT / "site-v15/downloads/Casey_Barton_Resume.docx")
+        .read_bytes()
+        .startswith(b"PK")
+    ):
         raise RuntimeError("DOCX signature invalid")
 
 
