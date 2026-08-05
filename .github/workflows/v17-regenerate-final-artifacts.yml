@@ -29,8 +29,8 @@ jobs:
       - name: Install document generators
         run: python -m pip install --disable-pip-version-check reportlab==4.4.3 python-docx==1.2.0
 
-      - name: Regenerate and bind exact artifacts
-        run: python .github/scripts/v17_finalize_artifacts.py
+      - name: Compact, regenerate, and bind exact artifacts
+        run: python .github/scripts/v17_compact_and_finalize.py
 
       - name: Upload corrected visual QA bundle
         uses: actions/upload-artifact@v4
