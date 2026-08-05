@@ -29,6 +29,19 @@ Advance the verified V15 hiring system into a cutting-edge, recruiter-grade visu
 
 The recruiter profile is more direct, human, and outcome-led. Master, machine, and mesh remain progressively denser. All four preserve the same factual graph and explicit truth boundaries.
 
+## Source normalization
+
+Commit `a95a63ffba1108c903b62dff062d7958d3a0fd6b` completed the one-shot source normalization pass:
+
+- repaired mixed UTF-8, CP-1252, and Latin-1 source text;
+- emitted deterministic ASCII HTML with numeric entities for display characters;
+- corrected the malformed external-actions label;
+- verified both shared stylesheet links on every route;
+- added white-background technical print overrides;
+- removed the temporary normalization workflow from the branch.
+
+This normalization commit was produced by `GITHUB_TOKEN`, so a separate connector-authored receipt commit is used to trigger the exact-head validation suites.
+
 ## Deterministic validation contract
 
 The exact-head validator must confirm:
