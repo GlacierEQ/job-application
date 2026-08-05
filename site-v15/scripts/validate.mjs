@@ -39,7 +39,9 @@ assert(recruiter.includes('cockpit')&&recruiter.includes('bento')&&recruiter.inc
 assert(recruiter.indexOf('Portfolio Receipt Router')<recruiter.indexOf('Microcode Governance'),'verified work must precede pending work');
 for(const route of ['/master/','/mesh/','/machine/','/resume/']) assert(recruiter.includes(`href="${route}"`),`route missing ${route}`);
 assert(resume.includes('/downloads/Casey_Barton_Resume.pdf')&&resume.includes('RESUME_ATS.md'),'resume downloads missing');
-assert(resume.includes('69/69')&&resume.includes('166 source tests')&&resume.includes('148/148'),'resume proof drift');
+const legacyResumeProof=resume.includes('166 source tests');
+const v17ResumeProof=resume.includes('166 + 19')&&resume.includes('source + memory tests');
+assert(resume.includes('69/69')&&(legacyResumeProof||v17ResumeProof)&&resume.includes('148/148'),'resume proof drift');
 assert(master.toLowerCase().includes('69 of 69 tests passed')&&master.includes('166')&&master.includes('19 memory tests'),'master evidence incomplete');
 assert(master.includes('Owning repositories retain evidence authority') || master.includes('Proof stays with the owning system'),'master evidence policy missing');
 assert(machine.includes('/data/portfolio.json')&&machine.includes('/data/company-families.json')&&machine.includes('/data/psysoc-x-profiles.json'),'machine links incomplete');
@@ -62,8 +64,10 @@ assert(llms.includes('/data/portfolio.json')&&llms.includes('/data/psysoc-x-prof
 const pdf=await bytes(paths.pdf);
 assert(pdf.subarray(0,4).toString()==='%PDF','PDF signature invalid');
 assert((await stat(fileURLToPath(new URL(paths.pdf,root)))).size>8000,'PDF too small');
-assert(createHash('sha256').update(pdf).digest('hex')==='e4d189910b324555f63e8d4214d9f47be582c3e501fdb87136f712db443fad88','PDF hash drift');
+const pdfHash=createHash('sha256').update(pdf).digest('hex');
+const allowedResumePdfs=new Set(['e4d189910b324555f63e8d4214d9f47be582c3e501fdb87136f712db443fad88','82211eb1d260346901e337eeeca8fb984eaddc578b409c5236d9c241c555bcad']);
+assert(allowedResumePdfs.has(pdfHash),'PDF hash drift');
 const ats=await readFile(new URL('../../RESUME_ATS.md',import.meta.url),'utf8');
 assert(ats.includes('CASEY DEL CARPIO BARTON'),'ATS resume identity missing');
 assert(Buffer.byteLength(ats,'utf8')>3000,'ATS resume unexpectedly small');
-console.log(JSON.stringify({status:'PASS',release:'V16 Signal Architecture',routes:['/','/resume/','/master/','/mesh/','/machine/'],profiles:Object.keys(profiles.profiles),facts_invariant:true,proof:portfolio.proof,flagships:10,company_families:27,repositories:200,scripts:0,inline_styles:0,visual_contracts:['cockpit','radar','bento','terminal','CSS motion','reduced motion','print'],csp:'locked'},null,2));
+console.log(JSON.stringify({status:'PASS',release:'V16 Signal Architecture',routes:['/','/resume/','/master/','/mesh/','/machine/'],profiles:Object.keys(profiles.profiles),facts_invariant:true,proof:portfolio.proof,flagships:10,company_families:27,repositories:200,scripts:0,inline_styles:0,visual_contracts:['cockpit','radar','bento','terminal','CSS motion','reduced motion','print'],csp:'locked',resume_pdf_sha256:pdfHash},null,2));
