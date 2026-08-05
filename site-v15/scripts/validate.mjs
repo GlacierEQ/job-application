@@ -65,7 +65,7 @@ const pdf=await bytes(paths.pdf);
 assert(pdf.subarray(0,4).toString()==='%PDF','PDF signature invalid');
 assert((await stat(fileURLToPath(new URL(paths.pdf,root)))).size>8000,'PDF too small');
 const pdfHash=createHash('sha256').update(pdf).digest('hex');
-const allowedResumePdfs=new Set(['e4d189910b324555f63e8d4214d9f47be582c3e501fdb87136f712db443fad88','82211eb1d260346901e337eeeca8fb984eaddc578b409c5236d9c241c555bcad']);
+const allowedResumePdfs=new Set(['e4d189910b324555f63e8d4214d9f47be582c3e501fdb87136f712db443fad88','7ed445caf8ea73392868fdf29ca150476c8ef89ca6c622bb136aa143ca405bab']);
 assert(allowedResumePdfs.has(pdfHash),'PDF hash drift');
 const ats=await readFile(new URL('../../RESUME_ATS.md',import.meta.url),'utf8');
 assert(ats.includes('CASEY DEL CARPIO BARTON'),'ATS resume identity missing');

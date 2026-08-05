@@ -80,3 +80,8 @@ These records are not transformed into current certification, executive, enterpr
 ## Promotion boundary
 
 This candidate receipt does not claim CI success, merge, preview deployment, production promotion, accessibility certification, ATS vendor acceptance, recruiter response, hiring outcome, current certification status, company affiliation, customer impact, or production-system operation. Those states require their own receipts.
+## Generated artifact identities
+
+- PDF SHA-256: `7ed445caf8ea73392868fdf29ca150476c8ef89ca6c622bb136aa143ca405bab`
+- DOCX SHA-256: `e88a77e588fbcf98425adac8e4920837794c67985edee9d764d536049b5f79da`
+- Generator: `site-v15/scripts/generate-resume-v17.py`

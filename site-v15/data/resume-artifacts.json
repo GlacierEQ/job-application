@@ -1,0 +1,16 @@
+{
+  "artifacts": {
+    "docx": {
+      "bytes": 41576,
+      "path": "downloads/Casey_Barton_Resume.docx",
+      "sha256": "e88a77e588fbcf98425adac8e4920837794c67985edee9d764d536049b5f79da"
+    },
+    "pdf": {
+      "bytes": 8287,
+      "path": "downloads/Casey_Barton_Resume.pdf",
+      "sha256": "7ed445caf8ea73392868fdf29ca150476c8ef89ca6c622bb136aa143ca405bab"
+    }
+  },
+  "generator": "site-v15/scripts/generate-resume-v17.py",
+  "schema": "glaciereq.resume-artifacts.v17"
+}
