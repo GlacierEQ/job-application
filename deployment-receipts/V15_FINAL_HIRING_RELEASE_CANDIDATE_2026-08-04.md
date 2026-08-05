@@ -4,7 +4,7 @@
 **Canonical repository:** `GlacierEQ/job-application`  
 **Release source:** `site-v15/`  
 **Production target:** `https://casey-barton-glaciereq.vercel.app/`  
-**Current state:** `SOURCE_COMPLETE_LOCAL_VALIDATION_PASS`
+**Current state:** `MERGED_AND_SUPERSEDED_BY_PRODUCTION_RECEIPT`
 
 ## Product delivered
 
@@ -32,52 +32,44 @@ V15 is one evidence-bound hiring system with five stable routes:
 
 ## PSYSOC-X contract
 
-Four explicit presentation profiles modify only ordering, terminology, density, and explanation depth. The following remain invariant across every layer:
-
-- factual IDs;
-- evidence states;
-- test totals;
-- artifact identifiers;
-- known limits;
-- authority boundaries;
-- non-affiliation language;
-- unresolved blockers.
+Four explicit presentation profiles modify only ordering, terminology, density, and explanation depth. Factual IDs, evidence states, test totals, artifact identifiers, known limits, authority boundaries, non-affiliation language, and unresolved blockers remain invariant.
 
 No profile performs diagnosis, covert persuasion, emotional exploitation, fact mutation, uncertainty suppression, or authority inflation.
 
-## Local validation
+## Exact-head repository validation
 
-`node site-v15/scripts/validate.mjs` returned `PASS` and verified:
+Pull-request head `07d3d33aaf75dd1d780c24af39a00b998f87da76` passed:
 
-- all five routes;
-- all four PSYSOC-X profiles;
-- one H1 per page;
-- no JavaScript;
-- no inline styles;
-- same-origin shared design system;
-- exact evidence totals;
-- 10 ranked flagships;
-- 27 company families;
-- 200 public-safe repositories;
-- locked Content Security Policy;
-- mobile, reduced-motion, and print contracts;
-- valid PDF and ATS text signatures.
+- `V15 Final Hiring Release` workflow run `30977936141`;
+- existing `CI` workflow run `30977936450`;
+- all five route and four PSYSOC-X-profile checks;
+- one-H1, no-JavaScript, no-inline-style, responsive, reduced-motion, print, CSP, résumé-signature, proof-total, flagship, and company-family checks.
 
-## Source hashes before repository commit
+Validation artifact:
 
-| Artifact | SHA-256 |
-|---|---|
-| Recruiter homepage | `1c4b74aa90cbe8dc3badd10e214065fe7479d355c25e1f4ced859960eed044bb` |
-| Master layer | `b589caa3992f7bca82b9456d8da44eac99bdb384f7747b731834f3bf861ef2c7` |
-| Machine layer | `434d133835a1dc631fb3f625b537ec67780f094c53115a5851cfc410a5640e84` |
-| Mesh layer | `cf18b6a3cab034c12b5a75b502b8863cb4d9e70931a2bd180fd4e1802ea6a70f` |
-| Résumé layer | `a028810634d4f352b94fb89008663d5eef8d7ce31739ce5bf8003ce025d549b3` |
-| Canonical portfolio JSON | `310685f0876d00391ae28fd09bc9405e568ce41d7860ca47986577d264577698` |
-| Company-family JSON | `15fd7aafcf68dd286cce45dc0f64700cf31b5c259fad11f388d74267daec358f` |
-| PSYSOC-X profiles JSON | `c8a2bac1083446854bf1a0809ddef558f46fe3a823fc416bb216d71c26a942b1` |
-| Résumé PDF | `e4d189910b324555f63e8d4214d9f47be582c3e501fdb87136f712db443fad88` |
-| Résumé ATS text | `25c98e6f9a807d874be29d502bccea20ba871c5c238f3b5ef1c2b4844ffc366f` |
+- artifact ID: `8918985486`;
+- artifact name: `v15-final-hiring-release-receipt`;
+- artifact digest: `sha256:2f8cd63b7a93022e8126f24a1c82623893b37b91da26c53db10382d4618264ea`.
+
+The release was squash-merged to `main` at `9971548f05c9668cb491805fa15a9548763a1a6c`.
+
+## Authoritative committed-source hashes
+
+The earlier local-precommit formatting hashes are superseded. GitHub Actions and the production verifier agree on these exact committed bytes:
+
+| Artifact | Bytes | SHA-256 |
+|---|---:|---|
+| Recruiter homepage | 14,876 | `910ae7c7dc749fa792c495fb7c7e08c82a9d150ad28dd5ea2adc72e697a70478` |
+| Résumé layer | 8,078 | `2d2c3c462b68683c3d9ddffd287f37b8e703eb058a33e36ce39393012e7a3225` |
+| Master layer | 10,714 | `7a846f60f92635ee0ecae088acbf340e3963b732a19f8362be44621b8a74971e` |
+| Mesh layer | 12,640 | `6e5781c69e5c119c0030fdc20f2901ec0514fd31d9ef19def7733303b79e7c94` |
+| Machine layer | 6,265 | `898c398ac3ca7cd8516f67b8ebf68941d7174437be061a4a916339667d51d8f8` |
+| Canonical portfolio JSON | 11,710 | `d212ea17b5b3c479735efefe40ec78382d0913535768924c39e21da1f12b8d86` |
+| Company-family JSON | 8,641 | `889295fdf234ee35dfe2a6cdd5f685f5ab4f60d9f5f4e023917405e494140f86` |
+| PSYSOC-X profiles JSON | 1,891 | `e8f27290acc0740d1109e9d4ae433f4f61bea03fcd46ee895671e462672f75a7` |
+| Résumé PDF | 10,274 | `e4d189910b324555f63e8d4214d9f47be582c3e501fdb87136f712db443fad88` |
+| Résumé ATS text | 4,740 | `25c98e6f9a807d874be29d502bccea20ba871c5c238f3b5ef1c2b4844ffc366f` |
 
 ## Promotion boundary
 
-This receipt proves source completion and local deterministic validation. It does **not** yet claim production deployment, public route responses, browser accessibility execution, performance measurements, or production-alias parity. Those fields must be appended only after the exact committed source is deployed and independently fetched from the canonical URL.
+This source-candidate receipt is retained to document the release gate and the hash correction. Production state, public route responses, canonical-alias parity, and deployment mechanism are controlled by `V15_FINAL_HIRING_RELEASE_PRODUCTION_2026-08-04.md`.
