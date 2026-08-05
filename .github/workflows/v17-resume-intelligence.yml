@@ -42,8 +42,17 @@ jobs:
         run: node site-v15/scripts/validate.mjs
       - name: Validate V17 resume intelligence
         run: |
+          set -o pipefail
           mkdir -p .verification-artifacts
           node site-v15/scripts/validate-resume-v17.mjs | tee .verification-artifacts/v17-resume-validation.json
+          test -s .verification-artifacts/v17-resume-validation.json
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const receipt = JSON.parse(fs.readFileSync('.verification-artifacts/v17-resume-validation.json', 'utf8'));
+          if (receipt.status !== 'PASS' || receipt.schema !== 'glaciereq.resume-intelligence-validation.v17' || receipt.facts_invariant !== true) {
+            throw new Error('V17 validation receipt contract failed');
+          }
+          NODE
       - name: Hash validation receipt
         run: sha256sum .verification-artifacts/v17-resume-validation.json > .verification-artifacts/v17-resume-validation.sha256
       - name: Upload validation receipt
