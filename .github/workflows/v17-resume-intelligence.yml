@@ -9,6 +9,7 @@ on:
       - 'site-v15/data/resume-artifacts.json'
       - 'site-v15/downloads/Casey_Barton_Resume.*'
       - 'site-v15/llms.txt'
+      - 'site-v15/scripts/build-resume-v17-deterministic.py'
       - 'site-v15/scripts/generate-resume-v17.py'
       - 'site-v15/scripts/validate.mjs'
       - 'site-v15/scripts/validate-resume-v17.mjs'
@@ -26,6 +27,7 @@ on:
       - 'site-v15/data/resume-artifacts.json'
       - 'site-v15/downloads/Casey_Barton_Resume.*'
       - 'site-v15/llms.txt'
+      - 'site-v15/scripts/build-resume-v17-deterministic.py'
       - 'site-v15/scripts/generate-resume-v17.py'
       - 'site-v15/scripts/validate.mjs'
       - 'site-v15/scripts/validate-resume-v17.mjs'
@@ -50,8 +52,19 @@ jobs:
           python-version: '3.12'
       - name: Install deterministic document generators
         run: python -m pip install --disable-pip-version-check reportlab==4.4.3 python-docx==1.2.0
-      - name: Regenerate artifacts from committed source
-        run: python site-v15/scripts/generate-resume-v17.py
+      - name: Regenerate deterministic artifacts from committed source
+        run: python site-v15/scripts/build-resume-v17-deterministic.py
+      - name: Upload regenerated artifact candidate
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v17-regenerated-resume-artifacts
+          path: |
+            site-v15/downloads/Casey_Barton_Resume.pdf
+            site-v15/downloads/Casey_Barton_Resume.docx
+            site-v15/data/resume-artifacts.json
+          retention-days: 14
+          if-no-files-found: error
       - name: Preserve V16 factual invariance
         run: node site-v15/scripts/validate.mjs
       - name: Validate V17 resume intelligence
