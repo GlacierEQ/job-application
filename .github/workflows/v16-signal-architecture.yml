@@ -43,14 +43,22 @@ jobs:
         run: |
           mkdir -p .verification-artifacts
           set -o pipefail
-          node site-v15/scripts/validate.mjs 2>&1 | tee .verification-artifacts/v16-validation-result.json
+          node site-v15/scripts/validate.mjs 2>&1 | tee .verification-artifacts/v16-validation.log
+
+      - name: Preserve structured success result
+        if: steps.validate.outcome == 'success'
+        run: |
+          cp .verification-artifacts/v16-validation.log .verification-artifacts/v16-validation-result.json
+          node -e "const fs=require('node:fs'); const result=JSON.parse(fs.readFileSync('.verification-artifacts/v16-validation-result.json','utf8')); if(result.status!=='PASS') throw new Error('V16 structured result is not PASS')"
 
       - name: Upload validation diagnostics
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: v16-validation-diagnostics
-          path: .verification-artifacts/v16-validation-result.json
+          path: |
+            .verification-artifacts/v16-validation.log
+            .verification-artifacts/v16-validation-result.json
           if-no-files-found: error
           retention-days: 14
           include-hidden-files: true
@@ -58,7 +66,7 @@ jobs:
       - name: Enforce validation result
         if: steps.validate.outcome != 'success'
         run: |
-          cat .verification-artifacts/v16-validation-result.json
+          cat .verification-artifacts/v16-validation.log
           exit 1
 
       - name: Verify exact resume artifacts
@@ -70,26 +78,21 @@ jobs:
 
           pdf_path = Path('site-v15/downloads/Casey_Barton_Resume.pdf')
           pdf = pdf_path.read_bytes()
-          ats = Path('RESUME_ATS.md').read_bytes()
+          ats = Path('site-v15/resume/ats.txt').read_bytes()
+          manifest_path = Path('site-v15/data/resume-artifacts.json')
+          manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+
           assert pdf.startswith(b'%PDF-'), 'resume PDF signature invalid'
           assert len(pdf) > 8_000, 'resume PDF unexpectedly small'
-
-          manifest_path = Path('site-v15/data/resume-artifacts.json')
-          if manifest_path.exists():
-              manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
-              assert manifest['schema'] == 'glaciereq.resume-artifacts.v17', 'resume artifact manifest schema drift'
-              expected = manifest['artifacts']['pdf']
-              assert expected['path'] == 'downloads/Casey_Barton_Resume.pdf', 'resume PDF manifest path drift'
-              assert len(pdf) == expected['bytes'], 'resume PDF byte count drift'
-              expected_hash = expected['sha256']
-          else:
-              expected_hash = 'e4d189910b324555f63e8d4214d9f47be582c3e501fdb87136f712db443fad88'
-
+          assert manifest['schema'] == 'glaciereq.resume-artifacts.v17', 'resume artifact manifest schema drift'
+          expected = manifest['artifacts']['pdf']
+          assert expected['path'] == 'downloads/Casey_Barton_Resume.pdf', 'resume PDF manifest path drift'
+          assert len(pdf) == expected['bytes'], 'resume PDF byte count drift'
           actual_hash = sha256(pdf).hexdigest()
-          assert actual_hash == expected_hash, 'resume PDF hash drift'
+          assert actual_hash == expected['sha256'], 'resume PDF hash drift'
           assert b'CASEY DEL CARPIO BARTON' in ats, 'ATS resume identity missing'
           assert len(ats) > 3_000, 'ATS resume unexpectedly small'
-          print({'pdf_bytes': len(pdf), 'pdf_sha256': actual_hash, 'ats_bytes': len(ats), 'manifest_bound': manifest_path.exists(), 'status': 'PASS'})
+          print({'pdf_bytes': len(pdf), 'pdf_sha256': actual_hash, 'ats_bytes': len(ats), 'manifest_bound': True, 'status': 'PASS'})
           PY
 
       - name: Emit exact-head validation receipt
@@ -97,6 +100,7 @@ jobs:
           python3 - <<'PY'
           import hashlib, json, os
           from pathlib import Path
+
           validation = json.loads(Path('.verification-artifacts/v16-validation-result.json').read_text())
           assert validation['status'] == 'PASS'
           paths = [
@@ -105,15 +109,15 @@ jobs:
             'site-v15/assets/site.css','site-v15/assets/site.systems.css',
             'site-v15/assets/social-card.svg','site-v15/assets/favicon.svg',
             'site-v15/data/portfolio.json','site-v15/data/company-families.json',
-            'site-v15/data/psysoc-x-profiles.json','site-v15/downloads/Casey_Barton_Resume.pdf',
-            'RESUME_ATS.md'
+            'site-v15/data/psysoc-x-profiles.json','site-v15/data/resume-artifacts.json',
+            'site-v15/downloads/Casey_Barton_Resume.pdf','site-v15/resume/ats.txt'
           ]
           files = {}
           for p in paths:
             data = Path(p).read_bytes()
             files[p] = {'bytes': len(data), 'sha256': hashlib.sha256(data).hexdigest()}
           receipt = {
-            'schema': 'glaciereq.v16-signal-architecture-validation.v2',
+            'schema': 'glaciereq.v16-signal-architecture-validation.v3',
             'commit': os.environ.get('GITHUB_SHA'),
             'status': validation['status'],
             'routes': validation['routes'],
