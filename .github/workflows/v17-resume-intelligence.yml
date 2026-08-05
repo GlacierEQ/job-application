@@ -15,6 +15,16 @@ on:
   push:
     branches:
       - release/v17-resume-intelligence
+    paths:
+      - 'site-v15/resume/**'
+      - 'site-v15/assets/resume.v17.css'
+      - 'site-v15/data/resume.json'
+      - 'site-v15/downloads/Casey_Barton_Resume.*'
+      - 'site-v15/llms.txt'
+      - 'site-v15/scripts/validate-resume-v17.mjs'
+      - 'RESUME_ATS.md'
+      - '.github/workflows/v17-resume-intelligence.yml'
+      - 'deployment-receipts/V17_RESUME_INTELLIGENCE_CANDIDATE_2026-08-05.md'
 
 permissions:
   contents: read
@@ -43,3 +53,4 @@ jobs:
           path: .verification-artifacts/
           retention-days: 14
           if-no-files-found: error
+          include-hidden-files: true
