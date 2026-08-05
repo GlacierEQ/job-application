@@ -1,0 +1,62 @@
+name: V17 Regenerate Final Resume Artifacts
+
+on:
+  push:
+    branches:
+      - release/v17-resume-intelligence
+    paths:
+      - '.github/workflows/v17-regenerate-final-artifacts.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout exact release branch
+        uses: actions/checkout@v4
+        with:
+          ref: release/v17-resume-intelligence
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install document generators
+        run: python -m pip install --disable-pip-version-check reportlab==4.4.3 python-docx==1.2.0
+
+      - name: Compact, regenerate, and bind exact artifacts
+        run: python .github/scripts/v17_compact_and_finalize.py
+
+      - name: Upload corrected visual QA bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: v17-final-resume-visual-qa
+          path: |
+            site-v15/downloads/Casey_Barton_Resume.pdf
+            site-v15/downloads/Casey_Barton_Resume.docx
+            site-v15/data/resume-artifacts.json
+          retention-days: 14
+          if-no-files-found: error
+
+      - name: Commit corrected source and artifacts
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add \
+            site-v15/scripts/generate-resume-v17.py \
+            site-v15/downloads/Casey_Barton_Resume.pdf \
+            site-v15/downloads/Casey_Barton_Resume.docx \
+            site-v15/data/resume-artifacts.json \
+            site-v15/scripts/validate.mjs \
+            site-v15/scripts/validate-resume-v17.mjs \
+            .github/workflows/v16-signal-architecture.yml \
+            .github/workflows/v17-resume-intelligence.yml \
+            deployment-receipts/V17_RESUME_INTELLIGENCE_CANDIDATE_2026-08-05.md \
+            .github/workflows/v17-regenerate-final-artifacts.yml
+          git commit -m 'Regenerate final V17 resume artifacts after visual QA'
+          git push origin HEAD:release/v17-resume-intelligence

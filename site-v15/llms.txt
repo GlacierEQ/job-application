@@ -1,7 +1,11 @@
 # Casey Barton - Applied AI Systems Architect
 
 Canonical human entry: /
-Finalized resume: /resume/
+Resume intelligence: /resume/
+Human resume PDF: /downloads/Casey_Barton_Resume.pdf
+Editable resume DOCX: /downloads/Casey_Barton_Resume.docx
+ATS resume text: /resume/ats.txt
+Machine-readable resume: /data/resume.json
 Technical due diligence: /master/
 Portfolio relationship mesh: /mesh/
 Machine contracts: /machine/
@@ -9,4 +13,4 @@ Canonical facts: /data/portfolio.json
 Company-family registry: /data/company-families.json
 PSYSOC-X presentation profiles: /data/psysoc-x-profiles.json
 
-Evidence rule: claims must not exceed the owning repository's current receipt. Company-oriented names do not imply employment, affiliation, proprietary access, production use, or endorsement.
+Evidence rule: claims must not exceed the owning repository's current receipt. Reviewed, generated, executed, deployed, and production states are distinct. Company-oriented names do not imply employment, affiliation, proprietary access, production use, or endorsement.
