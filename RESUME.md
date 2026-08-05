@@ -9,13 +9,14 @@ Honolulu, Hawaiʻi · glacier.equilibrium@gmail.com
 
 ## Professional Profile
 
-Applied AI systems builder focused on the missing operating layer between model capability and usable outcomes. I design interconnected systems for application intelligence, multi-agent coordination, polyglot architecture, document evidence, portable context, and human-machine interaction.
+Applied AI systems builder focused on the missing operating layer between model capability and usable outcomes. I design interconnected systems for application intelligence, multi-agent coordination, evidence-aware infrastructure governance, polyglot architecture, document evidence, portable context, and human-machine interaction.
 
 My working pattern comes from field inspection as much as software: identify the actual failure, distinguish observation from inference, build the narrowest useful system, test the claimed behavior, expose the limitation, and leave an artifact another person or machine can inspect.
 
 ## What I Build
 
 - **Application intelligence:** systems that connect role research, repository evidence, truthful résumé generation, portfolio presentation, package state, and follow-up.
+- **Agent and infrastructure governance:** explicit authority, proposal-versus-execution boundaries, evidence states, promotion gates, and completion receipts.
 - **Agent coordination:** deterministic ownership, dependency ordering, budgets, bounded retries, status transitions, and visible closure.
 - **Polyglot architecture:** explicit language boundaries based on measurable system value rather than novelty.
 - **Document and evidence systems:** preservation, extraction, transformation, rendering, provenance, validation, and artifact packaging.
@@ -23,6 +24,14 @@ My working pattern comes from field inspection as much as software: identify the
 - **Runtime foundations:** reusable authority, evidence, and completion primitives that support the inventions without replacing them.
 
 ## Selected Invention Systems
+
+### [Portfolio Receipt Router](https://github.com/GlacierEQ/xai-colossus-2)
+**Evidence-aware portfolio governance and safe compatibility migration**
+
+- Replaced an overstated autonomous-control surface with a fail-closed, local-only evidence router while preserving historical provenance.
+- Validates exact source evidence states, reconciles test and artifact totals, separates blocked candidates, and routes bounded public claims without importing source implementations.
+- Current draft hardening evidence: **69/69 tests passed** through direct and reusable GitHub Actions; direct artifact `8910423397`; external queries and actions remained zero.
+- Carries five independently verified source promotions totaling **166 bounded source tests**, plus **19 separate Energy memory-layer unit tests**, without re-labeling imported evidence as tests of the router.
 
 ### [Job Application Helix](https://github.com/GlacierEQ/job-app-helix)
 **Application intelligence and portfolio orchestration**
@@ -89,7 +98,7 @@ These systems are described at architecture level and are not presented as publi
 
 Company-aligned work is bounded independent research. It does not imply employment, affiliation, endorsement, proprietary access, production deployment, or customer impact.
 
-- **xAI-aligned:** [Colossus Cooling Exhibit](https://github.com/GlacierEQ/xai-colossus-cooling), connecting field-observation discipline to bounded infrastructure modeling.
+- **xAI-aligned:** the public receipt router plus bounded Cooling, Energy, Servers, Security, and Nanosphere source promotions. Current executed evidence is **69 router tests**, **166 bounded source tests**, and **19 separate degraded-mode Energy memory tests**; Microcode remains a statically reviewed, execution-blocked candidate rather than verified firmware control.
 - **Anthropic-aligned:** Agent Coordinator and related reliable-agent experiments.
 - **Other company-aligned exhibits:** selected public-domain studies for AI infrastructure, hardware, cloud, distributed systems, and mission software, each limited to its inspectable repository evidence.
 
