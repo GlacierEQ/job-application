@@ -4,12 +4,14 @@ on:
   pull_request:
     paths:
       - 'site-v15/**'
+      - 'RESUME_ATS.md'
       - 'deployment-receipts/V16_*'
       - '.github/workflows/v16-signal-architecture.yml'
   push:
     branches: [main]
     paths:
       - 'site-v15/**'
+      - 'RESUME_ATS.md'
       - 'deployment-receipts/V16_*'
       - '.github/workflows/v16-signal-architecture.yml'
 
@@ -41,14 +43,14 @@ jobs:
         run: |
           mkdir -p .verification-artifacts
           set -o pipefail
-          node site-v15/scripts/validate.mjs 2>&1 | tee .verification-artifacts/v16-validation.log
+          node site-v15/scripts/validate.mjs 2>&1 | tee .verification-artifacts/v16-validation-result.json
 
       - name: Upload validation diagnostics
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: v16-validation-diagnostics
-          path: .verification-artifacts/v16-validation.log
+          path: .verification-artifacts/v16-validation-result.json
           if-no-files-found: error
           retention-days: 14
           include-hidden-files: true
@@ -56,43 +58,74 @@ jobs:
       - name: Enforce validation result
         if: steps.validate.outcome != 'success'
         run: |
-          cat .verification-artifacts/v16-validation.log
+          cat .verification-artifacts/v16-validation-result.json
           exit 1
 
-      - name: Verify resume PDF
+      - name: Verify exact resume artifacts
         run: |
           python3 - <<'PY'
+          from hashlib import sha256
           from pathlib import Path
           pdf = Path('site-v15/downloads/Casey_Barton_Resume.pdf').read_bytes()
-          assert pdf.startswith(b'%PDF-')
-          assert len(pdf) > 8_000
-          print({'pdf_bytes': len(pdf), 'status': 'PASS'})
+          ats = Path('RESUME_ATS.md').read_bytes()
+          assert pdf.startswith(b'%PDF-'), 'resume PDF signature invalid'
+          assert len(pdf) > 8_000, 'resume PDF unexpectedly small'
+          assert sha256(pdf).hexdigest() == 'e4d189910b324555f63e8d4214d9f47be582c3e501fdb87136f712db443fad88', 'resume PDF hash drift'
+          assert b'CASEY DEL CARPIO BARTON' in ats, 'ATS resume identity missing'
+          assert len(ats) > 3_000, 'ATS resume unexpectedly small'
+          print({'pdf_bytes': len(pdf), 'pdf_sha256': sha256(pdf).hexdigest(), 'ats_bytes': len(ats), 'status': 'PASS'})
           PY
 
-      - name: Emit exact-head receipt
+      - name: Emit exact-head validation receipt
         run: |
           python3 - <<'PY'
           import hashlib, json, os
           from pathlib import Path
+          validation = json.loads(Path('.verification-artifacts/v16-validation-result.json').read_text())
+          assert validation['status'] == 'PASS'
           paths = [
             'site-v15/index.html','site-v15/resume/index.html','site-v15/master/index.html',
-            'site-v15/mesh/index.html','site-v15/machine/index.html','site-v15/assets/site.css','site-v15/assets/site.systems.css',
+            'site-v15/mesh/index.html','site-v15/machine/index.html','site-v15/404.html',
+            'site-v15/assets/site.css','site-v15/assets/site.systems.css',
             'site-v15/assets/social-card.svg','site-v15/assets/favicon.svg',
             'site-v15/data/portfolio.json','site-v15/data/company-families.json',
-            'site-v15/data/psysoc-x-profiles.json','site-v15/downloads/Casey_Barton_Resume.pdf'
+            'site-v15/data/psysoc-x-profiles.json','site-v15/downloads/Casey_Barton_Resume.pdf',
+            'RESUME_ATS.md'
           ]
-          files={}
+          files = {}
           for p in paths:
-            data=Path(p).read_bytes(); files[p]={'bytes':len(data),'sha256':hashlib.sha256(data).hexdigest()}
-          receipt={'schema':'glaciereq.v16-signal-architecture-validation.v1','commit':os.environ.get('GITHUB_SHA'),'status':'PASS','routes':['/','/resume/','/master/','/mesh/','/machine/'],'facts_invariant':True,'scripts':0,'visual_system':['cockpit','radar','bento','terminal','reduced-motion','print'],'files':files}
-          Path('.verification-artifacts/v16-validation-receipt.json').write_text(json.dumps(receipt,indent=2,sort_keys=True)+'\n')
+            data = Path(p).read_bytes()
+            files[p] = {'bytes': len(data), 'sha256': hashlib.sha256(data).hexdigest()}
+          receipt = {
+            'schema': 'glaciereq.v16-signal-architecture-validation.v2',
+            'commit': os.environ.get('GITHUB_SHA'),
+            'status': validation['status'],
+            'routes': validation['routes'],
+            'profiles': validation['profiles'],
+            'facts_invariant': validation['facts_invariant'],
+            'proof': validation['proof'],
+            'flagships': validation['flagships'],
+            'company_families': validation['company_families'],
+            'repositories': validation['repositories'],
+            'scripts': validation['scripts'],
+            'inline_styles': validation['inline_styles'],
+            'visual_contracts': validation['visual_contracts'],
+            'csp': validation['csp'],
+            'files': files,
+          }
+          out = Path('.verification-artifacts/v16-validation-receipt.json')
+          out.write_text(json.dumps(receipt, indent=2, sort_keys=True) + '\n')
+          digest = hashlib.sha256(out.read_bytes()).hexdigest()
+          Path('.verification-artifacts/v16-validation-receipt.sha256').write_text(digest + '  v16-validation-receipt.json\n')
           PY
 
-      - name: Upload V16 verification receipt
+      - name: Upload V16 exact-head receipt
         uses: actions/upload-artifact@v4
         with:
           name: v16-signal-architecture-receipt
-          path: .verification-artifacts/v16-validation-receipt.json
+          path: |
+            .verification-artifacts/v16-validation-receipt.json
+            .verification-artifacts/v16-validation-receipt.sha256
           if-no-files-found: error
           retention-days: 14
           include-hidden-files: true
