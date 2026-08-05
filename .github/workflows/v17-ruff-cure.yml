@@ -1,0 +1,59 @@
+name: V17 Ruff Cure
+
+on:
+  push:
+    branches:
+      - release/v16-signal-architecture
+    paths:
+      - '.github/workflows/v17-ruff-cure.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  cure:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout release branch
+        uses: actions/checkout@v4
+        with:
+          ref: release/v16-signal-architecture
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Cure exact Python findings
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check 'ruff==0.16.1'
+          ruff check --fix .github/scripts/v17_compact_and_finalize.py site-v15/scripts/generate-resume-v17.py
+          ruff format .github/scripts/v17_compact_and_finalize.py site-v15/scripts/generate-resume-v17.py
+          ruff check .github/scripts/v17_compact_and_finalize.py site-v15/scripts/generate-resume-v17.py
+          ruff format --check .github/scripts/v17_compact_and_finalize.py site-v15/scripts/generate-resume-v17.py
+
+      - name: Preserve release invariants
+        run: |
+          set -euo pipefail
+          node site-v15/scripts/validate.mjs
+          node site-v15/scripts/validate-resume-v17.mjs
+
+      - name: Persist cure and remove bootstrap
+        run: |
+          set -euo pipefail
+          git config user.name 'GlacierEQ Release Cure'
+          git config user.email 'GLACIER.EQUILIBRIUM@GMAIL.COM'
+          git add .github/scripts/v17_compact_and_finalize.py site-v15/scripts/generate-resume-v17.py
+          git rm .github/workflows/v17-ruff-cure.yml
+          git diff --cached --check
+          git commit -m 'Cure V17 generator lint and formatting gates'
+          git push origin HEAD:release/v16-signal-architecture
