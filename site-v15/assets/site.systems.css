@@ -9,7 +9,6 @@
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}}
 @media print{body{background:#fff;color:#111}.signal-bar,.site-header,.print-actions,.footer{display:none!important}.resume-shell{width:100%;margin:0;border:0;border-radius:0;box-shadow:none}.resume-head{background:#0b2c31!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}.resume-rail{background:#eef4f2!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}.resume-main{padding:24px}.resume-shell p,.resume-shell li{font-size:8.5pt}.resume-shell h2{font-size:10pt}.resume-head h1{font-size:26pt}.resume-layout{grid-template-columns:230px 1fr}}
 
-
 /* V16 technical print hardening */
 @media print {
   .terminal,.code-block,.tree,.layer,.branch,.card,.screen,.cockpit {
@@ -18,11 +17,12 @@
     box-shadow:none!important;
     border-color:#c9d2d0!important;
   }
-  .terminal pre,.terminal code,.code-block,.branch code,.screen-label,.status-line,.pipe,.receipt,.method-step {
+  .terminal pre,.terminal code,.code-block,.branch code,.screen-label,.status-line,.pipe,.receipt,.method-step,
+  .bento-card p,.bento-card li,.master-card p,.master-card li,.branch p,.branch li {
     color:#111!important;
     background:#fff!important;
   }
-  .terminal *, .code-block *, .tree *, .layer *, .branch *, .card *, .screen *, .cockpit * {
+  .terminal *,.code-block *,.tree *,.layer *,.branch *,.card *,.screen *,.cockpit * {
     text-shadow:none!important;
   }
 }
