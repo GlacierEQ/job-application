@@ -1,146 +1,104 @@
 # Casey Del Carpio Barton
 
-**Applied AI Systems Architect · Forward-Deployed AI Engineer · Agent Infrastructure Engineer**
+**Applied AI Systems Architect | Agent Infrastructure Engineer | Forward-Deployed AI Engineer**
 
-Honolulu, Hawaiʻi · glacier.equilibrium@gmail.com  
-[Portfolio](https://casey-barton-glaciereq.vercel.app) · [GitHub](https://github.com/GlacierEQ)
+Honolulu, Hawaiʻi | glacier.equilibrium@gmail.com  
+[Portfolio](https://casey-barton-glaciereq.vercel.app/) | [GitHub](https://github.com/GlacierEQ) | [Technical Master](https://casey-barton-glaciereq.vercel.app/master/) | [Evidence Mesh](https://casey-barton-glaciereq.vercel.app/mesh/)
 
-> Public contact boundary: direct phone and private application details are intentionally excluded from this repository and belong only in submission-specific packets.
+## Profile
 
-## Professional Profile
+Applied AI systems architect who converts ambitious, ambiguous ideas into bounded operating systems with explicit authority, deterministic evidence, controlled failure behavior, and inspectable completion receipts. Builds across agent orchestration, application intelligence, document and evidence pipelines, memory and continuity, infrastructure governance, polyglot architecture, and human-machine interfaces.
 
-Applied AI systems builder focused on the missing operating layer between model capability and usable outcomes. I design interconnected systems for application intelligence, multi-agent coordination, evidence-aware infrastructure governance, polyglot architecture, document evidence, portable context, and human-machine interaction.
+The working method comes from both software and field inspection: observe the actual system, separate evidence from inference, isolate the governing failure, build the narrowest useful mechanism, test the stated behavior, expose the limit, and leave a usable artifact another person or machine can verify.
 
-My working pattern comes from field inspection as much as software: identify the actual failure, distinguish observation from inference, build the narrowest useful system, test the claimed behavior, expose the limitation, and leave an artifact another person or machine can inspect.
+## Selected Proof
 
-## What I Build
+- **Portfolio Receipt Router:** replaced an overstated autonomous-control surface with a local, fail-closed evidence router while preserving compatibility. **69/69 tests passed** through direct and reusable CI; artifact `8910423397`; **zero external queries and actions**.
+- **Bounded infrastructure source promotions:** hardened Cooling, Energy, Servers, Security, and Nanosphere into independently scoped technical systems with **166 bounded source tests**, **19 additional degraded-mode Energy memory tests**, five hashed artifacts, and explicit hardware, deployment, scale, and affiliation limits.
+- **Job Application Helix:** evidence-governed hiring and portfolio control plane with **148/148 recorded repository tests**, repository-state separation, promotion gates, machine contracts, and role-calibrated package generation.
+- **Agent Coordinator:** deterministic multi-agent ownership, dependency, capacity, priority, and shared-budget scheduling with **62/62 recorded Python tests**.
+- **AKOS and PSYSOC-X:** authority, evidence, closure, and deterministic audience-calibration primitives with repository-native verification. PSYSOC-X changes presentation depth and ordering without changing facts, uncertainty, dignity, or authority.
 
-- **Application intelligence:** systems that connect role research, repository evidence, truthful résumé generation, portfolio presentation, package state, and follow-up.
-- **Agent and infrastructure governance:** explicit authority, proposal-versus-execution boundaries, evidence states, promotion gates, and completion receipts.
-- **Agent coordination:** deterministic ownership, dependency ordering, budgets, bounded retries, status transitions, and visible closure.
-- **Polyglot architecture:** explicit language boundaries based on measurable system value rather than novelty.
-- **Document and evidence systems:** preservation, extraction, transformation, rendering, provenance, validation, and artifact packaging.
-- **Human and machine interfaces:** different views of one factual graph without allowing claims to drift between audiences.
-- **Runtime foundations:** reusable authority, evidence, and completion primitives that support the inventions without replacing them.
+## Core Capabilities
 
-## Selected Invention Systems
+- **Agent and infrastructure governance:** capability, authentication, authorization, proposal, execution, verification, persistence, and promotion-state boundaries.
+- **Application intelligence:** role research, repository evidence, truthful résumé generation, portfolio presentation, package state, and follow-up as one governed workflow.
+- **Deterministic multi-agent systems:** task ownership, dependency ordering, resource ceilings, bounded retries, state transitions, and visible closure.
+- **Evidence and document systems:** source preservation, extraction, claim mapping, provenance, validation, render inspection, and artifact packaging.
+- **Polyglot architecture:** TypeScript, Python, SQL, Rust, Go, and other languages assigned only where the boundary creates measurable value.
+- **Human and machine interfaces:** recruiter, technical-review, machine, and relationship-mesh views generated from one factual graph without claim drift.
 
-### [Portfolio Receipt Router](https://github.com/GlacierEQ/xai-colossus-2)
-**Evidence-aware portfolio governance and safe compatibility migration**
+## Selected Systems
 
-- Replaced an overstated autonomous-control surface with a fail-closed, local-only evidence router while preserving historical provenance.
-- Validates exact source evidence states, reconciles test and artifact totals, separates blocked candidates, and routes bounded public claims without importing source implementations.
-- Current draft hardening evidence: **69/69 tests passed** through direct and reusable GitHub Actions; direct artifact `8910423397`; external queries and actions remained zero.
-- Carries five independently verified source promotions totaling **166 bounded source tests**, plus **19 separate Energy memory-layer unit tests**, without re-labeling imported evidence as tests of the router.
+### Portfolio Receipt Router
+**Evidence-aware portfolio governance and safe compatibility migration**  
+[Repository](https://github.com/GlacierEQ/xai-colossus-2)
 
-### [Job Application Helix](https://github.com/GlacierEQ/job-app-helix)
-**Application intelligence and portfolio orchestration**
+Rebuilt an unsafe public-control narrative into a deterministic local receipt router that validates evidence states, reconciles test and artifact totals, preserves blocked candidates, rejects unsupported promotion, and performs no external action.
 
-- Treats a job application as a coordinated system rather than a résumé plus disconnected repository links.
-- Routes opportunity context and project evidence into role-specific human and machine surfaces.
-- Separates repository presence, test evidence, promotion state, public visibility, and application-package state.
-- Current recorded workstream evidence: **148/148 repository tests**; promotion remains bounded by receipt refresh and release-specific verification.
+### Job Application Helix
+**Application intelligence and portfolio orchestration**  
+[Repository](https://github.com/GlacierEQ/job-app-helix)
 
-### [The Tower of Babel](https://github.com/GlacierEQ/the-tower-of-babel)
-**Polyglot architecture where every language earns its boundary**
+Treats hiring as a coordinated system: inventories governed repositories, grades evidence, maps proof to role requirements, generates human and machine application surfaces, and tracks promotion and package state.
 
-- Defines TypeScript for orchestration, Python for analysis and document intelligence, SQL for canonical state, Rust for justified integrity work, and optional Go for service boundaries.
-- Makes ownership, contracts, failure modes, and adoption evidence explicit for each language boundary.
-- Prevents both language monoculture and résumé-driven technology theater.
-- Public architecture and contracts are inspectable; every adopting implementation remains independently testable.
+### Agent Coordinator
+**Deterministic multi-agent scheduling and resource control**  
+[Repository](https://github.com/GlacierEQ/anthropic-agent-coordinator)
 
-### [Agent Coordinator](https://github.com/GlacierEQ/anthropic-agent-coordinator)
-**Deterministic multi-agent scheduling and resource control**
+Converts task graphs into accountable assignments only after checking dependency order, role fit, capacity, stable priority, and shared token budgets. Records assignment, refusal, waiting, retry, and completion explicitly.
 
-- Assigns task ownership, dependency order, resource ceilings, state transitions, and closure semantics.
-- Prioritizes accountable coordination over unconstrained swarm behavior.
-- Current recorded evidence: **62/62 Python 3.13 tests**; hosted matrix and build-wheel promotion remain open.
+### Résumé Shapeshifter
+**One factual identity, multiple role-calibrated presentations**  
+[Repository](https://github.com/GlacierEQ/JOB-RESUME-BUILDER-)
 
-### [Résumé Shapeshifter](https://github.com/GlacierEQ/JOB-RESUME-BUILDER-)
-**One factual identity, multiple role-calibrated presentations**
+Separates source facts from presentation strategy so tailored résumés remain consistent, inspectable, and fabrication-resistant across human and machine outputs.
 
-- Separates source facts from presentation strategy so tailored outputs remain consistent and reviewable.
-- Preserves original content beside proposed changes and rejects represented fabrication modes.
-- Public source and generated résumé artifacts are inspectable; ATS ranking and hiring outcomes are not claimed.
+### PSYSOC-X
+**Deterministic human calibration with evidence and dignity boundaries**  
+[Repository](https://github.com/GlacierEQ/AKOS/tree/main/stones/psysoc-x)
 
-### [Recruiter Runtime Portfolio](https://github.com/GlacierEQ/job-application)
-**Human and machine presentation from one evidence graph**
+Adjusts tone, density, skepticism, terminology, and ordering for a declared audience while preserving the underlying facts, uncertainty, authority, and non-manipulation boundary.
 
-- Builds an invention-first recruiter experience with an interactive constellation, visual case studies, repository filters, combination workflows, evidence chains, role maps, and machine contracts.
-- V12 is currently observable at the public Vercel URL; V13 is a self-contained source release candidate under `site-v13/`.
-- V13 deployment is not claimed until a commit-bound deployment and route receipt are attached.
+## Experience
 
-### [PSYSOC-X](https://github.com/GlacierEQ/AKOS/tree/main/stones/psysoc-x)
-**Deterministic human calibration with evidence and dignity boundaries**
+### GlacierEQ - Founder / Applied AI Systems Builder
+**Honolulu, Hawaiʻi | January 2025-Present**
 
-- Changes tone, density, skepticism, ordering, and humor without changing evidence, uncertainty, dignity, or authority.
-- Uses inspectable calibration loadouts and critical-context safeguards.
-- Current public AKOS evidence records **4/4 PSYSOC-X tests**; no psychological diagnosis or manipulation capability is claimed.
+- Designs and implements interconnected AI, agent, document, memory, evidence, infrastructure, and hiring systems.
+- Converts broad architecture into typed contracts, runnable slices, deterministic tests, failure behavior, machine interfaces, and recruiter-ready artifacts.
+- Built portfolio-governance systems that distinguish repository presence, source quality, behavioral proof, deployment, authority, and verified completion.
+- Maintains explicit public/private, original/upstream, simulation/hardware, and proposal/execution boundaries across a large multi-repository engineering estate.
+- Uses AI-assisted development as an inspectable process combining source review, bounded generation, deterministic validation, and human judgment.
 
-### [AKOS](https://github.com/GlacierEQ/AKOS)
-**Supporting authority, evidence, and closure foundation**
+### Diamond Head Home Inspections - Certified Home Inspector
+**Honolulu, Hawaiʻi | 2020-2024**
 
-- Separates capability, authentication, authorization, invocation, return, verification, and persistence.
-- Supplies reusable runtime discipline beneath higher-level products.
-- Current public README records **118/118 full tests, 10/10 forge tests, and 4/4 PSYSOC-X tests** at repository scope.
-- AKOS is intentionally presented as foundation infrastructure—not as the primary output of the portfolio.
-
-## Active Private Architecture
-
-These systems are described at architecture level and are not presented as publicly verified repositories:
-
-- **Echoes:** portable conversation continuity with separate raw-history, durable-fact, hypothesis, and task-memory layers.
-- **MEGA-PDF:** source preservation, extraction, claim mapping, transformation, render inspection, packaging, and provenance receipts.
-- **Sigma Federation:** independent products coordinated through explicit integration state and authority ownership.
-- **FILEBOSS:** file intelligence that separates inventory, classification, proposal, authorization, mutation, and verification.
-
-## Independent Technical Exhibits
-
-Company-aligned work is bounded independent research. It does not imply employment, affiliation, endorsement, proprietary access, production deployment, or customer impact.
-
-- **xAI-aligned:** the public receipt router plus bounded Cooling, Energy, Servers, Security, and Nanosphere source promotions. Current executed evidence is **69 router tests**, **166 bounded source tests**, and **19 separate degraded-mode Energy memory tests**; Microcode remains a statically reviewed, execution-blocked candidate rather than verified firmware control.
-- **Anthropic-aligned:** Agent Coordinator and related reliable-agent experiments.
-- **Other company-aligned exhibits:** selected public-domain studies for AI infrastructure, hardware, cloud, distributed systems, and mission software, each limited to its inspectable repository evidence.
-
-## Professional Experience
-
-### GlacierEQ — Independent Applied AI Systems Studio
-**Founder / Applied AI Systems Builder · January 2025–Present**
-
-- Designs, implements, audits, and documents interconnected AI, agent, document, memory, evidence, infrastructure, and hiring systems.
-- Converts broad architectural ideas into structured contracts, runnable slices, failure behavior, test gates, machine surfaces, and recruiter-ready explanations.
-- Maintains explicit public/private boundaries, provenance, current evidence levels, and promotion criteria.
-- Uses AI-assisted development as an inspectable workflow: source review, bounded generation, deterministic validation, human judgment, and current-state verification.
-
-### Diamond Head Home Inspections — Certified Home Inspector
-**Honolulu, Hawaiʻi · 2020–2024**
-
-- Inspected residential systems and translated field observations into clear, decision-ready reports.
-- Developed disciplined habits around evidence capture, uncertainty, safety, system interaction, defect priority, and communication under time constraints.
-- Carries the same method into software: observe first, distinguish symptoms from causes, test the boundary, and avoid unsupported conclusions.
-
-## Education
-
-**University of Hawaiʻi at Mānoa** — B.S., Marine Biology, 2016  
-**AWS Cloud Institute** — Cloud Application Developer program, 2025–2026, in progress
+- Inspected residential systems and translated field observations into clear, decision-ready reports under time constraints.
+- Developed disciplined habits around evidence capture, uncertainty, safety, defect priority, interacting systems, and plain-language communication.
+- Carries the same method into software: observe first, distinguish symptom from cause, test the boundary, and avoid unsupported conclusions.
 
 ## Technical Profile
 
-**Primary implementation:** Python, TypeScript, JavaScript, SQL, Bash, Node.js, React, Next.js, FastAPI  
-**Architecture and contracts:** REST, JSON-RPC, MCP, JSON Schema, Protocol Buffers, event and state-machine design, idempotency, evidence and authority models  
-**Data and documents:** SQLite, PostgreSQL concepts, structured extraction, document generation and inspection, provenance, integrity hashing  
-**Delivery and verification:** Git, GitHub Actions, Docker, Vercel, automated tests, static analysis, dependency auditing, deterministic release checks  
-**Additional project exposure:** Go, Rust, C, C++, CUDA, Swift/Metal, Julia, R, Verilog/SystemVerilog, WebAssembly, and cloud or accelerator-specific systems—claimed only at the evidence level shown by each repository
+**Primary:** Python, TypeScript, JavaScript, SQL, Bash, Node.js, React, Next.js, FastAPI  
+**Architecture:** REST, JSON-RPC, MCP, JSON Schema, Protocol Buffers, events, state machines, idempotency, authority models, evidence models  
+**Data and documents:** SQLite, PostgreSQL concepts, structured extraction, document generation, provenance, integrity hashing  
+**Delivery:** Git, GitHub Actions, Docker, Vercel, automated testing, static analysis, dependency auditing, deterministic release checks  
+**Additional evidence-bounded exposure:** Go, Rust, C, C++, CUDA, Swift/Metal, Julia, R, Verilog/SystemVerilog, WebAssembly
 
-## Working Principles
+## Education
 
-- Build the invention before explaining the framework.
-- Capability is not authority, and a returned response is not verified completion.
-- Source presence is not current behavioral proof.
-- A language must earn its architectural boundary.
+**University of Hawaiʻi at Mānoa** - B.S., Marine Biology, 2016  
+**AWS Cloud Institute** - Cloud Application Developer program, 2025-2026, in progress
+
+## Operating Principles
+
+- Capability is not authority.
+- Source presence is not behavioral proof.
 - A successful build is not a production deployment.
-- Completion requires a usable artifact, verification, persistence, and an honest boundary.
+- A language must earn its architectural boundary.
+- Completion requires a usable artifact, verification, persistence, and an honest limit.
 
 ## Evidence Boundary
 
-This résumé describes independently built or governed GlacierEQ systems and bounded technical exhibits. It does not claim company affiliation, proprietary access, customer use, production scale, measured business impact, recruiter conversion, or hiring outcomes unless an exact cited receipt independently establishes that fact.
+Independent GlacierEQ work and bounded technical exhibits. No company affiliation, proprietary access, production deployment, customer impact, formal people-management experience, or measured business outcome is claimed unless a direct, current receipt establishes it.

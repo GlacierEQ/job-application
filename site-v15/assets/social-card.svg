@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="t d">
+  <title id="t">Casey Barton Applied AI Systems Architect</title><desc id="d">Bounded AI systems, explicit authority, deterministic evidence, and inspectable completion.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#061214"/><stop offset="1" stop-color="#0d2c2e"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#78f7d0"/><stop offset=".55" stop-color="#8bc8ff"/><stop offset="1" stop-color="#baa5ff"/></linearGradient>
+    <pattern id="grid" width="44" height="44" patternUnits="userSpaceOnUse"><path d="M44 0H0V44" fill="none" stroke="#78f7d0" stroke-opacity=".055"/></pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/><rect width="1200" height="630" fill="url(#grid)"/>
+  <circle cx="1030" cy="110" r="220" fill="#78f7d0" opacity=".07"/><circle cx="1060" cy="520" r="270" fill="#baa5ff" opacity=".06"/>
+  <rect x="76" y="68" width="74" height="74" rx="21" fill="url(#accent)"/><text x="113" y="118" text-anchor="middle" font-family="Arial" font-weight="900" font-size="29" fill="#05211c">CB</text>
+  <text x="76" y="210" font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="29" letter-spacing="4" fill="#78f7d0">APPLIED AI SYSTEMS ARCHITECT</text>
+  <text x="76" y="300" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="69" fill="#f1fbfa">Casey Barton</text>
+  <rect x="76" y="332" width="720" height="8" rx="4" fill="url(#accent)"/>
+  <text x="76" y="405" font-family="Arial, Helvetica, sans-serif" font-size="34" fill="#c5d8d6">Bounded systems. Explicit authority.</text>
+  <text x="76" y="454" font-family="Arial, Helvetica, sans-serif" font-size="34" fill="#c5d8d6">Deterministic evidence. Inspectable completion.</text>
+  <g transform="translate(815 232)">
+    <circle cx="130" cy="90" r="68" fill="#102f31" stroke="#78f7d0" stroke-opacity=".75"/>
+    <circle cx="130" cy="90" r="116" fill="none" stroke="#baa5ff" stroke-opacity=".35" stroke-dasharray="7 9"/>
+    <circle cx="130" cy="90" r="160" fill="none" stroke="#8bc8ff" stroke-opacity=".22"/>
+    <text x="130" y="84" text-anchor="middle" font-family="Arial" font-weight="900" font-size="17" fill="#f1fbfa">ONE FACT</text>
+    <text x="130" y="107" text-anchor="middle" font-family="Arial" font-weight="800" font-size="17" fill="#78f7d0">GRAPH</text>
+    <g fill="#0d2427" stroke="#214448"><rect x="95" y="-42" width="70" height="28" rx="9"/><rect x="238" y="74" width="90" height="28" rx="9"/><rect x="92" y="204" width="76" height="28" rx="9"/><rect x="-72" y="74" width="90" height="28" rx="9"/></g>
+    <g font-family="Arial" font-size="11" font-weight="800" fill="#e9f7f6"><text x="130" y="-24" text-anchor="middle">RECRUITER</text><text x="283" y="92" text-anchor="middle">MASTER</text><text x="130" y="222" text-anchor="middle">MACHINE</text><text x="-27" y="92" text-anchor="middle">MESH</text></g>
+  </g>
+  <text x="76" y="570" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#9eb8b6">casey-barton-glaciereq.vercel.app</text>
+</svg>

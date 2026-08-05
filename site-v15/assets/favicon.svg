@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="CB">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#78f7d0"/><stop offset="1" stop-color="#8bc8ff"/></linearGradient></defs>
+  <rect width="64" height="64" rx="17" fill="#061214"/>
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="url(#g)"/>
+  <text x="32" y="40" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="25" fill="#05211c">CB</text>
+</svg>
