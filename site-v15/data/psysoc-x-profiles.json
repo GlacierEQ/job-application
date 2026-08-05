@@ -1,0 +1,11 @@
+{
+  "schema": "glaciereq.psysoc-x.presentation-profiles.v15",
+  "invariants": ["factual_ids","evidence_states","test_counts","artifact_ids","limits","authority_boundaries","non_affiliation_boundary"],
+  "profiles": {
+    "recruiter": {"route":"/","goal":"Establish role fit and strongest executed proof in under 60 seconds.","tone":"confident, plain, human","density":"low-to-medium","jargon":"translated","skepticism":"answer with evidence and limits","humor":"none","ordering":["identity","outcome","executed proof","case study","role fit","resume"]},
+    "master": {"route":"/master/","goal":"Enable technical due diligence without marketing inflation.","tone":"precise, engineering-led","density":"high","jargon":"allowed when defined","skepticism":"show source authority, receipts, exclusions, and blockers","humor":"none","ordering":["architecture","evidence ledger","failure behavior","flagship details","technical profile","boundaries"]},
+    "machine": {"route":"/machine/","goal":"Provide deterministic structured facts for agents and retrieval systems.","tone":"schema-bound","density":"maximum","jargon":"canonical identifiers","skepticism":"fail closed on absent evidence","humor":"none","ordering":["schema","identity","claims","evidence","relationships","release"]},
+    "mesh": {"route":"/mesh/","goal":"Expose the relationship graph among systems, repositories, company families, evidence states, and promotion gates.","tone":"systems-oriented","density":"medium-to-high","jargon":"typed relationships","skepticism":"distinguish verified, reviewed, blocked, historical, and upstream","humor":"none","ordering":["portfolio root","flagship hierarchy","company families","typed edges","unresolved gates"]}
+  },
+  "safety": {"diagnosis":false,"covert_persuasion":false,"manipulation":false,"critical_context_humor":false,"fact_mutation":false,"uncertainty_suppression":false}
+}
