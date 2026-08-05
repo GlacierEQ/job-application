@@ -7,10 +7,10 @@ const assert = (condition, message) => { if (!condition) throw new Error(message
 const exists = async path => access(fileURLToPath(new URL(path, root)));
 const paths={recruiter:'index.html',resume:'resume/index.html',master:'master/index.html',mesh:'mesh/index.html',machine:'machine/index.html',css:'assets/site.css',cssSystems:'assets/site.systems.css',portfolio:'data/portfolio.json',companies:'data/company-families.json',profiles:'data/psysoc-x-profiles.json',vercel:'vercel.json',pdf:'downloads/Casey_Barton_Resume.pdf',social:'assets/social-card.svg',favicon:'assets/favicon.svg',sitemap:'sitemap.xml',robots:'robots.txt',llms:'llms.txt',notFound:'404.html'};
 for(const p of Object.values(paths)) await exists(p);
-const [recruiter,resume,master,mesh,machine,cssBase,cssSystems,portfolioText,companiesText,profilesText,vercelText,sitemap,robots,llms]=await Promise.all([read(paths.recruiter),read(paths.resume),read(paths.master),read(paths.mesh),read(paths.machine),read(paths.css),read(paths.cssSystems),read(paths.portfolio),read(paths.companies),read(paths.profiles),read(paths.vercel),read(paths.sitemap),read(paths.robots),read(paths.llms)]);
+const [recruiter,resume,master,mesh,machine,notFound,cssBase,cssSystems,portfolioText,companiesText,profilesText,vercelText,sitemap,robots,llms]=await Promise.all([read(paths.recruiter),read(paths.resume),read(paths.master),read(paths.mesh),read(paths.machine),read(paths.notFound),read(paths.css),read(paths.cssSystems),read(paths.portfolio),read(paths.companies),read(paths.profiles),read(paths.vercel),read(paths.sitemap),read(paths.robots),read(paths.llms)]);
 const css=cssBase+'\n'+cssSystems;
 const portfolio=JSON.parse(portfolioText),companies=JSON.parse(companiesText),profiles=JSON.parse(profilesText),vercel=JSON.parse(vercelText);
-const pages={recruiter,resume,master,mesh,machine};
+const pages={recruiter,resume,master,mesh,machine,notFound};
 for(const [name,html] of Object.entries(pages)){
   assert((html.match(/<h1\b/g)||[]).length===1,`${name} must contain one h1`);
   assert(!html.includes('<script'),`${name} must remain script-free`);
