@@ -39,6 +39,8 @@ jobs:
   sync-render-validate:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
+    env:
+      GITHUB_TOKEN: ${{ github.token }}
     steps:
       - name: Checkout exact portal source
         uses: actions/checkout@v4
