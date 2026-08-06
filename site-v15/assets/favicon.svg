@@ -1,6 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="CB">
-  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#78f7d0"/><stop offset="1" stop-color="#8bc8ff"/></linearGradient></defs>
-  <rect width="64" height="64" rx="17" fill="#061214"/>
-  <rect x="4" y="4" width="56" height="56" rx="14" fill="url(#g)"/>
-  <text x="32" y="40" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="25" fill="#05211c">CB</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8ff7d8"/><stop offset="1" stop-color="#78d7ff"/></linearGradient></defs><rect width="64" height="64" rx="18" fill="#061116"/><rect x="6" y="6" width="52" height="52" rx="15" fill="none" stroke="url(#g)" stroke-width="2"/><path d="M19 18h13c8 0 13 4 13 10 0 4-2 7-6 9 5 1 8 5 8 10 0 8-6 13-16 13H19V18zm10 9v7h4c3 0 5-1 5-4s-2-3-5-3h-4zm0 15v9h5c4 0 6-2 6-5s-2-4-6-4h-5z" fill="url(#g)"/></svg>

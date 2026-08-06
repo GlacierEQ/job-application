@@ -1,28 +1,28 @@
-# CASEY DEL CARPIO BARTON
+CASEY DEL CARPIO BARTON
 Applied AI Systems Architect - Agent Infrastructure Engineer - Forward-Deployed AI Engineer
 Honolulu, Hawaii - 808-936-5654 - glacier.equilibrium@gmail.com
 Portfolio: https://casey-barton-glaciereq.vercel.app/
 GitHub: https://github.com/GlacierEQ
 
-## Professional Summary
+PROFESSIONAL SUMMARY
 Applied AI systems architect and agent infrastructure engineer who builds the operating layer between model capability and dependable outcomes. Designs authority-aware, evidence-bound systems for multi-agent coordination, application intelligence, document and evidence pipelines, memory and continuity, infrastructure governance, and human-machine interfaces. Combines software engineering with scientific measurement, compressed-gas safety, building-system inspection, and owner-operated field execution. Core method: observe the actual system, separate evidence from inference, isolate the governing failure, bound authority and risk, build the narrowest useful mechanism, test the stated behavior, expose the limit, and leave a verifiable artifact.
 
-## Selected Execution Proof
+SELECTED EXECUTION PROOF
 - Portfolio Receipt Router: 69 of 69 tests passed through direct and reusable CI; artifact 8910423397; zero external queries and actions.
 - Bounded infrastructure source systems: 166 source tests passed across Cooling, Energy, Servers, Security, and Nanosphere, plus 19 degraded-mode Energy memory tests and five hashed artifacts.
 - Job Application Helix: 148 of 148 recorded repository tests for evidence-governed hiring and portfolio orchestration.
 - Agent Coordinator: 62 of 62 recorded Python tests for deterministic ownership, dependencies, capacity, priority, and shared budgets.
 - PSYSOC-X: promoted at bounded TEST scope for audience calibration that preserves facts, evidence states, uncertainty, dignity, and authority boundaries.
 
-## Core Competencies
+CORE COMPETENCIES
 Agent infrastructure; multi-agent orchestration; MCP; JSON-RPC 2.0; tool contracts; authority and approval models; application intelligence; document automation; evidence governance; provenance; claim-to-source mapping; deterministic testing; state machines; event design; idempotency; bounded retries; failure and recovery design; memory and continuity; human-in-the-loop systems; CI/CD; machine-readable release receipts.
 
-## Technologies
+TECHNOLOGIES
 Python; TypeScript; JavaScript; SQL; Bash; Node.js; React; Next.js; FastAPI; REST; JSON-RPC 2.0; Model Context Protocol (MCP); JSON Schema; Protocol Buffers; Git; GitHub Actions; Docker; Vercel; static analysis; dependency auditing; integrity hashing.
 Prior scientific computing: R and MATLAB.
 Additional evidence-bounded project exposure: Go, Rust, C, C++, CUDA, Swift/Metal, Julia, Verilog/SystemVerilog, WebAssembly.
 
-## Professional Experience
+PROFESSIONAL EXPERIENCE
 GLACIEREQ - Founder / Applied AI Systems Builder - Honolulu, Hawaii - January 2025-Present
 - Design and implement evidence-bound systems spanning agent orchestration, application intelligence, document and evidence pipelines, memory and continuity, infrastructure governance, and human-machine interfaces.
 - Convert ambiguous architecture into typed contracts, runnable slices, deterministic tests, explicit refusal behavior, machine-readable facts, and reviewable completion receipts.
@@ -39,7 +39,7 @@ HI-CLASS HOME SERVICES / HI CLASS MAINTENANCE OAHU LLC - Owner-Operator, Buildin
 - Work across practical building-system problems including minor carpentry, plumbing, electrical fixture replacement, drywall, painting, flooring, and maintenance planning.
 - Translate incomplete real-world requirements into bounded work packages, explicit assumptions, and usable closeout artifacts.
 
-## Selected Systems
+SELECTED SYSTEMS
 Portfolio Receipt Router - TEST VERIFIED
 Compatibility-safe architecture repair and evidence routing. Evidence: 69/69 tests; direct and reusable CI; artifact 8910423397; zero external actions. Boundary: independent technical exhibit; no datacenter control, company affiliation, or production-operation claim.
 
@@ -52,21 +52,21 @@ Deterministic task ownership, dependencies, capacity, priority, and shared budge
 Microcode Governance - REVIEWED_EXECUTION_BLOCKED
 Firmware manifests, inventory drift, SBOMs, provenance, compatibility policy, and approval-gated rollout planning. Evidence: 132-check generated contract; static review found no critical defect. Boundary: private CI did not execute; not test verified and performs no firmware mutation.
 
-### PSYSOC-X - BOUNDED TEST SCOPE
+PSYSOC-X - BOUNDED TEST SCOPE
 Audience calibration across recruiter, master, machine, and relationship views. Boundary: no diagnosis, covert persuasion, or manipulation capability is claimed.
 
-## Earlier Technical Experience
+EARLIER TECHNICAL EXPERIENCE
 - Sea-urchin morphometric research, University of Hawaii, 2016-2017: processed physical measurements of gill structures to support visual species identification.
 - Scuba Tank Technician, Hawaiian Diving Adventures and UH Dive Office, 2016-2017: tank filling, transport, inspection and repair support, and gas mixing under safety-critical procedures.
 - Residential inspection and repair work: interacting systems, failure consequences, uncertainty, and clear client communication.
 - Civil Air Patrol Cadet Commander and Search-and-Rescue Ground Team Leader, 2007-2011; historical leadership context, not a formal professional management claim.
 
-## Education
+EDUCATION
 University of Hawaii at Manoa - Bachelor of Science, Marine Biology - 2016
 AWS Cloud Institute - Cloud Application Developer program - 2025-2026, in progress
 
-## Earlier Technical Credentials
+EARLIER TECHNICAL CREDENTIALS
 Historical resume records: PSI Visual Cylinder Inspector; PSI Eddy Current Technician; PSI Valve Repair Technician; PSI Oxygen Cleaning Cylinder Technician; NAUI Rescue Diver; NAUI Master Diver; PADI Enriched Air Diver. Current status is not represented as active without updated documentation.
 
-## Evidence Boundary
+EVIDENCE BOUNDARY
 Independent GlacierEQ work and bounded technical exhibits. Test counts refer only to their stated repository and scope. No company affiliation, proprietary access, production use, customer impact, formal people-management experience, current certification status, or hardware validation is claimed without direct evidence.
