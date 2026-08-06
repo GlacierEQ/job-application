@@ -1,16 +1,21 @@
 {
   "artifacts": {
     "docx": {
-      "bytes": 41576,
+      "bytes": 41575,
       "path": "downloads/Casey_Barton_Resume.docx",
-      "sha256": "e88a77e588fbcf98425adac8e4920837794c67985edee9d764d536049b5f79da"
+      "sha256": "845d1b51e13012c3b75ae4d62c4c8b1c49a62fea10eeeaeda88eccfe42fb9ba1"
     },
     "pdf": {
       "bytes": 8287,
       "path": "downloads/Casey_Barton_Resume.pdf",
-      "sha256": "7ed445caf8ea73392868fdf29ca150476c8ef89ca6c622bb136aa143ca405bab"
+      "sha256": "77e7598d52803e8ff6d3ccc8b3302853ee55e9cdc6743b14d1cf9d9d62735cb3"
     }
   },
-  "generator": "site-v15/scripts/generate-resume-v17.py",
-  "schema": "glaciereq.resume-artifacts.v17"
+  "builder": "site-v15/scripts/build-resume-v17-deterministic.py",
+  "determinism": {
+    "docx": "fixed core timestamps, sorted ZIP members, fixed ZIP timestamps",
+    "pdf": "reportlab invariant mode"
+  },
+  "schema": "glaciereq.resume-artifacts.v17",
+  "source_generator": "site-v15/scripts/generate-resume-v17.py"
 }
