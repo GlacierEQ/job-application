@@ -2,8 +2,6 @@ from __future__ import annotations
 
 import base64
 import hashlib
-import os
-import sys
 from pathlib import Path
 
 EXPECTED_SHA256 = "7dc01509b0938b254109a273a51b727af32b9d63de62fe8e79d37ac36587bddf"
