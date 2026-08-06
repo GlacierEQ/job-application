@@ -16,10 +16,10 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
-      - name: Check out release branch with bootstrap parent
+      - name: Check out release branch with bootstrap source
         uses: actions/checkout@v4
         with:
-          fetch-depth: 3
+          fetch-depth: 4
 
       - name: Recover and verify reviewed V17 source bundle
         env:
@@ -29,16 +29,29 @@ jobs:
           git show "$BOOTSTRAP_COMMIT":.github/workflows/v17-finalize-release.yml > /tmp/v17-bootstrap.yml
           python - <<'PY'
           import base64
+          import re
           from pathlib import Path
 
           source = Path('/tmp/v17-bootstrap.yml').read_text(encoding='utf-8')
           marker = "cat > /tmp/v17-text-bundle.b64 <<'BUNDLE'\n"
           if marker not in source:
               raise SystemExit('bootstrap bundle marker missing')
-          encoded = source.split(marker, 1)[1].splitlines()[0].strip()
-          if not encoded:
-              raise SystemExit('bootstrap bundle is empty')
-          Path('/tmp/v17-text-bundle.tar.gz').write_bytes(base64.b64decode(encoded, validate=True))
+
+          tail = source.split(marker, 1)[1]
+          candidates = re.findall(r'[A-Za-z0-9+/=]{1000,}', tail)
+          if not candidates:
+              raise SystemExit('no base64 payload candidate found')
+
+          encoded = max(candidates, key=len)
+          print({
+              'candidate_count': len(candidates),
+              'encoded_length': len(encoded),
+              'prefix': encoded[:24],
+              'suffix': encoded[-24:],
+          })
+          Path('/tmp/v17-text-bundle.tar.gz').write_bytes(
+              base64.b64decode(encoded, validate=True)
+          )
           PY
           echo "$V17_BUNDLE_SHA256  /tmp/v17-text-bundle.tar.gz" | sha256sum --check --strict
           tar -xzf /tmp/v17-text-bundle.tar.gz -C .
