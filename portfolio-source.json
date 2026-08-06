@@ -6,7 +6,7 @@
     "repository": "GlacierEQ/job-app-helix",
     "branch": "main",
     "manifest_path": "manifests/portfolio_root_truth.json",
-    "manifest_url": "https://raw.githubusercontent.com/GlacierEQ/job-app-helix/main/manifests/portfolio_root_truth.json"
+    "raw_base_url": "https://raw.githubusercontent.com/GlacierEQ/job-app-helix"
   },
   "sync": {
     "script": "scripts/sync-helix-projection.mjs",
@@ -20,16 +20,14 @@
     "allowed_repository_visibility": ["public"],
     "allowed_promotion_states": [
       "PROMOTED",
-      "REFERENCE_ONLY",
-      "BLOCKED",
-      "BLOCKED_SECURITY",
-      "EXPERIMENT"
+      "REFERENCE_ONLY"
     ],
     "excluded_surface_markers": [
       "PRIVATE",
       "SANITIZED_CARD_ONLY",
       "EXCLUDED",
-      "QUARANTINED"
+      "QUARANTINED",
+      "BLOCKED"
     ]
   },
   "invariants": [
