@@ -11,6 +11,7 @@
   "sync": {
     "script": "scripts/sync-helix-projection.mjs",
     "output": "site-v15/data/helix-root.json",
+    "receipt_output": "site-v15/data/helix-root.receipt.json",
     "mode": "build_time_pull",
     "fail_closed": true,
     "allow_stale_fallback": false
