@@ -30,14 +30,30 @@ def sha256(path: Path) -> str:
 
 def normalize_core_properties(data: bytes) -> bytes:
     text = data.decode("utf-8")
-    text = re.sub(r"(<dcterms:created[^>]*>).*?(</dcterms:created>)", rf"\g<1>{FIXED_CORE_TIME}\2", text)
-    text = re.sub(r"(<dcterms:modified[^>]*>).*?(</dcterms:modified>)", rf"\g<1>{FIXED_CORE_TIME}\2", text)
+    text = re.sub(
+        r"(<dcterms:created[^>]*>).*?(</dcterms:created>)",
+        rf"\g<1>{FIXED_CORE_TIME}\2",
+        text,
+    )
+    text = re.sub(
+        r"(<dcterms:modified[^>]*>).*?(</dcterms:modified>)",
+        rf"\g<1>{FIXED_CORE_TIME}\2",
+        text,
+    )
     return text.encode("utf-8")
 
 
 def normalize_docx(path: Path) -> None:
     temporary = path.with_suffix(".deterministic.docx")
-    with zipfile.ZipFile(path, "r") as source, zipfile.ZipFile(temporary, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as target:
+    with (
+        zipfile.ZipFile(path, "r") as source,
+        zipfile.ZipFile(
+            temporary,
+            "w",
+            compression=zipfile.ZIP_DEFLATED,
+            compresslevel=9,
+        ) as target,
+    ):
         for name in sorted(source.namelist()):
             data = source.read(name)
             if name == "docProps/core.xml":
@@ -68,24 +84,36 @@ def convert_pdf() -> None:
             str(temp_path),
             str(DOCX_PATH),
         ]
-        subprocess.run(command, check=True, env=env, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        subprocess.run(
+            command,
+            check=True,
+            env=env,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
         generated = temp_path / f"{DOCX_PATH.stem}.pdf"
         if not generated.exists():
             raise RuntimeError("LibreOffice did not create the resume PDF")
         reader = PdfReader(str(generated))
         writer = PdfWriter()
         writer.clone_document_from_reader(reader)
-        writer.add_metadata({
-            "/Title": "Casey Barton - Applied AI Systems Architect Resume V17",
-            "/Author": "Casey Del Carpio Barton",
-            "/Subject": "PSYSOC-X calibrated human and machine-verifiable resume",
-            "/Creator": "GlacierEQ V17 deterministic resume builder",
-            "/Producer": "GlacierEQ V17 deterministic resume builder",
-            "/CreationDate": FIXED_PDF_DATE,
-            "/ModDate": FIXED_PDF_DATE,
-        })
-        fixed_id = bytes.fromhex("56473137524553554d45494e54454c4c4947454e43453230323630383035")
-        writer._ID = ArrayObject([ByteStringObject(fixed_id), ByteStringObject(fixed_id)])
+        writer.add_metadata(
+            {
+                "/Title": "Casey Barton - Applied AI Systems Architect Resume V17",
+                "/Author": "Casey Del Carpio Barton",
+                "/Subject": "PSYSOC-X calibrated human and machine-verifiable resume",
+                "/Creator": "GlacierEQ V17 deterministic resume builder",
+                "/Producer": "GlacierEQ V17 deterministic resume builder",
+                "/CreationDate": FIXED_PDF_DATE,
+                "/ModDate": FIXED_PDF_DATE,
+            }
+        )
+        fixed_id = bytes.fromhex(
+            "56473137524553554d45494e54454c4c4947454e43453230323630383035"
+        )
+        writer._ID = ArrayObject(
+            [ByteStringObject(fixed_id), ByteStringObject(fixed_id)]
+        )
         writer.compress_identical_objects(remove_identicals=True, remove_orphans=True)
         with PDF_PATH.open("wb") as output:
             writer.write(output)
@@ -101,11 +129,21 @@ def write_manifest() -> dict:
             "pdf": "LibreOffice visual export rewritten by pypdf with fixed metadata",
         },
         "artifacts": {
-            "pdf": {"path": str(PDF_PATH.relative_to(ROOT)), "bytes": PDF_PATH.stat().st_size, "sha256": sha256(PDF_PATH)},
-            "docx": {"path": str(DOCX_PATH.relative_to(ROOT)), "bytes": DOCX_PATH.stat().st_size, "sha256": sha256(DOCX_PATH)},
+            "pdf": {
+                "path": str(PDF_PATH.relative_to(ROOT)),
+                "bytes": PDF_PATH.stat().st_size,
+                "sha256": sha256(PDF_PATH),
+            },
+            "docx": {
+                "path": str(DOCX_PATH.relative_to(ROOT)),
+                "bytes": DOCX_PATH.stat().st_size,
+                "sha256": sha256(DOCX_PATH),
+            },
         },
     }
-    MANIFEST_PATH.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    MANIFEST_PATH.write_text(
+        json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
     return manifest
 
 
