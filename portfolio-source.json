@@ -1,0 +1,43 @@
+{
+  "schema": "glaciereq.portfolio-consumer-pointer.v1",
+  "consumer": "GlacierEQ/job-application",
+  "projection_id": "public_portal",
+  "authority": {
+    "repository": "GlacierEQ/job-app-helix",
+    "branch": "main",
+    "manifest_path": "manifests/portfolio_root_truth.json",
+    "raw_base_url": "https://raw.githubusercontent.com/GlacierEQ/job-app-helix",
+    "commit_api_url": "https://api.github.com/repos/GlacierEQ/job-app-helix/commits/main"
+  },
+  "sync": {
+    "script": "scripts/sync-helix-projection.mjs",
+    "output": "site-v15/data/helix-root.json",
+    "receipt_output": "site-v15/data/helix-root.receipt.json",
+    "mode": "build_time_pull",
+    "fail_closed": true,
+    "allow_stale_fallback": false
+  },
+  "public_boundary": {
+    "publish_private_records": false,
+    "allowed_repository_visibility": ["public"],
+    "allowed_promotion_states": [
+      "PROMOTED",
+      "REFERENCE_ONLY"
+    ],
+    "excluded_surface_markers": [
+      "PRIVATE",
+      "SANITIZED_CARD_ONLY",
+      "EXCLUDED",
+      "QUARANTINED",
+      "BLOCKED"
+    ]
+  },
+  "invariants": [
+    "Helix remains the portfolio authority.",
+    "This repository remains a generated public presentation surface.",
+    "A successful render is not evidence that the source projection is current.",
+    "Factual IDs, evidence states, blockers, test counts, and non-affiliation boundaries are invariant across presentation layers.",
+    "No private repository identity or private operational metadata may enter the generated public snapshot.",
+    "Every generated snapshot is bound to one immutable Helix commit."
+  ]
+}
