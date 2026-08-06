@@ -1,0 +1,253 @@
+.masterclass-hero {
+  border-bottom: 1px solid var(--line);
+}
+
+.masterclass-grid,
+.layer-grid,
+.proof-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.masterclass-grid,
+.layer-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.proof-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.masterclass-companies,
+.stone-list {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.masterclass-company,
+.stone-card {
+  padding: 0;
+  overflow: clip;
+}
+
+.masterclass-company summary,
+.stone-card summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.1rem 1.25rem;
+  cursor: pointer;
+  list-style: none;
+}
+
+.masterclass-company summary::-webkit-details-marker,
+.stone-card summary::-webkit-details-marker {
+  display: none;
+}
+
+.masterclass-company summary span,
+.stone-card summary span {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.masterclass-company summary small,
+.stone-card summary small {
+  color: var(--muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.masterclass-company summary b {
+  color: var(--accent);
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+
+.masterclass-company[open] summary,
+.stone-card[open] summary {
+  border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--panel) 85%, var(--accent) 15%);
+}
+
+.masterclass-company-body,
+.stone-body {
+  padding: 1.2rem 1.25rem 1.4rem;
+}
+
+.masterclass-company-body h3,
+.stone-body h3 {
+  margin: 1.2rem 0 0.45rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.masterclass-list,
+.donor-list {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.masterclass-list li,
+.donor-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: 0.65rem;
+  background: var(--panel-2);
+}
+
+.masterclass-list span,
+.masterclass-list b,
+.donor-list span {
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.proof-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.proof-card .button {
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+.proof-dl {
+  display: grid;
+  grid-template-columns: minmax(5rem, auto) 1fr;
+  gap: 0.55rem 0.8rem;
+  margin: 1rem 0;
+}
+
+.proof-dl dt {
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.proof-dl dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.timeline {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-left: 1px solid var(--line);
+}
+
+.timeline-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(9rem, 0.25fr) 1fr;
+  gap: 1.5rem;
+  padding: 0 0 2rem 1.5rem;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  top: 0.35rem;
+  left: -0.38rem;
+  width: 0.7rem;
+  height: 0.7rem;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  background: var(--bg);
+}
+
+.timeline-item time {
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+}
+
+.timeline-item h2 {
+  margin: 0 0 0.45rem;
+  font-size: 1.05rem;
+}
+
+.layer-card {
+  position: relative;
+  padding-top: 3rem;
+}
+
+.layer-card .rank {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}
+
+.academy-rule {
+  margin-top: 1rem;
+}
+
+.donor-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.donor-list li {
+  justify-content: flex-start;
+}
+
+.donor-list code {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 980px) {
+  .proof-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .donor-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .masterclass-grid,
+  .layer-grid,
+  .proof-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .masterclass-company summary,
+  .stone-card summary,
+  .masterclass-list li {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .timeline-item {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .proof-dl {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .masterclass-company summary,
+  .stone-card summary {
+    scroll-behavior: auto;
+  }
+}
