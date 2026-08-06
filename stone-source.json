@@ -1,0 +1,30 @@
+{
+  "schema": "glaciereq.stone-consumer-pointer.v1",
+  "consumer": "GlacierEQ/job-application",
+  "authority": {
+    "repository": "GlacierEQ/AKOS",
+    "branch": "main",
+    "registry_path": "registry/stones.json",
+    "raw_base_url": "https://raw.githubusercontent.com/GlacierEQ/AKOS",
+    "commit_api_url": "https://api.github.com/repos/GlacierEQ/AKOS/commits/main"
+  },
+  "sync": {
+    "script": "scripts/sync-akos-academy.mjs",
+    "output": "site-v15/data/infinity-stone-academy.json",
+    "receipt_output": "site-v15/data/infinity-stone-academy.receipt.json",
+    "fail_closed": true,
+    "allow_stale_fallback": false
+  },
+  "projection_layers": [
+    "recruiter",
+    "master",
+    "machine",
+    "mesh"
+  ],
+  "truth_boundary": {
+    "registry_status_controls_public_status": true,
+    "candidate_extensions_remain_candidate": true,
+    "prior_verified_baselines_remain_separate": true,
+    "website_rendering_is_not_promotion": true
+  }
+}
