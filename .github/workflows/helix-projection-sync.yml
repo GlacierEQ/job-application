@@ -31,8 +31,6 @@ on:
 permissions:
   contents: read
 
-timeout-minutes: 10
-
 concurrency:
   group: helix-portfolio-projection-${{ github.ref }}
   cancel-in-progress: true
@@ -40,8 +38,7 @@ concurrency:
 jobs:
   sync-render-validate:
     runs-on: ubuntu-24.04
-    env:
-      HELIX_ROOT_REF: ${{ github.event_name == 'pull_request' && 'feature/portfolio-root-truth-v1' || 'main' }}
+    timeout-minutes: 10
     steps:
       - name: Checkout exact portal source
         uses: actions/checkout@v4
@@ -51,9 +48,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "24"
-      - name: Compile public-safe Helix projection
+      - name: Compile public-safe Helix projection and receipt
         run: node scripts/sync-helix-projection.mjs
-      - name: Validate public-safe projection
+      - name: Validate public-safe projection and receipt
         run: node scripts/validate-helix-projection.mjs
       - name: Render Systems Atlas
         run: node scripts/render-helix-atlas.mjs
@@ -63,12 +60,13 @@ jobs:
         run: node scripts/validate-helix-atlas.mjs
       - name: Validate existing V17 hiring surface
         run: node site-v15/scripts/validate.mjs
-      - name: Upload compiled projection and Atlas
+      - name: Upload compiled projection, receipt, and Atlas
         uses: actions/upload-artifact@v4
         with:
           name: helix-public-projection-${{ github.sha }}
           path: |
             site-v15/data/helix-root.json
+            site-v15/data/helix-root.receipt.json
             site-v15/atlas/index.html
           if-no-files-found: error
           retention-days: 30
