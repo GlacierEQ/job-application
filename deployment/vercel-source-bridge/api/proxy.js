@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 
-const SOURCE_COMMIT = '9971548f05c9668cb491805fa15a9548763a1a6c';
+const SOURCE_COMMIT = 'ef0cc0394463181ee6999d06f1c8bc5a6c3ab657';
 const RAW_ROOT = `https://raw.githubusercontent.com/GlacierEQ/job-application/${SOURCE_COMMIT}/site-v15/`;
 
 const TYPES = {
@@ -11,25 +11,32 @@ const TYPES = {
   '.xml': 'application/xml; charset=utf-8',
   '.txt': 'text/plain; charset=utf-8',
   '.pdf': 'application/pdf',
+  '.docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
 };
 
 const REQUIRED = {
-  'index.html': '910ae7c7dc749fa792c495fb7c7e08c82a9d150ad28dd5ea2adc72e697a70478',
-  'resume/index.html': '2d2c3c462b68683c3d9ddffd287f37b8e703eb058a33e36ce39393012e7a3225',
-  'master/index.html': '7a846f60f92635ee0ecae088acbf340e3963b732a19f8362be44621b8a74971e',
-  'mesh/index.html': '6e5781c69e5c119c0030fdc20f2901ec0514fd31d9ef19def7733303b79e7c94',
-  'machine/index.html': '898c398ac3ca7cd8516f67b8ebf68941d7174437be061a4a916339667d51d8f8',
+  'index.html': '4568cbd3d4b20a031b38ff35aa69d650ba2a528ce1417816cfa2635322faefff',
+  'resume/index.html': '0b956afa686604796ba983992768a85e67f442364e630471f5a2d1654d7f3cc1',
+  'master/index.html': 'ee1b8d8cd5fe36d1e04e83667bf7ff8f463a89b8e057b340430b203f1ee189cd',
+  'mesh/index.html': 'c2eb82d6d612a1b0272ee0593d4624b916eb6cc8d305d93b78f2ca2d9f9707e2',
+  'machine/index.html': '04ae02c47333db08d533377a23b6250077ee1168ec79af539d104f844964f009',
   'data/portfolio.json': 'd212ea17b5b3c479735efefe40ec78382d0913535768924c39e21da1f12b8d86',
   'data/company-families.json': '889295fdf234ee35dfe2a6cdd5f685f5ab4f60d9f5f4e023917405e494140f86',
   'data/psysoc-x-profiles.json': 'e8f27290acc0740d1109e9d4ae433f4f61bea03fcd46ee895671e462672f75a7',
-  'downloads/Casey_Barton_Resume.pdf': 'e4d189910b324555f63e8d4214d9f47be582c3e501fdb87136f712db443fad88',
-  'assets/site.css': '2737211f8aea4c978a02f46c82f738203385301e8d446d2814206875701896ad',
-  'assets/social-card.svg': 'd785e31db1e5207b6361e2491a7ca6ff2a421fe3b6e86dd1b1d858cd98eeb67e',
-  'assets/favicon.svg': '6b5a01683c105a1b1240ed3444f811036d17dd146a2a2e801a2821f792b2fe8c',
+  'data/resume.json': '61a3fd77256af69ca36a774dad2d72f0f859a5d415d14423c21e0a2016c579b7',
+  'data/resume-artifacts.json': '78675a7b2ec849b30918f867e837fe64fc83a6bfe6ec53f88b4ae7070790680c',
+  'resume/ats.txt': '5d16695f186c5bb5762deefe77b2bcbf66ef9e730560b0c7a190a6d497f87c34',
+  'downloads/Casey_Barton_Resume.pdf': 'c46b4c3c31bea8405c28322e9f81be4ffd36c7faec9154acfd8da16a647cd1e3',
+  'downloads/Casey_Barton_Resume.docx': 'aa022ca8c40d59624e6e7e3ef88fb439f6d21c7adcb997a0b11cd50b05827d0e',
+  'assets/site.css': '8f3a659076fa9a4cbb90cf623baf5a29dad2a1cf14c246f4496aeb48c382012b',
+  'assets/site.systems.css': '47c31b9d8a3e4eccfe87569b97a702a2fa1ff1641856febd8d275aa4af888407',
+  'assets/resume.v17.css': 'dca69585f5a380514c9f6d0eca2aadfd4f8792ccf7abf01a99b4df4b5b17f45f',
+  'assets/social-card.svg': '8727f9617aefcf622aeb715fcdd39af34281cf8202e4885eb1152ff0f6092c19',
+  'assets/favicon.svg': 'aeb81d69f18d01f4b0c3c8cdb81c631d28c9dccf5637639330f5fb02e32b33ff',
   'sitemap.xml': 'cd8c33d8fd75be84235e9009a299fcce955947f9218b10a5f0f78b36105ea400',
   'robots.txt': '3a4d91def310706fef59d6224ca266e48e95d8e3aaa9731edc693cc5914454c3',
-  'llms.txt': 'e6ecd1a83b20f03e869bda927cdc4212044c429d49d43b3a77932c3a74c6289a',
-  '404.html': '105398ac802698554f46d58af7551940501c87bc9f95dc6bcf4b27a58d2ea651',
+  'llms.txt': '480062ea9fea49ca00cd0cba40fdd5260c377b3d0d71ab20e91a7f65702d5151',
+  '404.html': '072452ab072b36a04ba1c7e76e8cc0d7d9207f936b9ab00df24ab4c4d0e11981',
 };
 
 function normalize(input) {
@@ -56,12 +63,13 @@ function securityHeaders(res) {
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('X-Frame-Options', 'DENY');
   res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
-  res.setHeader('X-V15-Source-Commit', SOURCE_COMMIT);
+  res.setHeader('X-GlacierEQ-Source-Commit', SOURCE_COMMIT);
+  res.setHeader('X-PSYSOCX-Release', 'V16-V17');
 }
 
 async function fetchSource(path) {
   const response = await fetch(RAW_ROOT + path, {
-    headers: { 'User-Agent': 'GlacierEQ-V15-Source-Bridge/1.2' },
+    headers: { 'User-Agent': 'GlacierEQ-V17-Source-Bridge/1.0' },
   });
   const body = Buffer.from(await response.arrayBuffer());
   return {
@@ -88,11 +96,21 @@ async function verifyDeployment(res) {
   res.end(
     JSON.stringify(
       {
-        schema: 'glaciereq.v15-production-verification.v1',
+        schema: 'glaciereq.v17-production-verification.v1',
         status: pass ? 'PASS' : 'FAIL',
         source_commit: SOURCE_COMMIT,
+        release: 'V16 Signal Architecture + V17 Resume Intelligence',
         canonical_routes: ['/', '/resume/', '/master/', '/mesh/', '/machine/'],
+        resume_surfaces: [
+          '/downloads/Casey_Barton_Resume.pdf',
+          '/downloads/Casey_Barton_Resume.docx',
+          '/resume/ats.txt',
+          '/data/resume.json',
+        ],
+        psysoc_x_profiles: ['recruiter', 'master', 'machine', 'mesh'],
         facts_invariant: true,
+        scripts: 0,
+        trackers: 0,
         files,
       },
       null,
@@ -105,7 +123,7 @@ module.exports = async function handler(req, res) {
   securityHeaders(res);
 
   const raw = Array.isArray(req.query.path) ? req.query.path.join('/') : String(req.query.path || '');
-  if (raw === '__v15_verify') return verifyDeployment(res);
+  if (raw === '__v17_verify' || raw === '__v15_verify') return verifyDeployment(res);
 
   let path = normalize(raw);
   if (!path) {
@@ -127,7 +145,7 @@ module.exports = async function handler(req, res) {
   res.setHeader('Content-Type', TYPES[ext] || 'application/octet-stream');
   res.setHeader(
     'Cache-Control',
-    path.startsWith('data/')
+    path.startsWith('data/') || path === 'resume/ats.txt'
       ? 'public, max-age=0, s-maxage=300, must-revalidate'
       : 'public, max-age=0, s-maxage=900, must-revalidate',
   );
