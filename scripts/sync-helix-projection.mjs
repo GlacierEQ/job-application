@@ -9,6 +9,7 @@ import { fileURLToPath } from "node:url";
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(SCRIPT_DIR, "..");
 const POINTER_PATH = path.join(ROOT, "portfolio-source.json");
+const SHA_PATTERN = /^[a-f0-9]{40}$/;
 const REPOSITORY_PATTERN = /^GlacierEQ\/[A-Za-z0-9_.-]+$/;
 const LEVELS = new Set(["L0", "L1", "L2", "L3", "L4", "L5"]);
 
@@ -47,14 +48,18 @@ function parseJson(text, label) {
   }
 }
 
-async function fetchText(url) {
+async function fetchText(url, accept = "application/json") {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 15_000);
+  const headers = {
+    Accept: accept,
+    "User-Agent": "GlacierEQ-job-application",
+  };
+  if (process.env.GITHUB_TOKEN) {
+    headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
+  }
   try {
-    const response = await fetch(url, {
-      headers: { Accept: "application/json", "User-Agent": "GlacierEQ-job-application" },
-      signal: controller.signal,
-    });
+    const response = await fetch(url, { headers, signal: controller.signal });
     requireValue(response.ok, `${url} returned ${response.status}`);
     return await response.text();
   } catch (error) {
@@ -90,6 +95,19 @@ function resolveOutput(relative, label) {
   return output;
 }
 
+async function resolveHelixSha(authority) {
+  const supplied = process.env.HELIX_ROOT_SHA?.trim().toLowerCase();
+  if (supplied) {
+    requireValue(SHA_PATTERN.test(supplied), "HELIX_ROOT_SHA must be a full 40-character lowercase commit SHA");
+    return supplied;
+  }
+  const commitText = await fetchText(authority.commit_api_url, "application/vnd.github+json");
+  const commit = parseJson(commitText, "Helix commit response");
+  const sha = String(commit.sha ?? "").toLowerCase();
+  requireValue(SHA_PATTERN.test(sha), "Helix commit API did not return a full commit SHA");
+  return sha;
+}
+
 async function main() {
   const pointer = parseJson(await readFile(POINTER_PATH, "utf8"), "portfolio-source.json");
   requireValue(pointer.schema === "glaciereq.portfolio-consumer-pointer.v1", "unexpected pointer schema");
@@ -103,8 +121,10 @@ async function main() {
   requireValue(authority?.branch === "main", "public projection must consume canonical Helix main");
   requireValue(typeof authority?.manifest_path === "string" && authority.manifest_path.length > 0, "Helix manifest path is missing");
   requireValue(authority?.raw_base_url === "https://raw.githubusercontent.com/GlacierEQ/job-app-helix", "unexpected Helix raw base URL");
+  requireValue(authority?.commit_api_url === "https://api.github.com/repos/GlacierEQ/job-app-helix/commits/main", "unexpected Helix commit API URL");
 
-  const rawBase = `${authority.raw_base_url}/${encodeURIComponent(authority.branch)}`;
+  const resolvedCommit = await resolveHelixSha(authority);
+  const rawBase = `${authority.raw_base_url}/${resolvedCommit}`;
   const rootText = await fetchText(`${rawBase}/${authority.manifest_path}`);
   const root = parseJson(rootText, "Helix root manifest");
   requireValue(root.schema === "glaciereq.portfolio-root-truth.v1", "unexpected Helix root schema");
@@ -301,7 +321,7 @@ async function main() {
     source: {
       authority: root.authority,
       root_version: root.version,
-      root_ref: authority.branch,
+      root_ref: resolvedCommit,
       source_digest: sourceDigest,
       source_hashes: sourceHashes,
     },
@@ -337,19 +357,18 @@ async function main() {
     projection_id: pointer.projection_id,
     consumer_repository: pointer.consumer,
     consumed_source_digest: sourceDigest,
+    source_commit: resolvedCommit,
     output_path: path.relative(ROOT, output).replaceAll(path.sep, "/"),
     output_sha256: sha256(bundleText),
     root_version: root.version,
-    root_ref: authority.branch,
     status: "PASS",
   };
-  const receiptText = stableJson(receipt);
   await mkdir(path.dirname(receiptOutput), { recursive: true });
-  await writeFile(receiptOutput, receiptText, "utf8");
+  await writeFile(receiptOutput, stableJson(receipt), "utf8");
 
   console.log(`Helix public projection written: ${path.relative(ROOT, output)}`);
   console.log(`Helix projection receipt written: ${path.relative(ROOT, receiptOutput)}`);
-  console.log(`source_digest=${sourceDigest}`);
+  console.log(`source_commit=${resolvedCommit} source_digest=${sourceDigest}`);
   console.log(`flagships=${bundle.flagships.length} companies=${bundle.companies.length}`);
 }
 
