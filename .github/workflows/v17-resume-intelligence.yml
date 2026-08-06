@@ -51,7 +51,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Install deterministic document generators
-        run: python -m pip install --disable-pip-version-check reportlab==4.4.3 python-docx==1.2.0
+        run: python -m pip install --disable-pip-version-check reportlab==4.4.3 python-docx==1.2.0 pypdf==5.9.0
       - name: Regenerate deterministic artifacts from committed source
         run: python site-v15/scripts/build-resume-v17-deterministic.py
       - name: Upload regenerated artifact candidate
