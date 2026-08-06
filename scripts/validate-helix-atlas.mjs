@@ -16,15 +16,25 @@ async function htmlFiles(directory) {
   const files = [];
   for (const entry of entries) {
     const target = path.join(directory, entry.name);
+    assert(!entry.isSymbolicLink(), `symbolic link found in site tree: ${path.relative(ROOT, target)}`);
     if (entry.isDirectory()) files.push(...await htmlFiles(target));
     else if (entry.isFile() && entry.name.endsWith(".html")) files.push(target);
   }
   return files;
 }
 
+async function parseJsonFile(file, label) {
+  try {
+    const text = await readFile(file, "utf8");
+    return { text, value: JSON.parse(text) };
+  } catch (error) {
+    throw new Error(`${label}: ${error instanceof Error ? error.message : String(error)}`);
+  }
+}
+
 async function main() {
   const atlas = await readFile(path.join(SITE, "atlas", "index.html"), "utf8");
-  const snapshot = JSON.parse(await readFile(path.join(SITE, "data", "helix-root.json"), "utf8"));
+  const { value: snapshot } = await parseJsonFile(path.join(SITE, "data", "helix-root.json"), "Helix snapshot");
 
   assert(atlas.includes("The portfolio stays current from"), "Atlas hero is missing");
   assert(atlas.includes("CROWN JEWELS"), "Atlas Crown Jewels section is missing");
@@ -40,11 +50,15 @@ async function main() {
   const linked = [];
   for (const file of await htmlFiles(SITE)) {
     const text = await readFile(file, "utf8");
-    if (text.includes('class="links"')) {
-      assert(text.includes('href="/atlas/"'), `Atlas missing from navigation: ${path.relative(ROOT, file)}`);
+    const navStart = text.indexOf('<nav class="links"');
+    if (navStart >= 0) {
+      const navEnd = text.indexOf("</nav>", navStart);
+      assert(navEnd >= 0, `primary navigation is not closed: ${path.relative(ROOT, file)}`);
+      const nav = text.slice(navStart, navEnd);
+      assert(nav.includes('href="/atlas/"'), `Atlas missing from navigation: ${path.relative(ROOT, file)}`);
       linked.push(path.relative(ROOT, file));
     }
-    assert(!text.includes("javascript:"), `unsafe javascript URL: ${path.relative(ROOT, file)}`);
+    assert(!/javascript\s*:/i.test(text), `unsafe javascript URL: ${path.relative(ROOT, file)}`);
   }
   assert(linked.length >= 5, "Atlas was not linked across all primary surfaces");
 
