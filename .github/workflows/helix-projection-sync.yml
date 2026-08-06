@@ -5,7 +5,10 @@ on:
     paths:
       - "portfolio-source.json"
       - "scripts/sync-helix-projection.mjs"
+      - "scripts/render-helix-atlas.mjs"
+      - "scripts/link-helix-atlas.mjs"
       - "scripts/validate-helix-projection.mjs"
+      - "scripts/validate-helix-atlas.mjs"
       - "site-v15/**"
       - "vercel.json"
       - ".github/workflows/helix-projection-sync.yml"
@@ -14,7 +17,10 @@ on:
     paths:
       - "portfolio-source.json"
       - "scripts/sync-helix-projection.mjs"
+      - "scripts/render-helix-atlas.mjs"
+      - "scripts/link-helix-atlas.mjs"
       - "scripts/validate-helix-projection.mjs"
+      - "scripts/validate-helix-atlas.mjs"
       - "site-v15/**"
       - "vercel.json"
       - ".github/workflows/helix-projection-sync.yml"
@@ -32,7 +38,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  sync-and-validate:
+  sync-render-validate:
     runs-on: ubuntu-24.04
     env:
       HELIX_ROOT_REF: ${{ github.event_name == 'pull_request' && 'feature/portfolio-root-truth-v1' || 'main' }}
@@ -49,12 +55,20 @@ jobs:
         run: node scripts/sync-helix-projection.mjs
       - name: Validate public-safe projection
         run: node scripts/validate-helix-projection.mjs
+      - name: Render Systems Atlas
+        run: node scripts/render-helix-atlas.mjs
+      - name: Link Atlas across public surfaces
+        run: node scripts/link-helix-atlas.mjs
+      - name: Validate generated Atlas and links
+        run: node scripts/validate-helix-atlas.mjs
       - name: Validate existing V17 hiring surface
         run: node site-v15/scripts/validate.mjs
-      - name: Upload compiled projection receipt surface
+      - name: Upload compiled projection and Atlas
         uses: actions/upload-artifact@v4
         with:
           name: helix-public-projection-${{ github.sha }}
-          path: site-v15/data/helix-root.json
+          path: |
+            site-v15/data/helix-root.json
+            site-v15/atlas/index.html
           if-no-files-found: error
           retention-days: 30
