@@ -6,7 +6,8 @@
     "repository": "GlacierEQ/job-app-helix",
     "branch": "main",
     "manifest_path": "manifests/portfolio_root_truth.json",
-    "raw_base_url": "https://raw.githubusercontent.com/GlacierEQ/job-app-helix"
+    "raw_base_url": "https://raw.githubusercontent.com/GlacierEQ/job-app-helix",
+    "commit_api_url": "https://api.github.com/repos/GlacierEQ/job-app-helix/commits/main"
   },
   "sync": {
     "script": "scripts/sync-helix-projection.mjs",
@@ -36,6 +37,7 @@
     "This repository remains a generated public presentation surface.",
     "A successful render is not evidence that the source projection is current.",
     "Factual IDs, evidence states, blockers, test counts, and non-affiliation boundaries are invariant across presentation layers.",
-    "No private repository identity or private operational metadata may enter the generated public snapshot."
+    "No private repository identity or private operational metadata may enter the generated public snapshot.",
+    "Every generated snapshot is bound to one immutable Helix commit."
   ]
 }
