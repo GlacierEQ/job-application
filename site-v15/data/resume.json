@@ -2,14 +2,39 @@
   "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
   "meta": {
     "schema": "glaciereq.resume-intelligence.v17",
+    "version": "17.0.0",
     "profile": "PSYSOC-X_MACHINE",
     "facts_invariant": true,
     "generated_on": "2026-08-05",
-    "evidence_policy": "claims-do-not-exceed-current-source-and-receipt-state"
+    "evidence_policy": "claims-do-not-exceed-current-source-and-receipt-state",
+    "human_objectives": [
+      "immediate role clarity",
+      "credible differentiation",
+      "progressive disclosure",
+      "visible evidence and limits"
+    ],
+    "machine_objectives": [
+      "canonical headings",
+      "parseable dates and titles",
+      "normalized skills",
+      "explicit evidence states",
+      "stable identifiers"
+    ],
+    "invariants": [
+      "identity",
+      "dates",
+      "test_counts",
+      "artifact_ids",
+      "evidence_states",
+      "limits",
+      "authority_boundaries",
+      "non_affiliation"
+    ]
   },
   "basics": {
     "name": "Casey Del Carpio Barton",
     "label": "Applied AI Systems Architect | Agent Infrastructure Engineer | Forward-Deployed AI Engineer",
+    "phone": "+1-808-936-5654",
     "email": "glacier.equilibrium@gmail.com",
     "url": "https://casey-barton-glaciereq.vercel.app/",
     "location": {
@@ -24,7 +49,7 @@
         "url": "https://github.com/GlacierEQ"
       }
     ],
-    "summary": "Builds the operating layer around model capability: task ownership, tool contracts, authority, evidence states, controlled failure, persistence, and completion receipts."
+    "summary": "Applied AI systems architect and agent infrastructure engineer who builds the operating layer between model capability and dependable outcomes using explicit authority, bounded tool use, deterministic evidence, controlled failure, continuity, and completion receipts."
   },
   "work": [
     {
@@ -36,7 +61,8 @@
       "highlights": [
         "Designs agent, application-intelligence, evidence, memory, infrastructure-governance, and human-machine systems.",
         "Converts ambiguous architecture into typed contracts, deterministic tests, refusal behavior, machine-readable facts, and completion receipts.",
-        "Built Portfolio Receipt Router with 69/69 tests through two CI paths and zero external actions."
+        "Built Portfolio Receipt Router with 69/69 tests through direct and reusable CI, artifact 8910423397, and zero external actions.",
+        "Separates source presence, review, execution, deployment, authority, and verified completion across a multi-repository portfolio."
       ]
     },
     {
@@ -47,7 +73,8 @@
       "endDate": "2024",
       "summary": "Residential systems inspection and decision-ready reporting.",
       "highlights": [
-        "Evidence capture, uncertainty labeling, defect prioritization, system interaction, and plain-language communication."
+        "Inspected structural, roofing, electrical, plumbing, HVAC, moisture, and safety conditions.",
+        "Applied evidence capture, uncertainty labeling, defect prioritization, interacting-system analysis, and plain-language communication."
       ]
     },
     {
@@ -57,7 +84,8 @@
       "startDate": "2017",
       "summary": "Residential repair, estimates, field execution, and closeout artifacts.",
       "highlights": [
-        "Scopes work, communicates constraints, and translates incomplete requirements into bounded work packages."
+        "Scopes work, prepares estimates, coordinates execution, and communicates assumptions, constraints, and completion status.",
+        "Translates incomplete real-world requirements into bounded work packages and usable closeout artifacts."
       ]
     }
   ],
@@ -79,30 +107,46 @@
   ],
   "skills": [
     {
-      "name": "Applied AI architecture",
+      "name": "Agent infrastructure and governance",
       "keywords": [
-        "agent infrastructure",
         "multi-agent orchestration",
+        "Model Context Protocol",
         "tool contracts",
-        "authority models",
-        "human-in-the-loop",
-        "failure and recovery"
-      ]
-    },
-    {
-      "name": "Protocols and interfaces",
-      "keywords": [
-        "MCP",
-        "JSON-RPC 2.0",
-        "REST",
-        "JSON Schema",
-        "Protocol Buffers",
+        "capability and authority separation",
+        "approval models",
         "state machines",
-        "idempotency"
+        "bounded retries",
+        "failure and recovery",
+        "human-in-the-loop systems"
       ]
     },
     {
-      "name": "Engineering",
+      "name": "Evidence and release engineering",
+      "keywords": [
+        "provenance",
+        "claim-to-source mapping",
+        "deterministic testing",
+        "JSON Schema",
+        "CI/CD",
+        "static analysis",
+        "dependency auditing",
+        "integrity hashing",
+        "release receipts",
+        "machine-readable interfaces"
+      ]
+    },
+    {
+      "name": "Application and document intelligence",
+      "keywords": [
+        "role research",
+        "evidence-qualified resume generation",
+        "document extraction",
+        "structured artifacts",
+        "human and machine presentation layers"
+      ]
+    },
+    {
+      "name": "Primary technology",
       "keywords": [
         "Python",
         "TypeScript",
@@ -112,20 +156,20 @@
         "Node.js",
         "React",
         "Next.js",
-        "FastAPI"
+        "FastAPI",
+        "REST",
+        "JSON-RPC 2.0",
+        "MCP",
+        "GitHub Actions",
+        "Docker",
+        "Vercel"
       ]
     },
     {
-      "name": "Delivery and evidence",
+      "name": "Prior scientific computing",
       "keywords": [
-        "GitHub Actions",
-        "Docker",
-        "Vercel",
-        "deterministic testing",
-        "provenance",
-        "static analysis",
-        "integrity hashing",
-        "release receipts"
+        "R",
+        "MATLAB"
       ]
     }
   ],
@@ -177,6 +221,41 @@
       ]
     }
   ],
+  "x_cross_domain_foundation": [
+    {
+      "domain": "scientific_measurement",
+      "organization": "University of Hawaii",
+      "role": "Sea Urchin Morphometric Research",
+      "period": "2016-2017",
+      "scope": "Processed physical measurements of gill structures to support visual species identification."
+    },
+    {
+      "domain": "compressed_gas_systems",
+      "organization": "Hawaiian Diving Adventures and UH Dive Office",
+      "role": "Scuba Tank Technician",
+      "period": "2016-2017",
+      "scope": "Tank filling, transport, inspection and repair support, and gas mixing under safety-critical procedures."
+    },
+    {
+      "domain": "historical_leadership",
+      "organization": "Civil Air Patrol",
+      "role": "Cadet Commander / Search-and-Rescue Ground Team Leader",
+      "period": "2007-2011",
+      "scope": "Historical leadership context; not represented as formal professional people-management experience."
+    }
+  ],
+  "x_historical_credentials": {
+    "status": "CURRENT_STATUS_NOT_ASSERTED",
+    "items": [
+      "PSI Visual Cylinder Inspector",
+      "PSI Eddy Current Technician",
+      "PSI Valve Repair Technician",
+      "PSI Oxygen Cleaning Cylinder Technician",
+      "NAUI Rescue Diver",
+      "NAUI Master Diver",
+      "PADI Enriched Air Diver"
+    ]
+  },
   "x_evidence": {
     "proof": {
       "receipt_router_tests": 69,

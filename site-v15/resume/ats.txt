@@ -1,65 +1,72 @@
 CASEY DEL CARPIO BARTON
-Applied AI Systems Architect | Agent Infrastructure Engineer | Forward-Deployed AI Engineer
-Honolulu, Hawaii | glacier.equilibrium@gmail.com
+Applied AI Systems Architect - Agent Infrastructure Engineer - Forward-Deployed AI Engineer
+Honolulu, Hawaii - 808-936-5654 - glacier.equilibrium@gmail.com
 Portfolio: https://casey-barton-glaciereq.vercel.app/
 GitHub: https://github.com/GlacierEQ
 
 PROFESSIONAL SUMMARY
-Applied AI systems architect who builds the operating layer around model capability: task ownership, tool contracts, authority, evidence states, controlled failure, persistence, and completion receipts. Builds across agent orchestration, application intelligence, document and evidence pipelines, memory and continuity, infrastructure governance, and human-machine interfaces. Brings cross-domain discipline from home inspection, scientific measurement, residential operations, and compressed-gas safety: observe the actual system, isolate the governing failure, bound the risk, test the claim, and leave an inspectable artifact.
+Applied AI systems architect and agent infrastructure engineer who builds the operating layer between model capability and dependable outcomes. Designs authority-aware, evidence-bound systems for multi-agent coordination, application intelligence, document and evidence pipelines, memory and continuity, infrastructure governance, and human-machine interfaces. Combines software engineering with scientific measurement, compressed-gas safety, building-system inspection, and owner-operated field execution. Core method: observe the actual system, separate evidence from inference, isolate the governing failure, bound authority and risk, build the narrowest useful mechanism, test the stated behavior, expose the limit, and leave a verifiable artifact.
 
 SELECTED EXECUTION PROOF
-- Portfolio Receipt Router: rebuilt an overstated autonomous-control surface as a local fail-closed evidence router. 69 of 69 tests passed through direct and reusable CI; artifact 8910423397; zero external queries and actions.
-- Bounded infrastructure sources: 166 source tests passed across Cooling, Energy, Servers, Security, and Nanosphere, plus 19 Energy memory tests and five hashed artifacts.
-- Job Application Helix: evidence-governed hiring and portfolio orchestration with 148 of 148 recorded repository tests.
-- Agent Coordinator: deterministic task ownership, dependency, capacity, priority, and shared-budget coordination with 62 of 62 recorded Python tests.
-- Microcode Governance: firmware manifest, drift, SBOM, provenance, compatibility policy, and approval-gated rollout planning. Reviewed, execution blocked, and not represented as test verified.
+- Portfolio Receipt Router: 69 of 69 tests passed through direct and reusable CI; artifact 8910423397; zero external queries and actions.
+- Bounded infrastructure source systems: 166 source tests passed across Cooling, Energy, Servers, Security, and Nanosphere, plus 19 degraded-mode Energy memory tests and five hashed artifacts.
+- Job Application Helix: 148 of 148 recorded repository tests for evidence-governed hiring and portfolio orchestration.
+- Agent Coordinator: 62 of 62 recorded Python tests for deterministic ownership, dependencies, capacity, priority, and shared budgets.
+- PSYSOC-X: promoted at bounded TEST scope for audience calibration that preserves facts, evidence states, uncertainty, dignity, and authority boundaries.
 
 CORE COMPETENCIES
-Applied AI architecture; agent infrastructure; multi-agent orchestration; tool contracts; Model Context Protocol (MCP); JSON-RPC 2.0; REST APIs; JSON Schema; state machines; event-driven systems; idempotency; authority and approval models; human-in-the-loop systems; evidence governance; provenance; claim-to-source mapping; deterministic testing; failure and recovery design; CI/CD; machine-readable interfaces; portfolio engineering.
+Agent infrastructure; multi-agent orchestration; MCP; JSON-RPC 2.0; tool contracts; authority and approval models; application intelligence; document automation; evidence governance; provenance; claim-to-source mapping; deterministic testing; state machines; event design; idempotency; bounded retries; failure and recovery design; memory and continuity; human-in-the-loop systems; CI/CD; machine-readable release receipts.
 
 TECHNOLOGIES
-Python; TypeScript; JavaScript; SQL; Bash; Node.js; React; Next.js; FastAPI; Git; GitHub Actions; Docker; Vercel; REST; JSON-RPC 2.0; MCP; JSON Schema; Protocol Buffers; static analysis; dependency auditing; integrity hashing.
+Python; TypeScript; JavaScript; SQL; Bash; Node.js; React; Next.js; FastAPI; REST; JSON-RPC 2.0; Model Context Protocol (MCP); JSON Schema; Protocol Buffers; Git; GitHub Actions; Docker; Vercel; static analysis; dependency auditing; integrity hashing.
 Prior scientific computing: R and MATLAB.
 Additional evidence-bounded project exposure: Go, Rust, C, C++, CUDA, Swift/Metal, Julia, Verilog/SystemVerilog, WebAssembly.
 
 PROFESSIONAL EXPERIENCE
-GLACIEREQ | Founder / Applied AI Systems Builder | Honolulu, Hawaii | January 2025-Present
+GLACIEREQ - Founder / Applied AI Systems Builder - Honolulu, Hawaii - January 2025-Present
 - Design and implement evidence-bound systems spanning agent orchestration, application intelligence, document and evidence pipelines, memory and continuity, infrastructure governance, and human-machine interfaces.
-- Convert ambiguous architectures into typed contracts, runnable slices, deterministic tests, explicit refusal behavior, machine-readable facts, and reviewable completion receipts.
+- Convert ambiguous architecture into typed contracts, runnable slices, deterministic tests, explicit refusal behavior, machine-readable facts, and reviewable completion receipts.
 - Built a public Portfolio Receipt Router that replaced unsupported autonomous-control semantics with a local fail-closed evidence system; 69 of 69 tests passed through direct and reusable CI with zero external actions.
 - Govern a multi-repository portfolio by separating source presence, review, execution, deployment, authority, and verified completion so recruiter, technical, and machine views cannot drift.
 - Use AI-assisted development as an inspectable engineering process combining source review, bounded generation, adversarial checking, deterministic validation, and human judgment.
 
-DIAMOND HEAD HOME INSPECTIONS | Certified Home Inspector | Honolulu, Hawaii | 2020-2024
-- Inspected residential systems and translated field observations into clear, decision-ready reports under time constraints.
-- Applied disciplined evidence capture, uncertainty labeling, defect prioritization, interacting-system analysis, and plain-language communication.
-- Developed the operating habit now used in software architecture: observe first, distinguish symptom from cause, test the boundary, and avoid unsupported conclusions.
+DIAMOND HEAD HOME INSPECTIONS - Certified Home Inspector - Honolulu, Hawaii - 2020-2024
+- Inspected residential structural, roofing, electrical, plumbing, HVAC, moisture, and safety conditions; translated field evidence into clear, decision-ready reports under time constraints.
+- Developed disciplined habits around uncertainty labeling, defect prioritization, interacting-system analysis, client communication, and avoiding unsupported conclusions.
 
-HI-CLASS HOME SERVICES / HI CLASS MAINTENANCE OAHU LLC | Owner-Operator, Building Systems and Field Services | Honolulu, Hawaii | 2017-Present
-- Scope residential repair and service work, prepare estimates, coordinate field execution, and communicate constraints and completion status with clients.
+HI-CLASS HOME SERVICES / HI CLASS MAINTENANCE OAHU LLC - Owner-Operator, Building Systems and Field Services - Honolulu, Hawaii - 2017-Present
+- Scope residential repair and service work, prepare estimates, coordinate execution, and communicate assumptions, constraints, and completion status with clients.
 - Work across practical building-system problems including minor carpentry, plumbing, electrical fixture replacement, drywall, painting, flooring, and maintenance planning.
 - Translate incomplete real-world requirements into bounded work packages, explicit assumptions, and usable closeout artifacts.
 
-EARLIER TECHNICAL EXPERIENCE
-UNIVERSITY OF HAWAII AT MANOA | Sea Urchin Morphometric Research | 2016-2017
-- Processed physical measurements of sea-urchin gill structures to support visual species identification.
-
-HAWAIIAN DIVING ADVENTURES AND UH DIVE OFFICE | Scuba Tank Technician | 2016-2017
-- Supported tank filling, transport, inspection and repair, and gas mixing under safety-critical procedures.
-
 SELECTED SYSTEMS
-Portfolio Receipt Router - compatibility-safe architecture repair and evidence routing; TEST VERIFIED, 69/69.
-Job Application Helix - evidence-governed hiring and portfolio orchestration; 148/148 recorded tests.
-Agent Coordinator - deterministic multi-agent scheduling and resource control; 62/62 recorded tests.
-Microcode Governance - firmware manifest and rollout governance; REVIEWED_EXECUTION_BLOCKED.
-PSYSOC-X - audience calibration without factual, uncertainty, dignity, or authority drift; bounded test scope.
+Portfolio Receipt Router - TEST VERIFIED
+Compatibility-safe architecture repair and evidence routing. Evidence: 69/69 tests; direct and reusable CI; artifact 8910423397; zero external actions. Boundary: independent technical exhibit; no datacenter control, company affiliation, or production-operation claim.
+
+Job Application Helix - RECORDED 148/148
+Evidence-governed hiring and portfolio orchestration. Boundary: release-specific current-SHA and deployment gates remain separate.
+
+Agent Coordinator - RECORDED 62/62
+Deterministic task ownership, dependencies, capacity, priority, and shared budgets. Boundary: hosted matrix and build-wheel promotion remain open.
+
+Microcode Governance - REVIEWED_EXECUTION_BLOCKED
+Firmware manifests, inventory drift, SBOMs, provenance, compatibility policy, and approval-gated rollout planning. Evidence: 132-check generated contract; static review found no critical defect. Boundary: private CI did not execute; not test verified and performs no firmware mutation.
+
+PSYSOC-X - BOUNDED TEST SCOPE
+Audience calibration across recruiter, master, machine, and relationship views. Boundary: no diagnosis, covert persuasion, or manipulation capability is claimed.
+
+EARLIER TECHNICAL EXPERIENCE
+- Sea-urchin morphometric research, University of Hawaii, 2016-2017: processed physical measurements of gill structures to support visual species identification.
+- Scuba Tank Technician, Hawaiian Diving Adventures and UH Dive Office, 2016-2017: tank filling, transport, inspection and repair support, and gas mixing under safety-critical procedures.
+- Residential inspection and repair work: interacting systems, failure consequences, uncertainty, and clear client communication.
+- Civil Air Patrol Cadet Commander and Search-and-Rescue Ground Team Leader, 2007-2011; historical leadership context, not a formal professional management claim.
 
 EDUCATION
-University of Hawaii at Manoa - Bachelor of Science, Marine Biology, 2016
-AWS Cloud Institute - Cloud Application Developer program, 2025-2026, in progress
+University of Hawaii at Manoa - Bachelor of Science, Marine Biology - 2016
+AWS Cloud Institute - Cloud Application Developer program - 2025-2026, in progress
 
-EARLIER TECHNICAL CERTIFICATIONS RECORDED IN PRIOR RESUMES
-PSI Visual Cylinder Inspector; PSI Eddy Current Technician; PSI Valve Repair Technician; PSI Oxygen Cleaning Cylinder Technician; NAUI Rescue Diver; NAUI Master Diver; PADI Enriched Air Diver. Current status should be confirmed before role-specific use.
+EARLIER TECHNICAL CREDENTIALS
+Historical resume records: PSI Visual Cylinder Inspector; PSI Eddy Current Technician; PSI Valve Repair Technician; PSI Oxygen Cleaning Cylinder Technician; NAUI Rescue Diver; NAUI Master Diver; PADI Enriched Air Diver. Current status is not represented as active without updated documentation.
 
 EVIDENCE BOUNDARY
 Independent GlacierEQ work and bounded technical exhibits. Test counts refer only to their stated repository and scope. No company affiliation, proprietary access, production use, customer impact, formal people-management experience, current certification status, or hardware validation is claimed without direct evidence.
