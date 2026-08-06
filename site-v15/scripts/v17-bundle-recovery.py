@@ -19,7 +19,14 @@ def main() -> int:
     if digest != EXPECTED_SHA256:
         raise RuntimeError(f"V17 bundle digest mismatch: {digest}")
     OUTPUT.write_bytes(payload)
-    print({"parts": len(parts), "bytes": len(payload), "sha256": digest, "output": str(OUTPUT)})
+    print(
+        {
+            "parts": len(parts),
+            "bytes": len(payload),
+            "sha256": digest,
+            "output": str(OUTPUT),
+        }
+    )
     return 0
 
 
