@@ -1,86 +1,106 @@
-# V17 Production Release Receipt
+# V17 PRODUCTION RELEASE RECEIPT
 
 **Release:** V16 Signal Architecture + V17 Resume Intelligence  
-**Canonical production URL:** `https://casey-barton-glaciereq.vercel.app/`  
+**Canonical website:** `https://casey-barton-glaciereq.vercel.app/`  
 **Production verifier:** `https://casey-barton-glaciereq.vercel.app/__v17_verify`  
+**Source repository:** `GlacierEQ/job-application`  
 **Canonical source commit:** `ef0cc0394463181ee6999d06f1c8bc5a6c3ab657`  
-**Production bridge commit:** `e9589172e5c5a87c83c9e934ac3550f61619d18a`  
-**Vercel deployment:** `dpl_4tCjs7Ybst1q5apentKFmRue7U9Q`  
-**Deployment state:** `READY`  
-**Production verification:** `PASS`
+**Pull request:** `#16`  
+**State:** `PRODUCTION_READY_VERIFIED`
 
-## Promotion result
+## Source promotion
 
-PR #16 was squash-merged only after all four required exact-head gates passed on source head `5562743083182ec253984e03f11cdaa3765b5dae`:
+Pull request #16 merged the exact validated release into `main` as commit `ef0cc0394463181ee6999d06f1c8bc5a6c3ab657`.
 
-- baseline repository CI: run `31085290112`;
-- V15 factual-invariance validation: run `31085288835`;
-- V16 signal-architecture validation: run `31085288230`;
-- V17 résumé-intelligence validation: run `31085287993`.
+All four merge-commit workflows completed successfully:
 
-The merged source was then pinned behind the production Vercel source bridge. The canonical alias was promoted to deployment `dpl_4tCjs7Ybst1q5apentKFmRue7U9Q` only after the deployment reached `READY`.
+- V16 Signal Architecture: run `31085396922`
+- V15 Final Hiring Release: run `31085397145`
+- V17 Resume Intelligence: run `31085396867`
+- CI: run `31085397490`
 
-## Production route contract
+## Deployment promotion
 
-The production alias returned `200 OK` for each canonical audience surface:
+- Verified preview deployment: `dpl_CGvHBJDzrbdcsJbgcAsMVwE8VPMC`
+- Preview URL: `https://casey-barton-glaciereq-i2g88op9v-caseys-projects-d714883e.vercel.app`
+- Preview state: `READY`
+- Current production deployment: `dpl_6vDjRWBgST8mzx8YZ1JpvKTnmMwL`
+- Production deployment URL: `https://casey-barton-glaciereq-36w3axefn-caseys-projects-d714883e.vercel.app`
+- Canonical alias: `https://casey-barton-glaciereq.vercel.app`
+- Production state: `READY`
+- Vercel region: `iad1`
+- Alias error: none
 
-- `/` — recruiter and hiring-manager presentation;
-- `/resume/` — PSYSOC-X V17 human résumé intelligence;
-- `/master/` — technical due diligence;
-- `/mesh/` — typed system, company, evidence, and provenance relationships;
-- `/machine/` — fail-closed public machine contracts.
+The preview and production deployments used the identical two-file, commit-pinned, read-only source bridge. No source changed between preview verification and production promotion.
 
-The production bridge also delivers these exact résumé interfaces:
+## Public verification
 
-- `/downloads/Casey_Barton_Resume.pdf`;
-- `/downloads/Casey_Barton_Resume.docx`;
-- `/resume/ats.txt`;
-- `/data/resume.json`.
+The canonical production verifier returned:
 
-## Exact résumé artifacts
+- HTTP status: `200`
+- schema: `glaciereq.v17-production-verification.v1`
+- status: `PASS`
+- source commit: `ef0cc0394463181ee6999d06f1c8bc5a6c3ab657`
+- facts invariant: `true`
+- client scripts: `0`
+- trackers: `0`
+- critical files: `22/22` available with exact expected SHA-256 values
+
+Canonical audience routes returned `200 OK`:
+
+- `/` — recruiter and hiring-manager presentation
+- `/resume/` — PSYSOC-X V17 human resume intelligence
+- `/master/` — technical due diligence
+- `/mesh/` — typed system, company, evidence, and provenance relationships
+- `/machine/` — fail-closed public machine contracts
+
+Resume and machine interfaces verified:
+
+- `/downloads/Casey_Barton_Resume.pdf`
+- `/downloads/Casey_Barton_Resume.docx`
+- `/resume/ats.txt`
+- `/data/resume.json`
+- `/data/resume-artifacts.json`
+
+## Exact resume artifacts
 
 | Artifact | Bytes | SHA-256 |
 |---|---:|---|
 | `Casey_Barton_Resume.pdf` | 90,911 | `c46b4c3c31bea8405c28322e9f81be4ffd36c7faec9154acfd8da16a647cd1e3` |
 | `Casey_Barton_Resume.docx` | 42,831 | `aa022ca8c40d59624e6e7e3ef88fb439f6d21c7adcb997a0b11cd50b05827d0e` |
-| `resume/ats.txt` | 6,708 | `5d16695f186c5bb5762deefe77b2bcbf66ef9e730560b0c7a190a6d497f87c34` |
-| `data/resume.json` | 6,847 | `61a3fd77256af69ca36a774dad2d72f0f859a5d415d14423c21e0a2016c579b7` |
+| `resume/ats.txt` | 7,578 | `5d16695f186c5bb5762deefe77b2bcbf66ef9e730560b0c7a190a6d497f87c34` |
+| `data/resume.json` | 9,309 | `61a3fd77256af69ca36a774dad2d72f0f859a5d415d14423c21e0a2016c579b7` |
 | `data/resume-artifacts.json` | 737 | `78675a7b2ec849b30918f867e837fe64fc83a6bfe6ec53f88b4ae7070790680c` |
 
-The public PDF returned `Content-Type: application/pdf`, a valid `%PDF-` signature, 90,911 bytes, and the canonical source-commit header. The DOCX returned `Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document`, a valid ZIP/Office signature, 42,831 bytes, and the same canonical source-commit header.
+The PDF source returned a valid PDF artifact with the exact 90,911-byte identity. The DOCX source returned the exact 42,831-byte Office artifact. Both are delivered with attachment disposition and the canonical source-commit header.
 
-## Production verifier
+## Runtime headers
 
-`/__v17_verify` checked 22 critical source files against the SHA-256 map embedded in the production bridge. The verifier returned:
+Canonical production responses expose:
 
-- `status: PASS`;
-- `source_commit: ef0cc0394463181ee6999d06f1c8bc5a6c3ab657`;
-- `facts_invariant: true`;
-- `scripts: 0`;
-- `trackers: 0`;
-- PSYSOC-X profiles: recruiter, master, machine, and mesh;
-- all required files available with matching committed-source hashes.
+- `X-GlacierEQ-Source-Commit: ef0cc0394463181ee6999d06f1c8bc5a6c3ab657`
+- `X-PSYSOCX-Release: V16-V17`
+- strict same-origin Content Security Policy with `script-src 'none'`
+- HSTS
+- `X-Content-Type-Options: nosniff`
+- `X-Frame-Options: DENY`
+- restrictive Permissions Policy
+- same-origin opener policy
 
-Every public response includes:
-
-- `X-GlacierEQ-Source-Commit: ef0cc0394463181ee6999d06f1c8bc5a6c3ab657`;
-- `X-PSYSOCX-Release: V16-V17`;
-- a same-origin content-security policy with `script-src 'none'`, `connect-src 'none'`, and `frame-ancestors 'none'`.
-
-## PSYSOC-X résumé calibration
+## PSYSOC-X resume calibration
 
 The release separates presentation from truth:
 
-- the human résumé emphasizes outcome, engineering judgment, cross-domain systems discipline, and evidence state;
-- ATS text provides a linear keyword-rich representation without layout dependence;
-- machine JSON provides identity, work, skills, projects, proof totals, source classes, and explicit limits;
-- recruiter, master, machine, and mesh layers preserve factual IDs, test counts, artifact identities, blockers, uncertainty, dignity, and authority boundaries.
+- the human resume emphasizes role clarity, engineering judgment, cross-domain systems discipline, progressive disclosure, and visible evidence state;
+- ATS text provides a linear, normalized, keyword-rich representation without layout dependence;
+- machine JSON provides identity, experience, skills, projects, proof totals, source classes, and explicit limits;
+- recruiter, master, machine, and mesh layers preserve identity, dates, factual IDs, test counts, artifact identities, blockers, uncertainty, dignity, authority boundaries, and non-affiliation language.
 
-The résumé now integrates the verified cross-domain foundation of scientific measurement, residential systems inspection, field operations, and compressed-gas safety without converting historical records into unsupported current credentials.
+The resume integrates the verified cross-domain foundation of scientific measurement, residential systems inspection, field operations, and compressed-gas safety without converting historical records into unsupported current credentials.
 
-## Excluded report claims
+## External report treatment
 
-The external diagnostic report was treated as an adversarial input, not authority. The release deliberately excludes unsupported or unverified claims including:
+The external diagnostic report was treated as adversarial input rather than authority. Useful cross-domain synthesis was retained. Unsupported or unverified claims were excluded, including:
 
 - a master's-level AWS program;
 - enterprise-grade or customer-production outcomes;
@@ -89,8 +109,8 @@ The external diagnostic report was treated as an adversarial input, not authorit
 - Greenhouse or Workday MCP access;
 - guaranteed sub-100 ms performance;
 - current certification status without confirmation;
-- company affiliation, proprietary access, hardware operation, or production deployment inferred from repository names.
+- company affiliation, proprietary access, hardware operation, or production use inferred from repository names.
 
 ## Final boundary
 
-Independent GlacierEQ work and bounded technical exhibits. Test counts apply only to the stated repository and scope. Review, generation, execution, deployment, and authority remain distinct states. No company affiliation, proprietary access, production use, customer impact, formal people-management experience, current certification status, or physical hardware validation is claimed without direct evidence.
+This receipt proves source promotion, deterministic artifact identity, preview verification, production deployment, alias promotion, route availability, public source attestation, and hash verification. It does not claim hiring outcomes, customer adoption, company affiliation, proprietary access, hardware validation, third-party production use, formal people management, current certification status, or measured business impact.
