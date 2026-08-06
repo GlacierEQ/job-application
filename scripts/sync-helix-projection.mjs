@@ -9,9 +9,15 @@ import { fileURLToPath } from "node:url";
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(SCRIPT_DIR, "..");
 const POINTER_PATH = path.join(ROOT, "portfolio-source.json");
+const REPOSITORY_PATTERN = /^GlacierEQ\/[A-Za-z0-9_.-]+$/;
+const LEVELS = new Set(["L0", "L1", "L2", "L3", "L4", "L5"]);
 
 function fail(message) {
   throw new Error(`Helix projection sync failed: ${message}`);
+}
+
+function requireValue(condition, message) {
+  if (!condition) fail(message);
 }
 
 function stable(value) {
@@ -30,6 +36,17 @@ function sha256(text) {
   return createHash("sha256").update(text).digest("hex");
 }
 
+function parseJson(text, label) {
+  try {
+    const value = JSON.parse(text);
+    requireValue(value && typeof value === "object" && !Array.isArray(value), `${label} must contain an object`);
+    return value;
+  } catch (error) {
+    if (error instanceof Error && error.message.startsWith("Helix projection sync failed:")) throw error;
+    fail(`${label} contains invalid JSON: ${error instanceof Error ? error.message : String(error)}`);
+  }
+}
+
 async function fetchText(url) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 15_000);
@@ -38,60 +55,82 @@ async function fetchText(url) {
       headers: { Accept: "application/json", "User-Agent": "GlacierEQ-job-application" },
       signal: controller.signal,
     });
-    if (!response.ok) fail(`${url} returned ${response.status}`);
+    requireValue(response.ok, `${url} returned ${response.status}`);
     return await response.text();
   } catch (error) {
+    if (error instanceof Error && error.message.startsWith("Helix projection sync failed:")) throw error;
     fail(`${url}: ${error instanceof Error ? error.message : String(error)}`);
   } finally {
     clearTimeout(timer);
   }
 }
 
-function parseJson(text, label) {
-  try {
-    const value = JSON.parse(text);
-    if (!value || typeof value !== "object" || Array.isArray(value)) fail(`${label} must contain an object`);
-    return value;
-  } catch (error) {
-    fail(`${label} contains invalid JSON: ${error instanceof Error ? error.message : String(error)}`);
-  }
-}
-
 function normalizeCompany(shard, rawCompany) {
-  const defaults = shard.defaults && typeof shard.defaults === "object" ? shard.defaults : {};
+  const defaults = shard.defaults && typeof shard.defaults === "object" && !Array.isArray(shard.defaults)
+    ? shard.defaults
+    : {};
+  requireValue(rawCompany && typeof rawCompany === "object" && !Array.isArray(rawCompany), "company entries must be objects");
   return { ...defaults, ...rawCompany };
 }
 
-function isPublicFlagship(flagship, excludedMarkers) {
-  if (!flagship.repository || typeof flagship.repository !== "string") return false;
-  const surface = String(flagship.public_surface ?? "");
-  return !excludedMarkers.some((marker) => surface.includes(marker));
+function validateRepositoryIdentity(repository, label) {
+  requireValue(typeof repository === "string" && REPOSITORY_PATTERN.test(repository), `${label}: invalid repository identity ${String(repository)}`);
+  return repository;
+}
+
+function repositoryName(repository) {
+  validateRepositoryIdentity(repository, "repository");
+  return repository.slice("GlacierEQ/".length);
+}
+
+function resolveOutput(relative, label) {
+  requireValue(typeof relative === "string" && relative.length > 0, `${label} path is missing`);
+  const output = path.resolve(ROOT, relative);
+  requireValue(output.startsWith(`${ROOT}${path.sep}`), `${label} escapes repository root`);
+  return output;
 }
 
 async function main() {
   const pointer = parseJson(await readFile(POINTER_PATH, "utf8"), "portfolio-source.json");
-  if (pointer.schema !== "glaciereq.portfolio-consumer-pointer.v1") fail("unexpected pointer schema");
-  if (pointer.consumer !== "GlacierEQ/job-application") fail("consumer identity mismatch");
-  if (pointer.projection_id !== "public_portal") fail("projection identity mismatch");
-  if (pointer.public_boundary?.publish_private_records !== false) fail("public pointer must forbid private records");
+  requireValue(pointer.schema === "glaciereq.portfolio-consumer-pointer.v1", "unexpected pointer schema");
+  requireValue(pointer.consumer === "GlacierEQ/job-application", "consumer identity mismatch");
+  requireValue(pointer.projection_id === "public_portal", "projection identity mismatch");
+  requireValue(pointer.public_boundary?.publish_private_records === false, "public pointer must forbid private records");
+  requireValue(pointer.sync?.fail_closed === true && pointer.sync?.allow_stale_fallback === false, "projection must fail closed without stale fallback");
 
-  const ref = process.env.HELIX_ROOT_REF || pointer.authority.branch;
-  const rawBase = `https://raw.githubusercontent.com/GlacierEQ/job-app-helix/${encodeURIComponent(ref)}`;
-  const rootUrl = `${rawBase}/${pointer.authority.manifest_path}`;
-  const rootText = await fetchText(rootUrl);
+  const authority = pointer.authority;
+  requireValue(authority?.repository === "GlacierEQ/job-app-helix", "unexpected Helix authority repository");
+  requireValue(authority?.branch === "main", "public projection must consume canonical Helix main");
+  requireValue(typeof authority?.manifest_path === "string" && authority.manifest_path.length > 0, "Helix manifest path is missing");
+  requireValue(authority?.raw_base_url === "https://raw.githubusercontent.com/GlacierEQ/job-app-helix", "unexpected Helix raw base URL");
+
+  const rawBase = `${authority.raw_base_url}/${encodeURIComponent(authority.branch)}`;
+  const rootText = await fetchText(`${rawBase}/${authority.manifest_path}`);
   const root = parseJson(rootText, "Helix root manifest");
-  if (root.schema !== "glaciereq.portfolio-root-truth.v1") fail("unexpected Helix root schema");
-  if (root.authority?.repository !== "GlacierEQ/job-app-helix") fail("unexpected Helix authority");
+  requireValue(root.schema === "glaciereq.portfolio-root-truth.v1", "unexpected Helix root schema");
+  requireValue(root.authority?.repository === authority.repository, "unexpected Helix root authority");
+  requireValue(root.authority?.branch === authority.branch, "Helix root branch contract mismatch");
 
-  const projection = root.projections?.find((row) => row.id === pointer.projection_id);
-  if (!projection) fail(`projection ${pointer.projection_id} is absent from Helix root`);
-  if (projection.may_publish_private_records !== false) fail("Helix public projection permits private records");
+  const projections = Array.isArray(root.projections) ? root.projections : [];
+  const projection = projections.find((row) => row && typeof row === "object" && row.id === pointer.projection_id);
+  requireValue(projection, `projection ${pointer.projection_id} is absent from Helix root`);
+  requireValue(projection.repository === pointer.consumer, "Helix projection consumer mismatch");
+  requireValue(projection.may_publish_private_records === false, "Helix public projection permits private records");
 
-  const sourcesById = new Map((root.sources ?? []).map((row) => [row.id, row]));
-  const requiredIds = projection.required_sources ?? [];
-  if (!requiredIds.length) fail("projection has no required sources");
+  const sourceRows = Array.isArray(root.sources) ? root.sources : [];
+  const sourcesById = new Map();
+  for (const row of sourceRows) {
+    requireValue(row && typeof row === "object" && !Array.isArray(row), "Helix source rows must be objects");
+    requireValue(typeof row.id === "string" && row.id.length > 0, "Helix source id is missing");
+    requireValue(!sourcesById.has(row.id), `duplicate Helix source id ${row.id}`);
+    requireValue(typeof row.path === "string" && /^(manifests|status|generated)\//.test(row.path), `invalid Helix source path for ${row.id}`);
+    sourcesById.set(row.id, row);
+  }
+
+  const requiredIds = projection.required_sources;
+  requireValue(Array.isArray(requiredIds) && requiredIds.length > 0, "projection has no required sources");
   for (const sourceId of requiredIds) {
-    if (!sourcesById.has(sourceId)) fail(`projection references unknown source ${sourceId}`);
+    requireValue(sourcesById.has(sourceId), `projection references unknown source ${sourceId}`);
   }
 
   const sourceTexts = new Map();
@@ -99,7 +138,7 @@ async function main() {
   async function loadSource(sourceId) {
     if (sourceObjects.has(sourceId)) return sourceObjects.get(sourceId);
     const source = sourcesById.get(sourceId);
-    if (!source) fail(`missing source definition ${sourceId}`);
+    requireValue(source, `missing source definition ${sourceId}`);
     const text = await fetchText(`${rawBase}/${source.path}`);
     const value = parseJson(text, source.path);
     sourceTexts.set(source.path, text);
@@ -113,45 +152,89 @@ async function main() {
   const languageFit = await loadSource("language_fit");
   const liveEvidence = await loadSource("live_evidence");
 
+  requireValue(typeof inventory.portfolio_root === "string" && inventory.portfolio_root.length > 0, "Helix portfolio root is missing");
   const workspace = inventory.workspace_repositories;
-  if (!Array.isArray(workspace) || inventory.total_repositories !== workspace.length + 1) {
-    fail("Helix inventory count is inconsistent");
-  }
-  if (new Set(workspace).size !== workspace.length) fail("Helix inventory contains duplicate identities");
+  requireValue(Array.isArray(workspace) && workspace.every((name) => typeof name === "string" && name.length > 0), "Helix workspace inventory is invalid");
+  requireValue(new Set(workspace).size === workspace.length, "Helix inventory contains duplicate identities");
+  requireValue(Number.isInteger(inventory.total_repositories) && inventory.total_repositories > 0, "Helix total repository count is invalid");
+  const rootRepositoryCount = inventory.total_repositories - workspace.length;
+  requireValue(rootRepositoryCount === 1, "Helix inventory contract requires exactly one control-plane root");
+  const workspaceSet = new Set(workspace);
 
-  const excludedMarkers = pointer.public_boundary.excluded_surface_markers;
-  const publicFlagships = (flagships.flagships ?? [])
-    .filter((row) => isPublicFlagship(row, excludedMarkers))
-    .map((row) => ({
-      system_id: row.system_id,
-      repository: row.repository,
-      level: row.level,
-      state: row.state,
-      role: row.role,
-      evidence: row.evidence,
-      next_gate: row.next_gate,
-      public_surface: row.public_surface,
-    }));
+  const columns = companiesIndex.repository_record_columns;
+  requireValue(Array.isArray(columns) && columns.length > 0 && new Set(columns).size === columns.length, "company repository columns are invalid");
+  const requiredColumns = ["repository", "skill_innovation_level", "promotion_state", "visibility", "inventory_scope", "provenance_state"];
+  for (const column of requiredColumns) requireValue(columns.includes(column), `company repository column is missing: ${column}`);
 
-  const allowedPromotionStates = new Set(pointer.public_boundary.allowed_promotion_states);
+  const enums = companiesIndex.repository_record_enums;
+  requireValue(enums && typeof enums === "object" && !Array.isArray(enums), "company repository enums are missing");
+  const promotionStates = new Set(enums.promotion_state ?? []);
+  const visibilityStates = new Set(enums.visibility ?? []);
+  const inventoryScopes = new Set(enums.inventory_scope ?? []);
+  const provenanceStates = new Set(enums.provenance_state ?? []);
+  const aliases = companiesIndex.repository_record_legacy_aliases?.promotion_state ?? {};
+  const recruiterStates = new Set(companiesIndex.truth_boundary?.public_recruiter_admission_states ?? []);
+  const pointerStates = new Set(pointer.public_boundary.allowed_promotion_states ?? []);
+  requireValue(recruiterStates.size > 0, "Helix recruiter admission states are missing");
+  requireValue(recruiterStates.size === pointerStates.size && [...recruiterStates].every((state) => pointerStates.has(state)), "portal admission states differ from Helix recruiter contract");
+
+  const companyIds = new Set();
+  const publicRepositoryIdentities = new Set();
   const companyTracks = [];
-  for (const shardPath of companiesIndex.dossier_files ?? []) {
+  const dossierFiles = companiesIndex.dossier_files;
+  requireValue(Array.isArray(dossierFiles) && dossierFiles.length > 0, "Helix company dossier list is empty");
+
+  for (const shardPath of dossierFiles) {
+    requireValue(typeof shardPath === "string" && shardPath.startsWith("manifests/company_dossiers/"), `invalid dossier path ${String(shardPath)}`);
     const text = await fetchText(`${rawBase}/${shardPath}`);
     const shard = parseJson(text, shardPath);
     sourceTexts.set(shardPath, text);
-    for (const rawCompany of shard.companies ?? []) {
+    requireValue(Array.isArray(shard.companies), `${shardPath}: companies must be an array`);
+
+    for (const rawCompany of shard.companies) {
       const company = normalizeCompany(shard, rawCompany);
-      const repositories = (company.repositories ?? [])
-        .filter((row) => Array.isArray(row) && row.length === 6)
-        .filter((row) => row[3] === "public" && allowedPromotionStates.has(row[2]))
-        .map(([repository, level, promotion_state, visibility, inventory_scope, provenance_state]) => ({
-          repository,
-          level,
-          promotion_state,
-          visibility,
-          inventory_scope,
-          provenance_state,
-        }));
+      requireValue(typeof company.company_id === "string" && company.company_id.length > 0, `${shardPath}: company_id is missing`);
+      requireValue(!companyIds.has(company.company_id), `duplicate company_id ${company.company_id}`);
+      companyIds.add(company.company_id);
+      requireValue(typeof company.display_name === "string" && company.display_name.length > 0, `${company.company_id}: display_name is missing`);
+      requireValue(typeof company.non_affiliation === "string" && company.non_affiliation.length > 0, `${company.company_id}: non_affiliation is missing`);
+      requireValue(Array.isArray(company.repositories), `${company.company_id}: repositories must be an array`);
+
+      const projectedRepositories = [];
+      for (const tuple of company.repositories) {
+        requireValue(Array.isArray(tuple) && tuple.length === columns.length, `${company.company_id}: repository tuple does not match declared columns`);
+        const record = Object.fromEntries(columns.map((column, index) => [column, tuple[index]]));
+        const repository = validateRepositoryIdentity(record.repository, company.company_id);
+        const level = record.skill_innovation_level;
+        const rawPromotionState = record.promotion_state;
+        const promotionState = aliases[rawPromotionState] ?? rawPromotionState;
+        const visibility = record.visibility;
+        const inventoryScope = record.inventory_scope;
+        const provenanceState = record.provenance_state;
+
+        requireValue(LEVELS.has(level), `${repository}: invalid skill level ${String(level)}`);
+        requireValue(promotionStates.has(promotionState), `${repository}: unknown promotion state ${String(rawPromotionState)}`);
+        requireValue(visibilityStates.has(visibility), `${repository}: invalid visibility ${String(visibility)}`);
+        requireValue(inventoryScopes.has(inventoryScope), `${repository}: invalid inventory scope ${String(inventoryScope)}`);
+        requireValue(provenanceStates.has(provenanceState), `${repository}: invalid provenance state ${String(provenanceState)}`);
+        if (inventoryScope === "HELIX_ADMITTED") {
+          requireValue(workspaceSet.has(repositoryName(repository)), `${repository}: HELIX_ADMITTED identity is absent from canonical inventory`);
+        }
+        if (visibility === "public") publicRepositoryIdentities.add(repository);
+
+        const recruiterEligible = visibility === "public" && level !== "L0" && recruiterStates.has(promotionState);
+        if (recruiterEligible) {
+          projectedRepositories.push({
+            repository,
+            level,
+            promotion_state: promotionState,
+            visibility,
+            inventory_scope: inventoryScope,
+            provenance_state: provenanceState,
+          });
+        }
+      }
+
       companyTracks.push({
         company_id: company.company_id,
         display_name: company.display_name,
@@ -160,33 +243,73 @@ async function main() {
         recruiter_thesis: company.recruiter_thesis,
         gap_or_next_gate: company.gap_or_next_gate,
         non_affiliation: company.non_affiliation,
-        repositories,
-        applicable_flagships: company.applicable_flagships ?? [],
+        repositories: projectedRepositories,
+        applicable_flagships: Array.isArray(company.applicable_flagships) ? company.applicable_flagships : [],
       });
     }
   }
 
-  const privateLeak = companyTracks.some((company) => company.repositories.some((row) => row.visibility !== "public"));
-  if (privateLeak) fail("private repository leaked into public company projection");
+  const requiredCompanyTracks = companiesIndex.required_company_tracks;
+  requireValue(Array.isArray(requiredCompanyTracks) && requiredCompanyTracks.length === companyIds.size, "required company-track count differs from dossier records");
+  requireValue(requiredCompanyTracks.every((companyId) => companyIds.has(companyId)), "required company tracks are incomplete");
 
+  const excludedMarkers = pointer.public_boundary.excluded_surface_markers;
+  requireValue(Array.isArray(excludedMarkers), "excluded flagship surface markers are missing");
+  requireValue(Array.isArray(flagships.flagships), "flagship registry is invalid");
+  const seenFlagshipIds = new Set();
+  const publicFlagships = [];
+  for (const row of flagships.flagships) {
+    requireValue(row && typeof row === "object" && !Array.isArray(row), "flagship rows must be objects");
+    requireValue(typeof row.system_id === "string" && row.system_id.length > 0, "flagship system_id is invalid");
+    requireValue(!seenFlagshipIds.has(row.system_id), `duplicate flagship system_id ${row.system_id}`);
+    seenFlagshipIds.add(row.system_id);
+    if (row.repository === null || row.repository === undefined) continue;
+    const repository = validateRepositoryIdentity(row.repository, row.system_id);
+    const surface = String(row.public_surface ?? "");
+    const state = String(row.state ?? "");
+    const excluded = excludedMarkers.some((marker) => surface.includes(marker));
+    const publicIdentity = publicRepositoryIdentities.has(repository);
+    const recruiterEligible = pointerStates.has(state);
+    if (excluded || !publicIdentity || !recruiterEligible) continue;
+    requireValue(typeof row.level === "string" && LEVELS.has(row.level), `${row.system_id}: invalid flagship level`);
+    requireValue(typeof row.role === "string" && row.role.length > 0, `${row.system_id}: flagship role is missing`);
+    requireValue(typeof row.evidence === "string" && row.evidence.length > 0, `${row.system_id}: flagship evidence is missing`);
+    requireValue(typeof row.next_gate === "string" && row.next_gate.length > 0, `${row.system_id}: flagship next gate is missing`);
+    publicFlagships.push({
+      system_id: row.system_id,
+      repository,
+      level: row.level,
+      state,
+      role: row.role,
+      evidence: row.evidence,
+      next_gate: row.next_gate,
+      public_surface: surface,
+    });
+  }
+  requireValue(publicFlagships.length > 0, "public flagship projection is empty");
+
+  const liveEvidenceSource = sourcesById.get("live_evidence");
+  requireValue(liveEvidenceSource, "missing live_evidence source definition");
   const sourceHashes = Object.fromEntries(
     [...sourceTexts.entries()].sort(([a], [b]) => a.localeCompare(b)).map(([sourcePath, text]) => [sourcePath, sha256(text)]),
   );
-  sourceHashes[pointer.authority.manifest_path] = sha256(rootText);
+  sourceHashes[authority.manifest_path] = sha256(rootText);
+  const sourceDigest = sha256(stableJson(sourceHashes));
 
   const bundle = {
     schema: "glaciereq.public-portfolio-projection.v1",
     source: {
       authority: root.authority,
       root_version: root.version,
-      root_ref: ref,
-      source_digest: sha256(stableJson(sourceHashes)),
+      root_ref: authority.branch,
+      source_digest: sourceDigest,
       source_hashes: sourceHashes,
     },
     inventory: {
       portfolio_root: inventory.portfolio_root,
       total_repositories: inventory.total_repositories,
       workspace_repositories: workspace.length,
+      root_repositories: rootRepositoryCount,
       identities_withheld_from_public_bundle: true,
     },
     flagships: publicFlagships,
@@ -194,8 +317,8 @@ async function main() {
     language_fit: languageFit,
     evidence: {
       schema: liveEvidence.schema,
-      source_path: sourcesById.get("live_evidence").path,
-      content_sha256: sourceHashes[sourcesById.get("live_evidence").path],
+      source_path: liveEvidenceSource.path,
+      content_sha256: sourceHashes[liveEvidenceSource.path],
       boundary: "Repository-native receipts remain authoritative; this public bundle carries only source identity, not unfiltered evidence rows.",
     },
     invariants: pointer.invariants,
@@ -203,13 +326,30 @@ async function main() {
 
   const outputArg = process.argv.indexOf("--output");
   const outputRelative = outputArg >= 0 ? process.argv[outputArg + 1] : pointer.sync.output;
-  if (!outputRelative) fail("output path is missing");
-  const output = path.resolve(ROOT, outputRelative);
-  if (!output.startsWith(ROOT + path.sep)) fail("output escapes repository root");
+  const output = resolveOutput(outputRelative, "projection output");
+  const bundleText = stableJson(bundle);
   await mkdir(path.dirname(output), { recursive: true });
-  await writeFile(output, stableJson(bundle), "utf8");
+  await writeFile(output, bundleText, "utf8");
+
+  const receiptOutput = resolveOutput(pointer.sync.receipt_output, "projection receipt output");
+  const receipt = {
+    schema: "glaciereq.portfolio-projection-receipt.v1",
+    projection_id: pointer.projection_id,
+    consumer_repository: pointer.consumer,
+    consumed_source_digest: sourceDigest,
+    output_path: path.relative(ROOT, output).replaceAll(path.sep, "/"),
+    output_sha256: sha256(bundleText),
+    root_version: root.version,
+    root_ref: authority.branch,
+    status: "PASS",
+  };
+  const receiptText = stableJson(receipt);
+  await mkdir(path.dirname(receiptOutput), { recursive: true });
+  await writeFile(receiptOutput, receiptText, "utf8");
+
   console.log(`Helix public projection written: ${path.relative(ROOT, output)}`);
-  console.log(`source_digest=${bundle.source.source_digest}`);
+  console.log(`Helix projection receipt written: ${path.relative(ROOT, receiptOutput)}`);
+  console.log(`source_digest=${sourceDigest}`);
   console.log(`flagships=${bundle.flagships.length} companies=${bundle.companies.length}`);
 }
 
