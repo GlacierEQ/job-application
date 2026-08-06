@@ -30,6 +30,7 @@ jobs:
         run: |
           python site-v15/scripts/v17-bundle-recovery.py
           tar -xzf /tmp/v17-text-bundle.tar.gz -C .
+          git restore .github/workflows/v17-resume-intelligence.yml
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -86,7 +87,6 @@ jobs:
             site-v15/downloads/Casey_Barton_Resume.docx \
             site-v15/machine/index.html \
             RESUME_ATS.md \
-            .github/workflows/v17-resume-intelligence.yml \
             deployment-receipts/V17_RESUME_INTELLIGENCE_FINAL_2026-08-05.md
           if git diff --cached --quiet; then
             echo "Exact V17 release already committed."
