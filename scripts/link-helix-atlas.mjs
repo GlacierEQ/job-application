@@ -8,10 +8,18 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SITE = path.join(ROOT, "site-v15");
 
 async function htmlFiles(directory) {
-  const entries = await readdir(directory, { withFileTypes: true });
+  let entries;
+  try {
+    entries = await readdir(directory, { withFileTypes: true });
+  } catch (error) {
+    throw new Error(`cannot read ${path.relative(ROOT, directory)}: ${error instanceof Error ? error.message : String(error)}`);
+  }
   const files = [];
   for (const entry of entries) {
     const target = path.join(directory, entry.name);
+    if (entry.isSymbolicLink()) {
+      throw new Error(`symbolic links are not allowed in the generated site tree: ${path.relative(ROOT, target)}`);
+    }
     if (entry.isDirectory()) files.push(...await htmlFiles(target));
     else if (entry.isFile() && entry.name.endsWith(".html")) files.push(target);
   }
@@ -20,10 +28,12 @@ async function htmlFiles(directory) {
 
 async function patchHtml(file) {
   let text = await readFile(file, "utf8");
-  if (!text.includes('class="links"') || text.includes('href="/atlas/"')) return false;
   const navStart = text.indexOf('<nav class="links"');
+  if (navStart < 0) return false;
   const navEnd = text.indexOf("</nav>", navStart);
-  if (navStart < 0 || navEnd < 0) throw new Error(`cannot locate primary nav in ${path.relative(ROOT, file)}`);
+  if (navEnd < 0) throw new Error(`cannot locate primary navigation close in ${path.relative(ROOT, file)}`);
+  const nav = text.slice(navStart, navEnd);
+  if (nav.includes('href="/atlas/"')) return false;
   text = `${text.slice(0, navEnd)}<a href="/atlas/">Atlas</a>${text.slice(navEnd)}`;
   await writeFile(file, text, "utf8");
   return true;
