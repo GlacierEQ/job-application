@@ -9,6 +9,7 @@ import { fileURLToPath } from "node:url";
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const POINTER = path.join(ROOT, "portfolio-source.json");
 const SNAPSHOT = path.join(ROOT, "site-v15", "data", "helix-root.json");
+const SHA40 = /^[a-f0-9]{40}$/;
 const REPOSITORY_PATTERN = /^GlacierEQ\/[A-Za-z0-9_.-]+$/;
 
 function assert(condition, message) {
@@ -54,12 +55,13 @@ async function main() {
   assert(pointer.projection_id === "public_portal", "projection identity mismatch");
   assert(pointer.authority?.repository === "GlacierEQ/job-app-helix", "authority repository mismatch");
   assert(pointer.authority?.branch === "main", "portal must consume canonical Helix main");
+  assert(pointer.authority?.commit_api_url === "https://api.github.com/repos/GlacierEQ/job-app-helix/commits/main", "commit API URL mismatch");
   assert(pointer.public_boundary?.publish_private_records === false, "private publication must be disabled");
   assert(pointer.sync?.fail_closed === true && pointer.sync?.allow_stale_fallback === false, "projection must fail closed without stale fallback");
 
   assert(snapshot.schema === "glaciereq.public-portfolio-projection.v1", "invalid projection schema");
   assert(snapshot.source?.authority?.repository === "GlacierEQ/job-app-helix", "unexpected source authority");
-  assert(snapshot.source?.root_ref === pointer.authority.branch, "snapshot root ref differs from consumer pointer");
+  assert(typeof snapshot.source?.root_ref === "string" && SHA40.test(snapshot.source.root_ref), "snapshot must be bound to an immutable Helix commit");
   assert(snapshot.source?.source_hashes && typeof snapshot.source.source_hashes === "object" && !Array.isArray(snapshot.source.source_hashes), "source hashes are missing");
   assert(typeof snapshot.source?.source_digest === "string" && /^[a-f0-9]{64}$/.test(snapshot.source.source_digest), "missing source digest");
   assert(hash(stableJson(snapshot.source.source_hashes)) === snapshot.source.source_digest, "source digest does not match source hashes");
@@ -101,7 +103,7 @@ async function main() {
   }
 
   assert(snapshot.evidence?.boundary?.includes("Repository-native receipts remain authoritative"), "missing repository-native evidence boundary");
-  assert(Array.isArray(snapshot.invariants) && snapshot.invariants.length >= 5, "projection invariants are incomplete");
+  assert(Array.isArray(snapshot.invariants) && snapshot.invariants.length >= 6, "projection invariants are incomplete");
   assert(!snapshotText.includes('"visibility": "private"'), "serialized private visibility leaked");
   assert(!snapshotText.includes("PRIVATE_CANDIDATE"), "private candidate state leaked");
   assert(!snapshotText.includes("PRIVATE_EXPERIMENT"), "private experiment state leaked");
@@ -111,13 +113,14 @@ async function main() {
   assert(receipt.projection_id === pointer.projection_id, "projection receipt identity mismatch");
   assert(receipt.consumer_repository === pointer.consumer, "projection receipt consumer mismatch");
   assert(receipt.consumed_source_digest === snapshot.source.source_digest, "projection receipt source digest mismatch");
+  assert(receipt.source_commit === snapshot.source.root_ref, "projection receipt source commit mismatch");
   assert(receipt.output_sha256 === hash(snapshotText), "projection receipt output hash mismatch");
-  assert(receipt.root_ref === pointer.authority.branch, "projection receipt root ref mismatch");
 
   console.log(JSON.stringify({
     schema: "glaciereq.public-portfolio-projection-validation.v1",
     status: "PASS",
     snapshot_sha256: hash(snapshotText),
+    source_commit: snapshot.source.root_ref,
     source_digest: snapshot.source.source_digest,
     flagships: snapshot.flagships.length,
     companies: snapshot.companies.length,
