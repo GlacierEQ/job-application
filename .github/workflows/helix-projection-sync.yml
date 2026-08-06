@@ -1,0 +1,60 @@
+name: Helix Portfolio Projection
+
+on:
+  pull_request:
+    paths:
+      - "portfolio-source.json"
+      - "scripts/sync-helix-projection.mjs"
+      - "scripts/validate-helix-projection.mjs"
+      - "site-v15/**"
+      - "vercel.json"
+      - ".github/workflows/helix-projection-sync.yml"
+  push:
+    branches: [main]
+    paths:
+      - "portfolio-source.json"
+      - "scripts/sync-helix-projection.mjs"
+      - "scripts/validate-helix-projection.mjs"
+      - "site-v15/**"
+      - "vercel.json"
+      - ".github/workflows/helix-projection-sync.yml"
+  schedule:
+    - cron: "47 16 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+timeout-minutes: 10
+
+concurrency:
+  group: helix-portfolio-projection-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  sync-and-validate:
+    runs-on: ubuntu-24.04
+    env:
+      HELIX_ROOT_REF: ${{ github.event_name == 'pull_request' && 'feature/portfolio-root-truth-v1' || 'main' }}
+    steps:
+      - name: Checkout exact portal source
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Configure Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Compile public-safe Helix projection
+        run: node scripts/sync-helix-projection.mjs
+      - name: Validate public-safe projection
+        run: node scripts/validate-helix-projection.mjs
+      - name: Validate existing V17 hiring surface
+        run: node site-v15/scripts/validate.mjs
+      - name: Upload compiled projection receipt surface
+        uses: actions/upload-artifact@v4
+        with:
+          name: helix-public-projection-${{ github.sha }}
+          path: site-v15/data/helix-root.json
+          if-no-files-found: error
+          retention-days: 30
