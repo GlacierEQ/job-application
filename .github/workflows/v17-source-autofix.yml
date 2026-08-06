@@ -38,20 +38,16 @@ jobs:
         run: |
           ruff check --fix --unsafe-fixes \
             site-v15/scripts/build-resume-v17-deterministic.py \
-            site-v15/scripts/generate-resume-v17.py \
-            site-v15/scripts/v17-bundle-recovery.py
+            site-v15/scripts/generate-resume-v17.py
           ruff format \
             site-v15/scripts/build-resume-v17-deterministic.py \
-            site-v15/scripts/generate-resume-v17.py \
-            site-v15/scripts/v17-bundle-recovery.py
+            site-v15/scripts/generate-resume-v17.py
           ruff check \
             site-v15/scripts/build-resume-v17-deterministic.py \
-            site-v15/scripts/generate-resume-v17.py \
-            site-v15/scripts/v17-bundle-recovery.py
+            site-v15/scripts/generate-resume-v17.py
           ruff format --check \
             site-v15/scripts/build-resume-v17-deterministic.py \
-            site-v15/scripts/generate-resume-v17.py \
-            site-v15/scripts/v17-bundle-recovery.py
+            site-v15/scripts/generate-resume-v17.py
 
       - name: Remove temporary workflow and persist clean source
         run: |
@@ -61,7 +57,6 @@ jobs:
           git add \
             site-v15/scripts/build-resume-v17-deterministic.py \
             site-v15/scripts/generate-resume-v17.py \
-            site-v15/scripts/v17-bundle-recovery.py \
             .github/workflows/v17-source-autofix.yml
           git commit -m "Autofix V17 generator source"
           git push origin HEAD:release/v16-signal-architecture
