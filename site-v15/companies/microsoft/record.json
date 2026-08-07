@@ -1,0 +1,50 @@
+{
+  "boundary": "Independent GlacierEQ work; no Microsoft affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
+  "flagships": [],
+  "gate": "Two admitted prototypes; document/operator candidates need provenance/security audit.",
+  "id": "microsoft",
+  "repos": [
+    {
+      "id": "GlacierEQ/microsoft-azure-ops",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    },
+    {
+      "id": "GlacierEQ/microsoft-identity-zero-trust",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    }
+  ],
+  "roles": [
+    "AI Platform Engineer",
+    "Cloud Solutions Architect",
+    "Identity/Security Engineer"
+  ],
+  "route": "/companies/microsoft/",
+  "schema": "glaciereq.company-intelligence.v1",
+  "second_depth": {
+    "blockers": [
+      "current_role_not_verified",
+      "company_problem_not_bounded",
+      "repository_code_not_inspected",
+      "proof_not_reproduced"
+    ],
+    "claim_ceiling": "company_alignment_only",
+    "evidence": {
+      "claim_receipts": [],
+      "gap_queue": [],
+      "implementation_receipts": [],
+      "inspected_repositories": [],
+      "problem_evidence": [],
+      "proof_artifacts": [],
+      "role_evidence": []
+    },
+    "next_gate": "Verify a current public Microsoft role/team and inspect the exact recruiter-admitted Microsoft-aligned repositories before promoting beyond general systems alignment.",
+    "ordinal": 0,
+    "stage": "MAPPED_ONLY"
+  },
+  "state": "repository-rich",
+  "track": "MAPPED_NOT_RECRUITER_READY"
+}

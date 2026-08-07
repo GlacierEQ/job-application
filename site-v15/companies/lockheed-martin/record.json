@@ -1,0 +1,93 @@
+{
+  "boundary": "Independent GlacierEQ work; no Lockheed Martin affiliation, endorsement, employment, proprietary access, contract relationship, clearance, or production deployment is claimed.",
+  "flagships": [
+    "job_app_helix",
+    "akos",
+    "doctor_strange",
+    "tower_of_babel",
+    "job_application"
+  ],
+  "gate": "No Lockheed Martin-named repository or recruiter-admitted company-specific proof was found in the connected GlacierEQ estate. Verify a current public role and team, bound one externally supportable problem, then inspect only genuinely relevant GlacierEQ implementations before raising the claim ceiling.",
+  "id": "lockheed_martin",
+  "repos": [],
+  "roles": [
+    "AI / ML Systems Engineer",
+    "Mission Systems Software Engineer",
+    "Systems Architect"
+  ],
+  "route": "/companies/lockheed-martin/",
+  "schema": "glaciereq.company-intelligence.v1",
+  "second_depth": {
+    "blockers": [
+      "company_specific_remedy_not_bounded",
+      "implementation_not_created",
+      "proof_not_reproduced"
+    ],
+    "claim_ceiling": "inspected_implementation_alignment",
+    "evidence": {
+      "claim_receipts": [],
+      "gap_queue": [],
+      "implementation_receipts": [],
+      "inspected_repositories": [
+        {
+          "id": "lockheed_inspection_akos_runtime",
+          "kind": "repository_inspection",
+          "source_identity": "https://github.com/GlacierEQ/AKOS/blob/89403272a76dda8e1f9f317e16bfce5b60c1a3f5/runtime/src/index.ts",
+          "source_ref": "commit:89403272a76dda8e1f9f317e16bfce5b60c1a3f5",
+          "verification_state": "VERIFIED",
+          "visibility": "public"
+        },
+        {
+          "id": "lockheed_inspection_apex_control_plane",
+          "kind": "repository_inspection",
+          "source_identity": "https://github.com/GlacierEQ/apex-control-plane/blob/340834cf8d6c65832196b6cc0b6df281574842f8/src/control_plane_runtime.py",
+          "source_ref": "commit:340834cf8d6c65832196b6cc0b6df281574842f8",
+          "verification_state": "VERIFIED",
+          "visibility": "public"
+        },
+        {
+          "id": "lockheed_inspection_tower_integrity",
+          "kind": "repository_inspection",
+          "source_identity": "https://github.com/GlacierEQ/the-tower-of-babel/blob/e3778353e92b404de43f41963a0c7bffb84897ac/src/tower/integrity.py",
+          "source_ref": "commit:e3778353e92b404de43f41963a0c7bffb84897ac",
+          "verification_state": "VERIFIED",
+          "visibility": "public"
+        },
+        {
+          "id": "lockheed_inspection_tower_receipt",
+          "kind": "repository_inspection",
+          "source_identity": "https://github.com/GlacierEQ/the-tower-of-babel/blob/e3778353e92b404de43f41963a0c7bffb84897ac/src/tower/receipt.py",
+          "source_ref": "commit:e3778353e92b404de43f41963a0c7bffb84897ac",
+          "verification_state": "VERIFIED",
+          "visibility": "public"
+        }
+      ],
+      "problem_evidence": [
+        {
+          "id": "lockheed_problem_trusted_agentic_ai_integration",
+          "kind": "problem",
+          "source_identity": "https://www.lockheedmartin.com/en-us/capabilities/artificial-intelligence-machine-learning.html",
+          "source_ref": "sha256:87cc52bdc656fd2348ae30ec9a9bbfc3cb5b47927147f2cb2557062fa48ecd75",
+          "verification_state": "VERIFIED",
+          "visibility": "public"
+        }
+      ],
+      "proof_artifacts": [],
+      "role_evidence": [
+        {
+          "id": "lockheed_role_734997br",
+          "kind": "role",
+          "source_identity": "https://www.lockheedmartinjobs.com/job/sunnyvale/architecture-and-algorithms-agentic-ai-ml-engineer-level-2-3/694/97838518096",
+          "source_ref": "sha256:e3a0306982ef5f73f81107bbf9197c0c3a949909103fb4ac0b47e530fd4c3d01",
+          "verification_state": "VERIFIED",
+          "visibility": "public"
+        }
+      ]
+    },
+    "next_gate": "Bound a Lockheed-specific candidate remedy from the inspected AKOS, APEX control-plane, and Tower integrity capabilities without changing those source systems or claiming company adoption.",
+    "ordinal": 3,
+    "stage": "CODE_INSPECTED"
+  },
+  "state": "scaffold",
+  "track": "NO_DIRECT_EXHIBIT_VERIFIED"
+}

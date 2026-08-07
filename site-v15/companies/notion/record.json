@@ -1,0 +1,56 @@
+{
+  "boundary": "Independent GlacierEQ work; no Notion affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
+  "flagships": [],
+  "gate": "Three admitted prototypes; upstream delta and archive excluded.",
+  "id": "notion",
+  "repos": [
+    {
+      "id": "GlacierEQ/notion-mcp-empowerment-engine",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    },
+    {
+      "id": "GlacierEQ/notion-workflow-intelligence",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    },
+    {
+      "id": "GlacierEQ/notion-workspace-optimizer",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    }
+  ],
+  "roles": [
+    "AI Product Engineer",
+    "Applied AI Engineer",
+    "Solutions Engineer"
+  ],
+  "route": "/companies/notion/",
+  "schema": "glaciereq.company-intelligence.v1",
+  "second_depth": {
+    "blockers": [
+      "current_role_not_verified",
+      "company_problem_not_bounded",
+      "repository_code_not_inspected",
+      "proof_not_reproduced"
+    ],
+    "claim_ceiling": "company_alignment_only",
+    "evidence": {
+      "claim_receipts": [],
+      "gap_queue": [],
+      "implementation_receipts": [],
+      "inspected_repositories": [],
+      "problem_evidence": [],
+      "proof_artifacts": [],
+      "role_evidence": []
+    },
+    "next_gate": "Verify a current public Notion role/team and inspect the exact recruiter-admitted Notion-aligned repositories before promoting beyond general platform alignment.",
+    "ordinal": 0,
+    "stage": "MAPPED_ONLY"
+  },
+  "state": "repository-rich",
+  "track": "MAPPED_NOT_RECRUITER_READY"
+}

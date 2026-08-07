@@ -1,0 +1,80 @@
+{
+  "boundary": "Independent GlacierEQ work; no xAI affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
+  "flagships": [],
+  "gate": "Collapse variants into one suite, one bounded flagship, supporting systems, experiments, public references, private references, and quarantined exclusions; xai-colossal-cooling is public but remains outside admission until successor/unique-value analysis is complete.",
+  "id": "xai",
+  "repos": [
+    {
+      "id": "GlacierEQ/xai-colossus-energy",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    },
+    {
+      "id": "GlacierEQ/xai-colossus-2",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    },
+    {
+      "id": "GlacierEQ/xai-colossus-nanosphere",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    },
+    {
+      "id": "GlacierEQ/xai-colossus-security",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    },
+    {
+      "id": "GlacierEQ/xai-colossus-servers",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    },
+    {
+      "id": "GlacierEQ/grokodile",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    },
+    {
+      "id": "GlacierEQ/xai-colossal-cooling",
+      "lvl": "L2",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    }
+  ],
+  "roles": [
+    "Infrastructure Engineer",
+    "Forward-Deployed Engineer",
+    "Applied AI Systems Engineer"
+  ],
+  "route": "/companies/xai/",
+  "schema": "glaciereq.company-intelligence.v1",
+  "second_depth": {
+    "blockers": [
+      "current_role_not_verified",
+      "company_problem_not_bounded",
+      "repository_code_not_inspected",
+      "proof_not_reproduced"
+    ],
+    "claim_ceiling": "company_alignment_only",
+    "evidence": {
+      "claim_receipts": [],
+      "gap_queue": [],
+      "implementation_receipts": [],
+      "inspected_repositories": [],
+      "problem_evidence": [],
+      "proof_artifacts": [],
+      "role_evidence": []
+    },
+    "next_gate": "Verify a current public xAI role/team, select one bounded infrastructure problem, then reconcile successor/unique-value status across the Colossus repository family before any company-specific claim.",
+    "ordinal": 0,
+    "stage": "MAPPED_ONLY"
+  },
+  "state": "repository-rich",
+  "track": "MAPPED_NOT_RECRUITER_READY"
+}

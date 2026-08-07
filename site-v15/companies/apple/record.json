@@ -1,0 +1,44 @@
+{
+  "boundary": "Independent GlacierEQ work; no Apple affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
+  "flagships": [],
+  "gate": "Public ANE prototype plus private Apple MCP/iOS doctrine; device-level verification required.",
+  "id": "apple",
+  "repos": [
+    {
+      "id": "GlacierEQ/apple-ane-kv-quantizer",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    }
+  ],
+  "roles": [
+    "Machine Learning Engineer",
+    "AI/ML Platform Engineer",
+    "Software Engineer, Apple Platforms"
+  ],
+  "route": "/companies/apple/",
+  "schema": "glaciereq.company-intelligence.v1",
+  "second_depth": {
+    "blockers": [
+      "current_role_not_verified",
+      "company_problem_not_bounded",
+      "repository_code_not_inspected",
+      "proof_not_reproduced"
+    ],
+    "claim_ceiling": "company_alignment_only",
+    "evidence": {
+      "claim_receipts": [],
+      "gap_queue": [],
+      "implementation_receipts": [],
+      "inspected_repositories": [],
+      "problem_evidence": [],
+      "proof_artifacts": [],
+      "role_evidence": []
+    },
+    "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+    "ordinal": 0,
+    "stage": "MAPPED_ONLY"
+  },
+  "state": "seeded",
+  "track": "MAPPED_NOT_RECRUITER_READY"
+}
