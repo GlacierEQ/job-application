@@ -1,168 +1,43 @@
 const crypto = require('crypto');
 const { URL } = require('node:url');
-
-const SOURCE_COMMIT = 'ef0cc0394463181ee6999d06f1c8bc5a6c3ab657';
-const RAW_ROOT = `https://raw.githubusercontent.com/GlacierEQ/job-application/${SOURCE_COMMIT}/site-v15/`;
-
-const TYPES = {
-  '.html': 'text/html; charset=utf-8',
-  '.css': 'text/css; charset=utf-8',
-  '.json': 'application/json; charset=utf-8',
-  '.svg': 'image/svg+xml; charset=utf-8',
-  '.xml': 'application/xml; charset=utf-8',
-  '.txt': 'text/plain; charset=utf-8',
-  '.pdf': 'application/pdf',
-  '.docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-};
-
-const REQUIRED = {
-  'index.html': '4568cbd3d4b20a031b38ff35aa69d650ba2a528ce1417816cfa2635322faefff',
-  'resume/index.html': '0b956afa686604796ba983992768a85e67f442364e630471f5a2d1654d7f3cc1',
-  'master/index.html': 'ee1b8d8cd5fe36d1e04e83667bf7ff8f463a89b8e057b340430b203f1ee189cd',
-  'mesh/index.html': 'c2eb82d6d612a1b0272ee0593d4624b916eb6cc8d305d93b78f2ca2d9f9707e2',
-  'machine/index.html': '04ae02c47333db08d533377a23b6250077ee1168ec79af539d104f844964f009',
-  'data/portfolio.json': 'd212ea17b5b3c479735efefe40ec78382d0913535768924c39e21da1f12b8d86',
-  'data/company-families.json': '889295fdf234ee35dfe2a6cdd5f685f5ab4f60d9f5f4e023917405e494140f86',
-  'data/psysoc-x-profiles.json': 'e8f27290acc0740d1109e9d4ae433f4f61bea03fcd46ee895671e462672f75a7',
-  'data/resume.json': '61a3fd77256af69ca36a774dad2d72f0f859a5d415d14423c21e0a2016c579b7',
-  'data/resume-artifacts.json': '78675a7b2ec849b30918f867e837fe64fc83a6bfe6ec53f88b4ae7070790680c',
-  'resume/ats.txt': '5d16695f186c5bb5762deefe77b2bcbf66ef9e730560b0c7a190a6d497f87c34',
-  'downloads/Casey_Barton_Resume.pdf': 'c46b4c3c31bea8405c28322e9f81be4ffd36c7faec9154acfd8da16a647cd1e3',
-  'downloads/Casey_Barton_Resume.docx': 'aa022ca8c40d59624e6e7e3ef88fb439f6d21c7adcb997a0b11cd50b05827d0e',
-  'assets/site.css': '8f3a659076fa9a4cbb90cf623baf5a29dad2a1cf14c246f4496aeb48c382012b',
-  'assets/site.systems.css': '47c31b9d8a3e4eccfe87569b97a702a2fa1ff1641856febd8d275aa4af888407',
-  'assets/resume.v17.css': 'dca69585f5a380514c9f6d0eca2aadfd4f8792ccf7abf01a99b4df4b5b17f45f',
-  'assets/social-card.svg': '8727f9617aefcf622aeb715fcdd39af34281cf8202e4885eb1152ff0f6092c19',
-  'assets/favicon.svg': 'aeb81d69f18d01f4b0c3c8cdb81c631d28c9dccf5637639330f5fb02e32b33ff',
-  'sitemap.xml': 'cd8c33d8fd75be84235e9009a299fcce955947f9218b10a5f0f78b36105ea400',
-  'robots.txt': '3a4d91def310706fef59d6224ca266e48e95d8e3aaa9731edc693cc5914454c3',
-  'llms.txt': '480062ea9fea49ca00cd0cba40fdd5260c377b3d0d71ab20e91a7f65702d5151',
-  '404.html': '072452ab072b36a04ba1c7e76e8cc0d7d9207f936b9ab00df24ab4c4d0e11981',
-};
-
-function requestPath(req) {
-  const parsed = new URL(String(req.url || '/'), 'https://glaciereq.invalid');
-  const values = parsed.searchParams.getAll('path');
-  if (!values.length) return '';
-  return values.length === 1 ? values[0] : values.join('/');
-}
-
-function normalize(input) {
-  const raw = Array.isArray(input) ? input.join('/') : String(input || '');
-  const clean = raw.replace(/^\/+|\/+$/g, '');
-  if (!clean) return 'index.html';
-  if (clean.includes('..') || clean.includes('\\')) return null;
-  const last = clean.split('/').pop() || '';
-  return last.includes('.') ? clean : `${clean}/index.html`;
-}
-
-function extension(path) {
-  const match = path.match(/(\.[a-z0-9]+)$/i);
-  return match ? match[1].toLowerCase() : '';
-}
-
-function securityHeaders(res) {
-  res.setHeader(
-    'Content-Security-Policy',
-    "default-src 'self'; script-src 'none'; style-src 'self'; img-src 'self' data:; connect-src 'none'; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self' mailto:; upgrade-insecure-requests",
-  );
-  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
-  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), payment=()');
-  res.setHeader('X-Content-Type-Options', 'nosniff');
-  res.setHeader('X-Frame-Options', 'DENY');
-  res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
-  res.setHeader('X-GlacierEQ-Source-Commit', SOURCE_COMMIT);
-  res.setHeader('X-PSYSOCX-Release', 'V16-V17');
-}
-
-async function fetchSource(path) {
-  const response = await fetch(RAW_ROOT + path, {
-    headers: { 'User-Agent': 'GlacierEQ-V17-Source-Bridge/1.0' },
-  });
-  const body = Buffer.from(await response.arrayBuffer());
-  return {
-    response,
-    body,
-    sha256: crypto.createHash('sha256').update(body).digest('hex'),
-  };
-}
-
-async function verifyDeployment(res) {
-  const files = [];
-  let pass = true;
-
-  for (const [path, expected] of Object.entries(REQUIRED)) {
-    const { response, body, sha256 } = await fetchSource(path);
-    const ok = response.ok && sha256 === expected;
-    pass = pass && ok;
-    files.push({ path, status: response.status, bytes: body.length, sha256, expected, ok });
-  }
-
-  res.statusCode = pass ? 200 : 503;
-  res.setHeader('Content-Type', 'application/json; charset=utf-8');
-  res.setHeader('Cache-Control', 'no-store');
-  res.end(
-    JSON.stringify(
-      {
-        schema: 'glaciereq.v17-production-verification.v1',
-        status: pass ? 'PASS' : 'FAIL',
-        source_commit: SOURCE_COMMIT,
-        release: 'V16 Signal Architecture + V17 Resume Intelligence',
-        canonical_routes: ['/', '/resume/', '/master/', '/mesh/', '/machine/'],
-        resume_surfaces: [
-          '/downloads/Casey_Barton_Resume.pdf',
-          '/downloads/Casey_Barton_Resume.docx',
-          '/resume/ats.txt',
-          '/data/resume.json',
-        ],
-        psysoc_x_profiles: ['recruiter', 'master', 'machine', 'mesh'],
-        facts_invariant: true,
-        scripts: 0,
-        trackers: 0,
-        files,
-      },
-      null,
-      2,
-    ),
-  );
-}
-
-module.exports = async function handler(req, res) {
-  securityHeaders(res);
-
-  const raw = requestPath(req);
-  if (raw === '__v17_verify' || raw === '__v15_verify') return verifyDeployment(res);
-
-  let path = normalize(raw);
-  if (!path) {
-    res.statusCode = 400;
-    res.end('Invalid path');
-    return;
-  }
-
-  let { response: upstream, body } = await fetchSource(path);
-  if (!upstream.ok) {
-    path = '404.html';
-    ({ response: upstream, body } = await fetchSource(path));
-    res.statusCode = 404;
-  } else {
-    res.statusCode = 200;
-  }
-
-  const ext = extension(path);
-  res.setHeader('Content-Type', TYPES[ext] || 'application/octet-stream');
-  res.setHeader(
-    'Cache-Control',
-    path.startsWith('data/') || path === 'resume/ats.txt'
-      ? 'public, max-age=0, s-maxage=300, must-revalidate'
-      : 'public, max-age=0, s-maxage=900, must-revalidate',
-  );
-  if (path.startsWith('downloads/')) {
-    res.setHeader('Content-Disposition', `attachment; filename="${path.split('/').pop()}"`);
-  }
-  res.setHeader('Content-Length', String(body.length));
-  res.end(body);
-};
-
-module.exports.requestPath = requestPath;
-module.exports.normalize = normalize;
+const SOURCE_COMMIT='c15e9f5da3c8cc1ab05b028a7d4068ebecd6940e',HELIX_COMMIT='3fb2b75c2a0823587a33af38d7724ea12e83eb85';
+const RAW_ROOT=`https://raw.githubusercontent.com/GlacierEQ/job-application/${SOURCE_COMMIT}/site-v15/`,HELIX_ROOT=`https://raw.githubusercontent.com/GlacierEQ/job-app-helix/${HELIX_COMMIT}/`,PUBLIC_ORIGIN='https://casey-barton-glaciereq.vercel.app',COMPANY_INDEX_PATH='manifests/company_dossiers.json';
+const REPOSITORY_PATTERN=/^GlacierEQ\/[A-Za-z0-9_.-]+$/,COMPANY_ID_PATTERN=/^[a-z0-9_]+$/,LEVELS=new Set(['L0','L1','L2','L3','L4','L5']);
+const TYPES={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.svg':'image/svg+xml; charset=utf-8','.xml':'application/xml; charset=utf-8','.txt':'text/plain; charset=utf-8','.pdf':'application/pdf','.docx':'application/vnd.openxmlformats-officedocument.wordprocessingml.document'};
+const REQUIRED={'index.html':'960591eddf993906100a31f910a066acfade3e17fbb1a6a3ab8a5310ae1bbfd7','resume/index.html':'0b956afa686604796ba983992768a85e67f442364e630471f5a2d1654d7f3cc1','master/index.html':'ee1b8d8cd5fe36d1e04e83667bf7ff8f463a89b8e057b340430b203f1ee189cd','mesh/index.html':'c2eb82d6d612a1b0272ee0593d4624b916eb6cc8d305d93b78f2ca2d9f9707e2','machine/index.html':'04ae02c47333db08d533377a23b6250077ee1168ec79af539d104f844964f009','assets/site.css':'8f3a659076fa9a4cbb90cf623baf5a29dad2a1cf14c246f4496aeb48c382012b','assets/site.systems.css':'47c31b9d8a3e4eccfe87569b97a702a2fa1ff1641856febd8d275aa4af888407','downloads/Casey_Barton_Resume.pdf':'c46b4c3c31bea8405c28322e9f81be4ffd36c7faec9154acfd8da16a647cd1e3','downloads/Casey_Barton_Resume.docx':'aa022ca8c40d59624e6e7e3ef88fb439f6d21c7adcb997a0b11cd50b05827d0e'};
+const POWER_LAYERS=[['Silicon + compute',['nvidia','amd','intel','qualcomm','groq','cerebras','coreweave']],['Cloud + infrastructure',['aws','microsoft','google_deepmind','oracle','cloudflare','vercel']],['Models + agent systems',['openai','anthropic','xai','mistral','cohere','deepseek','kimi','qwen','meta']],['Platforms + knowledge',['notion','databricks','snowflake','salesforce','adobe','hugging_face','perplexity','lovable','opera']],['Mission + autonomy',['spacex','palantir','anduril','tesla','waymo','zoox','blue_origin','rocket_lab','nasa','robotics']],['Distribution + operators',['apple','scale_ai','tasklet','manus','openclaw','ibm','glaciereq_core']]];
+let projectionPromise=null;
+const sha256=b=>crypto.createHash('sha256').update(b).digest('hex');
+const esc=v=>String(v??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;');
+function requestPath(req){const p=new URL(String(req.url||'/'),'https://glaciereq.invalid'),v=p.searchParams.getAll('path');return!v.length?'':v.length===1?v[0]:v.join('/')}
+function normalize(input){const raw=Array.isArray(input)?input.join('/'):String(input||''),clean=raw.replace(/^\/+|\/+$/g,'');if(!clean)return'index.html';if(clean.includes('..')||clean.includes('\\'))return null;const last=clean.split('/').pop()||'';return last.includes('.')?clean:`${clean}/index.html`}
+const ext=p=>(p.match(/(\.[a-z0-9]+)$/i)||[])[1]?.toLowerCase()||'';
+const companySlug=id=>typeof id==='string'&&COMPANY_ID_PATTERN.test(id)?id.replaceAll('_','-'):null;
+const companyRoute=id=>companySlug(id)?`/companies/${companySlug(id)}/`:null;
+const statusClass=s=>s==='PROMOTED'?'verified':s==='REFERENCE_ONLY'?'reviewed':'blocked';
+function evidenceState(c){const r=Array.isArray(c.repositories)?c.repositories:[],a=r.some(x=>x.level==='L4'||x.level==='L5');return r.length>=2||a?'repository-rich':r.length===1?'seeded':'scaffold'}
+const evidenceLabel=s=>({'repository-rich':'Repository-rich',seeded:'Seeded',scaffold:'Scaffold'}[s]||'Scaffold');
+function securityHeaders(res){res.setHeader('Content-Security-Policy',"default-src 'self'; script-src 'none'; style-src 'self'; img-src 'self' data:; connect-src 'none'; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self' mailto:; upgrade-insecure-requests");res.setHeader('Referrer-Policy','strict-origin-when-cross-origin');res.setHeader('Permissions-Policy','camera=(), microphone=(), geolocation=(), payment=()');res.setHeader('X-Content-Type-Options','nosniff');res.setHeader('X-Frame-Options','DENY');res.setHeader('Cross-Origin-Opener-Policy','same-origin');res.setHeader('X-GlacierEQ-Source-Commit',SOURCE_COMMIT);res.setHeader('X-GlacierEQ-Helix-Commit',HELIX_COMMIT);res.setHeader('X-PSYSOCX-Release','V18-COMPANY-ATLAS')}
+async function fetchBuffer(url,ua){const c=new AbortController(),t=setTimeout(()=>c.abort(),10000);try{const response=await fetch(url,{headers:{'User-Agent':ua},signal:c.signal}),body=Buffer.from(await response.arrayBuffer());return{response,body,sha256:sha256(body)}}finally{clearTimeout(t)}}
+const fetchSource=p=>fetchBuffer(RAW_ROOT+p,'GlacierEQ-V18-Source-Bridge/1.0');
+async function fetchHelixJson(p){const{response,body}=await fetchBuffer(HELIX_ROOT+p,'GlacierEQ-V18-Company-Atlas/1.0');if(!response.ok)throw new Error(`${p} returned ${response.status}`);try{return JSON.parse(body.toString('utf8'))}catch(e){throw new Error(`${p} contains invalid JSON: ${e.message}`)}}
+function compileProjection(index,shards){if(!index||index.schema!=='glaciereq.company-dossiers-index.v2')throw new Error('company dossier index schema mismatch');const columns=index.repository_record_columns,recruiterStates=new Set(index.truth_boundary?.public_recruiter_admission_states||[]),aliases=index.repository_record_legacy_aliases?.promotion_state||{};if(!Array.isArray(columns)||columns.length<6||!recruiterStates.size)throw new Error('company dossier public contract is incomplete');const companies=[],seen=new Set();for(const shard of shards){if(!shard||!Array.isArray(shard.companies))throw new Error('company shard is invalid');const defaults=shard.defaults&&typeof shard.defaults==='object'&&!Array.isArray(shard.defaults)?shard.defaults:{};for(const raw of shard.companies){const c={...defaults,...raw};if(!COMPANY_ID_PATTERN.test(String(c.company_id||'')))throw new Error('invalid company id');if(seen.has(c.company_id))throw new Error(`duplicate company id ${c.company_id}`);seen.add(c.company_id);if(!c.display_name||!c.recruiter_thesis||!c.gap_or_next_gate||!c.non_affiliation)throw new Error(`${c.company_id}: required company fields are missing`);if(!Array.isArray(c.repositories))throw new Error(`${c.company_id}: repositories are invalid`);const repositories=[];for(const tuple of c.repositories){if(!Array.isArray(tuple)||tuple.length!==columns.length)throw new Error(`${c.company_id}: repository tuple mismatch`);const row=Object.fromEntries(columns.map((column,i)=>[column,tuple[i]])),state=aliases[row.promotion_state]||row.promotion_state;if(!REPOSITORY_PATTERN.test(String(row.repository||'')))throw new Error(`${c.company_id}: repository identity is invalid`);if(!LEVELS.has(row.skill_innovation_level))throw new Error(`${row.repository}: level is invalid`);if(row.visibility==='public'&&row.skill_innovation_level!=='L0'&&recruiterStates.has(state))repositories.push({repository:row.repository,level:row.skill_innovation_level,promotion_state:state,provenance_state:row.provenance_state})}companies.push({company_id:c.company_id,display_name:c.display_name,track_state:String(c.track_state||'MAPPED'),target_roles:Array.isArray(c.target_roles)?c.target_roles:[],recruiter_thesis:c.recruiter_thesis,gap_or_next_gate:c.gap_or_next_gate,non_affiliation:c.non_affiliation,repositories,applicable_flagships:Array.isArray(c.applicable_flagships)?c.applicable_flagships:[]})}}const required=index.required_company_tracks||[];if(!Array.isArray(required)||required.length!==companies.length||required.some(id=>!seen.has(id)))throw new Error('required company track contract does not match compiled projection');companies.sort((a,b)=>a.display_name.localeCompare(b.display_name));return{schema:'glaciereq.company-atlas-projection.v1',authority:'GlacierEQ/job-app-helix',source_commit:HELIX_COMMIT,source_index:COMPANY_INDEX_PATH,company_count:companies.length,companies,truth_boundary:{public_only:true,recruiter_admission_states:[...recruiterStates].sort(),company_naming_does_not_imply_affiliation:true}}}
+async function loadProjection(){if(!projectionPromise)projectionPromise=(async()=>{const i=await fetchHelixJson(COMPANY_INDEX_PATH);if(!Array.isArray(i.dossier_files)||!i.dossier_files.length)throw new Error('dossier files are missing');return compileProjection(i,await Promise.all(i.dossier_files.map(fetchHelixJson)))})().catch(e=>{projectionPromise=null;throw e});return projectionPromise}
+const repoUrl=r=>{const[o,n]=String(r).split('/');return`https://github.com/${encodeURIComponent(o)}/${encodeURIComponent(n)}`};
+function nav(current=''){return`<nav class="links" aria-label="Primary navigation">${[['Recruiter','/'],['Résumé','/resume/'],['Master','/master/'],['Mesh','/mesh/'],['Atlas','/atlas/'],['Machine','/machine/']].map(([l,h])=>`<a${current===l?' aria-current="page"':''} href="${h}">${l}</a>`).join('')}</nav>`}
+function shell({title,description,signal,body,footer}){return`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#03080b"><meta name="description" content="${esc(description)}"><meta name="robots" content="index,follow"><title>${esc(title)}</title><link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/assets/site.css"><link rel="stylesheet" href="/assets/site.systems.css"><link rel="stylesheet" href="/assets/helix-atlas.css"></head><body><a class="skip" href="#main">Skip to content</a><div class="signal-bar"><div class="shell signal-inner"><span class="signal-live">${esc(signal)}</span><span>pinned public evidence · no affiliation implied</span></div></div><header class="site-header"><div class="shell nav"><a class="brand" href="/"><span class="mark">CB</span><span><strong>CASEY BARTON</strong><small>APPLIED AI SYSTEMS ARCHITECT</small></span></a>${nav('Atlas')}<a class="nav-cta" href="mailto:glacier.equilibrium@gmail.com">Start a conversation</a></div></header><main id="main">${body}</main><footer class="site-footer"><div class="shell"><p><strong>Casey Barton · GlacierEQ</strong></p><p>${esc(footer||'Independent systems work. Company alignment does not imply affiliation, endorsement, employment, proprietary access, or production deployment.')}</p></div></footer></body></html>\n`}
+function star(c,i){const s=evidenceState(c);return`<a class="atlas-star star-p${i} ${s}" href="${companyRoute(c.company_id)}" aria-label="Open ${esc(c.display_name)} company intelligence" title="${esc(c.display_name)} · ${evidenceLabel(s)}"><span class="star-core"></span><span class="star-label">${esc(c.display_name)}</span></a>`}
+function dir(c){const s=evidenceState(c);return`<a class="atlas-directory-item" href="${companyRoute(c.company_id)}"><span><strong>${esc(c.display_name)}</strong><small>${esc(c.track_state)}</small></span><b class="evidence-state ${s}">${evidenceLabel(s)}</b></a>`}
+function powerMap(cs){const m=new Map(cs.map(c=>[c.company_id,c])),used=new Set();const layers=POWER_LAYERS.map(([label,ids])=>{const links=ids.map(id=>m.get(id)).filter(Boolean).map(c=>{used.add(c.company_id);return`<a href="${companyRoute(c.company_id)}">${esc(c.display_name)}</a>`}).join('');return`<div class="power-layer"><strong>${esc(label)}</strong><div>${links||'<span class="muted">No current public track</span>'}</div></div>`}).join(''),other=cs.filter(c=>!used.has(c.company_id));return`${layers}${other.length?`<div class="power-layer"><strong>Other governed targets</strong><div>${other.map(c=>`<a href="${companyRoute(c.company_id)}">${esc(c.display_name)}</a>`).join('')}</div></div>`:''}`}
+function renderAtlas(p){const cs=p.companies,rich=cs.filter(c=>evidenceState(c)==='repository-rich').length,seeded=cs.filter(c=>evidenceState(c)==='seeded').length,scaffold=cs.length-rich-seeded,memberships=cs.reduce((n,c)=>n+c.repositories.length,0);return shell({title:'Company Atlas · Casey Barton',description:'GlacierEQ Company Atlas: governed company lenses, evidence state, real company routes, and four-depth technical intelligence.',signal:`HELIX ${HELIX_COMMIT.slice(0,8)} · ${cs.length} COMPANY LENSES`,body:`<section class="hero atlas-hero"><div class="shell"><p class="eyebrow">COMPANY INTELLIGENCE · REAL ROUTES · GOVERNED EVIDENCE</p><h1>Choose a star. <em>Follow the proof.</em></h1><p class="lead">The constellation is a navigation surface over a pinned, public-only Job App Helix projection. Every star is a real keyboard-accessible route. Each company page separates current evidence from aspiration across Recruiter, Master, Machine, and Mesh depth.</p><div class="proof-strip"><div><b>${cs.length}</b><span>governed company lenses</span></div><div><b>${memberships}</b><span>direct public memberships</span></div><div><b>${rich}</b><span>repository-rich</span></div><div><b>${seeded}</b><span>seeded</span></div><div><b>${scaffold}</b><span>scaffold</span></div></div><div class="actions"><a class="button primary" href="#constellation">Enter constellation</a><a class="button secondary" href="#power-map">Open power map</a><a class="button ghost" href="/data/company-atlas.json">Machine projection</a></div></div></section><section id="constellation" class="section constellation-section"><div class="shell"><div class="section-head"><div><p class="eyebrow">CONSTELLATION MODE</p><h2>The ecosystem as a navigable field.</h2></div><p>Pointer precision is optional. The directory is the accessibility fallback and browser find provides instant text lookup without client scripting.</p></div><div class="constellation-layout"><div class="constellation-stage">${cs.map(star).join('')}<div class="constellation-core" aria-hidden="true"><span>GLACIEREQ</span><b>COMPANY<br>ATLAS</b></div><div class="orbit orbit-1"></div><div class="orbit orbit-2"></div><div class="orbit orbit-3"></div></div><aside class="constellation-directory"><div class="directory-head"><p class="eyebrow">DIRECTORY</p><h3>All company lenses</h3><p>Repository-rich = multiple or advanced direct public evidence; Seeded = one direct public evidence repo; Scaffold = no company-specific repository admitted yet.</p></div><div class="atlas-directory">${cs.map(dir).join('')}</div></aside></div></div></section><section id="power-map" class="section alt"><div class="shell"><div class="section-head"><div><p class="eyebrow">POWER-MAP MODE</p><h2>See where each target sits in the operating stack.</h2></div><p>Orientation, not an affiliation or access claim.</p></div><div class="power-map">${powerMap(cs)}</div></div></section><section class="section tight"><div class="shell callout"><p class="eyebrow">SECOND-DEPTH GATE</p><h2>Mapping is depth one. Code-proven role fit is depth two.</h2><p>Current role → team problem → official evidence → repository → inspected implementation → reproducible proof → truth-bounded claim. A proof gap becomes an engineering queue rather than a reason to stop early.</p></div></section>`})}
+function machineRecord(c){return{schema:'glaciereq.company-intelligence.v1',id:c.company_id,route:companyRoute(c.company_id),state:evidenceState(c),track:c.track_state,roles:c.target_roles,repos:c.repositories.map(r=>({id:r.repository,lvl:r.level,state:r.promotion_state,provenance:r.provenance_state})),flagships:c.applicable_flagships,gate:c.gap_or_next_gate,boundary:c.non_affiliation,source:{repository:'GlacierEQ/job-app-helix',commit:HELIX_COMMIT}}}
+function wire(c){const r=machineRecord(c),repos=r.repos.map(x=>`${x.id}|${x.lvl}|${x.state}|${x.provenance}`).join(';')||'∅';return`GEQ.CI/1 id=${r.id} state=${r.state} track=${r.track}\nROLE[${r.roles.join('|')||'∅'}]\nREPO[${repos}]\nFLAGSHIP[${r.flagships.join('|')||'∅'}]\nHOOK route=${r.route} json=${r.route}record.json\nGATE ${r.gate}`}
+function repoEvidence(r){return`<li><div><a href="${repoUrl(r.repository)}" target="_blank" rel="noopener">${esc(r.repository.slice(10))}</a><small>${esc(r.repository)}</small></div><span class="status ${statusClass(r.promotion_state)}">${esc(r.level)} · ${esc(r.promotion_state)}</span></li>`}
+function renderCompany(c){const state=evidenceState(c),roles=c.target_roles.map(r=>`<span>${esc(r)}</span>`).join(''),repos=c.repositories.map(repoEvidence).join(''),mesh=[...c.repositories.map(r=>`<li><span>ALIGNS_WITH</span><a href="${repoUrl(r.repository)}" target="_blank" rel="noopener">${esc(r.repository)}</a></li>`),...c.applicable_flagships.map(f=>`<li><span>TRANSFERABLE_CAPABILITY</span><a href="/mesh/">${esc(f)}</a></li>`)].join(''),summary=c.repositories.length?`${c.repositories.length} recruiter-admitted public ${c.repositories.length===1?'repository':'repositories'} currently map to this company lens.`:'No company-specific repository is currently admitted to the public recruiter surface. Transferable portfolio systems may still be relevant, but they are not company adoption evidence.';return shell({title:`${c.display_name} · GlacierEQ Company Intelligence`,description:`Independent GlacierEQ technical alignment dossier for ${c.display_name}.`,signal:`COMPANY INTELLIGENCE · ${evidenceLabel(state).toUpperCase()}`,footer:c.non_affiliation,body:`<section class="company-hero"><div class="shell company-hero-grid"><div><p class="eyebrow">INDEPENDENT COMPANY LENS · ${esc(evidenceLabel(state).toUpperCase())}</p><h1>${esc(c.display_name)}</h1><p class="lead">${esc(c.recruiter_thesis)}</p><div class="company-role-chips">${roles}</div></div><aside class="card company-state-card"><span class="evidence-state ${state}">${evidenceLabel(state)}</span><strong>${c.repositories.length}</strong><p>direct public evidence ${c.repositories.length===1?'repository':'repositories'}</p><small>${esc(c.track_state)}</small></aside></div></section><section class="section company-layer" id="recruiter"><div class="shell"><div class="layer-heading"><span>01 · RECRUITER</span><h2>What matters to this operating environment.</h2></div><div class="company-two-col"><article class="card"><h3>Alignment thesis</h3><p>${esc(c.recruiter_thesis)}</p><p>${esc(summary)}</p></article><article class="card boundary-card"><h3>Truth boundary</h3><p>${esc(c.non_affiliation)}</p></article></div></div></section><section class="section alt company-layer" id="master"><div class="shell"><div class="layer-heading"><span>02 · MASTER</span><h2>Innovation, architecture, and the second-depth gate.</h2></div><div class="company-two-col"><article class="card"><h3>Role-specific engineering frame</h3><p>The current dossier identifies the domain and recruiter-admitted public evidence subset without pretending company bottlenecks are already proven. Depth two is code-path inspection plus current-role reconciliation.</p><h3>Current evidence</h3>${repos?`<ul class="company-repo-ledger">${repos}</ul>`:'<p class="empty-state">No direct repository is recruiter-admitted yet. This is an engineering queue, not a reason to invent proof.</p>'}</article><article class="card aspiration-card"><p class="eyebrow">ASPIRATION</p><h3>Bring the implementation up to the claim.</h3><p>Use present code as the baseline and the strongest useful defensible capability as the target. Gaps become bounded repairs, tests, demos, benchmarks, and receipts before the claim is raised.</p><p><strong>Current gate:</strong> ${esc(c.gap_or_next_gate)}</p></article></div></div></section><section class="section company-layer" id="machine"><div class="shell"><div class="layer-heading"><span>03 · MACHINE</span><h2>Dense integration contract.</h2></div><div class="card machine-contract"><div class="machine-contract-head"><p>Compact wire view for agents and tooling.</p><a class="button ghost small" href="record.json">record.json</a></div><pre>${esc(wire(c))}</pre><p class="machine-hook">Discover → inspect record → follow repository identities → verify native proof → respect gate and boundary.</p></div></div></section><section class="section alt company-layer" id="mesh"><div class="shell"><div class="layer-heading"><span>04 · MESH</span><h2>One node in the larger GlacierEQ system.</h2></div><div class="company-two-col"><article class="card"><h3>Relationships</h3>${mesh?`<ul class="mesh-edge-list">${mesh}</ul>`:'<p class="empty-state">No direct public repository edge is admitted yet.</p>'}<p><a href="/mesh/">Open the estate-wide Mesh →</a></p></article><article class="card evolution-card"><p class="eyebrow">ASPIRATION &amp; EVOLUTION</p><h3>Promotion checklist</h3><ul class="evolution-list"><li>□ Verify a current role and team constraints.</li><li>□ Inspect exact repository code paths at pinned heads.</li><li>□ Classify implementation and proof state separately.</li><li>□ Close the highest-ROI code/proof gap rather than lowering the aspiration.</li><li>□ Produce a reproducible proof artifact and claim ceiling.</li><li>□ Promote only after adversarial review.</li></ul><p><strong>Next gate:</strong> ${esc(c.gap_or_next_gate)}</p></article></div></div></section><section class="section tight"><div class="shell callout"><p class="eyebrow">RETURN TO THE CONSTELLATION</p><h2>Company intelligence is one projection of the same governed portfolio.</h2><div class="actions"><a class="button primary" href="/atlas/">Open Company Atlas</a><a class="button ghost" href="/machine/">Machine contracts</a><a class="button ghost" href="/mesh/">System mesh</a></div></div></section>`})}
+function injectAtlasNav(body){const text=body.toString('utf8');if(!text.includes('<nav class="links"')||text.includes('href="/atlas/"'))return body;const s=text.indexOf('<nav class="links"'),e=text.indexOf('</nav>',s);return e<0?body:Buffer.from(`${text.slice(0,e)}<a href="/atlas/">Atlas</a>${text.slice(e)}`,'utf8')}
+function augmentSitemap(body,p){let text=body.toString('utf8');if(!text.includes('</urlset>'))return body;const routes=['/atlas/',...p.companies.map(c=>companyRoute(c.company_id))],missing=routes.filter(r=>!text.includes(`<loc>${PUBLIC_ORIGIN}${r}</loc>`));if(!missing.length)return body;return Buffer.from(text.replace('</urlset>',`${missing.map(r=>`  <url><loc>${PUBLIC_ORIGIN}${r}</loc></url>`).join('\n')}\n</urlset>`),'utf8')}
+function augmentLlms(body){let t=body.toString('utf8');if(t.includes('Company Atlas:'))return body;if(!t.endsWith('\n'))t+='\n';return Buffer.from(t+`- Company Atlas: ${PUBLIC_ORIGIN}/atlas/ (real company routes under /companies/<slug>/; Recruiter + Master + Machine + Mesh depth; Helix ${HELIX_COMMIT})\n`,'utf8')}
+async function verifyDeployment(res){const files=[];let pass=true;for(const[p,expected]of Object.entries(REQUIRED)){const{response,body,sha256:actual}=await fetchSource(p),ok=response.ok&&actual===expected;pass=pass&&ok;files.push({path:p,status:response.status,bytes:body.length,sha256:actual,expected,ok})}const css=await fetchSource('assets/helix-atlas.css'),cssOk=css.response.ok&&css.body.includes(Buffer.from('.constellation-stage'));pass=pass&&cssOk;files.push({path:'assets/helix-atlas.css',status:css.response.status,bytes:css.body.length,sha256:css.sha256,expected:'contains .constellation-stage',ok:cssOk});let projection=null,projection_error=null;try{projection=await loadProjection();if(projection.company_count!==48)throw new Error(`expected 48 company tracks, got ${projection.company_count}`);if(projection.companies.some(c=>c.repositories.some(r=>String(r.promotion_state).startsWith('PRIVATE_'))))throw new Error('private repository state leaked');const a=projection.companies.find(c=>c.company_id==='anthropic');if(!a||!renderCompany(a).includes('04 · MESH')||!renderAtlas(projection).includes('CONSTELLATION MODE'))throw new Error('four-depth render failed')}catch(e){projection_error=e.message;pass=false}res.statusCode=pass?200:503;res.setHeader('Content-Type','application/json; charset=utf-8');res.setHeader('Cache-Control','no-store');res.end(JSON.stringify({schema:'glaciereq.v18-production-verification.v1',status:pass?'PASS':'FAIL',source_commit:SOURCE_COMMIT,helix_source_commit:HELIX_COMMIT,release:'V18 Company Atlas',canonical_routes:['/','/resume/','/master/','/mesh/','/machine/','/atlas/'],company_routes:projection?projection.company_count:0,projection_error,facts_invariant:true,scripts:0,trackers:0,files},null,2))}
+function serve(res,p,body,status=200){res.statusCode=status;res.setHeader('Content-Type',TYPES[ext(p)]||'application/octet-stream');res.setHeader('Cache-Control',p.startsWith('data/')||p.endsWith('record.json')||p==='resume/ats.txt'?'public, max-age=0, s-maxage=300, must-revalidate':'public, max-age=0, s-maxage=900, must-revalidate');if(p.startsWith('downloads/'))res.setHeader('Content-Disposition',`attachment; filename="${p.split('/').pop()}"`);res.setHeader('Content-Length',String(body.length));res.end(body)}
+module.exports=async function(req,res){securityHeaders(res);const raw=requestPath(req);if(['__v18_verify','__v17_verify','__v15_verify'].includes(raw))return verifyDeployment(res);const p=normalize(raw);if(!p){res.statusCode=400;return res.end('Invalid path')}try{if(p==='atlas/index.html')return serve(res,p,Buffer.from(renderAtlas(await loadProjection()),'utf8'));if(p==='data/company-atlas.json')return serve(res,p,Buffer.from(JSON.stringify(await loadProjection(),null,2)+'\n','utf8'));const m=p.match(/^companies\/([a-z0-9-]+)\/(index\.html|record\.json)$/);if(m){const projection=await loadProjection(),c=projection.companies.find(x=>companySlug(x.company_id)===m[1]);if(!c){const f=await fetchSource('404.html');return serve(res,'404.html',f.body,404)}return m[2]==='record.json'?serve(res,p,Buffer.from(JSON.stringify(machineRecord(c),null,2)+'\n','utf8')):serve(res,p,Buffer.from(renderCompany(c),'utf8'))}}catch(e){res.statusCode=503;res.setHeader('Content-Type','text/plain; charset=utf-8');res.setHeader('Cache-Control','no-store');return res.end(`Company Atlas unavailable: ${e.message}`)}let{response,body}=await fetchSource(p),status=200,served=p;if(!response.ok){served='404.html';({response,body}=await fetchSource(served));status=404}else if(served.endsWith('.html'))body=injectAtlasNav(body);else if(served==='sitemap.xml'){try{body=augmentSitemap(body,await loadProjection())}catch{status=503}}else if(served==='llms.txt')body=augmentLlms(body);serve(res,served,body,status)};
+module.exports.requestPath=requestPath;module.exports.normalize=normalize;module.exports.compileProjection=compileProjection;module.exports.renderAtlas=renderAtlas;module.exports.renderCompany=renderCompany;
