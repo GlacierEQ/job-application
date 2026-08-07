@@ -598,7 +598,10 @@ function machineWire(company) {
 function renderCompany(company) {
   const evidence = evidenceState(company);
   const roleChips = company.target_roles.map((role) => `<span>${esc(role)}</span>`).join('');
-  const meshLinks = company.repositories.map((repo) => `<li><span>ALIGNS_WITH</span><a href="${repoUrl(repo.repository)}" target="_blank" rel="noopener">${esc(repo.repository)}</a></li>`).join('');
+  const meshLinks = [
+    ...company.repositories.map((repo) => `<li><span>ALIGNS_WITH</span><a href="${repoUrl(repo.repository)}" target="_blank" rel="noopener">${esc(repo.repository)}</a></li>`),
+    ...company.applicable_flagships.map((flagship) => `<li><span>TRANSFERABLE_CAPABILITY</span><a href="/atlas/#crown-jewels">${esc(flagship)}</a></li>`),
+  ].join('');
   return shell({
     title: `${company.display_name} · GlacierEQ Company Intelligence`,
     description: `Independent GlacierEQ technical alignment dossier for ${company.display_name}: current evidence, second-depth state, machine contract, and evolution mesh.`,
@@ -725,6 +728,16 @@ async function verifyDeployment(res) {
   }, null, 2));
 }
 
+function needsProjection(filePath) {
+  return filePath === 'atlas/index.html' ||
+    filePath === 'companies/index.html' ||
+    filePath === 'data/company-atlas.json' ||
+    filePath === 'sitemap.xml' ||
+    filePath === 'llms.txt' ||
+    /^companies\/[a-z0-9-]+\/(?:index\.html|record\.json)$/.test(filePath) ||
+    /^atlas\/[a-z0-9-]+\/(?:index\.html|record\.json)$/.test(filePath);
+}
+
 async function dynamicResponse(filePath, projection) {
   if (filePath === 'atlas/index.html' || filePath === 'companies/index.html') {
     return { status: 200, type: TYPES['.html'], body: Buffer.from(renderAtlas(projection)) };
@@ -762,15 +775,7 @@ module.exports = async function handler(req, res) {
   }
 
   let projection = null;
-  if (
-    filePath === 'atlas/index.html' ||
-    filePath === 'companies/index.html' ||
-    filePath === 'data/company-atlas.json' ||
-    filePath.startsWith('companies/') ||
-    filePath.startsWith('atlas/') ||
-    filePath === 'sitemap.xml' ||
-    filePath === 'llms.txt'
-  ) {
+  if (needsProjection(filePath)) {
     try {
       projection = await loadProjection();
     } catch (error) {
@@ -794,14 +799,25 @@ module.exports = async function handler(req, res) {
     }
   }
 
-  let { response: upstream, body } = await fetchSource(filePath);
-  if (!upstream.ok) {
-    const fallback = await fetchSource('404.html');
-    upstream = fallback.response;
-    body = fallback.body;
-    res.statusCode = 404;
-  } else {
-    res.statusCode = 200;
+  let upstream;
+  let body;
+  try {
+    ({ response: upstream, body } = await fetchSource(filePath));
+    if (!upstream.ok) {
+      const fallback = await fetchSource('404.html');
+      upstream = fallback.response;
+      body = fallback.body;
+      res.statusCode = 404;
+    } else {
+      res.statusCode = 200;
+    }
+  } catch (error) {
+    res.statusCode = 502;
+    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+    res.setHeader('Cache-Control', 'no-store');
+    res.setHeader('Retry-After', '60');
+    res.end(`Source bridge unavailable: ${error.message}`);
+    return;
   }
 
   if (projection && filePath === 'sitemap.xml') body = augmentSitemap(body, projection);
@@ -830,4 +846,5 @@ module.exports.resolveSecondDepth = resolveSecondDepth;
 module.exports.renderAtlas = renderAtlas;
 module.exports.renderCompany = renderCompany;
 module.exports.compactMachineRecord = compactMachineRecord;
+module.exports.needsProjection = needsProjection;
 module.exports.constants = { SOURCE_COMMIT, HELIX_COMMIT, SECOND_DEPTH_PATH };
