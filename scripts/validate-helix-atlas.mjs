@@ -7,13 +7,26 @@ import { fileURLToPath } from "node:url";
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SITE = path.join(ROOT, "site-v15");
 const COMPANY_ID_PATTERN = /^[a-z0-9_]+$/;
+const SECOND_DEPTH_STAGES = [
+  "MAPPED_ONLY",
+  "ROLE_VERIFIED",
+  "PROBLEM_BOUNDED",
+  "CODE_INSPECTED",
+  "REMEDY_BOUNDED",
+  "IMPLEMENTED",
+  "PROOF_REPRODUCED",
+  "CLAIM_PROMOTED",
+];
 
 function assert(condition, message) {
   if (!condition) throw new Error(message);
 }
 
 function companySlug(companyId) {
-  assert(typeof companyId === "string" && COMPANY_ID_PATTERN.test(companyId), `invalid company id ${String(companyId)}`);
+  assert(
+    typeof companyId === "string" && COMPANY_ID_PATTERN.test(companyId),
+    `invalid company id ${String(companyId)}`,
+  );
   return companyId.replaceAll("_", "-");
 }
 
@@ -23,7 +36,7 @@ async function htmlFiles(directory) {
   for (const entry of entries) {
     const target = path.join(directory, entry.name);
     assert(!entry.isSymbolicLink(), `symbolic link found in site tree: ${path.relative(ROOT, target)}`);
-    if (entry.isDirectory()) files.push(...await htmlFiles(target));
+    if (entry.isDirectory()) files.push(...(await htmlFiles(target)));
     else if (entry.isFile() && entry.name.endsWith(".html")) files.push(target);
   }
   return files;
@@ -38,26 +51,81 @@ async function parseJsonFile(file, label) {
   }
 }
 
+function validateMachineDepth(company, record) {
+  assert(record.second_depth, `${company.company_id}: machine second-depth state missing`);
+  assert(
+    record.second_depth.stage === company.second_depth.stage,
+    `${company.company_id}: machine second-depth stage drift`,
+  );
+  assert(
+    record.second_depth.ordinal === company.second_depth.ordinal,
+    `${company.company_id}: machine second-depth ordinal drift`,
+  );
+  assert(
+    record.second_depth.claim_ceiling === company.second_depth.claim_ceiling,
+    `${company.company_id}: machine claim ceiling drift`,
+  );
+  assert(
+    JSON.stringify(record.second_depth.blockers) === JSON.stringify(company.second_depth.blockers),
+    `${company.company_id}: machine blockers drift`,
+  );
+  assert(
+    record.second_depth.next_gate === company.second_depth.next_gate,
+    `${company.company_id}: machine next gate drift`,
+  );
+}
+
 async function main() {
   const atlas = await readFile(path.join(SITE, "atlas", "index.html"), "utf8");
-  const { value: snapshot } = await parseJsonFile(path.join(SITE, "data", "helix-root.json"), "Helix snapshot");
+  const { value: snapshot } = await parseJsonFile(
+    path.join(SITE, "data", "helix-root.json"),
+    "Helix snapshot",
+  );
+
+  assert(snapshot.companies.length === 49, "Company Atlas must render all 49 governed company tracks");
+  assert(
+    Array.isArray(snapshot.company_second_depth?.stage_order) &&
+      snapshot.company_second_depth.stage_order.length === SECOND_DEPTH_STAGES.length,
+    "second-depth stage contract missing from snapshot",
+  );
+  snapshot.company_second_depth.stage_order.forEach((row, ordinal) => {
+    assert(row.id === SECOND_DEPTH_STAGES[ordinal], `second-depth stage ${ordinal} drift`);
+  });
 
   assert(atlas.includes("Choose a star."), "Company Atlas hero is missing");
   assert(atlas.includes("CONSTELLATION MODE"), "Constellation mode is missing");
   assert(atlas.includes("POWER-MAP MODE"), "Power-map mode is missing");
   assert(atlas.includes("CROWN JEWELS"), "Atlas Crown Jewels section is missing");
+  assert(atlas.includes("SECOND-DEPTH CONTRACT"), "Atlas second-depth contract is missing");
+  assert(atlas.includes("Lockheed Martin"), "Lockheed Martin is missing from Atlas");
   assert(!/<script(?:\s|>)/i.test(atlas), "Company Atlas added client script despite zero-script contract");
   assert(!/\sstyle\s*=\s*/i.test(atlas), "Company Atlas cannot use inline style under locked CSP");
-  assert((atlas.match(/class="atlas-star /g) ?? []).length === snapshot.companies.length, "constellation star count differs from company snapshot");
-  assert((atlas.match(/class="atlas-directory-item"/g) ?? []).length === snapshot.companies.length, "directory count differs from company snapshot");
-  assert((atlas.match(/class="card atlas-flagship"/g) ?? []).length === snapshot.flagships.length, "Atlas flagship count differs from snapshot");
+  assert(
+    (atlas.match(/class="atlas-star /g) ?? []).length === snapshot.companies.length,
+    "constellation star count differs from company snapshot",
+  );
+  assert(
+    (atlas.match(/class="atlas-directory-item"/g) ?? []).length === snapshot.companies.length,
+    "directory count differs from company snapshot",
+  );
+  assert(
+    (atlas.match(/class="card atlas-flagship"/g) ?? []).length === snapshot.flagships.length,
+    "Atlas flagship count differs from snapshot",
+  );
   assert(!atlas.includes("PRIVATE_CANDIDATE"), "private candidate leaked into Atlas");
   assert(!atlas.includes('visibility": "private"'), "private visibility leaked into Atlas");
+
+  const css = await readFile(path.join(SITE, "assets", "helix-atlas.css"), "utf8");
+  assert(css.includes(".atlas-star.star-p48{"), "49th constellation position is missing");
+  assert(css.includes(".atlas-star.star-p63{"), "constellation capacity guard drifted below 64 positions");
 
   const companiesDir = path.join(SITE, "companies");
   const entries = await readdir(companiesDir, { withFileTypes: true });
   const companyDirectories = entries.filter((entry) => entry.isDirectory());
-  assert(companyDirectories.length === snapshot.companies.length, "generated company route count differs from snapshot");
+  assert(
+    companyDirectories.length === snapshot.companies.length,
+    "generated company route count differs from snapshot",
+  );
 
   for (const company of snapshot.companies) {
     const slug = companySlug(company.company_id);
@@ -65,21 +133,68 @@ async function main() {
     await access(path.join(directory, "index.html"));
     await access(path.join(directory, "record.json"));
     const page = await readFile(path.join(directory, "index.html"), "utf8");
-    const { value: record } = await parseJsonFile(path.join(directory, "record.json"), `${company.company_id} machine record`);
+    const { value: record } = await parseJsonFile(
+      path.join(directory, "record.json"),
+      `${company.company_id} machine record`,
+    );
+
     assert(page.includes("01 · RECRUITER"), `${company.company_id}: recruiter layer missing`);
     assert(page.includes("02 · MASTER"), `${company.company_id}: master layer missing`);
     assert(page.includes("03 · MACHINE"), `${company.company_id}: machine layer missing`);
     assert(page.includes("04 · MESH"), `${company.company_id}: mesh layer missing`);
-    assert(page.includes("ASPIRATION &amp; EVOLUTION"), `${company.company_id}: aspiration/evolution mesh section missing`);
+    assert(
+      page.includes("ASPIRATION &amp; EVOLUTION"),
+      `${company.company_id}: aspiration/evolution mesh section missing`,
+    );
+    assert(page.includes("SECOND-DEPTH STATE"), `${company.company_id}: second-depth Master state missing`);
+    assert(page.includes(company.second_depth.stage), `${company.company_id}: second-depth stage missing from page`);
+    assert(
+      page.includes(company.second_depth.claim_ceiling),
+      `${company.company_id}: claim ceiling missing from page`,
+    );
+    assert(page.includes(company.second_depth.next_gate), `${company.company_id}: second-depth next gate missing`);
+    for (const blocker of company.second_depth.blockers) {
+      assert(page.includes(blocker), `${company.company_id}: second-depth blocker missing: ${blocker}`);
+    }
     assert(page.includes(company.non_affiliation), `${company.company_id}: non-affiliation boundary missing`);
     assert(!/<script(?:\s|>)/i.test(page), `${company.company_id}: company page added client script`);
-    assert(!/\sstyle\s*=\s*/i.test(page), `${company.company_id}: company page cannot use inline style under locked CSP`);
+    assert(
+      !/\sstyle\s*=\s*/i.test(page),
+      `${company.company_id}: company page cannot use inline style under locked CSP`,
+    );
     assert(!page.includes("PRIVATE_CANDIDATE"), `${company.company_id}: private candidate leaked into page`);
     assert(record.schema === "glaciereq.company-intelligence.v1", `${company.company_id}: machine record schema mismatch`);
     assert(record.id === company.company_id, `${company.company_id}: machine record identity mismatch`);
     assert(record.route === `/companies/${slug}/`, `${company.company_id}: machine route mismatch`);
-    assert(Array.isArray(record.repos) && record.repos.length === company.repositories.length, `${company.company_id}: machine repository count mismatch`);
+    assert(
+      Array.isArray(record.repos) && record.repos.length === company.repositories.length,
+      `${company.company_id}: machine repository count mismatch`,
+    );
+    validateMachineDepth(company, record);
   }
+
+  const lockheed = snapshot.companies.find((company) => company.company_id === "lockheed_martin");
+  assert(lockheed, "Lockheed Martin track is absent from generated snapshot");
+  assert(lockheed.repositories.length === 0, "Lockheed Martin route gained unsupported repository proof");
+  assert(lockheed.second_depth.stage === "MAPPED_ONLY", "Lockheed Martin advanced beyond mapped-only");
+  assert(
+    lockheed.second_depth.claim_ceiling === "company_alignment_only",
+    "Lockheed Martin claim ceiling exceeds mapped-only",
+  );
+  const lockheedPage = await readFile(
+    path.join(companiesDir, "lockheed-martin", "index.html"),
+    "utf8",
+  );
+  assert(lockheedPage.includes("Lockheed Martin"), "Lockheed Martin route identity missing");
+  assert(lockheedPage.includes("MAPPED_ONLY"), "Lockheed Martin mapped-only state missing");
+  assert(
+    lockheedPage.includes("no Lockheed Martin affiliation"),
+    "Lockheed Martin non-affiliation boundary missing",
+  );
+  assert(
+    lockheedPage.includes("No direct repository is recruiter-admitted yet"),
+    "Lockheed Martin route does not expose zero-repository boundary",
+  );
 
   const linked = [];
   for (const file of await htmlFiles(SITE)) {
@@ -94,9 +209,11 @@ async function main() {
     }
     assert(!/javascript\s*:/i.test(text), `unsafe javascript URL: ${path.relative(ROOT, file)}`);
   }
-  assert(linked.length >= snapshot.companies.length + 5, "Atlas was not linked across all primary surfaces and company routes");
+  assert(
+    linked.length >= snapshot.companies.length + 5,
+    "Atlas was not linked across all primary surfaces and company routes",
+  );
 
-  const css = await readFile(path.join(SITE, "assets", "helix-atlas.css"), "utf8");
   assert(css.includes("@media(max-width:700px)"), "Atlas mobile contract is missing");
   assert(css.includes("overflow-wrap:anywhere"), "Atlas long-identity containment is missing");
   assert(css.includes("prefers-reduced-motion"), "Atlas reduced-motion contract is missing");
@@ -106,18 +223,38 @@ async function main() {
   assert(sitemap.includes("/atlas/"), "Atlas missing from sitemap");
   assert(llms.includes("Company Atlas"), "Company Atlas missing from llms.txt");
   for (const company of snapshot.companies) {
-    assert(sitemap.includes(`/companies/${companySlug(company.company_id)}/`), `${company.company_id}: company route missing from sitemap`);
+    assert(
+      sitemap.includes(`/companies/${companySlug(company.company_id)}/`),
+      `${company.company_id}: company route missing from sitemap`,
+    );
   }
+  assert(sitemap.includes("/companies/lockheed-martin/"), "Lockheed Martin missing from sitemap");
 
-  console.log(JSON.stringify({
-    schema: "glaciereq.company-atlas-validation.v2",
-    status: "PASS",
-    flagships: snapshot.flagships.length,
-    company_routes: snapshot.companies.length,
-    constellation_stars: snapshot.companies.length,
-    linked_html_surfaces: linked.length,
-    client_scripts: 0,
-  }, null, 2));
+  const depthCounts = Object.fromEntries(SECOND_DEPTH_STAGES.map((stage) => [stage, 0]));
+  for (const company of snapshot.companies) depthCounts[company.second_depth.stage] += 1;
+
+  console.log(
+    JSON.stringify(
+      {
+        schema: "glaciereq.company-atlas-validation.v3",
+        status: "PASS",
+        flagships: snapshot.flagships.length,
+        company_routes: snapshot.companies.length,
+        constellation_stars: snapshot.companies.length,
+        second_depth: depthCounts,
+        lockheed_martin: {
+          route: "/companies/lockheed-martin/",
+          repositories: lockheed.repositories.length,
+          stage: lockheed.second_depth.stage,
+          claim_ceiling: lockheed.second_depth.claim_ceiling,
+        },
+        linked_html_surfaces: linked.length,
+        client_scripts: 0,
+      },
+      null,
+      2,
+    ),
+  );
 }
 
 main().catch((error) => {
