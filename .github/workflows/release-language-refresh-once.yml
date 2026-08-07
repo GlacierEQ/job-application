@@ -34,8 +34,8 @@ jobs:
           from pathlib import Path
 
           index = Path('site-v15/index.html')
-          old = 'V16 signal architecture · verified facts online'
-          new = 'V16 + V17 production · verified facts online'
+          old = 'V16 signal architecture &#183; verified facts online'
+          new = 'V16 + V17 production &#183; verified facts online'
           text = index.read_text(encoding='utf-8')
           if text.count(old) != 1:
               raise SystemExit(f'expected exactly one old release label, found {text.count(old)}')
@@ -43,7 +43,7 @@ jobs:
 
           validator = Path('site-v15/scripts/validate.mjs')
           vtext = validator.read_text(encoding='utf-8')
-          assertion = "assert(recruiter.includes('V16 + V17 production · verified facts online'), 'recruiter release language drift');"
+          assertion = "assert(recruiter.includes('V16 + V17 production &#183; verified facts online'), 'recruiter release language drift');"
           anchor = "assert(!recruiter.includes('&#250493;'), 'recruiter contains corrupted footer text');"
           if assertion not in vtext:
               if vtext.count(anchor) != 1:
@@ -58,7 +58,7 @@ jobs:
           set -euo pipefail
           node site-v15/scripts/validate.mjs
           git diff --check
-          grep -F 'V16 + V17 production · verified facts online' site-v15/index.html
+          grep -F 'V16 + V17 production &#183; verified facts online' site-v15/index.html
           grep -F "recruiter release language drift" site-v15/scripts/validate.mjs
 
       - name: Commit exact synthesis and remove one-shot workflow
