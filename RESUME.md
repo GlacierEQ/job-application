@@ -7,17 +7,20 @@ Honolulu, Hawaiʻi | U.S. Remote | 808-936-5654 | glacier.equilibrium@gmail.com
 
 ## Professional Profile
 
-Applied AI systems builder combining four years of construction field diagnostics with zero-to-one architecture for agentic workflows, internal platforms, integrations, evidence systems, and human approval. Strongest where there is no established playbook: discover the real operator workflow, translate ambiguous needs into a bounded technical system, choose the right tools and interfaces, establish evaluation and governance standards, and leave behind an observable, resumable handoff.
+Forward-deployed applied AI systems builder combining four years of construction field diagnostics with three years of intensive AI-assisted experimentation, formalized into GlacierEQ engineering work since January 2025. Builds the operating layer between model capability and dependable outcomes: reusable agentic services, workflow orchestration, integrations, evaluation, observability, governance, human approval, and verifiable handoff.
 
-Builds primarily with Python, TypeScript/JavaScript, SQL, APIs, Model Context Protocol, structured data contracts, workflow orchestration, deterministic state, provenance, CI/CD, and machine-readable verification. Brings the field discipline of a certified home inspector: inspect the whole system, separate evidence from inference, identify the governing failure, prioritize risk, and communicate a usable next action.
+Strongest where context is lost, requirements drift, and partial work can masquerade as completion: reopen controlling sources, reconcile versions, trace failure to root cause, preserve checkpoints, and iterate until the result is usable and inspectable. Expanded an experimental estate from roughly 200 forks to more than 1,100 repositories in six months, then built discovery, classification, provenance, promotion, quarantine, and recovery controls so breadth becomes usable evidence rather than noise.
+
+Innovation approach: recombine proven mechanisms into new operational systems rather than pursue novelty for its own sake. The working method comes from both software and field inspection: inspect the whole system, separate evidence from inference, identify the governing failure, prioritize risk, and communicate a usable next action.
 
 ## Builder and Operator Fit
 
 - **Internal AI platforms:** reusable services, agentic systems, tool integrations, workflow orchestration, evaluation gates, observability, governance, and deployment boundaries.
-- **Forward-deployed delivery:** stakeholder discovery, technical scoping, architecture decisions, rapid implementation, risk communication, verification, and operator handoff.
-- **Integration architecture:** REST and JSON-RPC APIs, MCP/tool contracts, webhooks and event patterns, structured outputs, data pipelines, identity and permission boundaries.
-- **Engineering judgment:** build-vs-buy analysis, technology placement, failure semantics, least privilege, idempotency, replay safety, provenance, and evidence-backed release decisions.
-- **Construction operations:** residential structural, roofing, electrical, plumbing, HVAC, moisture, safety, repair-scoping, estimating, and client communication experience.
+- **Cross-functional rigor:** stakeholder discovery, technical scoping, source reconciliation, root-cause pursuit, risk communication, verification, and operator handoff.
+- **Integration architecture:** REST and JSON-RPC APIs, MCP/tool contracts, webhooks and event patterns, structured outputs, data pipelines, identity, and permission boundaries.
+- **State-loss resilience:** checkpointing, source rehydration, version reconciliation, recovery paths, deterministic validation, and refusal to count partial work as completion.
+- **Systems innovation:** build-versus-buy analysis, technology placement, architecture tradeoffs, and recombination of proven components where the resulting system creates new practical capability.
+- **Construction workflow fluency:** field inspection, repair scoping, estimating, code and safety implications, and interfaces among design, permitting, utilities, building systems, closeout, and owner handoff.
 
 ## Selected Execution Proof
 
@@ -55,9 +58,9 @@ Builds primarily with Python, TypeScript/JavaScript, SQL, APIs, Model Context Pr
 
 - Architect and implement interconnected agent, application-intelligence, evidence, document, memory, infrastructure-governance, and human-machine systems.
 - Translate broad business or operator goals into typed contracts, reusable services, integration boundaries, acceptance criteria, failure-safe transitions, tests, and reviewable receipts.
-- Establish engineering patterns for explicit authority, human approval, evaluation, observability, provenance, deterministic state, replay safety, and fail-closed release decisions.
-- Govern a large multi-repository engineering estate without flattening public/private, original/upstream, proposal/execution, simulation/hardware, or candidate/promoted distinctions.
-- Use AI-assisted development as an inspectable engineering process combining source review, bounded generation, critical evaluation, deterministic validation, and human ownership of final quality.
+- Build recovery-first workflows for context loss, stale state, repeated tool failure, and long-running complexity: reopen controlling sources, reconcile versions, preserve checkpoints, verify outputs, and resume without discarding prior gains.
+- Expanded and governed an experimental engineering estate from roughly 200 forks to more than 1,100 repositories in six months; built discovery, classification, provenance, promotion, and quarantine controls so breadth becomes usable evidence rather than noise.
+- Apply a relentless completion standard: distinguish a promising mechanism from a working system, recombine proven components where the architecture creates new value, and retain human ownership of final quality.
 
 ### Diamond Head Home Inspections - Certified Home Inspector
 **Honolulu, Hawaiʻi | 2020-2024**
@@ -78,7 +81,7 @@ Builds primarily with Python, TypeScript/JavaScript, SQL, APIs, Model Context Pr
 **AI and orchestration:** agentic systems, multi-step workflows, MCP, tool calling, structured outputs, retrieval/context systems, human approval, evaluation frameworks, model/provider integration patterns  
 **Engineering:** Python, TypeScript, JavaScript, SQL, Bash, Node.js, React, Next.js, FastAPI  
 **Integration and data:** REST, JSON-RPC 2.0, webhooks and events, JSON Schema, Protocol Buffers, PostgreSQL concepts, SQLite, data pipelines, provenance, integrity hashing  
-**Reliability and delivery:** state machines, idempotency, bounded retries, replay protection, least privilege, observability contracts, Git, GitHub Actions, Docker, Vercel, automated testing, static analysis, dependency auditing  
+**Reliability and delivery:** source rehydration, checkpointing, version reconciliation, state machines, idempotency, bounded retries, replay protection, least privilege, observability contracts, Git, GitHub Actions, Docker, Vercel, automated testing, static analysis, dependency auditing  
 **Additional evidence-bounded project exposure:** Go, Rust, C, C++, CUDA, Swift/Metal, Julia, R, MATLAB, Verilog/SystemVerilog, WebAssembly
 
 ## Education and Technical Formation
@@ -91,4 +94,4 @@ Hands-on cloud application development, architecture, security, DevOps, data, an
 
 ## Evidence Boundary
 
-Independent GlacierEQ systems and bounded technical exhibits. Test counts apply only to their stated repository and scope. No company affiliation, proprietary access, production use, customer impact, formal professional people-management experience, current certification status, or measured business outcome is claimed without direct evidence.
+Independent GlacierEQ systems and bounded technical exhibits. Test counts apply only to their stated repository and scope. No company affiliation, proprietary access, production use, customer impact, formal professional people-management experience, current certification status, measured business outcome, or direct ownership of every construction-development phase is claimed without direct evidence.
