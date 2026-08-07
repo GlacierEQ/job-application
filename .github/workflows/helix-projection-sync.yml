@@ -6,9 +6,12 @@ on:
       - "portfolio-source.json"
       - "scripts/sync-helix-projection.mjs"
       - "scripts/render-helix-atlas.mjs"
+      - "scripts/render-company-constellation.mjs"
       - "scripts/link-helix-atlas.mjs"
+      - "scripts/link-company-constellation.mjs"
       - "scripts/validate-helix-projection.mjs"
       - "scripts/validate-helix-atlas.mjs"
+      - "scripts/validate-company-constellation.mjs"
       - "site-v15/**"
       - "vercel.json"
       - ".github/workflows/helix-projection-sync.yml"
@@ -18,9 +21,12 @@ on:
       - "portfolio-source.json"
       - "scripts/sync-helix-projection.mjs"
       - "scripts/render-helix-atlas.mjs"
+      - "scripts/render-company-constellation.mjs"
       - "scripts/link-helix-atlas.mjs"
+      - "scripts/link-company-constellation.mjs"
       - "scripts/validate-helix-projection.mjs"
       - "scripts/validate-helix-atlas.mjs"
+      - "scripts/validate-company-constellation.mjs"
       - "site-v15/**"
       - "vercel.json"
       - ".github/workflows/helix-projection-sync.yml"
@@ -60,6 +66,12 @@ jobs:
         run: node scripts/link-helix-atlas.mjs
       - name: Validate generated Atlas, company routes, and links
         run: node scripts/validate-helix-atlas.mjs
+      - name: Compile evidence-aware company constellation
+        run: node scripts/render-company-constellation.mjs
+      - name: Link company constellation across public surfaces
+        run: node scripts/link-company-constellation.mjs
+      - name: Validate company constellation and evidence boundaries
+        run: node scripts/validate-company-constellation.mjs
       - name: Validate existing V17 hiring surface
         run: node site-v15/scripts/validate.mjs
       - name: Upload compiled projection, receipt, Atlas, and company routes
@@ -69,7 +81,9 @@ jobs:
           path: |
             site-v15/data/helix-root.json
             site-v15/data/helix-root.receipt.json
-            site-v15/atlas/index.html
+            site-v15/data/company-atlas-summary.json
+            site-v15/data/company-atlas.proto
+            site-v15/atlas/**
             site-v15/companies/
           if-no-files-found: error
           retention-days: 30
