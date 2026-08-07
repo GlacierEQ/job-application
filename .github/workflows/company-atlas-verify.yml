@@ -1,0 +1,32 @@
+name: Company Atlas Verify
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'site-v14/company-atlas/**'
+      - 'site-v14/assets/company-atlas.css'
+      - 'site-v14/scripts/validate-company-atlas.mjs'
+      - '.github/workflows/company-atlas-verify.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'site-v14/company-atlas/**'
+      - 'site-v14/assets/company-atlas.css'
+      - 'site-v14/scripts/validate-company-atlas.mjs'
+      - '.github/workflows/company-atlas-verify.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Validate evidence-aware company atlas
+        run: node site-v14/scripts/validate-company-atlas.mjs
