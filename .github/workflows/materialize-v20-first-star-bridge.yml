@@ -29,7 +29,9 @@ jobs:
         with:
           node-version: "24"
       - name: Apply exact V20 first-star bridge delta
-        run: python3 scripts/_materialize_v20_first_star_bridge.py
+        run: |
+          python3 scripts/_materialize_v20_first_star_bridge.py
+          python3 scripts/_materialize_v20_first_star_bridge_fix.py
       - name: Run bridge unit tests
         run: node --test deployment/vercel-source-bridge/proxy.test.js
       - name: Assert V20 exact pins and release boundary
