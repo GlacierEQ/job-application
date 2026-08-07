@@ -94,6 +94,7 @@ for (const [name, html] of Object.entries(pages)) {
 }
 assert(/<\/footer>\s*<\/body>\s*<\/html>\s*$/i.test(recruiter), 'recruiter footer must close cleanly');
 assert(!recruiter.includes('&#250493;'), 'recruiter contains corrupted footer text');
+assert(recruiter.includes('V16 + V17 production &#183; verified facts online'), 'recruiter release language drift');
 
 assert(portfolio.schema === 'glaciereq.hiring-portfolio.v15', 'portfolio schema drift');
 assert(portfolio.person.name === 'Casey Del Carpio Barton', 'name drift');
