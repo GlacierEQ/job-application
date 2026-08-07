@@ -62,12 +62,12 @@ jobs:
         run: node scripts/validate-helix-projection.mjs
       - name: Render base Systems Atlas
         run: node scripts/render-helix-atlas.mjs
-      - name: Compile evidence-aware company constellation
-        run: node scripts/render-company-constellation.mjs
       - name: Link Atlas across public surfaces
         run: node scripts/link-helix-atlas.mjs
       - name: Validate generated Atlas and links
         run: node scripts/validate-helix-atlas.mjs
+      - name: Compile evidence-aware company constellation
+        run: node scripts/render-company-constellation.mjs
       - name: Link company constellation across public surfaces
         run: node scripts/link-company-constellation.mjs
       - name: Validate company constellation and evidence boundaries
