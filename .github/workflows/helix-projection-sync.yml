@@ -8,6 +8,7 @@ on:
       - "scripts/render-helix-atlas.mjs"
       - "scripts/render-company-constellation.mjs"
       - "scripts/link-helix-atlas.mjs"
+      - "scripts/link-company-constellation.mjs"
       - "scripts/validate-helix-projection.mjs"
       - "scripts/validate-helix-atlas.mjs"
       - "scripts/validate-company-constellation.mjs"
@@ -22,6 +23,7 @@ on:
       - "scripts/render-helix-atlas.mjs"
       - "scripts/render-company-constellation.mjs"
       - "scripts/link-helix-atlas.mjs"
+      - "scripts/link-company-constellation.mjs"
       - "scripts/validate-helix-projection.mjs"
       - "scripts/validate-helix-atlas.mjs"
       - "scripts/validate-company-constellation.mjs"
@@ -66,6 +68,8 @@ jobs:
         run: node scripts/link-helix-atlas.mjs
       - name: Validate generated Atlas and links
         run: node scripts/validate-helix-atlas.mjs
+      - name: Link company constellation across public surfaces
+        run: node scripts/link-company-constellation.mjs
       - name: Validate company constellation and evidence boundaries
         run: node scripts/validate-company-constellation.mjs
       - name: Validate existing V17 hiring surface
