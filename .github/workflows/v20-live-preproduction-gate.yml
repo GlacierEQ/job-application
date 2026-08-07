@@ -1,0 +1,98 @@
+name: V20 Live Preproduction Gate
+
+on:
+  push:
+    branches:
+      - webdev/v20-first-star-production-bridge
+    paths:
+      - ".github/workflows/v20-live-preproduction-gate.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  live-gate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact PR candidate
+        uses: actions/checkout@v4
+        with:
+          ref: webdev/v20-first-star-production-bridge
+          fetch-depth: 1
+      - name: Configure Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Exercise exact bridge against pinned live sources
+        run: |
+          node - <<'NODE'
+          const bridge = require('./deployment/vercel-source-bridge/api/proxy');
+
+          async function invoke(path) {
+            const headers = new Map();
+            let body = Buffer.alloc(0);
+            const res = {
+              statusCode: 200,
+              setHeader(name, value) { headers.set(String(name).toLowerCase(), String(value)); },
+              end(value = '') { body = Buffer.isBuffer(value) ? value : Buffer.from(String(value)); },
+            };
+            const encoded = path ? `?path=${encodeURIComponent(path)}` : '';
+            await bridge({ url: `/api/proxy${encoded}` }, res);
+            return { status: res.statusCode, headers, body, text: body.toString('utf8') };
+          }
+
+          (async () => {
+            const verify = await invoke('__v20_verify');
+            if (verify.status !== 200) throw new Error(`V20 verifier returned ${verify.status}: ${verify.text}`);
+            const receipt = JSON.parse(verify.text);
+            if (receipt.status !== 'PASS') throw new Error('V20 verifier did not PASS');
+            if (receipt.source_commit !== 'be5ddaa49d60ee551177376a67b92d681768e088') throw new Error('website source pin drift');
+            if (receipt.helix_source_commit !== '87dd202abbff08ad2e7f6cf57739a8bdd661bd46') throw new Error('Helix source pin drift');
+            if (receipt.company_routes !== 49 || receipt.public_repository_memberships !== 59) throw new Error('company topology drift');
+            if (receipt.second_depth.MAPPED_ONLY !== 48 || receipt.second_depth.CODE_INSPECTED !== 1) throw new Error('second-depth topology drift');
+            for (const stage of ['ROLE_VERIFIED','PROBLEM_BOUNDED','REMEDY_BOUNDED','IMPLEMENTED','PROOF_REPRODUCED','CLAIM_PROMOTED']) {
+              if (receipt.second_depth[stage] !== 0) throw new Error(`${stage} unexpectedly advanced`);
+            }
+            const lockheed = receipt.lockheed_martin;
+            if (!lockheed || lockheed.repositories !== 0 || lockheed.stage !== 'CODE_INSPECTED' || lockheed.ordinal !== 3) throw new Error('Lockheed verifier boundary drift');
+            if (lockheed.claim_ceiling !== 'inspected_implementation_alignment') throw new Error('Lockheed claim ceiling drift');
+            if (lockheed.role_evidence !== 1 || lockheed.problem_evidence !== 1 || lockheed.inspected_repositories !== 4) throw new Error('Lockheed evidence-count drift');
+            if (lockheed.proof_artifacts !== 0 || lockheed.claim_receipts !== 0) throw new Error('Lockheed proof/claim advanced prematurely');
+            if (receipt.scripts !== 0 || receipt.trackers !== 0) throw new Error('client execution boundary drift');
+            if (!receipt.files.some((file) => file.path === 'assets/company-constellation.css' && file.ok === true)) throw new Error('constellation stylesheet not release-gated');
+
+            const routes = {
+              atlas: await invoke('atlas'),
+              lockheed: await invoke('companies/lockheed-martin'),
+              record: await invoke('companies/lockheed-martin/record.json'),
+              sitemap: await invoke('sitemap.xml'),
+              llms: await invoke('llms.txt'),
+            };
+            for (const [name, response] of Object.entries(routes)) {
+              if (response.status !== 200) throw new Error(`${name} returned ${response.status}`);
+              if (response.headers.get('x-glaciereq-source-commit') !== 'be5ddaa49d60ee551177376a67b92d681768e088') throw new Error(`${name}: website header pin drift`);
+              if (response.headers.get('x-glaciereq-helix-commit') !== '87dd202abbff08ad2e7f6cf57739a8bdd661bd46') throw new Error(`${name}: Helix header pin drift`);
+              if (response.headers.get('x-psysocx-release') !== 'V20-FIRST-STAR-MOTION') throw new Error(`${name}: release header drift`);
+            }
+            if (!routes.atlas.text.includes('1</b><span>past mapped-only</span>')) throw new Error('Atlas does not show first moving star');
+            if (!routes.lockheed.text.includes('CODE_INSPECTED') || !routes.lockheed.text.includes('inspected_implementation_alignment')) throw new Error('Lockheed HTML stage drift');
+            const record = JSON.parse(routes.record.text);
+            if (record.second_depth.stage !== 'CODE_INSPECTED' || record.second_depth.evidence.inspected_repositories.length !== 4) throw new Error('Lockheed machine record drift');
+            if (!routes.sitemap.text.includes('/companies/lockheed-martin/')) throw new Error('Lockheed missing from sitemap');
+            if (!routes.llms.text.includes('Company Atlas')) throw new Error('Atlas missing from llms discovery');
+
+            console.log(JSON.stringify({
+              status: 'PASS',
+              release: receipt.release,
+              source_commit: receipt.source_commit,
+              helix_source_commit: receipt.helix_source_commit,
+              second_depth: receipt.second_depth,
+              lockheed_martin: receipt.lockheed_martin,
+              routes: Object.fromEntries(Object.entries(routes).map(([name, response]) => [name, response.status])),
+            }, null, 2));
+          })().catch((error) => {
+            console.error(error.stack || error);
+            process.exitCode = 1;
+          });
+          NODE
