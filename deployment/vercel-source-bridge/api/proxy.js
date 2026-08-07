@@ -404,20 +404,6 @@ function compileProjection(index, shards, secondDepthRegistry) {
 
   companies.sort((a, b) => a.display_name.localeCompare(b.display_name));
   if (companies.length !== 49) throw new Error(`expected 49 company tracks, received ${companies.length}`);
-  const lockheed = companies.find((company) => company.company_id === 'lockheed_martin');
-  if (!lockheed) throw new Error('Lockheed Martin track is missing');
-  if (lockheed.repositories.length !== 0 ||
-      lockheed.second_depth.stage !== 'CODE_INSPECTED' ||
-      lockheed.second_depth.ordinal !== 3 ||
-      lockheed.second_depth.claim_ceiling !== 'inspected_implementation_alignment' ||
-      lockheed.second_depth.evidence.role_evidence.length !== 1 ||
-      lockheed.second_depth.evidence.problem_evidence.length !== 1 ||
-      lockheed.second_depth.evidence.inspected_repositories.length !== 4 ||
-      lockheed.second_depth.evidence.proof_artifacts.length !== 0 ||
-      lockheed.second_depth.evidence.claim_receipts.length !== 0) {
-    throw new Error('Lockheed Martin truth boundary drift');
-  }
-
   return {
     schema: 'glaciereq.company-atlas-projection.v2',
     authority: 'GlacierEQ/job-app-helix',
@@ -808,7 +794,7 @@ async function dynamicResponse(filePath, projection) {
 module.exports = async function handler(req, res) {
   securityHeaders(res);
   const raw = requestPath(req);
-  if (raw === '__v20_verify' || raw === '__v19_verify' || raw === '__v18_verify' || raw === '__v15_verify') {
+  if (raw === '__v20_verify') {
     return verifyDeployment(res);
   }
 

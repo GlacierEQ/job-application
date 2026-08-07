@@ -302,3 +302,19 @@ test('V20 verifier includes every rendered constellation stylesheet', () => {
   assert.match(proxySource, /fetchSource\('assets\/company-constellation\.css'\)/);
   assert.match(proxySource, /__v20_verify/);
 });
+
+
+test('V20 release topology is verifier-specific, not a generic compiler invariant', () => {
+  const { ids, companies } = build49();
+  const projection = bridge.compileProjection(baseIndex(ids), [{ companies }], depthRegistry(ids));
+  const lockheed = projection.companies.find((company) => company.company_id === 'lockheed_martin');
+  assert.equal(lockheed.second_depth.stage, 'MAPPED_ONLY');
+  assert.equal(lockheed.second_depth.claim_ceiling, 'company_alignment_only');
+});
+
+test('only __v20_verify advertises the V20 verification schema', () => {
+  assert.match(proxySource, /raw === '__v20_verify'/);
+  assert.doesNotMatch(proxySource, /raw === '__v19_verify'/);
+  assert.doesNotMatch(proxySource, /raw === '__v18_verify'/);
+  assert.doesNotMatch(proxySource, /raw === '__v15_verify'/);
+});
