@@ -1,4 +1,5 @@
 const crypto = require('crypto');
+const { URL } = require('node:url');
 
 const SOURCE_COMMIT = 'ef0cc0394463181ee6999d06f1c8bc5a6c3ab657';
 const RAW_ROOT = `https://raw.githubusercontent.com/GlacierEQ/job-application/${SOURCE_COMMIT}/site-v15/`;
@@ -38,6 +39,13 @@ const REQUIRED = {
   'llms.txt': '480062ea9fea49ca00cd0cba40fdd5260c377b3d0d71ab20e91a7f65702d5151',
   '404.html': '072452ab072b36a04ba1c7e76e8cc0d7d9207f936b9ab00df24ab4c4d0e11981',
 };
+
+function requestPath(req) {
+  const parsed = new URL(String(req.url || '/'), 'https://glaciereq.invalid');
+  const values = parsed.searchParams.getAll('path');
+  if (!values.length) return '';
+  return values.length === 1 ? values[0] : values.join('/');
+}
 
 function normalize(input) {
   const raw = Array.isArray(input) ? input.join('/') : String(input || '');
@@ -122,7 +130,7 @@ async function verifyDeployment(res) {
 module.exports = async function handler(req, res) {
   securityHeaders(res);
 
-  const raw = Array.isArray(req.query.path) ? req.query.path.join('/') : String(req.query.path || '');
+  const raw = requestPath(req);
   if (raw === '__v17_verify' || raw === '__v15_verify') return verifyDeployment(res);
 
   let path = normalize(raw);
@@ -155,3 +163,6 @@ module.exports = async function handler(req, res) {
   res.setHeader('Content-Length', String(body.length));
   res.end(body);
 };
+
+module.exports.requestPath = requestPath;
+module.exports.normalize = normalize;
