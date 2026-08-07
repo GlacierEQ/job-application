@@ -6,6 +6,7 @@ on:
       - 'RESUME.md'
       - 'RESUME_ATS.md'
       - 'site-v15/**'
+      - 'deployment/vercel-source-bridge/**'
       - 'deployment-receipts/V15_*'
       - '.github/workflows/v15-final-hiring-release.yml'
   push:
@@ -14,6 +15,7 @@ on:
       - 'RESUME.md'
       - 'RESUME_ATS.md'
       - 'site-v15/**'
+      - 'deployment/vercel-source-bridge/**'
       - 'deployment-receipts/V15_*'
       - '.github/workflows/v15-final-hiring-release.yml'
 
@@ -38,6 +40,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '24'
+
+      - name: Validate WHATWG source-bridge request parsing
+        run: node --test deployment/vercel-source-bridge/proxy.test.js
 
       - name: Validate PSYSOC-X calibrated hiring system
         run: node site-v15/scripts/validate.mjs
