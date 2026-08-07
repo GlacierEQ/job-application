@@ -6,6 +6,13 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SITE = path.join(ROOT, "site-v15");
+const SNAPSHOT = path.join(SITE, "data", "helix-root.json");
+const COMPANY_ID_PATTERN = /^[a-z0-9_]+$/;
+
+function companySlug(companyId) {
+  if (typeof companyId !== "string" || !COMPANY_ID_PATTERN.test(companyId)) throw new Error(`invalid company identity: ${String(companyId)}`);
+  return companyId.replaceAll("_", "-");
+}
 
 async function htmlFiles(directory) {
   let entries;
@@ -17,9 +24,7 @@ async function htmlFiles(directory) {
   const files = [];
   for (const entry of entries) {
     const target = path.join(directory, entry.name);
-    if (entry.isSymbolicLink()) {
-      throw new Error(`symbolic links are not allowed in the generated site tree: ${path.relative(ROOT, target)}`);
-    }
+    if (entry.isSymbolicLink()) throw new Error(`symbolic links are not allowed in the generated site tree: ${path.relative(ROOT, target)}`);
     if (entry.isDirectory()) files.push(...await htmlFiles(target));
     else if (entry.isFile() && entry.name.endsWith(".html")) files.push(target);
   }
@@ -49,23 +54,35 @@ async function patchTextFile(relative, line) {
   return true;
 }
 
+async function updateSitemap(companyIds) {
+  const sitemap = path.join(SITE, "sitemap.xml");
+  let text = await readFile(sitemap, "utf8");
+  if (!text.includes("</urlset>")) throw new Error("sitemap.xml has no closing urlset element");
+
+  text = text.replace(/\s*<url><loc>https:\/\/casey-barton-glaciereq\.vercel\.app\/companies\/[^<]+<\/loc>(?:<priority>[^<]+<\/priority>)?<\/url>/g, "");
+  const wanted = [
+    "https://casey-barton-glaciereq.vercel.app/atlas/",
+    ...companyIds.map((id) => `https://casey-barton-glaciereq.vercel.app/companies/${companySlug(id)}/`),
+  ];
+  const insertion = wanted.filter((url) => !text.includes(`<loc>${url}</loc>`)).map((url) => `  <url><loc>${url}</loc></url>`).join("\n");
+  const closing = text.lastIndexOf("</urlset>");
+  if (insertion) text = `${text.slice(0, closing).trimEnd()}\n${insertion}\n${text.slice(closing)}`;
+  await writeFile(sitemap, text.endsWith("\n") ? text : `${text}\n`, "utf8");
+}
+
 async function main() {
+  const snapshot = JSON.parse(await readFile(SNAPSHOT, "utf8"));
+  if (!Array.isArray(snapshot.companies)) throw new Error("Helix snapshot companies are missing");
+  const companyIds = snapshot.companies.map((company) => company.company_id);
+  if (new Set(companyIds).size !== companyIds.length) throw new Error("duplicate company ids in Helix snapshot");
+
   let htmlPatched = 0;
   for (const file of await htmlFiles(SITE)) {
     if (await patchHtml(file)) htmlPatched += 1;
   }
-  await patchTextFile("llms.txt", "- Systems Atlas: https://casey-barton-glaciereq.vercel.app/atlas/");
-
-  const sitemap = path.join(SITE, "sitemap.xml");
-  let sitemapText = await readFile(sitemap, "utf8");
-  const atlasUrl = "https://casey-barton-glaciereq.vercel.app/atlas/";
-  if (!sitemapText.includes(atlasUrl)) {
-    const closing = sitemapText.lastIndexOf("</urlset>");
-    if (closing < 0) throw new Error("sitemap.xml has no closing urlset element");
-    sitemapText = `${sitemapText.slice(0, closing)}  <url><loc>${atlasUrl}</loc></url>\n${sitemapText.slice(closing)}`;
-    await writeFile(sitemap, sitemapText, "utf8");
-  }
-  console.log(`Helix Atlas linked across ${htmlPatched} existing HTML surfaces`);
+  await patchTextFile("llms.txt", "- Company Atlas: https://casey-barton-glaciereq.vercel.app/atlas/ (real company routes under /companies/<slug>/; Recruiter + Master + Machine + Mesh depth)");
+  await updateSitemap(companyIds);
+  console.log(`Company Atlas linked across ${htmlPatched} existing HTML surfaces; ${companyIds.length} company routes indexed`);
 }
 
 main().catch((error) => {
