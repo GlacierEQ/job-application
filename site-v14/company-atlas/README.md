@@ -18,6 +18,6 @@ The atlas preserves the production CSP (`script-src 'none'`) and extends the exi
 
 ## Integrity
 
-`company-atlas.snapshot.json` SHA-256: `f485da0f498ca52edd45b7c68e6680eb34beef5dda660f627a1c8343dfd43d08`.
+Committed `company-atlas.snapshot.json` SHA-256: `a38ff15407b745612c49601bcd1917355d7109d65283e31fe94d7d91fc0c895d`.
 
-The sidecar `company-atlas.snapshot.sha256` is the exact hash of the JSON bytes.
+The sidecar `company-atlas.snapshot.sha256` is bound to the exact JSON bytes stored on this branch.
