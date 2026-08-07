@@ -10,7 +10,9 @@ const SNAPSHOT = path.join(SITE, "data", "helix-root.json");
 const COMPANY_ID_PATTERN = /^[a-z0-9_]+$/;
 
 function companySlug(companyId) {
-  if (typeof companyId !== "string" || !COMPANY_ID_PATTERN.test(companyId)) throw new Error(`invalid company identity: ${String(companyId)}`);
+  if (typeof companyId !== "string" || !COMPANY_ID_PATTERN.test(companyId)) {
+    throw new Error(`invalid company identity: ${String(companyId)}`);
+  }
   return companyId.replaceAll("_", "-");
 }
 
@@ -19,13 +21,19 @@ async function htmlFiles(directory) {
   try {
     entries = await readdir(directory, { withFileTypes: true });
   } catch (error) {
-    throw new Error(`cannot read ${path.relative(ROOT, directory)}: ${error instanceof Error ? error.message : String(error)}`);
+    throw new Error(
+      `cannot read ${path.relative(ROOT, directory)}: ${error instanceof Error ? error.message : String(error)}`,
+    );
   }
   const files = [];
   for (const entry of entries) {
     const target = path.join(directory, entry.name);
-    if (entry.isSymbolicLink()) throw new Error(`symbolic links are not allowed in the generated site tree: ${path.relative(ROOT, target)}`);
-    if (entry.isDirectory()) files.push(...await htmlFiles(target));
+    if (entry.isSymbolicLink()) {
+      throw new Error(
+        `symbolic links are not allowed in the generated site tree: ${path.relative(ROOT, target)}`,
+      );
+    }
+    if (entry.isDirectory()) files.push(...(await htmlFiles(target)));
     else if (entry.isFile() && entry.name.endsWith(".html")) files.push(target);
   }
   return files;
@@ -36,7 +44,9 @@ async function patchHtml(file) {
   const navStart = text.indexOf('<nav class="links"');
   if (navStart < 0) return false;
   const navEnd = text.indexOf("</nav>", navStart);
-  if (navEnd < 0) throw new Error(`cannot locate primary navigation close in ${path.relative(ROOT, file)}`);
+  if (navEnd < 0) {
+    throw new Error(`cannot locate primary navigation close in ${path.relative(ROOT, file)}`);
+  }
   const nav = text.slice(navStart, navEnd);
   if (nav.includes('href="/atlas/"')) return false;
   text = `${text.slice(0, navEnd)}<a href="/atlas/">Atlas</a>${text.slice(navEnd)}`;
@@ -44,14 +54,13 @@ async function patchHtml(file) {
   return true;
 }
 
-async function patchTextFile(relative, line) {
+async function patchTextFile(relative, linePrefix, replacement) {
   const file = path.join(SITE, relative);
   let text = await readFile(file, "utf8");
-  if (text.includes(line)) return false;
-  if (!text.endsWith("\n")) text += "\n";
-  text += `${line}\n`;
-  await writeFile(file, text, "utf8");
-  return true;
+  const lines = text.split("\n").filter((line) => !line.startsWith(linePrefix));
+  while (lines.length && lines.at(-1) === "") lines.pop();
+  lines.push(replacement, "");
+  await writeFile(file, lines.join("\n"), "utf8");
 }
 
 async function updateSitemap(companyIds) {
@@ -59,30 +68,59 @@ async function updateSitemap(companyIds) {
   let text = await readFile(sitemap, "utf8");
   if (!text.includes("</urlset>")) throw new Error("sitemap.xml has no closing urlset element");
 
-  text = text.replace(/\s*<url><loc>https:\/\/casey-barton-glaciereq\.vercel\.app\/companies\/[^<]+<\/loc>(?:<priority>[^<]+<\/priority>)?<\/url>/g, "");
+  text = text.replace(
+    /\s*<url><loc>https:\/\/casey-barton-glaciereq\.vercel\.app\/companies\/[^<]+<\/loc>(?:<priority>[^<]+<\/priority>)?<\/url>/g,
+    "",
+  );
   const wanted = [
     "https://casey-barton-glaciereq.vercel.app/atlas/",
-    ...companyIds.map((id) => `https://casey-barton-glaciereq.vercel.app/companies/${companySlug(id)}/`),
+    ...companyIds.map(
+      (id) => `https://casey-barton-glaciereq.vercel.app/companies/${companySlug(id)}/`,
+    ),
   ];
-  const insertion = wanted.filter((url) => !text.includes(`<loc>${url}</loc>`)).map((url) => `  <url><loc>${url}</loc></url>`).join("\n");
+  const insertion = wanted
+    .filter((url) => !text.includes(`<loc>${url}</loc>`))
+    .map((url) => `  <url><loc>${url}</loc></url>`)
+    .join("\n");
   const closing = text.lastIndexOf("</urlset>");
-  if (insertion) text = `${text.slice(0, closing).trimEnd()}\n${insertion}\n${text.slice(closing)}`;
+  if (insertion) {
+    text = `${text.slice(0, closing).trimEnd()}\n${insertion}\n${text.slice(closing)}`;
+  }
   await writeFile(sitemap, text.endsWith("\n") ? text : `${text}\n`, "utf8");
 }
 
 async function main() {
   const snapshot = JSON.parse(await readFile(SNAPSHOT, "utf8"));
-  if (!Array.isArray(snapshot.companies)) throw new Error("Helix snapshot companies are missing");
+  if (!Array.isArray(snapshot.companies)) {
+    throw new Error("Helix snapshot companies are missing");
+  }
+  if (snapshot.companies.length !== 49) {
+    throw new Error(`expected 49 governed company tracks, received ${snapshot.companies.length}`);
+  }
+  if (snapshot.company_second_depth?.schema !== "glaciereq.company-second-depth.v1") {
+    throw new Error("Helix snapshot second-depth contract is missing");
+  }
   const companyIds = snapshot.companies.map((company) => company.company_id);
-  if (new Set(companyIds).size !== companyIds.length) throw new Error("duplicate company ids in Helix snapshot");
+  if (new Set(companyIds).size !== companyIds.length) {
+    throw new Error("duplicate company ids in Helix snapshot");
+  }
+  if (!companyIds.includes("lockheed_martin")) {
+    throw new Error("Lockheed Martin is absent from the canonical company projection");
+  }
 
   let htmlPatched = 0;
   for (const file of await htmlFiles(SITE)) {
     if (await patchHtml(file)) htmlPatched += 1;
   }
-  await patchTextFile("llms.txt", "- Company Atlas: https://casey-barton-glaciereq.vercel.app/atlas/ (real company routes under /companies/<slug>/; Recruiter + Master + Machine + Mesh depth)");
+  await patchTextFile(
+    "llms.txt",
+    "- Company Atlas:",
+    "- Company Atlas: https://casey-barton-glaciereq.vercel.app/atlas/ (49 real company routes under /companies/<slug>/; Recruiter + Master + Machine + Mesh depth; Helix-governed second-depth stage, claim ceiling, blockers, next gate, and pinned public evidence)",
+  );
   await updateSitemap(companyIds);
-  console.log(`Company Atlas linked across ${htmlPatched} existing HTML surfaces; ${companyIds.length} company routes indexed`);
+  console.log(
+    `Company Atlas linked across ${htmlPatched} existing HTML surfaces; ${companyIds.length} company routes indexed`,
+  );
 }
 
 main().catch((error) => {
