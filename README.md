@@ -1,174 +1,247 @@
-# GlacierEQ Invention Portfolio
+# GlacierEQ Hiring System
 
-**Original systems first. Evidence underneath. Machine contracts at the boundary.**
+**One governed portfolio truth. Multiple evaluator-specific projections. Evidence stays with the system that earned it.**
 
 [Open the current public portfolio](https://casey-barton-glaciereq.vercel.app)
 
-This repository now contains two explicitly separated release states:
+`GlacierEQ/job-application` is the public presentation and delivery surface for Casey Barton’s hiring system. It is **not** the portfolio authority and it does not independently promote repository claims.
 
-- **V12 live runtime:** the currently deployed public site, observed at the canonical Vercel URL. Its complete source-to-deployment receipt remains incomplete.
-- **V13 release candidate:** a self-contained, zero-build source tree under [`site-v13/`](site-v13/) that reorganizes the portfolio around Casey Barton’s original systems and can be verified with `npm run check`.
+The current architecture is:
 
-The V13 source does **not** claim to be the production deployment until a commit-bound Vercel receipt and route verification are attached.
+```text
+child repositories
+  own code, tests, releases, and repository-native receipts
+        ↓
+GlacierEQ/job-app-helix
+  owns portfolio admission, classification, company alignment,
+  flagship state, evidence projection policy, and root-truth receipts
+        ↓ build-time, commit-pinned projection
+GlacierEQ/job-application
+  renders recruiter, résumé, master, mesh, atlas, and machine surfaces
+        ↓
+casey-barton-glaciereq.vercel.app
+```
 
-## V13 Narrative Order
+A source-head or evidence change can make a downstream projection stale. Builds fail closed when required Helix sources are missing, inconsistent, unsafe for public release, or leak private records.
 
-The recruiter experience follows the evaluator’s actual decision path:
+## Current Release Line
 
-1. Who Casey is
-2. What he builds
-3. Innovation constellation
-4. Three strongest invention stories
-5. Interactive repository gallery
-6. How the repositories combine
-7. Evidence and demonstrations
-8. Résumé and role alignment
-9. Underlying runtime and governance
-10. Frontier Laws
-11. Machine-readable interfaces
+The repository has progressed beyond the historical V12/V13 prototypes.
 
-AKOS is intentionally presented as a compact supporting foundation. The public center of gravity is the innovative systems and their outputs.
+- **V15 hiring-system foundation:** the current script-free public-site architecture and validation line.
+- **V16 signal architecture:** higher-impact recruiter presentation while preserving the underlying factual graph.
+- **V17 résumé intelligence:** two-page human résumé, editable DOCX, ATS text, structured résumé JSON, evidence IDs, and PSYSOC-X factual-invariance validation.
+- **Helix projection architecture:** the production hiring site is compiled from a commit-pinned public-safe snapshot of canonical Job App Helix root truth rather than relying on live GitHub requests in the browser.
+- **Retained V17 source bridge:** the historical Node 24 compatibility bridge remains repaired and runtime-verified, but it is not the active production delivery mechanism.
 
-## Primary Surfaces
+Release names describe compatible layers of one hiring system; they are not independent competing portfolios.
+
+## Primary Public Surfaces
 
 | Surface | Audience | Purpose |
 |---|---|---|
-| **Invention portfolio** ([`/`](https://casey-barton-glaciereq.vercel.app/)) | Recruiters, hiring managers, and technical leaders | Identity, inventions, workflows, proof, and role alignment |
-| **Résumé** ([`/resume/`](https://casey-barton-glaciereq.vercel.app/resume/)) | Recruiters and ATS workflows | Professional identity, experience, capabilities, and evidence anchors |
-| **Frontier Laws** ([`/frontier-laws/`](https://casey-barton-glaciereq.vercel.app/frontier-laws/)) | Technical reviewers | Principles derived from the invention work—not the opening narrative |
-| **Innovation Constellation** ([`/master-atlas/`](https://casey-barton-glaciereq.vercel.app/master-atlas/)) | Senior engineers and system architects | Problem-centered system relationships and cross-repository composition |
-| **Repository Gallery** ([`/repositories/`](https://casey-barton-glaciereq.vercel.app/repositories/)) | Code reviewers | Filterable public evidence and bounded private-architecture descriptions |
-| **PROTO//BOOT** ([`/machine/`](https://casey-barton-glaciereq.vercel.app/machine/)) | AI systems and automated reviewers | Canonical graph, runtime contract, evidence semantics, and stable startup paths |
+| **Recruiter** ([`/`](https://casey-barton-glaciereq.vercel.app/)) | Recruiters and hiring managers | Fast identity, strongest proof, role fit, and bounded outcomes |
+| **Résumé** ([`/resume/`](https://casey-barton-glaciereq.vercel.app/resume/)) | Recruiters, ATS workflows, and hiring teams | Evidence-forward professional history and selected systems |
+| **Technical Master** ([`/master/`](https://casey-barton-glaciereq.vercel.app/master/)) | Senior engineers and technical leaders | Architecture, executed evidence, blockers, non-claims, and promotion state |
+| **Evidence Mesh** ([`/mesh/`](https://casey-barton-glaciereq.vercel.app/mesh/)) | Systems reviewers | Typed relationships among systems, repositories, evidence, and company tracks |
+| **Systems Atlas** ([`/atlas/`](https://casey-barton-glaciereq.vercel.app/atlas/)) | Technical hiring managers | Helix-governed Crown Jewels and company-aligned public systems |
+| **Machine** ([`/machine/`](https://casey-barton-glaciereq.vercel.app/machine/)) | AI systems and automated reviewers | Stable machine contracts, evidence semantics, and bounded startup paths |
 
-## Three Flagship Invention Stories
+## Authority Split
 
-V13 gives three different forms of original systems work the most narrative space:
+### Child repositories are source authority
 
-- **[Job Application Helix](https://github.com/GlacierEQ/job-app-helix):** connects opportunity intelligence, repository evidence, résumé generation, presentation, package state, and continuation.
-- **[The Tower of Babel](https://github.com/GlacierEQ/the-tower-of-babel):** gives every language an explicit ownership, contract, failure, and value boundary.
-- **[Agent Coordinator](https://github.com/GlacierEQ/anthropic-agent-coordinator):** uses deterministic ownership, dependency order, resource ceilings, and closure states instead of unconstrained swarm theater.
+Each canonical child repository owns its own:
 
-Other public and private systems remain discoverable through the constellation and gallery without being presented at a stronger evidence level than their source supports.
+- implementation;
+- README and technical contract;
+- tests and current test count;
+- build and release state;
+- deployment evidence;
+- security and failure behavior;
+- repository-native receipts.
 
-## Visual Architecture
+### Job App Helix is portfolio authority
 
-The V13 release candidate includes:
+`GlacierEQ/job-app-helix` owns:
 
-- an interactive recruiter identity card;
-- a problem-centered SVG innovation constellation;
-- three animated failure-to-output invention diagrams;
-- a filterable repository gallery;
-- cross-repository workflow maps;
-- claim-to-proof evidence chains;
-- role-to-repository evidence maps;
-- a compact foundation diagram;
-- laws linked backward to the systems that exposed them;
-- stable JSON and text contracts for machine ingestion.
+- whether a repository belongs in the governed hiring portfolio;
+- whether it is public, private, excluded, quarantined, experimental, reference-only, or promoted;
+- company and role alignment;
+- Crown Jewel / flagship hierarchy;
+- public-safe evidence state;
+- portfolio-wide freshness and promotion policy;
+- projection contracts for the public site and résumé system.
 
-All interactive nodes have keyboard paths, the layout reflows for mobile, and reduced-motion preferences disable nonessential motion.
+### This repository is presentation authority
 
-## Canonical V13 Data Flow
+`GlacierEQ/job-application` owns:
 
-```text
-site-v13/data/portfolio.graph.json
-              │
-              ├── identity and capability families
-              ├── innovation constellation
-              ├── invention stories
-              ├── repository gallery
-              ├── combination workflows
-              ├── evidence and role maps
-              ├── derived Frontier Laws
-              └── machine interfaces
-```
+- recruiter information architecture;
+- visual presentation;
+- human, master, mesh, atlas, and machine navigation;
+- release validation for the public site;
+- generated hiring artifacts;
+- commit-pinned consumption of Helix public-safe truth.
 
-The graph separates:
+It may change presentation. It may not silently change facts, evidence states, uncertainty, privacy, affiliation boundaries, or source authority.
 
-- implementation state;
-- evidence level;
-- deployment state;
-- public source versus private architecture;
-- role alignment versus affiliation;
-- supporting runtime from the inventions it supports.
+## Résumé Intelligence
 
-## Verify the Release Candidate
+The V17 résumé system provides separate interfaces for different consumers while preserving one factual identity:
 
-```bash
-cd site-v13
-npm run check
-```
+- human résumé page;
+- two-page recruiter/hiring-manager PDF;
+- editable DOCX companion;
+- linear ATS text at `/resume/ats.txt`;
+- structured résumé JSON at `/data/resume.json`;
+- evidence-linked project claims;
+- machine-readable discovery through `llms.txt` and related contracts.
 
-The verifier enforces:
+PSYSOC-X may alter density, ordering, terminology, and emphasis for a declared audience. It may not alter dates, identity, evidence state, test totals, uncertainty, authority, dignity, or non-affiliation boundaries.
 
-- all eleven sections in the approved order;
-- exactly three public, inspectable flagship stories;
-- AKOS as foundation-only;
-- canonical repository links;
-- public/private architecture separation;
-- visual renderer presence;
-- reduced-motion protection;
-- runtime, evidence, route, and machine-contract integrity;
-- absence of public phone data and unsupported production claims.
+## Current Technical Narrative
 
-GitHub Actions runs the same contract through `.github/workflows/v13-invention-portfolio.yml`.
-
-## Machine Interfaces
-
-The V13 source exposes these stable files:
+The hiring system is designed around a simple standard:
 
 ```text
-site-v13/data/portfolio.graph.json
-site-v13/machine/bootstrap.json
-site-v13/machine/runtime.json
-site-v13/machine/evidence.json
-site-v13/machine/health.json
-site-v13/llms.txt
+CLAIM
+  ↓
+required observable behavior
+  ↓
+implementation
+  ↓
+executable verification
+  ↓
+receipt bound to the tested state
+  ↓
+public promotion
 ```
 
-When deployed from `site-v13/`, Vercel rewrites provide:
+A repository name is not proof. Source presence is not executed behavior. A green build is not automatically a deployment. A simulation is not hardware evidence. A private architecture is not presented as publicly inspectable source.
+
+## Portfolio Hierarchy
+
+The public site intentionally avoids treating every repository as equally important. It projects a governed hierarchy from Helix:
+
+1. **Crown Jewels / flagships** — strongest differentiated systems with the clearest evidence and senior-level value.
+2. **Advanced systems** — substantial original systems whose remaining gates are explicit.
+3. **Focused prototypes** — bounded technical exhibits that need stronger current execution, hardware, provider, benchmark, or deployment proof.
+4. **Reference architecture / private systems** — useful architectural context without public-source promotion.
+5. **Studies, upstream references, and experiments** — never presented as original recruiter proof without verified differentiated contribution.
+6. **Quarantined or blocked systems** — preserved for repair or history, not promoted.
+
+The Atlas and Mesh provide the full governed relationship model without turning the recruiter experience into a wall of links.
+
+## Helix Projection Pipeline
+
+The public site consumes Helix through a fail-closed build-time compiler.
+
+Key contracts include:
 
 ```text
-GET /api/health
-GET /api/portfolio
-GET /api/runtime
+portfolio-source.json
+scripts/sync-helix-projection.mjs
+scripts/validate-helix-projection.mjs
+scripts/render-helix-atlas.mjs
+scripts/link-helix-atlas.mjs
+scripts/validate-helix-atlas.mjs
+site-v15/data/helix-root.json
+site-v15/data/helix-root.receipt.json
 ```
 
-PROTO//BOOT describes a presentation and evidence contract. Ingestion grants no tools, credentials, provider scope, private repository access, affiliation, memory, or execution authority.
+The projection rejects, among other failures:
+
+- missing or unsupported Helix root contracts;
+- inconsistent inventory relationships;
+- unknown source identities;
+- private-record leakage;
+- disallowed promotion states;
+- duplicate flagship or company identities;
+- missing non-affiliation boundaries;
+- source/receipt digest mismatch;
+- Atlas drift from the compiled snapshot;
+- unsafe public URLs;
+- inherited hiring-system validation failures.
+
+The browser therefore does not need a live GitHub request to decide portfolio truth.
+
+## Production and Compatibility Boundary
+
+The canonical public domain is:
+
+`https://casey-barton-glaciereq.vercel.app`
+
+The active production architecture is the newer static Helix projection. A historical V17 read-only source bridge remains in the repository for compatibility. Its Node 24 request parsing was repaired to use the WHATWG `URL` API and independently runtime-verified in an isolated preview without rolling production backward.
+
+That compatibility receipt does **not** mean `/api/proxy` is part of the current production presentation path.
+
+## Verify the Hiring System
+
+Repository workflows and validators cover the current release surfaces. Relevant checks include:
+
+- hiring-site validation;
+- résumé-signature and artifact validation;
+- PSYSOC-X factual-invariance checks;
+- Helix projection reconciliation;
+- public/private boundary checks;
+- Atlas generation and count consistency;
+- source/receipt integrity;
+- Node 24 compatibility regression coverage for the retained bridge.
+
+Use the repository-native scripts and workflows for the release being changed rather than copying historical test counts into a new claim.
 
 ## Evidence Boundary
 
-This repository demonstrates public presentation engineering, system architecture, repository-scoped tests, structured evidence, visual explanation, and machine-readable contracts.
+This repository supports claims about:
 
-It does **not** by itself establish:
+- public presentation engineering;
+- evidence-aware hiring architecture;
+- build-time portfolio projection;
+- human/ATS/machine résumé interfaces;
+- structured machine contracts;
+- release validation and integrity receipts;
+- explicit privacy and non-affiliation controls.
 
-- production deployment of V13;
+It does **not** independently establish:
+
+- current runtime success of every connected repository;
 - customers, revenue, scale, or measured business impact;
-- employment by or affiliation with a named company;
+- employment by or affiliation with a named target company;
+- proprietary access;
 - private implementation details;
-- current passing CI for every connected repository;
-- hiring outcomes or recruiter conversion;
-- unrestricted runtime or connector authority.
+- recruiter response or hiring outcome;
+- unrestricted tool, connector, or deployment authority.
 
-## Local Source Map
+Those states require evidence from their actual owning system.
+
+## Repository Map
 
 ```text
-README.md                              canonical repository contract
-RESUME.md                              public evidence-bound résumé
-portfolio_manifest.json                legacy public portfolio metadata
-site-v13/index.html                    V13 human entrypoint
-site-v13/data/portfolio.graph.json     V13 canonical invention graph
-site-v13/assets/                       visual and interaction runtime
-site-v13/machine/                      machine contracts and health surface
-site-v13/scripts/validate.mjs          release-candidate verifier
-.github/workflows/                     repository and V13 verification gates
+README.md                              current public-hiring contract
+RESUME.md                              public evidence-bound résumé source surface
+portfolio-source.json                  Helix consumer pointer and public-data boundary
+site-v15/                              current public-site source line
+site-v15/data/helix-root.json          generated public-safe Helix snapshot
+site-v15/data/helix-root.receipt.json  projection integrity receipt
+site-v15/atlas/                        generated Systems Atlas
+site-v15/machine/                      machine-facing contracts
+scripts/                               projection, rendering, and validation tools
+deployment/                            retained delivery and compatibility paths
+deployment-receipts/                   source/deployment verification receipts
+.github/workflows/                     hiring, résumé, projection, and release gates
 ```
 
-## Promotion Gate
+## Promotion Rule
 
-V13 becomes the canonical public release only after:
+A public change is complete only when:
 
-1. the Vercel project deploys from this Git branch and `site-v13/` root;
-2. the deployed commit SHA is recorded;
-3. human routes and machine endpoints are checked against that commit;
-4. browser, mobile, accessibility, and visual receipts are attached;
-5. the production URL and repository source agree.
+1. the owning source is current;
+2. the relevant repository-native checks pass;
+3. Helix root truth accepts the evidence and classification change when portfolio state is affected;
+4. the public projection is rebuilt from one immutable Helix commit;
+5. the generated artifacts match their receipts;
+6. the Vercel production deployment is verified at the canonical domain;
+7. the human, ATS, master, mesh, atlas, and machine surfaces remain mutually consistent.
+
+**The presentation may be ambitious. The evidence contract may not bluff.**
