@@ -7,18 +7,20 @@ Honolulu, Hawaiʻi | U.S. Remote | 808-936-5654 | glacier.equilibrium@gmail.com
 
 ## Target Value
 
-Applied AI systems builder with a rare construction-to-AI operating background: four years diagnosing residential building systems in the field, followed by hands-on architecture of agentic workflows, internal control planes, integrations, evaluation gates, observability contracts, governance, and machine-readable release evidence.
+Forward-deployed applied AI systems builder combining four years of construction field diagnostics with three years of intensive AI-assisted experimentation, formalized into GlacierEQ engineering work since January 2025. Builds the operating layer between model capability and dependable outcomes: reusable agentic services, workflow orchestration, integrations, evaluation, observability, governance, human approval, and verifiable handoff.
 
-Best suited to zero-to-one internal AI enablement: partner directly with business operators and leaders, map the real workflow and data boundary, translate ambiguity into a scoped system, evaluate build-versus-buy options, establish reusable architecture and engineering standards, deliver multi-step AI workflows, and leave a dependable handoff.
+Strongest where context is lost, requirements drift, and partial work can masquerade as completion: reopen controlling sources, reconcile versions, trace failure to root cause, preserve checkpoints, and iterate until the result is usable and inspectable. Expanded an experimental estate from roughly 200 forks to more than 1,100 repositories in six months, then built discovery, classification, provenance, promotion, quarantine, and recovery controls so breadth becomes usable evidence rather than noise.
+
+Innovation approach: recombine proven mechanisms into new operational systems rather than pursue novelty for its own sake. Best suited to zero-to-one internal AI enablement: partner directly with operators and leaders, map the real workflow and data boundary, evaluate build-versus-buy options, establish reusable architecture and engineering standards, deliver multi-step AI workflows, and leave a dependable handoff.
 
 ## Direct Alignment to Buildertrend
 
 - **Foundational internal AI platform:** reusable services, agentic systems, workflow orchestration, shared data and tool contracts, human approval, and release governance.
-- **Cross-functional enablement:** translates non-technical needs into bounded technical solutions across different teams, audiences, permissions, and definitions of done.
+- **Cross-functional rigor:** stakeholder discovery, technical scoping, source reconciliation, root-cause pursuit, risk communication, verification, and operator handoff.
 - **Integration architecture:** Python and TypeScript/JavaScript, REST and JSON-RPC APIs, MCP/tool contracts, webhook and event patterns, structured outputs, data pipelines, identity, and permission boundaries.
-- **Engineering standards:** evaluation frameworks, observable state, deterministic tests, provenance, least privilege, replay safety, idempotency, failure recovery, and explicit promotion gates.
-- **Technical judgment:** architecture tradeoffs, technology placement, build-versus-buy analysis, bounded adoption, and evidence-backed recommendations.
-- **Construction product judgment:** understands field conditions, interacting building systems, incomplete information, safety consequences, schedules, customers, estimates, and the gap between technically correct output and usable operational action.
+- **State-loss resilience:** checkpointing, source rehydration, version reconciliation, recovery paths, deterministic validation, and refusal to count partial work as completion.
+- **Systems innovation:** recombination of proven mechanisms into new practical capability, with build-versus-buy analysis, technology placement, architecture tradeoffs, and evidence-backed recommendations.
+- **Construction workflow fluency:** field inspection, repair scoping, estimating, code and safety implications, and interfaces among design, permitting, utilities, building systems, closeout, and owner handoff.
 
 ## Selected Systems and Evidence
 
@@ -56,9 +58,9 @@ Best suited to zero-to-one internal AI enablement: partner directly with busines
 
 - Architect and implement interconnected agent, application-intelligence, evidence, document, memory, infrastructure-governance, and human-machine systems.
 - Translate broad business and operator goals into typed contracts, reusable services, integration boundaries, acceptance criteria, failure-safe transitions, tests, and reviewable receipts.
-- Establish reusable patterns for human approval, evaluation, observability, provenance, deterministic state, replay safety, least privilege, and fail-closed release decisions.
-- Govern a large multi-repository engineering estate without flattening public/private, original/upstream, proposal/execution, simulation/hardware, or candidate/promoted distinctions.
-- Use AI-assisted development as an inspectable engineering process combining source review, bounded generation, critical evaluation, deterministic validation, and human ownership of final quality.
+- Build recovery-first workflows for context loss, stale state, repeated tool failure, and long-running complexity: reopen controlling sources, reconcile versions, preserve checkpoints, verify outputs, and resume without discarding prior gains.
+- Expanded and governed an experimental engineering estate from roughly 200 forks to more than 1,100 repositories in six months; built discovery, classification, provenance, promotion, and quarantine controls so breadth becomes usable evidence rather than noise.
+- Apply a relentless completion standard: distinguish a promising mechanism from a working system, recombine proven components where the architecture creates new value, and retain human ownership of final quality.
 
 ### Diamond Head Home Inspections - Certified Home Inspector
 **Honolulu, Hawaiʻi | 2020-2024**
@@ -79,7 +81,7 @@ Best suited to zero-to-one internal AI enablement: partner directly with busines
 **AI and orchestration:** agentic systems, multi-step workflows, MCP, tool calling, structured outputs, retrieval/context systems, human approval, evaluation frameworks, model/provider integration patterns  
 **Engineering:** Python, TypeScript, JavaScript, SQL, Bash, Node.js, React, Next.js, FastAPI  
 **Integration and data:** REST, JSON-RPC 2.0, webhooks and events, JSON Schema, Protocol Buffers, SQLite, PostgreSQL concepts, data pipelines, provenance, integrity hashing  
-**Reliability and delivery:** state machines, idempotency, bounded retries, replay protection, least privilege, observability contracts, Git, GitHub Actions, Docker, Vercel, automated testing, static analysis, dependency auditing
+**Reliability and delivery:** source rehydration, checkpointing, version reconciliation, state machines, idempotency, bounded retries, replay protection, least privilege, observability contracts, Git, GitHub Actions, Docker, Vercel, automated testing, static analysis, dependency auditing
 
 ## Education
 
@@ -88,4 +90,4 @@ Best suited to zero-to-one internal AI enablement: partner directly with busines
 
 ## Evidence Boundary
 
-Independent GlacierEQ systems and bounded technical exhibits. This résumé does not claim five years of software employment, two years of production AI deployment, B2B SaaS employment, company affiliation, proprietary access, customer impact, or measured business outcomes not supported by direct evidence. It presents the strongest truthful adjacent fit: construction-domain operating judgment plus zero-to-one applied AI architecture and delivery.
+Independent GlacierEQ systems and bounded technical exhibits. This résumé does not claim five years of software employment, two years of production AI deployment, B2B SaaS employment, company affiliation, proprietary access, customer impact, measured business outcomes, or direct ownership of every construction-development phase without supporting evidence. It presents the strongest truthful adjacent fit: construction field judgment, end-to-end workflow reasoning, relentless reliability engineering, and zero-to-one applied AI architecture and delivery.
