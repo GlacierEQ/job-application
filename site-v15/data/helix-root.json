@@ -1,0 +1,2682 @@
+{
+  "companies": [
+    {
+      "applicable_flagships": [],
+      "company_id": "openai",
+      "display_name": "OpenAI",
+      "gap_or_next_gate": "KV sentinel is admitted; Codex/MCP candidates need provenance/runtime audit; upstream SDK/framework repos are excluded.",
+      "non_affiliation": "Independent GlacierEQ work; no OpenAI affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
+      "recruiter_thesis": "Evidence-bound agents, tool authority, evaluation, context integrity, and inspectable provider convergence.",
+      "repositories": [
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/openai-reasoning-kv-sentinel",
+          "visibility": "public"
+        }
+      ],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public OpenAI role/team and inspect the exact admitted KV-sentinel implementation before connecting it to any company-specific engineering problem.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/frontier_ai.json",
+      "target_roles": [
+        "Applied AI Engineer",
+        "Agents Infrastructure Engineer",
+        "Solutions Architect"
+      ],
+      "track_state": "MAPPED_NOT_RECRUITER_READY"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "anthropic",
+      "display_name": "Anthropic",
+      "gap_or_next_gate": "Five direct Anthropic-named repos exist; three private candidates were omitted from the old public count.",
+      "non_affiliation": "Independent GlacierEQ work; no Anthropic affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
+      "recruiter_thesis": "Deterministic coordination, fail-closed safety, human escalation, and honest limitations.",
+      "repositories": [
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L4",
+          "promotion_state": "PROMOTED",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/anthropic-agent-coordinator",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L4",
+          "promotion_state": "PROMOTED",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/anthropic-safety-monitor",
+          "visibility": "public"
+        }
+      ],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public Anthropic role/team, then inspect the exact promoted coordinator and safety-monitor code paths and their native proof before bounding a company-specific remedy.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/frontier_ai.json",
+      "target_roles": [
+        "Agent Infrastructure Engineer",
+        "Safety Systems Engineer",
+        "Applied AI Engineer"
+      ],
+      "track_state": "MAPPED_WITH_RECRUITER_READY_PUBLIC_SUBSET"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "google_deepmind",
+      "display_name": "Google / DeepMind",
+      "gap_or_next_gate": "Six direct DeepMind-named repos exist; one public prototype and five private candidates.",
+      "non_affiliation": "Independent GlacierEQ work; no Google / DeepMind affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
+      "recruiter_thesis": "ML systems, TPU/mesh optimization, temporal routing, predictive handoff, and governed polyglot execution.",
+      "repositories": [
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/deepmind-tpu-mesh-optimizer",
+          "visibility": "public"
+        }
+      ],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/frontier_ai.json",
+      "target_roles": [
+        "ML Systems Engineer",
+        "Applied AI Engineer",
+        "Infrastructure Engineer"
+      ],
+      "track_state": "MAPPED_NOT_RECRUITER_READY"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "xai",
+      "display_name": "xAI",
+      "gap_or_next_gate": "Collapse variants into one suite, one bounded flagship, supporting systems, experiments, public references, private references, and quarantined exclusions; xai-colossal-cooling is public but remains outside admission until successor/unique-value analysis is complete.",
+      "non_affiliation": "Independent GlacierEQ work; no xAI affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
+      "recruiter_thesis": "Frontier infrastructure reasoning across cooling, energy, servers, security, facilities, and Grok-adjacent orchestration.",
+      "repositories": [
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/xai-colossus-energy",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/xai-colossus-2",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/xai-colossus-nanosphere",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/xai-colossus-security",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/xai-colossus-servers",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/grokodile",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "ESTATE_DISCOVERED_NOT_HELIX_ADMITTED",
+          "level": "L2",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/xai-colossal-cooling",
+          "visibility": "public"
+        }
+      ],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public xAI role/team, select one bounded infrastructure problem, then reconcile successor/unique-value status across the Colossus repository family before any company-specific claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/frontier_ai.json",
+      "target_roles": [
+        "Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Applied AI Systems Engineer"
+      ],
+      "track_state": "MAPPED_NOT_RECRUITER_READY"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "microsoft",
+      "display_name": "Microsoft",
+      "gap_or_next_gate": "Two admitted prototypes; document/operator candidates need provenance/security audit.",
+      "non_affiliation": "Independent GlacierEQ work; no Microsoft affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
+      "recruiter_thesis": "Enterprise AI operations, identity, zero-trust, document/operator workflows, and auditable platform control.",
+      "repositories": [
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/microsoft-azure-ops",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/microsoft-identity-zero-trust",
+          "visibility": "public"
+        }
+      ],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public Microsoft role/team and inspect the exact recruiter-admitted Microsoft-aligned repositories before promoting beyond general systems alignment.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/platform_infrastructure.json",
+      "target_roles": [
+        "AI Platform Engineer",
+        "Cloud Solutions Architect",
+        "Identity/Security Engineer"
+      ],
+      "track_state": "MAPPED_NOT_RECRUITER_READY"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "aws",
+      "display_name": "AWS",
+      "gap_or_next_gate": "Trainium exhibit is thin; products API and private education evidence need originality/privacy/deployment review.",
+      "non_affiliation": "Independent GlacierEQ work; no AWS affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
+      "recruiter_thesis": "Cloud and accelerator systems, Trainium/Neuron observability, and evidence-bound deployment operations.",
+      "repositories": [
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/aws-trainium-neuron-sentinel",
+          "visibility": "public"
+        }
+      ],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/platform_infrastructure.json",
+      "target_roles": [
+        "Cloud AI Engineer",
+        "Solutions Architect",
+        "AI Infrastructure Engineer"
+      ],
+      "track_state": "MAPPED_NOT_RECRUITER_READY"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "spacex",
+      "display_name": "SpaceX",
+      "gap_or_next_gate": "Estate count is 14 direct-named repos; public suite remains 12 until two private candidates earn admission.",
+      "non_affiliation": "Independent GlacierEQ work; no SpaceX affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
+      "recruiter_thesis": "Mission systems across telemetry, propulsion, sequencing, ground, autonomy, orbital, conjunction, cryogenics, weather, mesh, control, and thermal protection.",
+      "repositories": [
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/spacex-autonomy",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/spacex-conjunction-sentinel",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/spacex-cryogenics",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/spacex-ground-network",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/spacex-launch-sequencer",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/spacex-mission-control",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/spacex-orbital-mechanics",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/spacex-pad-weather-gate",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/spacex-propulsion-monitor",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/spacex-satellite-mesh",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/spacex-telemetry",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/spacex-thermal-protection",
+          "visibility": "public"
+        }
+      ],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public SpaceX role/team and operating problem, then reconcile it against the governed SpaceX repository family and existing README Mesh before any implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/platform_infrastructure.json",
+      "target_roles": [
+        "Software Engineer, Avionics",
+        "Mission Systems Engineer",
+        "Infrastructure/Automation Engineer"
+      ],
+      "track_state": "MAPPED_NOT_RECRUITER_READY"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "nvidia",
+      "display_name": "NVIDIA",
+      "gap_or_next_gate": "Five direct NVIDIA-named repos exist; all need CUDA/hardware correctness and benchmark receipts.",
+      "non_affiliation": "Independent GlacierEQ work; no NVIDIA affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
+      "recruiter_thesis": "GPU reliability, health, gradient protection, circuit breaking, deep reasoning, and agent consensus.",
+      "repositories": [
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/nvidia-deep-reasoning",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/nvidia-gpu-health",
+          "visibility": "public"
+        }
+      ],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public NVIDIA role/team, identify one externally supportable infrastructure problem, then inspect only the governed NVIDIA-aligned repositories that could materially address it.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/platform_infrastructure.json",
+      "target_roles": [
+        "AI Infrastructure Engineer",
+        "GPU Reliability Engineer",
+        "Applied Deep Learning Engineer"
+      ],
+      "track_state": "MAPPED_NOT_RECRUITER_READY"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "apple",
+      "display_name": "Apple",
+      "gap_or_next_gate": "Public ANE prototype plus private Apple MCP/iOS doctrine; device-level verification required.",
+      "non_affiliation": "Independent GlacierEQ work; no Apple affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
+      "recruiter_thesis": "On-device AI, ANE/Metal/Swift performance, Apple automation, and privacy-aware local intelligence.",
+      "repositories": [
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/apple-ane-kv-quantizer",
+          "visibility": "public"
+        }
+      ],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/platform_infrastructure.json",
+      "target_roles": [
+        "Machine Learning Engineer",
+        "AI/ML Platform Engineer",
+        "Software Engineer, Apple Platforms"
+      ],
+      "track_state": "MAPPED_NOT_RECRUITER_READY"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "meta",
+      "display_name": "Meta",
+      "gap_or_next_gate": "Public exhibit needs distributed-behavior proof; metaagent originality requires audit.",
+      "non_affiliation": "Independent GlacierEQ work; no Meta affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
+      "recruiter_thesis": "Llama collective reliability and multi-agent coordination under bounded evidence.",
+      "repositories": [
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/meta-llama-collective-sentinel",
+          "visibility": "public"
+        }
+      ],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/platform_infrastructure.json",
+      "target_roles": [
+        "AI Systems Engineer",
+        "Applied AI Engineer"
+      ],
+      "track_state": "MAPPED_NOT_RECRUITER_READY"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "tesla",
+      "display_name": "Tesla",
+      "gap_or_next_gate": "Requires stream correctness, latency, backpressure, fault, and replay receipts.",
+      "non_affiliation": "Independent GlacierEQ work; no Tesla affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
+      "recruiter_thesis": "Streaming occupancy and perception-system reliability with explicit latency/failure boundaries.",
+      "repositories": [
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/tesla-fsd-occupancy-stream",
+          "visibility": "public"
+        }
+      ],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/platform_infrastructure.json",
+      "target_roles": [
+        "AI Infrastructure Engineer",
+        "Autonomy Software Engineer",
+        "Data/Platform Engineer"
+      ],
+      "track_state": "MAPPED_NOT_RECRUITER_READY"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "deepseek",
+      "display_name": "DeepSeek",
+      "gap_or_next_gate": "Focused prototype; current positive-count tests, realistic fixtures, and failure receipts required.",
+      "non_affiliation": "Independent GlacierEQ work; no DeepSeek affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
+      "recruiter_thesis": "MLA/MoE reliability and model-serving observability.",
+      "repositories": [
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/deepseek-mla-moe-sentinel",
+          "visibility": "public"
+        }
+      ],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/model_product_companies.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Forward-Deployed Engineer"
+      ],
+      "track_state": "MAPPED_NOT_RECRUITER_READY"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "kimi",
+      "display_name": "Moonshot AI / Kimi",
+      "gap_or_next_gate": "Focused prototype; current positive-count tests, realistic fixtures, and failure receipts required.",
+      "non_affiliation": "Independent GlacierEQ work; no Moonshot AI / Kimi affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
+      "recruiter_thesis": "KV streaming, long-context serving, and bounded memory transport.",
+      "repositories": [
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/kimi-mooncake-kv-stream",
+          "visibility": "public"
+        }
+      ],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/model_product_companies.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Forward-Deployed Engineer"
+      ],
+      "track_state": "MAPPED_NOT_RECRUITER_READY"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "qwen",
+      "display_name": "Alibaba / Qwen",
+      "gap_or_next_gate": "Focused prototype; current positive-count tests, realistic fixtures, and failure receipts required.",
+      "non_affiliation": "Independent GlacierEQ work; no Alibaba / Qwen affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
+      "recruiter_thesis": "Vision-language routing and low-latency multimodal orchestration.",
+      "repositories": [
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/qwen-vl-flash-router",
+          "visibility": "public"
+        }
+      ],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/model_product_companies.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Forward-Deployed Engineer"
+      ],
+      "track_state": "MAPPED_NOT_RECRUITER_READY"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "notion",
+      "display_name": "Notion",
+      "gap_or_next_gate": "Three admitted prototypes; upstream delta and archive excluded.",
+      "non_affiliation": "Independent GlacierEQ work; no Notion affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
+      "recruiter_thesis": "Workspace intelligence, MCP empowerment, and governed workflow optimization.",
+      "repositories": [
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/notion-mcp-empowerment-engine",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/notion-workflow-intelligence",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/notion-workspace-optimizer",
+          "visibility": "public"
+        }
+      ],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public Notion role/team and inspect the exact recruiter-admitted Notion-aligned repositories before promoting beyond general platform alignment.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/model_product_companies.json",
+      "target_roles": [
+        "AI Product Engineer",
+        "Applied AI Engineer",
+        "Solutions Engineer"
+      ],
+      "track_state": "MAPPED_NOT_RECRUITER_READY"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "opera",
+      "display_name": "Opera",
+      "gap_or_next_gate": "Focused prototype; current positive-count tests, realistic fixtures, and failure receipts required.",
+      "non_affiliation": "Independent GlacierEQ work; no Opera affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
+      "recruiter_thesis": "Agentic/spatial browser workspace design and operator flow.",
+      "repositories": [
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/opera-neon-spatial-workspace",
+          "visibility": "public"
+        }
+      ],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/model_product_companies.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Forward-Deployed Engineer"
+      ],
+      "track_state": "MAPPED_NOT_RECRUITER_READY"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "perplexity",
+      "display_name": "Perplexity",
+      "gap_or_next_gate": "Public bridge plus public doctrine; both remain reference-only until browser safety, recovery, originality, and end-to-end evidence are current.",
+      "non_affiliation": "Independent GlacierEQ work; no Perplexity affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
+      "recruiter_thesis": "Browser-agent integration and operator-safe research workflows.",
+      "repositories": [
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/comet-browser-agent-bridge",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L2",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/Pro-comet-agent",
+          "visibility": "public"
+        }
+      ],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/model_product_companies.json",
+      "target_roles": [
+        "Product Engineer",
+        "Applied AI Engineer",
+        "Forward-Deployed Engineer"
+      ],
+      "track_state": "MAPPED_NOT_RECRUITER_READY"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "manus",
+      "display_name": "Manus",
+      "gap_or_next_gate": "Prototype until live browser safety, recovery, and task receipts pass.",
+      "non_affiliation": "Independent GlacierEQ work; no Manus affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
+      "recruiter_thesis": "Autonomous web-agent planning with bounded permissions and inspectable completion.",
+      "repositories": [
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/manus-autonomous-web-agent",
+          "visibility": "public"
+        }
+      ],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/model_product_companies.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Forward-Deployed Engineer"
+      ],
+      "track_state": "MAPPED_NOT_RECRUITER_READY"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "lovable",
+      "display_name": "Lovable",
+      "gap_or_next_gate": "Prototype until build correctness, UI quality, and provenance receipts pass.",
+      "non_affiliation": "Independent GlacierEQ work; no Lovable affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
+      "recruiter_thesis": "Design-to-application synthesis with bounded generation and verifiable output.",
+      "repositories": [
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/lovable-design-app-synth",
+          "visibility": "public"
+        }
+      ],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/model_product_companies.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Forward-Deployed Engineer"
+      ],
+      "track_state": "MAPPED_NOT_RECRUITER_READY"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "openclaw",
+      "display_name": "OpenClaw",
+      "gap_or_next_gate": "Requires identity/provenance and current executable evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no OpenClaw affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
+      "recruiter_thesis": "Tool-using agent runtime and controlled automation.",
+      "repositories": [
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/openclaw",
+          "visibility": "public"
+        }
+      ],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/model_product_companies.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Forward-Deployed Engineer"
+      ],
+      "track_state": "MAPPED_NOT_RECRUITER_READY"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "tasklet",
+      "display_name": "Tasklet",
+      "gap_or_next_gate": "Focused prototype; current positive-count tests, realistic fixtures, and failure receipts required.",
+      "non_affiliation": "Independent GlacierEQ work; no Tasklet affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
+      "recruiter_thesis": "Typed, bounded micro-agent execution.",
+      "repositories": [
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/tasklet-micro-agent-engine",
+          "visibility": "public"
+        }
+      ],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/model_product_companies.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Forward-Deployed Engineer"
+      ],
+      "track_state": "MAPPED_NOT_RECRUITER_READY"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "robotics",
+      "display_name": "Robotics / Embodied AI",
+      "gap_or_next_gate": "Focused prototype; current positive-count tests, realistic fixtures, and failure receipts required.",
+      "non_affiliation": "Independent GlacierEQ work; no Robotics / Embodied AI affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
+      "recruiter_thesis": "VLA torque-safety monitoring and embodied-system boundaries.",
+      "repositories": [
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/robotics-vla-torque-sentinel",
+          "visibility": "public"
+        }
+      ],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/model_product_companies.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Forward-Deployed Engineer"
+      ],
+      "track_state": "MAPPED_NOT_RECRUITER_READY"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "palantir",
+      "display_name": "Palantir",
+      "gap_or_next_gate": "No direct company-specific repository was verified in the exact-name and Helix-governed inventory. Build a dossier only from genuine role-aligned evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "No company-named proof is invented; applicable personal flagships are mapped separately.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/additional_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Forward-Deployed Engineer"
+      ],
+      "track_state": "NO_DIRECT_EXHIBIT_VERIFIED"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "anduril",
+      "display_name": "Anduril",
+      "gap_or_next_gate": "No direct company-specific repository was verified in the exact-name and Helix-governed inventory. Build a dossier only from genuine role-aligned evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "No company-named proof is invented; applicable personal flagships are mapped separately.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/additional_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Forward-Deployed Engineer"
+      ],
+      "track_state": "NO_DIRECT_EXHIBIT_VERIFIED"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "scale_ai",
+      "display_name": "Scale AI",
+      "gap_or_next_gate": "No direct company-specific repository was verified in the exact-name and Helix-governed inventory. Build a dossier only from genuine role-aligned evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "No company-named proof is invented; applicable personal flagships are mapped separately.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/additional_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Forward-Deployed Engineer"
+      ],
+      "track_state": "NO_DIRECT_EXHIBIT_VERIFIED"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "mistral",
+      "display_name": "Mistral AI",
+      "gap_or_next_gate": "No direct company-specific repository was verified in the exact-name and Helix-governed inventory. Build a dossier only from genuine role-aligned evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "No company-named proof is invented; applicable personal flagships are mapped separately.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/additional_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Forward-Deployed Engineer"
+      ],
+      "track_state": "NO_DIRECT_EXHIBIT_VERIFIED"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "cohere",
+      "display_name": "Cohere",
+      "gap_or_next_gate": "No direct company-specific repository was verified in the exact-name and Helix-governed inventory. Build a dossier only from genuine role-aligned evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "No company-named proof is invented; applicable personal flagships are mapped separately.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/additional_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Forward-Deployed Engineer"
+      ],
+      "track_state": "NO_DIRECT_EXHIBIT_VERIFIED"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "databricks",
+      "display_name": "Databricks",
+      "gap_or_next_gate": "No direct company-specific repository was verified in the exact-name and Helix-governed inventory. Build a dossier only from genuine role-aligned evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "No company-named proof is invented; applicable personal flagships are mapped separately.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/additional_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Forward-Deployed Engineer"
+      ],
+      "track_state": "NO_DIRECT_EXHIBIT_VERIFIED"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "snowflake",
+      "display_name": "Snowflake",
+      "gap_or_next_gate": "No direct company-specific repository was verified in the exact-name and Helix-governed inventory. Build a dossier only from genuine role-aligned evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "No company-named proof is invented; applicable personal flagships are mapped separately.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/additional_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Forward-Deployed Engineer"
+      ],
+      "track_state": "NO_DIRECT_EXHIBIT_VERIFIED"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "ibm",
+      "display_name": "IBM",
+      "gap_or_next_gate": "No direct company-specific repository was verified in the exact-name and Helix-governed inventory. Build a dossier only from genuine role-aligned evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "No company-named proof is invented; applicable personal flagships are mapped separately.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/additional_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Forward-Deployed Engineer"
+      ],
+      "track_state": "NO_DIRECT_EXHIBIT_VERIFIED"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "intel",
+      "display_name": "Intel",
+      "gap_or_next_gate": "A private Intel NPU repository and an archived public fork-shaped copy exist. Audit provenance and unique GlacierEQ implementation before any recruiter promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "No company-named proof is invented; applicable personal flagships are mapped separately.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/additional_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Forward-Deployed Engineer"
+      ],
+      "track_state": "DIRECT_ESTATE_DISCOVERED_NOT_RECRUITER_READY"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "amd",
+      "display_name": "AMD",
+      "gap_or_next_gate": "No direct company-specific repository was verified in the exact-name and Helix-governed inventory. Build a dossier only from genuine role-aligned evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "No company-named proof is invented; applicable personal flagships are mapped separately.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/additional_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Forward-Deployed Engineer"
+      ],
+      "track_state": "NO_DIRECT_EXHIBIT_VERIFIED"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "qualcomm",
+      "display_name": "Qualcomm",
+      "gap_or_next_gate": "No direct company-specific repository was verified in the exact-name and Helix-governed inventory. Build a dossier only from genuine role-aligned evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "No company-named proof is invented; applicable personal flagships are mapped separately.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/additional_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Forward-Deployed Engineer"
+      ],
+      "track_state": "NO_DIRECT_EXHIBIT_VERIFIED"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "oracle",
+      "display_name": "Oracle",
+      "gap_or_next_gate": "No direct company-specific repository was verified in the exact-name and Helix-governed inventory. Build a dossier only from genuine role-aligned evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "No company-named proof is invented; applicable personal flagships are mapped separately.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/additional_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Forward-Deployed Engineer"
+      ],
+      "track_state": "NO_DIRECT_EXHIBIT_VERIFIED"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "salesforce",
+      "display_name": "Salesforce",
+      "gap_or_next_gate": "No direct company-specific repository was verified in the exact-name and Helix-governed inventory. Build a dossier only from genuine role-aligned evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "No company-named proof is invented; applicable personal flagships are mapped separately.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/additional_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Forward-Deployed Engineer"
+      ],
+      "track_state": "NO_DIRECT_EXHIBIT_VERIFIED"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "adobe",
+      "display_name": "Adobe",
+      "gap_or_next_gate": "No direct company-specific repository was verified in the exact-name and Helix-governed inventory. Build a dossier only from genuine role-aligned evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "No company-named proof is invented; applicable personal flagships are mapped separately.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/additional_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Forward-Deployed Engineer"
+      ],
+      "track_state": "NO_DIRECT_EXHIBIT_VERIFIED"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "cloudflare",
+      "display_name": "Cloudflare",
+      "gap_or_next_gate": "No direct company-specific repository was verified in the exact-name and Helix-governed inventory. Build a dossier only from genuine role-aligned evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "No company-named proof is invented; applicable personal flagships are mapped separately.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/additional_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Forward-Deployed Engineer"
+      ],
+      "track_state": "NO_DIRECT_EXHIBIT_VERIFIED"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "vercel",
+      "display_name": "Vercel",
+      "gap_or_next_gate": "No direct company-specific repository was verified in the exact-name and Helix-governed inventory. Build a dossier only from genuine role-aligned evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "No company-named proof is invented; applicable personal flagships are mapped separately.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/additional_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Forward-Deployed Engineer"
+      ],
+      "track_state": "NO_DIRECT_EXHIBIT_VERIFIED"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "hugging_face",
+      "display_name": "Hugging Face",
+      "gap_or_next_gate": "No direct company-specific repository was verified in the exact-name and Helix-governed inventory. Build a dossier only from genuine role-aligned evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "No company-named proof is invented; applicable personal flagships are mapped separately.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/additional_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Forward-Deployed Engineer"
+      ],
+      "track_state": "NO_DIRECT_EXHIBIT_VERIFIED"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "groq",
+      "display_name": "Groq",
+      "gap_or_next_gate": "groqchat explicitly derives from an external FreeGenius implementation; claude-code-kimi-groq is inspired by an external proxy. Preserve both as provenance-audit references until original delta, tests, and security boundaries are measured.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "No company-named proof is invented; applicable personal flagships are mapped separately.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/additional_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Forward-Deployed Engineer"
+      ],
+      "track_state": "DIRECT_ESTATE_DISCOVERED_NOT_RECRUITER_READY"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "cerebras",
+      "display_name": "Cerebras",
+      "gap_or_next_gate": "No direct company-specific repository was verified in the exact-name and Helix-governed inventory. Build a dossier only from genuine role-aligned evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "No company-named proof is invented; applicable personal flagships are mapped separately.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/additional_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Forward-Deployed Engineer"
+      ],
+      "track_state": "NO_DIRECT_EXHIBIT_VERIFIED"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "coreweave",
+      "display_name": "CoreWeave",
+      "gap_or_next_gate": "Five direct CoreWeave-named private prototypes exist. Audit provenance, implementation depth, tests, and runtime evidence before selecting any public or recruiter-facing flagship.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "No company-named proof is invented; applicable personal flagships are mapped separately.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/additional_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Forward-Deployed Engineer"
+      ],
+      "track_state": "DIRECT_ESTATE_DISCOVERED_NOT_RECRUITER_READY"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "waymo",
+      "display_name": "Waymo",
+      "gap_or_next_gate": "No direct company-specific repository was verified in the exact-name and Helix-governed inventory. Build a dossier only from genuine role-aligned evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "No company-named proof is invented; applicable personal flagships are mapped separately.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/additional_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Forward-Deployed Engineer"
+      ],
+      "track_state": "NO_DIRECT_EXHIBIT_VERIFIED"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "zoox",
+      "display_name": "Zoox",
+      "gap_or_next_gate": "No direct company-specific repository was verified in the exact-name and Helix-governed inventory. Build a dossier only from genuine role-aligned evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "No company-named proof is invented; applicable personal flagships are mapped separately.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/additional_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Forward-Deployed Engineer"
+      ],
+      "track_state": "NO_DIRECT_EXHIBIT_VERIFIED"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "blue_origin",
+      "display_name": "Blue Origin",
+      "gap_or_next_gate": "No direct company-specific repository was verified in the exact-name and Helix-governed inventory. Build a dossier only from genuine role-aligned evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "No company-named proof is invented; applicable personal flagships are mapped separately.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/additional_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Forward-Deployed Engineer"
+      ],
+      "track_state": "NO_DIRECT_EXHIBIT_VERIFIED"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "rocket_lab",
+      "display_name": "Rocket Lab",
+      "gap_or_next_gate": "No direct company-specific repository was verified in the exact-name and Helix-governed inventory. Build a dossier only from genuine role-aligned evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "No company-named proof is invented; applicable personal flagships are mapped separately.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/additional_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Forward-Deployed Engineer"
+      ],
+      "track_state": "NO_DIRECT_EXHIBIT_VERIFIED"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "lockheed_martin",
+      "display_name": "Lockheed Martin",
+      "gap_or_next_gate": "No Lockheed Martin-named repository or recruiter-admitted company-specific proof was found in the connected GlacierEQ estate. Verify a current public role and team, bound one externally supportable problem, then inspect only genuinely relevant GlacierEQ implementations before raising the claim ceiling.",
+      "non_affiliation": "Independent GlacierEQ work; no Lockheed Martin affiliation, endorsement, employment, proprietary access, contract relationship, clearance, or production deployment is claimed.",
+      "recruiter_thesis": "Mission-critical software, governed automation, evidence-bound engineering, recovery-oriented architecture, and cross-domain systems reasoning are candidate alignment themes only; no Lockheed-specific implementation claim is made without direct evidence.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "company_specific_remedy_not_bounded",
+          "implementation_not_created",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "inspected_implementation_alignment",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [
+            {
+              "id": "lockheed_inspection_akos_runtime",
+              "kind": "repository_inspection",
+              "source_identity": "https://github.com/GlacierEQ/AKOS/blob/89403272a76dda8e1f9f317e16bfce5b60c1a3f5/runtime/src/index.ts",
+              "source_ref": "commit:89403272a76dda8e1f9f317e16bfce5b60c1a3f5",
+              "verification_state": "VERIFIED",
+              "visibility": "public"
+            },
+            {
+              "id": "lockheed_inspection_apex_control_plane",
+              "kind": "repository_inspection",
+              "source_identity": "https://github.com/GlacierEQ/apex-control-plane/blob/340834cf8d6c65832196b6cc0b6df281574842f8/src/control_plane_runtime.py",
+              "source_ref": "commit:340834cf8d6c65832196b6cc0b6df281574842f8",
+              "verification_state": "VERIFIED",
+              "visibility": "public"
+            },
+            {
+              "id": "lockheed_inspection_tower_integrity",
+              "kind": "repository_inspection",
+              "source_identity": "https://github.com/GlacierEQ/the-tower-of-babel/blob/e3778353e92b404de43f41963a0c7bffb84897ac/src/tower/integrity.py",
+              "source_ref": "commit:e3778353e92b404de43f41963a0c7bffb84897ac",
+              "verification_state": "VERIFIED",
+              "visibility": "public"
+            },
+            {
+              "id": "lockheed_inspection_tower_receipt",
+              "kind": "repository_inspection",
+              "source_identity": "https://github.com/GlacierEQ/the-tower-of-babel/blob/e3778353e92b404de43f41963a0c7bffb84897ac/src/tower/receipt.py",
+              "source_ref": "commit:e3778353e92b404de43f41963a0c7bffb84897ac",
+              "verification_state": "VERIFIED",
+              "visibility": "public"
+            }
+          ],
+          "problem_evidence": [
+            {
+              "id": "lockheed_problem_trusted_agentic_ai_integration",
+              "kind": "problem",
+              "source_identity": "https://www.lockheedmartin.com/en-us/capabilities/artificial-intelligence-machine-learning.html",
+              "source_ref": "sha256:87cc52bdc656fd2348ae30ec9a9bbfc3cb5b47927147f2cb2557062fa48ecd75",
+              "verification_state": "VERIFIED",
+              "visibility": "public"
+            }
+          ],
+          "proof_artifacts": [],
+          "role_evidence": [
+            {
+              "id": "lockheed_role_734997br",
+              "kind": "role",
+              "source_identity": "https://www.lockheedmartinjobs.com/job/sunnyvale/architecture-and-algorithms-agentic-ai-ml-engineer-level-2-3/694/97838518096",
+              "source_ref": "sha256:e3a0306982ef5f73f81107bbf9197c0c3a949909103fb4ac0b47e530fd4c3d01",
+              "verification_state": "VERIFIED",
+              "visibility": "public"
+            }
+          ]
+        },
+        "next_gate": "Bound a Lockheed-specific candidate remedy from the inspected AKOS, APEX control-plane, and Tower integrity capabilities without changing those source systems or claiming company adoption.",
+        "ordinal": 3,
+        "stage": "CODE_INSPECTED"
+      },
+      "source_shard": "manifests/company_dossiers/additional_targets.json",
+      "target_roles": [
+        "AI / ML Systems Engineer",
+        "Mission Systems Software Engineer",
+        "Systems Architect"
+      ],
+      "track_state": "NO_DIRECT_EXHIBIT_VERIFIED"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "nasa",
+      "display_name": "NASA",
+      "gap_or_next_gate": "No direct company-specific repository was verified in the exact-name and Helix-governed inventory. Build a dossier only from genuine role-aligned evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "No company-named proof is invented; applicable personal flagships are mapped separately.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/additional_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Forward-Deployed Engineer"
+      ],
+      "track_state": "NO_DIRECT_EXHIBIT_VERIFIED"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "glaciereq_core",
+      "display_name": "GlacierEQ Core",
+      "gap_or_next_gate": "Cross-company personal systems; ECHO is admitted but remains BLOCKED from promotion pending current-head public-release evidence, while Sigma Glue is admitted as REFERENCE_ONLY until its executable Definition of Done closes.",
+      "non_affiliation": "Independent GlacierEQ work; no employer affiliation is implied by this internal cross-company authority track.",
+      "recruiter_thesis": "Reusable personal flagships and supporting systems carrying proof across employer applications.",
+      "repositories": [
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/AEON-777",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L5",
+          "promotion_state": "PROMOTED",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/AKOS",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/GlacierEQ_Swarm",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/apex-cli",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/apex-control-plane",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/colossus-gateway",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/colossus-training-flux",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/glaciereq-mcp-stack",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L4",
+          "promotion_state": "PROMOTED",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/job-application",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L4",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/pro-code",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L4",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/sigma-glue",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/spiral-engine",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L4",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/the-tower-of-babel",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/token_saver",
+          "visibility": "public"
+        }
+      ],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/glaciereq_core.json",
+      "target_roles": [
+        "Applied AI Systems Architect",
+        "Forward-Deployed AI Engineer",
+        "Agent Infrastructure Engineer"
+      ],
+      "track_state": "INTERNAL_CROSS_COMPANY_AUTHORITY"
+    }
+  ],
+  "company_second_depth": {
+    "boundary": "Second-depth state is Helix-governed. Public claim ceilings advance only when pinned public evidence satisfies every cumulative stage prerequisite.",
+    "content_sha256": "c71f192cf6667ff0c7a5114a2ca22bde239992b9068bdbb6b4f7f82cd0da5a7d",
+    "priority_wave": [
+      "lockheed_martin",
+      "openai",
+      "anthropic",
+      "nvidia",
+      "spacex",
+      "xai",
+      "microsoft",
+      "notion"
+    ],
+    "schema": "glaciereq.company-second-depth.v1",
+    "source_path": "manifests/company_second_depth.json",
+    "stage_order": [
+      {
+        "id": "MAPPED_ONLY",
+        "ordinal": 0,
+        "public_claim_ceiling": "company_alignment_only"
+      },
+      {
+        "id": "ROLE_VERIFIED",
+        "ordinal": 1,
+        "public_claim_ceiling": "verified_role_alignment"
+      },
+      {
+        "id": "PROBLEM_BOUNDED",
+        "ordinal": 2,
+        "public_claim_ceiling": "externally_bounded_problem_alignment"
+      },
+      {
+        "id": "CODE_INSPECTED",
+        "ordinal": 3,
+        "public_claim_ceiling": "inspected_implementation_alignment"
+      },
+      {
+        "id": "REMEDY_BOUNDED",
+        "ordinal": 4,
+        "public_claim_ceiling": "bounded_remedy_design"
+      },
+      {
+        "id": "IMPLEMENTED",
+        "ordinal": 5,
+        "public_claim_ceiling": "implemented_candidate_capability"
+      },
+      {
+        "id": "PROOF_REPRODUCED",
+        "ordinal": 6,
+        "public_claim_ceiling": "reproducible_company_specific_proof"
+      },
+      {
+        "id": "CLAIM_PROMOTED",
+        "ordinal": 7,
+        "public_claim_ceiling": "proof_bound_company_specific"
+      }
+    ]
+  },
+  "evidence": {
+    "boundary": "Repository-native receipts remain authoritative; this public bundle carries only source identity, not unfiltered evidence rows.",
+    "content_sha256": "25170fe029a3fb19d6a7a344daffa6d8c58e85094745677bd78e989a0eaf8943",
+    "schema": "glaciereq.live-repository-evidence-registry.v1",
+    "source_path": "manifests/live_repository_evidence.json"
+  },
+  "flagships": [
+    {
+      "evidence": "Diligence records 118/118 per interpreter, 10/10 Forge, 4/4 PSYSOC-X.",
+      "level": "L5",
+      "next_gate": "Current connector/artifact lifecycle receipts; isolate case-specific paths.",
+      "public_surface": "PUBLIC_ALLOWLIST_REQUIRED",
+      "repository": "GlacierEQ/AKOS",
+      "role": "Authority/evidence/tool-state/closure runtime",
+      "state": "PROMOTED",
+      "system_id": "akos"
+    },
+    {
+      "evidence": "A- verified-with-hardening; external production references separate from local proof.",
+      "level": "L4",
+      "next_gate": "Close Issue #26 and regenerate derived surfaces.",
+      "public_surface": "PUBLIC",
+      "repository": "GlacierEQ/the-tower-of-babel",
+      "role": "Governed polyglot architecture",
+      "state": "REFERENCE_ONLY",
+      "system_id": "tower_of_babel"
+    },
+    {
+      "evidence": "Python/TypeScript planes passed; Rust/Haskell blocked.",
+      "level": "L4",
+      "next_gate": "Pinned all-language CI and root license.",
+      "public_surface": "PUBLIC",
+      "repository": "GlacierEQ/pro-code",
+      "role": "Polyglot runtime implementation",
+      "state": "REFERENCE_ONLY",
+      "system_id": "pro_code_runtime"
+    },
+    {
+      "evidence": "Strong public/private contract and release-candidate website checks.",
+      "level": "L4",
+      "next_gate": "Bind production bytes to canonical Git SHA.",
+      "public_surface": "PUBLIC",
+      "repository": "GlacierEQ/job-application",
+      "role": "Canonical recruiter/runtime source",
+      "state": "PROMOTED",
+      "system_id": "job_application"
+    }
+  ],
+  "invariants": [
+    "Helix remains the portfolio authority.",
+    "This repository remains a generated public presentation surface.",
+    "A successful render is not evidence that the source projection is current.",
+    "Factual IDs, evidence states, blockers, test counts, and non-affiliation boundaries are invariant across presentation layers.",
+    "Company second-depth stage, ordinal, claim ceiling, blockers, next gate, and public evidence references are Helix-governed invariants and may not be inferred or promoted downstream.",
+    "Every projected second-depth evidence reference must remain public, immutable-source-bound, structurally validated, and sufficient for its declared stage.",
+    "No private repository identity or private operational metadata may enter the generated public snapshot.",
+    "Every generated snapshot is bound to one immutable Helix commit."
+  ],
+  "inventory": {
+    "identities_withheld_from_public_bundle": true,
+    "portfolio_root": "job-app-helix",
+    "root_repositories": 1,
+    "total_repositories": 67,
+    "workspace_repositories": 66
+  },
+  "language_fit": {
+    "entries": [
+      {
+        "boundary": "Executable control-plane logic under src/job_app_helix and the repository-local audit scripts.",
+        "build_command": "python -m pip install -e \".[dev]\"",
+        "evidence_receipt": "docs/README_MESH_ROLLOUT_2026-07-28.md",
+        "interface_contract": "Console entry points, typed Python models, JSON receipts, and Protobuf-backed repository records.",
+        "kind": "programming_language",
+        "name": "Python",
+        "responsibility": "Campaign decisions, manifest validation, CLI surfaces, README rendering, and bounded audit orchestration.",
+        "test_command": "python -m pytest -q",
+        "verification_state": "PARTIALLY_VERIFIED"
+      },
+      {
+        "boundary": "The glaciereq.readme.v1 wire contract in proto/readme_mesh.proto and its generated Python binding.",
+        "build_command": "python scripts/check_proto_contract.py",
+        "evidence_receipt": "docs/README_MESH_ROLLOUT_2026-07-28.md",
+        "interface_contract": "Deterministic binary, ProtoJSON, textproto, descriptor comparison, and SHA-256 outputs.",
+        "kind": "wire_schema",
+        "name": "Protocol Buffers",
+        "responsibility": "Versioned cross-language identity, evidence, and typed repository-edge serialization.",
+        "test_command": "python -m pytest -q",
+        "verification_state": "VERIFIED"
+      },
+      {
+        "boundary": "Repository-local interchange and receipt artifacts; not the canonical cross-language wire schema.",
+        "build_command": "python -m job_app_helix.readme_mesh_cli build --output-dir artifacts/readme-mesh",
+        "evidence_receipt": "docs/README_MESH_ROLLOUT_2026-07-28.md",
+        "interface_contract": "UTF-8 JSON objects with explicit schema identifiers and deterministic field semantics.",
+        "kind": "data_format",
+        "name": "JSON",
+        "responsibility": "Human-inspectable manifests, campaign reports, language declarations, and audit receipts.",
+        "test_command": "python -m pytest -q",
+        "verification_state": "VERIFIED"
+      },
+      {
+        "boundary": "Human review surface generated from evidence-bound records while preserving authored content outside managed blocks.",
+        "build_command": "python -m job_app_helix.readme_mesh_cli render-all --output-dir artifacts/readme-mesh/blocks",
+        "evidence_receipt": "docs/README_MESH_ROLLOUT_2026-07-28.md",
+        "interface_contract": "Stable headings, openable evidence links, runnable commands, typed mesh tables, and generated block markers.",
+        "kind": "documentation_format",
+        "name": "Markdown",
+        "responsibility": "Recruiter, expert, and AI-readable repository explanations and portfolio navigation.",
+        "test_command": "python scripts/check_public_surface.py",
+        "verification_state": "VERIFIED"
+      }
+    ],
+    "repository": "GlacierEQ/job-app-helix",
+    "schema": "glaciereq.language-fit.v1"
+  },
+  "schema": "glaciereq.public-portfolio-projection.v1",
+  "source": {
+    "authority": {
+      "branch": "main",
+      "path": "manifests/portfolio_root_truth.json",
+      "raw_url": "https://raw.githubusercontent.com/GlacierEQ/job-app-helix/main/manifests/portfolio_root_truth.json",
+      "repository": "GlacierEQ/job-app-helix"
+    },
+    "root_ref": "87dd202abbff08ad2e7f6cf57739a8bdd661bd46",
+    "root_version": "1.0.0",
+    "source_digest": "02f08ef173e77ed5272280e1d9aa2d30fe65520920513abd05bbbed55d1485b1",
+    "source_hashes": {
+      "manifests/company_dossiers.json": "02be10d6a9787befdf92e2cd762fc3663282dda39a266f4d33fcc9e3fc90a92b",
+      "manifests/company_dossiers/additional_targets.json": "cc27b4487b26634d9a4d59e10f7e9df119499fadee3bbed000020879c568ca26",
+      "manifests/company_dossiers/frontier_ai.json": "f72e7b9ba2defc3dcfd9c3d56e7f20994ee4117a09d4d218c13baf070a7afb4c",
+      "manifests/company_dossiers/glaciereq_core.json": "07c9cb10c98702fa409ad60ab725cdb085423a58c4ec292612a686c3f4b7bdae",
+      "manifests/company_dossiers/model_product_companies.json": "5fab1848b36de973fda5ca8cb46ecc342540a95036be9b83e1d9fdbd92e6db27",
+      "manifests/company_dossiers/platform_infrastructure.json": "93a864ed5fae0ef9c78f026b4cd0b050be239f9b454a6545fc5b1d5efc756a5d",
+      "manifests/company_second_depth.json": "c71f192cf6667ff0c7a5114a2ca22bde239992b9068bdbb6b4f7f82cd0da5a7d",
+      "manifests/flagship_registry.json": "193427a1f91fd800895268dae802139b5980e0498438a4ddf972f7c0c2f328a4",
+      "manifests/language_fit.json": "424dcf0ffb56b531ca4295cca5011f179d606e67527d1b311e43aa12ef241258",
+      "manifests/live_repository_evidence.json": "25170fe029a3fb19d6a7a344daffa6d8c58e85094745677bd78e989a0eaf8943",
+      "manifests/portfolio_repositories.json": "514ae2516e4060d044e45366aaa774b92f10426ad5bb71257dd97ea6a89778d0",
+      "manifests/portfolio_root_truth.json": "5f9b53c420a2853d3b928f85812fe345871f2100d928c275e9b252b80d933458"
+    }
+  }
+}

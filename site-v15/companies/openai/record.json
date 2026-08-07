@@ -1,0 +1,44 @@
+{
+  "boundary": "Independent GlacierEQ work; no OpenAI affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
+  "flagships": [],
+  "gate": "KV sentinel is admitted; Codex/MCP candidates need provenance/runtime audit; upstream SDK/framework repos are excluded.",
+  "id": "openai",
+  "repos": [
+    {
+      "id": "GlacierEQ/openai-reasoning-kv-sentinel",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    }
+  ],
+  "roles": [
+    "Applied AI Engineer",
+    "Agents Infrastructure Engineer",
+    "Solutions Architect"
+  ],
+  "route": "/companies/openai/",
+  "schema": "glaciereq.company-intelligence.v1",
+  "second_depth": {
+    "blockers": [
+      "current_role_not_verified",
+      "company_problem_not_bounded",
+      "repository_code_not_inspected",
+      "proof_not_reproduced"
+    ],
+    "claim_ceiling": "company_alignment_only",
+    "evidence": {
+      "claim_receipts": [],
+      "gap_queue": [],
+      "implementation_receipts": [],
+      "inspected_repositories": [],
+      "problem_evidence": [],
+      "proof_artifacts": [],
+      "role_evidence": []
+    },
+    "next_gate": "Verify a current public OpenAI role/team and inspect the exact admitted KV-sentinel implementation before connecting it to any company-specific engineering problem.",
+    "ordinal": 0,
+    "stage": "MAPPED_ONLY"
+  },
+  "state": "seeded",
+  "track": "MAPPED_NOT_RECRUITER_READY"
+}

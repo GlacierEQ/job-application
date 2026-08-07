@@ -1,0 +1,42 @@
+{
+  "boundary": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+  "flagships": [
+    "job_app_helix",
+    "akos",
+    "doctor_strange",
+    "tower_of_babel",
+    "job_application"
+  ],
+  "gate": "groqchat explicitly derives from an external FreeGenius implementation; claude-code-kimi-groq is inspired by an external proxy. Preserve both as provenance-audit references until original delta, tests, and security boundaries are measured.",
+  "id": "groq",
+  "repos": [],
+  "roles": [
+    "Applied AI Systems Engineer",
+    "Forward-Deployed Engineer"
+  ],
+  "route": "/companies/groq/",
+  "schema": "glaciereq.company-intelligence.v1",
+  "second_depth": {
+    "blockers": [
+      "current_role_not_verified",
+      "company_problem_not_bounded",
+      "repository_code_not_inspected",
+      "proof_not_reproduced"
+    ],
+    "claim_ceiling": "company_alignment_only",
+    "evidence": {
+      "claim_receipts": [],
+      "gap_queue": [],
+      "implementation_receipts": [],
+      "inspected_repositories": [],
+      "problem_evidence": [],
+      "proof_artifacts": [],
+      "role_evidence": []
+    },
+    "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+    "ordinal": 0,
+    "stage": "MAPPED_ONLY"
+  },
+  "state": "scaffold",
+  "track": "DIRECT_ESTATE_DISCOVERED_NOT_RECRUITER_READY"
+}

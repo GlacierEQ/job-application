@@ -176,23 +176,35 @@ async function main() {
   const lockheed = snapshot.companies.find((company) => company.company_id === "lockheed_martin");
   assert(lockheed, "Lockheed Martin track is absent from generated snapshot");
   assert(lockheed.repositories.length === 0, "Lockheed Martin route gained unsupported repository proof");
-  assert(lockheed.second_depth.stage === "MAPPED_ONLY", "Lockheed Martin advanced beyond mapped-only");
+  assert(lockheed.second_depth.stage === "CODE_INSPECTED", "Lockheed Martin second-depth stage drift");
   assert(
-    lockheed.second_depth.claim_ceiling === "company_alignment_only",
-    "Lockheed Martin claim ceiling exceeds mapped-only",
+    lockheed.second_depth.claim_ceiling === "inspected_implementation_alignment",
+    "Lockheed Martin claim ceiling does not match inspected stage",
   );
+  assert(lockheed.second_depth.ordinal === 3, "Lockheed Martin second-depth ordinal drift");
+  assert(lockheed.second_depth.evidence.role_evidence.length === 1, "Lockheed Martin role evidence missing");
+  assert(lockheed.second_depth.evidence.problem_evidence.length === 1, "Lockheed Martin problem evidence missing");
+  assert(
+    lockheed.second_depth.evidence.inspected_repositories.length === 4,
+    "Lockheed Martin inspected-path evidence is incomplete",
+  );
+  assert(lockheed.second_depth.evidence.proof_artifacts.length === 0, "Lockheed Martin proof advanced prematurely");
   const lockheedPage = await readFile(
     path.join(companiesDir, "lockheed-martin", "index.html"),
     "utf8",
   );
   assert(lockheedPage.includes("Lockheed Martin"), "Lockheed Martin route identity missing");
-  assert(lockheedPage.includes("MAPPED_ONLY"), "Lockheed Martin mapped-only state missing");
+  assert(lockheedPage.includes("CODE_INSPECTED"), "Lockheed Martin inspected state missing");
+  assert(
+    lockheedPage.includes("inspected_implementation_alignment"),
+    "Lockheed Martin inspected claim ceiling missing",
+  );
   assert(
     lockheedPage.includes("no Lockheed Martin affiliation"),
     "Lockheed Martin non-affiliation boundary missing",
   );
   assert(
-    lockheedPage.includes("No direct repository is recruiter-admitted yet"),
+    lockheedPage.includes("No company-specific repository is currently admitted"),
     "Lockheed Martin route does not expose zero-repository boundary",
   );
 
@@ -232,6 +244,8 @@ async function main() {
 
   const depthCounts = Object.fromEntries(SECOND_DEPTH_STAGES.map((stage) => [stage, 0]));
   for (const company of snapshot.companies) depthCounts[company.second_depth.stage] += 1;
+  assert(depthCounts.MAPPED_ONLY === 48, "mapped-only company count drift");
+  assert(depthCounts.CODE_INSPECTED === 1, "code-inspected company count drift");
 
   console.log(
     JSON.stringify(
