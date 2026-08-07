@@ -109,6 +109,45 @@ function build49() {
   return { ids, companies };
 }
 
+function publicEvidence(id, kind, sourceIdentity, sourceRef) {
+  return {
+    id,
+    kind,
+    source_identity: sourceIdentity,
+    source_ref: sourceRef,
+    visibility: 'public',
+    verification_state: 'VERIFIED',
+  };
+}
+
+function advanceLockheed(depth) {
+  depth.company_overrides.lockheed_martin = {
+    stage: 'CODE_INSPECTED',
+    role_evidence: [publicEvidence(
+      'lockheed_role_734997br',
+      'role',
+      'https://www.lockheedmartinjobs.com/job/sunnyvale/architecture-and-algorithms-agentic-ai-ml-engineer-level-2-3/694/97838518096',
+      `sha256:${'a'.repeat(64)}`,
+    )],
+    problem_evidence: [publicEvidence(
+      'lockheed_problem_trusted_agentic_ai_integration',
+      'problem',
+      'https://www.lockheedmartin.com/en-us/capabilities/artificial-intelligence-machine-learning.html',
+      `sha256:${'b'.repeat(64)}`,
+    )],
+    inspected_repositories: [
+      publicEvidence('lockheed_inspection_akos_runtime', 'repository_inspection', 'https://github.com/GlacierEQ/AKOS/blob/89403272a76dda8e1f9f317e16bfce5b60c1a3f5/runtime/src/index.ts', 'commit:89403272a76dda8e1f9f317e16bfce5b60c1a3f5'),
+      publicEvidence('lockheed_inspection_apex_control_plane', 'repository_inspection', 'https://github.com/GlacierEQ/apex-control-plane/blob/340834cf8d6c65832196b6cc0b6df281574842f8/src/control_plane_runtime.py', 'commit:340834cf8d6c65832196b6cc0b6df281574842f8'),
+      publicEvidence('lockheed_inspection_tower_integrity', 'repository_inspection', 'https://github.com/GlacierEQ/the-tower-of-babel/blob/e3778353e92b404de43f41963a0c7bffb84897ac/src/tower/integrity.py', 'commit:e3778353e92b404de43f41963a0c7bffb84897ac'),
+      publicEvidence('lockheed_inspection_tower_receipt', 'repository_inspection', 'https://github.com/GlacierEQ/the-tower-of-babel/blob/e3778353e92b404de43f41963a0c7bffb84897ac/src/tower/receipt.py', 'commit:e3778353e92b404de43f41963a0c7bffb84897ac'),
+    ],
+    claim_ceiling: 'inspected_implementation_alignment',
+    blockers: ['company_specific_remedy_not_bounded', 'implementation_not_created', 'proof_not_reproduced'],
+    next_gate: 'Bound a candidate remedy from inspected transferable capabilities.',
+  };
+  return depth;
+}
+
 test('request path is parsed with WHATWG URL semantics', () => {
   assert.equal(
     bridge.requestPath({ url: '/api/proxy?path=resume%2Fats.txt' }),
@@ -134,26 +173,26 @@ test('percent-encoded traversal is decoded then rejected', () => {
   assert.equal(bridge.normalize(raw), null);
 });
 
-test('bridge uses exact V19 pins and no legacy URL parser', () => {
+test('bridge uses exact V20 first-star pins and no legacy URL parser', () => {
   assert.equal(
     bridge.constants.SOURCE_COMMIT,
-    '150487be1d3cf88dd5886117e88125a4739faef3',
+    'be5ddaa49d60ee551177376a67b92d681768e088',
   );
   assert.equal(
     bridge.constants.HELIX_COMMIT,
-    '556786e96ca49507125c77a62cb17904d645e134',
+    '87dd202abbff08ad2e7f6cf57739a8bdd661bd46',
   );
   assert.match(proxySource, /new URL\(/);
   assert.doesNotMatch(proxySource, /\burl\.parse\s*\(/);
   assert.doesNotMatch(proxySource, /req\.query/);
 });
 
-test('V19 projection filters recruiter evidence and preserves Lockheed mapped-only', () => {
+test('V20 projection filters recruiter evidence and preserves Lockheed inspected boundary', () => {
   const { ids, companies } = build49();
   const projection = bridge.compileProjection(
     baseIndex(ids),
     [{ companies }],
-    depthRegistry(ids),
+    advanceLockheed(depthRegistry(ids)),
   );
   assert.equal(projection.company_count, 49);
   const anthropic = projection.companies.find((row) => row.company_id === 'anthropic');
@@ -166,8 +205,13 @@ test('V19 projection filters recruiter evidence and preserves Lockheed mapped-on
     (row) => row.company_id === 'lockheed_martin',
   );
   assert.equal(lockheed.repositories.length, 0);
-  assert.equal(lockheed.second_depth.stage, 'MAPPED_ONLY');
-  assert.equal(lockheed.second_depth.claim_ceiling, 'company_alignment_only');
+  assert.equal(lockheed.second_depth.stage, 'CODE_INSPECTED');
+  assert.equal(lockheed.second_depth.ordinal, 3);
+  assert.equal(lockheed.second_depth.claim_ceiling, 'inspected_implementation_alignment');
+  assert.equal(lockheed.second_depth.evidence.role_evidence.length, 1);
+  assert.equal(lockheed.second_depth.evidence.problem_evidence.length, 1);
+  assert.equal(lockheed.second_depth.evidence.inspected_repositories.length, 4);
+  assert.equal(lockheed.second_depth.evidence.proof_artifacts.length, 0);
 });
 
 test('malformed evidence cannot satisfy a second-depth stage', () => {
@@ -205,12 +249,12 @@ test('private evidence cannot satisfy a public second-depth stage', () => {
   );
 });
 
-test('V19 Atlas and Lockheed page preserve four-depth no-script contract', () => {
+test('V20 Atlas and Lockheed page preserve four-depth no-script contract', () => {
   const { ids, companies } = build49();
   const projection = bridge.compileProjection(
     baseIndex(ids),
     [{ companies }],
-    depthRegistry(ids),
+    advanceLockheed(depthRegistry(ids)),
   );
   const lockheed = projection.companies.find(
     (row) => row.company_id === 'lockheed_martin',
@@ -226,12 +270,35 @@ test('V19 Atlas and Lockheed page preserve four-depth no-script contract', () =>
   assert.match(page, /03 · MACHINE/);
   assert.match(page, /04 · MESH/);
   assert.match(page, /ASPIRATION &amp; EVOLUTION/);
-  assert.match(page, /MAPPED_ONLY/);
-  assert.match(page, /company_alignment_only/);
+  assert.match(page, /CODE_INSPECTED/);
+  assert.match(page, /inspected_implementation_alignment/);
   assert.match(page, /No direct repository is recruiter-admitted yet/);
-  assert.equal(record.second_depth.stage, 'MAPPED_ONLY');
+  assert.equal(record.second_depth.stage, 'CODE_INSPECTED');
+  assert.equal(record.second_depth.ordinal, 3);
+  assert.equal(record.second_depth.evidence.inspected_repositories.length, 4);
   assert.doesNotMatch(atlas, /<script(?:\s|>)/i);
   assert.doesNotMatch(page, /<script(?:\s|>)/i);
   assert.doesNotMatch(atlas, /\sstyle\s*=/i);
   assert.doesNotMatch(page, /\sstyle\s*=/i);
+});
+
+
+test('V20 source resolution cannot escape the pinned site root', () => {
+  assert.match(bridge.resolveSourceUrl('assets/site.css'), /\/site-v15\/assets\/site\.css$/);
+  assert.throws(
+    () => bridge.resolveSourceUrl('%2e%2e/other/file.txt'),
+    /source path escapes pinned root/,
+  );
+});
+
+test('GEQ.CI wire fields escape line and delimiter injection', () => {
+  assert.equal(
+    bridge.wireField('role\nDEPTH[FORGED]|x];y'),
+    'role\\nDEPTH[FORGED\\u005d\\u007cx\\u005d\\u003by',
+  );
+});
+
+test('V20 verifier includes every rendered constellation stylesheet', () => {
+  assert.match(proxySource, /fetchSource\('assets\/company-constellation\.css'\)/);
+  assert.match(proxySource, /__v20_verify/);
 });
