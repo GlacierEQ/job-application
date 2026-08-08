@@ -1,19 +1,27 @@
-const crypto = require('crypto');
 const { URL } = require('node:url');
+const proxy = require('./proxy.js');
 
 const WEB_SOURCE_COMMIT = 'c18f593a2eda274ea4deeb01ae95d92bdf80838d';
-const LEGACY_SOURCE_COMMIT = 'c5701dedc834359c78399b4370a8147501784d19';
 const HELIX_COMMIT = '83549cda4af3714304f202d0f4d35b29d28da9f7';
-const LEGACY_RAW_ROOT = `https://raw.githubusercontent.com/GlacierEQ/job-application/${LEGACY_SOURCE_COMMIT}/site-v15/`;
 const WEB_RAW_ROOT = `https://raw.githubusercontent.com/GlacierEQ/job-application/${WEB_SOURCE_COMMIT}/site-v15/`;
 const GITHUB_TREE_ROOT = `https://api.github.com/repos/GlacierEQ/job-application/git/trees/${WEB_SOURCE_COMMIT}`;
 const COMPLETE_LINK = '<link rel="stylesheet" href="/assets/site.complete.css">';
 const INTERACTION_LINK = '<link rel="stylesheet" href="/assets/site.interaction.css">';
 const RELEASE = 'V21-FIRST-STAR-COMPLETE-WEB';
 const EXPECTED_STATIC_HTML = 105;
-const MAX_JSON_BYTES = 4 * 1024 * 1024;
-const MAX_DYNAMIC_HTML_BYTES = 768 * 1024;
+const MAX_BYTES = 4 * 1024 * 1024;
 const FETCH_TIMEOUT_MS = 12_000;
+
+const TYPES = {
+  '.html': 'text/html; charset=utf-8',
+  '.css': 'text/css; charset=utf-8',
+  '.json': 'application/json; charset=utf-8',
+  '.svg': 'image/svg+xml; charset=utf-8',
+  '.xml': 'application/xml; charset=utf-8',
+  '.txt': 'text/plain; charset=utf-8',
+  '.pdf': 'application/pdf',
+  '.docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+};
 
 const REQUIRED_GIT_BLOBS = {
   'index.html': '4d927fb3bb0fa15debaf0c8554c0965bbcc994fd',
@@ -30,241 +38,11 @@ const REQUIRED_GIT_BLOBS = {
   'downloads/Casey_Barton_Resume.docx': '42d9e518b0a82a51b8c48de77dbbb28ffe6871c1',
 };
 
-const nativeFetch = global.fetch.bind(global);
-let surfaceTreePromise = null;
+let treePromise = null;
 
-function sourceRewrite(input) {
-  const value = typeof input === 'string' || input instanceof URL ? String(input) : input?.url;
-  if (!value || !value.startsWith(LEGACY_RAW_ROOT)) return null;
-  return `${WEB_RAW_ROOT}${value.slice(LEGACY_RAW_ROOT.length)}`;
-}
-
-global.fetch = async (input, init) => {
-  const rewritten = sourceRewrite(input);
-  if (!rewritten) return nativeFetch(input, init);
-  if (typeof Request !== 'undefined' && input instanceof Request) {
-    return nativeFetch(new Request(rewritten, input), init);
-  }
-  return nativeFetch(rewritten, init);
-};
-
-const proxy = require('./proxy.js');
-
-function gitBlobSha(body) {
-  const header = Buffer.from(`blob ${body.length}\0`, 'utf8');
-  return crypto.createHash('sha1').update(Buffer.concat([header, body])).digest('hex');
-}
-
-function designHtml(body) {
-  const buffer = Buffer.isBuffer(body) ? body : Buffer.from(body || '');
-  let text = buffer.toString('utf8');
-  if (!/<\/head>/i.test(text)) return buffer;
-
-  const completeCount = (text.match(/\/assets\/site\.complete\.css/g) || []).length;
-  const interactionCount = (text.match(/\/assets\/site\.interaction\.css/g) || []).length;
-  if (completeCount > 1 || interactionCount > 1) return buffer;
-
-  if (completeCount === 0) {
-    text = text.replace(/<\/head>/i, `  ${COMPLETE_LINK}\n</head>`);
-  }
-  if (interactionCount === 0) {
-    text = text.replace(COMPLETE_LINK, `${COMPLETE_LINK}\n  ${INTERACTION_LINK}`);
-  }
-  return Buffer.from(text);
-}
-
-async function boundedBytes(url, maxBytes = MAX_JSON_BYTES) {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
-  try {
-    const response = await nativeFetch(url, {
-      headers: {
-        accept: 'application/vnd.github+json, application/json;q=0.9, */*;q=0.1',
-        'user-agent': 'GlacierEQ-Complete-Web-Verifier/2.0',
-      },
-      signal: controller.signal,
-      redirect: 'error',
-    });
-    const declared = Number(response.headers.get('content-length') || 0);
-    if (declared > maxBytes) throw new Error('verification_response_too_large');
-    if (!response.body) {
-      const body = Buffer.from(await response.arrayBuffer());
-      if (body.length > maxBytes) throw new Error('verification_response_too_large');
-      return { response, body };
-    }
-    const reader = response.body.getReader();
-    const chunks = [];
-    let length = 0;
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      length += value.byteLength;
-      if (length > maxBytes) {
-        await reader.cancel();
-        throw new Error('verification_response_too_large');
-      }
-      chunks.push(Buffer.from(value));
-    }
-    return { response, body: Buffer.concat(chunks, length) };
-  } catch (error) {
-    if (error?.name === 'AbortError') throw new Error('verification_fetch_timeout');
-    throw error;
-  } finally {
-    clearTimeout(timer);
-  }
-}
-
-async function boundedJson(url, maxBytes = MAX_JSON_BYTES) {
-  const { response, body } = await boundedBytes(url, maxBytes);
-  if (!response.ok) throw new Error(`verification_http_${response.status}`);
-  try {
-    return JSON.parse(body.toString('utf8'));
-  } catch {
-    throw new Error('verification_invalid_json');
-  }
-}
-
-async function loadStaticSurfaceTree() {
-  if (!surfaceTreePromise) {
-    surfaceTreePromise = (async () => {
-      const root = await boundedJson(GITHUB_TREE_ROOT, 512 * 1024);
-      const site = Array.isArray(root.tree)
-        ? root.tree.find((entry) => entry.path === 'site-v15' && entry.type === 'tree')
-        : null;
-      if (!site?.url) throw new Error('site_v15_tree_missing');
-      const recursive = new URL(site.url);
-      recursive.searchParams.set('recursive', '1');
-      const tree = await boundedJson(recursive.href, MAX_JSON_BYTES);
-      if (tree.truncated === true || !Array.isArray(tree.tree)) throw new Error('site_v15_tree_incomplete');
-      return tree.tree;
-    })().catch((error) => {
-      surfaceTreePromise = null;
-      throw error;
-    });
-  }
-  return surfaceTreePromise;
-}
-
-function captureProxy(rawPath) {
-  return new Promise((resolve, reject) => {
-    const headers = new Map();
-    let settled = false;
-    const res = {
-      statusCode: 200,
-      setHeader(name, value) { headers.set(String(name).toLowerCase(), value); },
-      getHeader(name) { return headers.get(String(name).toLowerCase()); },
-      end(chunk = '') {
-        if (settled) return;
-        settled = true;
-        const body = Buffer.isBuffer(chunk) ? chunk : Buffer.from(String(chunk));
-        resolve({ status: this.statusCode, headers, body });
-      },
-    };
-    Promise.resolve(proxy({ url: `/?path=${encodeURIComponent(rawPath)}` }, res))
-      .then(() => {
-        if (!settled) reject(new Error(`proxy_route_did_not_end:${rawPath}`));
-      })
-      .catch(reject);
-  });
-}
-
-function verifyHtmlBuffer(body, label) {
-  const designed = designHtml(body);
-  if (designed.length > MAX_DYNAMIC_HTML_BYTES) throw new Error(`${label}:html_too_large`);
-  const text = designed.toString('utf8');
-  if ((text.match(/<h1\b/gi) || []).length !== 1) throw new Error(`${label}:h1_contract`);
-  if (/<script\b/i.test(text)) throw new Error(`${label}:script_detected`);
-  if (/\sstyle\s*=\s*/i.test(text)) throw new Error(`${label}:inline_style_detected`);
-  if ((text.match(/\/assets\/site\.complete\.css/g) || []).length !== 1) throw new Error(`${label}:complete_design_contract`);
-  if ((text.match(/\/assets\/site\.interaction\.css/g) || []).length !== 1) throw new Error(`${label}:interaction_contract`);
-  if (!/<\/body>\s*<\/html>\s*$/i.test(text)) throw new Error(`${label}:html_not_closed`);
-  return designed.length;
-}
-
-async function verifyStaticSurface() {
-  const tree = await loadStaticSurfaceTree();
-  const blobs = new Map(tree.filter((entry) => entry.type === 'blob').map((entry) => [entry.path, entry.sha]));
-  const html = tree.filter((entry) => entry.type === 'blob' && entry.path.endsWith('.html'));
-  const mismatches = [];
-  for (const [filePath, expected] of Object.entries(REQUIRED_GIT_BLOBS)) {
-    const actual = blobs.get(filePath) || null;
-    if (actual !== expected) mismatches.push({ path: filePath, actual, expected });
-  }
-  const requiredDiscovery = ['404.html', 'sitemap.xml', 'robots.txt', 'llms.txt'];
-  const missing = requiredDiscovery.filter((filePath) => !blobs.has(filePath));
-  const ok = html.length === EXPECTED_STATIC_HTML && !mismatches.length && !missing.length;
-  return {
-    ok,
-    immutable_commit: WEB_SOURCE_COMMIT,
-    html_files: html.length,
-    expected_html_files: EXPECTED_STATIC_HTML,
-    total_files: blobs.size,
-    mismatches,
-    missing,
-  };
-}
-
-async function verifyGeneratedSurface() {
-  const projectionResponse = await captureProxy('data/company-atlas.json');
-  if (projectionResponse.status !== 200) throw new Error('company_projection_route_failed');
-  const projection = JSON.parse(projectionResponse.body.toString('utf8'));
-  if (projection.company_count !== 49 || !Array.isArray(projection.companies)) throw new Error('company_projection_topology_drift');
-
-  let htmlRoutes = 0;
-  let recordRoutes = 0;
-  for (const route of ['atlas/index.html', 'companies/index.html']) {
-    const response = await captureProxy(route);
-    if (response.status !== 200) throw new Error(`${route}:status_${response.status}`);
-    verifyHtmlBuffer(response.body, route);
-    htmlRoutes += 1;
-  }
-
-  for (const company of projection.companies) {
-    const slug = String(company.company_id).replaceAll('_', '-');
-    for (const namespace of ['companies', 'atlas']) {
-      const pagePath = `${namespace}/${slug}/index.html`;
-      const page = await captureProxy(pagePath);
-      if (page.status !== 200) throw new Error(`${pagePath}:status_${page.status}`);
-      verifyHtmlBuffer(page.body, pagePath);
-      htmlRoutes += 1;
-
-      const recordPath = `${namespace}/${slug}/record.json`;
-      const record = await captureProxy(recordPath);
-      if (record.status !== 200) throw new Error(`${recordPath}:status_${record.status}`);
-      const parsed = JSON.parse(record.body.toString('utf8'));
-      if (parsed.id !== company.company_id || parsed.source?.commit !== HELIX_COMMIT) {
-        throw new Error(`${recordPath}:identity_drift`);
-      }
-      recordRoutes += 1;
-    }
-  }
-
-  const notFound = await captureProxy('definitely-not-a-real-route/index.html');
-  if (notFound.status !== 404) throw new Error('404_status_drift');
-  verifyHtmlBuffer(notFound.body, '404-fallback');
-
-  const sitemap = await captureProxy('sitemap.xml');
-  const sitemapText = sitemap.body.toString('utf8');
-  if (sitemap.status !== 200 || !sitemapText.includes('/atlas/') || !sitemapText.includes('/companies/lockheed-martin/')) {
-    throw new Error('sitemap_projection_drift');
-  }
-
-  const llms = await captureProxy('llms.txt');
-  const llmsText = llms.body.toString('utf8');
-  if (llms.status !== 200 || !llmsText.includes('/data/current-proof.json') || !llmsText.includes('/atlas/')) {
-    throw new Error('llms_projection_drift');
-  }
-
-  return {
-    ok: true,
-    company_tracks: projection.company_count,
-    html_routes: htmlRoutes,
-    record_routes: recordRoutes,
-    aliases_per_company: 2,
-    fallback_404: 'PASS',
-    sitemap: 'PASS',
-    llms: 'PASS',
-  };
+function extension(filePath) {
+  const match = filePath.match(/(\.[a-z0-9]+)$/i);
+  return match ? match[1].toLowerCase() : '';
 }
 
 function securityHeaders(res) {
@@ -279,62 +57,243 @@ function securityHeaders(res) {
   res.setHeader('X-PSYSOCX-Release', RELEASE);
 }
 
-async function verifyWebRelease(res) {
+function designHtml(body) {
+  const buffer = Buffer.isBuffer(body) ? body : Buffer.from(body || '');
+  let text = buffer.toString('utf8');
+  if (!/<\/head>/i.test(text)) return buffer;
+  if ((text.match(/\/assets\/site\.complete\.css/g) || []).length === 0) {
+    text = text.replace(/<\/head>/i, `  ${COMPLETE_LINK}\n</head>`);
+  }
+  if ((text.match(/\/assets\/site\.interaction\.css/g) || []).length === 0) {
+    text = text.replace(COMPLETE_LINK, `${COMPLETE_LINK}\n  ${INTERACTION_LINK}`);
+  }
+  return Buffer.from(text);
+}
+
+async function boundedBytes(url, maxBytes = MAX_BYTES) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+  try {
+    const response = await fetch(url, {
+      headers: { 'user-agent': 'GlacierEQ-Complete-Web/3.0' },
+      signal: controller.signal,
+      redirect: 'error',
+    });
+    const declared = Number(response.headers.get('content-length') || 0);
+    if (declared > maxBytes) throw new Error('response_too_large');
+    const body = Buffer.from(await response.arrayBuffer());
+    if (body.length > maxBytes) throw new Error('response_too_large');
+    return { response, body };
+  } catch (error) {
+    if (error?.name === 'AbortError') throw new Error('fetch_timeout');
+    throw error;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+async function webSource(filePath) {
+  const resolved = new URL(filePath, WEB_RAW_ROOT);
+  if (!resolved.href.startsWith(WEB_RAW_ROOT)) throw new Error('web_source_escape');
+  return boundedBytes(resolved.href);
+}
+
+function captureProxy(rawPath) {
+  return new Promise((resolve, reject) => {
+    const headers = new Map();
+    let settled = false;
+    const res = {
+      statusCode: 200,
+      setHeader(name, value) { headers.set(String(name).toLowerCase(), value); },
+      getHeader(name) { return headers.get(String(name).toLowerCase()); },
+      end(chunk = '') {
+        if (settled) return;
+        settled = true;
+        resolve({
+          status: this.statusCode,
+          headers,
+          body: Buffer.isBuffer(chunk) ? chunk : Buffer.from(String(chunk)),
+        });
+      },
+    };
+    Promise.resolve(proxy({ url: `/?path=${encodeURIComponent(rawPath)}` }, res))
+      .then(() => { if (!settled) reject(new Error(`proxy_route_did_not_end:${rawPath}`)); })
+      .catch(reject);
+  });
+}
+
+function verifyHtml(body, label) {
+  const designed = designHtml(body);
+  const text = designed.toString('utf8');
+  if ((text.match(/<h1\b/gi) || []).length !== 1) throw new Error(`${label}:h1`);
+  if (/<script\b/i.test(text)) throw new Error(`${label}:script`);
+  if (/\sstyle\s*=\s*/i.test(text)) throw new Error(`${label}:inline_style`);
+  if ((text.match(/\/assets\/site\.complete\.css/g) || []).length !== 1) throw new Error(`${label}:complete_css`);
+  if ((text.match(/\/assets\/site\.interaction\.css/g) || []).length !== 1) throw new Error(`${label}:interaction_css`);
+  if (!/<\/body>\s*<\/html>\s*$/i.test(text)) throw new Error(`${label}:unclosed_html`);
+  return designed;
+}
+
+async function loadTree() {
+  if (!treePromise) {
+    treePromise = (async () => {
+      const root = await boundedBytes(GITHUB_TREE_ROOT, 512 * 1024);
+      if (!root.response.ok) throw new Error(`tree_http_${root.response.status}`);
+      const rootJson = JSON.parse(root.body.toString('utf8'));
+      const site = rootJson.tree?.find((entry) => entry.path === 'site-v15' && entry.type === 'tree');
+      if (!site?.url) throw new Error('site_tree_missing');
+      const recursive = new URL(site.url);
+      recursive.searchParams.set('recursive', '1');
+      const child = await boundedBytes(recursive.href);
+      if (!child.response.ok) throw new Error(`site_tree_http_${child.response.status}`);
+      const tree = JSON.parse(child.body.toString('utf8'));
+      if (tree.truncated || !Array.isArray(tree.tree)) throw new Error('site_tree_incomplete');
+      return tree.tree;
+    })().catch((error) => { treePromise = null; throw error; });
+  }
+  return treePromise;
+}
+
+async function verifyStaticSurface() {
+  const tree = await loadTree();
+  const blobs = new Map(tree.filter((entry) => entry.type === 'blob').map((entry) => [entry.path, entry.sha]));
+  const htmlFiles = tree.filter((entry) => entry.type === 'blob' && entry.path.endsWith('.html')).length;
+  const mismatches = [];
+  for (const [filePath, expected] of Object.entries(REQUIRED_GIT_BLOBS)) {
+    const actual = blobs.get(filePath) || null;
+    if (actual !== expected) mismatches.push({ path: filePath, actual, expected });
+  }
+  const missing = ['404.html', 'sitemap.xml', 'robots.txt', 'llms.txt'].filter((filePath) => !blobs.has(filePath));
+  return {
+    ok: htmlFiles === EXPECTED_STATIC_HTML && !mismatches.length && !missing.length,
+    immutable_commit: WEB_SOURCE_COMMIT,
+    html_files: htmlFiles,
+    expected_html_files: EXPECTED_STATIC_HTML,
+    total_files: blobs.size,
+    mismatches,
+    missing,
+  };
+}
+
+async function verifyGeneratedSurface() {
+  const projectionResponse = await captureProxy('data/company-atlas.json');
+  if (projectionResponse.status !== 200) throw new Error('company_projection_route_failed');
+  const projection = JSON.parse(projectionResponse.body.toString('utf8'));
+  if (projection.company_count !== 49 || !Array.isArray(projection.companies)) throw new Error('company_projection_topology_drift');
+  let htmlRoutes = 0;
+  let recordRoutes = 0;
+  for (const route of ['atlas/index.html', 'companies/index.html']) {
+    const response = await captureProxy(route);
+    if (response.status !== 200) throw new Error(`${route}:status_${response.status}`);
+    verifyHtml(response.body, route);
+    htmlRoutes += 1;
+  }
+  for (const company of projection.companies) {
+    const slug = String(company.company_id).replaceAll('_', '-');
+    for (const namespace of ['companies', 'atlas']) {
+      const pagePath = `${namespace}/${slug}/index.html`;
+      const page = await captureProxy(pagePath);
+      if (page.status !== 200) throw new Error(`${pagePath}:status_${page.status}`);
+      verifyHtml(page.body, pagePath);
+      htmlRoutes += 1;
+      const recordPath = `${namespace}/${slug}/record.json`;
+      const record = await captureProxy(recordPath);
+      if (record.status !== 200) throw new Error(`${recordPath}:status_${record.status}`);
+      const parsed = JSON.parse(record.body.toString('utf8'));
+      if (parsed.id !== company.company_id || parsed.source?.commit !== HELIX_COMMIT) throw new Error(`${recordPath}:identity_drift`);
+      recordRoutes += 1;
+    }
+  }
+  const fallback = await captureProxy('definitely-not-a-real-route/index.html');
+  if (fallback.status !== 404) throw new Error('404_status_drift');
+  verifyHtml(fallback.body, '404-fallback');
+  const sitemap = await captureProxy('sitemap.xml');
+  if (sitemap.status !== 200 || !sitemap.body.toString('utf8').includes('/companies/lockheed-martin/')) throw new Error('sitemap_drift');
+  return {
+    ok: true,
+    company_tracks: projection.company_count,
+    html_routes: htmlRoutes,
+    record_routes: recordRoutes,
+    aliases_per_company: 2,
+    fallback_404: 'PASS',
+    sitemap: 'PASS',
+  };
+}
+
+async function verifyCanonicalV21() {
+  const response = await captureProxy('__v21_verify');
+  let payload = null;
+  try { payload = JSON.parse(response.body.toString('utf8')); } catch {}
+  return {
+    ok: response.status === 200 && payload?.status === 'PASS' && payload?.schema === 'glaciereq.v21-production-verification.v1',
+    status_code: response.status,
+    schema: payload?.schema || null,
+    status: payload?.status || null,
+    source_commit: payload?.source_commit || null,
+    helix_source_commit: payload?.helix_source_commit || null,
+    company_routes: payload?.company_routes ?? null,
+  };
+}
+
+async function verifyCurrentProof() {
+  const result = await webSource('data/current-proof.json');
+  if (!result.response.ok) return { ok: false };
+  const proof = JSON.parse(result.body.toString('utf8'));
+  const star = proof?.current_star;
+  const ok = proof?.schema === 'glaciereq.current-proof.v1'
+    && proof?.release === 'V21 First Star Completion'
+    && star?.id === 'mission-agentic-ai-assurance'
+    && star?.implementation?.commit === '4328fa7078e6e4125f895768142c6af0c5ec1234'
+    && star?.implementation?.acceptance_tests === 17
+    && star?.proof?.verification_state === 'REPRODUCED'
+    && star?.proof?.receipt_id === 'b7a3e3cba968e19bb91ed8f6881b69e37efc97d7e8414be0aca431dff501123f'
+    && star?.company_projection?.stage === 'CLAIM_PROMOTED'
+    && star?.company_projection?.claim_ceiling === 'proof_bound_company_specific'
+    && star?.company_projection?.helix_commit === HELIX_COMMIT;
+  return { ok, proof };
+}
+
+async function verifyDesignRelease(res) {
+  const errors = [];
+  let canonical = null;
   let staticSurface = null;
   let generatedSurface = null;
-  let proof = null;
-  const errors = [];
-
+  let current = null;
   try {
-    [staticSurface, generatedSurface] = await Promise.all([
+    [canonical, staticSurface, generatedSurface, current] = await Promise.all([
+      verifyCanonicalV21(),
       verifyStaticSurface(),
       verifyGeneratedSurface(),
+      verifyCurrentProof(),
     ]);
+    if (!canonical.ok) errors.push('canonical_v21_failed');
     if (!staticSurface.ok) errors.push('static_surface_failed');
+    if (!generatedSurface.ok) errors.push('generated_surface_failed');
+    if (!current.ok) errors.push('current_proof_failed');
+    for (const route of ['index.html', 'resume/index.html', 'master/index.html', 'mesh/index.html', 'machine/index.html']) {
+      const source = await webSource(route);
+      if (!source.response.ok) throw new Error(`${route}:source_${source.response.status}`);
+      verifyHtml(source.body, route);
+    }
   } catch (error) {
-    errors.push(error instanceof Error ? error.message : 'surface_verification_failed');
+    errors.push(error instanceof Error ? error.message : 'design_verification_failed');
   }
-
-  try {
-    const { response, body } = await boundedBytes(`${WEB_RAW_ROOT}data/current-proof.json`, 128 * 1024);
-    if (!response.ok) throw new Error(`current_proof_http_${response.status}`);
-    proof = JSON.parse(body.toString('utf8'));
-    const star = proof?.current_star;
-    const proofOk = proof?.schema === 'glaciereq.current-proof.v1'
-      && proof?.release === 'V21 First Star Completion'
-      && star?.id === 'mission-agentic-ai-assurance'
-      && star?.implementation?.commit === '4328fa7078e6e4125f895768142c6af0c5ec1234'
-      && star?.implementation?.acceptance_tests === 17
-      && star?.proof?.verification_state === 'REPRODUCED'
-      && star?.proof?.receipt_id === 'b7a3e3cba968e19bb91ed8f6881b69e37efc97d7e8414be0aca431dff501123f'
-      && star?.company_projection?.stage === 'CLAIM_PROMOTED'
-      && star?.company_projection?.claim_ceiling === 'proof_bound_company_specific'
-      && star?.company_projection?.helix_commit === HELIX_COMMIT;
-    if (!proofOk) errors.push('current_proof_contract_failed');
-  } catch (error) {
-    errors.push(error instanceof Error ? error.message : 'current_proof_verification_failed');
-  }
-
-  const pass = errors.length === 0 && staticSurface?.ok === true && generatedSurface?.ok === true;
+  const pass = errors.length === 0;
   const payload = Buffer.from(JSON.stringify({
-    schema: 'glaciereq.complete-web-production-verification.v2',
+    schema: 'glaciereq.complete-web-production-verification.v3',
     status: pass ? 'PASS' : 'FAIL',
     release: RELEASE,
-    source_repository: 'GlacierEQ/job-application',
     source_commit: WEB_SOURCE_COMMIT,
-    helix_repository: 'GlacierEQ/job-app-helix',
-    helix_commit: HELIX_COMMIT,
-    complete_design: true,
-    client_scripts: 0,
+    v21_proof_authority: HELIX_COMMIT,
+    canonical_v21: canonical,
     static_surface: staticSurface,
     generated_surface: generatedSurface,
-    current_star: proof?.current_star?.id || null,
-    proof_state: proof?.current_star?.proof?.verification_state || null,
-    company_stage: proof?.current_star?.company_projection?.stage || null,
-    claim_ceiling: proof?.current_star?.company_projection?.claim_ceiling || null,
+    current_star: current?.proof?.current_star?.id || null,
+    proof_state: current?.proof?.current_star?.proof?.verification_state || null,
+    company_stage: current?.proof?.current_star?.company_projection?.stage || null,
     errors,
+    client_scripts: 0,
   }, null, 2));
-
   securityHeaders(res);
   res.statusCode = pass ? 200 : 503;
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
@@ -343,14 +302,7 @@ async function verifyWebRelease(res) {
   res.end(payload);
 }
 
-module.exports = async (req, res) => {
-  const rawPath = proxy.requestPath(req);
-  if (rawPath === '__v21_verify') return proxy(req, res);
-  if (rawPath === '__design_verify') {
-    await verifyWebRelease(res);
-    return;
-  }
-
+function delegateDesigned(req, res) {
   const originalSetHeader = res.setHeader.bind(res);
   const originalEnd = res.end.bind(res);
   res.setHeader = (name, value) => {
@@ -369,13 +321,45 @@ module.exports = async (req, res) => {
     originalSetHeader('Content-Length', String(output.length));
     return originalEnd(output, ...args);
   };
+  return proxy(req, res);
+}
 
-  await proxy(req, res);
+async function serveWebSource(filePath, res) {
+  let upstream = await webSource(filePath);
+  let status = upstream.response.status;
+  if (!upstream.response.ok) {
+    upstream = await webSource('404.html');
+    status = 404;
+  }
+  let body = upstream.body;
+  if (extension(filePath) === '.html' || status === 404) body = designHtml(body);
+  securityHeaders(res);
+  res.statusCode = status;
+  res.setHeader('Content-Type', TYPES[extension(status === 404 ? '404.html' : filePath)] || 'application/octet-stream');
+  res.setHeader('Cache-Control', filePath.startsWith('data/') || filePath.endsWith('.json') ? 'public, max-age=0, s-maxage=300, must-revalidate' : 'public, max-age=0, s-maxage=900, must-revalidate');
+  if (filePath.startsWith('downloads/')) res.setHeader('Content-Disposition', `attachment; filename="${filePath.split('/').pop()}"`);
+  res.setHeader('Content-Length', String(body.length));
+  res.end(body);
+}
+
+module.exports = async function designProxy(req, res) {
+  const rawPath = proxy.requestPath(req);
+  if (rawPath === '__v21_verify') return proxy(req, res);
+  if (rawPath === '__design_verify') return verifyDesignRelease(res);
+  const filePath = proxy.normalize(rawPath);
+  if (!filePath) {
+    securityHeaders(res);
+    res.statusCode = 400;
+    res.end('Invalid path');
+    return;
+  }
+  if (proxy.needsProjection(filePath) && filePath !== 'llms.txt') return delegateDesigned(req, res);
+  return serveWebSource(filePath, res);
 };
 
 module.exports.constants = { WEB_SOURCE_COMMIT, HELIX_COMMIT, RELEASE, EXPECTED_STATIC_HTML };
-module.exports.gitBlobSha = gitBlobSha;
 module.exports.designHtml = designHtml;
 module.exports.boundedBytes = boundedBytes;
 module.exports.verifyStaticSurface = verifyStaticSurface;
 module.exports.verifyGeneratedSurface = verifyGeneratedSurface;
+module.exports.verifyCanonicalV21 = verifyCanonicalV21;
