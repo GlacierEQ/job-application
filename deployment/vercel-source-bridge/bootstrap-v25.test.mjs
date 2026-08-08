@@ -46,6 +46,7 @@ test('V25 bundle is deterministic for identical source authority', () => {
   assert.equal(first.invariants.runtime_string_evaluation_required, false);
   assert.equal(first.invariants.factory_bundle_verified_before_module_execution, true);
   assert.equal(first.invariants.every_factory_sha256_verified_before_execution, true);
+  assert.equal(first.invariants.verification_cached_per_instance, true);
   assert.equal(first.verification_endpoint, '/__v25_bundle_verify');
 });
 
@@ -55,17 +56,21 @@ test('generated bootstrap verifies precompiled factories without runtime string 
   const bootstrapPath = path.join(root, 'api', 'index.js');
   const source = fs.readFileSync(bootstrapPath, 'utf8');
   const bootstrap = require(bootstrapPath);
-  const result = bootstrap.verifyBundle();
+  const first = bootstrap.verifyBundle();
+  const second = bootstrap.verifyBundle();
 
   assert.equal(typeof bootstrap, 'function');
-  assert.equal(result.status, 'PASS');
-  assert.equal(result.release, 'V25-APPLICATION-COMPILER');
-  assert.equal(result.source_commit, SOURCE_COMMIT);
-  assert.equal(result.module_count, 8);
-  assert.equal(result.entry, 'api/release-router.js');
-  assert.equal(result.bootstrap_network_fetch_required, false);
-  assert.equal(result.runtime_string_evaluation_required, false);
-  assert.equal(result.every_factory_sha256_verified_before_execution, true);
+  assert.equal(first.status, 'PASS');
+  assert.equal(first.release, 'V25-APPLICATION-COMPILER');
+  assert.equal(first.source_commit, SOURCE_COMMIT);
+  assert.equal(first.module_count, 8);
+  assert.equal(first.entry, 'api/release-router.js');
+  assert.equal(first.bootstrap_network_fetch_required, false);
+  assert.equal(first.runtime_string_evaluation_required, false);
+  assert.equal(first.every_factory_sha256_verified_before_execution, true);
+  assert.equal(first.verification_cached_per_instance, true);
+  assert.equal(Object.isFrozen(first), true);
+  assert.strictEqual(second, first);
   assert.equal(source.includes('new Function('), false);
   assert.equal(source.includes('eval('), false);
   assert.equal(source.includes("require('node:vm')"), false);
