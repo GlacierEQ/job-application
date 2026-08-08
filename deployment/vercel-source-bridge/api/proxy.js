@@ -1,8 +1,8 @@
 const crypto = require('crypto');
 const { URL } = require('node:url');
 
-const SOURCE_COMMIT = '150487be1d3cf88dd5886117e88125a4739faef3';
-const HELIX_COMMIT = '556786e96ca49507125c77a62cb17904d645e134';
+const SOURCE_COMMIT = 'be5ddaa49d60ee551177376a67b92d681768e088';
+const HELIX_COMMIT = '87dd202abbff08ad2e7f6cf57739a8bdd661bd46';
 const RAW_ROOT = `https://raw.githubusercontent.com/GlacierEQ/job-application/${SOURCE_COMMIT}/site-v15/`;
 const HELIX_ROOT = `https://raw.githubusercontent.com/GlacierEQ/job-app-helix/${HELIX_COMMIT}/`;
 const PUBLIC_ORIGIN = 'https://casey-barton-glaciereq.vercel.app';
@@ -133,7 +133,7 @@ function securityHeaders(res) {
   res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
   res.setHeader('X-GlacierEQ-Source-Commit', SOURCE_COMMIT);
   res.setHeader('X-GlacierEQ-Helix-Commit', HELIX_COMMIT);
-  res.setHeader('X-PSYSOCX-Release', 'V19-COMPANY-SECOND-DEPTH');
+  res.setHeader('X-PSYSOCX-Release', 'V20-FIRST-STAR-MOTION');
 }
 
 async function fetchBuffer(url, userAgent) {
@@ -151,15 +151,23 @@ async function fetchBuffer(url, userAgent) {
   }
 }
 
+function resolveSourceUrl(filePath) {
+  const resolved = new URL(filePath, RAW_ROOT);
+  if (!resolved.href.startsWith(RAW_ROOT)) {
+    throw new Error('source path escapes pinned root');
+  }
+  return resolved.href;
+}
+
 const fetchSource = (filePath) => fetchBuffer(
-  RAW_ROOT + filePath,
-  'GlacierEQ-V19-Source-Bridge/1.0',
+  resolveSourceUrl(filePath),
+  'GlacierEQ-V20-Source-Bridge/1.0',
 );
 
 async function fetchHelixJson(filePath) {
   const { response, body } = await fetchBuffer(
     HELIX_ROOT + filePath,
-    'GlacierEQ-V19-Company-Second-Depth/1.0',
+    'GlacierEQ-V20-Company-Second-Depth/1.0',
   );
   if (!response.ok) throw new Error(`${filePath} returned ${response.status}`);
   try {
@@ -396,13 +404,6 @@ function compileProjection(index, shards, secondDepthRegistry) {
 
   companies.sort((a, b) => a.display_name.localeCompare(b.display_name));
   if (companies.length !== 49) throw new Error(`expected 49 company tracks, received ${companies.length}`);
-  const lockheed = companies.find((company) => company.company_id === 'lockheed_martin');
-  if (!lockheed) throw new Error('Lockheed Martin track is missing');
-  if (lockheed.repositories.length !== 0 || lockheed.second_depth.stage !== 'MAPPED_ONLY' ||
-      lockheed.second_depth.claim_ceiling !== 'company_alignment_only') {
-    throw new Error('Lockheed Martin truth boundary drift');
-  }
-
   return {
     schema: 'glaciereq.company-atlas-projection.v2',
     authority: 'GlacierEQ/job-app-helix',
@@ -587,12 +588,24 @@ function compactMachineRecord(company) {
   };
 }
 
+function wireField(value) {
+  return String(value ?? '')
+    .replaceAll('\\', '\\\\')
+    .replaceAll('\n', '\\n')
+    .replaceAll('\r', '\\r')
+    .replaceAll('|', '\\u007c')
+    .replaceAll(';', '\\u003b')
+    .replaceAll(']', '\\u005d');
+}
+
 function machineWire(company) {
   const record = compactMachineRecord(company);
-  const repos = record.repos.map((repo) => `${repo.id}|${repo.lvl}|${repo.state}|${repo.provenance}`).join(';') || '∅';
-  const roles = record.roles.join('|') || '∅';
-  const blockers = record.second_depth.blockers.join('|') || '∅';
-  return `GEQ.CI/1 id=${record.id} state=${record.state} track=${record.track}\nROLE[${roles}]\nREPO[${repos}]\nDEPTH[${record.second_depth.stage}|${record.second_depth.claim_ceiling}]\nBLOCKER[${blockers}]\nHOOK route=${record.route} json=${record.route}record.json\nNEXT ${record.second_depth.next_gate}`;
+  const repos = record.repos
+    .map((repo) => [repo.id, repo.lvl, repo.state, repo.provenance].map(wireField).join('|'))
+    .join(';') || '∅';
+  const roles = record.roles.map(wireField).join('|') || '∅';
+  const blockers = record.second_depth.blockers.map(wireField).join('|') || '∅';
+  return `GEQ.CI/1 id=${wireField(record.id)} state=${wireField(record.state)} track=${wireField(record.track)}\nROLE[${roles}]\nREPO[${repos}]\nDEPTH[${wireField(record.second_depth.stage)}|${wireField(record.second_depth.claim_ceiling)}]\nBLOCKER[${blockers}]\nHOOK route=${record.route} json=${record.route}record.json\nNEXT ${wireField(record.second_depth.next_gate)}`;
 }
 
 function renderCompany(company) {
@@ -675,14 +688,20 @@ async function verifyDeployment(res) {
   }
 
   try {
-    const { response, body, sha256: actual } = await fetchSource('assets/helix-atlas.css');
-    const text = body.toString('utf8');
-    const ok = response.ok && text.includes('.constellation-stage') && text.includes('.atlas-star.star-p48{');
-    pass = pass && ok;
-    files.push({ path: 'assets/helix-atlas.css', status: response.status, bytes: body.length, sha256: actual, expected: 'contains .constellation-stage and .atlas-star.star-p48', ok });
+    const atlas = await fetchSource('assets/helix-atlas.css');
+    const atlasText = atlas.body.toString('utf8');
+    const atlasOk = atlas.response.ok && atlasText.includes('.constellation-stage') && atlasText.includes('.atlas-star.star-p48{');
+    pass = pass && atlasOk;
+    files.push({ path: 'assets/helix-atlas.css', status: atlas.response.status, bytes: atlas.body.length, sha256: atlas.sha256, expected: 'contains .constellation-stage and .atlas-star.star-p48', ok: atlasOk });
+
+    const constellation = await fetchSource('assets/company-constellation.css');
+    const constellationText = constellation.body.toString('utf8');
+    const constellationOk = constellation.response.ok && constellationText.includes('.company-constellation');
+    pass = pass && constellationOk;
+    files.push({ path: 'assets/company-constellation.css', status: constellation.response.status, bytes: constellation.body.length, sha256: constellation.sha256, expected: 'contains .company-constellation', ok: constellationOk });
   } catch (error) {
     pass = false;
-    files.push({ path: 'assets/helix-atlas.css', ok: false, error: error.message });
+    files.push({ path: 'Atlas stylesheet verification', ok: false, error: error.message });
   }
 
   const stageCounts = Object.fromEntries(SECOND_DEPTH_STAGES.map(([stage]) => [stage, 0]));
@@ -695,10 +714,16 @@ async function verifyDeployment(res) {
     }
     lockheed = projection.companies.find((company) => company.company_id === 'lockheed_martin') || null;
     const topologyOk = projection.company_count === 49 && memberships === 59 &&
-      stageCounts.MAPPED_ONLY === 49 &&
+      stageCounts.MAPPED_ONLY === 48 && stageCounts.CODE_INSPECTED === 1 &&
       lockheed && lockheed.repositories.length === 0 &&
-      lockheed.second_depth.stage === 'MAPPED_ONLY' &&
-      lockheed.second_depth.claim_ceiling === 'company_alignment_only';
+      lockheed.second_depth.stage === 'CODE_INSPECTED' &&
+      lockheed.second_depth.ordinal === 3 &&
+      lockheed.second_depth.claim_ceiling === 'inspected_implementation_alignment' &&
+      lockheed.second_depth.evidence.role_evidence.length === 1 &&
+      lockheed.second_depth.evidence.problem_evidence.length === 1 &&
+      lockheed.second_depth.evidence.inspected_repositories.length === 4 &&
+      lockheed.second_depth.evidence.proof_artifacts.length === 0 &&
+      lockheed.second_depth.evidence.claim_receipts.length === 0;
     pass = pass && topologyOk;
   }
 
@@ -706,11 +731,11 @@ async function verifyDeployment(res) {
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
   res.setHeader('Cache-Control', 'no-store');
   res.end(JSON.stringify({
-    schema: 'glaciereq.v19-production-verification.v1',
+    schema: 'glaciereq.v20-production-verification.v1',
     status: pass ? 'PASS' : 'FAIL',
     source_commit: SOURCE_COMMIT,
     helix_source_commit: HELIX_COMMIT,
-    release: 'V19 Company Second Depth',
+    release: 'V20 First Star Motion',
     canonical_routes: ['/', '/resume/', '/master/', '/mesh/', '/machine/', '/companies/', '/atlas/'],
     company_routes: projection?.company_count ?? null,
     public_repository_memberships: projection ? memberships : null,
@@ -718,7 +743,13 @@ async function verifyDeployment(res) {
     lockheed_martin: lockheed ? {
       repositories: lockheed.repositories.length,
       stage: lockheed.second_depth.stage,
+      ordinal: lockheed.second_depth.ordinal,
       claim_ceiling: lockheed.second_depth.claim_ceiling,
+      role_evidence: lockheed.second_depth.evidence.role_evidence.length,
+      problem_evidence: lockheed.second_depth.evidence.problem_evidence.length,
+      inspected_repositories: lockheed.second_depth.evidence.inspected_repositories.length,
+      proof_artifacts: lockheed.second_depth.evidence.proof_artifacts.length,
+      claim_receipts: lockheed.second_depth.evidence.claim_receipts.length,
     } : null,
     projection_error: projectionError,
     facts_invariant: true,
@@ -763,7 +794,7 @@ async function dynamicResponse(filePath, projection) {
 module.exports = async function handler(req, res) {
   securityHeaders(res);
   const raw = requestPath(req);
-  if (raw === '__v19_verify' || raw === '__v18_verify' || raw === '__v15_verify') {
+  if (raw === '__v20_verify') {
     return verifyDeployment(res);
   }
 
@@ -847,4 +878,6 @@ module.exports.renderAtlas = renderAtlas;
 module.exports.renderCompany = renderCompany;
 module.exports.compactMachineRecord = compactMachineRecord;
 module.exports.needsProjection = needsProjection;
+module.exports.resolveSourceUrl = resolveSourceUrl;
+module.exports.wireField = wireField;
 module.exports.constants = { SOURCE_COMMIT, HELIX_COMMIT, SECOND_DEPTH_PATH };
