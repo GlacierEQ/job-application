@@ -3,7 +3,7 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/api/proxy?path=$1"
+      "dest": "/api/design-proxy?path=$1"
     }
   ]
 }
