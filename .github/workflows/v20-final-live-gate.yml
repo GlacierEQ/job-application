@@ -24,6 +24,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "24"
+      - name: Prove generic compiler and verifier versioning regressions
+        run: node --test deployment/vercel-source-bridge/proxy.test.js
       - name: Exercise review-fixed bridge against pinned live sources
         run: |
           node - <<'NODE'
@@ -82,33 +84,6 @@ jobs:
             if (!routes.sitemap.text.includes('/companies/lockheed-martin/')) throw new Error('Lockheed missing from sitemap');
             if (!routes.llms.text.includes('Company Atlas')) throw new Error('Atlas missing from llms discovery');
 
-            const genericIds = Array.from({ length: 49 }, (_, i) => `company_${i}`);
-            genericIds[0] = 'lockheed_martin';
-            const genericCompanies = genericIds.map((id) => ({
-              company_id: id,
-              display_name: id === 'lockheed_martin' ? 'Lockheed Martin' : id,
-              dossier_track: id === 'lockheed_martin' ? 'NO_DIRECT_EXHIBIT_VERIFIED' : 'MAPPED_NOT_RECRUITER_READY',
-              target_roles: ['Engineer'],
-              recruiter_summary: 'fixture',
-              recruiter_admission_gate: 'fixture',
-              non_affiliation: id === 'lockheed_martin' ? 'Independent work; no Lockheed Martin affiliation.' : 'Independent work.',
-              gap_or_next_gate: 'fixture',
-              applicable_flagships: [],
-              repositories: [],
-            }));
-            const registry = {
-              schema: 'glaciereq.company-second-depth.v1', authority: 'GlacierEQ/job-app-helix', company_index: 'manifests/company_dossiers.json',
-              evidence_reference_contract: { required_fields: ['id','kind','source_identity','source_ref','visibility','verification_state'], visibility: 'public', field_kinds: { role_evidence:'role', problem_evidence:'problem', inspected_repositories:'repository_inspection', gap_queue:'bounded_gap', implementation_receipts:'implementation_receipt', proof_artifacts:'proof_artifact', claim_receipts:'claim_receipt' } },
-              stage_order: [
-                ['MAPPED_ONLY', [], 'company_alignment_only'], ['ROLE_VERIFIED',['role_evidence'],'verified_role_alignment'], ['PROBLEM_BOUNDED',['role_evidence','problem_evidence'],'externally_bounded_problem_alignment'], ['CODE_INSPECTED',['role_evidence','problem_evidence','inspected_repositories'],'inspected_implementation_alignment'], ['REMEDY_BOUNDED',['role_evidence','problem_evidence','inspected_repositories','gap_queue'],'bounded_remedy_design'], ['IMPLEMENTED',['role_evidence','problem_evidence','inspected_repositories','gap_queue','implementation_receipts'],'implemented_candidate_capability'], ['PROOF_REPRODUCED',['role_evidence','problem_evidence','inspected_repositories','gap_queue','implementation_receipts','proof_artifacts'],'reproducible_company_specific_proof'], ['CLAIM_PROMOTED',['role_evidence','problem_evidence','inspected_repositories','gap_queue','implementation_receipts','proof_artifacts','claim_receipts'],'proof_bound_company_specific']
-              ].map(([id, minimum_evidence, public_claim_ceiling], ordinal) => ({ id, ordinal, minimum_evidence, public_claim_ceiling })),
-              default_company_state: { stage:'MAPPED_ONLY', role_evidence:[], problem_evidence:[], inspected_repositories:[], gap_queue:[], implementation_receipts:[], proof_artifacts:[], claim_receipts:[], claim_ceiling:'company_alignment_only', blockers:['current_role_not_verified'], next_gate:'Verify role.' },
-              company_overrides: {},
-            };
-            const index = { schema:'glaciereq.company-dossier-index.v1', second_depth_registry:'manifests/company_second_depth.json', dossiers:['fixture.json'] };
-            const generic = bridge.compileProjection(index, [{ companies: genericCompanies }], registry);
-            if (generic.companies.find((c) => c.company_id === 'lockheed_martin').second_depth.stage !== 'MAPPED_ONLY') throw new Error('generic compiler no longer honors default state');
-
             for (const legacy of ['__v19_verify','__v18_verify','__v15_verify']) {
               const response = await invoke(legacy);
               if (response.status === 200 && response.text.includes('glaciereq.v20-production-verification.v1')) {
@@ -123,7 +98,7 @@ jobs:
               helix_source_commit: receipt.helix_source_commit,
               second_depth: receipt.second_depth,
               lockheed_martin: receipt.lockheed_martin,
-              generic_compiler_default: 'MAPPED_ONLY',
+              generic_compiler_regression: 'PASS',
               legacy_verifier_impersonation: false,
               routes: Object.fromEntries(Object.entries(routes).map(([name, response]) => [name, response.status])),
             }, null, 2));
