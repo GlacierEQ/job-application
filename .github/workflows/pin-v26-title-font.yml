@@ -1,0 +1,97 @@
+name: Pin V26 Title Font Bytes
+
+on:
+  push:
+    branches:
+      - design/algerian-title-trueface-20260808
+    paths:
+      - .github/workflows/pin-v26-title-font.yml
+
+permissions:
+  contents: write
+
+jobs:
+  pin:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: design/algerian-title-trueface-20260808
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Fetch, validate, and pin exact OFL Rye WOFF2 bytes
+        run: |
+          node <<'NODE' > /tmp/font-sha.txt
+          const crypto = require('node:crypto');
+          const url = 'https://cdn.jsdelivr.net/fontsource/fonts/rye@5.3.0/latin-400-normal.woff2';
+          const controller = new AbortController();
+          const timer = setTimeout(() => controller.abort(), 10000);
+          (async () => {
+            try {
+              const response = await fetch(url, { signal: controller.signal, redirect: 'error' });
+              if (!response.ok) throw new Error(`http_${response.status}`);
+              const body = Buffer.from(await response.arrayBuffer());
+              if (body.length <= 1024 || body.length > 131072) throw new Error('size_invalid');
+              if (body.subarray(0, 4).toString('ascii') !== 'wOF2') throw new Error('not_woff2');
+              process.stdout.write(crypto.createHash('sha256').update(body).digest('hex'));
+            } finally {
+              clearTimeout(timer);
+            }
+          })().catch((error) => { console.error(error); process.exit(1); });
+          NODE
+          SHA="$(cat /tmp/font-sha.txt)"
+          test "${#SHA}" -eq 64
+          python3 - "$SHA" <<'PY'
+          from pathlib import Path
+          import sys
+
+          sha = sys.argv[1]
+          path = Path('deployment/vercel-source-bridge/api/title-font-proxy.js')
+          text = path.read_text(encoding='utf-8')
+          anchor = "const MAX_FONT_BYTES = 128 * 1024;\n"
+          declaration = f"const EXPECTED_FONT_SHA256 = '{sha}';\n"
+          if 'const EXPECTED_FONT_SHA256' not in text:
+              if anchor not in text:
+                  raise SystemExit('font hash declaration anchor missing')
+              text = text.replace(anchor, anchor + declaration, 1)
+          else:
+              import re
+              text = re.sub(r"const EXPECTED_FONT_SHA256 = '[a-f0-9]{64}';", declaration.strip(), text, count=1)
+
+          old = "        requireValue(body.subarray(0, 4).toString('ascii') === 'wOF2', 'title_font_not_woff2');\n        return Object.freeze({ body, sha256: sha256(body) });"
+          new = "        requireValue(body.subarray(0, 4).toString('ascii') === 'wOF2', 'title_font_not_woff2');\n        const digest = sha256(body);\n        requireValue(digest === EXPECTED_FONT_SHA256, 'title_font_sha256_mismatch');\n        return Object.freeze({ body, sha256: digest });"
+          if old in text:
+              text = text.replace(old, new, 1)
+          elif 'title_font_sha256_mismatch' not in text:
+              raise SystemExit('font integrity insertion anchor missing')
+
+          export_anchor = "  CSS_LINK,\n};"
+          export_new = "  CSS_LINK,\n  EXPECTED_FONT_SHA256,\n};"
+          if export_anchor in text:
+              text = text.replace(export_anchor, export_new, 1)
+          elif 'EXPECTED_FONT_SHA256,' not in text.split('module.exports.constants', 1)[-1]:
+              raise SystemExit('font hash export anchor missing')
+          path.write_text(text, encoding='utf-8')
+
+          test_path = Path('deployment/vercel-source-bridge/title-font-proxy.test.js')
+          tests = test_path.read_text(encoding='utf-8')
+          marker = "  assert.equal(titleFont.constants.FONT_PATH, 'assets/title-algerian.woff2');\n"
+          assertion = f"  assert.equal(titleFont.constants.EXPECTED_FONT_SHA256, '{sha}');\n"
+          if assertion not in tests:
+              if marker not in tests:
+                  raise SystemExit('font hash test anchor missing')
+              tests = tests.replace(marker, marker + assertion, 1)
+          test_path.write_text(tests, encoding='utf-8')
+          PY
+          node --test deployment/vercel-source-bridge/title-font-proxy.test.js deployment/vercel-source-bridge/bootstrap-v25.test.mjs
+          git diff --check
+      - name: Commit pinned integrity contract
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add deployment/vercel-source-bridge/api/title-font-proxy.js deployment/vercel-source-bridge/title-font-proxy.test.js
+          git commit -m 'Pin exact V26 title font bytes'
+          git push origin HEAD:design/algerian-title-trueface-20260808
