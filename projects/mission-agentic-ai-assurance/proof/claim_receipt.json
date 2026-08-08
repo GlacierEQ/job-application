@@ -1,7 +1,7 @@
 {
-  "schema": "glaciereq.mission-assurance-claim-receipt.v1",
-  "claim_state": "PROOF_BOUND",
+  "acceptance_tests": 17,
   "allowed_claim": "Built and reproducibly tested an independent mission-agent assurance gateway combining content-bound public provenance snapshots, deterministic receipts, thread-safe single-process idempotency, finite-metric drift gating, policy decisions, and circuit breaking, using public mission-AI requirements as a bounded design lens.",
+  "claim_state": "PROOF_BOUND",
   "prohibited_claims": [
     "Lockheed Martin deployment or adoption",
     "Lockheed Martin affiliation, employment, endorsement, contract, clearance, or proprietary access",
@@ -12,10 +12,10 @@
   ],
   "proof_receipt": "proof/reproduced_receipt.json",
   "proof_receipt_id": "b7a3e3cba968e19bb91ed8f6881b69e37efc97d7e8414be0aca431dff501123f",
-  "acceptance_tests": 17,
   "required_commands": [
     "PYTHONPATH=src python -m unittest discover -s tests -v",
     "PYTHONPATH=src python scripts/demo.py",
     "PYTHONPATH=src python scripts/verify_proof.py"
-  ]
+  ],
+  "schema": "glaciereq.mission-assurance-claim-receipt.v1"
 }

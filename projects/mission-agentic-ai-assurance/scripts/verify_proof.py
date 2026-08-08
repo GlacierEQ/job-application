@@ -90,13 +90,9 @@ def main() -> int:
         except json.JSONDecodeError as error:
             failures.append({"path": "scripts/demo.py", "error": f"invalid demo JSON: {error}"})
         else:
-            expected_receipt = json.loads(
-                (ROOT / "proof" / "reproduced_receipt.json").read_text()
-            )
+            expected_receipt = json.loads((ROOT / "proof" / "reproduced_receipt.json").read_text())
             if actual_receipt != expected_receipt:
-                failures.append(
-                    {"path": "proof/reproduced_receipt.json", "error": "demo drift"}
-                )
+                failures.append({"path": "proof/reproduced_receipt.json", "error": "demo drift"})
             if actual_receipt.get("receipt_id") != EXPECTED_RECEIPT_ID:
                 failures.append(
                     {"path": "proof/reproduced_receipt.json", "error": "receipt id drift"}
