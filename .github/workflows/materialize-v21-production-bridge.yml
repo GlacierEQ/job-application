@@ -8,6 +8,7 @@ on:
       - .github/workflows/materialize-v21-production-bridge.yml
       - scripts/_materialize_v21_bridge.py
       - scripts/_fix_v21_bridge_test.py
+      - scripts/_fix_v21_required_hashes.py
 
 permissions:
   contents: write
@@ -30,6 +31,7 @@ jobs:
         run: |
           python scripts/_materialize_v21_bridge.py
           python scripts/_fix_v21_bridge_test.py
+          python scripts/_fix_v21_required_hashes.py
       - name: Run bridge regression suite
         run: node --test deployment/vercel-source-bridge/proxy.test.js
       - name: Verify V21 against pinned live sources
