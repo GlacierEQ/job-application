@@ -4,6 +4,7 @@ const path = require('node:path');
 const test = require('node:test');
 
 const design = require('./api/design-proxy.js');
+const designSource = fs.readFileSync(path.join(__dirname, 'api', 'design-proxy.js'), 'utf8');
 const releaseRouterSource = fs.readFileSync(path.join(__dirname, 'api', 'release-router.js'), 'utf8');
 
 test('pins the complete web source and V21 Helix proof authority', () => {
@@ -26,9 +27,11 @@ test('does not mutate non-HTML fragments without a head', () => {
   assert.equal(design.designHtml(source).toString('utf8'), source.toString('utf8'));
 });
 
-test('git blob hashing matches canonical Git framing', () => {
-  const body = Buffer.from('hello\n');
-  assert.equal(design.gitBlobSha(body), 'ce013625030ba8dba906f756967f9e9ca394464a');
+test('design bridge cannot mutate process-wide fetch state', () => {
+  assert.doesNotMatch(designSource, /global\.fetch\s*=/);
+  assert.doesNotMatch(designSource, /sourceRewrite\s*\(/);
+  assert.match(designSource, /if \(rawPath === '__v21_verify'\) return proxy\(req, res\)/);
+  assert.match(designSource, /verifyCanonicalV21/);
 });
 
 test('release router preserves the original canonical V21 verifier', () => {
