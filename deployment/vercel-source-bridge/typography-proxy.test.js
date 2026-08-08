@@ -12,13 +12,22 @@ const releaseRouterSource = fs.readFileSync(
 test('pins the reviewed Algerian presentation source and exact CSS blob', () => {
   assert.equal(
     typography.constants.TYPOGRAPHY_SOURCE_COMMIT,
-    '955e2ce0a030bef2863d6137ae1f567975b8d0a1',
+    'b4a1d9ccd8749b29129a09881d0bd183337b1a41',
   );
   assert.equal(
     typography.constants.TYPOGRAPHY_CSS_BLOB,
-    '5b5e603017d990e94f3e6cba5aa06402cbb24c5b',
+    'f9b29ee4b2fd3b82a30c1e10c23102f35fc62467',
   );
   assert.equal(typography.constants.RELEASE, 'V24-ALGERIAN-DISPLAY');
+});
+
+test('strengthens Algerian fallback for Apple surfaces without bundling a font binary', async () => {
+  const css = (await typography.loadTypographyCss()).toString('utf8');
+  assert.match(css, /"Algerian","Copperplate","Copperplate Gothic Bold"/);
+  assert.match(css, /-webkit-text-stroke:/);
+  assert.match(css, /text-shadow:/);
+  assert.match(css, /font-weight:700/);
+  assert.doesNotMatch(css, /@font-face\b/i);
 });
 
 test('injects Algerian typography after the interaction layer exactly once', () => {

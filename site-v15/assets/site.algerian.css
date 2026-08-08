@@ -1,75 +1,128 @@
 :root{
-  --font-display:"Algerian","Copperplate","Copperplate Gothic Light","Palatino Linotype","Book Antiqua",Georgia,serif;
+  --font-display:"Algerian","Copperplate","Copperplate Gothic Bold","Copperplate Gothic","Baskerville","Palatino Linotype","Book Antiqua",Georgia,serif;
+  --display-engrave-highlight:rgba(220,255,239,.12);
+  --display-engrave-shadow:rgba(0,0,0,.62);
+  --display-emerald-halo:rgba(57,232,166,.08);
 }
 
 /*
  * Display typography only. Body copy, controls, ATS text, code, and machine
  * surfaces keep the existing high-legibility sans/mono stacks.
  *
- * Algerian is referenced as a local system face; no proprietary font binary is
- * bundled. Platforms without Algerian fall through to the nearest installed
- * engraved/display serif in the stack.
+ * Algerian is referenced as a local system face. On Apple platforms the native
+ * Copperplate family is the first practical fallback so headings keep the carved,
+ * architectural character instead of collapsing into a generic serif. No font
+ * binary is bundled.
  */
 :where(h1,h2,h3,h4,h5,h6,.brand strong,.brand small,.mark){
   font-family:var(--font-display);
-  font-feature-settings:normal;
+  font-feature-settings:"kern" 1;
+  font-kerning:normal;
   font-variant-ligatures:none;
-  text-rendering:optimizeLegibility;
+  font-weight:700;
+  font-synthesis:weight;
+  text-rendering:geometricPrecision;
+  -webkit-font-smoothing:antialiased;
+  -webkit-text-stroke:.14px currentColor;
+  text-shadow:
+    0 1px 0 var(--display-engrave-highlight),
+    0 2px 0 var(--display-engrave-shadow),
+    0 8px 24px var(--display-emerald-halo);
 }
 
 h1{
-  letter-spacing:.012em;
-  line-height:1;
+  letter-spacing:.026em;
+  line-height:.98;
 }
 
 h2{
-  letter-spacing:.016em;
-  line-height:1.08;
+  letter-spacing:.024em;
+  line-height:1.05;
 }
 
 h3{
-  letter-spacing:.014em;
-  line-height:1.16;
+  letter-spacing:.021em;
+  line-height:1.12;
 }
 
 h4,h5,h6{
-  letter-spacing:.012em;
-  line-height:1.18;
+  letter-spacing:.018em;
+  line-height:1.16;
 }
 
 .hero-v21 h1{
-  line-height:.98;
-  letter-spacing:.008em;
-  max-width:960px;
+  line-height:.94;
+  letter-spacing:.022em;
+  max-width:980px;
+  text-shadow:
+    0 1px 0 rgba(231,255,244,.15),
+    0 3px 0 rgba(0,0,0,.7),
+    0 16px 44px rgba(43,229,162,.1);
 }
 
-.proof-star h2,
 .page-hero h1,
+.proof-star h2,
 .cta-stage h2{
-  letter-spacing:.012em;
+  letter-spacing:.026em;
+}
+
+.master-card h3,
+.bento-card h3,
+.role-proof h3{
+  letter-spacing:.024em;
 }
 
 .brand strong{
-  letter-spacing:.085em;
+  font-weight:700;
+  letter-spacing:.11em;
+  text-transform:uppercase;
 }
 
 .brand small{
-  letter-spacing:.07em;
+  font-weight:700;
+  letter-spacing:.095em;
+  text-transform:uppercase;
 }
 
 .mark{
-  letter-spacing:0;
+  font-weight:700;
+  letter-spacing:.025em;
+  text-shadow:
+    0 1px 0 rgba(231,255,244,.16),
+    0 2px 0 rgba(0,0,0,.7),
+    0 0 18px rgba(55,238,170,.1);
 }
 
 @media(max-width:640px){
+  :where(h1,h2,h3,h4,h5,h6,.brand strong,.brand small,.mark){
+    -webkit-text-stroke:.1px currentColor;
+    text-shadow:
+      0 1px 0 rgba(220,255,239,.1),
+      0 2px 0 rgba(0,0,0,.56),
+      0 6px 18px rgba(57,232,166,.055);
+  }
+
   .hero-v21 h1{
-    font-size:clamp(2.72rem,14vw,4.65rem);
-    line-height:1;
+    font-size:clamp(2.62rem,13.4vw,4.5rem);
+    line-height:.97;
+    letter-spacing:.018em;
+  }
+
+  .brand strong{letter-spacing:.085em}
+  .brand small{letter-spacing:.072em}
+}
+
+@media(prefers-reduced-motion:reduce){
+  :where(h1,h2,h3,h4,h5,h6,.brand strong,.brand small,.mark){
+    text-rendering:optimizeLegibility;
   }
 }
 
 @media print{
   :where(h1,h2,h3,h4,h5,h6,.brand strong,.brand small,.mark){
     font-family:Georgia,"Times New Roman",serif;
+    font-weight:700;
+    -webkit-text-stroke:0;
+    text-shadow:none;
   }
 }
