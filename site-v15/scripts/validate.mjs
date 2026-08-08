@@ -141,7 +141,9 @@ assert(resume.includes('/downloads/Casey_Barton_Resume.pdf'), 'resume PDF link m
 assert(resume.includes('/resume/ats.txt') || resume.includes('RESUME_ATS.md'), 'resume ATS link missing');
 const legacyResumeProof = resume.includes('166 source tests');
 const v17ResumeProof = resume.includes('166 + 19') && resume.includes('source + memory tests');
-assert(resume.includes('69/69') && (legacyResumeProof || v17ResumeProof) && resume.includes('148/148'), 'resume proof drift');
+const helixCurrentBoundary = resume.includes('>67<') && resume.includes('PARTIALLY VERIFIED') && resume.includes('admitted public proof');
+assert(resume.includes('69/69') && (legacyResumeProof || v17ResumeProof) && helixCurrentBoundary && resume.includes('62/62'), 'resume proof drift');
+assert(!resume.includes('148/148') && !resume.includes('148 of 148'), 'resume contains retired Helix test-count framing');
 assert(master.toLowerCase().includes('69 of 69 tests passed') && master.includes('166') && master.includes('19 memory tests'), 'master evidence incomplete');
 assert(master.includes('Owning repositories retain evidence authority') || master.includes('Proof stays with the owning system'), 'master evidence policy missing');
 assert(machine.includes('/data/portfolio.json') && machine.includes('/data/company-families.json') && machine.includes('/data/psysoc-x-profiles.json'), 'machine links incomplete');
