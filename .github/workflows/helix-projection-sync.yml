@@ -5,11 +5,13 @@ on:
     paths:
       - "portfolio-source.json"
       - "scripts/sync-helix-projection.mjs"
+      - "scripts/project-estate-intelligence.mjs"
       - "scripts/render-helix-atlas.mjs"
       - "scripts/render-company-constellation.mjs"
       - "scripts/link-helix-atlas.mjs"
       - "scripts/link-company-constellation.mjs"
       - "scripts/validate-helix-projection.mjs"
+      - "scripts/validate-estate-intelligence.mjs"
       - "scripts/validate-helix-atlas.mjs"
       - "scripts/validate-company-constellation.mjs"
       - "site-v15/**"
@@ -20,11 +22,13 @@ on:
     paths:
       - "portfolio-source.json"
       - "scripts/sync-helix-projection.mjs"
+      - "scripts/project-estate-intelligence.mjs"
       - "scripts/render-helix-atlas.mjs"
       - "scripts/render-company-constellation.mjs"
       - "scripts/link-helix-atlas.mjs"
       - "scripts/link-company-constellation.mjs"
       - "scripts/validate-helix-projection.mjs"
+      - "scripts/validate-estate-intelligence.mjs"
       - "scripts/validate-helix-atlas.mjs"
       - "scripts/validate-company-constellation.mjs"
       - "site-v15/**"
@@ -72,15 +76,20 @@ jobs:
         run: node scripts/link-company-constellation.mjs
       - name: Validate company constellation and evidence boundaries
         run: node scripts/validate-company-constellation.mjs
+      - name: Project source-bound estate intelligence
+        run: node scripts/project-estate-intelligence.mjs
+      - name: Validate estate-intelligence privacy and freshness boundaries
+        run: node scripts/validate-estate-intelligence.mjs
       - name: Validate existing V17 hiring surface
         run: node site-v15/scripts/validate.mjs
-      - name: Upload compiled projection, receipt, Atlas, and company routes
+      - name: Upload compiled projection, receipt, Atlas, intelligence, and company routes
         uses: actions/upload-artifact@v4
         with:
           name: helix-public-projection-${{ github.sha }}
           path: |
             site-v15/data/helix-root.json
             site-v15/data/helix-root.receipt.json
+            site-v15/data/estate-intelligence.json
             site-v15/data/company-atlas-summary.json
             site-v15/data/company-atlas.proto
             site-v15/atlas/**
