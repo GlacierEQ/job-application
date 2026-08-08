@@ -7,6 +7,7 @@ on:
     paths:
       - .github/workflows/materialize-v21-production-bridge.yml
       - scripts/_materialize_v21_bridge.py
+      - scripts/_fix_v21_bridge_test.py
 
 permissions:
   contents: write
@@ -26,7 +27,9 @@ jobs:
         with:
           python-version: "3.12"
       - name: Patch exact V21 bridge product files
-        run: python scripts/_materialize_v21_bridge.py
+        run: |
+          python scripts/_materialize_v21_bridge.py
+          python scripts/_fix_v21_bridge_test.py
       - name: Run bridge regression suite
         run: node --test deployment/vercel-source-bridge/proxy.test.js
       - name: Verify V21 against pinned live sources
