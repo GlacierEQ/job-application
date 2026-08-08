@@ -5,6 +5,7 @@ on:
     paths:
       - 'site-v15/resume/**'
       - 'site-v15/assets/resume.v17.css'
+      - 'site-v15/assets/resume.final.css'
       - 'site-v15/data/resume.json'
       - 'site-v15/data/resume-artifacts.json'
       - 'site-v15/downloads/Casey_Barton_Resume.*'
@@ -23,6 +24,7 @@ on:
     paths:
       - 'site-v15/resume/**'
       - 'site-v15/assets/resume.v17.css'
+      - 'site-v15/assets/resume.final.css'
       - 'site-v15/data/resume.json'
       - 'site-v15/data/resume-artifacts.json'
       - 'site-v15/downloads/Casey_Barton_Resume.*'
