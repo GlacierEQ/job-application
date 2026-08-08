@@ -1,0 +1,61 @@
+name: Patch V26 Title Font Wiring
+
+on:
+  push:
+    branches:
+      - design/algerian-title-trueface-20260808
+    paths:
+      - .github/workflows/patch-v26-title-font.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: design/algerian-title-trueface-20260808
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Wire V26 into bundle and native tests
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          builder = Path('scripts/build-v25-deployment-bundle.mjs')
+          text = builder.read_text(encoding='utf-8')
+          old = "  'deployment/vercel-source-bridge/api/compiler-proxy.js',\n  'deployment/vercel-source-bridge/api/release-router.js',"
+          new = "  'deployment/vercel-source-bridge/api/compiler-proxy.js',\n  'deployment/vercel-source-bridge/api/title-font-proxy.js',\n  'deployment/vercel-source-bridge/api/release-router.js',"
+          if old in text:
+              text = text.replace(old, new, 1)
+          elif "api/title-font-proxy.js" not in text:
+              raise SystemExit('builder insertion anchor missing')
+          builder.write_text(text, encoding='utf-8')
+
+          package = Path('package.json')
+          text = package.read_text(encoding='utf-8')
+          old = 'deployment/vercel-source-bridge/compiler-proxy.test.js deployment/vercel-source-bridge/bootstrap-v25.test.mjs'
+          new = 'deployment/vercel-source-bridge/compiler-proxy.test.js deployment/vercel-source-bridge/title-font-proxy.test.js deployment/vercel-source-bridge/bootstrap-v25.test.mjs'
+          if old in text:
+              text = text.replace(old, new, 1)
+          elif 'title-font-proxy.test.js' not in text:
+              raise SystemExit('package test insertion anchor missing')
+          package.write_text(text, encoding='utf-8')
+          PY
+          node --test deployment/vercel-source-bridge/title-font-proxy.test.js
+          node --check deployment/vercel-source-bridge/api/title-font-proxy.js
+          node scripts/build-v25-deployment-bundle.mjs --source-commit "$GITHUB_SHA" --output-dir /tmp/v26-bundle
+          git diff --check
+      - name: Commit verified wiring
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add scripts/build-v25-deployment-bundle.mjs package.json
+          git diff --cached --quiet && exit 0
+          git commit -m 'Wire V26 title font into release bundle'
+          git push origin HEAD:design/algerian-title-trueface-20260808
