@@ -1,0 +1,46 @@
+name: Algerian Production Overlay
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "site-v15/assets/site.algerian.css"
+      - "scripts/apply-complete-web-design.mjs"
+      - "scripts/validate-algerian-display.mjs"
+      - "deployment/vercel-source-bridge/api/typography-proxy.js"
+      - "deployment/vercel-source-bridge/api/release-router.js"
+      - "deployment/vercel-source-bridge/typography-proxy.test.js"
+      - "package.json"
+      - ".github/workflows/algerian-production-overlay.yml"
+  pull_request:
+    paths:
+      - "site-v15/assets/site.algerian.css"
+      - "scripts/apply-complete-web-design.mjs"
+      - "scripts/validate-algerian-display.mjs"
+      - "deployment/vercel-source-bridge/api/typography-proxy.js"
+      - "deployment/vercel-source-bridge/api/release-router.js"
+      - "deployment/vercel-source-bridge/typography-proxy.test.js"
+      - "package.json"
+      - ".github/workflows/algerian-production-overlay.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Run repository and typography release gates
+        run: npm test
+      - name: Verify production overlay modules compile
+        run: |
+          node --check deployment/vercel-source-bridge/api/typography-proxy.js
+          node --check deployment/vercel-source-bridge/api/release-router.js
