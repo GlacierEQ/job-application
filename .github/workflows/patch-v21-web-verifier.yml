@@ -22,38 +22,50 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
-      - name: Advance canonical website source pin without changing proof authority
+      - name: Advance website source authority and repair verifier export
         run: |
           python3 - <<'PY'
           from pathlib import Path
 
-          replacements = {
-              Path('deployment/vercel-source-bridge/api/proxy.js'): [
-                  (
-                      "const SOURCE_COMMIT = 'c5701dedc834359c78399b4370a8147501784d19';",
-                      "const SOURCE_COMMIT = 'b531968963269b01dd627a9bfe211b61274beec0';",
-                  ),
-                  (
-                      "'index.html': '983f6948db7e332d511baee3e2a1ab1dc06e38e9948d6bd0c0edcab9fcd44226',",
-                      "'index.html': '77b6f6d382d56147156db69ce82687b61122fdd015e044f2bd579df19163a8b9',",
-                  ),
-              ],
-              Path('deployment/vercel-source-bridge/proxy.test.js'): [
-                  (
-                      "'c5701dedc834359c78399b4370a8147501784d19',",
-                      "'b531968963269b01dd627a9bfe211b61274beec0',",
-                  ),
-              ],
-          }
-
-          for path, pairs in replacements.items():
-              text = path.read_text(encoding='utf-8')
-              for old, new in pairs:
-                  count = text.count(old)
-                  if count != 1:
-                      raise SystemExit(f'{path}: expected one occurrence of {old!r}, found {count}')
+          proxy = Path('deployment/vercel-source-bridge/api/proxy.js')
+          text = proxy.read_text(encoding='utf-8')
+          pairs = [
+              (
+                  "const SOURCE_COMMIT = 'c5701dedc834359c78399b4370a8147501784d19';",
+                  "const SOURCE_COMMIT = 'b531968963269b01dd627a9bfe211b61274beec0';",
+              ),
+              (
+                  "'index.html': '983f6948db7e332d511baee3e2a1ab1dc06e38e9948d6bd0c0edcab9fcd44226',",
+                  "'index.html': '77b6f6d382d56147156db69ce82687b61122fdd015e044f2bd579df19163a8b9',",
+              ),
+          ]
+          for old, new in pairs:
+              count = text.count(old)
+              if count == 1:
                   text = text.replace(old, new, 1)
-              path.write_text(text, encoding='utf-8')
+              elif new not in text:
+                  raise SystemExit(f'{proxy}: expected source token not found: {old!r}')
+          proxy.write_text(text, encoding='utf-8')
+
+          test = Path('deployment/vercel-source-bridge/proxy.test.js')
+          text = test.read_text(encoding='utf-8')
+          old = "'c5701dedc834359c78399b4370a8147501784d19',"
+          new = "'b531968963269b01dd627a9bfe211b61274beec0',"
+          if old in text:
+              text = text.replace(old, new, 1)
+          elif new not in text:
+              raise SystemExit(f'{test}: source assertion token not found')
+          test.write_text(text, encoding='utf-8')
+
+          design = Path('deployment/vercel-source-bridge/api/design-proxy.js')
+          text = design.read_text(encoding='utf-8')
+          export = 'module.exports.gitBlobSha = gitBlobSha;'
+          if export not in text:
+              anchor = 'module.exports.designHtml = designHtml;'
+              if anchor not in text:
+                  raise SystemExit(f'{design}: export anchor missing')
+              text = text.replace(anchor, f'{export}\n{anchor}', 1)
+              design.write_text(text, encoding='utf-8')
           PY
           node --test deployment/vercel-source-bridge/proxy.test.js deployment/vercel-source-bridge/design-proxy.test.js
           git diff --check
@@ -61,6 +73,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add deployment/vercel-source-bridge/api/proxy.js deployment/vercel-source-bridge/proxy.test.js
+          git add deployment/vercel-source-bridge/api/proxy.js deployment/vercel-source-bridge/api/design-proxy.js deployment/vercel-source-bridge/proxy.test.js
+          git diff --cached --quiet && exit 0
           git commit -m 'Advance V21 web verifier source authority'
           git push origin HEAD:design/complete-web-experience-20260808
