@@ -1,0 +1,89 @@
+name: Materialize V21 Company Projection
+
+on:
+  push:
+    branches:
+      - webdev/v21-first-star-complete
+    paths:
+      - .github/workflows/materialize-v21-company-projection.yml
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      GITHUB_TOKEN: ${{ github.token }}
+      HELIX_ROOT_SHA: 83549cda4af3714304f202d0f4d35b29d28da9f7
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: webdev/v21-first-star-complete
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Update sync checkpoint
+        run: |
+          node - <<'NODE'
+          const fs = require('fs');
+          const path = 'site-v15/data/HELIX_SYNC_REQUEST.json';
+          const value = JSON.parse(fs.readFileSync(path, 'utf8'));
+          value.requested_helix_commit = process.env.HELIX_ROOT_SHA;
+          value.purpose = 'Materialize the first fully proof-bound company second-depth path into the committed public projection.';
+          value.expected_company_routes = 49;
+          value.expected_second_depth = { MAPPED_ONLY: 48, CLAIM_PROMOTED: 1 };
+          value.expected_lockheed_martin = {
+            stage: 'CLAIM_PROMOTED',
+            claim_ceiling: 'proof_bound_company_specific'
+          };
+          fs.writeFileSync(path, JSON.stringify(value, null, 2) + '\n');
+          NODE
+      - name: Compile public-safe Helix projection and receipt
+        run: node scripts/sync-helix-projection.mjs
+      - name: Validate public-safe projection and receipt
+        run: node scripts/validate-helix-projection.mjs
+      - name: Render Company Atlas and real company routes
+        run: node scripts/render-helix-atlas.mjs
+      - name: Link Atlas across public surfaces
+        run: node scripts/link-helix-atlas.mjs
+      - name: Validate generated Atlas, company routes, and links
+        run: node scripts/validate-helix-atlas.mjs
+      - name: Compile evidence-aware company constellation
+        run: node scripts/render-company-constellation.mjs
+      - name: Link company constellation across public surfaces
+        run: node scripts/link-company-constellation.mjs
+      - name: Validate company constellation and evidence boundaries
+        run: node scripts/validate-company-constellation.mjs
+      - name: Validate existing hiring surface
+        run: node site-v15/scripts/validate.mjs
+      - name: Assert completed-star topology
+        run: |
+          node - <<'NODE'
+          const fs = require('fs');
+          const root = JSON.parse(fs.readFileSync('site-v15/data/helix-root.json', 'utf8'));
+          if (root.source_commit !== process.env.HELIX_ROOT_SHA) throw new Error('Helix source pin drift');
+          const lockheed = root.companies.find((c) => c.company_id === 'lockheed_martin');
+          if (!lockheed || lockheed.second_depth.stage !== 'CLAIM_PROMOTED') throw new Error('Lockheed stage drift');
+          if (lockheed.second_depth.claim_ceiling !== 'proof_bound_company_specific') throw new Error('Lockheed claim ceiling drift');
+          const evidence = lockheed.second_depth.evidence;
+          const counts = ['role_evidence','problem_evidence','inspected_repositories','gap_queue','implementation_receipts','proof_artifacts','claim_receipts'].map((k) => [k, evidence[k].length]);
+          const expected = JSON.stringify([['role_evidence',1],['problem_evidence',1],['inspected_repositories',4],['gap_queue',1],['implementation_receipts',1],['proof_artifacts',1],['claim_receipts',1]]);
+          if (JSON.stringify(counts) !== expected) throw new Error(`Lockheed evidence topology drift: ${JSON.stringify(counts)}`);
+          if (evidence.proof_artifacts[0].verification_state !== 'REPRODUCED') throw new Error('proof not reproduced');
+          console.log(JSON.stringify({status:'PASS', source_commit:root.source_commit, stage:lockheed.second_depth.stage, evidence:counts}, null, 2));
+          NODE
+      - name: Commit exact generated projection
+        run: |
+          set -euo pipefail
+          git config user.name casey
+          git config user.email GLACIER.EQUILIBRIUM@GMAIL.COM
+          git add site-v15
+          if git diff --cached --quiet; then
+            echo 'Projection already materialized.'
+            exit 0
+          fi
+          git commit -m 'site: materialize V21 proof-bound Lockheed projection'
+          git push origin HEAD:webdev/v21-first-star-complete
