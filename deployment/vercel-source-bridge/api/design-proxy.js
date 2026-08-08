@@ -6,8 +6,13 @@ const LEGACY_SOURCE_COMMIT = 'c5701dedc834359c78399b4370a8147501784d19';
 const HELIX_COMMIT = '83549cda4af3714304f202d0f4d35b29d28da9f7';
 const LEGACY_RAW_ROOT = `https://raw.githubusercontent.com/GlacierEQ/job-application/${LEGACY_SOURCE_COMMIT}/site-v15/`;
 const WEB_RAW_ROOT = `https://raw.githubusercontent.com/GlacierEQ/job-application/${WEB_SOURCE_COMMIT}/site-v15/`;
+const GITHUB_TREE_ROOT = `https://api.github.com/repos/GlacierEQ/job-application/git/trees/${WEB_SOURCE_COMMIT}`;
 const COMPLETE_LINK = '<link rel="stylesheet" href="/assets/site.complete.css">';
 const RELEASE = 'V21-FIRST-STAR-COMPLETE-WEB';
+const EXPECTED_STATIC_HTML = 105;
+const MAX_JSON_BYTES = 4 * 1024 * 1024;
+const MAX_DYNAMIC_HTML_BYTES = 768 * 1024;
+const FETCH_TIMEOUT_MS = 12_000;
 
 const REQUIRED_GIT_BLOBS = {
   'index.html': '4d927fb3bb0fa15debaf0c8554c0965bbcc994fd',
@@ -24,6 +29,7 @@ const REQUIRED_GIT_BLOBS = {
 };
 
 const nativeFetch = global.fetch.bind(global);
+let surfaceTreePromise = null;
 
 function sourceRewrite(input) {
   const value = typeof input === 'string' || input instanceof URL ? String(input) : input?.url;
@@ -47,16 +53,205 @@ function gitBlobSha(body) {
   return crypto.createHash('sha1').update(Buffer.concat([header, body])).digest('hex');
 }
 
-function sha256(body) {
-  return crypto.createHash('sha256').update(body).digest('hex');
-}
-
 function designHtml(body) {
   const buffer = Buffer.isBuffer(body) ? body : Buffer.from(body || '');
   const text = buffer.toString('utf8');
   if (text.includes('/assets/site.complete.css')) return buffer;
   if (!/<\/head>/i.test(text)) return buffer;
   return Buffer.from(text.replace(/<\/head>/i, `  ${COMPLETE_LINK}\n</head>`));
+}
+
+async function boundedBytes(url, maxBytes = MAX_JSON_BYTES) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+  try {
+    const response = await nativeFetch(url, {
+      headers: {
+        accept: 'application/vnd.github+json, application/json;q=0.9, */*;q=0.1',
+        'user-agent': 'GlacierEQ-Complete-Web-Verifier/2.0',
+      },
+      signal: controller.signal,
+      redirect: 'error',
+    });
+    const declared = Number(response.headers.get('content-length') || 0);
+    if (declared > maxBytes) throw new Error('verification_response_too_large');
+    if (!response.body) {
+      const body = Buffer.from(await response.arrayBuffer());
+      if (body.length > maxBytes) throw new Error('verification_response_too_large');
+      return { response, body };
+    }
+    const reader = response.body.getReader();
+    const chunks = [];
+    let length = 0;
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      length += value.byteLength;
+      if (length > maxBytes) {
+        await reader.cancel();
+        throw new Error('verification_response_too_large');
+      }
+      chunks.push(Buffer.from(value));
+    }
+    return { response, body: Buffer.concat(chunks, length) };
+  } catch (error) {
+    if (error?.name === 'AbortError') throw new Error('verification_fetch_timeout');
+    throw error;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+async function boundedJson(url, maxBytes = MAX_JSON_BYTES) {
+  const { response, body } = await boundedBytes(url, maxBytes);
+  if (!response.ok) throw new Error(`verification_http_${response.status}`);
+  try {
+    return JSON.parse(body.toString('utf8'));
+  } catch {
+    throw new Error('verification_invalid_json');
+  }
+}
+
+async function loadStaticSurfaceTree() {
+  if (!surfaceTreePromise) {
+    surfaceTreePromise = (async () => {
+      const root = await boundedJson(GITHUB_TREE_ROOT, 512 * 1024);
+      const site = Array.isArray(root.tree)
+        ? root.tree.find((entry) => entry.path === 'site-v15' && entry.type === 'tree')
+        : null;
+      if (!site?.url) throw new Error('site_v15_tree_missing');
+      const recursive = new URL(site.url);
+      recursive.searchParams.set('recursive', '1');
+      const tree = await boundedJson(recursive.href, MAX_JSON_BYTES);
+      if (tree.truncated === true || !Array.isArray(tree.tree)) throw new Error('site_v15_tree_incomplete');
+      return tree.tree;
+    })().catch((error) => {
+      surfaceTreePromise = null;
+      throw error;
+    });
+  }
+  return surfaceTreePromise;
+}
+
+function captureProxy(rawPath) {
+  return new Promise((resolve, reject) => {
+    const headers = new Map();
+    let settled = false;
+    const res = {
+      statusCode: 200,
+      setHeader(name, value) { headers.set(String(name).toLowerCase(), value); },
+      getHeader(name) { return headers.get(String(name).toLowerCase()); },
+      end(chunk = '') {
+        if (settled) return;
+        settled = true;
+        const body = Buffer.isBuffer(chunk) ? chunk : Buffer.from(String(chunk));
+        resolve({ status: this.statusCode, headers, body });
+      },
+    };
+    Promise.resolve(proxy({ url: `/?path=${encodeURIComponent(rawPath)}` }, res))
+      .then(() => {
+        if (!settled) reject(new Error(`proxy_route_did_not_end:${rawPath}`));
+      })
+      .catch(reject);
+  });
+}
+
+function verifyHtmlBuffer(body, label) {
+  const designed = designHtml(body);
+  if (designed.length > MAX_DYNAMIC_HTML_BYTES) throw new Error(`${label}:html_too_large`);
+  const text = designed.toString('utf8');
+  if ((text.match(/<h1\b/gi) || []).length !== 1) throw new Error(`${label}:h1_contract`);
+  if (/<script\b/i.test(text)) throw new Error(`${label}:script_detected`);
+  if (/\sstyle\s*=\s*/i.test(text)) throw new Error(`${label}:inline_style_detected`);
+  if ((text.match(/\/assets\/site\.complete\.css/g) || []).length !== 1) throw new Error(`${label}:complete_design_contract`);
+  if (!/<\/body>\s*<\/html>\s*$/i.test(text)) throw new Error(`${label}:html_not_closed`);
+  return designed.length;
+}
+
+async function verifyStaticSurface() {
+  const tree = await loadStaticSurfaceTree();
+  const blobs = new Map(tree.filter((entry) => entry.type === 'blob').map((entry) => [entry.path, entry.sha]));
+  const html = tree.filter((entry) => entry.type === 'blob' && entry.path.endsWith('.html'));
+  const mismatches = [];
+  for (const [filePath, expected] of Object.entries(REQUIRED_GIT_BLOBS)) {
+    const actual = blobs.get(filePath) || null;
+    if (actual !== expected) mismatches.push({ path: filePath, actual, expected });
+  }
+  const requiredDiscovery = ['404.html', 'sitemap.xml', 'robots.txt', 'llms.txt'];
+  const missing = requiredDiscovery.filter((filePath) => !blobs.has(filePath));
+  const ok = html.length === EXPECTED_STATIC_HTML && !mismatches.length && !missing.length;
+  return {
+    ok,
+    immutable_commit: WEB_SOURCE_COMMIT,
+    html_files: html.length,
+    expected_html_files: EXPECTED_STATIC_HTML,
+    total_files: blobs.size,
+    mismatches,
+    missing,
+  };
+}
+
+async function verifyGeneratedSurface() {
+  const projectionResponse = await captureProxy('data/company-atlas.json');
+  if (projectionResponse.status !== 200) throw new Error('company_projection_route_failed');
+  const projection = JSON.parse(projectionResponse.body.toString('utf8'));
+  if (projection.company_count !== 49 || !Array.isArray(projection.companies)) throw new Error('company_projection_topology_drift');
+
+  let htmlRoutes = 0;
+  let recordRoutes = 0;
+  for (const route of ['atlas/index.html', 'companies/index.html']) {
+    const response = await captureProxy(route);
+    if (response.status !== 200) throw new Error(`${route}:status_${response.status}`);
+    verifyHtmlBuffer(response.body, route);
+    htmlRoutes += 1;
+  }
+
+  for (const company of projection.companies) {
+    const slug = String(company.company_id).replaceAll('_', '-');
+    for (const namespace of ['companies', 'atlas']) {
+      const pagePath = `${namespace}/${slug}/index.html`;
+      const page = await captureProxy(pagePath);
+      if (page.status !== 200) throw new Error(`${pagePath}:status_${page.status}`);
+      verifyHtmlBuffer(page.body, pagePath);
+      htmlRoutes += 1;
+
+      const recordPath = `${namespace}/${slug}/record.json`;
+      const record = await captureProxy(recordPath);
+      if (record.status !== 200) throw new Error(`${recordPath}:status_${record.status}`);
+      const parsed = JSON.parse(record.body.toString('utf8'));
+      if (parsed.id !== company.company_id || parsed.source?.commit !== HELIX_COMMIT) {
+        throw new Error(`${recordPath}:identity_drift`);
+      }
+      recordRoutes += 1;
+    }
+  }
+
+  const notFound = await captureProxy('definitely-not-a-real-route/index.html');
+  if (notFound.status !== 404) throw new Error('404_status_drift');
+  verifyHtmlBuffer(notFound.body, '404-fallback');
+
+  const sitemap = await captureProxy('sitemap.xml');
+  const sitemapText = sitemap.body.toString('utf8');
+  if (sitemap.status !== 200 || !sitemapText.includes('/atlas/') || !sitemapText.includes('/companies/lockheed-martin/')) {
+    throw new Error('sitemap_projection_drift');
+  }
+
+  const llms = await captureProxy('llms.txt');
+  const llmsText = llms.body.toString('utf8');
+  if (llms.status !== 200 || !llmsText.includes('/data/current-proof.json') || !llmsText.includes('/atlas/')) {
+    throw new Error('llms_projection_drift');
+  }
+
+  return {
+    ok: true,
+    company_tracks: projection.company_count,
+    html_routes: htmlRoutes,
+    record_routes: recordRoutes,
+    aliases_per_company: 2,
+    fallback_404: 'PASS',
+    sitemap: 'PASS',
+    llms: 'PASS',
+  };
 }
 
 function securityHeaders(res) {
@@ -72,31 +267,27 @@ function securityHeaders(res) {
 }
 
 async function verifyWebRelease(res) {
-  const files = [];
-  let pass = true;
-  for (const [filePath, expectedBlob] of Object.entries(REQUIRED_GIT_BLOBS)) {
-    let status = 0;
-    let body = Buffer.alloc(0);
-    try {
-      const response = await nativeFetch(`${WEB_RAW_ROOT}${filePath}`, { headers: { 'User-Agent': 'GlacierEQ-Complete-Web-Verifier/1.0' } });
-      status = response.status;
-      body = Buffer.from(await response.arrayBuffer());
-    } catch {
-      status = 599;
-    }
-    const actualBlob = body.length ? gitBlobSha(body) : null;
-    const ok = status === 200 && actualBlob === expectedBlob;
-    pass = pass && ok;
-    files.push({ path: filePath, status, bytes: body.length, git_blob: actualBlob, expected_git_blob: expectedBlob, sha256: body.length ? sha256(body) : null, ok });
+  let staticSurface = null;
+  let generatedSurface = null;
+  let proof = null;
+  const errors = [];
+
+  try {
+    [staticSurface, generatedSurface] = await Promise.all([
+      verifyStaticSurface(),
+      verifyGeneratedSurface(),
+    ]);
+    if (!staticSurface.ok) errors.push('static_surface_failed');
+  } catch (error) {
+    errors.push(error instanceof Error ? error.message : 'surface_verification_failed');
   }
 
-  let proof = null;
   try {
-    const response = await nativeFetch(`${WEB_RAW_ROOT}data/current-proof.json`, { headers: { 'User-Agent': 'GlacierEQ-Complete-Web-Verifier/1.0' } });
-    proof = await response.json();
+    const { response, body } = await boundedBytes(`${WEB_RAW_ROOT}data/current-proof.json`, 128 * 1024);
+    if (!response.ok) throw new Error(`current_proof_http_${response.status}`);
+    proof = JSON.parse(body.toString('utf8'));
     const star = proof?.current_star;
-    pass = pass
-      && proof?.schema === 'glaciereq.current-proof.v1'
+    const proofOk = proof?.schema === 'glaciereq.current-proof.v1'
       && proof?.release === 'V21 First Star Completion'
       && star?.id === 'mission-agentic-ai-assurance'
       && star?.implementation?.commit === '4328fa7078e6e4125f895768142c6af0c5ec1234'
@@ -106,11 +297,14 @@ async function verifyWebRelease(res) {
       && star?.company_projection?.stage === 'CLAIM_PROMOTED'
       && star?.company_projection?.claim_ceiling === 'proof_bound_company_specific'
       && star?.company_projection?.helix_commit === HELIX_COMMIT;
-  } catch {
-    pass = false;
+    if (!proofOk) errors.push('current_proof_contract_failed');
+  } catch (error) {
+    errors.push(error instanceof Error ? error.message : 'current_proof_verification_failed');
   }
 
+  const pass = errors.length === 0 && staticSurface?.ok === true && generatedSurface?.ok === true;
   const payload = Buffer.from(JSON.stringify({
+    schema: 'glaciereq.complete-web-production-verification.v2',
     status: pass ? 'PASS' : 'FAIL',
     release: RELEASE,
     source_repository: 'GlacierEQ/job-application',
@@ -119,11 +313,13 @@ async function verifyWebRelease(res) {
     helix_commit: HELIX_COMMIT,
     complete_design: true,
     client_scripts: 0,
-    source_files: files,
+    static_surface: staticSurface,
+    generated_surface: generatedSurface,
     current_star: proof?.current_star?.id || null,
     proof_state: proof?.current_star?.proof?.verification_state || null,
     company_stage: proof?.current_star?.company_projection?.stage || null,
     claim_ceiling: proof?.current_star?.company_projection?.claim_ceiling || null,
+    errors,
   }, null, 2));
 
   securityHeaders(res);
@@ -163,6 +359,9 @@ module.exports = async (req, res) => {
   await proxy(req, res);
 };
 
-module.exports.constants = { WEB_SOURCE_COMMIT, HELIX_COMMIT, RELEASE };
+module.exports.constants = { WEB_SOURCE_COMMIT, HELIX_COMMIT, RELEASE, EXPECTED_STATIC_HTML };
 module.exports.gitBlobSha = gitBlobSha;
 module.exports.designHtml = designHtml;
+module.exports.boundedBytes = boundedBytes;
+module.exports.verifyStaticSurface = verifyStaticSurface;
+module.exports.verifyGeneratedSurface = verifyGeneratedSurface;
