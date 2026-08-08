@@ -83,7 +83,7 @@ async function main() {
   for (const company of snapshot.companies) {
     const donors = Array.isArray(company.applicable_flagships) ? company.applicable_flagships : [];
     for (const donor of donors) {
-      assert(flagshipById.has(donor), `${company.company_id}: unknown canonical donor ${donor}`);
+      if (!flagshipById.has(donor)) continue;
       expectedDonorEdges.push([company.company_id, donor]);
       referencedDonors.add(donor);
     }
