@@ -1,0 +1,21 @@
+name: V21 Bridge Hash Probe
+
+on:
+  push:
+    branches:
+      - ops/v21-vercel-credential-probe
+    paths:
+      - .github/workflows/v21-bridge-hash-probe.yml
+
+permissions:
+  contents: read
+
+jobs:
+  hash:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: d8c84f3032570b70033b6036ad528d94bb6837bb
+      - name: Hash canonical bridge bytes
+        run: sha256sum deployment/vercel-source-bridge/api/proxy.js
