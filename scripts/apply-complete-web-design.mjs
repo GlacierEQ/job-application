@@ -4,7 +4,8 @@ import { readdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const THIS_FILE = fileURLToPath(import.meta.url);
+const ROOT = path.resolve(path.dirname(THIS_FILE), '..');
 const SITE = path.join(ROOT, 'site-v15');
 const COMPLETE = '<link rel="stylesheet" href="/assets/site.complete.css">';
 const SYSTEMS = /<link\s+rel=["']stylesheet["']\s+href=["']\/assets\/site\.systems\.css["']\s*>/i;
@@ -44,4 +45,8 @@ for (const file of files) {
 }
 
 if (!files.length) throw new Error('no HTML files discovered');
-console.log(JSON.stringify({ status: 'PASS', html_files: files.length, injected: changed, stylesheet: '/assets/site.complete.css' }));
+const result = { status: 'PASS', html_files: files.length, injected: changed, stylesheet: '/assets/site.complete.css' };
+const invokedDirectly = process.argv[1] && path.resolve(process.argv[1]) === path.resolve(THIS_FILE);
+if (invokedDirectly) console.log(JSON.stringify(result));
+
+export { result };
