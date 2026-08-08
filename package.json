@@ -3,6 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "test": "python3 scripts/runner_verify.py && node --test deployment/vercel-source-bridge/design-proxy.test.js && node scripts/apply-complete-web-design.mjs && node scripts/validate-algerian-display.mjs"
+    "test": "python3 scripts/runner_verify.py && node --test deployment/vercel-source-bridge/design-proxy.test.js deployment/vercel-source-bridge/typography-proxy.test.js && node scripts/apply-complete-web-design.mjs && node scripts/validate-algerian-display.mjs"
   }
 }
