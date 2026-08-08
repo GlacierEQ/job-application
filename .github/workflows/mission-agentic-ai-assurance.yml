@@ -1,0 +1,50 @@
+name: Mission Agentic AI Assurance
+
+on:
+  push:
+    paths:
+      - "projects/mission-agentic-ai-assurance/**"
+      - ".github/workflows/mission-agentic-ai-assurance.yml"
+  pull_request:
+    paths:
+      - "projects/mission-agentic-ai-assurance/**"
+      - ".github/workflows/mission-agentic-ai-assurance.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  proof:
+    strategy:
+      matrix:
+        python: ["3.11", "3.12", "3.13"]
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: projects/mission-agentic-ai-assurance
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Unit and adversarial tests
+        env:
+          PYTHONPATH: src
+        run: python -m unittest discover -s tests -v
+      - name: Exact demo reproduction
+        env:
+          PYTHONPATH: src
+        run: |
+          python scripts/demo.py > /tmp/mission-assurance-receipt.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          actual = json.loads(Path('/tmp/mission-assurance-receipt.json').read_text())
+          expected = json.loads(Path('proof/reproduced_receipt.json').read_text())
+          assert actual == expected
+          print(actual['receipt_id'])
+          PY
+      - name: Proof-manifest verification
+        env:
+          PYTHONPATH: src
+        run: python scripts/verify_proof.py

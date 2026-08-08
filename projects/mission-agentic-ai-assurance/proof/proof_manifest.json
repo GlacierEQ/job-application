@@ -1,0 +1,27 @@
+{
+  "credentials_required": false,
+  "external_model_required": false,
+  "governed_files": {
+    ".github/workflows/ci.yml": "84ad46186428b097c57b2977dde1f90ee1248571514945116323825347a925f3",
+    "MASTER.md": "7fed6e38a2b6007761ee4196fb37040bff26bfd3ae441dc8403056b84988efea",
+    "MESH.yaml": "137aa303052c78254cf80422b94cb8dcfc0d6464be048bb6019c3ec8ccfc2497",
+    "README.md": "dd38e9eea766796554908fd9a1085bd20f6b36739487756b3519318f75c3e7dc",
+    "examples/lockheed_public_lens.json": "61bedfa2287681f00e52d93a75f8295198a3e922a9ab85cc01f200345ba26e58",
+    "machine/INTEGRATION.md": "d67996ab263f8cb8945c291767988143891050a8f89a66eff2aaac7ee43e8405",
+    "machine/contract.proto": "3c572028655646b416f857d0cd83d8a98cdf5bfc1cfe325370507407700101ef",
+    "machine/remedy.json": "d381aa778f06d3e737a187c17a4d53aa02705a9ca04a34eda860f0c44cd4b8ff",
+    "proof/claim_receipt.json": "fed091a6d506c09dfec8179e3312d35383cf7d3d8c85ef736bc74fc99b141ccf",
+    "proof/implementation_receipt.json": "efba98074e1c88782530d8347ae3fc12415d1a3ebd27d8f7c9263d97e5c78a5",
+    "proof/reproduced_receipt.json": "24e8b70184e86451d4619bcce86ddc7b1cc67d57e566bb94a8dfdfcf22469280",
+    "pyproject.toml": "7fce7cc6e752092be67f31b7cbb82aba8c8923823d932dfdfc70aec2b5b1a51e",
+    "scripts/demo.py": "9634fce1193ce20d70533040a9a23343096be70dc7037155405f072c9062175b",
+    "scripts/verify_proof.py": "6561904463627103b50ab92a8707ec13bb4710a8ca1eddbf6c42d9f105eeb68c",
+    "src/mission_assurance/__init__.py": "6f7902125c0f9835077fb1a7d3a7b07082e47c5b003e89021cd3743326002111",
+    "src/mission_assurance/core.py": "33d4dc2ae788f41b2e6d5d7396f1892dd8d1ed581d8c109def36bf3ca9c28a3f",
+    "tests/test_assurance.py": "ccf9e967e8a86c78d21da7cd997e05cc9fb221670771c0e41437acb1d4a9922c"
+  },
+  "network_required": false,
+  "reproduced_receipt_id": "b7a3e3cba968e19bb91ed8f6881b69e37efc97d7e8414be0aca431dff501123f",
+  "schema": "glaciereq.mission-assurance-proof-manifest.v1",
+  "test_count": 10
+}

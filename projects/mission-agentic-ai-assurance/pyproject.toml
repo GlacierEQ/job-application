@@ -1,0 +1,9 @@
+[project]
+name = "mission-agentic-ai-assurance"
+version = "0.1.0"
+description = "Independent deterministic mission-agent assurance reference implementation."
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.ruff]
+line-length = 100
