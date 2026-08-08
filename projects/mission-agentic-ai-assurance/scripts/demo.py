@@ -10,9 +10,18 @@ sys.path.insert(0, str(ROOT / "src"))
 from mission_assurance import EvidenceRef, MissionAssuranceGateway, Policy
 
 
+def load_evidence(item):
+    return EvidenceRef(
+        source_identity=item["source_identity"],
+        source_ref=item["source_ref"],
+        verification_state=item["verification_state"],
+        snapshot_content=(ROOT / item["snapshot_path"]).read_bytes(),
+    )
+
+
 def main() -> int:
     fixture = json.loads((ROOT / "examples" / "lockheed_public_lens.json").read_text())
-    evidence = [EvidenceRef(**item) for item in fixture["evidence"]]
+    evidence = [load_evidence(item) for item in fixture["evidence"]]
     gateway = MissionAssuranceGateway(
         Policy(
             allowed_actions=("agent.integration.assess", "agent.integration.execute"),
