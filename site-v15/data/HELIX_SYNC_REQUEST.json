@@ -1,15 +1,15 @@
 {
   "schema": "glaciereq.helix-sync-request.v1",
-  "requested_helix_commit": "87dd202abbff08ad2e7f6cf57739a8bdd661bd46",
-  "purpose": "Promote the first evidence-driven company second-depth motion into the committed public projection.",
+  "requested_helix_commit": "83549cda4af3714304f202d0f4d35b29d28da9f7",
+  "purpose": "Materialize the first fully proof-bound company second-depth path into the committed public projection.",
   "expected_company_routes": 49,
   "expected_second_depth": {
     "MAPPED_ONLY": 48,
-    "CODE_INSPECTED": 1
+    "CLAIM_PROMOTED": 1
   },
   "expected_lockheed_martin": {
-    "stage": "CODE_INSPECTED",
-    "claim_ceiling": "inspected_implementation_alignment"
+    "stage": "CLAIM_PROMOTED",
+    "claim_ceiling": "proof_bound_company_specific"
   },
   "authority_rule": "The generated projection and receipt remain controlling; this request is a trigger/checkpoint and must not override Helix truth."
 }

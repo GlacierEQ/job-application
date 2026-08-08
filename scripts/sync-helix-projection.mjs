@@ -288,7 +288,7 @@ function validateSecondDepthContract(registry, companiesIndex, companyIds) {
     "company second-depth evidence visibility must be public",
   );
   requireValue(
-    JSON.stringify(evidenceContract.field_kinds) === JSON.stringify(EVIDENCE_KIND_BY_FIELD),
+    stableJson(evidenceContract.field_kinds) === stableJson(EVIDENCE_KIND_BY_FIELD),
     "company second-depth evidence kind contract drift",
   );
 
