@@ -1,0 +1,39 @@
+name: Qwen Proof Starmap Verify
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/render-helix-starmap.mjs'
+      - 'scripts/validate-helix-starmap.mjs'
+      - 'scripts/starmap-lenses.json'
+      - 'site-v15/assets/helix-starmap.css'
+      - '.github/workflows/qwen-starmap-verify.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Render proof starmap
+        run: node scripts/render-helix-starmap.mjs
+      - name: Validate proof starmap
+        run: node scripts/validate-helix-starmap.mjs
+      - name: Revalidate canonical Company Atlas
+        run: node scripts/validate-helix-atlas.mjs
+      - name: Run repository-native test contract
+        run: npm test
+      - name: Upload rendered proof starmap
+        uses: actions/upload-artifact@v4
+        with:
+          name: qwen-proof-starmap
+          path: site-v15/atlas/starmap/
+          if-no-files-found: error
