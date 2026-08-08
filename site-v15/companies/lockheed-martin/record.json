@@ -19,15 +19,46 @@
   "schema": "glaciereq.company-intelligence.v1",
   "second_depth": {
     "blockers": [
-      "company_specific_remedy_not_bounded",
-      "implementation_not_created",
-      "proof_not_reproduced"
+      "distributed_state_not_implemented",
+      "workload_identity_not_implemented",
+      "durable_tamper_evident_store_not_implemented",
+      "real_telemetry_adapters_not_implemented",
+      "sandboxed_executor_not_implemented",
+      "production_scale_not_demonstrated",
+      "aerospace_defense_certification_not_claimed"
     ],
-    "claim_ceiling": "inspected_implementation_alignment",
+    "claim_ceiling": "proof_bound_company_specific",
     "evidence": {
-      "claim_receipts": [],
-      "gap_queue": [],
-      "implementation_receipts": [],
+      "claim_receipts": [
+        {
+          "id": "lockheed_claim_mission_agentic_ai_assurance",
+          "kind": "claim_receipt",
+          "source_identity": "https://github.com/GlacierEQ/job-application/blob/4328fa7078e6e4125f895768142c6af0c5ec1234/projects/mission-agentic-ai-assurance/proof/claim_receipt.json",
+          "source_ref": "commit:4328fa7078e6e4125f895768142c6af0c5ec1234",
+          "verification_state": "VERIFIED",
+          "visibility": "public"
+        }
+      ],
+      "gap_queue": [
+        {
+          "id": "lockheed_remedy_mission_agentic_ai_assurance",
+          "kind": "bounded_gap",
+          "source_identity": "https://github.com/GlacierEQ/job-application/blob/4328fa7078e6e4125f895768142c6af0c5ec1234/projects/mission-agentic-ai-assurance/machine/remedy.json",
+          "source_ref": "commit:4328fa7078e6e4125f895768142c6af0c5ec1234",
+          "verification_state": "VERIFIED",
+          "visibility": "public"
+        }
+      ],
+      "implementation_receipts": [
+        {
+          "id": "lockheed_implementation_mission_agentic_ai_assurance",
+          "kind": "implementation_receipt",
+          "source_identity": "https://github.com/GlacierEQ/job-application/blob/4328fa7078e6e4125f895768142c6af0c5ec1234/projects/mission-agentic-ai-assurance/proof/implementation_receipt.json",
+          "source_ref": "commit:4328fa7078e6e4125f895768142c6af0c5ec1234",
+          "verification_state": "VERIFIED",
+          "visibility": "public"
+        }
+      ],
       "inspected_repositories": [
         {
           "id": "lockheed_inspection_akos_runtime",
@@ -72,7 +103,16 @@
           "visibility": "public"
         }
       ],
-      "proof_artifacts": [],
+      "proof_artifacts": [
+        {
+          "id": "lockheed_proof_mission_agentic_ai_assurance",
+          "kind": "proof_artifact",
+          "source_identity": "https://github.com/GlacierEQ/job-application/blob/4328fa7078e6e4125f895768142c6af0c5ec1234/projects/mission-agentic-ai-assurance/proof/reproduced_receipt.json",
+          "source_ref": "commit:4328fa7078e6e4125f895768142c6af0c5ec1234",
+          "verification_state": "REPRODUCED",
+          "visibility": "public"
+        }
+      ],
       "role_evidence": [
         {
           "id": "lockheed_role_734997br",
@@ -84,9 +124,9 @@
         }
       ]
     },
-    "next_gate": "Bound a Lockheed-specific candidate remedy from the inspected AKOS, APEX control-plane, and Tower integrity capabilities without changing those source systems or claiming company adoption.",
-    "ordinal": 3,
-    "stage": "CODE_INSPECTED"
+    "next_gate": "Preserve this proof-bound claim while evolving the Mesh aspiration gaps through separately tested adapters; do not raise production-scale, certification, adoption, or company-deployment claims without new independent evidence.",
+    "ordinal": 7,
+    "stage": "CLAIM_PROMOTED"
   },
   "state": "scaffold",
   "track": "NO_DIRECT_EXHIBIT_VERIFIED"

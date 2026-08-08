@@ -277,12 +277,12 @@ async function main() {
   assert(lockheed, "Lockheed Martin track missing from public projection");
   assert(lockheed.display_name === "Lockheed Martin", "Lockheed Martin display identity drift");
   assert(lockheed.repositories.length === 0, "Lockheed Martin cannot gain repository proof implicitly");
-  assert(lockheed.second_depth.stage === "CODE_INSPECTED", "Lockheed Martin second-depth stage drift");
+  assert(lockheed.second_depth.stage === "CLAIM_PROMOTED", "Lockheed Martin second-depth stage drift");
   assert(
-    lockheed.second_depth.claim_ceiling === "inspected_implementation_alignment",
-    "Lockheed Martin claim ceiling does not match inspected stage",
+    lockheed.second_depth.claim_ceiling === "proof_bound_company_specific",
+    "Lockheed Martin claim ceiling does not match promoted stage",
   );
-  assert(lockheed.second_depth.ordinal === 3, "Lockheed Martin second-depth ordinal drift");
+  assert(lockheed.second_depth.ordinal === 7, "Lockheed Martin second-depth ordinal drift");
   assert(
     lockheed.second_depth.evidence.role_evidence.length === 1,
     "Lockheed Martin role evidence is not preserved",
@@ -295,11 +295,11 @@ async function main() {
     lockheed.second_depth.evidence.inspected_repositories.length === 4,
     "Lockheed Martin inspected-path evidence is incomplete",
   );
-  assert(
-    lockheed.second_depth.evidence.proof_artifacts.length === 0 &&
-      lockheed.second_depth.evidence.claim_receipts.length === 0,
-    "Lockheed Martin advanced into proof or claim evidence prematurely",
-  );
+  assert(lockheed.second_depth.evidence.gap_queue.length === 1, "Lockheed Martin bounded remedy evidence missing");
+  assert(lockheed.second_depth.evidence.implementation_receipts.length === 1, "Lockheed Martin implementation receipt missing");
+  assert(lockheed.second_depth.evidence.proof_artifacts.length === 1, "Lockheed Martin reproduced proof missing");
+  assert(lockheed.second_depth.evidence.proof_artifacts[0].verification_state === "REPRODUCED", "Lockheed Martin proof is not reproduced");
+  assert(lockheed.second_depth.evidence.claim_receipts.length === 1, "Lockheed Martin claim receipt missing");
   assert(
     lockheed.non_affiliation.includes("no Lockheed Martin affiliation"),
     "Lockheed Martin non-affiliation boundary missing",
@@ -330,7 +330,7 @@ async function main() {
   const stageCounts = Object.fromEntries(SECOND_DEPTH_STAGES.map((stage) => [stage, 0]));
   for (const company of snapshot.companies) stageCounts[company.second_depth.stage] += 1;
   assert(stageCounts.MAPPED_ONLY === 48, "mapped-only company count drift");
-  assert(stageCounts.CODE_INSPECTED === 1, "code-inspected company count drift");
+  assert(stageCounts.CLAIM_PROMOTED === 1, "claim-promoted company count drift");
 
   console.log(
     JSON.stringify(
