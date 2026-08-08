@@ -45,7 +45,11 @@ jobs:
           node-version: 24
 
       - name: Verify hardened source bridge contracts
-        run: node --test deployment/vercel-source-bridge/proxy.test.js deployment/vercel-source-bridge/design-proxy.test.js
+        run: |
+          node --test \
+            deployment/vercel-source-bridge/proxy.test.js \
+            deployment/vercel-source-bridge/design-proxy.test.js \
+            deployment/vercel-source-bridge/estate-proxy.test.js
 
       - name: Build exact Vercel static surface
         run: |
@@ -60,7 +64,7 @@ jobs:
           node scripts/validate-helix-atlas.mjs
           node site-v15/scripts/validate.mjs
 
-      - name: Exercise immutable static and generated runtime surfaces
+      - name: Exercise immutable V21 static and generated runtime surfaces
         run: |
           node <<'NODE'
           const design = require('./deployment/vercel-source-bridge/api/design-proxy.js');
@@ -81,6 +85,31 @@ jobs:
               generated_surface: generatedSurface,
               client_scripts: 0,
             }, null, 2));
+          }).catch((error) => {
+            console.error(error instanceof Error ? error.stack : error);
+            process.exit(1);
+          });
+          NODE
+
+      - name: Exercise V22 estate-intelligence verifier
+        run: |
+          node <<'NODE'
+          const estate = require('./deployment/vercel-source-bridge/api/estate-proxy.js');
+          const headers = new Map();
+          let body = Buffer.alloc(0);
+          const res = {
+            statusCode: 200,
+            setHeader(name, value) { headers.set(String(name).toLowerCase(), value); },
+            getHeader(name) { return headers.get(String(name).toLowerCase()); },
+            end(chunk = '') { body = Buffer.isBuffer(chunk) ? chunk : Buffer.from(String(chunk)); },
+          };
+          Promise.resolve(estate({ url: '/?path=__v22_verify' }, res)).then(() => {
+            const payload = JSON.parse(body.toString('utf8'));
+            if (res.statusCode !== 200 || payload.status !== 'PASS') {
+              console.error(JSON.stringify(payload, null, 2));
+              process.exit(1);
+            }
+            console.log(JSON.stringify(payload, null, 2));
           }).catch((error) => {
             console.error(error instanceof Error ? error.stack : error);
             process.exit(1);
