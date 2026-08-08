@@ -1,0 +1,134 @@
+name: V20 Final Live Gate
+
+on:
+  push:
+    branches:
+      - webdev/v20-first-star-production-bridge
+    paths:
+      - ".github/workflows/v20-final-live-gate.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  live-gate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact PR candidate
+        uses: actions/checkout@v4
+        with:
+          ref: webdev/v20-first-star-production-bridge
+          fetch-depth: 1
+      - name: Configure Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Exercise review-fixed bridge against pinned live sources
+        run: |
+          node - <<'NODE'
+          const bridge = require('./deployment/vercel-source-bridge/api/proxy');
+
+          async function invoke(path) {
+            const headers = new Map();
+            let body = Buffer.alloc(0);
+            const res = {
+              statusCode: 200,
+              setHeader(name, value) { headers.set(String(name).toLowerCase(), String(value)); },
+              end(value = '') { body = Buffer.isBuffer(value) ? value : Buffer.from(String(value)); },
+            };
+            const encoded = path ? `?path=${encodeURIComponent(path)}` : '';
+            await bridge({ url: `/api/proxy${encoded}` }, res);
+            return { status: res.statusCode, headers, body, text: body.toString('utf8') };
+          }
+
+          (async () => {
+            const verify = await invoke('__v20_verify');
+            if (verify.status !== 200) throw new Error(`V20 verifier returned ${verify.status}: ${verify.text}`);
+            const receipt = JSON.parse(verify.text);
+            if (receipt.schema !== 'glaciereq.v20-production-verification.v1' || receipt.status !== 'PASS') throw new Error('V20 verifier contract drift');
+            if (receipt.source_commit !== 'be5ddaa49d60ee551177376a67b92d681768e088') throw new Error('website source pin drift');
+            if (receipt.helix_source_commit !== '87dd202abbff08ad2e7f6cf57739a8bdd661bd46') throw new Error('Helix source pin drift');
+            if (receipt.company_routes !== 49 || receipt.public_repository_memberships !== 59) throw new Error('company topology drift');
+            if (receipt.second_depth.MAPPED_ONLY !== 48 || receipt.second_depth.CODE_INSPECTED !== 1) throw new Error('second-depth topology drift');
+            for (const stage of ['ROLE_VERIFIED','PROBLEM_BOUNDED','REMEDY_BOUNDED','IMPLEMENTED','PROOF_REPRODUCED','CLAIM_PROMOTED']) {
+              if (receipt.second_depth[stage] !== 0) throw new Error(`${stage} unexpectedly advanced`);
+            }
+            const lockheed = receipt.lockheed_martin;
+            if (!lockheed || lockheed.repositories !== 0 || lockheed.stage !== 'CODE_INSPECTED' || lockheed.ordinal !== 3) throw new Error('Lockheed verifier boundary drift');
+            if (lockheed.claim_ceiling !== 'inspected_implementation_alignment') throw new Error('Lockheed claim ceiling drift');
+            if (lockheed.role_evidence !== 1 || lockheed.problem_evidence !== 1 || lockheed.inspected_repositories !== 4) throw new Error('Lockheed evidence-count drift');
+            if (lockheed.proof_artifacts !== 0 || lockheed.claim_receipts !== 0) throw new Error('Lockheed proof/claim advanced prematurely');
+            if (receipt.scripts !== 0 || receipt.trackers !== 0) throw new Error('client execution boundary drift');
+            if (!receipt.files.some((file) => file.path === 'assets/company-constellation.css' && file.ok === true)) throw new Error('constellation stylesheet not release-gated');
+
+            const routes = {
+              atlas: await invoke('atlas'),
+              lockheed: await invoke('companies/lockheed-martin'),
+              record: await invoke('companies/lockheed-martin/record.json'),
+              sitemap: await invoke('sitemap.xml'),
+              llms: await invoke('llms.txt'),
+            };
+            for (const [name, response] of Object.entries(routes)) {
+              if (response.status !== 200) throw new Error(`${name} returned ${response.status}`);
+              if (response.headers.get('x-glaciereq-source-commit') !== 'be5ddaa49d60ee551177376a67b92d681768e088') throw new Error(`${name}: website header pin drift`);
+              if (response.headers.get('x-glaciereq-helix-commit') !== '87dd202abbff08ad2e7f6cf57739a8bdd661bd46') throw new Error(`${name}: Helix header pin drift`);
+              if (response.headers.get('x-psysocx-release') !== 'V20-FIRST-STAR-MOTION') throw new Error(`${name}: release header drift`);
+            }
+            if (!routes.atlas.text.includes('1</b><span>past mapped-only</span>')) throw new Error('Atlas does not show first moving star');
+            if (!routes.lockheed.text.includes('CODE_INSPECTED') || !routes.lockheed.text.includes('inspected_implementation_alignment')) throw new Error('Lockheed HTML stage drift');
+            const record = JSON.parse(routes.record.text);
+            if (record.second_depth.stage !== 'CODE_INSPECTED' || record.second_depth.evidence.inspected_repositories.length !== 4) throw new Error('Lockheed machine record drift');
+            if (!routes.sitemap.text.includes('/companies/lockheed-martin/')) throw new Error('Lockheed missing from sitemap');
+            if (!routes.llms.text.includes('Company Atlas')) throw new Error('Atlas missing from llms discovery');
+
+            const genericIds = Array.from({ length: 49 }, (_, i) => `company_${i}`);
+            genericIds[0] = 'lockheed_martin';
+            const genericCompanies = genericIds.map((id) => ({
+              company_id: id,
+              display_name: id === 'lockheed_martin' ? 'Lockheed Martin' : id,
+              dossier_track: id === 'lockheed_martin' ? 'NO_DIRECT_EXHIBIT_VERIFIED' : 'MAPPED_NOT_RECRUITER_READY',
+              target_roles: ['Engineer'],
+              recruiter_summary: 'fixture',
+              recruiter_admission_gate: 'fixture',
+              non_affiliation: id === 'lockheed_martin' ? 'Independent work; no Lockheed Martin affiliation.' : 'Independent work.',
+              gap_or_next_gate: 'fixture',
+              applicable_flagships: [],
+              repositories: [],
+            }));
+            const registry = {
+              schema: 'glaciereq.company-second-depth.v1', authority: 'GlacierEQ/job-app-helix', company_index: 'manifests/company_dossiers.json',
+              evidence_reference_contract: { required_fields: ['id','kind','source_identity','source_ref','visibility','verification_state'], visibility: 'public', field_kinds: { role_evidence:'role', problem_evidence:'problem', inspected_repositories:'repository_inspection', gap_queue:'bounded_gap', implementation_receipts:'implementation_receipt', proof_artifacts:'proof_artifact', claim_receipts:'claim_receipt' } },
+              stage_order: [
+                ['MAPPED_ONLY', [], 'company_alignment_only'], ['ROLE_VERIFIED',['role_evidence'],'verified_role_alignment'], ['PROBLEM_BOUNDED',['role_evidence','problem_evidence'],'externally_bounded_problem_alignment'], ['CODE_INSPECTED',['role_evidence','problem_evidence','inspected_repositories'],'inspected_implementation_alignment'], ['REMEDY_BOUNDED',['role_evidence','problem_evidence','inspected_repositories','gap_queue'],'bounded_remedy_design'], ['IMPLEMENTED',['role_evidence','problem_evidence','inspected_repositories','gap_queue','implementation_receipts'],'implemented_candidate_capability'], ['PROOF_REPRODUCED',['role_evidence','problem_evidence','inspected_repositories','gap_queue','implementation_receipts','proof_artifacts'],'reproducible_company_specific_proof'], ['CLAIM_PROMOTED',['role_evidence','problem_evidence','inspected_repositories','gap_queue','implementation_receipts','proof_artifacts','claim_receipts'],'proof_bound_company_specific']
+              ].map(([id, minimum_evidence, public_claim_ceiling], ordinal) => ({ id, ordinal, minimum_evidence, public_claim_ceiling })),
+              default_company_state: { stage:'MAPPED_ONLY', role_evidence:[], problem_evidence:[], inspected_repositories:[], gap_queue:[], implementation_receipts:[], proof_artifacts:[], claim_receipts:[], claim_ceiling:'company_alignment_only', blockers:['current_role_not_verified'], next_gate:'Verify role.' },
+              company_overrides: {},
+            };
+            const index = { schema:'glaciereq.company-dossier-index.v1', second_depth_registry:'manifests/company_second_depth.json', dossiers:['fixture.json'] };
+            const generic = bridge.compileProjection(index, [{ companies: genericCompanies }], registry);
+            if (generic.companies.find((c) => c.company_id === 'lockheed_martin').second_depth.stage !== 'MAPPED_ONLY') throw new Error('generic compiler no longer honors default state');
+
+            for (const legacy of ['__v19_verify','__v18_verify','__v15_verify']) {
+              const response = await invoke(legacy);
+              if (response.status === 200 && response.text.includes('glaciereq.v20-production-verification.v1')) {
+                throw new Error(`${legacy} impersonates V20 verifier`);
+              }
+            }
+
+            console.log(JSON.stringify({
+              status: 'PASS',
+              release: receipt.release,
+              source_commit: receipt.source_commit,
+              helix_source_commit: receipt.helix_source_commit,
+              second_depth: receipt.second_depth,
+              lockheed_martin: receipt.lockheed_martin,
+              generic_compiler_default: 'MAPPED_ONLY',
+              legacy_verifier_impersonation: false,
+              routes: Object.fromEntries(Object.entries(routes).map(([name, response]) => [name, response.status])),
+            }, null, 2));
+          })().catch((error) => {
+            console.error(error.stack || error);
+            process.exitCode = 1;
+          });
+          NODE
