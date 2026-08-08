@@ -1,8 +1,8 @@
 const crypto = require('crypto');
 const { URL } = require('node:url');
 
-const SOURCE_COMMIT = 'be5ddaa49d60ee551177376a67b92d681768e088';
-const HELIX_COMMIT = '87dd202abbff08ad2e7f6cf57739a8bdd661bd46';
+const SOURCE_COMMIT = 'c5701dedc834359c78399b4370a8147501784d19';
+const HELIX_COMMIT = '83549cda4af3714304f202d0f4d35b29d28da9f7';
 const RAW_ROOT = `https://raw.githubusercontent.com/GlacierEQ/job-application/${SOURCE_COMMIT}/site-v15/`;
 const HELIX_ROOT = `https://raw.githubusercontent.com/GlacierEQ/job-app-helix/${HELIX_COMMIT}/`;
 const PUBLIC_ORIGIN = 'https://casey-barton-glaciereq.vercel.app';
@@ -28,11 +28,11 @@ const TYPES = {
 };
 
 const REQUIRED = {
-  'index.html': '960591eddf993906100a31f910a066acfade3e17fbb1a6a3ab8a5310ae1bbfd7',
-  'resume/index.html': '0b956afa686604796ba983992768a85e67f442364e630471f5a2d1654d7f3cc1',
-  'master/index.html': 'ee1b8d8cd5fe36d1e04e83667bf7ff8f463a89b8e057b340430b203f1ee189cd',
-  'mesh/index.html': 'c2eb82d6d612a1b0272ee0593d4624b916eb6cc8d305d93b78f2ca2d9f9707e2',
-  'machine/index.html': '04ae02c47333db08d533377a23b6250077ee1168ec79af539d104f844964f009',
+  'index.html': '983f6948db7e332d511baee3e2a1ab1dc06e38e9948d6bd0c0edcab9fcd44226',
+  'resume/index.html': 'd7b527b37ac9337c9187b4d9428c47fdc1a00b2a187a6a1555984892fc1e8395',
+  'master/index.html': '598f8b562a98d1b515e478b8f0ab547d1d1cd0cdbc92621c0c5ff340b66ce685',
+  'mesh/index.html': 'f16d1b71582d8907e0de00dc46663982c0901c6891488334200c69ea666e67f0',
+  'machine/index.html': 'fec7461b0a2eeeed1d8bee2822995c3440557e9ceb1746b69bc1890854ece4ec',
   'assets/site.css': '8f3a659076fa9a4cbb90cf623baf5a29dad2a1cf14c246f4496aeb48c382012b',
   'assets/site.systems.css': '47c31b9d8a3e4eccfe87569b97a702a2fa1ff1641856febd8d275aa4af888407',
   'downloads/Casey_Barton_Resume.pdf': 'c46b4c3c31bea8405c28322e9f81be4ffd36c7faec9154acfd8da16a647cd1e3',
@@ -133,7 +133,7 @@ function securityHeaders(res) {
   res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
   res.setHeader('X-GlacierEQ-Source-Commit', SOURCE_COMMIT);
   res.setHeader('X-GlacierEQ-Helix-Commit', HELIX_COMMIT);
-  res.setHeader('X-PSYSOCX-Release', 'V20-FIRST-STAR-MOTION');
+  res.setHeader('X-PSYSOCX-Release', 'V21-FIRST-STAR-COMPLETION');
 }
 
 async function fetchBuffer(url, userAgent) {
@@ -161,13 +161,13 @@ function resolveSourceUrl(filePath) {
 
 const fetchSource = (filePath) => fetchBuffer(
   resolveSourceUrl(filePath),
-  'GlacierEQ-V20-Source-Bridge/1.0',
+  'GlacierEQ-V21-Source-Bridge/1.0',
 );
 
 async function fetchHelixJson(filePath) {
   const { response, body } = await fetchBuffer(
     HELIX_ROOT + filePath,
-    'GlacierEQ-V20-Company-Second-Depth/1.0',
+    'GlacierEQ-V21-Company-Second-Depth/1.0',
   );
   if (!response.ok) throw new Error(`${filePath} returned ${response.status}`);
   try {
@@ -239,7 +239,8 @@ function resolveSecondDepth(index, registry, companyIds) {
       JSON.stringify([...contract.required_fields].sort()) !== JSON.stringify(EVIDENCE_KEYS)) {
     throw new Error('company second-depth evidence field contract drift');
   }
-  if (JSON.stringify(contract.field_kinds) !== JSON.stringify(EVIDENCE_KIND_BY_FIELD)) {
+  if (JSON.stringify(Object.entries(contract.field_kinds).sort()) !==
+      JSON.stringify(Object.entries(EVIDENCE_KIND_BY_FIELD).sort())) {
     throw new Error('company second-depth evidence kind contract drift');
   }
 
@@ -714,16 +715,19 @@ async function verifyDeployment(res) {
     }
     lockheed = projection.companies.find((company) => company.company_id === 'lockheed_martin') || null;
     const topologyOk = projection.company_count === 49 && memberships === 59 &&
-      stageCounts.MAPPED_ONLY === 48 && stageCounts.CODE_INSPECTED === 1 &&
+      stageCounts.MAPPED_ONLY === 48 && stageCounts.CLAIM_PROMOTED === 1 &&
       lockheed && lockheed.repositories.length === 0 &&
-      lockheed.second_depth.stage === 'CODE_INSPECTED' &&
-      lockheed.second_depth.ordinal === 3 &&
-      lockheed.second_depth.claim_ceiling === 'inspected_implementation_alignment' &&
+      lockheed.second_depth.stage === 'CLAIM_PROMOTED' &&
+      lockheed.second_depth.ordinal === 7 &&
+      lockheed.second_depth.claim_ceiling === 'proof_bound_company_specific' &&
       lockheed.second_depth.evidence.role_evidence.length === 1 &&
       lockheed.second_depth.evidence.problem_evidence.length === 1 &&
       lockheed.second_depth.evidence.inspected_repositories.length === 4 &&
-      lockheed.second_depth.evidence.proof_artifacts.length === 0 &&
-      lockheed.second_depth.evidence.claim_receipts.length === 0;
+      lockheed.second_depth.evidence.gap_queue.length === 1 &&
+      lockheed.second_depth.evidence.implementation_receipts.length === 1 &&
+      lockheed.second_depth.evidence.proof_artifacts.length === 1 &&
+      lockheed.second_depth.evidence.proof_artifacts[0].verification_state === 'REPRODUCED' &&
+      lockheed.second_depth.evidence.claim_receipts.length === 1;
     pass = pass && topologyOk;
   }
 
@@ -731,11 +735,11 @@ async function verifyDeployment(res) {
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
   res.setHeader('Cache-Control', 'no-store');
   res.end(JSON.stringify({
-    schema: 'glaciereq.v20-production-verification.v1',
+    schema: 'glaciereq.v21-production-verification.v1',
     status: pass ? 'PASS' : 'FAIL',
     source_commit: SOURCE_COMMIT,
     helix_source_commit: HELIX_COMMIT,
-    release: 'V20 First Star Motion',
+    release: 'V21 First Star Completion',
     canonical_routes: ['/', '/resume/', '/master/', '/mesh/', '/machine/', '/companies/', '/atlas/'],
     company_routes: projection?.company_count ?? null,
     public_repository_memberships: projection ? memberships : null,
@@ -748,7 +752,10 @@ async function verifyDeployment(res) {
       role_evidence: lockheed.second_depth.evidence.role_evidence.length,
       problem_evidence: lockheed.second_depth.evidence.problem_evidence.length,
       inspected_repositories: lockheed.second_depth.evidence.inspected_repositories.length,
+      gap_queue: lockheed.second_depth.evidence.gap_queue.length,
+      implementation_receipts: lockheed.second_depth.evidence.implementation_receipts.length,
       proof_artifacts: lockheed.second_depth.evidence.proof_artifacts.length,
+      proof_verification_state: lockheed.second_depth.evidence.proof_artifacts[0]?.verification_state ?? null,
       claim_receipts: lockheed.second_depth.evidence.claim_receipts.length,
     } : null,
     projection_error: projectionError,
@@ -794,7 +801,7 @@ async function dynamicResponse(filePath, projection) {
 module.exports = async function handler(req, res) {
   securityHeaders(res);
   const raw = requestPath(req);
-  if (raw === '__v20_verify') {
+  if (raw === '__v21_verify') {
     return verifyDeployment(res);
   }
 
