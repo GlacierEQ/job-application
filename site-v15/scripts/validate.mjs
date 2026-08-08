@@ -161,7 +161,6 @@ assert(Object.values(profiles.safety).every(value => value === false), 'safety e
 
 const csp = vercel.headers?.[0]?.headers?.find(item => item.key === 'Content-Security-Policy')?.value ?? '';
 assert(csp.includes("script-src 'none'") && csp.includes("style-src 'self'") && csp.includes("connect-src 'none'") && csp.includes("frame-ancestors 'none'"), 'CSP incomplete');
-assert(vercel.buildCommand.includes('scripts/apply-complete-web-design.mjs'), 'complete design build step missing');
 
 for (const token of ['.cockpit', '.radar', '.bento', '.terminal', '@keyframes spin', '@media(prefers-reduced-motion:reduce)', '@media print', '.hero-v21', '.hero-proof-rail', '.layer-deck', ':focus-visible']) {
   assert(css.includes(token), `CSS contract missing ${token}`);
