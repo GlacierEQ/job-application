@@ -2,33 +2,20 @@
   "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
   "meta": {
     "schema": "glaciereq.resume-intelligence.v17",
-    "version": "17.0.0",
+    "version": "17.1.0-final",
     "profile": "PSYSOC-X_MACHINE",
     "facts_invariant": true,
-    "generated_on": "2026-08-05",
+    "generated_on": "2026-08-08",
     "evidence_policy": "claims-do-not-exceed-current-source-and-receipt-state",
-    "human_objectives": [
-      "immediate role clarity",
-      "credible differentiation",
-      "progressive disclosure",
-      "visible evidence and limits"
-    ],
-    "machine_objectives": [
-      "canonical headings",
-      "parseable dates and titles",
-      "normalized skills",
-      "explicit evidence states",
-      "stable identifiers"
-    ],
+    "layout_policy": "print-safe-letter-margins",
     "invariants": [
       "identity",
       "dates",
-      "test_counts",
-      "artifact_ids",
       "evidence_states",
       "limits",
       "authority_boundaries",
-      "non_affiliation"
+      "non_affiliation",
+      "repository-count-is-not-accomplishment-count"
     ]
   },
   "basics": {
@@ -60,9 +47,9 @@
       "summary": "Independent evidence-bound AI systems engineering.",
       "highlights": [
         "Designs agent, application-intelligence, evidence, memory, infrastructure-governance, and human-machine systems.",
-        "Converts ambiguous architecture into typed contracts, deterministic tests, refusal behavior, machine-readable facts, and completion receipts.",
+        "Converts broad architecture into typed contracts, deterministic tests, refusal behavior, machine-readable facts, and completion receipts.",
         "Built Portfolio Receipt Router with 69/69 tests through direct and reusable CI, artifact 8910423397, and zero external actions.",
-        "Separates source presence, review, execution, deployment, authority, and verified completion across a multi-repository portfolio."
+        "Separates source presence, review, execution, deployment, authority, and verified completion across a multi-repository engineering estate."
       ]
     },
     {
@@ -142,7 +129,7 @@
         "evidence-qualified resume generation",
         "document extraction",
         "structured artifacts",
-        "human and machine presentation layers"
+        "human and machine presentation surfaces"
       ]
     },
     {
@@ -164,13 +151,6 @@
         "Docker",
         "Vercel"
       ]
-    },
-    {
-      "name": "Prior scientific computing",
-      "keywords": [
-        "R",
-        "MATLAB"
-      ]
     }
   ],
   "projects": [
@@ -188,36 +168,29 @@
     {
       "name": "Job Application Helix",
       "url": "https://github.com/GlacierEQ/job-app-helix",
-      "description": "Evidence-governed hiring and portfolio orchestration.",
+      "description": "Evidence-governed hiring and portfolio orchestration with an exact 67-repository admitted public proof boundary.",
       "keywords": [
-        "RECORDED_TESTS",
-        "148/148"
+        "PARTIALLY_VERIFIED",
+        "admitted_public_repositories:67",
+        "repository_count_not_accomplishment_count",
+        "full_owned_estate_count_not_asserted"
       ]
     },
     {
       "name": "Agent Coordinator",
       "url": "https://github.com/GlacierEQ/anthropic-agent-coordinator",
-      "description": "Deterministic task ownership, dependencies, capacity, priority, and shared budgets.",
+      "description": "Deterministic task ownership, dependency order, capacity, stable priority, and shared budgets.",
       "keywords": [
         "RECORDED_TESTS",
         "62/62"
       ]
     },
     {
-      "name": "Microcode Governance",
-      "url": "https://github.com/GlacierEQ/xai-colossus-microcode",
-      "description": "Firmware manifests, drift, SBOMs, provenance, compatibility policy, and approval-gated rollout planning.",
-      "keywords": [
-        "REVIEWED_EXECUTION_BLOCKED",
-        "not_test_verified"
-      ]
-    },
-    {
-      "name": "PSYSOC-X",
+      "name": "AKOS / PSYSOC-X",
       "url": "https://github.com/GlacierEQ/AKOS/tree/main/stones/psysoc-x",
-      "description": "Audience calibration without factual, uncertainty, dignity, or authority drift.",
+      "description": "Authority, evidence, closure, and audience calibration without factual, uncertainty, dignity, or authority drift.",
       "keywords": [
-        "BOUNDED_TEST_SCOPE"
+        "BOUNDED_VERIFIED_SURFACES"
       ]
     }
   ],
@@ -261,14 +234,17 @@
       "receipt_router_tests": 69,
       "bounded_source_tests": 166,
       "energy_memory_tests": 19,
-      "helix_tests": 148,
+      "helix_admitted_public_repositories": 67,
+      "helix_state": "PARTIALLY_VERIFIED",
       "coordinator_tests": 62,
       "external_actions": 0,
       "receipt_router_artifact": 8910423397
     },
     "limits": [
+      "Repository count is not accomplishment count.",
+      "The 67-repository Helix figure is an admitted public proof boundary, not the full owned-estate count.",
       "No company affiliation is inferred from company-oriented repositories.",
-      "No production use, customer impact, formal people management, proprietary access, current certification status, or hardware validation is claimed without direct evidence.",
+      "No production deployment, customer impact, formal people management, proprietary access, current certification status, hardware validation, or measured business outcome is claimed without direct evidence.",
       "Reviewed or generated work is not represented as executed proof."
     ],
     "source_classes": [
