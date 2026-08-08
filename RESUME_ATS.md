@@ -5,17 +5,17 @@ Portfolio: https://casey-barton-glaciereq.vercel.app/
 GitHub: https://github.com/GlacierEQ
 
 ## Professional Summary
-Applied AI systems architect and agent infrastructure engineer who builds the operating layer between model capability and dependable outcomes. Designs authority-aware, evidence-bound systems for multi-agent coordination, application intelligence, document and evidence pipelines, memory and continuity, infrastructure governance, and human-machine interfaces. Combines software engineering with scientific measurement, compressed-gas safety, building-system inspection, and owner-operated field execution. Core method: observe the actual system, separate evidence from inference, isolate the governing failure, bound authority and risk, build the narrowest useful mechanism, test the stated behavior, expose the limit, and leave a verifiable artifact.
+Applied AI systems architect and agent infrastructure engineer who builds the operating layer between model capability and dependable outcomes. Designs authority-aware, evidence-bound systems for multi-agent coordination, application intelligence, document and evidence pipelines, memory and continuity, infrastructure governance, and human-machine interfaces. Converts ambitious or ambiguous architecture into typed contracts, runnable slices, deterministic validation, explicit refusal behavior, machine-readable facts, and inspectable completion receipts. Core method: observe the actual system, separate evidence from inference, isolate the governing failure, bound authority and risk, build the narrowest useful mechanism, test the stated behavior, expose the limit, and leave a verifiable artifact.
 
 ## Selected Execution Proof
 - Portfolio Receipt Router: 69 of 69 tests passed through direct and reusable CI; artifact 8910423397; zero external queries and actions.
 - Bounded infrastructure source systems: 166 source tests passed across Cooling, Energy, Servers, Security, and Nanosphere, plus 19 degraded-mode Energy memory tests and five hashed artifacts.
-- Job Application Helix: 148 of 148 recorded repository tests for evidence-governed hiring and portfolio orchestration.
-- Agent Coordinator: 62 of 62 recorded Python tests for deterministic ownership, dependencies, capacity, priority, and shared budgets.
-- PSYSOC-X: promoted at bounded TEST scope for audience calibration that preserves facts, evidence states, uncertainty, dignity, and authority boundaries.
+- Job Application Helix: evidence-governed hiring and portfolio orchestration for an exact 67-repository admitted public proof boundary. The Helix package is PARTIALLY_VERIFIED; child repositories retain independent evidence states. The 67-repository number is not an accomplishment count and is not the full owned-estate count.
+- Agent Coordinator: 62 of 62 recorded Python tests for deterministic ownership, dependency order, capacity, stable priority, shared budgets, and explicit refusal.
+- AKOS / PSYSOC-X: bounded verified surfaces for authority, evidence, closure, and deterministic audience calibration that preserves facts, uncertainty, dignity, and authority boundaries.
 
 ## Core Competencies
-Agent infrastructure; multi-agent orchestration; MCP; JSON-RPC 2.0; tool contracts; authority and approval models; application intelligence; document automation; evidence governance; provenance; claim-to-source mapping; deterministic testing; state machines; event design; idempotency; bounded retries; failure and recovery design; memory and continuity; human-in-the-loop systems; CI/CD; machine-readable release receipts.
+Agent infrastructure; multi-agent orchestration; Model Context Protocol (MCP); JSON-RPC 2.0; tool contracts; capability and authority separation; approval models; application intelligence; document automation; evidence governance; provenance; claim-to-source mapping; deterministic testing; state machines; event design; idempotency; bounded retries; failure and recovery design; memory and continuity; human-in-the-loop systems; CI/CD; machine-readable release receipts; repository lineage and canonical-system reasoning; infrastructure diagnostics; workflow recovery.
 
 ## Technologies
 Python; TypeScript; JavaScript; SQL; Bash; Node.js; React; Next.js; FastAPI; REST; JSON-RPC 2.0; Model Context Protocol (MCP); JSON Schema; Protocol Buffers; Git; GitHub Actions; Docker; Vercel; static analysis; dependency auditing; integrity hashing.
@@ -25,9 +25,9 @@ Additional evidence-bounded project exposure: Go, Rust, C, C++, CUDA, Swift/Meta
 ## Professional Experience
 GLACIEREQ - Founder / Applied AI Systems Builder - Honolulu, Hawaii - January 2025-Present
 - Design and implement evidence-bound systems spanning agent orchestration, application intelligence, document and evidence pipelines, memory and continuity, infrastructure governance, and human-machine interfaces.
-- Convert ambiguous architecture into typed contracts, runnable slices, deterministic tests, explicit refusal behavior, machine-readable facts, and reviewable completion receipts.
+- Convert broad architecture into typed contracts, runnable slices, deterministic tests, explicit refusal behavior, machine-readable facts, and reviewable completion receipts.
 - Built a public Portfolio Receipt Router that replaced unsupported autonomous-control semantics with a local fail-closed evidence system; 69 of 69 tests passed through direct and reusable CI with zero external actions.
-- Govern a multi-repository portfolio by separating source presence, review, execution, deployment, authority, and verified completion so recruiter, technical, and machine views cannot drift.
+- Govern a multi-repository engineering estate by separating source presence, review, execution, deployment, authority, and verified completion so public claims cannot outrun proof.
 - Use AI-assisted development as an inspectable engineering process combining source review, bounded generation, adversarial checking, deterministic validation, and human judgment.
 
 DIAMOND HEAD HOME INSPECTIONS - Certified Home Inspector - Honolulu, Hawaii - 2020-2024
@@ -41,19 +41,16 @@ HI-CLASS HOME SERVICES / HI CLASS MAINTENANCE OAHU LLC - Owner-Operator, Buildin
 
 ## Selected Systems
 Portfolio Receipt Router - TEST VERIFIED
-Compatibility-safe architecture repair and evidence routing. Evidence: 69/69 tests; direct and reusable CI; artifact 8910423397; zero external actions. Boundary: independent technical exhibit; no datacenter control, company affiliation, or production-operation claim.
+Compatibility-safe architecture repair and evidence routing. Evidence: 69/69 tests; direct and reusable CI; artifact 8910423397; zero external actions. Boundary: independent technical exhibit; no production-operation or company-affiliation claim.
 
-Job Application Helix - RECORDED 148/148
-Evidence-governed hiring and portfolio orchestration. Boundary: release-specific current-SHA and deployment gates remain separate.
+Job Application Helix - PARTIALLY_VERIFIED
+Evidence-governed hiring and portfolio orchestration with an exact 67-repository admitted public proof boundary, fail-closed evidence levels, repository-state separation, promotion gates, machine contracts, and role-calibrated package generation. Boundary: the 67 repositories are a public proof set, not accomplishment count or full owned-estate count; child repositories retain independent evidence states.
 
 Agent Coordinator - RECORDED 62/62
-Deterministic task ownership, dependencies, capacity, priority, and shared budgets. Boundary: hosted matrix and build-wheel promotion remain open.
+Deterministic task ownership, dependency order, capacity, stable priority, shared budgets, and explicit refusal. Evidence: 62/62 recorded Python tests. Boundary: hosted matrix and broader promotion gates remain separate.
 
-Microcode Governance - REVIEWED_EXECUTION_BLOCKED
-Firmware manifests, inventory drift, SBOMs, provenance, compatibility policy, and approval-gated rollout planning. Evidence: 132-check generated contract; static review found no critical defect. Boundary: private CI did not execute; not test verified and performs no firmware mutation.
-
-### PSYSOC-X - BOUNDED TEST SCOPE
-Audience calibration across recruiter, master, machine, and relationship views. Boundary: no diagnosis, covert persuasion, or manipulation capability is claimed.
+AKOS / PSYSOC-X - BOUNDED VERIFIED SURFACES
+Authority, evidence, closure, and deterministic audience-calibration primitives. Boundary: presentation depth and ordering may change; facts, uncertainty, dignity, and authority may not.
 
 ## Earlier Technical Experience
 - Sea-urchin morphometric research, University of Hawaii, 2016-2017: processed physical measurements of gill structures to support visual species identification.
@@ -69,4 +66,4 @@ AWS Cloud Institute - Cloud Application Developer program - 2025-2026, in progre
 Historical resume records: PSI Visual Cylinder Inspector; PSI Eddy Current Technician; PSI Valve Repair Technician; PSI Oxygen Cleaning Cylinder Technician; NAUI Rescue Diver; NAUI Master Diver; PADI Enriched Air Diver. Current status is not represented as active without updated documentation.
 
 ## Evidence Boundary
-Independent GlacierEQ work and bounded technical exhibits. Test counts refer only to their stated repository and scope. No company affiliation, proprietary access, production use, customer impact, formal people-management experience, current certification status, or hardware validation is claimed without direct evidence.
+Independent GlacierEQ work and bounded technical exhibits. Test counts refer only to their stated repository and scope. The 67-repository Helix figure is an admitted public proof boundary, not an accomplishment count or full-estate count. No company affiliation, proprietary access, production deployment, customer impact, formal people-management experience, current certification status, hardware validation, or measured business outcome is claimed without direct evidence.
