@@ -74,25 +74,26 @@ function stableBundle(sourceCommit, modules, moduleHashes) {
   const orderedHashes = Object.fromEntries(
     Object.entries(moduleHashes).sort(([left], [right]) => left.localeCompare(right)),
   );
-  const payload = {
+  return Buffer.from(`${JSON.stringify({
     schema: BUNDLE_SCHEMA,
     source_commit: sourceCommit,
     entry: 'api/release-router.js',
     module_sha256: orderedHashes,
     modules: orderedModules,
-  };
-  return Buffer.from(`${JSON.stringify(payload)}\n`);
+  })}\n`);
 }
 
 function bootstrapSource({ sourceCommit, bundleSha256, bundleGzipBase64 }) {
   return `const crypto = require('node:crypto');
 const path = require('node:path');
 const zlib = require('node:zlib');
+const { URL } = require('node:url');
 
 const RELEASE = 'V25-APPLICATION-COMPILER';
 const SOURCE_COMMIT = '${sourceCommit}';
 const EXPECTED_BUNDLE_SHA256 = '${bundleSha256}';
 const BUNDLED_MODULES_GZIP_BASE64 = '${bundleGzipBase64}';
+const BUNDLE_VERIFY_SCHEMA = 'glaciereq.v25-bundled-release-verification.v1';
 let handlerPromise = null;
 
 function sha256(value) {
@@ -121,7 +122,10 @@ function loadBundle() {
   if (bundle.entry !== 'api/release-router.js' || !bundle.modules || !bundle.module_sha256) {
     throw new Error('v25_bundle_structure_invalid');
   }
-  for (const [id, source] of Object.entries(bundle.modules)) {
+  const moduleIds = Object.keys(bundle.modules).sort();
+  if (moduleIds.length !== ${MODULES.length}) throw new Error('v25_bundle_module_count_mismatch');
+  for (const id of moduleIds) {
+    const source = bundle.modules[id];
     if (typeof source !== 'string' || sha256(Buffer.from(source)) !== bundle.module_sha256[id]) {
       throw new Error('v25_bundle_module_sha256_mismatch');
     }
@@ -150,6 +154,53 @@ function compileBundle(bundle) {
   return handler;
 }
 
+function verifyBundle() {
+  const bundle = loadBundle();
+  compileBundle(bundle);
+  return {
+    schema: BUNDLE_VERIFY_SCHEMA,
+    status: 'PASS',
+    release: RELEASE,
+    source_commit: SOURCE_COMMIT,
+    bundle_sha256: EXPECTED_BUNDLE_SHA256,
+    module_count: Object.keys(bundle.modules).length,
+    entry: bundle.entry,
+    bootstrap_network_fetch_required: false,
+    every_module_sha256_verified_before_execution: true,
+  };
+}
+
+function requestPath(req) {
+  const parsed = new URL(String(req?.url || '/'), 'https://glaciereq.invalid');
+  const values = parsed.searchParams.getAll('path');
+  if (values.length) return values.join('/').replace(/^\\/+|\\/+$/g, '');
+  return parsed.pathname.replace(/^\\/+|\\/+$/g, '');
+}
+
+function serveBundleVerify(res) {
+  let payload;
+  try {
+    payload = verifyBundle();
+  } catch (error) {
+    payload = {
+      schema: BUNDLE_VERIFY_SCHEMA,
+      status: 'FAIL',
+      release: RELEASE,
+      source_commit: SOURCE_COMMIT,
+      errors: [error instanceof Error ? error.message : 'v25_bundle_verification_failed'],
+    };
+  }
+  const body = Buffer.from(JSON.stringify(payload, null, 2));
+  res.statusCode = payload.status === 'PASS' ? 200 : 503;
+  res.setHeader('Content-Type', 'application/json; charset=utf-8');
+  res.setHeader('Cache-Control', 'no-store');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-PSYSOCX-Release', RELEASE);
+  res.setHeader('X-GlacierEQ-Bridge-Commit', SOURCE_COMMIT);
+  res.setHeader('Content-Length', String(body.length));
+  res.end(body);
+}
+
 async function getHandler() {
   if (!handlerPromise) {
     handlerPromise = Promise.resolve().then(() => compileBundle(loadBundle())).catch((error) => {
@@ -161,6 +212,7 @@ async function getHandler() {
 }
 
 module.exports = async function v25BundledRelease(req, res) {
+  if (requestPath(req) === '__v25_bundle_verify') return serveBundleVerify(res);
   try {
     const handler = await getHandler();
     return handler(req, res);
@@ -179,10 +231,12 @@ module.exports = async function v25BundledRelease(req, res) {
 };
 
 module.exports.constants = {
+  BUNDLE_VERIFY_SCHEMA,
   EXPECTED_BUNDLE_SHA256,
   RELEASE,
   SOURCE_COMMIT,
 };
+module.exports.verifyBundle = verifyBundle;
 `;
 }
 
@@ -243,6 +297,7 @@ function main() {
         sha256: sha256(routing),
       },
     ],
+    verification_endpoint: '/__v25_bundle_verify',
     invariants: {
       self_contained_executable_modules: true,
       bootstrap_network_fetch_required: false,
