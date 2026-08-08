@@ -15,7 +15,7 @@ The working method comes from both software and field inspection: observe the ac
 
 - **Portfolio Receipt Router:** replaced an overstated autonomous-control surface with a local, fail-closed evidence router while preserving compatibility. **69/69 tests passed** through direct and reusable CI; artifact `8910423397`; **zero external queries and actions**.
 - **Bounded infrastructure source promotions:** hardened Cooling, Energy, Servers, Security, and Nanosphere into independently scoped technical systems with **166 bounded source tests**, **19 additional degraded-mode Energy memory tests**, five hashed artifacts, and explicit hardware, deployment, scale, and affiliation limits.
-- **Job Application Helix:** evidence-governed hiring and portfolio control plane with **148/148 recorded repository tests**, repository-state separation, promotion gates, machine contracts, and role-calibrated package generation.
+- **Job Application Helix:** evidence-governed hiring and portfolio control plane for an exact **67-repository admitted boundary**, with fail-closed evidence levels, repository-state separation, promotion gates, machine contracts, and role-calibrated package generation. The Helix package is **PARTIALLY_VERIFIED**; child repositories retain independent evidence states.
 - **Agent Coordinator:** deterministic multi-agent ownership, dependency, capacity, priority, and shared-budget scheduling with **62/62 recorded Python tests**.
 - **AKOS and PSYSOC-X:** authority, evidence, closure, and deterministic audience-calibration primitives with repository-native verification. PSYSOC-X changes presentation depth and ordering without changing facts, uncertainty, dignity, or authority.
 
