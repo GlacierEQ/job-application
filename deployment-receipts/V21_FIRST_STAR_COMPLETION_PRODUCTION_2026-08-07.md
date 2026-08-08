@@ -8,30 +8,30 @@
 
 ## Outcome
 
-V21 completes the first full company second-depth path. Lockheed Martin advanced from the V20 `CODE_INSPECTED` checkpoint through four separately evidenced stages:
+V21 completes the first full company second-depth path. Lockheed Martin advanced from the V20 `CODE_INSPECTED` checkpoint through four separately evidenced and validator-gated stages:
 
 1. `REMEDY_BOUNDED`
 2. `IMPLEMENTED`
 3. `PROOF_REPRODUCED`
 4. `CLAIM_PROMOTED`
 
-The resulting public claim is proof-bound to a reproducibly tested independent GlacierEQ reference implementation. V21 does **not** establish Lockheed Martin affiliation, employment, endorsement, contract, clearance, proprietary access, adoption, deployment, certification, production-scale operation, or measured impact.
+The resulting application claim is proof-bound to a reproducibly tested independent GlacierEQ reference implementation. Completion means the bounded evidence/implementation/claim chain is complete; it does **not** mean the architecture has no remaining Mesh aspiration.
 
 ## Standalone repository creation boundary
 
-The requested standalone repository name was `mission-agentic-ai-assurance`.
+Requested standalone repository: `mission-agentic-ai-assurance`.
 
-A one-shot GitHub Actions call attempted account-level repository creation through `POST /user/repos`. GitHub returned:
+A one-shot GitHub Actions request attempted account-level repository creation through `POST /user/repos`. GitHub returned:
 
 `403 Resource not accessible by integration`
 
-The repository-scoped GitHub integration lacks account-level repository-creation permission. A separate credential-presence probe also confirmed no repository `VERCEL_TOKEN`, `VERCEL_ACCESS_TOKEN`, `VERCEL_ORG_ID`, or `VERCEL_PROJECT_ID` secret was available.
+The connected GitHub integration has repository-scoped mutation capabilities but not account-level repository-creation permission. A credential-presence probe also found no repository `VERCEL_TOKEN`, `VERCEL_ACCESS_TOKEN`, `VERCEL_ORG_ID`, or `VERCEL_PROJECT_ID` secret.
 
-The engineering work therefore continued as an isolated extraction-ready repository capsule at:
+Engineering did not stop at that external boundary. The project was built as an isolated, extraction-ready repository capsule at:
 
 `projects/mission-agentic-ai-assurance/`
 
-inside `GlacierEQ/job-application`. It has its own package metadata, source, tests, proof artifacts, Machine contract, Mesh document, and path-scoped permanent CI. No standalone GitHub repository is claimed to have been created.
+inside `GlacierEQ/job-application`, with its own package metadata, source tree, tests, proof artifacts, Recruiter/Master/Machine/Mesh surfaces, and path-scoped permanent CI. No standalone GitHub repository is claimed to have been created.
 
 ## Canonical source chain
 
@@ -46,31 +46,31 @@ inside `GlacierEQ/job-application`. It has its own package metadata, source, tes
 | V21 production bridge source | `GlacierEQ/job-application@d8c84f3032570b70033b6036ad528d94bb6837bb` |
 | Bridge PR | `GlacierEQ/job-application#36` |
 
-The bridge independently pins website source `c5701dedc834359c78399b4370a8147501784d19` and Helix authority `83549cda4af3714304f202d0f4d35b29d28da9f7`.
+The canonical bridge independently pins the materialized website and Helix authority.
 
-## Four-layer project
+## Four-layer implementation
 
-### Recruiter
+### 01 — Recruiter
 
 `projects/mission-agentic-ai-assurance/README.md`
 
-Value, public Lockheed lens, five-minute proof, maximum defensible claim, and prohibited claims.
+Defines the value, public Lockheed lens, five-minute proof, demonstrated capability, maximum defensible claim, and prohibited claims.
 
-### Master
+### 02 — Master
 
 `projects/mission-agentic-ai-assurance/MASTER.md`
 
-Innovation thesis, externally bounded problem, requirements-to-capabilities matrix, reference architecture, failure domains, unresolved gap ledger, acceptance contract, and truth-bounded application language.
+Contains the innovation thesis, externally bounded problem, requirements-to-capabilities matrix, architecture, failure domains, unresolved gap ledger, acceptance contract, and truth-bounded application language.
 
-### Machine
+### 03 — Machine
 
 - `glaciereq/mission_assurance/v1/contract.proto`
 - `machine/remedy.json`
 - `machine/INTEGRATION.md`
 
-The machine boundary defines discover/connect/authenticate/call/verify/extend semantics, exact canonical JSON, content-bound evidence, and finite metrics.
+Defines Discover → Connect → Authenticate → Call → Verify → Extend semantics, exact canonical JSON, finite metrics, content-bound evidence, receipt verification, and adapter boundaries.
 
-### Mesh
+### 04 — Mesh
 
 `projects/mission-agentic-ai-assurance/MESH.yaml`
 
@@ -78,43 +78,43 @@ Links the project to AKOS, APEX control plane, Tower of Babel, Job App Helix, an
 
 ## Implemented reference capability
 
-The reference gateway includes:
+The hardened gateway includes:
 
 - strict deterministic canonical JSON;
 - content-bound public evidence snapshots;
 - SHA-256 snapshot verification;
 - commit-bound Git evidence identities;
 - public evidence identity restrictions;
-- request, policy, evidence, outcome, and receipt hashing;
-- canonical machine payload adapter;
+- request, policy, evidence, outcome, and receipt hashes;
+- canonical machine-payload adapter;
 - payload normalization before hashing and execution;
-- action allowlist and payload-size bound;
+- action allowlist and payload-size bounds;
 - finite metric validation and scalar drift gate;
 - thread-safe single-process idempotency;
-- identical replay and conflicting-replay rejection;
+- exact replay and conflicting-replay rejection;
 - concurrent duplicate execute-once behavior within one process;
 - circuit breaking;
 - executor-failure receipts;
-- non-canonical executor-outcome failure receipts;
+- non-canonical executor-output failure receipts;
 - deterministic assurance receipts.
 
 ## Adversarial implementation iteration
 
-The first happy-path implementation was not promoted. Review found substantive defects and the code was raised toward the aspiration before becoming evidence.
+The first happy-path build was not accepted merely because it ran. Review surfaced substantive defects and the code was raised toward the aspiration before it became evidence.
 
-Closed before implementation merge:
+Closed before implementation merge included:
 
 1. concurrent idempotency race;
 2. NaN / infinity drift bypass;
 3. post-side-effect receipt failure followed by re-execution risk;
 4. payload-hash / executor-semantic mismatch;
 5. unclear Machine canonicalization boundary;
-6. hash-shaped evidence references not actually content-bound;
+6. hash-shaped evidence references not content-bound to stored bytes;
 7. overly permissive evidence URL boundary;
 8. self-declared proof-manifest file-set weakness;
 9. weak proof-verifier demo-failure handling;
 10. protobuf package-path mismatch;
-11. strict repository style/quality failures.
+11. strict repository style / quality failures.
 
 ## Reproduced implementation proof
 
@@ -128,11 +128,11 @@ Canonical implementation commit:
 
 `4328fa7078e6e4125f895768142c6af0c5ec1234`
 
-The proof covers content hash mismatch, public evidence boundaries, non-finite metrics, replay/conflict, concurrent duplicate execution, circuit breaking, canonical Machine JSON, exact deterministic demo reproduction, and the fixed-set proof manifest.
+The proof covers content-hash mismatch, evidence-source boundaries, non-finite metrics, replay/conflict behavior, concurrent duplicate execution, circuit breaking, canonical Machine JSON, exact deterministic demo reproduction, and a fixed governed-file proof manifest.
 
 ## Sequential Helix promotion history
 
-Each remaining transition was a separate commit and passed the native second-depth validator before commit:
+Each remaining company stage was a separate commit and passed the native second-depth validator before commit:
 
 | Transition | Commit |
 | --- | --- |
@@ -167,89 +167,94 @@ Native Helix gates were green for Application Registry Validation, Portfolio Com
 - proof verification state: `REPRODUCED`
 - claim receipt: `1`
 
-This intentionally separates direct company repository evidence from a proof-bound independent implementation aligned to public company requirements.
+The zero-direct-repository state and the proof-bound independent implementation are intentionally separate dimensions.
 
 ## Public projection materialization
 
-The website consumed canonical Helix rather than hand-editing company state.
+The website consumed canonical Helix instead of hand-editing downstream company state.
 
-Two downstream defects were repaired during V21 materialization:
+Two downstream defects were found and repaired:
 
-1. `field_kinds` was compared by JSON object insertion order instead of structural equality;
-2. V20 projection/Atlas validators still required Lockheed to remain at `CODE_INSPECTED`.
+1. evidence-kind maps were compared by JSON insertion order rather than structural equality;
+2. V20 projection/Atlas validators still required Lockheed to remain `CODE_INSPECTED`.
 
-The successful V21 materializer passed the projection compiler/validator, Atlas renderer/linker/validator, company-constellation renderer/linker/validator, existing hiring-surface validation, exact `1/1/4/1/1/1/1` evidence topology, and `REPRODUCED` proof assertion.
+The V21 materializer passed the projection compiler/validator, Atlas renderer/linker/validator, company-constellation renderer/linker/validator, existing hiring-surface validation, exact `1/1/4/1/1/1/1` cumulative evidence assertion, and `REPRODUCED` proof assertion.
 
 Materialized website source:
 
 `c5701dedc834359c78399b4370a8147501784d19`
 
-Website PR #35 passed all six native workflow families.
+Website PR #35 passed all six native workflow families before merge.
 
-## V21 canonical bridge
+## Canonical V21 bridge
 
 Canonical bridge merge:
 
 `d8c84f3032570b70033b6036ad528d94bb6837bb`
 
-Bridge PR #36 carried only the two permanent bridge files. Its permanent regression suite passed `14/14`, its live pinned-source verifier passed, both native workflows were green, and it had no inline review threads before promotion.
+Bridge PR #36 carried only its two permanent bridge files. Its regression suite passed `14/14`, its pinned-source live verifier passed, both native workflows were green, and review was clean before exact-head promotion.
 
-The canonical bridge SHA-256, computed from the exact Git bytes at that commit, is:
+Canonical bridge SHA-256:
 
 `8af9f491dc8532ef2e6e43f5d040f0c4c5a4ff634ecc37a3d0f2f3ddcd93de96`
 
-## Hardened deployment bootstrap
+Raw canonical bridge bytes: `55435`  
+Deterministic gzip (`gzip -n -9`) bytes: `13610`
 
-Vercel's connector requires explicit deployment files. V21 therefore uses a small bootstrap that fetches the exact canonical bridge, verifies its bytes, then compiles it.
+## Deployment bootstrap iteration
 
-Preserved artifact:
+The Vercel connector requires explicit deployment files. Deployment went through three increasingly strong candidates rather than preserving a weaker candidate merely because it already passed functional verification.
 
-`deployment/vercel-source-bridge/bootstrap-v21.js`
+### Candidate 1 — superseded
 
-Final hardened bootstrap properties:
+Preview: `dpl_Gb8iVjEYG1z5UZ1bTYkL5fVppw3L`  
+Production: `dpl_9s77aUQE1ZCjmMKkhmLw163oeEo3`
 
-- bridge URL pins commit `d8c84f3032570b70033b6036ad528d94bb6837bb`;
-- downloaded bridge bytes must SHA-256 to `8af9f491dc8532ef2e6e43f5d040f0c4c5a4ff634ecc37a3d0f2f3ddcd93de96`;
-- integrity is checked **before** `Module._compile`;
-- 12-second source-load timeout;
-- failed load resets the cached promise;
-- server-side error detail is logged;
-- public failure response is generic: `Immutable bridge bootstrap unavailable`;
-- HTTP 502 / `Cache-Control: no-store` / `Retry-After: 60` on bootstrap failure.
+Functionally served V21, but review found:
 
-Final bootstrap SHA-256:
+- fetched executable bridge bytes were not independently hash-verified;
+- the public fallback included internal `error.message` text.
 
-`3416ebed0fad9d02c0eda28e3974b6c13a4a0df6152d489a145df7370d7c072b`
+### Candidate 2 — superseded
 
-Final bootstrap bytes: `2178`
+Preview: `dpl_5Awz7xxgGVxrxWrytD3uk8P5Pgpt`  
+Production: `dpl_FckXvD2L6r4S5esub5zF7C4VpiQH`
 
-The deployed routing file is unchanged:
+Added exact bridge SHA-256 verification before compilation and a generic public failure message. Review then found a deeper availability issue: every cold bootstrap still depended on GitHub availability, and failure retries could repeatedly pressure the upstream.
+
+### Final design — self-contained verified bundle
+
+Instead of adding retry/backoff complexity, the executable-handler network dependency was removed entirely.
+
+`deployment/vercel-source-bridge/bootstrap-v21.js` embeds the deterministic gzip of the exact canonical bridge, decompresses it locally, verifies the decompressed bytes against canonical SHA-256 `8af9f491dc8532ef2e6e43f5d040f0c4c5a4ff634ecc37a3d0f2f3ddcd93de96`, and only then compiles the handler.
+
+Properties:
+
+- no bootstrap network fetch;
+- no bootstrap retry-storm path;
+- exact canonical bridge bytes preserved inside the deployment artifact;
+- integrity check occurs before `Module._compile`;
+- handler cached after local verified load;
+- generic public 502 on bootstrap failure;
+- error detail only logged server-side;
+- canonical bridge's own fail-closed public-data/source behavior remains unchanged.
+
+Final bundled bootstrap SHA-256:
+
+`7774fe25a4989cc081f340dd7ce656cc3b55bb69a74958944dfb2452e5ef65d3`
+
+Final bundled bootstrap bytes: `19683`
+
+Routing file:
 
 - SHA-256: `eb9ef30c975ada483f76620de30ea07da8209aac4d5bd758ae2560a3ff04c6ef`
 - bytes: `107`
 
-## Superseded pre-hardening deployment candidates
+## Final self-contained preview
 
-The first V21 bootstrap deployment pair successfully served the V21 topology but was superseded after PR #37 security review identified two bootstrap-level issues:
+Final preview deployment:
 
-1. downloaded executable bridge bytes were not independently SHA-256 verified before compilation;
-2. the public 502 response included `error.message`.
-
-Superseded preview:
-
-`dpl_Gb8iVjEYG1z5UZ1bTYkL5fVppw3L`
-
-Superseded production:
-
-`dpl_9s77aUQE1ZCjmMKkhmLw163oeEo3`
-
-These are recorded as historical candidates, **not** the final canonical release.
-
-## Final hardened preview
-
-The exact hardened bootstrap + unchanged routing payload was deployed to preview as:
-
-`dpl_5Awz7xxgGVxrxWrytD3uk8P5Pgpt`
+`dpl_EgMXUKo1W8KwgsMRpbrDGU12jt38`
 
 Observed:
 
@@ -263,23 +268,24 @@ Observed:
 - public memberships: `59`
 - `MAPPED_ONLY`: `48`
 - `CLAIM_PROMOTED`: `1`
+- all intermediate stages: `0`
 - Lockheed evidence: `1/1/4/1/1/1/1`
 - proof verification: `REPRODUCED`
 - projection error: `null`
 - scripts: `0`
 - trackers: `0`
-- every required static integrity check: `ok: true`
+- every required static integrity gate: `ok: true`
 - both Atlas stylesheet gates: `PASS`
 
-Only after this hardened preview passed were the **identical** two deployment files sent to production.
+Only after this self-contained preview passed were the identical bundled bootstrap and unchanged routing bytes sent to production.
 
-## Final hardened production
+## Final self-contained production
 
 Final production deployment:
 
-`dpl_FckXvD2L6r4S5esub5zF7C4VpiQH`
+`dpl_5U8UHEsK9eManpWgLx13pTtWaLbA`
 
-Observed:
+Observed deployment state:
 
 - state: `READY`
 - target: `production`
@@ -291,17 +297,18 @@ Canonical `__v21_verify` returned HTTP `200` / `PASS` with:
 
 - schema: `glaciereq.v21-production-verification.v1`
 - release: `V21 First Star Completion`
-- source: `c5701dedc834359c78399b4370a8147501784d19`
-- Helix: `83549cda4af3714304f202d0f4d35b29d28da9f7`
-- routes: `49`
+- website source: `c5701dedc834359c78399b4370a8147501784d19`
+- Helix source: `83549cda4af3714304f202d0f4d35b29d28da9f7`
+- company routes: `49`
 - public memberships: `59`
 - `MAPPED_ONLY`: `48`
 - `CLAIM_PROMOTED`: `1`
-- all intermediate stages: `0`
+- every intermediate stage: `0`
+- Lockheed repositories: `0`
 - Lockheed stage: `CLAIM_PROMOTED`
 - Lockheed ordinal: `7`
 - claim ceiling: `proof_bound_company_specific`
-- evidence: `1 role / 1 problem / 4 inspected / 1 remedy / 1 implementation / 1 reproduced proof / 1 claim`
+- evidence topology: `1 role / 1 problem / 4 inspected / 1 remedy / 1 implementation / 1 reproduced proof / 1 claim`
 - proof verification: `REPRODUCED`
 - projection error: `null`
 - facts invariant: `true`
@@ -319,16 +326,16 @@ Production headers bind:
 
 `/companies/lockheed-martin/` returned HTTP `200` and renders:
 
-- `CLAIM_PROMOTED`
-- `proof_bound_company_specific`
-- `0` direct public Lockheed repositories
-- the full completed second-depth timeline
-- remaining Mesh aspiration blockers
-- explicit no-affiliation / no-production-deployment boundary
+- `CLAIM_PROMOTED`;
+- `proof_bound_company_specific`;
+- `0` direct public Lockheed repositories;
+- the complete second-depth timeline;
+- remaining Mesh aspiration blockers;
+- the explicit no-affiliation / no-production-deployment boundary.
 
-`/__v20_verify` returns HTTP `404` and does not impersonate the V21 verifier.
+`/__v20_verify` returns HTTP `404` and does not impersonate V21.
 
-The final production `error` / `fatal` runtime-log query for the preceding 30 minutes returned:
+The final Vercel production query for `error` / `fatal` logs over the checked 30-minute window returned:
 
 `No logs found for the specified criteria.`
 
@@ -352,7 +359,7 @@ Not allowed without new evidence:
 
 ## Mesh aspiration remains active
 
-This release completes the **bounded V21 company-claim path**, not the engineering horizon.
+V21 completes the bounded company-claim path, not the engineering horizon.
 
 The Mesh still queues:
 
