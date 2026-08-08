@@ -1,11 +1,10 @@
-#!/usr/bin/env python3
 from __future__ import annotations
 
-from hashlib import sha256
 import json
-from pathlib import Path
 import subprocess
 import sys
+from hashlib import sha256
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -46,16 +45,21 @@ def main() -> int:
         print(json.dumps({"status": "FAIL", "failures": failures}, indent=2))
         return 1
 
-    print(json.dumps({
-        "status": "PASS",
-        "schema": manifest["schema"],
-        "governed_files": len(manifest["governed_files"]),
-        "reproduced_receipt_id": manifest["reproduced_receipt_id"],
-        "test_count": manifest["test_count"],
-        "network_required": manifest["network_required"],
-        "credentials_required": manifest["credentials_required"],
-        "external_model_required": manifest["external_model_required"],
-    }, indent=2))
+    print(
+        json.dumps(
+            {
+                "status": "PASS",
+                "schema": manifest["schema"],
+                "governed_files": len(manifest["governed_files"]),
+                "reproduced_receipt_id": manifest["reproduced_receipt_id"],
+                "test_count": manifest["test_count"],
+                "network_required": manifest["network_required"],
+                "credentials_required": manifest["credentials_required"],
+                "external_model_required": manifest["external_model_required"],
+            },
+            indent=2,
+        )
+    )
     return 0
 
 

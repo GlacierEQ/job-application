@@ -10,11 +10,12 @@ Martin software and does not claim company adoption or deployment.
 
 from __future__ import annotations
 
-from dataclasses import dataclass, asdict
-from hashlib import sha256
 import json
 import re
-from typing import Any, Callable, Mapping, Sequence
+from collections.abc import Callable, Mapping, Sequence
+from dataclasses import asdict, dataclass
+from hashlib import sha256
+from typing import Any
 
 SOURCE_REF_RE = re.compile(r"^(?:commit:[0-9a-f]{40}|sha256:[0-9a-f]{64})$")
 
@@ -214,7 +215,7 @@ class MissionAssuranceGateway:
             try:
                 outcome = executor(payload)
                 self._breaker_failures = 0
-            except Exception as error:  # executor boundary is intentionally broad
+            except Exception as error:  # noqa: BLE001
                 self._breaker_failures += 1
                 if self._breaker_failures >= self.policy.breaker_failure_threshold:
                     self._breaker_open = True

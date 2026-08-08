@@ -35,10 +35,12 @@ receipt = gateway.assess(
     action_id="stable-id",
     action="agent.integration.assess",
     payload={"component": "agentic-ai-integration"},
-    evidence=[EvidenceRef(
-        source_identity="https://public.example/evidence",
-        source_ref="sha256:<64-hex>",
-    )],
+    evidence=[
+        EvidenceRef(
+            source_identity="https://public.example/evidence",
+            source_ref="sha256:<64-hex>",
+        )
+    ],
     current_metric=1.02,
     baseline_metric=1.0,
     executor=my_executor,

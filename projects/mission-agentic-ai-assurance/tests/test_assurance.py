@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 import json
-from pathlib import Path
 import sys
 import unittest
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
@@ -109,15 +109,15 @@ class MissionAssuranceTests(unittest.TestCase):
 
     def test_identical_replay_is_exact(self):
         g = gateway()
-        kwargs = dict(
-            action_id="a6",
-            action="agent.integration.assess",
-            payload={"x": 1},
-            evidence=public_evidence(),
-            current_metric=1.0,
-            baseline_metric=1.0,
-            executor=lambda payload: {"ok": payload["x"]},
-        )
+        kwargs = {
+            "action_id": "a6",
+            "action": "agent.integration.assess",
+            "payload": {"x": 1},
+            "evidence": public_evidence(),
+            "current_metric": 1.0,
+            "baseline_metric": 1.0,
+            "executor": lambda payload: {"ok": payload["x"]},
+        }
         first = g.assess(**kwargs)
         second = g.assess(**kwargs)
         self.assertEqual(first, second)
