@@ -13,12 +13,17 @@
     "script": "scripts/sync-helix-projection.mjs",
     "output": "site-v15/data/helix-root.json",
     "receipt_output": "site-v15/data/helix-root.receipt.json",
+    "estate_intelligence_script": "scripts/project-estate-intelligence.mjs",
+    "estate_intelligence_output": "site-v15/data/estate-intelligence.json",
+    "estate_intelligence_validator": "scripts/validate-estate-intelligence.mjs",
     "mode": "build_time_pull",
     "fail_closed": true,
     "allow_stale_fallback": false
   },
   "public_boundary": {
     "publish_private_records": false,
+    "publish_authenticated_estate_cardinality": false,
+    "publish_legal_private_material": false,
     "allowed_repository_visibility": ["public"],
     "allowed_promotion_states": [
       "PROMOTED",
@@ -35,6 +40,10 @@
   "invariants": [
     "Helix remains the portfolio authority.",
     "This repository remains a generated public presentation surface.",
+    "The admitted public portfolio inventory is not the authenticated owned-estate census.",
+    "Authenticated estate cardinality, private repository identities, and legal-private material never enter this public consumer.",
+    "External company operating-pressure observations remain separate from GlacierEQ bottleneck and intervention inference.",
+    "Historical external company snapshots remain freshness-gated and require refresh before a live application claims current conditions.",
     "A successful render is not evidence that the source projection is current.",
     "Factual IDs, evidence states, blockers, test counts, and non-affiliation boundaries are invariant across presentation layers.",
     "Company second-depth stage, ordinal, claim ceiling, blockers, next gate, and public evidence references are Helix-governed invariants and may not be inferred or promoted downstream.",
