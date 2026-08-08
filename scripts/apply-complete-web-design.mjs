@@ -9,9 +9,11 @@ const ROOT = path.resolve(path.dirname(THIS_FILE), '..');
 const SITE = path.join(ROOT, 'site-v15');
 const COMPLETE = '<link rel="stylesheet" href="/assets/site.complete.css">';
 const INTERACTION = '<link rel="stylesheet" href="/assets/site.interaction.css">';
+const ALGERIAN = '<link rel="stylesheet" href="/assets/site.algerian.css">';
 const SYSTEMS = /<link\s+rel=["']stylesheet["']\s+href=["']\/assets\/site\.systems\.css["']\s*>/i;
 const COMPLETE_PATTERN = /<link\s+rel=["']stylesheet["']\s+href=["']\/assets\/site\.complete\.css["']\s*>/gi;
 const INTERACTION_PATTERN = /<link\s+rel=["']stylesheet["']\s+href=["']\/assets\/site\.interaction\.css["']\s*>/gi;
+const ALGERIAN_PATTERN = /<link\s+rel=["']stylesheet["']\s+href=["']\/assets\/site\.algerian\.css["']\s*>/gi;
 
 async function htmlFiles(directory) {
   const out = [];
@@ -27,9 +29,15 @@ async function htmlFiles(directory) {
 function inject(html, relative) {
   const completeMatches = [...html.matchAll(COMPLETE_PATTERN)];
   const interactionMatches = [...html.matchAll(INTERACTION_PATTERN)];
+  const algerianMatches = [...html.matchAll(ALGERIAN_PATTERN)];
   if (completeMatches.length > 1) throw new Error(`${relative}: duplicate complete-design stylesheet`);
   if (interactionMatches.length > 1) throw new Error(`${relative}: duplicate interaction stylesheet`);
-  if (completeMatches.length === 1 && interactionMatches.length === 1) return { html, changed: false };
+  if (algerianMatches.length > 1) throw new Error(`${relative}: duplicate Algerian display stylesheet`);
+  if (
+    completeMatches.length === 1
+    && interactionMatches.length === 1
+    && algerianMatches.length === 1
+  ) return { html, changed: false };
   if (!SYSTEMS.test(html)) throw new Error(`${relative}: site.systems.css anchor missing`);
 
   let next = html;
@@ -39,8 +47,14 @@ function inject(html, relative) {
     COMPLETE_PATTERN.lastIndex = 0;
     next = next.replace(COMPLETE_PATTERN, match => `${match}\n  ${INTERACTION}`);
   }
+  if (algerianMatches.length === 0) {
+    if (!INTERACTION_PATTERN.test(next)) throw new Error(`${relative}: interaction-design anchor missing`);
+    INTERACTION_PATTERN.lastIndex = 0;
+    next = next.replace(INTERACTION_PATTERN, match => `${match}\n  ${ALGERIAN}`);
+  }
   COMPLETE_PATTERN.lastIndex = 0;
   INTERACTION_PATTERN.lastIndex = 0;
+  ALGERIAN_PATTERN.lastIndex = 0;
   if (next === html) throw new Error(`${relative}: design injection failed`);
   return { html: next, changed: true };
 }
@@ -62,7 +76,11 @@ const result = {
   status: 'PASS',
   html_files: files.length,
   injected: changed,
-  stylesheets: ['/assets/site.complete.css', '/assets/site.interaction.css'],
+  stylesheets: [
+    '/assets/site.complete.css',
+    '/assets/site.interaction.css',
+    '/assets/site.algerian.css',
+  ],
 };
 const invokedDirectly = process.argv[1] && path.resolve(process.argv[1]) === path.resolve(THIS_FILE);
 if (invokedDirectly) console.log(JSON.stringify(result));
