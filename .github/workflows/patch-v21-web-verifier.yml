@@ -22,7 +22,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
-      - name: Advance website source authority and repair verifier export
+      - name: Advance website source authority and repair verifier hash helper
         run: |
           python3 - <<'PY'
           from pathlib import Path
@@ -40,11 +40,10 @@ jobs:
               ),
           ]
           for old, new in pairs:
-              count = text.count(old)
-              if count == 1:
+              if old in text:
                   text = text.replace(old, new, 1)
               elif new not in text:
-                  raise SystemExit(f'{proxy}: expected source token not found: {old!r}')
+                  raise SystemExit(f'{proxy}: source token missing: {old!r}')
           proxy.write_text(text, encoding='utf-8')
 
           test = Path('deployment/vercel-source-bridge/proxy.test.js')
@@ -54,18 +53,29 @@ jobs:
           if old in text:
               text = text.replace(old, new, 1)
           elif new not in text:
-              raise SystemExit(f'{test}: source assertion token not found')
+              raise SystemExit(f'{test}: source assertion token missing')
           test.write_text(text, encoding='utf-8')
 
           design = Path('deployment/vercel-source-bridge/api/design-proxy.js')
           text = design.read_text(encoding='utf-8')
+          if "const crypto = require('node:crypto');" not in text:
+              anchor = "const { URL } = require('node:url');"
+              if anchor not in text:
+                  raise SystemExit(f'{design}: import anchor missing')
+              text = text.replace(anchor, "const crypto = require('node:crypto');\n" + anchor, 1)
+          helper = "function gitBlobSha(body) {\n  const header = Buffer.from(`blob ${body.length}\\0`, 'utf8');\n  return crypto.createHash('sha1').update(header).update(body).digest('hex');\n}\n"
+          if 'function gitBlobSha(body)' not in text:
+              anchor = 'let treePromise = null;\n'
+              if anchor not in text:
+                  raise SystemExit(f'{design}: helper anchor missing')
+              text = text.replace(anchor, anchor + '\n' + helper, 1)
           export = 'module.exports.gitBlobSha = gitBlobSha;'
           if export not in text:
               anchor = 'module.exports.designHtml = designHtml;'
               if anchor not in text:
                   raise SystemExit(f'{design}: export anchor missing')
-              text = text.replace(anchor, f'{export}\n{anchor}', 1)
-              design.write_text(text, encoding='utf-8')
+              text = text.replace(anchor, export + '\n' + anchor, 1)
+          design.write_text(text, encoding='utf-8')
           PY
           node --test deployment/vercel-source-bridge/proxy.test.js deployment/vercel-source-bridge/design-proxy.test.js
           git diff --check
