@@ -1,0 +1,7 @@
+@page{size:Letter;margin:.60in .70in}
+@media print{
+  html,body{background:#fff!important}
+  .signal-bar,.site-header,.print-actions,.footer{display:none!important}
+  .resume-shell.resume-v17{width:auto!important;max-width:none!important;margin:0!important;border:0!important;box-shadow:none!important}
+  .resume-v17-head,.resume-v17-signal,.resume-v17-section,.resume-v17-machine,.resume-evidence-note{break-inside:avoid-page}
+}
