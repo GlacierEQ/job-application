@@ -203,10 +203,12 @@ async function verifyV26(res) {
       woff2_signature: fontResult.body.subarray(0, 4).toString('ascii') === 'wOF2',
     };
     const html = injectTitleFont(homeResponse.body).toString('utf8');
+    const algerianIndex = html.indexOf('/assets/site.algerian.css');
+    const titleIndex = html.indexOf('/assets/site.title-font.css');
     homepage = {
       status: homeResponse.status,
       stylesheet_count: (html.match(/\/assets\/site\.title-font\.css/g) || []).length,
-      algerian_precedes_title_layer: html.indexOf('/assets/site.algerian.css') < html.indexOf('/assets/site.title-font.css'),
+      algerian_precedes_title_layer: algerianIndex !== -1 && titleIndex !== -1 && algerianIndex < titleIndex,
       script_free: !/<script\b/i.test(html),
     };
     if (!font.woff2_signature) errors.push('title_font_signature_failed');
