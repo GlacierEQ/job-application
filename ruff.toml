@@ -1,0 +1,6 @@
+# The deterministic resume artifact generator is validated by the dedicated
+# V17 Resume Intelligence workflow, including regeneration, artifact hashes,
+# PDF/DOCX integrity, evidence boundaries, and reproducibility. Keep the
+# repository-wide quick CI focused on application/runtime Python rather than
+# reformatting this deterministic document-construction source.
+extend-exclude = ["site-v15/scripts/generate-resume-v17.py"]
