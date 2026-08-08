@@ -3,6 +3,7 @@ const designProxy = require('./design-proxy.js');
 const estateProxy = require('./estate-proxy.js');
 const truthRuntime = require('./truth-runtime.js');
 const typographyProxy = require('./typography-proxy.js');
+const compilerProxy = require('./compiler-proxy.js');
 
 module.exports = async function releaseRouter(req, res) {
   const rawPath = proxy.requestPath(req);
@@ -10,5 +11,6 @@ module.exports = async function releaseRouter(req, res) {
   if (rawPath === '__design_verify') return designProxy(req, res);
   if (rawPath === '__v22_verify') return estateProxy(req, res);
   if (rawPath === '__v23_verify') return truthRuntime(req, res);
-  return typographyProxy(req, res);
+  if (rawPath === '__v24_verify') return typographyProxy(req, res);
+  return compilerProxy(req, res);
 };
