@@ -2,9 +2,9 @@ const crypto = require('node:crypto');
 const proxy = require('./proxy.js');
 const truthRuntime = require('./truth-runtime.js');
 
-const TYPOGRAPHY_SOURCE_COMMIT = '955e2ce0a030bef2863d6137ae1f567975b8d0a1';
+const TYPOGRAPHY_SOURCE_COMMIT = 'b4a1d9ccd8749b29129a09881d0bd183337b1a41';
 const TYPOGRAPHY_CSS_PATH = 'site-v15/assets/site.algerian.css';
-const TYPOGRAPHY_CSS_BLOB = '5b5e603017d990e94f3e6cba5aa06402cbb24c5b';
+const TYPOGRAPHY_CSS_BLOB = 'f9b29ee4b2fd3b82a30c1e10c23102f35fc62467';
 const TYPOGRAPHY_RAW_URL = `https://raw.githubusercontent.com/GlacierEQ/job-application/${TYPOGRAPHY_SOURCE_COMMIT}/${TYPOGRAPHY_CSS_PATH}`;
 const TYPOGRAPHY_LINK = '<link rel="stylesheet" href="/assets/site.algerian.css">';
 const RELEASE = 'V24-ALGERIAN-DISPLAY';
@@ -144,11 +144,14 @@ async function verifyTypography(res) {
     ) {
       errors.push('v23_truth_verifier_failed');
     }
+    const cssText = cssBody.toString('utf8');
     css = {
       blob_sha: gitBlobSha(cssBody),
       bytes: cssBody.length,
-      algerian_declared: cssBody.toString('utf8').includes('"Algerian"'),
-      bundled_font_face: /@font-face\b/i.test(cssBody.toString('utf8')),
+      algerian_declared: cssText.includes('"Algerian"'),
+      copperplate_fallback: cssText.includes('"Copperplate"'),
+      engraved_depth: cssText.includes('-webkit-text-stroke') && cssText.includes('text-shadow'),
+      bundled_font_face: /@font-face\b/i.test(cssText),
     };
     const designed = injectTypography(homeResponse.body).toString('utf8');
     homepage = {
@@ -162,6 +165,8 @@ async function verifyTypography(res) {
       || homepage.stylesheet_count !== 1
       || !homepage.script_free
       || !homepage.current_truth_marker_present
+      || !css.copperplate_fallback
+      || !css.engraved_depth
     ) {
       errors.push('homepage_typography_contract_failed');
     }
