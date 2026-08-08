@@ -1,7 +1,7 @@
 const crypto = require('crypto');
 const { URL } = require('node:url');
 
-const WEB_SOURCE_COMMIT = '908b2ae135ec81225aafa882c9ff79b0564b23af';
+const WEB_SOURCE_COMMIT = 'b531968963269b01dd627a9bfe211b61274beec0';
 const LEGACY_SOURCE_COMMIT = 'c5701dedc834359c78399b4370a8147501784d19';
 const HELIX_COMMIT = '83549cda4af3714304f202d0f4d35b29d28da9f7';
 const LEGACY_RAW_ROOT = `https://raw.githubusercontent.com/GlacierEQ/job-application/${LEGACY_SOURCE_COMMIT}/site-v15/`;
