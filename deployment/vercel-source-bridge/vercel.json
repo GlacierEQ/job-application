@@ -3,7 +3,7 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/api/proxy?path=$1"
+      "dest": "/api/release-router?path=$1"
     }
   ]
 }

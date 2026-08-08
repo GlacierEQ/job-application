@@ -172,7 +172,7 @@ test('percent-encoded traversal is decoded then rejected', () => {
 test('bridge uses exact V21 first-star pins and no legacy URL parser', () => {
   assert.equal(
     bridge.constants.SOURCE_COMMIT,
-    'c5701dedc834359c78399b4370a8147501784d19',
+    'b531968963269b01dd627a9bfe211b61274beec0',
   );
   assert.equal(
     bridge.constants.HELIX_COMMIT,

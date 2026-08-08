@@ -1,0 +1,86 @@
+name: V21 Complete Web Release
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "site-v15/**"
+      - "scripts/**"
+      - "deployment/vercel-source-bridge/**"
+      - "vercel.json"
+      - "package.json"
+      - ".github/workflows/v21-complete-web-release.yml"
+  push:
+    branches: [main]
+    paths:
+      - "site-v15/**"
+      - "scripts/**"
+      - "deployment/vercel-source-bridge/**"
+      - "vercel.json"
+      - "package.json"
+      - ".github/workflows/v21-complete-web-release.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: v21-complete-web-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify-complete-web:
+    name: Build, verify, and exercise complete web surface
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout exact source without persisted credentials
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 24
+
+      - name: Verify hardened source bridge contracts
+        run: node --test deployment/vercel-source-bridge/proxy.test.js deployment/vercel-source-bridge/design-proxy.test.js
+
+      - name: Build exact Vercel static surface
+        run: |
+          set -euo pipefail
+          node scripts/sync-helix-projection.mjs
+          node scripts/validate-helix-projection.mjs
+          node scripts/render-helix-atlas.mjs
+          node scripts/link-helix-atlas.mjs
+          node scripts/apply-complete-web-design.mjs
+          node scripts/validate-helix-atlas.mjs
+          node site-v15/scripts/validate.mjs
+
+      - name: Exercise immutable static and generated runtime surfaces
+        run: |
+          node <<'NODE'
+          const design = require('./deployment/vercel-source-bridge/api/design-proxy.js');
+          Promise.all([
+            design.verifyStaticSurface(),
+            design.verifyGeneratedSurface(),
+          ]).then(([staticSurface, generatedSurface]) => {
+            if (!staticSurface.ok || !generatedSurface.ok) {
+              console.error(JSON.stringify({ staticSurface, generatedSurface }, null, 2));
+              process.exit(1);
+            }
+            console.log(JSON.stringify({
+              status: 'PASS',
+              release: design.constants.RELEASE,
+              source_commit: design.constants.WEB_SOURCE_COMMIT,
+              helix_commit: design.constants.HELIX_COMMIT,
+              static_surface: staticSurface,
+              generated_surface: generatedSurface,
+              client_scripts: 0,
+            }, null, 2));
+          }).catch((error) => {
+            console.error(error instanceof Error ? error.stack : error);
+            process.exit(1);
+          });
+          NODE

@@ -1,6 +1,8 @@
 # Casey Barton - Applied AI Systems Architect
 
 Canonical human entry: /
+Current reproduced proof: /data/current-proof.json
+Current company-specific proof route: /companies/lockheed-martin/
 Resume intelligence: /resume/
 Human resume PDF: /downloads/Casey_Barton_Resume.pdf
 Editable resume DOCX: /downloads/Casey_Barton_Resume.docx
@@ -9,10 +11,11 @@ Machine-readable resume: /data/resume.json
 Technical due diligence: /master/
 Portfolio relationship mesh: /mesh/
 Machine contracts: /machine/
-Canonical facts: /data/portfolio.json
+Canonical historical portfolio facts: /data/portfolio.json
 Company-family registry: /data/company-families.json
 PSYSOC-X presentation profiles: /data/psysoc-x-profiles.json
 
 Evidence rule: claims must not exceed the owning repository's current receipt. Reviewed, generated, executed, deployed, and production states are distinct. Company-oriented names do not imply employment, affiliation, proprietary access, production use, or endorsement.
+- V21 current proof: https://casey-barton-glaciereq.vercel.app/data/current-proof.json (Mission Agentic AI Assurance; 17 acceptance tests; REPRODUCED proof; CLAIM_PROMOTED company projection; explicit prohibited claims)
 - Company Atlas: https://casey-barton-glaciereq.vercel.app/atlas/ (49 real company routes under /companies/<slug>/; Recruiter + Master + Machine + Mesh depth; Helix-governed second-depth stage, claim ceiling, blockers, next gate, and pinned public evidence)
 - Company Constellation: https://casey-barton-glaciereq.vercel.app/companies/

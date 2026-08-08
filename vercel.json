@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "node scripts/sync-helix-projection.mjs && node scripts/validate-helix-projection.mjs && node scripts/render-helix-atlas.mjs && node scripts/render-company-constellation.mjs && node scripts/link-helix-atlas.mjs && node scripts/validate-helix-atlas.mjs && node scripts/validate-company-constellation.mjs && node site-v15/scripts/validate.mjs",
+  "buildCommand": "node scripts/sync-helix-projection.mjs && node scripts/validate-helix-projection.mjs && node scripts/render-helix-atlas.mjs && node scripts/link-helix-atlas.mjs && node scripts/apply-complete-web-design.mjs && node scripts/validate-helix-atlas.mjs && node site-v15/scripts/validate.mjs",
   "outputDirectory": "site-v15",
   "cleanUrls": true,
   "trailingSlash": true,
