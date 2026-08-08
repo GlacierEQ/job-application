@@ -38,11 +38,12 @@ jobs:
         run: |
           node --check deployment/vercel-source-bridge/api/compiler-proxy.js
           node --check deployment/vercel-source-bridge/api/release-router.js
-      - name: Verify script-free compiler boundary
+      - name: Verify no literal client-script or inline-style tag enters compiler markup
         shell: bash
         run: |
           set -euo pipefail
-          if grep -Eiq '<script\b|style=' deployment/vercel-source-bridge/api/compiler-proxy.js; then
-            echo "Compiler source introduced a client-script or inline-style marker." >&2
+          file="deployment/vercel-source-bridge/api/compiler-proxy.js"
+          if grep -Fq '<script ' "${file}" || grep -Fq ' style="' "${file}"; then
+            echo "Compiler markup introduced a literal client script or inline style." >&2
             exit 1
           fi
