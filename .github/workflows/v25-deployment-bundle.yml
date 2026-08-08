@@ -1,0 +1,63 @@
+name: V25 Deployment Bundle
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "deployment/vercel-source-bridge/api/**"
+      - "deployment/vercel-source-bridge/bootstrap-v25.test.mjs"
+      - "scripts/build-v25-deployment-bundle.mjs"
+      - "package.json"
+      - ".github/workflows/v25-deployment-bundle.yml"
+  pull_request:
+    paths:
+      - "deployment/vercel-source-bridge/api/**"
+      - "deployment/vercel-source-bridge/bootstrap-v25.test.mjs"
+      - "scripts/build-v25-deployment-bundle.mjs"
+      - "package.json"
+      - ".github/workflows/v25-deployment-bundle.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  bundle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Run full presentation regression suite
+        run: npm test
+      - name: Build deterministic self-contained deployment
+        run: >-
+          node scripts/build-v25-deployment-bundle.mjs
+          --source-commit "${{ github.sha }}"
+          --output-dir artifacts/v25-deployment
+      - name: Verify deployment file contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s artifacts/v25-deployment/api/index.js
+          test -s artifacts/v25-deployment/vercel.json
+          test -s artifacts/v25-deployment/deployment-manifest.json
+          test "$(python - <<'PY'
+          import json
+          p=json.load(open('artifacts/v25-deployment/deployment-manifest.json'))
+          print(len(p['deployment_files']))
+          PY
+          )" = "2"
+          node --check artifacts/v25-deployment/api/index.js
+      - name: Upload exact V25 deployment package
+        uses: actions/upload-artifact@v4
+        with:
+          name: v25-deployment-${{ github.sha }}
+          path: artifacts/v25-deployment
+          if-no-files-found: error
+          retention-days: 30
