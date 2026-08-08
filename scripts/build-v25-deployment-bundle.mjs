@@ -130,6 +130,9 @@ const FACTORIES = Object.freeze({
 ${factoryObject}
 });
 let handlerPromise = null;
+let verifiedFactoryIds = null;
+let runtimeHandler = null;
+let bundleVerification = null;
 
 function sha256(value) {
   return crypto.createHash('sha256').update(value).digest('hex');
@@ -145,6 +148,7 @@ function resolveRelative(fromId, request) {
 }
 
 function verifyFactories() {
+  if (verifiedFactoryIds) return verifiedFactoryIds;
   const ids = Object.keys(FACTORIES).sort();
   if (ids.length !== ${MODULES.length}) throw new Error('v25_bundle_module_count_mismatch');
   const chunks = [];
@@ -159,7 +163,8 @@ function verifyFactories() {
   if (sha256(Buffer.from(chunks.join(''))) !== EXPECTED_FACTORY_BUNDLE_SHA256) {
     throw new Error('v25_factory_bundle_sha256_mismatch');
   }
-  return ids;
+  verifiedFactoryIds = Object.freeze(ids.slice());
+  return verifiedFactoryIds;
 }
 
 function createModuleLoader() {
@@ -180,12 +185,21 @@ function createModuleLoader() {
   return load;
 }
 
-function verifyBundle() {
-  const ids = verifyFactories();
+function getVerifiedRuntimeHandler() {
+  verifyFactories();
+  if (runtimeHandler) return runtimeHandler;
   const load = createModuleLoader();
   const handler = load(ENTRY);
   if (typeof handler !== 'function') throw new Error('v25_bundle_entry_not_handler');
-  return {
+  runtimeHandler = handler;
+  return runtimeHandler;
+}
+
+function verifyBundle() {
+  if (bundleVerification) return bundleVerification;
+  const ids = verifyFactories();
+  getVerifiedRuntimeHandler();
+  bundleVerification = Object.freeze({
     schema: BUNDLE_VERIFY_SCHEMA,
     status: 'PASS',
     release: RELEASE,
@@ -196,7 +210,9 @@ function verifyBundle() {
     runtime_string_evaluation_required: false,
     bootstrap_network_fetch_required: false,
     every_factory_sha256_verified_before_execution: true,
-  };
+    verification_cached_per_instance: true,
+  });
+  return bundleVerification;
 }
 
 function requestPath(req) {
@@ -232,14 +248,9 @@ function serveBundleVerify(res) {
 
 async function getHandler() {
   if (!handlerPromise) {
-    handlerPromise = Promise.resolve().then(() => {
-      verifyFactories();
-      const load = createModuleLoader();
-      const handler = load(ENTRY);
-      if (typeof handler !== 'function') throw new Error('v25_bundle_entry_not_handler');
-      return handler;
-    }).catch((error) => {
+    handlerPromise = Promise.resolve().then(getVerifiedRuntimeHandler).catch((error) => {
       handlerPromise = null;
+      runtimeHandler = null;
       throw error;
     });
   }
@@ -336,6 +347,7 @@ function main() {
       runtime_string_evaluation_required: false,
       factory_bundle_verified_before_module_execution: true,
       every_factory_sha256_verified_before_execution: true,
+      verification_cached_per_instance: true,
       expected_deployment_file_count: 2,
     },
   };
