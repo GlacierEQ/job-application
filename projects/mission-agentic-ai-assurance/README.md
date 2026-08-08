@@ -2,18 +2,18 @@
 
 **Independent GlacierEQ reference implementation for evidence-bound agentic AI operations in mission-critical environments.**
 
-This project turns a public engineering need into a small, reproducible control plane: every agent action is policy-gated, bound to immutable evidence, drift-checked, idempotent, circuit-breaker protected, and emitted with a deterministic receipt.
+This project turns a public engineering need into a small, reproducible control plane: every agent action is policy-gated, content-bound to preserved evidence, drift-checked, single-process replay protected, circuit-breaker protected, and emitted with a deterministic receipt.
 
 ## Recruiter layer
 
 ### What it demonstrates
 
-- **Traceability:** every evaluated action binds to immutable public evidence references and deterministic hashes.
-- **Reliability:** action IDs are idempotent; conflicting replays fail closed; repeated execution failures open a circuit breaker.
+- **Traceability:** evaluated actions bind to preserved public evidence snapshots whose bytes are checked against immutable SHA-256 references.
+- **Reliability:** action IDs are idempotent within the process; conflicting replays fail closed; concurrent duplicates cannot double-execute; repeated execution failures open a circuit breaker.
 - **Explainability:** allow/deny/failure receipts preserve reason codes, policy identity, evidence identity, drift, and outcome identity.
-- **Monitoring:** a bounded drift gate blocks actions when observed metrics move beyond policy.
+- **Monitoring:** a bounded finite-number drift gate blocks actions when observed metrics move beyond policy.
 - **Testability:** the reference implementation is standard-library-only and deterministic.
-- **CI/CD discipline:** tests, proof-manifest verification, and exact demo receipt reproduction run in CI.
+- **CI/CD discipline:** tests, fixed-set proof-manifest verification, exact demo receipt reproduction, and repository strict CI gate the implementation.
 
 ### Public Lockheed Martin lens
 
@@ -35,17 +35,17 @@ The demo output must exactly match [`proof/reproduced_receipt.json`](proof/repro
 
 1. **Recruiter:** this README — value, relevance, and demonstrated behavior.
 2. **Master:** [`MASTER.md`](MASTER.md) — innovation, architecture, failure domains, gap ledger, and acceptance contract.
-3. **Machine:** [`machine/contract.proto`](machine/contract.proto) + [`machine/remedy.json`](machine/remedy.json) — compact integration and remedy contracts.
+3. **Machine:** [`glaciereq/mission_assurance/v1/contract.proto`](glaciereq/mission_assurance/v1/contract.proto) + [`machine/remedy.json`](machine/remedy.json) — compact integration and remedy contracts; [`machine/INTEGRATION.md`](machine/INTEGRATION.md) defines the canonical JSON/RPC adapter boundary.
 4. **Mesh:** [`MESH.yaml`](MESH.yaml) — upstream/downstream relationships, aspiration, evolution queue, and promotion boundaries.
 
 ## Maximum defensible claim
 
-> Built and reproducibly tested an independent mission-agent assurance gateway that combines immutable provenance, deterministic receipts, idempotency, drift gating, policy decisions, and circuit breaking into a compact reference control plane aligned to publicly stated mission-AI integration concerns.
+> Built and reproducibly tested an independent mission-agent assurance gateway that combines content-bound public provenance snapshots, deterministic receipts, single-process idempotency, drift gating, policy decisions, and circuit breaking into a compact reference control plane aligned to publicly stated mission-AI integration concerns.
 
 ## Explicitly not claimed
 
 - Lockheed Martin affiliation, employment, endorsement, contract, clearance, access, adoption, deployment, or measured impact.
-- Production-scale distributed operation.
+- Distributed exactly-once operation or production-scale distributed state.
 - Certification for aerospace, defense, safety-critical, or classified workloads.
 - Replacement for formal safety, cybersecurity, model-risk, or systems-engineering processes.
 
