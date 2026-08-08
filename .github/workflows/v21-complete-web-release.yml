@@ -49,7 +49,8 @@ jobs:
           node --test \
             deployment/vercel-source-bridge/proxy.test.js \
             deployment/vercel-source-bridge/design-proxy.test.js \
-            deployment/vercel-source-bridge/estate-proxy.test.js
+            deployment/vercel-source-bridge/estate-proxy.test.js \
+            deployment/vercel-source-bridge/truth-proxy.test.js
 
       - name: Build exact Vercel static surface
         run: |
@@ -106,6 +107,43 @@ jobs:
           Promise.resolve(estate({ url: '/?path=__v22_verify' }, res)).then(() => {
             const payload = JSON.parse(body.toString('utf8'));
             if (res.statusCode !== 200 || payload.status !== 'PASS') {
+              console.error(JSON.stringify(payload, null, 2));
+              process.exit(1);
+            }
+            console.log(JSON.stringify(payload, null, 2));
+          }).catch((error) => {
+            console.error(error instanceof Error ? error.stack : error);
+            process.exit(1);
+          });
+          NODE
+
+      - name: Exercise V23 truth-synchronization verifier
+        run: |
+          node <<'NODE'
+          const truth = require('./deployment/vercel-source-bridge/api/truth-runtime.js');
+          const headers = new Map();
+          let body = Buffer.alloc(0);
+          const res = {
+            statusCode: 200,
+            setHeader(name, value) { headers.set(String(name).toLowerCase(), value); },
+            getHeader(name) { return headers.get(String(name).toLowerCase()); },
+            end(chunk = '') { body = Buffer.isBuffer(chunk) ? chunk : Buffer.from(String(chunk)); },
+          };
+          Promise.resolve(truth({ url: '/?path=__v23_verify' }, res)).then(() => {
+            const payload = JSON.parse(body.toString('utf8'));
+            if (res.statusCode !== 200 || payload.status !== 'PASS') {
+              console.error(JSON.stringify(payload, null, 2));
+              process.exit(1);
+            }
+            if (payload.helix_public_boundary?.admitted_repositories !== 67) {
+              console.error(JSON.stringify(payload, null, 2));
+              process.exit(1);
+            }
+            if (payload.helix_public_boundary?.package_state !== 'PARTIALLY_VERIFIED') {
+              console.error(JSON.stringify(payload, null, 2));
+              process.exit(1);
+            }
+            if (payload.helix_public_boundary?.aggregate_test_count_promoted !== false) {
               console.error(JSON.stringify(payload, null, 2));
               process.exit(1);
             }
