@@ -40,7 +40,7 @@ jobs:
           )
           core.write_text(text)
           PY
-          ruff check --fix projects/mission-agentic-ai-assurance
+          ruff check --fix --unsafe-fixes projects/mission-agentic-ai-assurance
           ruff format projects/mission-agentic-ai-assurance
           python - <<'PY'
           from hashlib import sha256
