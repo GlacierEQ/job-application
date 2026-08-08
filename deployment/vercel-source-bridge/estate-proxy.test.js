@@ -91,12 +91,15 @@ test('company intelligence injection is script-free, style-free, and exactly-onc
   assert.doesNotMatch(twice, /\sstyle\s*=\s*/i);
 });
 
-test('V22 overlay cannot mutate global fetch or erase historical verifier routes', () => {
+test('V23 routing preserves historical verifiers and bounds new default traffic', () => {
   assert.doesNotMatch(estateSource, /global\.fetch\s*=/);
   assert.match(estateSource, /rawPath === '__v22_verify'/);
   assert.match(routerSource, /rawPath === '__v21_verify'/);
   assert.match(routerSource, /return proxy\(req, res\)/);
   assert.match(routerSource, /rawPath === '__design_verify'/);
   assert.match(routerSource, /return designProxy\(req, res\)/);
+  assert.match(routerSource, /rawPath === '__v22_verify'/);
   assert.match(routerSource, /return estateProxy\(req, res\)/);
+  assert.match(routerSource, /truth-runtime\.js/);
+  assert.match(routerSource, /return truthRuntime\(req, res\)/);
 });
