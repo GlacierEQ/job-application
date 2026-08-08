@@ -54,7 +54,9 @@ jobs:
           node scripts/validate-helix-projection.mjs
           node scripts/render-helix-atlas.mjs
           node scripts/link-helix-atlas.mjs
+          node scripts/project-estate-intelligence.mjs
           node scripts/apply-complete-web-design.mjs
+          node scripts/validate-estate-intelligence.mjs
           node scripts/validate-helix-atlas.mjs
           node site-v15/scripts/validate.mjs
 
