@@ -8,8 +8,10 @@ const THIS_FILE = fileURLToPath(import.meta.url);
 const ROOT = path.resolve(path.dirname(THIS_FILE), '..');
 const SITE = path.join(ROOT, 'site-v15');
 const COMPLETE = '<link rel="stylesheet" href="/assets/site.complete.css">';
+const INTERACTION = '<link rel="stylesheet" href="/assets/site.interaction.css">';
 const SYSTEMS = /<link\s+rel=["']stylesheet["']\s+href=["']\/assets\/site\.systems\.css["']\s*>/i;
 const COMPLETE_PATTERN = /<link\s+rel=["']stylesheet["']\s+href=["']\/assets\/site\.complete\.css["']\s*>/gi;
+const INTERACTION_PATTERN = /<link\s+rel=["']stylesheet["']\s+href=["']\/assets\/site\.interaction\.css["']\s*>/gi;
 
 async function htmlFiles(directory) {
   const out = [];
@@ -23,12 +25,23 @@ async function htmlFiles(directory) {
 }
 
 function inject(html, relative) {
-  const matches = [...html.matchAll(COMPLETE_PATTERN)];
-  if (matches.length > 1) throw new Error(`${relative}: duplicate complete-design stylesheet`);
-  if (matches.length === 1) return { html, changed: false };
+  const completeMatches = [...html.matchAll(COMPLETE_PATTERN)];
+  const interactionMatches = [...html.matchAll(INTERACTION_PATTERN)];
+  if (completeMatches.length > 1) throw new Error(`${relative}: duplicate complete-design stylesheet`);
+  if (interactionMatches.length > 1) throw new Error(`${relative}: duplicate interaction stylesheet`);
+  if (completeMatches.length === 1 && interactionMatches.length === 1) return { html, changed: false };
   if (!SYSTEMS.test(html)) throw new Error(`${relative}: site.systems.css anchor missing`);
-  const next = html.replace(SYSTEMS, match => `${match}\n  ${COMPLETE}`);
-  if (next === html) throw new Error(`${relative}: complete-design injection failed`);
+
+  let next = html;
+  if (completeMatches.length === 0) next = next.replace(SYSTEMS, match => `${match}\n  ${COMPLETE}`);
+  if (interactionMatches.length === 0) {
+    if (!COMPLETE_PATTERN.test(next)) throw new Error(`${relative}: complete-design anchor missing`);
+    COMPLETE_PATTERN.lastIndex = 0;
+    next = next.replace(COMPLETE_PATTERN, match => `${match}\n  ${INTERACTION}`);
+  }
+  COMPLETE_PATTERN.lastIndex = 0;
+  INTERACTION_PATTERN.lastIndex = 0;
+  if (next === html) throw new Error(`${relative}: design injection failed`);
   return { html: next, changed: true };
 }
 
@@ -45,7 +58,12 @@ for (const file of files) {
 }
 
 if (!files.length) throw new Error('no HTML files discovered');
-const result = { status: 'PASS', html_files: files.length, injected: changed, stylesheet: '/assets/site.complete.css' };
+const result = {
+  status: 'PASS',
+  html_files: files.length,
+  injected: changed,
+  stylesheets: ['/assets/site.complete.css', '/assets/site.interaction.css'],
+};
 const invokedDirectly = process.argv[1] && path.resolve(process.argv[1]) === path.resolve(THIS_FILE);
 if (invokedDirectly) console.log(JSON.stringify(result));
 
