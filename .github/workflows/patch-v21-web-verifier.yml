@@ -1,0 +1,66 @@
+name: Patch V21 Web Verifier Source Pin
+
+on:
+  push:
+    branches:
+      - design/complete-web-experience-20260808
+    paths:
+      - .github/workflows/patch-v21-web-verifier.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: design/complete-web-experience-20260808
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Advance canonical website source pin without changing proof authority
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          replacements = {
+              Path('deployment/vercel-source-bridge/api/proxy.js'): [
+                  (
+                      "const SOURCE_COMMIT = 'c5701dedc834359c78399b4370a8147501784d19';",
+                      "const SOURCE_COMMIT = 'b531968963269b01dd627a9bfe211b61274beec0';",
+                  ),
+                  (
+                      "'index.html': '983f6948db7e332d511baee3e2a1ab1dc06e38e9948d6bd0c0edcab9fcd44226',",
+                      "'index.html': '77b6f6d382d56147156db69ce82687b61122fdd015e044f2bd579df19163a8b9',",
+                  ),
+              ],
+              Path('deployment/vercel-source-bridge/proxy.test.js'): [
+                  (
+                      "'c5701dedc834359c78399b4370a8147501784d19',",
+                      "'b531968963269b01dd627a9bfe211b61274beec0',",
+                  ),
+              ],
+          }
+
+          for path, pairs in replacements.items():
+              text = path.read_text(encoding='utf-8')
+              for old, new in pairs:
+                  count = text.count(old)
+                  if count != 1:
+                      raise SystemExit(f'{path}: expected one occurrence of {old!r}, found {count}')
+                  text = text.replace(old, new, 1)
+              path.write_text(text, encoding='utf-8')
+          PY
+          node --test deployment/vercel-source-bridge/proxy.test.js deployment/vercel-source-bridge/design-proxy.test.js
+          git diff --check
+      - name: Commit verified delta
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add deployment/vercel-source-bridge/api/proxy.js deployment/vercel-source-bridge/proxy.test.js
+          git commit -m 'Advance V21 web verifier source authority'
+          git push origin HEAD:design/complete-web-experience-20260808
