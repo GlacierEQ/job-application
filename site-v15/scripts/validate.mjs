@@ -3,6 +3,8 @@ import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+await import('../../scripts/apply-complete-web-design.mjs');
+
 const root = new URL('../', import.meta.url);
 const rootPath = fileURLToPath(root);
 const read = filePath => readFile(new URL(filePath, root), 'utf8');
@@ -172,7 +174,7 @@ for (const route of ['/', '/resume/', '/master/', '/mesh/', '/machine/']) {
   assert(sitemap.includes(`https://casey-barton-glaciereq.vercel.app${route}`), `sitemap missing ${route}`);
 }
 assert(robots.includes('Sitemap: https://casey-barton-glaciereq.vercel.app/sitemap.xml'), 'robots missing sitemap');
-assert(llms.includes('/data/portfolio.json') && llms.includes('/data/psysoc-x-profiles.json'), 'LLM orientation incomplete');
+assert(llms.includes('/data/portfolio.json') && llms.includes('/data/psysoc-x-profiles.json') && llms.includes('/data/current-proof.json'), 'LLM orientation incomplete');
 
 assert(resumeArtifacts.schema === 'glaciereq.resume-artifacts.v17', 'resume artifact manifest schema drift');
 const pdf = await bytes(paths.pdf);
