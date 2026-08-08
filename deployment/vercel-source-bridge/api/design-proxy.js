@@ -1,13 +1,14 @@
 const crypto = require('crypto');
 const { URL } = require('node:url');
 
-const WEB_SOURCE_COMMIT = 'b531968963269b01dd627a9bfe211b61274beec0';
+const WEB_SOURCE_COMMIT = 'c18f593a2eda274ea4deeb01ae95d92bdf80838d';
 const LEGACY_SOURCE_COMMIT = 'c5701dedc834359c78399b4370a8147501784d19';
 const HELIX_COMMIT = '83549cda4af3714304f202d0f4d35b29d28da9f7';
 const LEGACY_RAW_ROOT = `https://raw.githubusercontent.com/GlacierEQ/job-application/${LEGACY_SOURCE_COMMIT}/site-v15/`;
 const WEB_RAW_ROOT = `https://raw.githubusercontent.com/GlacierEQ/job-application/${WEB_SOURCE_COMMIT}/site-v15/`;
 const GITHUB_TREE_ROOT = `https://api.github.com/repos/GlacierEQ/job-application/git/trees/${WEB_SOURCE_COMMIT}`;
 const COMPLETE_LINK = '<link rel="stylesheet" href="/assets/site.complete.css">';
+const INTERACTION_LINK = '<link rel="stylesheet" href="/assets/site.interaction.css">';
 const RELEASE = 'V21-FIRST-STAR-COMPLETE-WEB';
 const EXPECTED_STATIC_HTML = 105;
 const MAX_JSON_BYTES = 4 * 1024 * 1024;
@@ -23,6 +24,7 @@ const REQUIRED_GIT_BLOBS = {
   'assets/site.css': '27dbe7b99cd44f9c3c1f22c9d6870a2e02468fc0',
   'assets/site.systems.css': 'd2c7dc6f3e74a68b97e45bc166fec02b42517456',
   'assets/site.complete.css': 'd98c701e09f712e3558ea0bb5f48dd713e8c294b',
+  'assets/site.interaction.css': '65fbd9c4bf7818cec997631f4cabde44e5123401',
   'data/current-proof.json': 'b05d5f88a10490df3bfbc0be4536c458b24bd332',
   'downloads/Casey_Barton_Resume.pdf': '90f03d4c2d4c7a2660c8396cd4291d0e78ca0f4a',
   'downloads/Casey_Barton_Resume.docx': '42d9e518b0a82a51b8c48de77dbbb28ffe6871c1',
@@ -55,10 +57,20 @@ function gitBlobSha(body) {
 
 function designHtml(body) {
   const buffer = Buffer.isBuffer(body) ? body : Buffer.from(body || '');
-  const text = buffer.toString('utf8');
-  if (text.includes('/assets/site.complete.css')) return buffer;
+  let text = buffer.toString('utf8');
   if (!/<\/head>/i.test(text)) return buffer;
-  return Buffer.from(text.replace(/<\/head>/i, `  ${COMPLETE_LINK}\n</head>`));
+
+  const completeCount = (text.match(/\/assets\/site\.complete\.css/g) || []).length;
+  const interactionCount = (text.match(/\/assets\/site\.interaction\.css/g) || []).length;
+  if (completeCount > 1 || interactionCount > 1) return buffer;
+
+  if (completeCount === 0) {
+    text = text.replace(/<\/head>/i, `  ${COMPLETE_LINK}\n</head>`);
+  }
+  if (interactionCount === 0) {
+    text = text.replace(COMPLETE_LINK, `${COMPLETE_LINK}\n  ${INTERACTION_LINK}`);
+  }
+  return Buffer.from(text);
 }
 
 async function boundedBytes(url, maxBytes = MAX_JSON_BYTES) {
@@ -164,6 +176,7 @@ function verifyHtmlBuffer(body, label) {
   if (/<script\b/i.test(text)) throw new Error(`${label}:script_detected`);
   if (/\sstyle\s*=\s*/i.test(text)) throw new Error(`${label}:inline_style_detected`);
   if ((text.match(/\/assets\/site\.complete\.css/g) || []).length !== 1) throw new Error(`${label}:complete_design_contract`);
+  if ((text.match(/\/assets\/site\.interaction\.css/g) || []).length !== 1) throw new Error(`${label}:interaction_contract`);
   if (!/<\/body>\s*<\/html>\s*$/i.test(text)) throw new Error(`${label}:html_not_closed`);
   return designed.length;
 }
@@ -332,7 +345,8 @@ async function verifyWebRelease(res) {
 
 module.exports = async (req, res) => {
   const rawPath = proxy.requestPath(req);
-  if (rawPath === '__v21_verify' || rawPath === '__design_verify') {
+  if (rawPath === '__v21_verify') return proxy(req, res);
+  if (rawPath === '__design_verify') {
     await verifyWebRelease(res);
     return;
   }
