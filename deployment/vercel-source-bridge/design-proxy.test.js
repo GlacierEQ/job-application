@@ -4,7 +4,7 @@ const test = require('node:test');
 const design = require('./api/design-proxy.js');
 
 test('pins the V21 complete web source and Helix authority', () => {
-  assert.equal(design.constants.WEB_SOURCE_COMMIT, '908b2ae135ec81225aafa882c9ff79b0564b23af');
+  assert.equal(design.constants.WEB_SOURCE_COMMIT, 'b531968963269b01dd627a9bfe211b61274beec0');
   assert.equal(design.constants.HELIX_COMMIT, '83549cda4af3714304f202d0f4d35b29d28da9f7');
   assert.equal(design.constants.RELEASE, 'V21-FIRST-STAR-COMPLETE-WEB');
 });
