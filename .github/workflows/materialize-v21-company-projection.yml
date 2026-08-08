@@ -25,6 +25,18 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "24"
+      - name: Harden order-independent second-depth contract comparison
+        run: |
+          node - <<'NODE'
+          const fs = require('fs');
+          const path = 'scripts/sync-helix-projection.mjs';
+          let text = fs.readFileSync(path, 'utf8');
+          const old = 'JSON.stringify(evidenceContract.field_kinds) === JSON.stringify(EVIDENCE_KIND_BY_FIELD),';
+          const replacement = 'stableJson(evidenceContract.field_kinds) === stableJson(EVIDENCE_KIND_BY_FIELD),';
+          if (!text.includes(old)) throw new Error('expected field_kinds comparison not found');
+          text = text.replace(old, replacement);
+          fs.writeFileSync(path, text);
+          NODE
       - name: Update sync checkpoint
         run: |
           node - <<'NODE'
@@ -75,12 +87,12 @@ jobs:
           if (evidence.proof_artifacts[0].verification_state !== 'REPRODUCED') throw new Error('proof not reproduced');
           console.log(JSON.stringify({status:'PASS', source_commit:root.source_commit, stage:lockheed.second_depth.stage, evidence:counts}, null, 2));
           NODE
-      - name: Commit exact generated projection
+      - name: Commit exact generated projection and consumer hardening
         run: |
           set -euo pipefail
           git config user.name casey
           git config user.email GLACIER.EQUILIBRIUM@GMAIL.COM
-          git add site-v15
+          git add scripts/sync-helix-projection.mjs site-v15
           if git diff --cached --quiet; then
             echo 'Projection already materialized.'
             exit 0
