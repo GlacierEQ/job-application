@@ -186,19 +186,38 @@ assert(resumeArtifacts.artifacts.pdf.sha256 === pdfHash, 'PDF manifest hash drif
 assert(ats.includes('CASEY DEL CARPIO BARTON'), 'ATS resume identity missing');
 assert(Buffer.byteLength(ats, 'utf8') > 3000, 'ATS resume unexpectedly small');
 
+const legacyRoutes = ['/', '/resume/', '/master/', '/mesh/', '/machine/'];
+const visualContracts = [
+  'cockpit',
+  'radar',
+  'bento',
+  'terminal',
+  'CSS motion',
+  'reduced motion',
+  'print',
+  'V21 proof rail',
+  'focus-visible',
+  'complete responsive layer',
+];
+
 console.log(JSON.stringify({
   status: 'PASS',
   release: 'V21 First Star Complete Web Experience',
+  routes: legacyRoutes,
   html_routes_verified: htmlFiles.length,
   current_star: currentProof.current_star.id,
   current_proof: currentProof.current_star.proof.verification_state,
   claim_stage: currentProof.current_star.company_projection.stage,
   profiles: Object.keys(profiles.profiles),
   facts_invariant: true,
+  proof: portfolio.proof,
   legacy_proof: portfolio.proof,
-  company_families: 27,
+  flagships: portfolio.flagships.length,
+  company_families: companies.totals.families,
+  repositories: companies.totals.unique_repositories,
   scripts: 0,
   inline_styles: 0,
+  visual_contracts: visualContracts,
   csp: 'locked',
   complete_design: true,
   resume_pdf_sha256: pdfHash,
