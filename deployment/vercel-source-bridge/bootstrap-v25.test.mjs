@@ -9,6 +9,7 @@ import test from 'node:test';
 const ROOT = path.resolve(import.meta.dirname, '..', '..');
 const BUILDER = path.join(ROOT, 'scripts', 'build-v25-deployment-bundle.mjs');
 const SOURCE_COMMIT = 'a'.repeat(40);
+const EXPECTED_MODULE_COUNT = 9;
 const require = createRequire(import.meta.url);
 
 function runBuilder(args) {
@@ -39,7 +40,7 @@ test('V25 bundle is deterministic for identical source authority', () => {
   assert.deepEqual(first, second);
   assert.equal(first.schema, 'glaciereq.v25-deployment-bundle-manifest.v2');
   assert.equal(first.source_commit, SOURCE_COMMIT);
-  assert.equal(first.module_count, 8);
+  assert.equal(first.module_count, EXPECTED_MODULE_COUNT);
   assert.equal(first.deployment_files.length, 2);
   assert.equal(first.invariants.self_contained_executable_modules, true);
   assert.equal(first.invariants.bootstrap_network_fetch_required, false);
@@ -63,7 +64,7 @@ test('generated bootstrap verifies precompiled factories without runtime string 
   assert.equal(first.status, 'PASS');
   assert.equal(first.release, 'V25-APPLICATION-COMPILER');
   assert.equal(first.source_commit, SOURCE_COMMIT);
-  assert.equal(first.module_count, 8);
+  assert.equal(first.module_count, EXPECTED_MODULE_COUNT);
   assert.equal(first.entry, 'api/release-router.js');
   assert.equal(first.bootstrap_network_fetch_required, false);
   assert.equal(first.runtime_string_evaluation_required, false);
