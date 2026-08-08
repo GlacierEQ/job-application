@@ -1,7 +1,7 @@
 const crypto = require('crypto');
 const { URL } = require('node:url');
 
-const SOURCE_COMMIT = 'c5701dedc834359c78399b4370a8147501784d19';
+const SOURCE_COMMIT = 'b531968963269b01dd627a9bfe211b61274beec0';
 const HELIX_COMMIT = '83549cda4af3714304f202d0f4d35b29d28da9f7';
 const RAW_ROOT = `https://raw.githubusercontent.com/GlacierEQ/job-application/${SOURCE_COMMIT}/site-v15/`;
 const HELIX_ROOT = `https://raw.githubusercontent.com/GlacierEQ/job-app-helix/${HELIX_COMMIT}/`;
@@ -28,7 +28,7 @@ const TYPES = {
 };
 
 const REQUIRED = {
-  'index.html': '983f6948db7e332d511baee3e2a1ab1dc06e38e9948d6bd0c0edcab9fcd44226',
+  'index.html': '77b6f6d382d56147156db69ce82687b61122fdd015e044f2bd579df19163a8b9',
   'resume/index.html': 'd7b527b37ac9337c9187b4d9428c47fdc1a00b2a187a6a1555984892fc1e8395',
   'master/index.html': '598f8b562a98d1b515e478b8f0ab547d1d1cd0cdbc92621c0c5ff340b66ce685',
   'mesh/index.html': 'f16d1b71582d8907e0de00dc46663982c0901c6891488334200c69ea666e67f0',

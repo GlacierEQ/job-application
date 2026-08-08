@@ -1,3 +1,4 @@
+const crypto = require('node:crypto');
 const { URL } = require('node:url');
 const proxy = require('./proxy.js');
 
@@ -39,6 +40,11 @@ const REQUIRED_GIT_BLOBS = {
 };
 
 let treePromise = null;
+
+function gitBlobSha(body) {
+  const header = Buffer.from(`blob ${body.length}\0`, 'utf8');
+  return crypto.createHash('sha1').update(header).update(body).digest('hex');
+}
 
 function extension(filePath) {
   const match = filePath.match(/(\.[a-z0-9]+)$/i);
@@ -358,6 +364,7 @@ module.exports = async function designProxy(req, res) {
 };
 
 module.exports.constants = { WEB_SOURCE_COMMIT, HELIX_COMMIT, RELEASE, EXPECTED_STATIC_HTML };
+module.exports.gitBlobSha = gitBlobSha;
 module.exports.designHtml = designHtml;
 module.exports.boundedBytes = boundedBytes;
 module.exports.verifyStaticSurface = verifyStaticSurface;
