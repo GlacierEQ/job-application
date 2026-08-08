@@ -37,10 +37,8 @@ on:
       - '.github/workflows/v17-resume-intelligence.yml'
       - 'deployment-receipts/V17_*'
 
-# One-run bounded promotion permission. This is reverted to read-only immediately
-# after the deterministic PDF/DOCX/manifest bytes are persisted to the PR head.
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   validate:
@@ -48,9 +46,6 @@ jobs:
     timeout-minutes: 16
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
-          persist-credentials: true
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -75,24 +70,6 @@ jobs:
             site-v15/data/resume-artifacts.json
           retention-days: 14
           if-no-files-found: error
-      - name: Persist exact deterministic artifacts to PR head
-        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
-        env:
-          HEAD_REF: ${{ github.head_ref }}
-        run: |
-          set -euo pipefail
-          paths=(
-            site-v15/downloads/Casey_Barton_Resume.pdf
-            site-v15/downloads/Casey_Barton_Resume.docx
-            site-v15/data/resume-artifacts.json
-          )
-          if ! git diff --quiet -- "${paths[@]}"; then
-            git config user.name 'github-actions[bot]'
-            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git add -- "${paths[@]}"
-            git commit -m 'Regenerate deterministic final resume artifacts'
-            git push origin "HEAD:${HEAD_REF}"
-          fi
       - name: Preserve V16 factual invariance
         run: node site-v15/scripts/validate.mjs
       - name: Validate V17 resume intelligence
