@@ -1,0 +1,75 @@
+:root{
+  --font-display:"Algerian","Copperplate","Copperplate Gothic Light","Palatino Linotype","Book Antiqua",Georgia,serif;
+}
+
+/*
+ * Display typography only. Body copy, controls, ATS text, code, and machine
+ * surfaces keep the existing high-legibility sans/mono stacks.
+ *
+ * Algerian is referenced as a local system face; no proprietary font binary is
+ * bundled. Platforms without Algerian fall through to the nearest installed
+ * engraved/display serif in the stack.
+ */
+:where(h1,h2,h3,h4,h5,h6,.brand strong,.brand small,.mark){
+  font-family:var(--font-display);
+  font-feature-settings:normal;
+  font-variant-ligatures:none;
+  text-rendering:optimizeLegibility;
+}
+
+h1{
+  letter-spacing:.012em;
+  line-height:1;
+}
+
+h2{
+  letter-spacing:.016em;
+  line-height:1.08;
+}
+
+h3{
+  letter-spacing:.014em;
+  line-height:1.16;
+}
+
+h4,h5,h6{
+  letter-spacing:.012em;
+  line-height:1.18;
+}
+
+.hero-v21 h1{
+  line-height:.98;
+  letter-spacing:.008em;
+  max-width:960px;
+}
+
+.proof-star h2,
+.page-hero h1,
+.cta-stage h2{
+  letter-spacing:.012em;
+}
+
+.brand strong{
+  letter-spacing:.085em;
+}
+
+.brand small{
+  letter-spacing:.07em;
+}
+
+.mark{
+  letter-spacing:0;
+}
+
+@media(max-width:640px){
+  .hero-v21 h1{
+    font-size:clamp(2.72rem,14vw,4.65rem);
+    line-height:1;
+  }
+}
+
+@media print{
+  :where(h1,h2,h3,h4,h5,h6,.brand strong,.brand small,.mark){
+    font-family:Georgia,"Times New Roman",serif;
+  }
+}
