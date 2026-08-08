@@ -10,12 +10,14 @@
     {
       "source_identity": "https://www.lockheedmartinjobs.com/job/sunnyvale/architecture-and-algorithms-agentic-ai-ml-engineer-level-2-3/694/97838518096",
       "source_ref": "sha256:e3a0306982ef5f73f81107bbf9197c0c3a949909103fb4ac0b47e530fd4c3d01",
-      "verification_state": "VERIFIED"
+      "verification_state": "VERIFIED",
+      "snapshot_path": "evidence/role_734997br.json"
     },
     {
       "source_identity": "https://www.lockheedmartin.com/en-us/capabilities/artificial-intelligence-machine-learning.html",
       "source_ref": "sha256:87cc52bdc656fd2348ae30ec9a9bbfc3cb5b47927147f2cb2557062fa48ecd75",
-      "verification_state": "VERIFIED"
+      "verification_state": "VERIFIED",
+      "snapshot_path": "evidence/problem_trusted_agentic_ai_integration.json"
     }
   ],
   "current_metric": 1.04,
