@@ -11,6 +11,7 @@ const CSS_PATH = 'assets/site.title-font.css';
 const CSS_LINK = '<link rel="stylesheet" href="/assets/site.title-font.css">';
 const FETCH_TIMEOUT_MS = 10_000;
 const MAX_FONT_BYTES = 128 * 1024;
+const EXPECTED_FONT_SHA256 = '00de26ff9e435fb8f9e3ad15877f9deb4b70f3945ae0abcf7f0ed278d593014b';
 
 let fontPromise = null;
 
@@ -92,7 +93,9 @@ async function loadFont() {
         const body = Buffer.from(await response.arrayBuffer());
         requireValue(body.length > 1024 && body.length <= MAX_FONT_BYTES, 'title_font_size_invalid');
         requireValue(body.subarray(0, 4).toString('ascii') === 'wOF2', 'title_font_not_woff2');
-        return Object.freeze({ body, sha256: sha256(body) });
+        const digest = sha256(body);
+        requireValue(digest === EXPECTED_FONT_SHA256, 'title_font_sha256_mismatch');
+        return Object.freeze({ body, sha256: digest });
       } catch (error) {
         if (error?.name === 'AbortError') throw new Error('title_font_fetch_timeout');
         throw error;
@@ -273,6 +276,7 @@ module.exports.constants = {
   FONT_PATH,
   CSS_PATH,
   CSS_LINK,
+  EXPECTED_FONT_SHA256,
 };
 module.exports.TITLE_FONT_CSS = TITLE_FONT_CSS;
 module.exports.injectTitleFont = injectTitleFont;

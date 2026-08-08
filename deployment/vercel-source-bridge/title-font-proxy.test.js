@@ -17,6 +17,7 @@ test('pins the OFL Rye title source and keeps browser font loading same-origin',
     'https://cdn.jsdelivr.net/fontsource/fonts/rye@5.3.0/latin-400-normal.woff2',
   );
   assert.equal(titleFont.constants.FONT_PATH, 'assets/title-algerian.woff2');
+  assert.equal(titleFont.constants.EXPECTED_FONT_SHA256, '00de26ff9e435fb8f9e3ad15877f9deb4b70f3945ae0abcf7f0ed278d593014b');
   assert.match(titleFont.TITLE_FONT_CSS, /font-family: "Glacier Algerian Title"/);
   assert.match(titleFont.TITLE_FONT_CSS, /url\("\/assets\/title-algerian\.woff2"\)/);
   assert.doesNotMatch(titleFont.TITLE_FONT_CSS, /https?:\/\//);
