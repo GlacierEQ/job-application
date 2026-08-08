@@ -1,20 +1,23 @@
 const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
 const test = require('node:test');
 
 const design = require('./api/design-proxy.js');
+const releaseRouterSource = fs.readFileSync(path.join(__dirname, 'api', 'release-router.js'), 'utf8');
 
-test('pins the V21 complete web source and Helix authority', () => {
-  assert.equal(design.constants.WEB_SOURCE_COMMIT, 'b531968963269b01dd627a9bfe211b61274beec0');
+test('pins the complete web source and V21 Helix proof authority', () => {
+  assert.equal(design.constants.WEB_SOURCE_COMMIT, 'c18f593a2eda274ea4deeb01ae95d92bdf80838d');
   assert.equal(design.constants.HELIX_COMMIT, '83549cda4af3714304f202d0f4d35b29d28da9f7');
   assert.equal(design.constants.RELEASE, 'V21-FIRST-STAR-COMPLETE-WEB');
 });
 
-test('injects the complete stylesheet exactly once', () => {
+test('injects complete and interaction stylesheets exactly once', () => {
   const source = Buffer.from('<!doctype html><html><head><link rel="stylesheet" href="/assets/site.css"></head><body><h1>x</h1></body></html>');
   const once = design.designHtml(source).toString('utf8');
   const twice = design.designHtml(Buffer.from(once)).toString('utf8');
-  assert.match(once, /site\.complete\.css/);
   assert.equal((once.match(/site\.complete\.css/g) || []).length, 1);
+  assert.equal((once.match(/site\.interaction\.css/g) || []).length, 1);
   assert.equal(twice, once);
 });
 
@@ -26,4 +29,10 @@ test('does not mutate non-HTML fragments without a head', () => {
 test('git blob hashing matches canonical Git framing', () => {
   const body = Buffer.from('hello\n');
   assert.equal(design.gitBlobSha(body), 'ce013625030ba8dba906f756967f9e9ca394464a');
+});
+
+test('release router preserves the original canonical V21 verifier', () => {
+  assert.match(releaseRouterSource, /rawPath === '__v21_verify'/);
+  assert.match(releaseRouterSource, /return proxy\(req, res\)/);
+  assert.match(releaseRouterSource, /return designProxy\(req, res\)/);
 });
