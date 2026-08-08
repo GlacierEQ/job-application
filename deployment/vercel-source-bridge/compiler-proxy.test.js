@@ -199,3 +199,22 @@ test('release router preserves V21-V24 verifiers and defaults to V25', () => {
   assert.ok(source.includes("require('./compiler-proxy.js')"));
   assert.ok(source.includes('return compilerProxy(req, res);'));
 });
+
+
+test('emerald motion restores technical energy without client script', () => {
+  const css = compiler.EMERALD_MOTION_CSS;
+  assert.ok(css.includes('.master-card::before'));
+  assert.ok(css.includes('@keyframes emerald-master-sheen'));
+  assert.ok(css.includes('@keyframes emerald-terminal-breathe'));
+  assert.ok(css.includes('@media(prefers-reduced-motion:reduce)'));
+  assert.ok(css.includes('rgba(73,255,177'));
+  assert.equal(/<script\\b/i.test(css), false);
+});
+
+test('emerald motion injection is idempotent', () => {
+  const source = Buffer.from('<!doctype html><html><head><link rel="stylesheet" href="/assets/site.algerian.css"></head><body><main></main></body></html>');
+  const once = compiler.injectEmeraldMotion(source).toString('utf8');
+  const twice = compiler.injectEmeraldMotion(Buffer.from(once)).toString('utf8');
+  assert.equal(once.split('site.emerald-motion.css').length - 1, 1);
+  assert.equal(twice, once);
+});
