@@ -11,12 +11,18 @@ const BUILDER = path.join(ROOT, 'scripts', 'build-v25-deployment-bundle.mjs');
 const SOURCE_COMMIT = 'a'.repeat(40);
 const require = createRequire(import.meta.url);
 
+function runBuilder(args) {
+  return spawnSync(process.execPath, [BUILDER, ...args], {
+    cwd: ROOT,
+    encoding: 'utf8',
+  });
+}
+
 function build(outputDir) {
-  const result = spawnSync(
-    process.execPath,
-    [BUILDER, '--source-commit', SOURCE_COMMIT, '--output-dir', outputDir],
-    { cwd: ROOT, encoding: 'utf8' },
-  );
+  const result = runBuilder([
+    '--source-commit', SOURCE_COMMIT,
+    '--output-dir', outputDir,
+  ]);
   assert.equal(result.status, 0, result.stderr || result.stdout);
   return JSON.parse(
     fs.readFileSync(path.join(outputDir, 'deployment-manifest.json'), 'utf8'),
@@ -31,21 +37,23 @@ test('V25 bundle is deterministic for identical source authority', () => {
   const second = build(secondDir);
 
   assert.deepEqual(first, second);
-  assert.equal(first.schema, 'glaciereq.v25-deployment-bundle-manifest.v1');
+  assert.equal(first.schema, 'glaciereq.v25-deployment-bundle-manifest.v2');
   assert.equal(first.source_commit, SOURCE_COMMIT);
   assert.equal(first.module_count, 8);
   assert.equal(first.deployment_files.length, 2);
   assert.equal(first.invariants.self_contained_executable_modules, true);
   assert.equal(first.invariants.bootstrap_network_fetch_required, false);
-  assert.equal(first.invariants.bundle_verified_before_compile, true);
-  assert.equal(first.invariants.every_module_sha256_verified_before_execution, true);
+  assert.equal(first.invariants.runtime_string_evaluation_required, false);
+  assert.equal(first.invariants.factory_bundle_verified_before_module_execution, true);
+  assert.equal(first.invariants.every_factory_sha256_verified_before_execution, true);
   assert.equal(first.verification_endpoint, '/__v25_bundle_verify');
 });
 
-test('generated bootstrap verifies and compiles every embedded module without network', () => {
+test('generated bootstrap verifies precompiled factories without runtime string evaluation', () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'v25-bundle-verify-'));
   build(root);
   const bootstrapPath = path.join(root, 'api', 'index.js');
+  const source = fs.readFileSync(bootstrapPath, 'utf8');
   const bootstrap = require(bootstrapPath);
   const result = bootstrap.verifyBundle();
 
@@ -56,7 +64,11 @@ test('generated bootstrap verifies and compiles every embedded module without ne
   assert.equal(result.module_count, 8);
   assert.equal(result.entry, 'api/release-router.js');
   assert.equal(result.bootstrap_network_fetch_required, false);
-  assert.equal(result.every_module_sha256_verified_before_execution, true);
+  assert.equal(result.runtime_string_evaluation_required, false);
+  assert.equal(result.every_factory_sha256_verified_before_execution, true);
+  assert.equal(source.includes('new Function('), false);
+  assert.equal(source.includes('eval('), false);
+  assert.equal(source.includes("require('node:vm')"), false);
 });
 
 test('generated two-file routing targets the bundled Lambda catch-all', () => {
@@ -72,6 +84,14 @@ test('generated two-file routing targets the bundled Lambda catch-all', () => {
     manifest.deployment_files.map((row) => row.path),
     ['api/index.js', 'vercel.json'],
   );
-  assert.ok(fs.statSync(path.join(root, 'api', 'index.js')).size > 10_000);
+  assert.ok(fs.statSync(path.join(root, 'api', 'index.js')).size > 100_000);
   assert.ok(fs.statSync(path.join(root, 'vercel.json')).size < 200);
+});
+
+test('builder rejects flags that omit required values', () => {
+  for (const flag of ['--source-commit', '--output-dir']) {
+    const result = runBuilder([flag]);
+    assert.notEqual(result.status, 0);
+    assert.match(result.stderr, new RegExp(`${flag}_requires_value`));
+  }
 });
