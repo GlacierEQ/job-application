@@ -1,0 +1,45 @@
+{
+  "schema": "glaciereq.portfolio-proof-promotion-receipt.v1",
+  "artifact": "portfolio-proof/AKOS_PROOF_SURFACES_2026-08-08.md",
+  "system": "GlacierEQ/AKOS",
+  "source": {
+    "branch": "main",
+    "current_head": "0df3c3c26feec0dfb1cbc5eadf937d255b5f28ce",
+    "tested_revision": "5b960219635fcd95a9a98a2d7c1bfc5d19111c84",
+    "promotion_receipt": "receipts/2026-08-02_psysoc-x_v0.1.0_promotion.json"
+  },
+  "verification": {
+    "evidence_level": "TEST",
+    "python_matrix": ["3.11", "3.12", "3.13"],
+    "full_akos_tests_per_interpreter": 118,
+    "focused_forge_tests_per_interpreter": 10,
+    "calibration_cases": 4,
+    "calibration_cases_passed": 4,
+    "workflow_runs": {
+      "infinity_stone_forge": 30749869999,
+      "akos_verification": 30749869991,
+      "akos_integrity_gate": 30749870031
+    }
+  },
+  "surfaces": ["recruiter", "master", "machine", "mesh"],
+  "capability_cluster": "governed evidence-backed AI execution",
+  "claim_ceiling": "TEST_VERIFIED_REPOSITORY_LOCAL_SCOPE_AT_PINNED_REVISION",
+  "split_evidence_state": {
+    "current_source_contract": "0df3c3c26feec0dfb1cbc5eadf937d255b5f28ce",
+    "test_verification_anchor": "5b960219635fcd95a9a98a2d7c1bfc5d19111c84",
+    "reason": "Current canonical source is newer than the persisted repository-local promotion receipt; test claims remain pinned to the tested revision rather than being projected forward."
+  },
+  "nonclaims": [
+    "production deployment",
+    "provider-side connectivity",
+    "external-scale performance or reliability",
+    "clinical or diagnostic validity",
+    "hidden-trait prediction",
+    "fresh test verification of commits after the pinned revision"
+  ],
+  "promotion": {
+    "status": "PROMOTED_SPLIT_EVIDENCE",
+    "reason": "AKOS had strong repository-native source and pinned test evidence but lacked a synchronized job-application recruiter/master/machine/mesh proof object. The new artifact preserves current architecture evidence while refusing to inflate an older test receipt into current-head verification."
+  },
+  "next_cursor": "Run AKOS repository-native verification on current canonical head and persist a matching receipt; if successful, upgrade this proof object to CURRENT_HEAD_TEST_VERIFIED_REPOSITORY_BEHAVIOR."
+}
