@@ -5,6 +5,7 @@ on:
     paths:
       - "portfolio-source.json"
       - "scripts/sync-helix-projection.mjs"
+      - "scripts/sync-helix-projection-effective.mjs"
       - "scripts/project-estate-intelligence.mjs"
       - "scripts/render-helix-atlas.mjs"
       - "scripts/render-company-constellation.mjs"
@@ -17,11 +18,13 @@ on:
       - "site-v15/**"
       - "vercel.json"
       - ".github/workflows/helix-projection-sync.yml"
+      - ".github/workflows/helix-projection-promote.yml"
   push:
     branches: [main]
     paths:
       - "portfolio-source.json"
       - "scripts/sync-helix-projection.mjs"
+      - "scripts/sync-helix-projection-effective.mjs"
       - "scripts/project-estate-intelligence.mjs"
       - "scripts/render-helix-atlas.mjs"
       - "scripts/render-company-constellation.mjs"
@@ -34,6 +37,7 @@ on:
       - "site-v15/**"
       - "vercel.json"
       - ".github/workflows/helix-projection-sync.yml"
+      - ".github/workflows/helix-projection-promote.yml"
   schedule:
     - cron: "47 16 * * *"
   workflow_dispatch:
@@ -51,6 +55,7 @@ jobs:
     timeout-minutes: 10
     env:
       GITHUB_TOKEN: ${{ github.token }}
+      HELIX_ROOT_SHA: 82ab13cad82d005b1b9631fe32fa233443288268
     steps:
       - name: Checkout exact portal source
         uses: actions/checkout@v4
@@ -60,8 +65,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "24"
-      - name: Compile public-safe Helix projection and receipt
-        run: node scripts/sync-helix-projection.mjs
+      - name: Compile public-safe effective Helix projection and receipt
+        run: node scripts/sync-helix-projection-effective.mjs
       - name: Validate public-safe projection and receipt
         run: node scripts/validate-helix-projection.mjs
       - name: Render Company Atlas and real company routes
