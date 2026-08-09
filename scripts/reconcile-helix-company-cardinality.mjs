@@ -111,7 +111,8 @@ for (const relative of CARDINALITY_CONSUMERS) {
         replacements += occurrences;
       }
 
-      if (changed.includes('64') && VISUAL_CAPACITY_CONTEXT.test(changed)) {
+      const rendererCapacityGuard = /companies\.length\s*>\s*64/.test(changed);
+      if (changed.includes('64') && (VISUAL_CAPACITY_CONTEXT.test(changed) || rendererCapacityGuard)) {
         const occurrences = changed.match(/\b64\b/g)?.length ?? 0;
         changed = changed.replace(/\b64\b/g, String(companyCount));
         replacements += occurrences;
