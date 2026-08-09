@@ -56,6 +56,7 @@ jobs:
         run: |
           set -euo pipefail
           node scripts/sync-helix-projection.mjs
+          node scripts/reconcile-helix-company-cardinality.mjs
           node scripts/validate-helix-projection.mjs
           node scripts/render-helix-atlas.mjs
           node scripts/link-helix-atlas.mjs
@@ -63,6 +64,8 @@ jobs:
           node scripts/apply-complete-web-design.mjs
           node scripts/validate-estate-intelligence.mjs
           node scripts/validate-helix-atlas.mjs
+          node scripts/harden-public-proof-surface.mjs
+          node scripts/validate-public-proof-surface.mjs
           node site-v15/scripts/validate.mjs
 
       - name: Exercise immutable V21 static and generated runtime surfaces

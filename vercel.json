@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "node scripts/sync-helix-projection.mjs && node scripts/validate-helix-projection.mjs && node scripts/render-helix-atlas.mjs && node scripts/link-helix-atlas.mjs && node scripts/project-estate-intelligence.mjs && node scripts/apply-complete-web-design.mjs && node scripts/validate-algerian-display.mjs && node --test deployment/vercel-source-bridge/typography-proxy.test.js && node scripts/validate-estate-intelligence.mjs && node scripts/validate-helix-atlas.mjs && node site-v15/scripts/validate.mjs",
+  "buildCommand": "node scripts/sync-helix-projection.mjs && node scripts/reconcile-helix-company-cardinality.mjs && node scripts/validate-helix-projection.mjs && node scripts/render-helix-atlas.mjs && node scripts/link-helix-atlas.mjs && node scripts/project-estate-intelligence.mjs && node scripts/apply-complete-web-design.mjs && node scripts/validate-algerian-display.mjs && node --test deployment/vercel-source-bridge/typography-proxy.test.js && node scripts/validate-estate-intelligence.mjs && node scripts/validate-helix-atlas.mjs && node scripts/harden-public-proof-surface.mjs && node scripts/validate-public-proof-surface.mjs && node site-v15/scripts/validate.mjs",
   "outputDirectory": "site-v15",
   "cleanUrls": true,
   "trailingSlash": true,

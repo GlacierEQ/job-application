@@ -5,6 +5,8 @@ on:
     paths:
       - "portfolio-source.json"
       - "scripts/sync-helix-projection.mjs"
+      - "scripts/reconcile-helix-company-cardinality.mjs"
+      - "scripts/reconcile-company-constellation-taxonomy.mjs"
       - "scripts/project-estate-intelligence.mjs"
       - "scripts/render-helix-atlas.mjs"
       - "scripts/render-company-constellation.mjs"
@@ -14,6 +16,8 @@ on:
       - "scripts/validate-estate-intelligence.mjs"
       - "scripts/validate-helix-atlas.mjs"
       - "scripts/validate-company-constellation.mjs"
+      - "scripts/harden-public-proof-surface.mjs"
+      - "scripts/validate-public-proof-surface.mjs"
       - "site-v15/**"
       - "vercel.json"
       - ".github/workflows/helix-projection-sync.yml"
@@ -22,6 +26,8 @@ on:
     paths:
       - "portfolio-source.json"
       - "scripts/sync-helix-projection.mjs"
+      - "scripts/reconcile-helix-company-cardinality.mjs"
+      - "scripts/reconcile-company-constellation-taxonomy.mjs"
       - "scripts/project-estate-intelligence.mjs"
       - "scripts/render-helix-atlas.mjs"
       - "scripts/render-company-constellation.mjs"
@@ -31,6 +37,8 @@ on:
       - "scripts/validate-estate-intelligence.mjs"
       - "scripts/validate-helix-atlas.mjs"
       - "scripts/validate-company-constellation.mjs"
+      - "scripts/harden-public-proof-surface.mjs"
+      - "scripts/validate-public-proof-surface.mjs"
       - "site-v15/**"
       - "vercel.json"
       - ".github/workflows/helix-projection-sync.yml"
@@ -62,6 +70,8 @@ jobs:
           node-version: "24"
       - name: Compile public-safe Helix projection and receipt
         run: node scripts/sync-helix-projection.mjs
+      - name: Reconcile downstream company cardinality to fresh Helix authority
+        run: node scripts/reconcile-helix-company-cardinality.mjs
       - name: Validate public-safe projection and receipt
         run: node scripts/validate-helix-projection.mjs
       - name: Render Company Atlas and real company routes
@@ -70,6 +80,8 @@ jobs:
         run: node scripts/link-helix-atlas.mjs
       - name: Validate generated Atlas, company routes, and links
         run: node scripts/validate-helix-atlas.mjs
+      - name: Reconcile constellation taxonomy to governed Helix tracks
+        run: node scripts/reconcile-company-constellation-taxonomy.mjs
       - name: Compile evidence-aware company constellation
         run: node scripts/render-company-constellation.mjs
       - name: Link company constellation across public surfaces
@@ -80,6 +92,10 @@ jobs:
         run: node scripts/project-estate-intelligence.mjs
       - name: Validate estate-intelligence privacy and freshness boundaries
         run: node scripts/validate-estate-intelligence.mjs
+      - name: Harden recruiter and machine proof surface
+        run: node scripts/harden-public-proof-surface.mjs
+      - name: Validate hardened proof routing and machine discovery
+        run: node scripts/validate-public-proof-surface.mjs
       - name: Validate existing V17 hiring surface
         run: node site-v15/scripts/validate.mjs
       - name: Upload compiled projection, receipt, Atlas, intelligence, and company routes
@@ -89,9 +105,13 @@ jobs:
           path: |
             site-v15/data/helix-root.json
             site-v15/data/helix-root.receipt.json
+            site-v15/data/company-cardinality-reconciliation.json
+            site-v15/data/company-constellation-taxonomy-reconciliation.json
             site-v15/data/estate-intelligence.json
             site-v15/data/company-atlas-summary.json
             site-v15/data/company-atlas.proto
+            site-v15/data/resume.json
+            site-v15/data/portfolio.json
             site-v15/atlas/**
             site-v15/companies/
           if-no-files-found: error
