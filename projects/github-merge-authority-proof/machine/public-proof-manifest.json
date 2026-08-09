@@ -1,0 +1,38 @@
+{
+  "schema": "glaciereq.public-proof-package.v1",
+  "id": "github_merge_authority_graph",
+  "company": "GitHub",
+  "capability": "merge_authority_graph",
+  "disclosure_class": "PUBLIC_SAFE",
+  "private_implementation": {
+    "repository": "GlacierEQ/apex-github-worker",
+    "canonical_head": "f791c85a81768e72446619b39b5312ef1c768a02",
+    "reproduced_source_sha": "1a5331a0203e1273c1045589ea66f5bcf1080b55",
+    "source_disclosed": false
+  },
+  "public_files": [
+    "README.md",
+    "evidence/github-role-5611.json",
+    "evidence/github-problem.json",
+    "machine/implementation-inspection.json",
+    "machine/remedy-contract.json",
+    "proof/implementation-receipt.json",
+    "proof/canonical-reproduction.json",
+    "proof/claim-receipt.json"
+  ],
+  "public_provider_evidence": {
+    "repository": "GlacierEQ/public-actions-runner-host",
+    "target_branch": "operability/merge-authority-v4",
+    "receipt_branch": "receipts/merge-authority-v4",
+    "mutation_sha": "1ec5b60e46c1e5e706838d6291ac6523fdc18a5a"
+  },
+  "claim_stage": "PROOF_REPRODUCED",
+  "claim_ceiling": "reproducible_company_specific_proof",
+  "invariants": [
+    "public package never contains private implementation bytes",
+    "public package never contains secrets or short-lived token values",
+    "source identities and proof receipts remain hash/SHA bound",
+    "independent-work and non-adoption boundaries remain explicit",
+    "company claim never exceeds Helix second-depth stage"
+  ]
+}
