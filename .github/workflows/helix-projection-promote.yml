@@ -1,0 +1,77 @@
+name: Promote Helix Projection
+
+on:
+  workflow_dispatch:
+    inputs:
+      helix_sha:
+        description: "Exact canonical GlacierEQ/job-app-helix commit to project"
+        required: true
+        default: "82ab13cad82d005b1b9631fe32fa233443288268"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+env:
+  HELIX_ROOT_SHA: ${{ inputs.helix_sha }}
+
+jobs:
+  project-and-open-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main without persisted credentials
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: main
+          persist-credentials: false
+          fetch-depth: 1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@1e60f620b9541d7c243d227b788145317eea50c5
+        with:
+          node-version: "22"
+
+      - name: Compile exact Helix projection with modular company overrides
+        run: node scripts/sync-helix-projection-effective.mjs
+
+      - name: Validate second-depth company registry
+        run: node scripts/validate-company-second-depth.mjs site-v15/data/helix-root.json
+
+      - name: Validate V15 public surface
+        run: node site-v15/scripts/validate.mjs
+
+      - name: Stage only governed projection outputs
+        run: |
+          git add \
+            site-v15/data/helix-root.json \
+            site-v15/data/helix-root.receipt.json \
+            site-v15/data/company-atlas-summary.json \
+            site-v15/companies \
+            site-v15/sitemap.xml
+          if ! git diff --quiet; then
+            echo "Unexpected unstaged mutation outside governed projection outputs:" >&2
+            git status --short >&2
+            exit 1
+          fi
+
+      - name: Open projection pull request when state changed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --cached --quiet; then
+            echo "Projection already matches Helix $HELIX_ROOT_SHA"
+            exit 0
+          fi
+
+          branch="automation/helix-projection-${GITHUB_RUN_ID}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git commit -m "Sync canonical Helix projection ${HELIX_ROOT_SHA}"
+          git push "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "$branch"
+
+          gh pr create \
+            --base main \
+            --head "$branch" \
+            --title "Sync canonical Helix projection ${HELIX_ROOT_SHA:0:12}" \
+            --body "Generated from exact canonical GlacierEQ/job-app-helix SHA \`${HELIX_ROOT_SHA}\` using the effective base + modular company second-depth compiler. The workflow validated the second-depth registry and the complete V15 public surface before opening this PR. No hand-edited company HTML is introduced."
