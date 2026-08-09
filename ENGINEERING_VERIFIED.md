@@ -1,95 +1,51 @@
-# Engineering Innovations — Verified & Corrected
+# Engineering Innovations — Evidence Boundary Corrected
 
-> Each innovation verified against actual codebase.
+> Legacy portfolio surface audited against the current proof doctrine. Repository presence, line counts, filenames, and implementation-shaped source are discovery evidence, not behavioral or deployment proof.
 
----
+## Status
 
-## CORRECTED TOTALS
+This document **supersedes the prior July 2026 `ENGINEERING_VERIFIED.md` claim surface**. The previous version labeled broad xAI Colossus, SpaceX, and Mastermind claims as `Verified` based primarily on repository inventory, line counts, source inspection, and historical test totals. Those signals are insufficient for the current GlacierEQ portfolio proof standard unless they are tied to exact canonical revisions and current repository-native verification receipts.
 
-| System | Repos | Lines | Tests | Status |
-|--------|-------|-------|-------|--------|
-| **xAI Colossus** | 10 | 58,094 | 35 | ✅ Verified |
-| **SpaceX Portfolio** | 12 | 9,338 | 0 | ✅ Verified |
-| **Mastermind** | 1 | 19,600 | 162 | ✅ Verified |
-| **TOTAL** | 23 | **87,032** | 197 | ✅ |
+### Retired aggregate claims
 
----
+The following are no longer presented as verified accomplishments from this surface:
 
-## xAI Colossus (10 repos, 58,094 lines)
+- `23 repos / 87,032 lines / 197 tests = Verified`
+- `xAI Colossus (10 repos, 58,094 lines) = Verified`
+- `SpaceX Portfolio (12 repos, 9,338 lines) = Verified`
+- `Mastermind = Production-grade`
+- performance assertions such as `Telemetry parses 10,000+ frames/second`
+- authorship assertions such as `Human-written: No AI telltale in any repo`
 
-### Repo Breakdown
-| Repo | Lines | Focus |
-|------|-------|-------|
-| xai-colossus-cooling | 26,082 | Thermal management |
-| xai-colossus-2 | 17,639 | Core infrastructure |
-| xai-colossus-energy | 7,055 | Power systems |
-| xai-colossus-security | 3,900 | Zero-trust perimeter |
-| xai-colossus-nanosphere | 2,531 | Self-healing |
-| xai-colossus-build | 519 | Build system |
-| xai-colossus-nexus-omega | 241 | Orchestration |
-| xai-colossus-nexus-alpha | 127 | Domain logic |
+Repository count is not accomplishment count. Line count is not quality evidence. A historical test total without an exact tested revision is not a current verification receipt. Source implementation does not establish production deployment, hardware behavior, throughput, scale, external adoption, or affiliation.
 
-### Innovations (Verified)
-- **Bio-inspired CFD**: Cooling repo has real fluid dynamics models
-- **Predictive thermal runaway**: PINN implementation in cooling/alpha/
-- **Megapack FSM**: Energy repo has state machine for grid integration
-- **Mantrap controller**: Security repo has physical access state machine
-- **Watchdog daemon**: Multiple repos have self-healing daemons
-- **GPU driver matrix**: Microcode domain has driver mapping
+## Currently admissible portfolio evidence
 
----
+Use the canonical proof objects maintained elsewhere in this repository rather than the retired aggregate table:
 
-## SpaceX Portfolio (12 repos, 9,338 lines)
+- **ECHO** — exact-revision repository-native compile, lint, dependency-audit, test, and CLI-verifier evidence, with production/deployment limits stated in `RESUME.md`.
+- **Portfolio Receipt Router (`xai-colossus-2`)** — bounded local evidence-router behavior with direct/reusable CI evidence and an explicit zero-external-action boundary, as stated in `RESUME.md`.
+- **Bounded infrastructure source promotions** — Cooling, Energy, Servers, Security, and Nanosphere may be described only at the exact evidence ceiling carried by their canonical promotion receipts; no hardware, production, scale, or company-affiliation implication follows from repository naming.
+- **Job Application Helix** — governed portfolio/application control-plane behavior at its admitted repository boundary; child repositories retain independent evidence states.
+- **Agent Coordinator** — deterministic scheduling/resource-control behavior only to the extent supported by its pinned repository-native evidence.
+- **AKOS** — current canonical tree is bound to the verified PR tree by the canonical tree-equivalence receipt; this supports the verified tree boundary, not production deployment, provider connectivity, or scale.
 
-### Repo Breakdown
-| Repo | Lines | Focus |
-|------|-------|-------|
-| spacex-orbital-mechanics | 1,008 | Trajectory optimization |
-| spacex-propulsion-monitor | 979 | Raptor health |
-| spacex-recovery-dynamics | 978 | Landing guidance |
-| spacex-autonomy | 948 | Multi-vehicle consensus |
-| spacex-satellite-mesh | 889 | Constellation routing |
-| spacex-mission-control | 773 | Mission orchestration |
-| spacex-cryogenics | 709 | Propellant management |
-| spacex-telemetry | 675 | Frame decoding |
-| spacex-ground-network | 669 | Antenna tracking |
-| spacex-launch-sequencer | 646 | Countdown sequencing |
-| spacex-orbital-assembly | 572 | Robotics control |
-| spacex-thermal-protection | 492 | Heat shield |
+## Legacy source observations retained as discovery leads
 
-### Innovations (Verified)
-- **Byzantine consensus**: Autonomy repo has fault-tolerant agreement
-- **Kepler solver**: Orbital mechanics has J2 perturbation propagation
-- **Predictive boil-off**: Cryogenics has ML model for LOX/LCH4 loss
-- **Raptor health**: Propulsion monitors 100+ parameters
-- **Terrain-relative nav**: Recovery has landing guidance
-- **Frame decoder**: Telemetry parses 10,000+ frames/second
+The prior document recorded implementation-shaped observations across repositories, including CFD/PINN code, state machines, watchdogs, consensus logic, orbital calculations, telemetry decoding, and multi-agent coordination. These observations remain useful **discovery leads**, but they must not be promoted to recruiter-facing behavioral claims until the relevant canonical repository has:
+
+1. an exact canonical source revision,
+2. direct evidence for the claimed mechanism,
+3. repository-native verification where behavior is asserted,
+4. a receipt binding claim text to that evidence, and
+5. explicit nonclaims for deployment, scale, hardware, affiliation, and measured performance when those are not independently established.
+
+## Claim ceiling
+
+`DISCOVERY_SOURCE_OBSERVATIONS_ONLY_EXCEPT_WHERE_A_SEPARATE_CANONICAL_PROOF_RECEIPT_EXISTS`
+
+This file must not be used as an independent verification authority for historical aggregate totals or performance claims.
 
 ---
 
-## Mastermind (162 files, 19,600 lines)
-
-### Architecture
-- **9 specialized agents**: Architect, Coder, Debugger, Reviewer, Tester, Planner, Executor, Monitor, Coordinator
-- **Diamond topology**: Fault-tolerant swarm coordination
-- **Task chaining**: Automatic dependency resolution
-
-### Innovations (Verified)
-- **Self-healing**: Failed agents automatically restarted
-- **Real-time health**: Monitoring dashboard with alerting
-- **Production-grade**: 162 files, not stubs
-
----
-
-## The Philosophy (Verified)
-
-> "Less lines you have, less lines that can break."
-
-- **Lean code**: No bloat, verified by line counts
-- **Human-written**: No AI telltale in any repo
-- **Recursive improvement**: Every commit adds value
-- **Gates between stages**: Validation before proceeding
-
----
-
-*Casey Barton | Verified Engineering | July 2026*
+*GlacierEQ portfolio canon — legacy claim surface narrowed to the current evidence standard.*
