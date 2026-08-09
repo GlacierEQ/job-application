@@ -110,6 +110,7 @@ for (const relative of CARDINALITY_CONSUMERS) {
 
   let replacements = 0;
   let runtimeHelixPinUpdated = false;
+  let historicalProofBoundaryUpdated = false;
   let next = source
     .split('\n')
     .map(line => {
@@ -165,12 +166,25 @@ for (const relative of CARDINALITY_CONSUMERS) {
     }
   }
 
+  if (relative === 'deployment/vercel-source-bridge/api/design-proxy.js') {
+    const historicalCoupling = "&& star?.company_projection?.helix_commit === HELIX_COMMIT;";
+    const historicalBoundary = "&& /^[a-f0-9]{40}$/.test(String(star?.company_projection?.helix_commit || ''));";
+    if (next.includes(historicalCoupling)) {
+      next = next.replace(historicalCoupling, historicalBoundary);
+      replacements += 1;
+      historicalProofBoundaryUpdated = true;
+    } else if (!next.includes(historicalBoundary)) {
+      throw new Error(`${relative}: current-proof Helix boundary is neither legacy nor reconciled`);
+    }
+  }
+
   if (next !== source) {
     await writeFile(target, next, 'utf8');
     patched.push({
       path: relative,
       replacements,
       runtime_helix_pin_updated: runtimeHelixPinUpdated,
+      historical_proof_boundary_updated: historicalProofBoundaryUpdated,
       before_sha256: sha256(source),
       after_sha256: sha256(next),
     });
@@ -198,8 +212,13 @@ for (const relative of RUNTIME_HELIX_PIN_CONSUMERS) {
   }
 }
 
+const designSource = await readFile(path.join(ROOT, 'deployment/vercel-source-bridge/api/design-proxy.js'), 'utf8');
+if (!designSource.includes("/^[a-f0-9]{40}$/.test(String(star?.company_projection?.helix_commit || ''))")) {
+  throw new Error('Historical current-proof receipt is still coupled to the live Helix projection authority');
+}
+
 const receipt = {
-  schema: 'glaciereq.public-company-cardinality-reconciliation.v4',
+  schema: 'glaciereq.public-company-cardinality-reconciliation.v5',
   status: 'PASS',
   source: 'site-v15/data/helix-root.json',
   source_sha256: sha256(snapshotText),
@@ -217,6 +236,7 @@ const receipt = {
     'Second-depth stage-count assertions follow the freshly synced public projection and may not preserve obsolete historical distributions.',
     'The zero-script constellation receives one deterministic CSS position per governed company and never relies on inline style or client-side JavaScript.',
     'Runtime company-projection bridges use the same immutable Helix commit as the freshly synced static projection while historical static-source pins remain unchanged.',
+    'The blob-pinned current-proof receipt preserves its historical Helix identity and is not required to equal the current runtime Helix projection commit.',
   ],
 };
 await writeFile(RECEIPT, `${JSON.stringify(receipt, null, 2)}\n`, 'utf8');
@@ -228,6 +248,7 @@ console.log(JSON.stringify({
   second_depth: stageCounts,
   generated_constellation_positions: companyCount,
   runtime_helix_pin_consumers: RUNTIME_HELIX_PIN_CONSUMERS.length,
+  historical_proof_boundary: 'BLOB_PINNED_IDENTITY_SEPARATE_FROM_LIVE_PROJECTION',
   patched_consumers: patched.length,
   replacements: patched.reduce((sum, row) => sum + row.replacements, 0),
 }));
