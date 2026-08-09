@@ -90,10 +90,33 @@ independent_sources:
     proof_kind: governed_contract_source
   - repository: GlacierEQ/AKOS
     revision: d9aeb424f4d99da6026719e1e58793f6a89efd86
-    evidence: runtime/CHANGELOG.md
-    proof_kind: implementation_scope_corroboration
+    evidence:
+      - runtime/CHANGELOG.md
+      - portfolio-proof/AKOS_PROOF_SURFACES_2026-08-08.md
+      - portfolio-proof/receipts/AKOS_CURRENT_HEAD_TREE_EQUIVALENCE_2026-08-08.json
+    verified_pr_revision: c507436e2523f668ae4a1e8e142f59e200f07a90
+    verified_tree_sha: 2c82cf61b4f50a8391187f0e6c7b0bc8439f240b
+    proof_kind: implementation_scope_plus_tree_equivalence_receipt
+promotion_gate:
+  target_status: BEHAVIOR_TESTED_MULTI_REPO_PATTERN
+  required_receipts:
+    - repository: GlacierEQ/sigma-glue
+      revision: 4a1ca8e5c88a62e8a94a43213b2c509af6afcea3
+      scope: idempotency_and_reconciliation_path
+      receipt: repository_native_executable_verification_receipt
+      expected_result: success
+    - repository: GlacierEQ/ECHO
+      revision: d87276166041d655452abd4e992a755565f9201c
+      scope: relevant_p0_hardening_tests
+      receipt: repository_native_executable_test_receipt
+      expected_result: success
+  rule: all_required_receipts_must_match_exact_revision_and_expected_result
 nonclaims:
   - production_deployment
+  - production_reliability
+  - exactly_once_distributed_semantics
+  - successful_live_provider_recovery
+  - scale_or_latency_numbers
   - external_adoption
   - measured_throughput
   - distributed_consensus
@@ -120,4 +143,4 @@ nonclaims:
 
 ### Next promotion gate
 
-Bind repository-native executable verification receipts for the Sigma Glue idempotency/reconciliation path and the relevant ECHO hardening tests to their exact canonical revisions. If both are current and green, this cluster can be promoted from `SOURCE_VERIFIED_MULTI_REPO_PATTERN` to a behavior-tested cross-repository capability claim without expanding its deployment ceiling.
+Bind the exact-revision repository-native executable verification receipt for Sigma Glue `4a1ca8e5c88a62e8a94a43213b2c509af6afcea3` covering the idempotency/reconciliation path and the exact-revision repository-native executable test receipt for ECHO `d87276166041d655452abd4e992a755565f9201c` covering the relevant P0 hardening tests. Promotion requires each named receipt to resolve to its pinned revision with an explicit `success` result; otherwise this object remains `SOURCE_VERIFIED_MULTI_REPO_PATTERN` without expanding its deployment ceiling.
