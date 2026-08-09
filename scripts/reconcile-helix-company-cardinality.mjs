@@ -25,6 +25,11 @@ const CARDINALITY_CONSUMERS = [
   'deployment/vercel-source-bridge/typography-proxy.test.js',
 ];
 
+const RUNTIME_HELIX_PIN_CONSUMERS = [
+  'deployment/vercel-source-bridge/api/proxy.js',
+  'deployment/vercel-source-bridge/api/design-proxy.js',
+];
+
 const CONTEXT = /(compan(?:y|ies)|track|atlas|portfolio|helix)/i;
 const VISUAL_CAPACITY_CONTEXT = /(constellation|company positions|capacity guard|star-p)/i;
 const SECOND_DEPTH_STAGES = [
@@ -71,8 +76,12 @@ function constellationPositionCss(count) {
 const snapshotText = await readFile(SNAPSHOT, 'utf8');
 const snapshot = JSON.parse(snapshotText);
 const companyCount = Array.isArray(snapshot.companies) ? snapshot.companies.length : 0;
+const helixCommit = String(snapshot?.source?.root_ref ?? '');
 if (!Number.isInteger(companyCount) || companyCount < 1) {
   throw new Error('Helix snapshot does not expose a non-empty company projection');
+}
+if (!/^[a-f0-9]{40}$/.test(helixCommit)) {
+  throw new Error(`Helix snapshot root_ref is not an immutable commit: ${helixCommit || 'missing'}`);
 }
 if (companyCount > 160) {
   throw new Error(`Helix company cardinality ${companyCount} exceeds the bounded script-free constellation design limit of 160`);
@@ -100,7 +109,8 @@ for (const relative of CARDINALITY_CONSUMERS) {
   }
 
   let replacements = 0;
-  const next = source
+  let runtimeHelixPinUpdated = false;
+  let next = source
     .split('\n')
     .map(line => {
       let changed = line;
@@ -144,11 +154,23 @@ for (const relative of CARDINALITY_CONSUMERS) {
     })
     .join('\n');
 
+  if (RUNTIME_HELIX_PIN_CONSUMERS.includes(relative)) {
+    const pinPattern = /const HELIX_COMMIT = '[a-f0-9]{40}';/;
+    if (!pinPattern.test(next)) throw new Error(`${relative}: immutable HELIX_COMMIT pin missing`);
+    const desired = `const HELIX_COMMIT = '${helixCommit}';`;
+    if (!next.includes(desired)) {
+      next = next.replace(pinPattern, desired);
+      replacements += 1;
+      runtimeHelixPinUpdated = true;
+    }
+  }
+
   if (next !== source) {
     await writeFile(target, next, 'utf8');
     patched.push({
       path: relative,
       replacements,
+      runtime_helix_pin_updated: runtimeHelixPinUpdated,
       before_sha256: sha256(source),
       after_sha256: sha256(next),
     });
@@ -169,31 +191,43 @@ if (!cssNext.includes(`.atlas-star.star-p${companyCount - 1}{`)) {
   throw new Error('Generated constellation CSS does not cover the authoritative company count');
 }
 
+for (const relative of RUNTIME_HELIX_PIN_CONSUMERS) {
+  const runtimeSource = await readFile(path.join(ROOT, relative), 'utf8');
+  if (!runtimeSource.includes(`const HELIX_COMMIT = '${helixCommit}';`)) {
+    throw new Error(`${relative}: runtime Helix authority does not match fresh projection`);
+  }
+}
+
 const receipt = {
-  schema: 'glaciereq.public-company-cardinality-reconciliation.v3',
+  schema: 'glaciereq.public-company-cardinality-reconciliation.v4',
   status: 'PASS',
   source: 'site-v15/data/helix-root.json',
   source_sha256: sha256(snapshotText),
+  authoritative_helix_commit: helixCommit,
   authoritative_company_tracks: companyCount,
   authoritative_second_depth_stage_counts: stageCounts,
   legacy_cardinality: 49,
   legacy_constellation_capacity: 64,
   generated_constellation_positions: companyCount,
   constellation_css_sha256: sha256(cssNext),
+  runtime_helix_pin_consumers: RUNTIME_HELIX_PIN_CONSUMERS,
   patched_consumers: patched,
   invariants: [
     'Downstream public consumers validate the freshly synced Helix company projection rather than a historical fixed track count.',
     'Second-depth stage-count assertions follow the freshly synced public projection and may not preserve obsolete historical distributions.',
     'The zero-script constellation receives one deterministic CSS position per governed company and never relies on inline style or client-side JavaScript.',
+    'Runtime company-projection bridges use the same immutable Helix commit as the freshly synced static projection while historical static-source pins remain unchanged.',
   ],
 };
 await writeFile(RECEIPT, `${JSON.stringify(receipt, null, 2)}\n`, 'utf8');
 
 console.log(JSON.stringify({
   status: 'PASS',
+  authoritative_helix_commit: helixCommit,
   authoritative_company_tracks: companyCount,
   second_depth: stageCounts,
   generated_constellation_positions: companyCount,
+  runtime_helix_pin_consumers: RUNTIME_HELIX_PIN_CONSUMERS.length,
   patched_consumers: patched.length,
   replacements: patched.reduce((sum, row) => sum + row.replacements, 0),
 }));
