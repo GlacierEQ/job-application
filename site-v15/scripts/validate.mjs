@@ -97,17 +97,21 @@ for (const file of htmlFiles) {
 assert(/<\/footer>\s*<\/body>\s*<\/html>\s*$/i.test(recruiter), 'recruiter footer must close cleanly');
 assert(!recruiter.includes('&#250493;'), 'recruiter contains corrupted footer text');
 for (const token of [
-  'V21 FIRST STAR COMPLETION',
+  'OPEN-WORLD ENGINEERING ESTATE',
   'Mission Agentic AI Assurance',
-  '17/17',
   'REPRODUCED',
   'PROOF_BOUND',
   'CLAIM_PROMOTED',
   '69/69',
-  '148/148',
+  '148 recorded tests at its bound proof authority',
   '62/62',
   'I make powerful AI <em>dependable enough to use.</em>',
+  'The estate is the product. Views are projections of it.',
+  'No subsystem metric is used here as a proxy for the scale of the engineering estate.',
 ]) assert(recruiter.includes(token), `recruiter missing ${token}`);
+assert(!recruiter.includes('17/17'), 'anti-distortion invariant violated: local 17-test suite cannot become a recruiter-level identity metric');
+assert(recruiter.includes('17 acceptance tests in this suite'), 'local Mission Assurance suite boundary missing');
+assert(recruiter.includes('17 acceptance tests in this local suite'), 'system-level Mission Assurance suite boundary missing');
 assert(recruiter.includes('cockpit') && recruiter.includes('bento') && recruiter.includes('pipeline'), 'cutting-edge visual hierarchy missing');
 for (const route of ['/master/', '/mesh/', '/machine/', '/resume/', '/companies/', '/atlas/']) {
   assert(new RegExp(`href\\s*=\\s*["']${route.replaceAll('/', '\\/')}["']`, 'i').test(recruiter), `route missing ${route}`);
@@ -197,14 +201,14 @@ const visualContracts = [
   'CSS motion',
   'reduced motion',
   'print',
-  'V21 proof rail',
+  'open-world estate rail',
   'focus-visible',
   'complete responsive layer',
 ];
 
 console.log(JSON.stringify({
   status: 'PASS',
-  release: 'V21 First Star Complete Web Experience',
+  release: 'Open-World Engineering Estate Presentation',
   routes: legacyRoutes,
   html_routes_verified: htmlFiles.length,
   current_star: currentProof.current_star.id,
@@ -212,6 +216,7 @@ console.log(JSON.stringify({
   claim_stage: currentProof.current_star.company_projection.stage,
   profiles: Object.keys(profiles.profiles),
   facts_invariant: true,
+  anti_distortion_invariant: true,
   proof: portfolio.proof,
   legacy_proof: portfolio.proof,
   flagships: portfolio.flagships.length,
