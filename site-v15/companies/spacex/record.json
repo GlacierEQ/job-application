@@ -1,7 +1,7 @@
 {
   "boundary": "Independent GlacierEQ work; no SpaceX affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
   "flagships": [],
-  "gate": "Estate count is 14 direct-named repos; public suite remains 12 until two private candidates earn admission.",
+  "gate": "Estate count is 14 direct-named repos; public suite remains 12 until two private candidates earn admission. Excellence multi-repo pack linked 2026-08-09T04:51Z (+2 public reference candidates on GlacierEQ).",
   "id": "spacex",
   "repos": [
     {
@@ -75,6 +75,22 @@
       "lvl": "L3",
       "provenance": "ORIGINAL_CANDIDATE",
       "state": "REFERENCE_ONLY"
+    },
+    {
+      "id": "GlacierEQ/spacex-mission-thread-quorum",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY",
+      "excellence_wave": "1A-1C",
+      "url": "https://github.com/GlacierEQ/spacex-mission-thread-quorum"
+    },
+    {
+      "id": "GlacierEQ/spacex-hold-reason-compiler",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY",
+      "excellence_wave": "1A-1C",
+      "url": "https://github.com/GlacierEQ/spacex-hold-reason-compiler"
     }
   ],
   "roles": [
@@ -106,5 +122,15 @@
     "stage": "MAPPED_ONLY"
   },
   "state": "repository-rich",
-  "track": "MAPPED_NOT_RECRUITER_READY"
+  "track": "MAPPED_NOT_RECRUITER_READY",
+  "excellence_pack": {
+    "updated_at": "2026-08-09T04:51Z",
+    "repos": [
+      "GlacierEQ/spacex-mission-thread-quorum",
+      "GlacierEQ/spacex-hold-reason-compiler"
+    ],
+    "claim_ceiling": "company_alignment_only_until_proof_reproduced",
+    "harness": "https://github.com/GlacierEQ \u2014 see job-app excellence harness (local)",
+    "public": true
+  }
 }

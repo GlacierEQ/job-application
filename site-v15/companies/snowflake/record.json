@@ -7,9 +7,26 @@
     "tower_of_babel",
     "job_application"
   ],
-  "gate": "No direct company-specific repository was verified in the exact-name and Helix-governed inventory. Build a dossier only from genuine role-aligned evidence.",
+  "gate": "No direct company-specific repository was verified in the exact-name and Helix-governed inventory. Build a dossier only from genuine role-aligned evidence. Excellence multi-repo pack linked 2026-08-09T04:51Z (+2 public reference candidates on GlacierEQ).",
   "id": "snowflake",
-  "repos": [],
+  "repos": [
+    {
+      "id": "GlacierEQ/snowflake-query-intent-ledger",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY",
+      "excellence_wave": "1A-1C",
+      "url": "https://github.com/GlacierEQ/snowflake-query-intent-ledger"
+    },
+    {
+      "id": "GlacierEQ/snowflake-cortex-claim-bound",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY",
+      "excellence_wave": "1A-1C",
+      "url": "https://github.com/GlacierEQ/snowflake-cortex-claim-bound"
+    }
+  ],
   "roles": [
     "Applied AI Systems Engineer",
     "Forward-Deployed Engineer"
@@ -37,6 +54,16 @@
     "ordinal": 0,
     "stage": "MAPPED_ONLY"
   },
-  "state": "scaffold",
-  "track": "NO_DIRECT_EXHIBIT_VERIFIED"
+  "state": "repository-rich",
+  "track": "NO_DIRECT_EXHIBIT_VERIFIED",
+  "excellence_pack": {
+    "updated_at": "2026-08-09T04:51Z",
+    "repos": [
+      "GlacierEQ/snowflake-query-intent-ledger",
+      "GlacierEQ/snowflake-cortex-claim-bound"
+    ],
+    "claim_ceiling": "company_alignment_only_until_proof_reproduced",
+    "harness": "https://github.com/GlacierEQ \u2014 see job-app excellence harness (local)",
+    "public": true
+  }
 }

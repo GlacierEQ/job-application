@@ -7,9 +7,34 @@
     "tower_of_babel",
     "job_application"
   ],
-  "gate": "No Lockheed Martin-named repository or recruiter-admitted company-specific proof was found in the connected GlacierEQ estate. Verify a current public role and team, bound one externally supportable problem, then inspect only genuinely relevant GlacierEQ implementations before raising the claim ceiling.",
+  "gate": "No Lockheed Martin-named repository or recruiter-admitted company-specific proof was found in the connected GlacierEQ estate. Verify a current public role and team, bound one externally supportable problem, then inspect only genuinely relevant GlacierEQ implementations before raising the claim ceiling. Excellence multi-repo pack linked 2026-08-09T04:51Z (+3 public reference candidates on GlacierEQ).",
   "id": "lockheed_martin",
-  "repos": [],
+  "repos": [
+    {
+      "id": "GlacierEQ/lockheed-dual-key-actuator-fence",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY",
+      "excellence_wave": "1A-1C",
+      "url": "https://github.com/GlacierEQ/lockheed-dual-key-actuator-fence"
+    },
+    {
+      "id": "GlacierEQ/lockheed-mission-thread-isolator",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY",
+      "excellence_wave": "1A-1C",
+      "url": "https://github.com/GlacierEQ/lockheed-mission-thread-isolator"
+    },
+    {
+      "id": "GlacierEQ/lockheed-evidence-binding-gateway",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY",
+      "excellence_wave": "1A-1C",
+      "url": "https://github.com/GlacierEQ/lockheed-evidence-binding-gateway"
+    }
+  ],
   "roles": [
     "AI / ML Systems Engineer",
     "Mission Systems Software Engineer",
@@ -128,6 +153,17 @@
     "ordinal": 7,
     "stage": "CLAIM_PROMOTED"
   },
-  "state": "scaffold",
-  "track": "NO_DIRECT_EXHIBIT_VERIFIED"
+  "state": "repository-rich",
+  "track": "NO_DIRECT_EXHIBIT_VERIFIED",
+  "excellence_pack": {
+    "updated_at": "2026-08-09T04:51Z",
+    "repos": [
+      "GlacierEQ/lockheed-dual-key-actuator-fence",
+      "GlacierEQ/lockheed-mission-thread-isolator",
+      "GlacierEQ/lockheed-evidence-binding-gateway"
+    ],
+    "claim_ceiling": "company_alignment_only_until_proof_reproduced",
+    "harness": "https://github.com/GlacierEQ \u2014 see job-app excellence harness (local)",
+    "public": true
+  }
 }

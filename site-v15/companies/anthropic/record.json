@@ -1,20 +1,38 @@
 {
   "boundary": "Independent GlacierEQ work; no Anthropic affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
   "flagships": [],
-  "gate": "Five direct Anthropic-named repos exist; three private candidates were omitted from the old public count.",
+  "gate": "Five direct Anthropic-named repos exist; three private candidates were omitted from the old public count. Excellence multi-repo pack linked 2026-08-09T04:51Z (+2 public reference candidates on GlacierEQ).",
   "id": "anthropic",
   "repos": [
     {
       "id": "GlacierEQ/anthropic-agent-coordinator",
       "lvl": "L4",
       "provenance": "ORIGINAL_CANDIDATE",
-      "state": "PROMOTED"
+      "state": "PROMOTED",
+      "url": "https://github.com/GlacierEQ/anthropic-agent-coordinator"
     },
     {
       "id": "GlacierEQ/anthropic-safety-monitor",
       "lvl": "L4",
       "provenance": "ORIGINAL_CANDIDATE",
-      "state": "PROMOTED"
+      "state": "PROMOTED",
+      "url": "https://github.com/GlacierEQ/anthropic-safety-monitor"
+    },
+    {
+      "id": "GlacierEQ/anthropic-constitutional-tool-transcript",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY",
+      "excellence_wave": "1A-1C",
+      "url": "https://github.com/GlacierEQ/anthropic-constitutional-tool-transcript"
+    },
+    {
+      "id": "GlacierEQ/anthropic-refusal-replay-harness",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY",
+      "excellence_wave": "1A-1C",
+      "url": "https://github.com/GlacierEQ/anthropic-refusal-replay-harness"
     }
   ],
   "roles": [
@@ -46,5 +64,17 @@
     "stage": "MAPPED_ONLY"
   },
   "state": "repository-rich",
-  "track": "MAPPED_WITH_RECRUITER_READY_PUBLIC_SUBSET"
+  "track": "MAPPED_WITH_RECRUITER_READY_PUBLIC_SUBSET",
+  "excellence_pack": {
+    "updated_at": "2026-08-09T04:51Z",
+    "repos": [
+      "GlacierEQ/anthropic-agent-coordinator",
+      "GlacierEQ/anthropic-safety-monitor",
+      "GlacierEQ/anthropic-constitutional-tool-transcript",
+      "GlacierEQ/anthropic-refusal-replay-harness"
+    ],
+    "claim_ceiling": "company_alignment_only_until_proof_reproduced",
+    "harness": "https://github.com/GlacierEQ \u2014 see job-app excellence harness (local)",
+    "public": true
+  }
 }

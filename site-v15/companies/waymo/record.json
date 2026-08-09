@@ -7,9 +7,26 @@
     "tower_of_babel",
     "job_application"
   ],
-  "gate": "No direct company-specific repository was verified in the exact-name and Helix-governed inventory. Build a dossier only from genuine role-aligned evidence.",
+  "gate": "No direct company-specific repository was verified in the exact-name and Helix-governed inventory. Build a dossier only from genuine role-aligned evidence. Excellence multi-repo pack linked 2026-08-09T04:51Z (+2 public reference candidates on GlacierEQ).",
   "id": "waymo",
-  "repos": [],
+  "repos": [
+    {
+      "id": "GlacierEQ/waymo-phantom-freespace-certificate",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY",
+      "excellence_wave": "1A-1C",
+      "url": "https://github.com/GlacierEQ/waymo-phantom-freespace-certificate"
+    },
+    {
+      "id": "GlacierEQ/waymo-uncertainty-lane-graph",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY",
+      "excellence_wave": "1A-1C",
+      "url": "https://github.com/GlacierEQ/waymo-uncertainty-lane-graph"
+    }
+  ],
   "roles": [
     "Applied AI Systems Engineer",
     "Forward-Deployed Engineer"
@@ -37,6 +54,16 @@
     "ordinal": 0,
     "stage": "MAPPED_ONLY"
   },
-  "state": "scaffold",
-  "track": "NO_DIRECT_EXHIBIT_VERIFIED"
+  "state": "repository-rich",
+  "track": "NO_DIRECT_EXHIBIT_VERIFIED",
+  "excellence_pack": {
+    "updated_at": "2026-08-09T04:51Z",
+    "repos": [
+      "GlacierEQ/waymo-phantom-freespace-certificate",
+      "GlacierEQ/waymo-uncertainty-lane-graph"
+    ],
+    "claim_ceiling": "company_alignment_only_until_proof_reproduced",
+    "harness": "https://github.com/GlacierEQ \u2014 see job-app excellence harness (local)",
+    "public": true
+  }
 }
