@@ -1,0 +1,42 @@
+{
+  "schema": "glaciereq.public-private-implementation-inspection.v1",
+  "capability": "merge_authority_graph",
+  "owner_repository": "GlacierEQ/apex-github-worker",
+  "visibility": "private",
+  "disclosure_class": "PUBLIC_HIGH_LEVEL_ONLY",
+  "canonical_head": "f791c85a81768e72446619b39b5312ef1c768a02",
+  "reproduced_source_sha": "1a5331a0203e1273c1045589ea66f5bcf1080b55",
+  "inspected_sources": [
+    {
+      "path": "merge-authority/merge-authority.mjs",
+      "git_blob_sha": "b1e30e9caa593d094de64b934b6b8ef762570b6f",
+      "public_description": "Fail-closed control kernel for structural preflight, exact-change policy evaluation, replay lookup, expected-head gating, provider mutation, bounded readback reconciliation, and receipt-backed terminal state."
+    },
+    {
+      "path": "merge-authority/github-provider.mjs",
+      "git_blob_sha": "e6e8587931efbf1f6fc0e7e52093c95c0ae70373",
+      "public_description": "Bounded GitHub adapter for exact-byte provider rebinding, non-force branch mutation, disposable-branch creation, canonical receipt storage, and bounded eventually-consistent ref reconciliation."
+    }
+  ],
+  "verified_mechanisms": [
+    "preflight before provider access",
+    "expected-head mutation guard",
+    "exact patch SHA-256 binding",
+    "provider-side re-hash of unchanged patch bytes",
+    "required-check enforcement",
+    "approval bound to actor, intent, head, and patch",
+    "allowlisted target branch",
+    "receipt lookup before mutable provider state inspection for completed replay",
+    "non-force provider branch update",
+    "bounded post-mutation readback reconciliation",
+    "canonical completed receipt",
+    "replay event receipt without duplicate mutation",
+    "explicit provider/readback failure states"
+  ],
+  "source_not_disclosed": true,
+  "verification_boundary": "This public record discloses identities, hashes, behavior, proof state, and nonclaims but intentionally omits private implementation bytes.",
+  "nonclaims": [
+    "Hash-bound inspection does not convert the private source repository into a public repository.",
+    "No credential, token, private key, secret value, or proprietary implementation body is contained here."
+  ]
+}

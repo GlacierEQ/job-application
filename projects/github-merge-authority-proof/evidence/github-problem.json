@@ -1,0 +1,29 @@
+{
+  "schema": "glaciereq.public-company-problem-evidence.v1",
+  "company": "GitHub",
+  "observed_at": "2026-08-08T20:27:00-10:00",
+  "problem": "As coding agents become first-class repository actors, safe promotion requires a trustworthy boundary that binds the intended change, current repository state, policy/check results, authorized approval, provider mutation identity, post-action readback, replay handling, and durable evidence.",
+  "official_sources": [
+    {
+      "title": "Security validation for third-party coding agents",
+      "url": "https://github.blog/changelog/2026-06-09-security-validation-for-third-party-coding-agents/"
+    },
+    {
+      "title": "GitHub Agentic Workflows is now in public preview",
+      "url": "https://github.blog/changelog/2026-06-11-github-agentic-workflows-is-now-in-public-preview/"
+    },
+    {
+      "title": "Bot-created pull requests can run workflows if approved",
+      "url": "https://github.blog/changelog/2026-06-11-bot-created-pull-requests-can-run-workflows-if-approved/"
+    },
+    {
+      "title": "Staff Software Engineer — Mission Control, job 5611",
+      "url": "https://www.github.careers/careers-home/jobs/5611?lang=en-us"
+    }
+  ],
+  "reusable_invariant": "A consequential repository mutation is complete only when the exact authorized change executes against the expected state, required gates and authority remain bound to that change, the provider result is reconciled to canonical readback, replay cannot duplicate the action, and a receipt preserves the terminal outcome.",
+  "nonclaims": [
+    "This is a bounded transfer argument from public GitHub operating context, not evidence that GitHub uses or evaluated GlacierEQ software.",
+    "No proprietary GitHub architecture or internal non-public information is asserted."
+  ]
+}
