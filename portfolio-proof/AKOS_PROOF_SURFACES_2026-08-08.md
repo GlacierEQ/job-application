@@ -4,15 +4,19 @@
 
 System: `GlacierEQ/AKOS`
 
-Current source head inspected: `0df3c3c26feec0dfb1cbc5eadf937d255b5f28ce`
+Canonical source head: `d9aeb424f4d99da6026719e1e58793f6a89efd86`
 
-Repository-local test anchor: `5b960219635fcd95a9a98a2d7c1bfc5d19111c84`
+Verified PR revision: `c507436e2523f668ae4a1e8e142f59e200f07a90`
 
-Promotion receipt: `receipts/2026-08-02_psysoc-x_v0.1.0_promotion.json`
+Canonical tree SHA: `2c82cf61b4f50a8391187f0e6c7b0bc8439f240b`
 
-Claim ceiling: `TEST_VERIFIED_REPOSITORY_LOCAL_SCOPE_AT_PINNED_REVISION`
+Verified PR tree SHA: `2c82cf61b4f50a8391187f0e6c7b0bc8439f240b`
 
-The current source head is newer than the pinned promotion revision. Architecture and source-contract claims below may use the current head. Test counts and verification claims are limited to the pinned tested revision and are not silently projected onto newer untested commits.
+Equivalence receipt: `portfolio-proof/receipts/AKOS_CURRENT_HEAD_TREE_EQUIVALENCE_2026-08-08.json`
+
+Claim ceiling: `CURRENT_CANONICAL_TREE_EQUIVALENT_TO_VERIFIED_PR_TREE`
+
+The canonical AKOS main commit and the verified PR #23 revision resolve to the same Git tree. AKOS Integrity Gate and AKOS Verification succeeded on the verified revision. This supports current-canonical-tree verification for the scope exercised by those workflows. It does not project older historical test counts or unrelated runtime/deployment behavior onto current main.
 
 ## Recruiter surface
 
@@ -20,7 +24,7 @@ The current source head is newer than the pinned promotion revision. Architectur
 
 AKOS turns identity, authority, provenance, execution, verification, persistence, and completion into explicit system contracts rather than informal agent behavior. It separates planning from execution, execution from verification, and verification from durable completion, with fail-closed authority boundaries and receipt-backed state transitions.
 
-At its pinned repository-local verification revision, AKOS passed 118/118 full tests on Python 3.11, 3.12, and 3.13, plus 10/10 focused Forge tests and 4/4 PSYSOC-X calibration cases. That evidence supports repository-local behavior only; it does not establish production deployment, provider connectivity, or external-scale reliability.
+The current canonical AKOS tree is byte-for-byte Git-tree equivalent to the revision that passed the repository's AKOS Integrity Gate and AKOS Verification workflows. That evidence supports the behavior exercised by those verification workflows; it does not establish production deployment, provider connectivity, external-scale reliability, or behavior outside the verified scope.
 
 **Why it matters:** the system demonstrates an ability to build the control layer around probabilistic software—making actions reviewable, resumable, bounded, and evidence-backed.
 
@@ -37,7 +41,7 @@ AKOS separates six planes that are often collapsed in agent systems:
 5. **Projection plane** — human and machine views that do not replace source truth.
 6. **Specialization plane** — reversible packages that shape behavior without mutating base evidence.
 
-The current source head extends that model with canonical JSON schemas for evidence, systems, capabilities, mechanisms, repositories, and lineage. These contracts connect implementation evidence to canonical systems and lineage without equating raw repository count with independent accomplishment count.
+The current canonical tree includes JSON schemas for evidence, systems, capabilities, mechanisms, repositories, and lineage. These contracts connect implementation evidence to canonical systems and lineage without equating raw repository count with independent accomplishment count.
 
 ### Defensible mechanisms
 
@@ -52,11 +56,11 @@ The current source head extends that model with canonical JSON schemas for evide
 - fail-closed workflow policy with read-only, secretless verification boundaries;
 - canonical schema graph connecting evidence → system → capability → mechanism → repository → lineage.
 
-### Tradeoffs and boundaries
+### Verification boundary
 
-AKOS intentionally prioritizes explicit state, provenance, and authority over frictionless autonomous mutation. This adds contract and receipt overhead, but reduces ambiguity about whether an action was planned, executed, verified, persisted, or merely described.
+The current canonical head `d9aeb424…` and verified PR revision `c507436…` share tree `2c82cf61…`. AKOS Integrity Gate run `31294595571` and AKOS Verification run `31294595577` concluded successfully on that verified revision. The canonical readback of `tests/test_canonical_estate_schemas.py` has blob SHA `dba9c874…`, matching the verified PR tree.
 
-Current source changes after the pinned test revision are not promoted to fresh test-verified status by this artifact. They remain source-contract evidence until a matching current-head verification receipt exists.
+Tree equivalence lets this proof retire the obsolete split-source/current-versus-tested pointer for the verified PR #23 scope. It does **not** justify copying historical 118-test counts onto this newer verification event, nor does it establish production or provider behavior.
 
 ## Machine surface
 
@@ -64,59 +68,50 @@ Current source changes after the pinned test revision are not promoted to fresh 
 proof_object:
   id: akos-governance-operational-cognition
   system: GlacierEQ/AKOS
-  current_source_head: 0df3c3c26feec0dfb1cbc5eadf937d255b5f28ce
-  tested_revision: 5b960219635fcd95a9a98a2d7c1bfc5d19111c84
-  source_evidence:
-    - README.md
-    - operational_cognition/execution_authority.py
-    - operational_cognition/engine.py
-    - operational_cognition/maturity.py
-    - infinity_stones/
-    - scripts/verify_repository.py
-    - receipts/2026-08-02_psysoc-x_v0.1.0_promotion.json
-    - schemas/evidence.schema.json
-    - schemas/system.schema.json
-    - schemas/capability.schema.json
-    - schemas/mechanism.schema.json
-    - schemas/repository.schema.json
-    - schemas/lineage.schema.json
-  verified_at_test_anchor:
-    python_matrix: ["3.11", "3.12", "3.13"]
-    full_tests_per_interpreter: 118
-    focused_forge_tests_per_interpreter: 10
-    calibration_cases: 4
-    calibration_cases_passed: 4
-    workflow_runs:
-      infinity_stone_forge: 30749869999
-      akos_verification: 30749869991
-      akos_integrity_gate: 30749870031
+  canonical_source_head: d9aeb424f4d99da6026719e1e58793f6a89efd86
+  verified_pr_revision: c507436e2523f668ae4a1e8e142f59e200f07a90
+  canonical_tree_sha: 2c82cf61b4f50a8391187f0e6c7b0bc8439f240b
+  verified_pr_tree_sha: 2c82cf61b4f50a8391187f0e6c7b0bc8439f240b
+  tree_equivalent: true
+  equivalence_receipt: portfolio-proof/receipts/AKOS_CURRENT_HEAD_TREE_EQUIVALENCE_2026-08-08.json
+  verification:
+    akos_integrity_gate:
+      run_id: 31294595571
+      conclusion: success
+    akos_verification:
+      run_id: 31294595577
+      conclusion: success
+    canonical_schema_test:
+      path: tests/test_canonical_estate_schemas.py
+      blob_sha: dba9c874e26f26e7045a19dec95ab2c6e2e99e5e
+      matches_verified_pr_blob: true
   evidence_level: TEST
-  claim_ceiling: TEST_VERIFIED_REPOSITORY_LOCAL_SCOPE_AT_PINNED_REVISION
+  claim_ceiling: CURRENT_CANONICAL_TREE_EQUIVALENT_TO_VERIFIED_PR_TREE
   nonclaims:
     - production deployment
     - provider-side connectivity
     - external-scale performance or reliability
-    - clinical or diagnostic validity
-    - hidden-trait prediction
-    - fresh test verification of commits after the pinned revision
+    - historical test counts projected onto the current verification event
+    - behavior outside the workflows and tree proven here
 ```
 
 ## Mesh surface
 
 ### Promoted now
 
-- Governance / operational-cognition system is a portfolio-grade proof object.
-- Repository-local test evidence is pinned to an exact revision and exact workflow receipts.
-- Current architecture evidence includes the newer canonical estate-intelligence schemas.
-- Recruiter language is bounded to system behavior and engineering value rather than repository volume.
+- AKOS remains a portfolio-grade governance / operational-cognition proof object.
+- The stale `0df3c3… current source + 5b9602… pinned test` split is superseded.
+- Current canonical AKOS is tied to successful repository verification through exact Git-tree equivalence.
+- Canonical schema-test content is read back at the same blob proven in the verified PR tree.
+- Recruiter language remains bounded to verified engineering behavior rather than repository volume.
 
 ### Explicit gaps
 
-- Current head `0df3c3c2…` is newer than the pinned test anchor `5b960219…`.
-- No production deployment claim is admitted by this proof object.
+- No production deployment claim is admitted.
 - No external provider connectivity or scale claim is admitted.
-- New estate-intelligence schemas are source-observed here, not freshly runtime-verified here.
+- Historical test-count receipts are not silently projected onto the newer PR #23 verification event.
+- Verification claims remain limited to behavior exercised by AKOS Integrity Gate and AKOS Verification on the tree proven equivalent to current canonical main.
 
 ### Next promotion gate
 
-Run repository-native verification against the current AKOS canonical head and persist a matching current-head receipt. If that passes, raise the proof object from split `current-source + pinned-test` evidence to `CURRENT_HEAD_TEST_VERIFIED_REPOSITORY_BEHAVIOR` without changing the production/deployment nonclaims.
+Persist a repository-native verification receipt directly attached to the current canonical AKOS commit if a stronger commit-bound proof ceiling is needed. Until then, exact Git-tree equivalence is the controlling current-canonical verification boundary.
