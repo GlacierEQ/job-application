@@ -115,7 +115,7 @@ independent_sources:
     proof_kind: governed_contract_source_plus_exact_revision_ci
     executable_receipts:
       - workflow_run_id: 31139090677
-        workflow: ECHO_CI
+        workflow: ECHO CI
         job_id: 92744931046
         job: test
         verified_steps:
