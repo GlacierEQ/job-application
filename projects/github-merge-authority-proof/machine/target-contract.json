@@ -1,0 +1,76 @@
+{
+  "schema": "glaciereq.repo-target-contract.v1",
+  "identity": {
+    "repository_id": "GlacierEQ/job-application/projects/github-merge-authority-proof",
+    "capability": "merge_authority_graph",
+    "private_owner": "GlacierEQ/apex-github-worker",
+    "public_role": "PUBLIC_PROOF_PROJECTION"
+  },
+  "current": {
+    "state": "PROOF_REPRODUCED",
+    "implemented": true,
+    "tested": true,
+    "deployed": false,
+    "note": "Private implementation reproduced against real GitHub provider; public package is hash-bound proof projection only."
+  },
+  "target": {
+    "purpose": "Autonomous or agent-generated repository changes can outrun safe human validation if authorization, current state, mutation identity, provider completion, and replay evidence are handled as separate weak signals.",
+    "central_bottleneck": "Consequential repo mutation treated as weak API success instead of evidence-bound transaction"
+  },
+  "invariants": [
+    "expected_head_must_match_before_mutation",
+    "exact_patch_identity_bound",
+    "required_checks_must_pass",
+    "provider_mutation_at_most_once",
+    "canonical_readback_reconciles",
+    "replay_returns_duplicate_without_second_mutation"
+  ],
+  "vertical_slice": [
+    "intent",
+    "exact patch bytes + SHA-256",
+    "required checks",
+    "bounded approval",
+    "expected-head guard",
+    "short-lived repository authority",
+    "provider commit/ref mutation",
+    "bounded eventual readback reconciliation",
+    "canonical completion receipt",
+    "idempotent replay suppression"
+  ],
+  "promotion": {
+    "required_tests": [
+      "merge_authority_suite",
+      "proof_host_gateway_suite",
+      "real_provider_disposable_branch",
+      "replay_suppression"
+    ],
+    "require_exact_source_sha": true,
+    "require_receipt": true,
+    "require_nonclaims": true
+  },
+  "donor_plan": {
+    "search_completed": true,
+    "novelty_action": "REFERENCE_ONLY",
+    "note": "Public package is proof projection; private apex-github-worker is implementation authority",
+    "donors": [
+      {
+        "id": "GlacierEQ/apex-github-worker",
+        "mode": "REFERENCE_ARCHITECTURE"
+      },
+      {
+        "id": "completion-ownership",
+        "mode": "ADAPT_PATTERN"
+      },
+      {
+        "id": "integrity-release-dual-key",
+        "mode": "ADAPT_PATTERN"
+      }
+    ]
+  },
+  "nonclaims": [
+    "no GitHub employment, endorsement, or internal deployment claim",
+    "no production-scale reliability claim",
+    "no broad PAT; short-lived installation token only in private proof runs",
+    "public package does not ship private implementation bytes"
+  ]
+}

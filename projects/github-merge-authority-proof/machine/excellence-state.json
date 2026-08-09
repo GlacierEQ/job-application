@@ -1,0 +1,168 @@
+{
+  "schema": "glaciereq.repo-excellence-state.v1",
+  "repository": "GlacierEQ/job-application/projects/github-merge-authority-proof",
+  "principal_state": "PROOF_REPRODUCED",
+  "side_role": "REFERENCE",
+  "gates": {
+    "IDENTITY_RESOLVED": {
+      "status": "PASS",
+      "at": "2026-08-09T07:03Z",
+      "evidence": "machine/implementation-inspection.json"
+    },
+    "PROBLEM_VERIFIED": {
+      "status": "PASS",
+      "at": "2026-08-09T07:03Z",
+      "evidence": "evidence/github-problem.json"
+    },
+    "TARGET_CONTRACT_FROZEN": {
+      "status": "PASS",
+      "at": "2026-08-09T07:03Z",
+      "evidence": "machine/target-contract.json"
+    },
+    "DONOR_PLAN_RESOLVED": {
+      "status": "PASS",
+      "at": "2026-08-09T07:03Z",
+      "evidence": "machine/target-contract.json#donor_plan"
+    },
+    "VERTICAL_SLICE_ALIVE": {
+      "status": "PASS",
+      "at": "2026-08-09T07:03Z",
+      "evidence": "proof/implementation-receipt.json"
+    },
+    "CENTRAL_MECHANISM_PRESENT": {
+      "status": "PASS",
+      "at": "2026-08-09T07:03Z",
+      "evidence": "private hash-bound merge-authority sources"
+    },
+    "DETERMINISTIC_PROOF_GREEN": {
+      "status": "PASS",
+      "at": "2026-08-09T07:03Z",
+      "evidence": "26+38 tests cited in README"
+    },
+    "ADVERSARIAL_SURVIVAL": {
+      "status": "PASS",
+      "at": "2026-08-09T07:03Z",
+      "evidence": "replay DUPLICATE_ALREADY_COMPLETED + stale-head rejection semantics in remedy-contract"
+    },
+    "OPERABLE_AND_OBSERVABLE": {
+      "status": "PASS",
+      "at": "2026-08-09T07:03Z",
+      "evidence": "real provider disposable branch + receipts"
+    },
+    "PROOF_RECEIPT_BOUND": {
+      "status": "PASS",
+      "at": "2026-08-09T07:03Z",
+      "evidence": "proof/canonical-reproduction.json"
+    },
+    "AUTHORITY_BOUND": {
+      "status": "PASS",
+      "at": "2026-08-09T07:03Z",
+      "evidence": "short-lived GitHub App installation token; revoked"
+    },
+    "CANONICAL_POSITION_RESOLVED": {
+      "status": "PASS",
+      "at": "2026-08-09T07:03Z",
+      "evidence": "public=REFERENCE projection; private=implementation authority"
+    },
+    "EVOLUTION_CURSOR_DEFINED": {
+      "status": "PASS",
+      "at": "2026-08-09T07:03Z",
+      "evidence": "next_composition_opportunities in remedy-contract"
+    },
+    "NOVELTY_AND_LINEAGE_RESOLVED": {
+      "status": "PASS",
+      "at": "2026-08-09T07:03Z",
+      "evidence": "REFERENCE_ONLY public + private owner"
+    }
+  },
+  "history": [
+    {
+      "at": "2026-08-09T07:03Z",
+      "from": "DISCOVERED",
+      "to": "IDENTITY_RESOLVED",
+      "gate": "IDENTITY_RESOLVED",
+      "result": "PASS",
+      "note": "seeded from existing public proof package"
+    },
+    {
+      "at": "2026-08-09T07:03Z",
+      "from": "IDENTITY_RESOLVED",
+      "to": "PROBLEM_VERIFIED",
+      "gate": "PROBLEM_VERIFIED",
+      "result": "PASS",
+      "note": "seeded from existing public proof package"
+    },
+    {
+      "at": "2026-08-09T07:03Z",
+      "from": "PROBLEM_VERIFIED",
+      "to": "TARGET_CONTRACTED",
+      "gate": "TARGET_CONTRACT_FROZEN",
+      "result": "PASS",
+      "note": "seeded from existing public proof package"
+    },
+    {
+      "at": "2026-08-09T07:03Z",
+      "from": "TARGET_CONTRACTED",
+      "to": "SEEDED",
+      "gate": "DONOR_PLAN_RESOLVED",
+      "result": "PASS",
+      "note": "seeded from existing public proof package"
+    },
+    {
+      "at": "2026-08-09T07:03Z",
+      "from": "SEEDED",
+      "to": "VERTICAL_SLICE",
+      "gate": "VERTICAL_SLICE_ALIVE",
+      "result": "PASS",
+      "note": "seeded from existing public proof package"
+    },
+    {
+      "at": "2026-08-09T07:03Z",
+      "from": "VERTICAL_SLICE",
+      "to": "IMPLEMENTED",
+      "gate": "CENTRAL_MECHANISM_PRESENT",
+      "result": "PASS",
+      "note": "seeded from existing public proof package"
+    },
+    {
+      "at": "2026-08-09T07:03Z",
+      "from": "IMPLEMENTED",
+      "to": "TESTED",
+      "gate": "DETERMINISTIC_PROOF_GREEN",
+      "result": "PASS",
+      "note": "seeded from existing public proof package"
+    },
+    {
+      "at": "2026-08-09T07:03Z",
+      "from": "TESTED",
+      "to": "ADVERSARIAL_VERIFIED",
+      "gate": "ADVERSARIAL_SURVIVAL",
+      "result": "PASS",
+      "note": "seeded from existing public proof package"
+    },
+    {
+      "at": "2026-08-09T07:03Z",
+      "from": "ADVERSARIAL_VERIFIED",
+      "to": "OPERABLE",
+      "gate": "OPERABLE_AND_OBSERVABLE",
+      "result": "PASS",
+      "note": "seeded from existing public proof package"
+    },
+    {
+      "at": "2026-08-09T07:03Z",
+      "from": "OPERABLE",
+      "to": "PROOF_REPRODUCED",
+      "gate": "PROOF_RECEIPT_BOUND",
+      "result": "PASS",
+      "note": "seeded from existing public proof package"
+    }
+  ],
+  "contract_ref": "machine/target-contract.json",
+  "scores_ref": "machine/excellence-scores.json",
+  "evolution_cursor": "compose:expected-head-guard+idempotent-mutation-primitive",
+  "claim_ceiling": "PROOF_REPRODUCED",
+  "notes": [
+    "Public package is proof projection; do not claim private source is in this tree",
+    "Company claim ceiling for GitHub fit cannot exceed PROOF_REPRODUCED without separate CLAIM_PROMOTED receipt"
+  ]
+}

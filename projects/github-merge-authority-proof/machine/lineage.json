@@ -1,0 +1,19 @@
+{
+  "schema": "glaciereq.repo-lineage.v1",
+  "repository": "GlacierEQ/job-application/projects/github-merge-authority-proof",
+  "novelty_action": "REFERENCE_ONLY",
+  "search_completed": true,
+  "implementation_authority": "GlacierEQ/apex-github-worker",
+  "donors": [
+    {
+      "id": "completion-ownership",
+      "mode": "ADAPT_PATTERN"
+    },
+    {
+      "id": "monolith-integrity-release-dual-key",
+      "mode": "ADAPT_PATTERN"
+    }
+  ],
+  "predecessors": [],
+  "capability_family": "merge_authority_graph"
+}
