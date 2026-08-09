@@ -1,0 +1,30 @@
+name: GitHub Merge Authority Public Readback
+
+on:
+  pull_request:
+    paths:
+      - "projects/github-merge-authority-proof/**"
+      - "scripts/validate-github-merge-authority-public-readback.mjs"
+      - "site-v15/companies/github/**"
+      - "site-v15/data/company-atlas-summary.json"
+      - ".github/workflows/github-merge-authority-public-readback.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  public-readback:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout exact candidate
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Configure Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Validate GitHub public projection readback
+        run: node scripts/validate-github-merge-authority-public-readback.mjs
