@@ -1,0 +1,36 @@
+{
+  "schema": "glaciereq.public-projection-readback.v1",
+  "company": "GitHub",
+  "capability": "merge_authority_graph",
+  "projection_authority": {
+    "helix_sha": "82ab13cad82d005b1b9631fe32fa233443288268",
+    "helix_stage": "PROOF_REPRODUCED",
+    "helix_claim_ceiling": "reproducible_company_specific_proof"
+  },
+  "expected_public_projection": {
+    "record_path": "site-v15/companies/github/record.json",
+    "page_path": "site-v15/companies/github/index.html",
+    "company_id": "github",
+    "stage": "PROOF_REPRODUCED",
+    "claim_ceiling": "reproducible_company_specific_proof",
+    "public_proof_package": "projects/github-merge-authority-proof/"
+  },
+  "validation_contract": [
+    "record company identity is GitHub/github",
+    "record second-depth stage is PROOF_REPRODUCED",
+    "record claim ceiling is reproducible_company_specific_proof",
+    "company HTML presents PROOF_REPRODUCED and the same claim ceiling",
+    "company HTML preserves independent-work and non-affiliation boundary",
+    "company Atlas summary resolves GitHub to the same stage and claim ceiling",
+    "public proof package remains present and source/private boundaries remain explicit"
+  ],
+  "allowed_public_claim": "Independently designed and reproduced a governed GitHub mutation path that binds exact change identity, expected repository state, required validation, bounded approval, short-lived repository authority, provider mutation, bounded eventual-state reconciliation, canonical readback, replay suppression, and receipt evidence.",
+  "prohibited_claims": [
+    "GitHub uses, adopted, evaluated, endorsed, or deployed this GlacierEQ capability.",
+    "Casey Barton is or was employed by GitHub on the basis of this proof.",
+    "Disposable proof-branch execution is a production deployment.",
+    "The private apex-github-worker implementation source is public.",
+    "Production-scale reliability, latency, throughput, durability, or GitHub-scale operation is established."
+  ],
+  "promotion_rule": "This receipt is promotion evidence only when scripts/validate-github-merge-authority-public-readback.mjs passes against the same repository revision and the PR carrying it is admitted through the repository's normal review/check path."
+}
