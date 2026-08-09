@@ -1,0 +1,100 @@
+name: Promote Effective Helix Projection
+
+on:
+  workflow_dispatch:
+    inputs:
+      helix_sha:
+        description: "Exact canonical GlacierEQ/job-app-helix commit to project"
+        required: true
+        default: "82ab13cad82d005b1b9631fe32fa233443288268"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+env:
+  HELIX_ROOT_SHA: ${{ inputs.helix_sha }}
+
+jobs:
+  compile-validate-open-pr:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout canonical portal main without persisted credentials
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+          fetch-depth: 1
+
+      - name: Configure Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Upgrade projection validator for modular second-depth distribution
+        run: node scripts/upgrade-helix-projection-stage-validator.mjs
+
+      - name: Compile exact effective Helix projection
+        run: node scripts/sync-helix-projection-effective.mjs
+
+      - name: Validate public-safe projection and receipt
+        run: node scripts/validate-helix-projection.mjs
+
+      - name: Render Company Atlas and real company routes
+        run: node scripts/render-helix-atlas.mjs
+
+      - name: Link Atlas across public surfaces
+        run: node scripts/link-helix-atlas.mjs
+
+      - name: Validate generated Atlas, company routes, and links
+        run: node scripts/validate-helix-atlas.mjs
+
+      - name: Compile evidence-aware company constellation
+        run: node scripts/render-company-constellation.mjs
+
+      - name: Link company constellation across public surfaces
+        run: node scripts/link-company-constellation.mjs
+
+      - name: Validate company constellation and evidence boundaries
+        run: node scripts/validate-company-constellation.mjs
+
+      - name: Project source-bound estate intelligence
+        run: node scripts/project-estate-intelligence.mjs
+
+      - name: Validate estate-intelligence privacy and freshness boundaries
+        run: node scripts/validate-estate-intelligence.mjs
+
+      - name: Validate existing V17 hiring surface
+        run: node site-v15/scripts/validate.mjs
+
+      - name: Stage only deterministic validator and generated public projection
+        run: |
+          git add scripts/validate-helix-projection.mjs site-v15
+          if ! git diff --quiet; then
+            echo "Unexpected unstaged mutation outside validator + site-v15 projection:" >&2
+            git status --short >&2
+            exit 1
+          fi
+
+      - name: Open generated projection pull request when state changed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --cached --quiet; then
+            echo "Projection already matches Helix $HELIX_ROOT_SHA"
+            exit 0
+          fi
+
+          branch="automation/helix-effective-${GITHUB_RUN_ID}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git commit -m "Sync effective Helix projection ${HELIX_ROOT_SHA}"
+          git push "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "$branch"
+
+          gh pr create \
+            --base main \
+            --head "$branch" \
+            --title "Sync effective Helix projection ${HELIX_ROOT_SHA:0:12}" \
+            --body "Generated from exact canonical GlacierEQ/job-app-helix SHA \`${HELIX_ROOT_SHA}\` using the base + modular company second-depth compiler. The same run upgraded the stale stage-distribution validator, validated the public projection/receipt, rendered and validated Atlas + company constellation + estate intelligence, and passed the V17 site validator before opening this PR. No hand-edited company HTML or protected-main write is used."
