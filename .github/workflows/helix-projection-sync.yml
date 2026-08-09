@@ -6,6 +6,7 @@ on:
       - "portfolio-source.json"
       - "scripts/sync-helix-projection.mjs"
       - "scripts/reconcile-helix-company-cardinality.mjs"
+      - "scripts/reconcile-company-constellation-taxonomy.mjs"
       - "scripts/project-estate-intelligence.mjs"
       - "scripts/render-helix-atlas.mjs"
       - "scripts/render-company-constellation.mjs"
@@ -26,6 +27,7 @@ on:
       - "portfolio-source.json"
       - "scripts/sync-helix-projection.mjs"
       - "scripts/reconcile-helix-company-cardinality.mjs"
+      - "scripts/reconcile-company-constellation-taxonomy.mjs"
       - "scripts/project-estate-intelligence.mjs"
       - "scripts/render-helix-atlas.mjs"
       - "scripts/render-company-constellation.mjs"
@@ -78,6 +80,8 @@ jobs:
         run: node scripts/link-helix-atlas.mjs
       - name: Validate generated Atlas, company routes, and links
         run: node scripts/validate-helix-atlas.mjs
+      - name: Reconcile constellation taxonomy to governed Helix tracks
+        run: node scripts/reconcile-company-constellation-taxonomy.mjs
       - name: Compile evidence-aware company constellation
         run: node scripts/render-company-constellation.mjs
       - name: Link company constellation across public surfaces
@@ -102,6 +106,7 @@ jobs:
             site-v15/data/helix-root.json
             site-v15/data/helix-root.receipt.json
             site-v15/data/company-cardinality-reconciliation.json
+            site-v15/data/company-constellation-taxonomy-reconciliation.json
             site-v15/data/estate-intelligence.json
             site-v15/data/company-atlas-summary.json
             site-v15/data/company-atlas.proto
