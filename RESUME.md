@@ -13,6 +13,7 @@ The working method comes from both software and field inspection: observe the ac
 
 ## Selected Proof
 
+- **ECHO continuity/orchestration engine:** deterministic identity, SHA-256 integrity, idempotent execution, bounded retries, execution receipts, provenance-bearing exports, authority-envelope validation, and runtime hardening. At exact verified source `d87276166041d655452abd4e992a755565f9201c`, CI compiled successfully, passed Ruff correctness lint, reported no known vulnerabilities in the dependency audit, passed **46/46 tests**, and returned `VERIFIED` from the repository CLI verifier. This establishes tested repository behavior, not production deployment or scale.
 - **Portfolio Receipt Router:** replaced an overstated autonomous-control surface with a local, fail-closed evidence router while preserving compatibility. **69/69 tests passed** through direct and reusable CI; artifact `8910423397`; **zero external queries and actions**.
 - **Bounded infrastructure source promotions:** hardened Cooling, Energy, Servers, Security, and Nanosphere into independently scoped technical systems with **166 bounded source tests**, **19 additional degraded-mode Energy memory tests**, five hashed artifacts, and explicit hardware, deployment, scale, and affiliation limits.
 - **Job Application Helix:** evidence-governed hiring and portfolio control plane for an exact **67-repository admitted boundary**, with fail-closed evidence levels, repository-state separation, promotion gates, machine contracts, and role-calibrated package generation. The Helix package is **PARTIALLY_VERIFIED**; child repositories retain independent evidence states.
@@ -29,6 +30,12 @@ The working method comes from both software and field inspection: observe the ac
 - **Human and machine interfaces:** recruiter, technical-review, machine, and relationship-mesh views generated from one factual graph without claim drift.
 
 ## Selected Systems
+
+### ECHO
+**Receipt-backed continuity and orchestration**  
+[Repository](https://github.com/GlacierEQ/ECHO)
+
+Carries durable conversation and workflow state through deterministic identities, content integrity, idempotent ingest and jobs, bounded retries, execution receipts, provenance-bearing exports, search, health reporting, and explicit authority boundaries. The current promoted proof is limited to repository-native behavior verified at source `d87276166041d655452abd4e992a755565f9201c`: compile, correctness lint, dependency audit, 46/46 tests, and CLI self-verification passed; production deployment, traffic, scale, and third-party adoption are not claimed.
 
 ### Portfolio Receipt Router
 **Evidence-aware portfolio governance and safe compatibility migration**  
