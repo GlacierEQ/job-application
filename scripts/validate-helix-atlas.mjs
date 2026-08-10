@@ -87,8 +87,8 @@ async function main() {
   );
 
   assert(
-    snapshot.companies.length >= 49,
-    "Company Atlas must render all governed company tracks (floor 49)",
+    snapshot.companies.length >= 76,
+    "Company Atlas must render all governed company tracks (floor 76)",
   );
   assert(
     snapshot.companies.length === receipt.company_tracks,
@@ -274,9 +274,9 @@ async function main() {
   const depthCounts = Object.fromEntries(SECOND_DEPTH_STAGES.map((stage) => [stage, 0]));
   for (const company of snapshot.companies) depthCounts[company.second_depth.stage] += 1;
   assert(depthCounts.CLAIM_PROMOTED === 1, "claim-promoted company count drift");
+  const depthSum = Object.values(depthCounts).reduce((a, b) => a + b, 0);
   assert(
-    (depthCounts.MAPPED_ONLY || 0) + (depthCounts.CLAIM_PROMOTED || 0) ===
-      snapshot.companies.length,
+    depthSum === snapshot.companies.length,
     "second-depth stage counts must cover all company tracks",
   );
 

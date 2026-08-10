@@ -1,0 +1,91 @@
+{
+  "schema": "glaciereq.public-company-cardinality-reconciliation.v5",
+  "status": "PASS",
+  "source": "site-v15/data/helix-root.json",
+  "source_sha256": "93972a498ba3fdadca02bfdcf82ee41ae1c2462723b13bbba805379851d1d3fe",
+  "authoritative_helix_commit": "8345955b67f163c3215b23195a267b6021a5be5e",
+  "authoritative_company_tracks": 76,
+  "authoritative_second_depth_stage_counts": {
+    "MAPPED_ONLY": 74,
+    "ROLE_VERIFIED": 0,
+    "PROBLEM_BOUNDED": 0,
+    "CODE_INSPECTED": 1,
+    "REMEDY_BOUNDED": 0,
+    "IMPLEMENTED": 0,
+    "PROOF_REPRODUCED": 0,
+    "CLAIM_PROMOTED": 1
+  },
+  "legacy_cardinality": 49,
+  "legacy_constellation_capacity": 64,
+  "generated_constellation_positions": 76,
+  "constellation_css_sha256": "bf17bb0e80094563ade695dac4e875d6561059da8766b2f8fe6d093b3d5361ac",
+  "runtime_helix_pin_consumers": [
+    "deployment/vercel-source-bridge/api/proxy.js",
+    "deployment/vercel-source-bridge/api/design-proxy.js"
+  ],
+  "patched_consumers": [
+    {
+      "path": "scripts/validate-helix-projection.mjs",
+      "replacements": 2,
+      "runtime_helix_pin_updated": false,
+      "historical_proof_boundary_updated": false,
+      "before_sha256": "ffdd7a6c70eb6c665beb5dc02c4d99ff78cc0c1bcd66ea8e0d148e11e9841e5f",
+      "after_sha256": "a236a4e3b8d258b018a789cecb963b6fd730970b38611213030b7826596d8267"
+    },
+    {
+      "path": "scripts/link-helix-atlas.mjs",
+      "replacements": 3,
+      "runtime_helix_pin_updated": false,
+      "historical_proof_boundary_updated": false,
+      "before_sha256": "b4efd9d9463b0c46393d26bb9991a5cbf2d37ba0a804636e95e042ff83add8b5",
+      "after_sha256": "6f689be47026d6f7f2342c182caf7055938bd21723d28b0419e20a30746fc358"
+    },
+    {
+      "path": "scripts/validate-helix-atlas.mjs",
+      "replacements": 3,
+      "runtime_helix_pin_updated": false,
+      "historical_proof_boundary_updated": false,
+      "before_sha256": "6405e4fc74d9797950a90ae10daedb644ba2f292206c955aeacfbe199747b356",
+      "after_sha256": "ffb5f8acbefefdb2694362eee2b84ad378ec31c405811a9e50f5a131782a3264"
+    },
+    {
+      "path": "deployment/vercel-source-bridge/api/proxy.js",
+      "replacements": 6,
+      "runtime_helix_pin_updated": true,
+      "historical_proof_boundary_updated": false,
+      "before_sha256": "92072d91818534971fcb05386ea671ac500d0c9a0829553f15b22f597d09c0fc",
+      "after_sha256": "a31db4858e58ab1adc8a4d465a49211d80b4a5082b74ea058477c5b15c11600b"
+    },
+    {
+      "path": "deployment/vercel-source-bridge/api/design-proxy.js",
+      "replacements": 3,
+      "runtime_helix_pin_updated": true,
+      "historical_proof_boundary_updated": true,
+      "before_sha256": "ef6e4abe445df6faf0705134ee2f8b7ffa9db315afa0c1950d5412eee0b479b8",
+      "after_sha256": "5988d85969c30033ab01e0f2cba06ce1e45acb49101a29f33b6272394221ac38"
+    },
+    {
+      "path": "deployment/vercel-source-bridge/api/compiler-proxy.js",
+      "replacements": 1,
+      "runtime_helix_pin_updated": false,
+      "historical_proof_boundary_updated": false,
+      "before_sha256": "a6dcca2108e5ca528f12357c1d415805d944dc03b253374d1e190b958b50c6db",
+      "after_sha256": "6aade8388bea863398afbe6a3ec6b9e002ef0b0fd2326593327c6a8cc0616a96"
+    },
+    {
+      "path": "deployment/vercel-source-bridge/proxy.test.js",
+      "replacements": 1,
+      "runtime_helix_pin_updated": false,
+      "historical_proof_boundary_updated": false,
+      "before_sha256": "da8c6f58596fce937a76d287152651e3e9f92151383a742931e37164f84bb052",
+      "after_sha256": "33c1e246ce1a40738edebe8ea188eba58d1aeaf14d2742d85711524de2dbed56"
+    }
+  ],
+  "invariants": [
+    "Downstream public consumers validate the freshly synced Helix company projection rather than a historical fixed track count.",
+    "Second-depth stage-count assertions follow the freshly synced public projection and may not preserve obsolete historical distributions.",
+    "The zero-script constellation receives one deterministic CSS position per governed company and never relies on inline style or client-side JavaScript.",
+    "Runtime company-projection bridges use the same immutable Helix commit as the freshly synced static projection while historical static-source pins remain unchanged.",
+    "The blob-pinned current-proof receipt preserves its historical Helix identity and is not required to equal the current runtime Helix projection commit."
+  ]
+}

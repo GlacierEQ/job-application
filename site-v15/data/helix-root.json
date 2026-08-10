@@ -73,24 +73,59 @@
       ],
       "second_depth": {
         "blockers": [
-          "current_role_not_verified",
-          "company_problem_not_bounded",
-          "repository_code_not_inspected",
-          "proof_not_reproduced"
+          "company_specific_remedy_not_bounded",
+          "implementation_receipt_not_bound_to_anthropic_problem",
+          "proof_not_reproduced",
+          "claim_not_promoted"
         ],
-        "claim_ceiling": "company_alignment_only",
+        "claim_ceiling": "inspected_implementation_alignment",
         "evidence": {
           "claim_receipts": [],
           "gap_queue": [],
           "implementation_receipts": [],
-          "inspected_repositories": [],
-          "problem_evidence": [],
+          "inspected_repositories": [
+            {
+              "id": "anthropic_inspection_agent_coordinator",
+              "kind": "repository_inspection",
+              "source_identity": "https://github.com/GlacierEQ/anthropic-agent-coordinator/blob/ac977563cfd59deb8e87177f53082184f6468aa8/src/anthropic_agent_coordinator/coordinator.py",
+              "source_ref": "commit:ac977563cfd59deb8e87177f53082184f6468aa8",
+              "verification_state": "VERIFIED",
+              "visibility": "public"
+            },
+            {
+              "id": "anthropic_inspection_safety_monitor",
+              "kind": "repository_inspection",
+              "source_identity": "https://github.com/GlacierEQ/anthropic-safety-monitor/blob/a5c21172e32ce6054994402c38d86f7ef94bc56b/src/anthropic_safety_monitor/policy.py",
+              "source_ref": "commit:a5c21172e32ce6054994402c38d86f7ef94bc56b",
+              "verification_state": "VERIFIED",
+              "visibility": "public"
+            }
+          ],
+          "problem_evidence": [
+            {
+              "id": "anthropic_problem_ai_reliability_serving_path",
+              "kind": "problem",
+              "source_identity": "https://github.com/GlacierEQ/job-application/blob/440e353a6eb6073aaca724a6402ae5329d0e9be6/portfolio-proof/receipts/ANTHROPIC_AI_RELIABILITY_RECONCILIATION__2026-08-09.json",
+              "source_ref": "commit:440e353a6eb6073aaca724a6402ae5329d0e9be6",
+              "verification_state": "VERIFIED",
+              "visibility": "public"
+            }
+          ],
           "proof_artifacts": [],
-          "role_evidence": []
+          "role_evidence": [
+            {
+              "id": "anthropic_role_staff_software_engineer_ai_reliability_5113224008",
+              "kind": "role",
+              "source_identity": "https://github.com/GlacierEQ/job-application/blob/440e353a6eb6073aaca724a6402ae5329d0e9be6/portfolio-proof/receipts/ANTHROPIC_AI_RELIABILITY_RECONCILIATION__2026-08-09.json",
+              "source_ref": "commit:440e353a6eb6073aaca724a6402ae5329d0e9be6",
+              "verification_state": "VERIFIED",
+              "visibility": "public"
+            }
+          ]
         },
-        "next_gate": "Verify a current public Anthropic role/team, then inspect the exact promoted coordinator and safety-monitor code paths and their native proof before bounding a company-specific remedy.",
-        "ordinal": 0,
-        "stage": "MAPPED_ONLY"
+        "next_gate": "Bound one company-specific reliability remedy against the verified Staff Software Engineer, AI Reliability problem using the inspected coordinator and safety-monitor mechanisms; preserve the non-deployment and non-semantic-safety boundaries before any IMPLEMENTED or reproduced-proof claim.",
+        "ordinal": 3,
+        "stage": "CODE_INSPECTED"
       },
       "source_shard": "manifests/company_dossiers/frontier_ai.json",
       "target_roles": [
@@ -3710,7 +3745,7 @@
   ],
   "company_second_depth": {
     "boundary": "Second-depth state is Helix-governed. Public claim ceilings advance only when pinned public evidence satisfies every cumulative stage prerequisite.",
-    "content_sha256": "60b19b15fc53778e62cc396dc01157d30bb0629596fbe51af13b625d6add899f",
+    "content_sha256": "6df29f45139a99c22d1530c9c09db8e323f0bed7e68b1205be36cbfd6d715d58",
     "priority_wave": [
       "lockheed_martin",
       "openai",
@@ -3903,9 +3938,9 @@
       "raw_url": "https://raw.githubusercontent.com/GlacierEQ/job-app-helix/main/manifests/portfolio_root_truth.json",
       "repository": "GlacierEQ/job-app-helix"
     },
-    "root_ref": "ccc46f81792c5b90135e2a10c649fdb02b5be3cd",
+    "root_ref": "8345955b67f163c3215b23195a267b6021a5be5e",
     "root_version": "1.1.0",
-    "source_digest": "536ab24072ae71da4692c2904841d12e24ba2945a23c389e1f58fbc1c7909b9d",
+    "source_digest": "2ccae47c601bdeebf750e77a99dcc7a27539c6be5114142049b30435cd13a407",
     "source_hashes": {
       "manifests/application_intelligence/company_bottleneck_atlas.external.json": "2d93f4e0c736426dcf6904be6d0139075a48c78f3051278becf05703ee67f654",
       "manifests/company_dossiers.json": "c15a8ed9cd12b092407150df7743c307b9b4bdb825601613331e8ca5b0e3347e",
@@ -3915,7 +3950,7 @@
       "manifests/company_dossiers/glaciereq_core.json": "07c9cb10c98702fa409ad60ab725cdb085423a58c4ec292612a686c3f4b7bdae",
       "manifests/company_dossiers/model_product_companies.json": "5fab1848b36de973fda5ca8cb46ecc342540a95036be9b83e1d9fdbd92e6db27",
       "manifests/company_dossiers/platform_infrastructure.json": "93a864ed5fae0ef9c78f026b4cd0b050be239f9b454a6545fc5b1d5efc756a5d",
-      "manifests/company_second_depth.json": "60b19b15fc53778e62cc396dc01157d30bb0629596fbe51af13b625d6add899f",
+      "manifests/company_second_depth.json": "6df29f45139a99c22d1530c9c09db8e323f0bed7e68b1205be36cbfd6d715d58",
       "manifests/estate_compiler.json": "f0aeff92c8b347d704bf90fbaf8c87005017ad8bf0534c9bb0d0ec744aec8f92",
       "manifests/estate_projection_policy.json": "95517ada8d5535e6b730f301203083d56b056691b0400d8e6a1137f31a250de5",
       "manifests/flagship_registry.json": "8444aba20e409150846f8179645fd09b55e14e24bbd6ebab93ce65f410518ee0",

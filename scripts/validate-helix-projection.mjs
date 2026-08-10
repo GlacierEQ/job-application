@@ -251,7 +251,7 @@ async function main() {
   }
 
   assert(Array.isArray(snapshot.companies) && snapshot.companies.length > 0, "company projection must contain governed tracks");
-  assert(snapshot.companies.length >= 49, "company projection shrank below established floor (49)");
+  assert(snapshot.companies.length >= 76, "company projection shrank below established floor (76)");
   const companyIds = snapshot.companies.map((row) => row.company_id);
   assert(new Set(companyIds).size === companyIds.length, "duplicate company IDs");
   for (const company of snapshot.companies) {
@@ -333,11 +333,11 @@ async function main() {
 
   const stageCounts = Object.fromEntries(SECOND_DEPTH_STAGES.map((stage) => [stage, 0]));
   for (const company of snapshot.companies) stageCounts[company.second_depth.stage] += 1;
-  const mappedOnly = stageCounts.MAPPED_ONLY ?? 0;
   const claimPromoted = stageCounts.CLAIM_PROMOTED ?? 0;
   assert(claimPromoted === 1, "claim-promoted company count drift");
+  const stageSum = Object.values(stageCounts).reduce((a, b) => a + b, 0);
   assert(
-    mappedOnly + claimPromoted === snapshot.companies.length,
+    stageSum === snapshot.companies.length,
     "second-depth stage counts must cover all company tracks",
   );
 

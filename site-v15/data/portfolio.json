@@ -31,14 +31,15 @@
   "person": {
     "name": "Casey Del Carpio Barton",
     "display_name": "Casey Barton",
-    "location": "Honolulu, Hawai\u02bbi",
+    "location": "Honolulu, Hawaiʻi",
     "email": "glacier.equilibrium@gmail.com",
     "roles": [
-      "Applied AI Systems Architect",
-      "Agent Infrastructure Engineer",
-      "Forward-Deployed AI Engineer"
+      "Forward-Deployed AI Architect",
+      "Principal Agentic Systems Architect",
+      "Principal AI Platform / Automation Architect",
+      "Staff / Principal Applied AI Engineer"
     ],
-    "positioning": "I turn ambitious AI concepts into bounded, testable operating systems with explicit authority, deterministic evidence, and inspectable completion receipts.",
+    "positioning": "I design and deploy dependable AI operating systems across model, tool, data, security, evaluation, recovery, and human-workflow boundaries.",
     "truth_boundary": "Independent GlacierEQ work. No company affiliation, proprietary access, production deployment, customer impact, or formal people-management claim is inferred without direct evidence."
   },
   "proof": {
@@ -55,7 +56,7 @@
     {
       "id": "application-intelligence",
       "title": "Application intelligence",
-      "detail": "Connects role research, verified repository evidence, truthful r\u00e9sum\u00e9 generation, portfolio presentation, package state, and follow-up."
+      "detail": "Connects role research, verified repository evidence, truthful résumé generation, portfolio presentation, package state, and follow-up."
     },
     {
       "id": "agent-governance",
@@ -236,8 +237,8 @@
     {
       "organization": "GlacierEQ",
       "title": "Founder / Applied AI Systems Builder",
-      "location": "Honolulu, Hawai\u02bbi",
-      "period": "January 2025\u2013Present",
+      "location": "Honolulu, Hawaiʻi",
+      "period": "January 2025–Present",
       "bullets": [
         "Designs and implements interconnected AI, agent, document, memory, evidence, infrastructure, and hiring systems.",
         "Converts ambiguous architecture into bounded contracts, runnable slices, failure behavior, test gates, machine interfaces, and recruiter-ready artifacts.",
@@ -248,8 +249,8 @@
     {
       "organization": "Diamond Head Home Inspections",
       "title": "Certified Home Inspector",
-      "location": "Honolulu, Hawai\u02bbi",
-      "period": "2020\u20132024",
+      "location": "Honolulu, Hawaiʻi",
+      "period": "2020–2024",
       "bullets": [
         "Inspected residential systems and translated field observations into clear, decision-ready reports under time constraints.",
         "Built disciplined habits around evidence capture, uncertainty, safety, defect priority, system interaction, and plain-language communication.",
@@ -259,14 +260,14 @@
   ],
   "education": [
     {
-      "school": "University of Hawai\u02bbi at M\u0101noa",
+      "school": "University of Hawaiʻi at Mānoa",
       "credential": "B.S., Marine Biology",
       "period": "2016"
     },
     {
       "school": "AWS Cloud Institute",
       "credential": "Cloud Application Developer program",
-      "period": "2025\u20132026 \u00b7 In progress"
+      "period": "2025–2026 · In progress"
     }
   ],
   "technical": {

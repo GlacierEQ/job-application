@@ -5,9 +5,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const PUBLIC_MICROCODE_URL = 'https://github.com/GlacierEQ/xai-colossus-2/tree/main/microcode';
 const PRIVATE_MICROCODE_URL = 'https://github.com/GlacierEQ/xai-colossus-microcode';
-const COORDINATOR_URL = 'https://github.com/GlacierEQ/anthropic-agent-coordinator';
 
 async function text(relative) {
   return readFile(path.join(ROOT, relative), 'utf8');
@@ -26,14 +24,11 @@ const machineHtml = await text('site-v15/machine/index.html');
 const llms = await text('site-v15/llms.txt');
 const ats = await text('site-v15/resume/ats.txt');
 
-const microcode = portfolio.flagships.find(item => item.id === 'microcode');
-const coordinator = portfolio.flagships.find(item => item.id === 'coordinator');
-
-assert(microcode, 'microcode flagship missing');
-assert(microcode.repo === PUBLIC_MICROCODE_URL, 'microcode must route to the public xai-colossus-2 subtree');
-assert(!portfolioText.includes(`\"repo\": \"${PRIVATE_MICROCODE_URL}\"`), 'private microcode repository must not be emitted as a public proof link');
-assert(microcode.evidence.includes('private review surface'), 'microcode private/public evidence boundary missing');
-assert(coordinator?.repo === COORDINATOR_URL, 'Agent Coordinator public proof URL drifted');
+assert(!portfolio.flagships.some((item) => item.id === 'microcode'), 'microcode must not remain a public core flagship');
+assert(!portfolioText.includes(PRIVATE_MICROCODE_URL), 'private microcode repository must not appear in portfolio JSON');
+assert(!String(portfolio.release?.name || '').includes('V15'), 'V15 product brand must be retired from release.name');
+assert(portfolio.flagships.some((item) => item.id === 'helix'), 'helix flagship required');
+assert(portfolio.flagships.length >= 7, 'helix-bound flagship set required');
 
 assert(resume.basics.label.startsWith('Forward-Deployed AI Architect'), 'resume primary role was not promoted');
 assert(portfolio.person.roles[0] === 'Forward-Deployed AI Architect', 'portfolio primary role was not promoted');
@@ -47,7 +42,12 @@ for (const [label, source] of [
   ['llms', llms],
   ['ats', ats],
 ]) {
-  assert(!source.includes('Applied AI Systems Architect · Agent Infrastructure Engineer · Forward-Deployed AI Engineer'), `${label}: stale three-role string remains`);
+  assert(
+    !source.includes(
+      'Applied AI Systems Architect · Agent Infrastructure Engineer · Forward-Deployed AI Engineer',
+    ),
+    `${label}: stale three-role string remains`,
+  );
 }
 
 for (const needle of [
@@ -61,13 +61,16 @@ for (const needle of [
 assert(home.includes('<title>Casey Barton · Forward-Deployed AI Architect</title>'), 'home title not updated');
 assert(home.includes('FORWARD-DEPLOYED AI ARCHITECT'), 'home visible primary role not updated');
 
-console.log(JSON.stringify({
-  status: 'PASS',
-  checks: {
-    public_microcode_projection: true,
-    coordinator_projection: true,
-    senior_role_positioning: true,
-    machine_discovery_links: true,
-    private_public_boundary: true,
-  },
-}));
+console.log(
+  JSON.stringify({
+    status: 'PASS',
+    checks: {
+      microcode_retired: true,
+      v15_brand_retired: true,
+      helix_flagship: true,
+      senior_role_positioning: true,
+      machine_discovery_links: true,
+      private_public_boundary: true,
+    },
+  }),
+);

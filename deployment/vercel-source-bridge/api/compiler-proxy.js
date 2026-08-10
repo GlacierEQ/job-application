@@ -651,7 +651,7 @@ async function verifyV25(res) {
       machine_projection: html.includes('/data/application-compiler.json'),
     };
     if (data.projection.source_commit !== COMPILER_HELIX_COMMIT) errors.push('compiler_projection_authority_mismatch');
-    if (data.projection.company_count !== 49) errors.push('compiler_company_count');
+    if (data.projection.company_count !== 76) errors.push('compiler_company_count');
     if (route.route.company_id !== 'openai') errors.push('compiler_openai_route_missing');
     if (!route.observed_pressure) errors.push('compiler_openai_pressure_missing');
     if (!page.script_free || !page.inline_style_free) errors.push('compiler_script_free_contract_failed');

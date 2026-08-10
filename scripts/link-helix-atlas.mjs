@@ -94,9 +94,9 @@ async function main() {
   if (!Array.isArray(snapshot.companies)) {
     throw new Error("Helix snapshot companies are missing");
   }
-  if (snapshot.companies.length < 49) {
+  if (snapshot.companies.length < 76) {
     throw new Error(
-      `expected >=49 governed company tracks, received ${snapshot.companies.length}`,
+      `expected >=76 governed company tracks, received ${snapshot.companies.length}`,
     );
   }
   if (snapshot.company_second_depth?.schema !== "glaciereq.company-second-depth.v1") {
@@ -117,7 +117,7 @@ async function main() {
   await patchTextFile(
     "llms.txt",
     "- Company Atlas:",
-    "- Company Atlas: https://casey-barton-glaciereq.vercel.app/atlas/ (49 real company routes under /companies/<slug>/; Recruiter + Master + Machine + Mesh depth; Helix-governed second-depth stage, claim ceiling, blockers, next gate, and pinned public evidence)",
+    "- Company Atlas: https://casey-barton-glaciereq.vercel.app/atlas/ (76 real company routes under /companies/<slug>/; Recruiter + Master + Machine + Mesh depth; Helix-governed second-depth stage, claim ceiling, blockers, next gate, and pinned public evidence)",
   );
   await updateSitemap(companyIds);
   console.log(
