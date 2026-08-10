@@ -3,7 +3,7 @@
   "company": "GitHub",
   "capability": "merge_authority_graph",
   "projection_authority": {
-    "helix_sha": "7128a51bcc2bbadce1b2c4452dfea6c3c19d5c8f",
+    "helix_sha": "b09b7925a5448b934c69e8f175f6b6747794a474",
     "helix_stage": "CLAIM_PROMOTED",
     "helix_claim_ceiling": "proof_bound_company_specific"
   },
