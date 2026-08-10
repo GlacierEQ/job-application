@@ -3,7 +3,7 @@
   "company": "GitHub",
   "capability": "merge_authority_graph",
   "projection_authority": {
-    "helix_sha": "b09b7925a5448b934c69e8f175f6b6747794a474",
+    "helix_sha": "721fbb2b8a8048de415a36f5ca018edefecbb337",
     "helix_stage": "CLAIM_PROMOTED",
     "helix_claim_ceiling": "proof_bound_company_specific"
   },
@@ -24,6 +24,7 @@
     "admitted_commit": "577f63c506c6c4df9c1751a0ff5b8fa07822e491"
   },
   "production_claim_promotion_readback": "projects/github-merge-authority-proof/proof/production-claim-promotion-readback.json",
+  "production_canonical_freshness_readback": "projects/github-merge-authority-proof/proof/production-canonical-freshness-readback.json",
   "validation_contract": [
     "record company identity is GitHub/github",
     "record second-depth stage is CLAIM_PROMOTED",
@@ -32,12 +33,14 @@
     "company HTML presents CLAIM_PROMOTED and the same claim ceiling",
     "company HTML preserves independent-work and non-affiliation/adoption/deployment boundary",
     "fresh effective Helix projection resolves GitHub to the same stage, ceiling, and claim-receipt cardinality",
-    "historical claim and production-closure receipts are bound by their Git blob identities and the admitted promotion commit rather than trusted by shape alone",
-    "the dedicated gate independently fetches the canonical production alias and verifies bundle, V25, V26, compiler JSON, company JSON, and company HTML against the effective authority and recorded deployment",
-    "post-promotion production readback binds the deployed job-application source SHA, effective Helix SHA, V25/V26 PASS readbacks, GitHub compiler JSON, GitHub company record, company HTML, claim receipt cardinality, and the same bounded nonclaim",
+    "historical claim and production-closure receipts remain content-addressed promotion inputs",
+    "the historical claim-promotion production receipt remains preserved rather than rewritten after repository canonicalization",
+    "the canonical-freshness receipt binds Apex CANONICAL, EVOLVING unearned, the current production deployment, exact job-application and Helix authority, main-push V25 artifact, immutable build-time transport, and live canonical-alias readback",
+    "the dedicated gate reconstructs and hashes the admitted transport runtime, independently fetches the canonical production alias, and verifies bundle, V25, V26, compiler JSON, company JSON, and company HTML against effective authority",
+    "Apex repository canonicalization does not raise the GitHub company claim beyond CLAIM_PROMOTED / proof_bound_company_specific",
     "public proof package remains present and source/private boundaries remain explicit"
   ],
-  "allowed_public_claim": "GlacierEQ independently implemented and reproduced a governed GitHub mutation path and carries a proof-bound company-specific public claim backed by immutable proof, claim, production-projection, and post-promotion readback receipts.",
+  "allowed_public_claim": "GlacierEQ independently implemented and reproduced a governed GitHub mutation path and carries a proof-bound company-specific public claim backed by immutable proof and production receipts. Apex is the canonical GlacierEQ repository for this capability family; that repository status does not imply GitHub adoption or deployment.",
   "prohibited_claims": [
     "GitHub uses, adopted, evaluated, endorsed, or deployed this GlacierEQ capability.",
     "Casey Barton is or was employed by GitHub on the basis of this proof.",
@@ -45,5 +48,5 @@
     "The private apex-github-worker implementation source is public.",
     "Production-scale reliability, latency, throughput, durability, or GitHub-scale operation is established."
   ],
-  "promotion_rule": "CLAIM_PROMOTED is closed only when historical promotion inputs match their content-addressed Git blob identities, the current effective Helix authority is CLAIM_PROMOTED at proof_bound_company_specific, the canonical production alias independently reads back the same deployed source and effective authority across bundle/V25/V26/compiler/company JSON/company HTML, and the PR carrying this final readback passes the dedicated public-readback gate. Any higher claim requires new evidence and a new gate."
+  "promotion_rule": "CLAIM_PROMOTED remains the company ceiling. Repository CANONICAL is independently closed only when the Apex canonical-position contract is earned; outward production freshness after that authority change is closed only when the canonical alias reads back the current effective Helix authority and the exact admitted deployment artifact under the dedicated gate. EVOLVING or any higher company claim requires new evidence and a new gate."
 }
