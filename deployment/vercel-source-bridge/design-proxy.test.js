@@ -6,10 +6,16 @@ const test = require('node:test');
 const design = require('./api/design-proxy.js');
 const designSource = fs.readFileSync(path.join(__dirname, 'api', 'design-proxy.js'), 'utf8');
 const releaseRouterSource = fs.readFileSync(path.join(__dirname, 'api', 'release-router.js'), 'utf8');
+const reconciliation = JSON.parse(fs.readFileSync(
+  path.join(__dirname, '..', '..', 'site-v15', 'data', 'company-cardinality-reconciliation.json'),
+  'utf8',
+));
 
-test('pins the complete web source and V21 Helix proof authority', () => {
+test('pins the complete web source and reconciled V21 Helix authority', () => {
   assert.equal(design.constants.WEB_SOURCE_COMMIT, '95a91fd9b51c77babf51b3bed7c156acfd9d06f7');
-  assert.equal(design.constants.HELIX_COMMIT, '8345955b67f163c3215b23195a267b6021a5be5e');
+  assert.match(design.constants.HELIX_COMMIT, /^[a-f0-9]{40}$/);
+  assert.equal(design.constants.HELIX_COMMIT, reconciliation.authoritative_helix_commit);
+  assert.equal(reconciliation.status, 'PASS');
   assert.equal(design.constants.RELEASE, 'V21-FIRST-STAR-COMPLETE-WEB');
 });
 

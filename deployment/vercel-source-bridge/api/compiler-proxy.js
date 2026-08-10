@@ -4,7 +4,7 @@ const estateProxy = require('./estate-proxy.js');
 const proxy = require('./proxy.js');
 const typographyProxy = require('./typography-proxy.js');
 
-const COMPILER_HELIX_COMMIT = '435c1e9d5dd4bf7466d869aa7c6918b56225b788';
+const COMPILER_HELIX_COMMIT = '8345955b67f163c3215b23195a267b6021a5be5e';
 const HELIX_RAW = `https://raw.githubusercontent.com/GlacierEQ/job-app-helix/${COMPILER_HELIX_COMMIT}/`;
 const COMPANY_INDEX_PATH = 'manifests/company_dossiers.json';
 const SECOND_DEPTH_PATH = 'manifests/company_second_depth.json';
@@ -544,8 +544,10 @@ function injectEmeraldMotion(body) {
   if (matches.length > 1) throw new Error('duplicate_emerald_motion_stylesheet');
   if (matches.length === 1) return bytes;
   const typography = '<link rel="stylesheet" href="/assets/site.algerian.css">';
-  if (html.includes(typography)) html = html.replace(typography, `${typography}\n  ${EMERALD_MOTION_LINK}`);
-  else html = html.replace(/<\/head>/i, `  ${EMERALD_MOTION_LINK}\n</head>`);
+  if (html.includes(typography)) html = html.replace(typography, `${typography}
+  ${EMERALD_MOTION_LINK}`);
+  else html = html.replace(/<\/head>/i, `  ${EMERALD_MOTION_LINK}
+</head>`);
   return Buffer.from(html);
 }
 
@@ -592,7 +594,8 @@ async function serveCompilerJson(req, res) {
   const data = await loadCompiler();
   const state = queryState(req, data.projection);
   const route = compileRoute(data, state);
-  const body = Buffer.from(`${JSON.stringify(route, null, 2)}\n`);
+  const body = Buffer.from(`${JSON.stringify(route, null, 2)}
+`);
   generatedSecurityHeaders(res);
   res.statusCode = 200;
   res.setHeader('Content-Type', 'application/json; charset=utf-8');

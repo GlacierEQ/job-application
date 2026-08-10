@@ -22,12 +22,19 @@ const CARDINALITY_CONSUMERS = [
   'deployment/vercel-source-bridge/api/typography-proxy.js',
   'deployment/vercel-source-bridge/proxy.test.js',
   'deployment/vercel-source-bridge/design-proxy.test.js',
+  'deployment/vercel-source-bridge/compiler-proxy.test.js',
   'deployment/vercel-source-bridge/typography-proxy.test.js',
 ];
 
-const RUNTIME_HELIX_PIN_CONSUMERS = [
+const STANDARD_RUNTIME_HELIX_PIN_CONSUMERS = [
   'deployment/vercel-source-bridge/api/proxy.js',
   'deployment/vercel-source-bridge/api/design-proxy.js',
+];
+const COMPILER_RUNTIME_HELIX_PIN = 'deployment/vercel-source-bridge/api/compiler-proxy.js';
+const COMPILER_TEST_HELIX_PIN = 'deployment/vercel-source-bridge/compiler-proxy.test.js';
+const RUNTIME_HELIX_PIN_CONSUMERS = [
+  ...STANDARD_RUNTIME_HELIX_PIN_CONSUMERS,
+  COMPILER_RUNTIME_HELIX_PIN,
 ];
 
 const CONTEXT = /(compan(?:y|ies)|track|atlas|portfolio|helix)/i;
@@ -62,15 +69,82 @@ function ringPositions(startIndex, count, radius, offsetDegrees) {
   });
 }
 
+function constellationRings(count) {
+  const rings = [];
+  let remaining = count;
+  let ordinal = 0;
+  while (remaining > 0) {
+    const capacity = 12 + ordinal * 8;
+    const assigned = Math.min(remaining, capacity);
+    rings.push(assigned);
+    remaining -= assigned;
+    ordinal += 1;
+  }
+  return rings;
+}
+
 function constellationPositionCss(count) {
-  const inner = Math.min(count, 12);
-  const middle = Math.min(Math.max(count - inner, 0), 20);
-  const outer = Math.max(count - inner - middle, 0);
-  return [
-    ...ringPositions(0, inner, 21, -90),
-    ...ringPositions(inner, middle, 33, -90 + (middle ? 180 / middle : 0)),
-    ...ringPositions(inner + middle, outer, 44, -90 + (outer ? 180 / outer : 0)),
-  ].join('');
+  const rings = constellationRings(count);
+  const innerRadius = 16;
+  const outerRadius = 47;
+  let startIndex = 0;
+  const rows = [];
+  for (let index = 0; index < rings.length; index += 1) {
+    const ringCount = rings[index];
+    const radius = rings.length === 1
+      ? 31
+      : innerRadius + ((outerRadius - innerRadius) * index) / (rings.length - 1);
+    const offset = -90 + (index % 2 === 0 ? 0 : 180 / ringCount);
+    rows.push(...ringPositions(startIndex, ringCount, radius, offset));
+    startIndex += ringCount;
+  }
+  return { css: rows.join(''), ringCount: rings.length, rings };
+}
+
+function updateStandardRuntimePin(source, relative, helixCommit) {
+  const pinPattern = /const HELIX_COMMIT = '[a-f0-9]{40}';/;
+  if (!pinPattern.test(source)) throw new Error(`${relative}: immutable HELIX_COMMIT pin missing`);
+  const desired = `const HELIX_COMMIT = '${helixCommit}';`;
+  if (source.includes(desired)) return { source, changed: false };
+  return { source: source.replace(pinPattern, desired), changed: true };
+}
+
+function updateCompilerRuntimePin(source, helixCommit) {
+  const pinPattern = /const COMPILER_HELIX_COMMIT = '[a-f0-9]{40}';/;
+  if (!pinPattern.test(source)) throw new Error('compiler-proxy.js: immutable COMPILER_HELIX_COMMIT pin missing');
+  const desired = `const COMPILER_HELIX_COMMIT = '${helixCommit}';`;
+  let next = source.includes(desired) ? source : source.replace(pinPattern, desired);
+  const countPattern = /(data\.projection\.company_count\s*!==\s*)\d+/;
+  if (!countPattern.test(next)) throw new Error('compiler-proxy.js: V25 company-count verifier missing');
+  next = next.replace(countPattern, `$1${companyCount}`);
+  return { source: next, changed: next !== source };
+}
+
+function updateCompilerTestPin(source, helixCommit) {
+  const anchor = 'compiler.constants.COMPILER_HELIX_COMMIT';
+  const anchorIndex = source.indexOf(anchor);
+  if (anchorIndex < 0) throw new Error('compiler-proxy.test.js: compiler authority assertion missing');
+  const prefix = source.slice(0, anchorIndex);
+  const suffix = source.slice(anchorIndex);
+  const pinPattern = /'[a-f0-9]{40}'/;
+  if (!pinPattern.test(suffix)) throw new Error('compiler-proxy.test.js: immutable compiler authority pin missing');
+  const nextSuffix = suffix.replace(pinPattern, `'${helixCommit}'`);
+  return { source: `${prefix}${nextSuffix}`, changed: nextSuffix !== suffix };
+}
+
+function scaleAtlasRenderer(source) {
+  let next = source;
+  const guardPattern = /\n  if \(companies\.length > \d+\) \{\n    throw new Error\("constellation supports at most \d+ governed company positions"\);\n  \}\n/;
+  if (guardPattern.test(next)) next = next.replace(guardPattern, '\n');
+  const radiusPattern = /const radius = 21 \+ r \* 12; \/\/ 21%, 33%, 45%, 57%, \.\.\./;
+  if (!radiusPattern.test(next)) {
+    throw new Error('render-helix-atlas.mjs: scalable constellation radius anchor missing');
+  }
+  next = next.replace(
+    radiusPattern,
+    'const radius = rings.length === 1 ? 31 : 16 + (31 * r) / (rings.length - 1);',
+  );
+  return { source: next, changed: next !== source };
 }
 
 const snapshotText = await readFile(SNAPSHOT, 'utf8');
@@ -82,9 +156,6 @@ if (!Number.isInteger(companyCount) || companyCount < 1) {
 }
 if (!/^[a-f0-9]{40}$/.test(helixCommit)) {
   throw new Error(`Helix snapshot root_ref is not an immutable commit: ${helixCommit || 'missing'}`);
-}
-if (companyCount > 160) {
-  throw new Error(`Helix company cardinality ${companyCount} exceeds the bounded script-free constellation design limit of 160`);
 }
 
 const stageCounts = Object.fromEntries(SECOND_DEPTH_STAGES.map(stage => [stage, 0]));
@@ -155,14 +226,37 @@ for (const relative of CARDINALITY_CONSUMERS) {
     })
     .join('\n');
 
-  if (RUNTIME_HELIX_PIN_CONSUMERS.includes(relative)) {
-    const pinPattern = /const HELIX_COMMIT = '[a-f0-9]{40}';/;
-    if (!pinPattern.test(next)) throw new Error(`${relative}: immutable HELIX_COMMIT pin missing`);
-    const desired = `const HELIX_COMMIT = '${helixCommit}';`;
-    if (!next.includes(desired)) {
-      next = next.replace(pinPattern, desired);
+  if (relative === 'scripts/render-helix-atlas.mjs') {
+    const result = scaleAtlasRenderer(next);
+    if (result.changed) {
+      next = result.source;
+      replacements += 2;
+    }
+  }
+
+  if (STANDARD_RUNTIME_HELIX_PIN_CONSUMERS.includes(relative)) {
+    const result = updateStandardRuntimePin(next, relative, helixCommit);
+    if (result.changed) {
+      next = result.source;
       replacements += 1;
       runtimeHelixPinUpdated = true;
+    }
+  }
+
+  if (relative === COMPILER_RUNTIME_HELIX_PIN) {
+    const result = updateCompilerRuntimePin(next, helixCommit);
+    if (result.changed) {
+      next = result.source;
+      replacements += 1;
+      runtimeHelixPinUpdated = true;
+    }
+  }
+
+  if (relative === COMPILER_TEST_HELIX_PIN) {
+    const result = updateCompilerTestPin(next, helixCommit);
+    if (result.changed) {
+      next = result.source;
+      replacements += 1;
     }
   }
 
@@ -194,8 +288,8 @@ for (const relative of CARDINALITY_CONSUMERS) {
 const cssSource = await readFile(ATLAS_CSS, 'utf8');
 const positionPattern = /\.atlas-star\.star-p\d+\{[^}]*\}/g;
 const cssWithoutPositions = cssSource.replace(positionPattern, '').trimEnd();
-const positionCss = constellationPositionCss(companyCount);
-const cssNext = `${cssWithoutPositions}\n${positionCss}\n`;
+const constellation = constellationPositionCss(companyCount);
+const cssNext = `${cssWithoutPositions}\n${constellation.css}\n`;
 await writeFile(ATLAS_CSS, cssNext, 'utf8');
 
 if (companyCount !== 49 && patched.length === 0) {
@@ -205,11 +299,29 @@ if (!cssNext.includes(`.atlas-star.star-p${companyCount - 1}{`)) {
   throw new Error('Generated constellation CSS does not cover the authoritative company count');
 }
 
-for (const relative of RUNTIME_HELIX_PIN_CONSUMERS) {
+for (const relative of STANDARD_RUNTIME_HELIX_PIN_CONSUMERS) {
   const runtimeSource = await readFile(path.join(ROOT, relative), 'utf8');
   if (!runtimeSource.includes(`const HELIX_COMMIT = '${helixCommit}';`)) {
     throw new Error(`${relative}: runtime Helix authority does not match fresh projection`);
   }
+}
+const compilerRuntimeSource = await readFile(path.join(ROOT, COMPILER_RUNTIME_HELIX_PIN), 'utf8');
+if (!compilerRuntimeSource.includes(`const COMPILER_HELIX_COMMIT = '${helixCommit}';`)) {
+  throw new Error('compiler-proxy.js: compiler Helix authority does not match fresh projection');
+}
+if (!compilerRuntimeSource.includes(`data.projection.company_count !== ${companyCount}`)) {
+  throw new Error('compiler-proxy.js: compiler company-count verifier does not match fresh projection');
+}
+const compilerTestSource = await readFile(path.join(ROOT, COMPILER_TEST_HELIX_PIN), 'utf8');
+if (!compilerTestSource.includes(`'${helixCommit}'`)) {
+  throw new Error('compiler-proxy.test.js: compiler authority test does not match fresh projection');
+}
+const rendererSource = await readFile(path.join(ROOT, 'scripts/render-helix-atlas.mjs'), 'utf8');
+if (/companies\.length > \d+/.test(rendererSource)) {
+  throw new Error('render-helix-atlas.mjs: historical constellation ceiling remains');
+}
+if (!rendererSource.includes('16 + (31 * r) / (rings.length - 1)')) {
+  throw new Error('render-helix-atlas.mjs: bounded scalable ring radius missing');
 }
 
 const designSource = await readFile(path.join(ROOT, 'deployment/vercel-source-bridge/api/design-proxy.js'), 'utf8');
@@ -218,7 +330,7 @@ if (!designSource.includes("/^[a-f0-9]{40}$/.test(String(star?.company_projectio
 }
 
 const receipt = {
-  schema: 'glaciereq.public-company-cardinality-reconciliation.v5',
+  schema: 'glaciereq.public-company-cardinality-reconciliation.v8',
   status: 'PASS',
   source: 'site-v15/data/helix-root.json',
   source_sha256: sha256(snapshotText),
@@ -228,14 +340,19 @@ const receipt = {
   legacy_cardinality: 49,
   legacy_constellation_capacity: 64,
   generated_constellation_positions: companyCount,
+  generated_constellation_rings: constellation.ringCount,
+  generated_constellation_ring_population: constellation.rings,
   constellation_css_sha256: sha256(cssNext),
   runtime_helix_pin_consumers: RUNTIME_HELIX_PIN_CONSUMERS,
+  compiler_authority_test_consumer: COMPILER_TEST_HELIX_PIN,
   patched_consumers: patched,
   invariants: [
     'Downstream public consumers validate the freshly synced Helix company projection rather than a historical fixed track count.',
     'Second-depth stage-count assertions follow the freshly synced public projection and may not preserve obsolete historical distributions.',
-    'The zero-script constellation receives one deterministic CSS position per governed company and never relies on inline style or client-side JavaScript.',
-    'Runtime company-projection bridges use the same immutable Helix commit as the freshly synced static projection while historical static-source pins remain unchanged.',
+    'Both static constellation generators scale deterministic concentric rings to the governed company count instead of failing at historical presentation ceilings.',
+    'Every governed company receives exactly one deterministic CSS position without inline style or client-side JavaScript.',
+    'V21, design, and V25 compiler runtime bridges are reconciled to the same immutable Helix commit before release packaging.',
+    'The V25 compiler count verifier is reconciled to the freshly synced authority rather than a historical numeric literal.',
     'The blob-pinned current-proof receipt preserves its historical Helix identity and is not required to equal the current runtime Helix projection commit.',
   ],
 };
@@ -247,6 +364,7 @@ console.log(JSON.stringify({
   authoritative_company_tracks: companyCount,
   second_depth: stageCounts,
   generated_constellation_positions: companyCount,
+  generated_constellation_rings: constellation.ringCount,
   runtime_helix_pin_consumers: RUNTIME_HELIX_PIN_CONSUMERS.length,
   historical_proof_boundary: 'BLOB_PINNED_IDENTITY_SEPARATE_FROM_LIVE_PROJECTION',
   patched_consumers: patched.length,
