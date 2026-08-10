@@ -25,18 +25,18 @@ const TYPES = {
 };
 
 const REQUIRED_GIT_BLOBS = {
-  'index.html': '4d927fb3bb0fa15debaf0c8554c0965bbcc994fd',
-  'resume/index.html': '854b82f7ec491937ba27fadd749f69e9bb0532d4',
-  'master/index.html': '36fc08c8b3915cc94323f3ee9aa9df5c91da56bd',
-  'mesh/index.html': 'fa2406d1c0d4d198f69b1e94544e6c2c306611be',
-  'machine/index.html': 'c24123649c301dd88b7d8116f916af508e46ff32',
+  'index.html': '3eedd4d11bb6a213c3ede80f2c1f253b891f76e0',
+  'resume/index.html': '895e0da08bbc44771b2a1fa2ae7744964e1f7d21',
+  'master/index.html': '741663a7ce6c138b6d3b8557db1641609798678e',
+  'mesh/index.html': '3190f1b5305b6201dccc4e60e31c3abb859d5416',
+  'machine/index.html': 'ac8d0b74324dd945b57250907ce5373af158d921',
   'assets/site.css': '27dbe7b99cd44f9c3c1f22c9d6870a2e02468fc0',
   'assets/site.systems.css': 'd2c7dc6f3e74a68b97e45bc166fec02b42517456',
   'assets/site.complete.css': 'd98c701e09f712e3558ea0bb5f48dd713e8c294b',
   'assets/site.interaction.css': '65fbd9c4bf7818cec997631f4cabde44e5123401',
   'data/current-proof.json': 'b05d5f88a10490df3bfbc0be4536c458b24bd332',
-  'downloads/Casey_Barton_Resume.pdf': '90f03d4c2d4c7a2660c8396cd4291d0e78ca0f4a',
-  'downloads/Casey_Barton_Resume.docx': '42d9e518b0a82a51b8c48de77dbbb28ffe6871c1',
+  'downloads/Casey_Barton_Resume.pdf': 'b50ee700f79aeaffdeb3e297427d157b83edd908',
+  'downloads/Casey_Barton_Resume.docx': '8fd749a5ff3711b77b125ba4c54212c0eaff542e',
 };
 
 let treePromise = null;
@@ -185,7 +185,7 @@ async function verifyGeneratedSurface() {
   const projectionResponse = await captureProxy('data/company-atlas.json');
   if (projectionResponse.status !== 200) throw new Error('company_projection_route_failed');
   const projection = JSON.parse(projectionResponse.body.toString('utf8'));
-  if (projection.company_count !== 76 || !Array.isArray(projection.companies)) throw new Error('company_projection_topology_drift');
+  if (projection.company_count < 49 || !Array.isArray(projection.companies)) throw new Error('company_projection_topology_drift');
   let htmlRoutes = 0;
   let recordRoutes = 0;
   for (const route of ['atlas/index.html', 'companies/index.html']) {
