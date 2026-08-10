@@ -114,7 +114,12 @@ function main() {
     const bundle = fs.readFileSync(path.join(outputDir, 'api', 'index.js'), 'utf8');
     requireValue(bundle.includes(helixCommit), 'effective_bundle_helix_pin_missing');
     requireValue(bundle.includes('company_second_depth_overrides/index.json'), 'effective_bundle_override_index_missing');
-    process.stdout.write(`${JSON.stringify({\n      status: 'PASS',\n      source_commit: sourceCommit,\n      helix_commit: helixCommit,\n      manifest,\n    }, null, 2)}\n`);
+    process.stdout.write(JSON.stringify({
+      status: 'PASS',
+      source_commit: sourceCommit,
+      helix_commit: helixCommit,
+      manifest,
+    }, null, 2) + '\n');
   } finally {
     fs.writeFileSync(COMPILER, original, 'utf8');
   }
