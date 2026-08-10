@@ -5,7 +5,12 @@ on:
     branches: [main]
     paths:
       - "deployment/vercel-source-bridge/api/**"
+      - "deployment/vercel-source-bridge/*.test.js"
       - "deployment/vercel-source-bridge/bootstrap-v25.test.mjs"
+      - "site-v15/**"
+      - "scripts/runner_verify.py"
+      - "scripts/apply-complete-web-design.mjs"
+      - "scripts/validate-algerian-display.mjs"
       - "scripts/build-v25-deployment-bundle.mjs"
       - "scripts/build-v25-effective-production.mjs"
       - "scripts/sync-helix-projection.mjs"
@@ -18,7 +23,12 @@ on:
   pull_request:
     paths:
       - "deployment/vercel-source-bridge/api/**"
+      - "deployment/vercel-source-bridge/*.test.js"
       - "deployment/vercel-source-bridge/bootstrap-v25.test.mjs"
+      - "site-v15/**"
+      - "scripts/runner_verify.py"
+      - "scripts/apply-complete-web-design.mjs"
+      - "scripts/validate-algerian-display.mjs"
       - "scripts/build-v25-deployment-bundle.mjs"
       - "scripts/build-v25-effective-production.mjs"
       - "scripts/sync-helix-projection.mjs"
