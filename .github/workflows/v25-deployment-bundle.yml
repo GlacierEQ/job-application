@@ -9,6 +9,7 @@ on:
       - "scripts/build-v25-deployment-bundle.mjs"
       - "scripts/sync-helix-projection.mjs"
       - "scripts/reconcile-helix-company-cardinality.mjs"
+      - "scripts/reconcile-v21-runtime-stars.mjs"
       - "scripts/verify-v25-v26-runtime.mjs"
       - "package.json"
       - ".github/workflows/v25-deployment-bundle.yml"
@@ -19,6 +20,7 @@ on:
       - "scripts/build-v25-deployment-bundle.mjs"
       - "scripts/sync-helix-projection.mjs"
       - "scripts/reconcile-helix-company-cardinality.mjs"
+      - "scripts/reconcile-v21-runtime-stars.mjs"
       - "scripts/verify-v25-v26-runtime.mjs"
       - "package.json"
       - ".github/workflows/v25-deployment-bundle.yml"
@@ -43,9 +45,10 @@ jobs:
         run: |
           node scripts/sync-helix-projection.mjs
           node scripts/reconcile-helix-company-cardinality.mjs
+          node scripts/reconcile-v21-runtime-stars.mjs
       - name: Run full presentation regression suite
         run: npm test
-      - name: Execute V25 and V26 runtime verifiers
+      - name: Execute V21 through V26 runtime verifiers
         run: node scripts/verify-v25-v26-runtime.mjs
       - name: Build deterministic self-contained deployment
         run: >-
