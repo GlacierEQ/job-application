@@ -7,6 +7,9 @@ on:
       - "deployment/vercel-source-bridge/api/**"
       - "deployment/vercel-source-bridge/bootstrap-v25.test.mjs"
       - "scripts/build-v25-deployment-bundle.mjs"
+      - "scripts/sync-helix-projection.mjs"
+      - "scripts/reconcile-helix-company-cardinality.mjs"
+      - "scripts/verify-v25-v26-runtime.mjs"
       - "package.json"
       - ".github/workflows/v25-deployment-bundle.yml"
   pull_request:
@@ -14,6 +17,9 @@ on:
       - "deployment/vercel-source-bridge/api/**"
       - "deployment/vercel-source-bridge/bootstrap-v25.test.mjs"
       - "scripts/build-v25-deployment-bundle.mjs"
+      - "scripts/sync-helix-projection.mjs"
+      - "scripts/reconcile-helix-company-cardinality.mjs"
+      - "scripts/verify-v25-v26-runtime.mjs"
       - "package.json"
       - ".github/workflows/v25-deployment-bundle.yml"
   workflow_dispatch:
@@ -33,8 +39,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "24"
+      - name: Refresh immutable Helix release authority
+        run: |
+          node scripts/sync-helix-projection.mjs
+          node scripts/reconcile-helix-company-cardinality.mjs
       - name: Run full presentation regression suite
         run: npm test
+      - name: Execute V25 and V26 runtime verifiers
+        run: node scripts/verify-v25-v26-runtime.mjs
       - name: Build deterministic self-contained deployment
         run: >-
           node scripts/build-v25-deployment-bundle.mjs
