@@ -7,7 +7,9 @@ on:
       - "deployment/vercel-source-bridge/api/**"
       - "deployment/vercel-source-bridge/bootstrap-v25.test.mjs"
       - "scripts/build-v25-deployment-bundle.mjs"
+      - "scripts/build-v25-effective-production.mjs"
       - "scripts/sync-helix-projection.mjs"
+      - "scripts/sync-helix-projection-effective.mjs"
       - "scripts/reconcile-helix-company-cardinality.mjs"
       - "scripts/reconcile-v21-runtime-stars.mjs"
       - "scripts/verify-v25-v26-runtime.mjs"
@@ -18,7 +20,9 @@ on:
       - "deployment/vercel-source-bridge/api/**"
       - "deployment/vercel-source-bridge/bootstrap-v25.test.mjs"
       - "scripts/build-v25-deployment-bundle.mjs"
+      - "scripts/build-v25-effective-production.mjs"
       - "scripts/sync-helix-projection.mjs"
+      - "scripts/sync-helix-projection-effective.mjs"
       - "scripts/reconcile-helix-company-cardinality.mjs"
       - "scripts/reconcile-v21-runtime-stars.mjs"
       - "scripts/verify-v25-v26-runtime.mjs"
@@ -41,20 +45,24 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "24"
-      - name: Refresh immutable Helix release authority
+      - name: Refresh effective immutable Helix release authority
         run: |
-          node scripts/sync-helix-projection.mjs
+          node scripts/sync-helix-projection-effective.mjs
           node scripts/reconcile-helix-company-cardinality.mjs
           node scripts/reconcile-v21-runtime-stars.mjs
       - name: Run full presentation regression suite
         run: npm test
       - name: Execute V21 through V26 runtime verifiers
         run: node scripts/verify-v25-v26-runtime.mjs
-      - name: Build deterministic self-contained deployment
-        run: >-
-          node scripts/build-v25-deployment-bundle.mjs
-          --source-commit "${{ github.sha }}"
-          --output-dir artifacts/v25-deployment
+      - name: Build deterministic self-contained deployment from effective authority
+        shell: bash
+        run: |
+          set -euo pipefail
+          HELIX_COMMIT="$(node -e "const fs=require('node:fs'); const r=JSON.parse(fs.readFileSync('site-v15/data/helix-root.receipt.json','utf8')); if(!/^[a-f0-9]{40}$/.test(r.source_commit||'')) process.exit(2); process.stdout.write(r.source_commit)")"
+          node scripts/build-v25-effective-production.mjs \
+            --source-commit "${{ github.sha }}" \
+            --helix-commit "$HELIX_COMMIT" \
+            --output-dir artifacts/v25-deployment
       - name: Verify deployment file contract
         shell: bash
         run: |
