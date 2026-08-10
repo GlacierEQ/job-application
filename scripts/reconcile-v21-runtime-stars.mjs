@@ -158,7 +158,7 @@ if (next.includes(loadProjectionBase)) {
   throw new Error('proxy.js: base second-depth projection loader anchor missing');
 }
 
-const exactPromotedCount = 'stageCounts.CLAIM_PROMOTED === 1 &&';
+const numericPromotedCount = /stageCounts\.CLAIM_PROMOTED\s*===\s*\d+\s*&&/;
 const semanticPromotedContract = `stageCounts.CLAIM_PROMOTED >= 2 &&
       projection.companies
         .filter((company) => company.second_depth.stage === 'CLAIM_PROMOTED')
@@ -169,10 +169,10 @@ const semanticPromotedContract = `stageCounts.CLAIM_PROMOTED >= 2 &&
         company.second_depth.claim_ceiling === 'proof_bound_company_specific' &&
         company.second_depth.evidence.claim_receipts.length >= 2
       ) &&`;
-if (next.includes(exactPromotedCount)) {
-  next = next.replace(exactPromotedCount, semanticPromotedContract);
+if (numericPromotedCount.test(next)) {
+  next = next.replace(numericPromotedCount, semanticPromotedContract);
 } else if (!next.includes("company.company_id === 'github'")) {
-  throw new Error('proxy.js: historical promoted-company count anchor missing');
+  throw new Error('proxy.js: promoted-company verifier is neither numeric legacy nor semantic effective contract');
 }
 
 const staticVerifyBlock = `    const stars = await fetchSource('assets/helix-atlas.stars.css');
@@ -239,8 +239,8 @@ if (!next.includes("body: Buffer.from(runtimeStarPositionCss(projection.company_
 if (!next.includes(overrideConstant) || !next.includes('loadEffectiveSecondDepth')) {
   throw new Error('proxy.js: V21 runtime is not using effective second-depth authority');
 }
-if (next.includes(exactPromotedCount)) {
-  throw new Error('proxy.js: V21 verifier still hard-codes one promoted company');
+if (numericPromotedCount.test(next)) {
+  throw new Error('proxy.js: V21 verifier still hard-codes promoted-company cardinality');
 }
 if (!next.includes("company.company_id === 'github'")) {
   throw new Error('proxy.js: V21 verifier does not preserve the GitHub promoted claim');
@@ -261,6 +261,7 @@ const receipt = {
     'V21 company routes consume base second-depth plus governed modular company overrides from the same immutable Helix commit.',
     'Inline and modular second-depth authority cannot collide for the same company.',
     'The V21 verifier validates promoted-company evidence semantically and preserves both Lockheed Martin and GitHub promotions without an exact global count pin.',
+    'V21 reconciliation is ordering-idempotent whether the generic cardinality reconciler has already rewritten historical numeric stage counts or not.',
     'V21 star-position CSS is generated from the same immutable Helix projection used for company routes.',
     'The V21 verifier no longer asks a historical static site commit to contain positions for future company tracks.',
     'All governed company stars receive deterministic server-side CSS positions with no client JavaScript.',
@@ -274,6 +275,7 @@ console.log(JSON.stringify({
   authoritative_company_tracks: companyCount,
   effective_second_depth: true,
   promoted_company_count_pin_removed: true,
+  ordering_idempotent: true,
   proxy_changed: next !== source,
   proxy_sha256: receipt.proxy_after_sha256,
 }));
