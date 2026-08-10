@@ -10,6 +10,7 @@ const read = filePath => readFile(path.join(repo, filePath), 'utf8');
 const bytes = filePath => readFile(path.join(repo, filePath));
 const sha256 = data => createHash('sha256').update(data).digest('hex');
 const stylesheetPattern = href => new RegExp(`<link\\b[^>]*\\bhref\\s*=\\s*["']${href.replaceAll('/', '\\/')}["'][^>]*>`, 'i');
+const EXPECTED_MACHINE_LABEL = 'Forward-Deployed AI Architect | Principal Agentic Systems Architect | Principal AI Platform Architect';
 
 const paths = {
   html: 'site-v15/resume/index.html',
@@ -62,7 +63,7 @@ assert(atsMd.includes('# CASEY DEL CARPIO BARTON') && atsMd.includes('## Profess
 
 assert(resume.meta.schema === 'glaciereq.resume-intelligence.v17' && resume.meta.profile === 'PSYSOC-X_MACHINE' && resume.meta.facts_invariant === true, 'machine profile drift');
 assert(resume.meta.layout_policy === 'print-safe-letter-margins', 'machine layout policy missing');
-assert(resume.basics.name === 'Casey Del Carpio Barton' && resume.basics.label.includes('Applied AI Systems Architect'), 'identity drift');
+assert(resume.basics.name === 'Casey Del Carpio Barton' && resume.basics.label === EXPECTED_MACHINE_LABEL, 'identity drift');
 assert(resume.work.length >= 3, 'cross-domain work history incomplete');
 assert(resume.projects.some(project => project.name === 'Portfolio Receipt Router' && project.keywords.includes('69/69')), 'router project evidence missing');
 assert(resume.projects.some(project => project.name === 'Job Application Helix' && project.keywords.includes('PARTIALLY_VERIFIED') && project.keywords.includes('admitted_public_repositories:67')), 'Helix boundary/state missing');

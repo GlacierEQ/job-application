@@ -11,7 +11,7 @@ Applied AI systems architect and agent infrastructure engineer who builds the op
 - Portfolio Receipt Router: 69 of 69 tests passed through direct and reusable CI; artifact 8910423397; zero external queries and actions.
 - Bounded infrastructure source systems: 166 source tests passed across Cooling, Energy, Servers, Security, and Nanosphere, plus 19 degraded-mode Energy memory tests and five hashed artifacts.
 - Job Application Helix: evidence-governed hiring and portfolio orchestration for an exact 67-repository admitted public proof boundary. The Helix package is PARTIALLY_VERIFIED; child repositories retain independent evidence states. The 67-repository number is not an accomplishment count and is not the full owned-estate count.
-- Agent Coordinator: 62 of 62 recorded Python tests for deterministic ownership, dependency order, capacity, stable priority, shared budgets, and explicit refusal.
+- Agent Coordinator: deterministic ownership, dependency ordering, capacity, stable priority, and shared-budget scheduling has an immutable historical 62/62 Python test receipt at executable commit `87438f57bdfd2cb380730cf51140611963d7c95b`. Current head `0f2ca5199e67664a87ffef3f874d5836984dbbdb` is explicitly `DISCOVERED` with `proof_ok=false`, `operable_ok=false`, and a `TESTS_FAIL` gap receipt (`ran=9`), so the historical result is not represented as current-head verification or promotion.
 - AKOS / PSYSOC-X: bounded verified surfaces for authority, evidence, closure, and deterministic audience calibration that preserves facts, uncertainty, dignity, and authority boundaries.
 
 ## Core Competencies
@@ -46,8 +46,8 @@ Compatibility-safe architecture repair and evidence routing. Evidence: 69/69 tes
 Job Application Helix - PARTIALLY_VERIFIED
 Evidence-governed hiring and portfolio orchestration with an exact 67-repository admitted public proof boundary, fail-closed evidence levels, repository-state separation, promotion gates, machine contracts, and role-calibrated package generation. Boundary: the 67 repositories are a public proof set, not accomplishment count or full owned-estate count; child repositories retain independent evidence states.
 
-Agent Coordinator - RECORDED 62/62
-Deterministic task ownership, dependency order, capacity, stable priority, shared budgets, and explicit refusal. Evidence: 62/62 recorded Python tests. Boundary: hosted matrix and broader promotion gates remain separate.
+Agent Coordinator - HISTORICAL TEST RECEIPT / CURRENT HEAD NOT PROMOTED
+Deterministic task ownership, dependency order, capacity, stable priority, shared budgets, and explicit refusal. Historical evidence: 62/62 Python tests at executable commit `87438f57bdfd2cb380730cf51140611963d7c95b`. Current head `0f2ca5199e67664a87ffef3f874d5836984dbbdb` is `DISCOVERED`; its excellence state records `proof_ok=false` and `operable_ok=false`, while `machine/gap-receipt.json` records `blocker=TESTS_FAIL`, `ran=9`, and no principal-state claim. Boundary: the 62/62 receipt is historical pinned evidence only and is not inherited by the changed current head.
 
 AKOS / PSYSOC-X - BOUNDED VERIFIED SURFACES
 Authority, evidence, closure, and deterministic audience-calibration primitives. Boundary: presentation depth and ordering may change; facts, uncertainty, dignity, and authority may not.
@@ -66,4 +66,4 @@ AWS Cloud Institute - Cloud Application Developer program - 2025-2026, in progre
 Historical resume records: PSI Visual Cylinder Inspector; PSI Eddy Current Technician; PSI Valve Repair Technician; PSI Oxygen Cleaning Cylinder Technician; NAUI Rescue Diver; NAUI Master Diver; PADI Enriched Air Diver. Current status is not represented as active without updated documentation.
 
 ## Evidence Boundary
-Independent GlacierEQ work and bounded technical exhibits. Test counts refer only to their stated repository and scope. The 67-repository Helix figure is an admitted public proof boundary, not an accomplishment count or full-estate count. No company affiliation, proprietary access, production deployment, customer impact, formal people-management experience, current certification status, hardware validation, or measured business outcome is claimed without direct evidence.
+Independent GlacierEQ work and bounded technical exhibits. Test counts refer only to their stated repository, revision, and scope; historical receipts do not automatically transfer to changed repository heads. The 67-repository Helix figure is an admitted public proof boundary, not an accomplishment count or full-estate count. No company affiliation, proprietary access, production deployment, customer impact, formal people-management experience, current certification status, hardware validation, or measured business outcome is claimed without direct evidence.
