@@ -1,0 +1,65 @@
+{
+  "schema": "glaciereq.capability-cluster-receipt.v1",
+  "cluster_id": "truth_preserving_public_projections",
+  "cycle_date": "2026-08-10",
+  "claim_ceiling": "MULTI_REPOSITORY_PATTERN_VERIFIED",
+  "job_application_base": "97d657813a0de8a69185a1b010ab46962973c3a4",
+  "artifact": "portfolio-proof/CAPABILITY_CLUSTER__TRUTH_PRESERVING_PUBLIC_PROJECTIONS__2026-08-10.md",
+  "independence_rule": "Only distinct canonical repositories count as independent donors; forks, backups, and duplicate projections do not.",
+  "sources": [
+    {
+      "repository": "GlacierEQ/AKOS",
+      "head": "2c9665764215a3084bd64fa9d36626811dd0b0b1",
+      "path": "governance/glaciereq.repo-excellence-public-contract.v1.json",
+      "blob": "de8f9e9fdb6883c0cdff946814f714d3a08ee20c",
+      "verified_mechanisms": [
+        "public_non_secret_governance_projection",
+        "private_source_authority_retained",
+        "exact_source_commit_binding",
+        "consumer_binding_to_projection_revision",
+        "projection_not_consumer_compliance"
+      ]
+    },
+    {
+      "repository": "GlacierEQ/ECHO",
+      "head": "6acdb3be1739f1659f3cec9f4b7d39d5799cd476",
+      "path": "tests/test_public_surface.py",
+      "blob": "be33a9fca21c13784f3b0a4905f4e5c036a96b34",
+      "verified_mechanisms": [
+        "sensitive_identifier_exclusion",
+        "sanitized_capability_admission",
+        "negative_public_surface_regression_test"
+      ]
+    },
+    {
+      "repository": "GlacierEQ/job-app-helix",
+      "head": "fb2c130ba9cebeb9b3297ca48b2bf2ac8544f17d",
+      "path": "manifests/company_second_depth.json",
+      "blob": "3f5d8ac04f67cb79af2898e035a1389913dcd834",
+      "verified_mechanisms": [
+        "immutable_source_ref",
+        "explicit_verification_state",
+        "public_visibility_contract",
+        "claim_ceiling_separate_from_evidence_presence",
+        "explicit_next_gate_and_nonclaims"
+      ]
+    }
+  ],
+  "synthesis": {
+    "pattern": "Canonical or sensitive source truth is projected through an admission boundary into a public-safe, source-bound representation that preserves upstream authority and cannot silently widen proof.",
+    "preferred_portfolio_phrase": "truth-preserving public projection boundaries",
+    "weaker_phrases_superseded_when_using_this_evidence": [
+      "documentation generation",
+      "public/private separation"
+    ]
+  },
+  "nonclaims": [
+    "universal estate adoption",
+    "formal privacy or security certification",
+    "zero information leakage across every surface",
+    "automatic sanitization of arbitrary private data",
+    "production deployment of every projection",
+    "affiliation or adoption by named companies"
+  ],
+  "durable_progress": "New multi-repository capability cluster plus exact evidence receipt; not a recount or unchanged summary."
+}
