@@ -13,3 +13,7 @@ extend-exclude = ["site-v15/scripts/generate-resume-v17.py"]
 [lint.per-file-ignores]
 "scripts/operate.py" = ["BLE001", "S110", "S112", "SIM102"]
 "tests/test_adversarial.py" = ["BLE001", "S112"]
+# The live excellence census must preserve the full 37-repository roster when a
+# single GitHub/API/provider inspection fails; the broad catch is converted into
+# an explicit RETRY_INSPECTION record rather than swallowed or treated as PASS.
+"excellence/registry/build_registry.py" = ["BLE001"]
