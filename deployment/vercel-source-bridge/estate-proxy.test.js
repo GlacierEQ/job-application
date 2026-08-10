@@ -38,6 +38,17 @@ const sampleRecord = {
   target_roles: ['Agent Infrastructure Engineer'],
 };
 
+test('company route normalization stays bounded to governed company and legacy atlas pages', () => {
+  assert.equal(estate.companyIdForPath('companies/openai/index.html'), 'openai');
+  assert.equal(
+    estate.companyIdForPath('companies/google-deepmind/index.html'),
+    'google_deepmind',
+  );
+  assert.equal(estate.companyIdForPath('atlas/openai/index.html'), 'openai');
+  assert.equal(estate.companyIdForPath('atlas/google-deepmind/index.html'), 'google_deepmind');
+  assert.equal(estate.companyIdForPath('../companies/openai/index.html'), null);
+});
+
 test('pins V22 estate authority without changing V21 proof authority', () => {
   assert.equal(
     estate.constants.ESTATE_HELIX_COMMIT,
@@ -49,16 +60,6 @@ test('pins V22 estate authority without changing V21 proof authority', () => {
   );
   assert.equal(estate.constants.EXPECTED_RECORDS, 47);
   assert.equal(estate.constants.RELEASE, 'V22-ESTATE-INTELLIGENCE-COMPLETE-WEB');
-});
-
-test('company route normalization is bounded to governed static company pages', () => {
-  assert.equal(estate.companyIdForPath('companies/openai/index.html'), 'openai');
-  assert.equal(
-    estate.companyIdForPath('companies/google-deepmind/index.html'),
-    'google_deepmind',
-  );
-  assert.equal(estate.companyIdForPath('atlas/openai/index.html'), null);
-  assert.equal(estate.companyIdForPath('../companies/openai/index.html'), null);
 });
 
 test('normalization omits GlacierEQ repository identity suggestions', () => {
