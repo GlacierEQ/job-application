@@ -24,6 +24,7 @@ for (const path of [
 ]) await mustExist(path);
 
 const recordText = JSON.stringify(record);
+const publicTruthText = `${recordText}\n${page}`;
 assert(/github/i.test(recordText), 'GitHub company identity missing from record');
 assert(recordText.includes('PROOF_REPRODUCED'), 'record is not PROOF_REPRODUCED');
 assert(
@@ -40,13 +41,18 @@ assert(
   page.includes('reproducible_company_specific_proof'),
   'company page claim ceiling drift',
 );
-for (const boundary of [
-  /Independent GlacierEQ work/i,
-  /no (?:GitHub )?affiliation/i,
-  /no (?:GitHub )?adoption/i,
-]) {
-  assert(boundary.test(page) || boundary.test(recordText), `public truth boundary missing: ${boundary}`);
-}
+assert(/Independent GlacierEQ work/i.test(publicTruthText), 'independent-work boundary missing');
+assert(/no (?:GitHub )?affiliation/i.test(publicTruthText), 'no-affiliation boundary missing');
+assert(
+  /no (?:GitHub )?adoption/i.test(publicTruthText)
+    || /no (?:GitHub )?affiliation[^.]*\badoption\b/i.test(publicTruthText),
+  'no-adoption boundary missing or not governed by the coordinated no-claim sentence',
+);
+assert(
+  /no (?:GitHub )?production deployment/i.test(publicTruthText)
+    || /no (?:GitHub )?affiliation[^.]*\bproduction deployment\b/i.test(publicTruthText),
+  'no-production-deployment boundary missing or not governed by the coordinated no-claim sentence',
+);
 
 function walk(value, matches = []) {
   if (Array.isArray(value)) {
