@@ -326,7 +326,8 @@ ${END}`;
 }
 
 function companyIdForPath(filePath) {
-  const match = /^companies\/([a-z0-9-]+)\/index\.html$/.exec(filePath);
+  // Prefer /companies/; also accept legacy /atlas/<slug>/ for estate injection.
+  const match = /^(?:companies|atlas)\/([a-z0-9-]+)\/index\.html$/.exec(filePath);
   return match ? match[1].replaceAll('-', '_') : null;
 }
 

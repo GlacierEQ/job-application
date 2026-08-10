@@ -216,9 +216,19 @@ async function loadCompiler() {
   return compilerPromise;
 }
 
-function queryState(req, projection) {
+/**
+ * Company routes live under both /companies/<slug>/ and legacy /atlas/<slug>/.
+ * Atlas company pages must not fall through to the thin scaffold shell.
+ */
+function companyIdFromPath(filePath) {
+  const match = /^(?:companies|atlas)\/([a-z0-9-]+)\/index\.html$/.exec(String(filePath || ''));
+  return match ? match[1].replaceAll('-', '_') : null;
+}
+
+function queryState(req, projection, filePath = '') {
   const parsed = new URL(String(req.url || '/'), 'https://glaciereq.invalid');
-  const requestedCompany = parsed.searchParams.get('company') || 'openai';
+  const fromPath = companyIdFromPath(filePath);
+  const requestedCompany = parsed.searchParams.get('company') || fromPath || 'openai';
   const company = projection.companies.find((row) => row.company_id === requestedCompany)
     || projection.companies.find((row) => row.company_id === 'openai')
     || projection.companies[0];
@@ -229,9 +239,11 @@ function queryState(req, projection) {
     : [];
   const requestedRole = parsed.searchParams.get('role') || '';
   const role = roles.includes(requestedRole) ? requestedRole : (roles[0] || 'Role route pending');
-  const requestedDepth = parsed.searchParams.get('depth') || 'recruiter';
-  const depth = DEPTHS.has(requestedDepth) ? requestedDepth : 'recruiter';
-  return { company, role, depth };
+  // Path-based company routes default to company_reviewer depth (intervention surface).
+  const defaultDepth = fromPath ? 'company_reviewer' : 'recruiter';
+  const requestedDepth = parsed.searchParams.get('depth') || defaultDepth;
+  const depth = DEPTHS.has(requestedDepth) ? requestedDepth : defaultDepth;
+  return { company, role, depth, from_path: Boolean(fromPath) };
 }
 
 function publicCapabilityDonors(company, flagships) {
@@ -577,15 +589,20 @@ function generatedSecurityHeaders(res) {
   applyReleaseHeaders(res);
 }
 
-async function serveCompilerPage(req, res) {
+async function serveCompilerPage(req, res, filePath = '') {
   const data = await loadCompiler();
-  const state = queryState(req, data.projection);
+  const state = queryState(req, data.projection, filePath);
   const route = compileRoute(data, state);
   const body = Buffer.from(compilerHtml(data, route));
   generatedSecurityHeaders(res);
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=300, must-revalidate');
+  // Canonical company surface is /companies/<slug>/ even when served from /atlas/<slug>/.
+  if (state.from_path && state.company?.company_id) {
+    const slug = String(state.company.company_id).replaceAll('_', '-');
+    res.setHeader('X-GlacierEQ-Company-Canonical', `https://casey-barton-glaciereq.vercel.app/companies/${slug}/`);
+  }
   res.setHeader('Content-Length', String(body.length));
   res.end(body);
 }
@@ -708,7 +725,10 @@ module.exports = async function compilerProxy(req, res) {
   if (rawPath === '__v25_verify') return verifyV25(res);
   const filePath = proxy.normalize(rawPath);
   if (!filePath) return typographyProxy(req, res);
-  if (filePath === 'compiler/index.html') return serveCompilerPage(req, res);
+  if (filePath === 'compiler/index.html') return serveCompilerPage(req, res, filePath);
+  // Unify company intelligence: both namespaces get the Application Compiler surface.
+  // This retires the thin scaffold shells previously served at /atlas/<slug>/.
+  if (companyIdFromPath(filePath)) return serveCompilerPage(req, res, filePath);
   if (filePath === 'data/application-compiler.json') return serveCompilerJson(req, res);
   if (filePath === 'assets/application-compiler.css') return serveCompilerCss(res);
   if (filePath === 'assets/site.emerald-motion.css') return serveEmeraldMotionCss(res);
@@ -742,3 +762,4 @@ module.exports.EMERALD_MOTION_CSS = EMERALD_MOTION_CSS;
 module.exports.loadCompiler = loadCompiler;
 module.exports.normalizeFlagships = normalizeFlagships;
 module.exports.queryState = queryState;
+module.exports.companyIdFromPath = companyIdFromPath;

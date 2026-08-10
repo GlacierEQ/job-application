@@ -178,6 +178,38 @@ test('compiler presentation remains script free and exposes machine projection',
   assert.equal(html.includes('598'), false);
 });
 
+test('companyIdFromPath unifies companies and atlas company routes', () => {
+  assert.equal(compiler.companyIdFromPath('companies/lockheed-martin/index.html'), 'lockheed_martin');
+  assert.equal(compiler.companyIdFromPath('atlas/lockheed-martin/index.html'), 'lockheed_martin');
+  assert.equal(compiler.companyIdFromPath('atlas/index.html'), null);
+  assert.equal(compiler.companyIdFromPath('companies/index.html'), null);
+  assert.equal(compiler.companyIdFromPath('compiler/index.html'), null);
+});
+
+test('queryState prefers path company id over default openai', () => {
+  const data = fixture();
+  // Expand projection with a second company so path selection is meaningful.
+  const lockheed = {
+    ...data.company,
+    company_id: 'lockheed_martin',
+    display_name: 'Lockheed Martin',
+    target_roles: ['AI / ML Systems Engineer'],
+  };
+  data.projection = {
+    ...data.projection,
+    companies: [data.company, lockheed],
+    company_count: 2,
+  };
+  const state = compiler.queryState(
+    { url: '/?path=atlas/lockheed-martin/index.html' },
+    data.projection,
+    'atlas/lockheed-martin/index.html',
+  );
+  assert.equal(state.company.company_id, 'lockheed_martin');
+  assert.equal(state.from_path, true);
+  assert.equal(state.depth, 'company_reviewer');
+});
+
 test('compiler navigation injection is idempotent', () => {
   const source = Buffer.from(
     '<!doctype html><html><body><nav class="links"><a href="/">Recruiter</a></nav></body></html>',

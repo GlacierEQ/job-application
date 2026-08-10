@@ -38,5 +38,17 @@
         }
       ]
     }
+  ],
+  "redirects": [
+    {
+      "source": "/atlas/:slug/",
+      "destination": "/companies/:slug/",
+      "permanent": true
+    },
+    {
+      "source": "/atlas/:slug",
+      "destination": "/companies/:slug/",
+      "permanent": true
+    }
   ]
 }
