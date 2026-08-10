@@ -1,0 +1,61 @@
+{
+  "schema": "glaciereq.portfolio-proof.company-fit-receipt.v1",
+  "projection": "xai_observability_revision_bound_proof",
+  "created_date": "2026-08-10",
+  "job_application_base_sha": "3f58965324bb8b7799a88fc0428ece4e71b4fa85",
+  "projection_commit_sha": "fd507e6f80ff01c1fbbd7cd719aa6fbe8aa362c9",
+  "projection_path": "portfolio-proof/COMPANY_FIT__XAI_OBSERVABILITY__REVISION_BOUND_PROOF__2026-08-10.md",
+  "company": {
+    "name": "xAI",
+    "role_title": "Software Engineer, Observability",
+    "role_location": "Palo Alto, California, United States",
+    "role_verified_date": "2026-08-10",
+    "official_source": "https://x.ai/careers/open-roles"
+  },
+  "problem_mapping": {
+    "name": "stale_observability_or_verification_authority",
+    "status": "INFERRED_ROLE_PRESSURE",
+    "asserted_as_xai_internal_fact": false
+  },
+  "capability": {
+    "name": "revision_bound_proof_promotion",
+    "canonical_surface_path": "portfolio-proof/CAPABILITY_CLUSTER__REVISION_BOUND_PROOF_PROMOTION__2026-08-10.md",
+    "canonical_surface_blob_sha": "f6025389e68bff65bc2071f121423e87655d20cf",
+    "accomplishment_count": 1,
+    "independent_repository_count": 3,
+    "forks_or_backups_counted_as_independent": false,
+    "integration_exercised": false
+  },
+  "donor_evidence": [
+    {
+      "repo": "GlacierEQ/anthropic-agent-coordinator",
+      "historical_proof_sha": "87438f57bdfd2cb380730cf51140611963d7c95b",
+      "changed_head": "0f2ca5199e67664a87ffef3f874d5836984dbbdb",
+      "historical_result": "62/62",
+      "current_state": "DISCOVERED",
+      "current_proof_ok": false,
+      "current_operable_ok": false,
+      "current_blocker": "TESTS_FAIL"
+    },
+    {
+      "repo": "GlacierEQ/waymo-phantom-freespace-certificate",
+      "source_proof_sha": "feee6e51999ea391bd8793a77f2576c21b6464bc",
+      "workflow_run": 31403184766
+    },
+    {
+      "repo": "GlacierEQ/waymo-uncertainty-lane-graph",
+      "source_proof_sha": "e22e8a85d455cca69cfd40ebc7bcae0c2fedad07",
+      "workflow_run": 31404546209
+    }
+  ],
+  "claim_ceiling": "VERIFIED_CAPABILITY_TO_CURRENT_ROLE_ALIGNMENT",
+  "nonclaims": [
+    "xAI adoption, affiliation, employment, endorsement, or proprietary access",
+    "knowledge of xAI internal observability architecture",
+    "production operation at xAI scale",
+    "equivalence to xAI telemetry, release, incident, or reliability systems",
+    "the inferred stale-proof pressure is an observed xAI internal failure",
+    "the donor repositories form one integrated runtime"
+  ],
+  "next_cursor": "Obtain directly addressable public role-description/responsibility text for Software Engineer, Observability and bind exact responsibilities to the canonical capability; independently keep xAI Colossus family recruiter-excluded until successor/unique-value reconciliation and reproducible proof are complete."
+}
