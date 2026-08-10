@@ -3,8 +3,10 @@
 
 The roster is sourced from the existing multi-repo catalog, but the registry is an
 engineering control artifact outside the site projection. Live repository state is
-read from GitHub at exact heads. Monolith is fetched once, pinned to its observed
-main SHA, and supplies the principal-state / gate authority for the entire run.
+read from GitHub at exact heads. The non-secret Repository Excellence contract is
+read from public AKOS, which records the exact private Monolith source authority it
+projects. This keeps public census execution credential-minimal without weakening
+provenance or copying private runtime material.
 
 This script is read-only with respect to the inspected repositories.
 """
@@ -14,7 +16,6 @@ import argparse
 import base64
 import json
 import os
-import sys
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -28,7 +29,8 @@ DEFAULT_CATALOG = ROOT / "site-v15" / "data" / "excellence-multi-repo-catalog.js
 DEFAULT_OUTPUT = ROOT / "excellence" / "registry" / "excellence-repo-registry.json"
 API = "https://api.github.com"
 OWNER = "GlacierEQ"
-MONOLITH = "GlacierEQ/monolith"
+PUBLIC_AUTHORITY_REPO = "GlacierEQ/AKOS"
+PUBLIC_CONTRACT_PATH = "governance/glaciereq.repo-excellence-public-contract.v1.json"
 STATE_PATH = "machine/excellence-state.json"
 
 
@@ -81,16 +83,17 @@ def load_roster(catalog_path: Path) -> list[dict[str, str]]:
     return roster
 
 
-def fetch_monolith_authority(token: str | None) -> tuple[str, dict[str, Any], str, dict[str, Any], str]:
-    branch = api_get(f"{API}/repos/{MONOLITH}/branches/main", token)
-    sha = branch["commit"]["sha"]
-    machine, machine_blob = fetch_json_file(
-        MONOLITH, "catalog/repo_excellence_state_machine.json", sha, token
+def fetch_public_authority(token: str | None) -> tuple[str, str, dict[str, Any]]:
+    branch = api_get(f"{API}/repos/{PUBLIC_AUTHORITY_REPO}/branches/main", token)
+    public_sha = branch["commit"]["sha"]
+    contract, contract_blob = fetch_json_file(
+        PUBLIC_AUTHORITY_REPO, PUBLIC_CONTRACT_PATH, public_sha, token
     )
-    policy, policy_blob = fetch_json_file(
-        MONOLITH, "catalog/repo_excellence_disposition_policy.json", sha, token
-    )
-    return sha, machine, machine_blob, policy, policy_blob
+    if contract.get("schema") != "glaciereq.repo-excellence-public-contract.v1":
+        raise ValueError("unexpected Repo Excellence public-contract schema")
+    if contract.get("source_authority", {}).get("repository") != "GlacierEQ/monolith":
+        raise ValueError("public contract lost private Monolith source authority")
+    return public_sha, contract_blob, contract
 
 
 def prerequisite_gates(machine: dict[str, Any], principal_state: str) -> list[str]:
@@ -178,6 +181,18 @@ def analyze_state(
         refs = evidence.get("evidence_refs")
         if not isinstance(refs, list) or not refs:
             disposition_errors.append("evidence_refs required")
+
+        reason_needs_equivalence = reason in set(policy.get("equivalence_required_reason_codes", []))
+        action_needs_equivalence = state.get("novelty_action") in set(
+            policy.get("equivalence_required_actions", [])
+        )
+        if reason_needs_equivalence or action_needs_equivalence:
+            for field in policy.get("equivalence_fields", []):
+                if evidence.get(field) is not True:
+                    disposition_errors.append(f"{field} must be true")
+            successor = evidence.get("successor_repository")
+            if not isinstance(successor, str) or not successor.strip():
+                disposition_errors.append("successor_repository required")
 
     valid = not errors and not disposition_errors
     if not valid and action not in {"INITIALIZE_STATE", "REPAIR_STATE"}:
@@ -310,9 +325,12 @@ def summarize(records: list[dict[str, Any]]) -> dict[str, Any]:
 
 def build_registry(catalog_path: Path, token: str | None) -> dict[str, Any]:
     roster = load_roster(catalog_path)
-    monolith_sha, machine, machine_blob, policy, policy_blob = fetch_monolith_authority(token)
+    public_sha, contract_blob, contract = fetch_public_authority(token)
+    machine = contract["state_machine"]
+    policy = contract["disposition_policy"]
     records = [inspect_repository(item, machine, policy, token) for item in roster]
     records.sort(key=lambda row: (row["company"], row["repository"]))
+    source = contract["source_authority"]
     return {
         "schema": "glaciereq.excellence-live-registry.v1",
         "generated_at": utc_now(),
@@ -324,14 +342,17 @@ def build_registry(catalog_path: Path, token: str | None) -> dict[str, Any]:
             "job_application_source_sha": os.environ.get("GITHUB_SHA"),
         },
         "authority": {
-            "repository": MONOLITH,
-            "head_sha": monolith_sha,
-            "state_machine_path": "catalog/repo_excellence_state_machine.json",
-            "state_machine_blob_sha": machine_blob,
-            "disposition_policy_path": "catalog/repo_excellence_disposition_policy.json",
-            "disposition_policy_blob_sha": policy_blob,
-            "state_machine_version": machine.get("version"),
-            "disposition_policy_version": policy.get("version"),
+            "public_projection_repository": PUBLIC_AUTHORITY_REPO,
+            "public_projection_head_sha": public_sha,
+            "public_contract_path": PUBLIC_CONTRACT_PATH,
+            "public_contract_blob_sha": contract_blob,
+            "source_repository": source["repository"],
+            "source_head_sha": source["head_sha"],
+            "state_machine_path": source["state_machine_path"],
+            "state_machine_version": source["state_machine_version"],
+            "disposition_policy_path": source["disposition_policy_path"],
+            "disposition_policy_blob_sha": source.get("disposition_policy_blob_sha"),
+            "disposition_policy_version": source["disposition_policy_version"],
         },
         "summary": summarize(records),
         "repositories": records,
@@ -353,7 +374,8 @@ def main() -> int:
         f"repos={summary['repositories']} "
         f"valid={summary['state_valid']} "
         f"needs_work={summary['state_invalid_or_missing']} "
-        f"monolith={registry['authority']['head_sha']}"
+        f"public_authority={registry['authority']['public_projection_head_sha']} "
+        f"monolith_source={registry['authority']['source_head_sha']}"
     )
     return 0 if summary["inspection_status"].get("ERROR", 0) == 0 else 2
 
