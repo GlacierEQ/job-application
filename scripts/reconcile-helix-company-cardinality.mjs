@@ -132,6 +132,21 @@ function updateCompilerTestPin(source, helixCommit) {
   return { source: `${prefix}${nextSuffix}`, changed: nextSuffix !== suffix };
 }
 
+function scaleAtlasRenderer(source) {
+  let next = source;
+  const guardPattern = /\n  if \(companies\.length > \d+\) \{\n    throw new Error\("constellation supports at most \d+ governed company positions"\);\n  \}\n/;
+  if (guardPattern.test(next)) next = next.replace(guardPattern, '\n');
+  const radiusPattern = /const radius = 21 \+ r \* 12; \/\/ 21%, 33%, 45%, 57%, \.\.\./;
+  if (!radiusPattern.test(next)) {
+    throw new Error('render-helix-atlas.mjs: scalable constellation radius anchor missing');
+  }
+  next = next.replace(
+    radiusPattern,
+    'const radius = rings.length === 1 ? 31 : 16 + (31 * r) / (rings.length - 1);',
+  );
+  return { source: next, changed: next !== source };
+}
+
 const snapshotText = await readFile(SNAPSHOT, 'utf8');
 const snapshot = JSON.parse(snapshotText);
 const companyCount = Array.isArray(snapshot.companies) ? snapshot.companies.length : 0;
@@ -210,6 +225,14 @@ for (const relative of CARDINALITY_CONSUMERS) {
       return changed;
     })
     .join('\n');
+
+  if (relative === 'scripts/render-helix-atlas.mjs') {
+    const result = scaleAtlasRenderer(next);
+    if (result.changed) {
+      next = result.source;
+      replacements += 2;
+    }
+  }
 
   if (STANDARD_RUNTIME_HELIX_PIN_CONSUMERS.includes(relative)) {
     const result = updateStandardRuntimePin(next, relative, helixCommit);
@@ -293,6 +316,13 @@ const compilerTestSource = await readFile(path.join(ROOT, COMPILER_TEST_HELIX_PI
 if (!compilerTestSource.includes(`'${helixCommit}'`)) {
   throw new Error('compiler-proxy.test.js: compiler authority test does not match fresh projection');
 }
+const rendererSource = await readFile(path.join(ROOT, 'scripts/render-helix-atlas.mjs'), 'utf8');
+if (/companies\.length > \d+/.test(rendererSource)) {
+  throw new Error('render-helix-atlas.mjs: historical constellation ceiling remains');
+}
+if (!rendererSource.includes('16 + (31 * r) / (rings.length - 1)')) {
+  throw new Error('render-helix-atlas.mjs: bounded scalable ring radius missing');
+}
 
 const designSource = await readFile(path.join(ROOT, 'deployment/vercel-source-bridge/api/design-proxy.js'), 'utf8');
 if (!designSource.includes("/^[a-f0-9]{40}$/.test(String(star?.company_projection?.helix_commit || ''))")) {
@@ -300,7 +330,7 @@ if (!designSource.includes("/^[a-f0-9]{40}$/.test(String(star?.company_projectio
 }
 
 const receipt = {
-  schema: 'glaciereq.public-company-cardinality-reconciliation.v7',
+  schema: 'glaciereq.public-company-cardinality-reconciliation.v8',
   status: 'PASS',
   source: 'site-v15/data/helix-root.json',
   source_sha256: sha256(snapshotText),
@@ -319,7 +349,7 @@ const receipt = {
   invariants: [
     'Downstream public consumers validate the freshly synced Helix company projection rather than a historical fixed track count.',
     'Second-depth stage-count assertions follow the freshly synced public projection and may not preserve obsolete historical distributions.',
-    'The zero-script constellation scales deterministic concentric rings to the governed company count instead of failing when the estate grows past a historical presentation ceiling.',
+    'Both static constellation generators scale deterministic concentric rings to the governed company count instead of failing at historical presentation ceilings.',
     'Every governed company receives exactly one deterministic CSS position without inline style or client-side JavaScript.',
     'V21, design, and V25 compiler runtime bridges are reconciled to the same immutable Helix commit before release packaging.',
     'The V25 compiler count verifier is reconciled to the freshly synced authority rather than a historical numeric literal.',
