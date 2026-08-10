@@ -1,0 +1,34 @@
+{
+  "schema": "glaciereq.portfolio.claim-retirement.v1",
+  "date": "2026-08-10",
+  "status": "RETIRED",
+  "surface": "site-v15/resume/ats.txt",
+  "claim_fragment": "Agent Coordinator: 62 of 62 recorded Python tests for deterministic ownership, dependency order, capacity, stable priority, shared budgets, and explicit refusal.",
+  "reason": "This wording is ambiguous because it does not bind the 62/62 result to the historical executable revision and can be read as current-head verification.",
+  "historical_evidence": {
+    "repository": "GlacierEQ/anthropic-agent-coordinator",
+    "commit": "87438f57bdfd2cb380730cf51140611963d7c95b",
+    "result": "62/62 Python tests",
+    "scope": "historical pinned executable evidence only"
+  },
+  "current_default_branch_evidence": {
+    "repository": "GlacierEQ/anthropic-agent-coordinator",
+    "default_branch": "master",
+    "head": "0f2ca5199e67664a87ffef3f874d5836984dbbdb",
+    "portfolio_governance_state": "DISCOVERED",
+    "proof_ok": false,
+    "operable_ok": false,
+    "gap_blocker": "TESTS_FAIL",
+    "gap_ran": 9
+  },
+  "canonical_replacement_surface": "RESUME_ATS.md",
+  "replacement_semantics": "Historical 62/62 receipt remains valid only at commit 87438f57bdfd2cb380730cf51140611963d7c95b; current default-branch head 0f2ca5199e67664a87ffef3f874d5836984dbbdb is not promoted and does not inherit that receipt.",
+  "retirement_effect": "site-v15/resume/ats.txt MUST NOT be used as claim authority for Agent Coordinator test verification until regenerated from the canonical bounded claim.",
+  "nonclaims": [
+    "62/62 is not current-head verification",
+    "historical proof does not transfer across changed heads",
+    "current default-branch head is not promoted",
+    "no deployment, production-scale, or third-party adoption claim is implied"
+  ],
+  "next_cursor": "Regenerate site-v15/resume/ats.txt from RESUME_ATS.md or its canonical structured source, preserving the historical/current-head boundary, then run the repository resume/portfolio validation gates before treating the generated ATS surface as current."
+}
