@@ -145,6 +145,12 @@ function validateSecondDepth(company) {
     assert(Array.isArray(values), `${company.company_id}.${field}: evidence array missing`);
     for (const item of values) validateEvidenceReference(company.company_id, field, item);
   }
+  if (secondDepth.stage === "CLAIM_PROMOTED") {
+    assert(
+      secondDepth.evidence.claim_receipts.length > 0,
+      `${company.company_id}: CLAIM_PROMOTED requires at least one public claim receipt`,
+    );
+  }
 }
 
 async function main() {
@@ -333,8 +339,17 @@ async function main() {
 
   const stageCounts = Object.fromEntries(SECOND_DEPTH_STAGES.map((stage) => [stage, 0]));
   for (const company of snapshot.companies) stageCounts[company.second_depth.stage] += 1;
-  const claimPromoted = stageCounts.CLAIM_PROMOTED ?? 0;
-  assert(claimPromoted === 1, "claim-promoted company count drift");
+  const claimPromotedCompanies = snapshot.companies.filter(
+    (company) => company.second_depth.stage === "CLAIM_PROMOTED",
+  );
+  const claimPromotedIds = new Set(claimPromotedCompanies.map((company) => company.company_id));
+  assert(
+    claimPromotedCompanies.every((company) => company.second_depth.evidence.claim_receipts.length > 0),
+    "every CLAIM_PROMOTED company must retain public claim receipts",
+  );
+  assert(claimPromotedIds.has("lockheed_martin"), "Lockheed Martin CLAIM_PROMOTED state regressed");
+  assert(claimPromotedIds.has("github"), "GitHub CLAIM_PROMOTED state regressed");
+  const claimPromoted = claimPromotedCompanies.length;
   const stageSum = Object.values(stageCounts).reduce((a, b) => a + b, 0);
   assert(
     stageSum === snapshot.companies.length,
@@ -351,6 +366,7 @@ async function main() {
         source_digest: snapshot.source.source_digest,
         flagships: snapshot.flagships.length,
         companies: snapshot.companies.length,
+        claim_promoted_companies: claimPromoted,
         second_depth: stageCounts,
         public_repository_memberships: snapshot.companies.reduce(
           (count, company) => count + company.repositories.length,

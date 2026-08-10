@@ -3,30 +3,41 @@
   "company": "GitHub",
   "capability": "merge_authority_graph",
   "projection_authority": {
-    "helix_sha": "86e642b01817adad3d4e89da86a0f9a857c09cc4",
-    "helix_stage": "PROOF_REPRODUCED",
-    "helix_claim_ceiling": "reproducible_company_specific_proof"
+    "helix_sha": "b09b7925a5448b934c69e8f175f6b6747794a474",
+    "helix_stage": "CLAIM_PROMOTED",
+    "helix_claim_ceiling": "proof_bound_company_specific"
   },
   "expected_public_projection": {
     "record_path": "site-v15/companies/github/record.json",
     "page_path": "site-v15/companies/github/index.html",
     "company_id": "github",
-    "stage": "PROOF_REPRODUCED",
-    "claim_ceiling": "reproducible_company_specific_proof",
+    "stage": "CLAIM_PROMOTED",
+    "claim_ceiling": "proof_bound_company_specific",
+    "claim_receipts": 2,
     "public_proof_package": "projects/github-merge-authority-proof/"
   },
-  "production_closure_receipt": "projects/github-merge-authority-proof/proof/production-projection-closure.json",
+  "historical_promotion_basis": {
+    "claim_receipt": "projects/github-merge-authority-proof/proof/claim-receipt.json",
+    "claim_receipt_git_blob_sha": "8386979ae83426b3e6651d9e67018efbd90bb571",
+    "production_closure_receipt": "projects/github-merge-authority-proof/proof/production-projection-closure.json",
+    "production_closure_git_blob_sha": "0726d2f6185f3c7f178760a0629db3b639f7e55f",
+    "admitted_commit": "577f63c506c6c4df9c1751a0ff5b8fa07822e491"
+  },
+  "production_claim_promotion_readback": "projects/github-merge-authority-proof/proof/production-claim-promotion-readback.json",
   "validation_contract": [
     "record company identity is GitHub/github",
-    "record second-depth stage is PROOF_REPRODUCED",
-    "record claim ceiling is reproducible_company_specific_proof",
-    "company HTML presents PROOF_REPRODUCED and the same claim ceiling",
-    "company HTML preserves independent-work and non-affiliation boundary",
-    "fresh effective Helix projection resolves GitHub to the same stage and claim ceiling",
-    "production closure receipt binds the deployed job-application source SHA, effective Helix SHA, V25/V26 PASS readbacks, GitHub compiler JSON, GitHub company record, company HTML, and the same bounded nonclaim",
+    "record second-depth stage is CLAIM_PROMOTED",
+    "record claim ceiling is proof_bound_company_specific",
+    "record contains exactly two admitted public claim receipts",
+    "company HTML presents CLAIM_PROMOTED and the same claim ceiling",
+    "company HTML preserves independent-work and non-affiliation/adoption/deployment boundary",
+    "fresh effective Helix projection resolves GitHub to the same stage, ceiling, and claim-receipt cardinality",
+    "historical claim and production-closure receipts are bound by their Git blob identities and the admitted promotion commit rather than trusted by shape alone",
+    "the dedicated gate independently fetches the canonical production alias and verifies bundle, V25, V26, compiler JSON, company JSON, and company HTML against the effective authority and recorded deployment",
+    "post-promotion production readback binds the deployed job-application source SHA, effective Helix SHA, V25/V26 PASS readbacks, GitHub compiler JSON, GitHub company record, company HTML, claim receipt cardinality, and the same bounded nonclaim",
     "public proof package remains present and source/private boundaries remain explicit"
   ],
-  "allowed_public_claim": "Independently designed and reproduced a governed GitHub mutation path that binds exact change identity, expected repository state, required validation, bounded approval, short-lived repository authority, provider mutation, bounded eventual-state reconciliation, canonical readback, replay suppression, and receipt evidence.",
+  "allowed_public_claim": "GlacierEQ independently implemented and reproduced a governed GitHub mutation path and carries a proof-bound company-specific public claim backed by immutable proof, claim, production-projection, and post-promotion readback receipts.",
   "prohibited_claims": [
     "GitHub uses, adopted, evaluated, endorsed, or deployed this GlacierEQ capability.",
     "Casey Barton is or was employed by GitHub on the basis of this proof.",
@@ -34,5 +45,5 @@
     "The private apex-github-worker implementation source is public.",
     "Production-scale reliability, latency, throughput, durability, or GitHub-scale operation is established."
   ],
-  "promotion_rule": "This receipt is repository-promotion evidence only when scripts/validate-github-merge-authority-public-readback.mjs passes against the candidate package, the production closure receipt is internally consistent with the same effective Helix authority, and the PR carrying the receipt is admitted through the repository's normal review/check path. Company CLAIM_PROMOTED remains separate and requires this public claim receipt to be admitted into Helix claim_receipts."
+  "promotion_rule": "CLAIM_PROMOTED is closed only when historical promotion inputs match their content-addressed Git blob identities, the current effective Helix authority is CLAIM_PROMOTED at proof_bound_company_specific, the canonical production alias independently reads back the same deployed source and effective authority across bundle/V25/V26/compiler/company JSON/company HTML, and the PR carrying this final readback passes the dedicated public-readback gate. Any higher claim requires new evidence and a new gate."
 }
