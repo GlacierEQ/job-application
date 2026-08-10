@@ -1,0 +1,52 @@
+{
+  "schema": "glaciereq.portfolio-proof-promotion-readback.v1",
+  "company": "Anthropic",
+  "cycle_date": "2026-08-09",
+  "delta_type": "CANONICAL_SECOND_DEPTH_PROMOTION",
+  "job_application_base": "ee352d7bb40f2aba6b356fd1c565a74df5e38d37",
+  "prior_reconciliation_receipt": "portfolio-proof/receipts/ANTHROPIC_AI_RELIABILITY_RECONCILIATION__2026-08-09.json",
+  "helix_transition": {
+    "repository": "GlacierEQ/job-app-helix",
+    "before": "ccc46f81792c5b90135e2a10c649fdb02b5be3cd",
+    "after": "8345955b67f163c3215b23195a267b6021a5be5e",
+    "pull_request": 121,
+    "stage_before": "MAPPED_ONLY",
+    "stage_after": "CODE_INSPECTED",
+    "claim_ceiling_before": "company_alignment_only",
+    "claim_ceiling_after": "inspected_implementation_alignment"
+  },
+  "canonical_evidence_after": {
+    "role": "Staff Software Engineer, AI Reliability",
+    "role_and_problem_receipt_commit": "440e353a6eb6073aaca724a6402ae5329d0e9be6",
+    "inspected_repositories": [
+      {
+        "repository": "GlacierEQ/anthropic-agent-coordinator",
+        "commit": "ac977563cfd59deb8e87177f53082184f6468aa8",
+        "path": "src/anthropic_agent_coordinator/coordinator.py"
+      },
+      {
+        "repository": "GlacierEQ/anthropic-safety-monitor",
+        "commit": "a5c21172e32ce6054994402c38d86f7ef94bc56b",
+        "path": "src/anthropic_safety_monitor/policy.py"
+      }
+    ]
+  },
+  "verification": {
+    "application_registry_validation": {"run_id": 31346745462, "conclusion": "success"},
+    "portfolio_compiler_integrity": {"run_id": 31346745480, "conclusion": "success"},
+    "ci": {
+      "run_id": 31346745490,
+      "conclusion": "success",
+      "python_versions": ["3.11", "3.12", "3.13"]
+    },
+    "coderabbit": "success",
+    "post_merge_manifest_readback": true
+  },
+  "remaining_blockers": [
+    "company_specific_remedy_not_bounded",
+    "implementation_receipt_not_bound_to_anthropic_problem",
+    "proof_not_reproduced",
+    "claim_not_promoted"
+  ],
+  "next_gate": "REMEDY_BOUNDED: define one company-specific reliability remedy using the verified role/problem and inspected coordinator/safety-monitor mechanisms, without claiming deployment, production SLO attainment, Anthropic-scale operation, or semantic-safety completeness."
+}
