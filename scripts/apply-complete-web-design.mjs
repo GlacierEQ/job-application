@@ -7,6 +7,7 @@ import { fileURLToPath } from 'node:url';
 const THIS_FILE = fileURLToPath(import.meta.url);
 const ROOT = path.resolve(path.dirname(THIS_FILE), '..');
 const SITE = path.join(ROOT, 'site-v15');
+const SYSTEMS_LINK = '<link rel="stylesheet" href="/assets/site.systems.css">';
 const COMPLETE = '<link rel="stylesheet" href="/assets/site.complete.css">';
 const INTERACTION = '<link rel="stylesheet" href="/assets/site.interaction.css">';
 const ALGERIAN = '<link rel="stylesheet" href="/assets/site.algerian.css">';
@@ -26,6 +27,14 @@ async function htmlFiles(directory) {
   return out.sort();
 }
 
+function isMetaRefreshRedirect(html) {
+  const metaTags = html.match(/<meta\b[^>]*>/gi) ?? [];
+  return metaTags.some(tag => (
+    /\bhttp-equiv\s*=\s*["']refresh["']/i.test(tag)
+    && /\bcontent\s*=\s*["'][^"']*\burl\s*=/i.test(tag)
+  ));
+}
+
 function inject(html, relative) {
   const completeMatches = [...html.matchAll(COMPLETE_PATTERN)];
   const interactionMatches = [...html.matchAll(INTERACTION_PATTERN)];
@@ -33,12 +42,29 @@ function inject(html, relative) {
   if (completeMatches.length > 1) throw new Error(`${relative}: duplicate complete-design stylesheet`);
   if (interactionMatches.length > 1) throw new Error(`${relative}: duplicate interaction stylesheet`);
   if (algerianMatches.length > 1) throw new Error(`${relative}: duplicate Algerian display stylesheet`);
+
+  const hasSystems = SYSTEMS.test(html);
   if (
-    completeMatches.length === 1
+    hasSystems
+    && completeMatches.length === 1
     && interactionMatches.length === 1
     && algerianMatches.length === 1
   ) return { html, changed: false };
-  if (!SYSTEMS.test(html)) throw new Error(`${relative}: site.systems.css anchor missing`);
+
+  if (!hasSystems) {
+    if (!isMetaRefreshRedirect(html)) throw new Error(`${relative}: site.systems.css anchor missing`);
+    if (!/<\/head>/i.test(html)) throw new Error(`${relative}: redirect head closing tag missing`);
+
+    const missingLinks = [SYSTEMS_LINK];
+    if (completeMatches.length === 0) missingLinks.push(COMPLETE);
+    if (interactionMatches.length === 0) missingLinks.push(INTERACTION);
+    if (algerianMatches.length === 0) missingLinks.push(ALGERIAN);
+
+    const injectedLinks = missingLinks.map(link => `  ${link}`).join('\n');
+    const next = html.replace(/<\/head>/i, `${injectedLinks}\n</head>`);
+    if (next === html) throw new Error(`${relative}: redirect design injection failed`);
+    return { html: next, changed: true };
+  }
 
   let next = html;
   if (completeMatches.length === 0) next = next.replace(SYSTEMS, match => `${match}\n  ${COMPLETE}`);
