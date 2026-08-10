@@ -23,6 +23,13 @@
   ],
   "claim_ceiling": "IMPLEMENTATION_INSPECTED",
   "current_exact_head_native_test_execution": "NOT_OBSERVED_IN_THIS_CYCLE",
+  "control_plane_gate_repair": {
+    "repository": "GlacierEQ/job-application",
+    "mechanical_autofix_commit": "618c633135dc50b4547e4184c24161f5fd102876",
+    "method": "branch-scoped one-shot Ruff 0.16.2 fix plus formatting; temporary workflow removed in the same commit",
+    "reason": "strict repository CI exposed 57 pre-existing Ruff violations while validating this proof delta",
+    "claim_effect": "NONE"
+  },
   "nonclaims": [
     "autonomous_estate_wide_enforcement",
     "production_deployment",
