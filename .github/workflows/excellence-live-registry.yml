@@ -1,0 +1,42 @@
+name: Excellence Live Registry
+
+on:
+  push:
+    branches:
+      - feat/excellence-live-registry
+    paths:
+      - "excellence/registry/**"
+      - "site-v15/data/excellence-multi-repo-catalog.json"
+      - ".github/workflows/excellence-live-registry.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  census:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify registry logic
+        run: python -m unittest discover -s excellence/registry/tests -p 'test_*.py' -v
+      - name: Inspect all 37 live repositories
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python excellence/registry/build_registry.py
+      - name: Persist census on the feature branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add excellence/registry/excellence-repo-registry.json
+          if git diff --cached --quiet; then
+            echo "registry unchanged"
+            exit 0
+          fi
+          git commit -m "chore(excellence): refresh live 37-repo registry"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
