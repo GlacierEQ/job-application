@@ -155,14 +155,6 @@
       "gate": "PROOF_RECEIPT_BOUND",
       "result": "PASS",
       "note": "seeded from existing public proof package"
-    },
-    {
-      "at": "2026-08-09T07:09Z",
-      "from": "PROOF_REPRODUCED",
-      "to": "PROOF_REPRODUCED",
-      "gate": "EVOLUTION_CURSOR_DEFINED",
-      "result": "PASS",
-      "note": "capability harvest to monolith catalog; principal state unchanged until Helix promotes private CANONICAL"
     }
   ],
   "contract_ref": "machine/target-contract.json",
