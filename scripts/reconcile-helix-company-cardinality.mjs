@@ -22,12 +22,19 @@ const CARDINALITY_CONSUMERS = [
   'deployment/vercel-source-bridge/api/typography-proxy.js',
   'deployment/vercel-source-bridge/proxy.test.js',
   'deployment/vercel-source-bridge/design-proxy.test.js',
+  'deployment/vercel-source-bridge/compiler-proxy.test.js',
   'deployment/vercel-source-bridge/typography-proxy.test.js',
 ];
 
-const RUNTIME_HELIX_PIN_CONSUMERS = [
+const STANDARD_RUNTIME_HELIX_PIN_CONSUMERS = [
   'deployment/vercel-source-bridge/api/proxy.js',
   'deployment/vercel-source-bridge/api/design-proxy.js',
+];
+const COMPILER_RUNTIME_HELIX_PIN = 'deployment/vercel-source-bridge/api/compiler-proxy.js';
+const COMPILER_TEST_HELIX_PIN = 'deployment/vercel-source-bridge/compiler-proxy.test.js';
+const RUNTIME_HELIX_PIN_CONSUMERS = [
+  ...STANDARD_RUNTIME_HELIX_PIN_CONSUMERS,
+  COMPILER_RUNTIME_HELIX_PIN,
 ];
 
 const CONTEXT = /(compan(?:y|ies)|track|atlas|portfolio|helix)/i;
@@ -92,6 +99,37 @@ function constellationPositionCss(count) {
     startIndex += ringCount;
   }
   return { css: rows.join(''), ringCount: rings.length, rings };
+}
+
+function updateStandardRuntimePin(source, relative, helixCommit) {
+  const pinPattern = /const HELIX_COMMIT = '[a-f0-9]{40}';/;
+  if (!pinPattern.test(source)) throw new Error(`${relative}: immutable HELIX_COMMIT pin missing`);
+  const desired = `const HELIX_COMMIT = '${helixCommit}';`;
+  if (source.includes(desired)) return { source, changed: false };
+  return { source: source.replace(pinPattern, desired), changed: true };
+}
+
+function updateCompilerRuntimePin(source, helixCommit) {
+  const pinPattern = /const COMPILER_HELIX_COMMIT = '[a-f0-9]{40}';/;
+  if (!pinPattern.test(source)) throw new Error('compiler-proxy.js: immutable COMPILER_HELIX_COMMIT pin missing');
+  const desired = `const COMPILER_HELIX_COMMIT = '${helixCommit}';`;
+  let next = source.includes(desired) ? source : source.replace(pinPattern, desired);
+  const countPattern = /(data\.projection\.company_count\s*!==\s*)\d+/;
+  if (!countPattern.test(next)) throw new Error('compiler-proxy.js: V25 company-count verifier missing');
+  next = next.replace(countPattern, `$1${companyCount}`);
+  return { source: next, changed: next !== source };
+}
+
+function updateCompilerTestPin(source, helixCommit) {
+  const anchor = 'compiler.constants.COMPILER_HELIX_COMMIT';
+  const anchorIndex = source.indexOf(anchor);
+  if (anchorIndex < 0) throw new Error('compiler-proxy.test.js: compiler authority assertion missing');
+  const prefix = source.slice(0, anchorIndex);
+  const suffix = source.slice(anchorIndex);
+  const pinPattern = /'[a-f0-9]{40}'/;
+  if (!pinPattern.test(suffix)) throw new Error('compiler-proxy.test.js: immutable compiler authority pin missing');
+  const nextSuffix = suffix.replace(pinPattern, `'${helixCommit}'`);
+  return { source: `${prefix}${nextSuffix}`, changed: nextSuffix !== suffix };
 }
 
 const snapshotText = await readFile(SNAPSHOT, 'utf8');
@@ -173,14 +211,29 @@ for (const relative of CARDINALITY_CONSUMERS) {
     })
     .join('\n');
 
-  if (RUNTIME_HELIX_PIN_CONSUMERS.includes(relative)) {
-    const pinPattern = /const HELIX_COMMIT = '[a-f0-9]{40}';/;
-    if (!pinPattern.test(next)) throw new Error(`${relative}: immutable HELIX_COMMIT pin missing`);
-    const desired = `const HELIX_COMMIT = '${helixCommit}';`;
-    if (!next.includes(desired)) {
-      next = next.replace(pinPattern, desired);
+  if (STANDARD_RUNTIME_HELIX_PIN_CONSUMERS.includes(relative)) {
+    const result = updateStandardRuntimePin(next, relative, helixCommit);
+    if (result.changed) {
+      next = result.source;
       replacements += 1;
       runtimeHelixPinUpdated = true;
+    }
+  }
+
+  if (relative === COMPILER_RUNTIME_HELIX_PIN) {
+    const result = updateCompilerRuntimePin(next, helixCommit);
+    if (result.changed) {
+      next = result.source;
+      replacements += 1;
+      runtimeHelixPinUpdated = true;
+    }
+  }
+
+  if (relative === COMPILER_TEST_HELIX_PIN) {
+    const result = updateCompilerTestPin(next, helixCommit);
+    if (result.changed) {
+      next = result.source;
+      replacements += 1;
     }
   }
 
@@ -223,11 +276,22 @@ if (!cssNext.includes(`.atlas-star.star-p${companyCount - 1}{`)) {
   throw new Error('Generated constellation CSS does not cover the authoritative company count');
 }
 
-for (const relative of RUNTIME_HELIX_PIN_CONSUMERS) {
+for (const relative of STANDARD_RUNTIME_HELIX_PIN_CONSUMERS) {
   const runtimeSource = await readFile(path.join(ROOT, relative), 'utf8');
   if (!runtimeSource.includes(`const HELIX_COMMIT = '${helixCommit}';`)) {
     throw new Error(`${relative}: runtime Helix authority does not match fresh projection`);
   }
+}
+const compilerRuntimeSource = await readFile(path.join(ROOT, COMPILER_RUNTIME_HELIX_PIN), 'utf8');
+if (!compilerRuntimeSource.includes(`const COMPILER_HELIX_COMMIT = '${helixCommit}';`)) {
+  throw new Error('compiler-proxy.js: compiler Helix authority does not match fresh projection');
+}
+if (!compilerRuntimeSource.includes(`data.projection.company_count !== ${companyCount}`)) {
+  throw new Error('compiler-proxy.js: compiler company-count verifier does not match fresh projection');
+}
+const compilerTestSource = await readFile(path.join(ROOT, COMPILER_TEST_HELIX_PIN), 'utf8');
+if (!compilerTestSource.includes(`'${helixCommit}'`)) {
+  throw new Error('compiler-proxy.test.js: compiler authority test does not match fresh projection');
 }
 
 const designSource = await readFile(path.join(ROOT, 'deployment/vercel-source-bridge/api/design-proxy.js'), 'utf8');
@@ -236,7 +300,7 @@ if (!designSource.includes("/^[a-f0-9]{40}$/.test(String(star?.company_projectio
 }
 
 const receipt = {
-  schema: 'glaciereq.public-company-cardinality-reconciliation.v6',
+  schema: 'glaciereq.public-company-cardinality-reconciliation.v7',
   status: 'PASS',
   source: 'site-v15/data/helix-root.json',
   source_sha256: sha256(snapshotText),
@@ -250,13 +314,15 @@ const receipt = {
   generated_constellation_ring_population: constellation.rings,
   constellation_css_sha256: sha256(cssNext),
   runtime_helix_pin_consumers: RUNTIME_HELIX_PIN_CONSUMERS,
+  compiler_authority_test_consumer: COMPILER_TEST_HELIX_PIN,
   patched_consumers: patched,
   invariants: [
     'Downstream public consumers validate the freshly synced Helix company projection rather than a historical fixed track count.',
     'Second-depth stage-count assertions follow the freshly synced public projection and may not preserve obsolete historical distributions.',
     'The zero-script constellation scales deterministic concentric rings to the governed company count instead of failing when the estate grows past a historical presentation ceiling.',
     'Every governed company receives exactly one deterministic CSS position without inline style or client-side JavaScript.',
-    'Runtime company-projection bridges use the same immutable Helix commit as the freshly synced static projection while historical static-source pins remain unchanged.',
+    'V21, design, and V25 compiler runtime bridges are reconciled to the same immutable Helix commit before release packaging.',
+    'The V25 compiler count verifier is reconciled to the freshly synced authority rather than a historical numeric literal.',
     'The blob-pinned current-proof receipt preserves its historical Helix identity and is not required to equal the current runtime Helix projection commit.',
   ],
 };
