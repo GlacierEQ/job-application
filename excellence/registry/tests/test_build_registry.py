@@ -26,7 +26,14 @@ MACHINE = {
         "CANONICAL",
         "EVOLVING",
     ],
-    "side_exits": ["BLOCKED", "EXPERIMENT", "REFERENCE", "SUPERSEDED", "RETIREMENT_READY", "QUARANTINE"],
+    "side_exits": [
+        "BLOCKED",
+        "EXPERIMENT",
+        "REFERENCE",
+        "SUPERSEDED",
+        "RETIREMENT_READY",
+        "QUARANTINE",
+    ],
     "stage_gates": {
         "DISCOVERED": None,
         "IDENTITY_RESOLVED": "IDENTITY_RESOLVED",
@@ -48,7 +55,10 @@ POLICY = {
     "protected_side_exits": ["SUPERSEDED", "RETIREMENT_READY"],
     "protected_novelty_actions": ["DONOR_ONLY", "SUPERSEDE", "RETIRE"],
     "forbidden_reason_codes": ["SMALL_REPO", "PRESENTATION_SIMPLIFICATION"],
-    "allowed_reason_codes": ["VERIFIED_EQUIVALENT_SUCCESSOR", "EXPLICIT_OPERATOR_RETIREMENT"],
+    "allowed_reason_codes": [
+        "VERIFIED_EQUIVALENT_SUCCESSOR",
+        "EXPLICIT_OPERATOR_RETIREMENT",
+    ],
     "required_true_fields": [
         "unique_value_assessed",
         "unique_value_preserved",
