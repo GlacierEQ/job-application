@@ -1,0 +1,35 @@
+{
+  "schema": "glaciereq.portfolio-proof-receipt.v1",
+  "system": "helix_repository_excellence_compiler",
+  "cycle_date": "2026-08-09",
+  "lane": 1,
+  "delta_type": "NEW_RECRUITER_MASTER_MACHINE_MESH_PROOF_SURFACE",
+  "source": {
+    "repository": "GlacierEQ/job-app-helix",
+    "head": "7882b3b76f60eece6a48a49d194df337c65ab5bb",
+    "implementation_path": "src/job_app_helix/repo_excellence.py",
+    "implementation_blob_sha": "0b18fdf616f9d72b3a39d584106ffe31ee6ec277",
+    "doctrine_path": "docs/REPO_EXCELLENCE_COMPILER.md",
+    "doctrine_blob_sha": "e775530e34441a95e0872c2cf87269d990c734e5"
+  },
+  "claim": "Built a repository-evolution control plane that advances repositories through explicit evidence-gated lifecycle states, preserves explicit side exits, keeps architecture/proof/company-fit/canonical-confidence dimensions separate, and requires bounded promotion gates rather than prose-based completion.",
+  "verified_from_current_head_inspection": [
+    "one_step_principal_state_transition",
+    "explicit_side_exit_handling",
+    "proof_reproduced_to_promoted_gate_requirements",
+    "canonical_identity_guard_for_canonical_and_evolving_states",
+    "independent_score_axes",
+    "conjunctive_excellence_gate"
+  ],
+  "claim_ceiling": "IMPLEMENTATION_INSPECTED",
+  "current_exact_head_native_test_execution": "NOT_OBSERVED_IN_THIS_CYCLE",
+  "nonclaims": [
+    "autonomous_estate_wide_enforcement",
+    "production_deployment",
+    "current_exact_head_test_pass",
+    "universal_repository_equivalence",
+    "repository_count_as_accomplishment"
+  ],
+  "proof_surface": "portfolio-proof/HELIX_REPOSITORY_EXCELLENCE_COMPILER_PROOF_SURFACES_2026-08-09.md",
+  "next_gate": "Bind a current exact-head Helix-native verification receipt for the repository-excellence contract before raising the proof ceiling."
+}
