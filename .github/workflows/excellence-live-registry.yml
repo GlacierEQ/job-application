@@ -31,12 +31,18 @@ jobs:
       - name: Verify registry logic
         run: python -m unittest discover -s excellence/registry/tests -p 'test_*.py' -v
       - name: Inspect all 37 live repositories
+        id: live-census
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
         run: python excellence/registry/build_registry.py
       - name: Derive gate priority queue
+        id: priority-queue
+        if: always()
+        continue-on-error: true
         run: python excellence/registry/build_priority_queue.py
       - name: Publish census artifacts
+        if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: excellence-live-registry-${{ github.sha }}
@@ -44,3 +50,6 @@ jobs:
           path: |
             excellence/registry/excellence-repo-registry.json
             excellence/registry/excellence-priority-queue.json
+      - name: Fail after preserving diagnostics
+        if: always() && (steps.live-census.outcome == 'failure' || steps.priority-queue.outcome == 'failure')
+        run: exit 1
