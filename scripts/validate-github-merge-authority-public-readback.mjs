@@ -42,7 +42,7 @@ assert(
 );
 for (const boundary of [
   /Independent GlacierEQ work/i,
-  /no affiliation/i,
+  /no (?:GitHub )?affiliation/i,
   /no (?:GitHub )?adoption/i,
 ]) {
   assert(boundary.test(page) || boundary.test(recordText), `public truth boundary missing: ${boundary}`);
