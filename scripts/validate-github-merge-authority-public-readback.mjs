@@ -10,7 +10,8 @@ const assert = (condition, message) => {
 const receipt = JSON.parse(await read('projects/github-merge-authority-proof/proof/public-projection-readback.json'));
 const record = JSON.parse(await read(receipt.expected_public_projection.record_path));
 const page = await read(receipt.expected_public_projection.page_path);
-const atlas = JSON.parse(await read('site-v15/data/company-atlas-summary.json'));
+const helix = JSON.parse(await read('site-v15/data/helix-root.json'));
+const atlasPage = await read('site-v15/atlas/index.html');
 
 for (const path of [
   'projects/github-merge-authority-proof/README.md',
@@ -54,25 +55,19 @@ assert(
   'no-production-deployment boundary missing or not governed by the coordinated no-claim sentence',
 );
 
-function walk(value, matches = []) {
-  if (Array.isArray(value)) {
-    for (const item of value) walk(item, matches);
-    return matches;
-  }
-  if (value && typeof value === 'object') {
-    const text = JSON.stringify(value);
-    if (
-      /github/i.test(text)
-      && text.includes('PROOF_REPRODUCED')
-      && text.includes('reproducible_company_specific_proof')
-    ) matches.push(value);
-    for (const item of Object.values(value)) walk(item, matches);
-  }
-  return matches;
-}
-
-const atlasMatches = walk(atlas);
-assert(atlasMatches.length > 0, 'company Atlas has no GitHub PROOF_REPRODUCED projection');
+assert(helix.schema === 'glaciereq.public-portfolio-projection.v1', 'unexpected public Helix projection schema');
+const github = helix.companies?.find((company) => company.company_id === 'github');
+assert(github, 'GitHub is missing from the freshly compiled Helix company projection');
+assert(github.second_depth?.stage === 'PROOF_REPRODUCED', 'Helix GitHub stage is not PROOF_REPRODUCED');
+assert(
+  github.second_depth?.claim_ceiling === 'reproducible_company_specific_proof',
+  'Helix GitHub claim ceiling drift',
+);
+assert(
+  atlasPage.includes('/companies/github/')
+    && (atlasPage.includes('GitHub · Proof Reproduced') || atlasPage.includes('GitHub · PROOF_REPRODUCED')),
+  'fresh Helix Atlas does not expose the GitHub PROOF_REPRODUCED route',
+);
 
 const inspection = JSON.parse(await read('projects/github-merge-authority-proof/machine/implementation-inspection.json'));
 assert(inspection.visibility === 'private', 'private implementation visibility boundary drift');
@@ -90,10 +85,10 @@ console.log(JSON.stringify({
   status: 'PASS',
   company: 'GitHub',
   capability: 'merge_authority_graph',
-  helix_sha: receipt.projection_authority.helix_sha,
-  stage: 'PROOF_REPRODUCED',
-  claim_ceiling: 'reproducible_company_specific_proof',
-  atlas_matches: atlasMatches.length,
+  helix_sha: helix.source?.root_ref,
+  stage: github.second_depth.stage,
+  claim_ceiling: github.second_depth.claim_ceiling,
+  atlas_route: '/companies/github/',
   private_source_disclosed: false,
   promotion_readback_ready: true,
 }, null, 2));
