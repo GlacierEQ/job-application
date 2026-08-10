@@ -1,0 +1,27 @@
+{
+  "schema": "glaciereq.excellence-registry-refresh-receipt.v1",
+  "trigger": "spacex-mission-thread-quorum canonicalization",
+  "canonical_head": {
+    "repository": "GlacierEQ/spacex-mission-thread-quorum",
+    "merge_sha": "1046858ea3647f4072ce166fd88fd34ff64b94bd",
+    "state": "EVOLVING",
+    "canonical_role": "freshness_bound_multi_subsystem_quorum_aggregation"
+  },
+  "exact_candidate_proof": {
+    "source_sha": "853882c0e4c4993718b6f4ce3c2cbdc336ba857a",
+    "workflow_run_id": 31398267420,
+    "result": "PASS"
+  },
+  "receipt_inclusive_proof": {
+    "source_sha": "33a8c0de934a2301d95073fa280577f4f2eb6bfd",
+    "workflow_run_id": 31398619341,
+    "result": "PASS"
+  },
+  "truth_boundary": {
+    "integration_exercised_with_hold_reason_compiler": false,
+    "production_deployment_claimed": false,
+    "spacex_affiliation_or_adoption_claimed": false,
+    "real_launch_authority_claimed": false
+  },
+  "required_next_gate": "live 37-repository census must inspect current canonical heads and derive a fresh priority queue"
+}
