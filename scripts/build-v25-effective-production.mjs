@@ -78,10 +78,18 @@ function transformCompiler(source, helixCommit) {
     'second_depth: SECOND_DEPTH_PATH,\n      second_depth_overrides: SECOND_DEPTH_OVERRIDE_INDEX_PATH,\n      flagship_registry:',
     'effective_second_depth_authority_receipt',
   );
+  next = replaceOnce(
+    next,
+    /if \(data\.projection\.company_count !== 76\) errors\.push\('compiler_company_count'\);/,
+    "if (!Number.isInteger(data.projection.company_count) || data.projection.company_count < 1) errors.push('compiler_company_count');\n    if (!Array.isArray(data.projection.companies) || data.projection.company_count !== data.projection.companies.length) errors.push('compiler_company_count_mismatch');",
+    'compiler_company_count_contract',
+  );
 
   requireValue(next.includes(helixCommit), 'transformed_compiler_missing_helix_pin');
   requireValue(next.includes('loadEffectiveSecondDepth'), 'transformed_compiler_missing_effective_loader');
   requireValue(next.includes('company_second_depth_overrides/index.json'), 'transformed_compiler_missing_override_index');
+  requireValue(!next.includes('company_count !== 76'), 'transformed_compiler_stale_cardinality_pin');
+  requireValue(next.includes('compiler_company_count_mismatch'), 'transformed_compiler_missing_cardinality_consistency');
   return next;
 }
 
@@ -114,6 +122,8 @@ function main() {
     const bundle = fs.readFileSync(path.join(outputDir, 'api', 'index.js'), 'utf8');
     requireValue(bundle.includes(helixCommit), 'effective_bundle_helix_pin_missing');
     requireValue(bundle.includes('company_second_depth_overrides/index.json'), 'effective_bundle_override_index_missing');
+    requireValue(bundle.includes('compiler_company_count_mismatch'), 'effective_bundle_cardinality_contract_missing');
+    requireValue(!bundle.includes('company_count !== 76'), 'effective_bundle_stale_cardinality_pin');
     process.stdout.write(JSON.stringify({
       status: 'PASS',
       source_commit: sourceCommit,
