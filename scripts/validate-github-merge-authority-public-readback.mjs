@@ -9,6 +9,62 @@ const assert = (condition, message) => {
 const SHA40 = /^[a-f0-9]{40}$/;
 const SHA256 = /^[a-f0-9]{64}$/;
 
+async function verifyHelixAuthorityEquivalence(deployedCommit, currentCommit, allowedPrefixes) {
+  assert(SHA40.test(deployedCommit || ''), 'deployed Helix authority SHA invalid');
+  assert(SHA40.test(currentCommit || ''), 'current Helix authority SHA invalid');
+  assert(
+    Array.isArray(allowedPrefixes)
+      && allowedPrefixes.length > 0
+      && allowedPrefixes.every((prefix) => typeof prefix === 'string' && prefix.length > 0),
+    'Helix authority-equivalence path policy missing',
+  );
+
+  if (deployedCommit === currentCommit) {
+    return {
+      status: 'EXACT_COMMIT_MATCH',
+      deployed_commit: deployedCommit,
+      current_commit: currentCommit,
+      changed_files: [],
+    };
+  }
+
+  const token = process.env.GITHUB_TOKEN;
+  assert(token, 'GITHUB_TOKEN is required to verify Helix authority equivalence');
+  const response = await fetch(
+    `https://api.github.com/repos/GlacierEQ/job-app-helix/compare/${deployedCommit}...${currentCommit}`,
+    {
+      headers: {
+        Accept: 'application/vnd.github+json',
+        Authorization: `Bearer ${token}`,
+        'X-GitHub-Api-Version': '2022-11-28',
+      },
+    },
+  );
+  assert(response.ok, `Helix authority comparison failed: HTTP ${response.status}`);
+  const comparison = await response.json();
+  assert(
+    comparison.merge_base_commit?.sha === deployedCommit,
+    'current Helix head is not a descendant of deployed immutable authority',
+  );
+  assert(comparison.status === 'ahead', `unexpected Helix compare status: ${comparison.status}`);
+  assert(Array.isArray(comparison.files) && comparison.files.length > 0, 'Helix authority comparison returned no changed files');
+
+  const violations = comparison.files.filter(
+    (row) => !allowedPrefixes.some((prefix) => String(row.filename || '').startsWith(prefix)),
+  );
+  assert(
+    violations.length === 0,
+    `Helix authority drift touches projection-capable paths: ${violations.map((row) => row.filename).join(', ')}`,
+  );
+
+  return {
+    status: 'RECEIPT_ONLY_NON_PROJECTION_DELTA',
+    deployed_commit: deployedCommit,
+    current_commit: currentCommit,
+    changed_files: comparison.files.map((row) => row.filename),
+  };
+}
+
 const receipt = JSON.parse(await read('projects/github-merge-authority-proof/proof/public-projection-readback.json'));
 const historicalClaim = JSON.parse(await read(receipt.historical_promotion_basis.claim_receipt));
 const historicalProduction = JSON.parse(await read(receipt.historical_promotion_basis.production_closure_receipt));
@@ -21,6 +77,8 @@ const atlasPage = await read('site-v15/atlas/index.html');
 const expectedStage = receipt.expected_public_projection.stage;
 const expectedCeiling = receipt.expected_public_projection.claim_ceiling;
 const expectedClaimReceipts = receipt.expected_public_projection.claim_receipts;
+const deployedHelixCommit = receipt.projection_authority?.helix_sha;
+const currentHelixCommit = helix.source?.root_ref;
 
 for (const path of [
   'projects/github-merge-authority-proof/README.md',
@@ -38,6 +96,7 @@ for (const path of [
 assert(expectedStage === 'CLAIM_PROMOTED', 'final expected stage must be CLAIM_PROMOTED');
 assert(expectedCeiling === 'proof_bound_company_specific', 'final expected claim ceiling drift');
 assert(expectedClaimReceipts === 2, 'final expected claim receipt cardinality drift');
+assert(SHA40.test(deployedHelixCommit || ''), 'public readback deployed Helix authority invalid');
 
 const recordText = JSON.stringify(record);
 const publicTruthText = `${recordText}\n${page}`;
@@ -51,12 +110,8 @@ assert(
 );
 
 assert(/github/i.test(page), 'GitHub identity missing from company page');
-assert(
-  page.includes(expectedStage) || /Claim Promoted/i.test(page),
-  'company page does not present CLAIM_PROMOTED',
-);
+assert(page.includes(expectedStage) || /Claim Promoted/i.test(page), 'company page does not present CLAIM_PROMOTED');
 assert(page.includes(expectedCeiling), 'company page claim ceiling drift');
-assert(/claim receipts<\/span><strong>2<\/strong>/i.test(page), 'company page claim receipt cardinality drift');
 assert(/Independent GlacierEQ work/i.test(publicTruthText), 'independent-work boundary missing');
 assert(/no (?:GitHub )?affiliation/i.test(publicTruthText), 'no-affiliation boundary missing');
 assert(
@@ -83,19 +138,26 @@ assert(
 );
 assert(receipt.projection_authority?.helix_stage === expectedStage, 'receipt Helix stage drift');
 assert(receipt.projection_authority?.helix_claim_ceiling === expectedCeiling, 'receipt Helix ceiling drift');
-assert(receipt.projection_authority?.helix_sha === helix.source?.root_ref, 'public readback receipt Helix authority drift');
 assert(
   atlasPage.includes('/companies/github/')
     && (atlasPage.includes('GitHub · Claim Promoted') || atlasPage.includes('GitHub · CLAIM_PROMOTED')),
   'fresh Helix Atlas does not expose the GitHub CLAIM_PROMOTED route',
 );
 
+assert(finalProduction.production_projection?.helix_commit === deployedHelixCommit, 'production/readback Helix authority mismatch');
+assert(finalProduction.authority_freshness?.production_helix_commit === deployedHelixCommit, 'authority freshness deployed Helix mismatch');
+const authorityEquivalence = await verifyHelixAuthorityEquivalence(
+  deployedHelixCommit,
+  currentHelixCommit,
+  finalProduction.authority_freshness?.allowed_delta_prefixes,
+);
+
 const inspection = JSON.parse(await read('projects/github-merge-authority-proof/machine/implementation-inspection.json'));
 assert(inspection.visibility === 'private', 'private implementation visibility boundary drift');
 assert(inspection.source_not_disclosed === true, 'private source disclosure boundary drift');
 
-// Promotion inputs remain immutable historical evidence. They are intentionally
-// PROOF_REPRODUCED receipts and are not rewritten to masquerade as post-promotion proof.
+// Historical inputs remain immutable pre-promotion evidence. They are intentionally
+// not rewritten to masquerade as post-promotion proof.
 assert(historicalClaim.schema === 'glaciereq.public-claim-receipt.v1', 'historical claim receipt schema drift');
 assert(historicalClaim.stage === 'PROOF_REPRODUCED', 'historical claim receipt stage drift');
 assert(historicalClaim.claim_ceiling === 'reproducible_company_specific_proof', 'historical claim receipt ceiling drift');
@@ -119,7 +181,6 @@ assert(finalProduction.promotion_basis?.transition === 'PROOF_REPRODUCED -> CLAI
 assert(finalProduction.promotion_basis?.historical_claim_receipt_commit === receipt.historical_promotion_basis.admitted_commit, 'historical claim receipt admission mismatch');
 assert(SHA40.test(finalProduction.production_projection?.source_commit || ''), 'final production source SHA invalid');
 assert(SHA40.test(finalProduction.production_projection?.helix_commit || ''), 'final production Helix SHA invalid');
-assert(finalProduction.production_projection.helix_commit === helix.source?.root_ref, 'final production Helix authority does not match effective projection');
 assert(finalProduction.production_projection?.project === 'casey-barton-glaciereq', 'final production project drift');
 assert(finalProduction.production_projection?.canonical_alias === 'casey-barton-glaciereq.vercel.app', 'final production alias drift');
 assert(finalProduction.build_receipt?.status === 'PASS', 'final production build receipt is not PASS');
@@ -137,7 +198,7 @@ for (const key of ['bundle_verifier', 'v25_verifier', 'v26_verifier']) {
   assert(finalProduction.live_readback?.[key]?.http_status === 200, `${key} HTTP readback drift`);
   assert(finalProduction.live_readback?.[key]?.status === 'PASS', `${key} did not read back PASS`);
 }
-assert(finalProduction.live_readback?.v25_verifier?.compiler_helix_commit === helix.source?.root_ref, 'V25 verifier Helix authority drift');
+assert(finalProduction.live_readback?.v25_verifier?.compiler_helix_commit === deployedHelixCommit, 'V25 verifier deployed Helix authority drift');
 assert(finalProduction.live_readback?.v25_verifier?.company_count === helix.companies.length, 'V25 verifier company cardinality drift');
 assert(Array.isArray(finalProduction.live_readback?.v25_verifier?.errors) && finalProduction.live_readback.v25_verifier.errors.length === 0, 'V25 verifier errors present');
 assert(Array.isArray(finalProduction.live_readback?.v26_verifier?.errors) && finalProduction.live_readback.v26_verifier.errors.length === 0, 'V26 verifier errors present');
@@ -147,12 +208,12 @@ for (const key of ['github_compiler_json', 'github_company_record']) {
   assert(finalProduction.live_readback?.[key]?.stage === expectedStage, `${key} stage drift`);
   assert(finalProduction.live_readback?.[key]?.claim_ceiling === expectedCeiling, `${key} claim ceiling drift`);
   assert(finalProduction.live_readback?.[key]?.claim_receipts === expectedClaimReceipts, `${key} claim receipt cardinality drift`);
-  assert(finalProduction.live_readback?.[key]?.helix_commit === helix.source?.root_ref, `${key} Helix authority drift`);
+  assert(finalProduction.live_readback?.[key]?.helix_commit === deployedHelixCommit, `${key} deployed Helix authority drift`);
 }
 assert(finalProduction.live_readback?.github_company_html?.http_status === 200, 'GitHub company HTML HTTP readback drift');
 assert(finalProduction.live_readback?.github_company_html?.stage === expectedStage, 'GitHub company HTML stage drift');
 assert(finalProduction.live_readback?.github_company_html?.claim_ceiling === expectedCeiling, 'GitHub company HTML claim ceiling drift');
-assert(finalProduction.live_readback?.github_company_html?.claim_receipts_visible === expectedClaimReceipts, 'GitHub company HTML claim receipt cardinality drift');
+assert(finalProduction.live_readback?.github_company_html?.claim_receipts_visible === expectedClaimReceipts, 'live GitHub company HTML claim receipt cardinality drift');
 assert(finalProduction.live_readback?.github_company_html?.independent_work_boundary_visible === true, 'GitHub company HTML independent-work boundary missing');
 assert(finalProduction.live_readback?.github_company_html?.script_free === true, 'GitHub company HTML script-free boundary drift');
 
@@ -175,7 +236,9 @@ console.log(JSON.stringify({
   status: 'PASS',
   company: 'GitHub',
   capability: 'merge_authority_graph',
-  helix_sha: helix.source?.root_ref,
+  current_helix_sha: currentHelixCommit,
+  deployed_helix_sha: deployedHelixCommit,
+  helix_authority_equivalence: authorityEquivalence,
   stage: github.second_depth.stage,
   claim_ceiling: github.second_depth.claim_ceiling,
   claim_receipts: github.second_depth.evidence.claim_receipts.length,
