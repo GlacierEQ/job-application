@@ -1,12 +1,12 @@
 {
   "schema": "glaciereq.excellence-live-registry.v1",
-  "generated_at": "2026-08-10T00:56:48Z",
+  "generated_at": "2026-08-10T00:58:56Z",
   "scope": {
     "source_catalog": "site-v15/data/excellence-multi-repo-catalog.json",
     "source_catalog_blob_sha": "11801654336e25e9b451255a1475000cdc62015b",
     "roster_rule": "updates[].added only",
     "expected_repositories": 37,
-    "job_application_source_sha": "a8cf22312cb9b778fb6c6138f1f74a8521f84dbe"
+    "job_application_source_sha": "c6c1d3dfc7181bf68e44be4c4a9561d0c74f0902"
   },
   "authority": {
     "public_projection_repository": "GlacierEQ/AKOS",
