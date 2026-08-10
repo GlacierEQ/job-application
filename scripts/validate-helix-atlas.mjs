@@ -273,7 +273,16 @@ async function main() {
 
   const depthCounts = Object.fromEntries(SECOND_DEPTH_STAGES.map((stage) => [stage, 0]));
   for (const company of snapshot.companies) depthCounts[company.second_depth.stage] += 1;
-  assert(depthCounts.CLAIM_PROMOTED === 1, "claim-promoted company count drift");
+  const promotedCompanies = snapshot.companies.filter(
+    (company) => company.second_depth.stage === "CLAIM_PROMOTED",
+  );
+  const promotedIds = new Set(promotedCompanies.map((company) => company.company_id));
+  assert(
+    promotedCompanies.every((company) => company.second_depth.evidence.claim_receipts.length > 0),
+    "every CLAIM_PROMOTED Atlas company must retain public claim receipts",
+  );
+  assert(promotedIds.has("lockheed_martin"), "Lockheed Martin CLAIM_PROMOTED Atlas state regressed");
+  assert(promotedIds.has("github"), "GitHub CLAIM_PROMOTED Atlas state regressed");
   const depthSum = Object.values(depthCounts).reduce((a, b) => a + b, 0);
   assert(
     depthSum === snapshot.companies.length,
@@ -288,12 +297,18 @@ async function main() {
         flagships: snapshot.flagships.length,
         company_routes: snapshot.companies.length,
         constellation_stars: snapshot.companies.length,
+        claim_promoted_companies: promotedCompanies.length,
         second_depth: depthCounts,
         lockheed_martin: {
           route: "/companies/lockheed-martin/",
           repositories: lockheed.repositories.length,
           stage: lockheed.second_depth.stage,
           claim_ceiling: lockheed.second_depth.claim_ceiling,
+        },
+        github: {
+          route: "/companies/github/",
+          stage: snapshot.companies.find((company) => company.company_id === "github")?.second_depth.stage,
+          claim_ceiling: snapshot.companies.find((company) => company.company_id === "github")?.second_depth.claim_ceiling,
         },
         linked_html_surfaces: linked.length,
         client_scripts: 0,
