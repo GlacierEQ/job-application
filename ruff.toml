@@ -13,3 +13,7 @@ extend-exclude = ["site-v15/scripts/generate-resume-v17.py"]
 [lint.per-file-ignores]
 "scripts/operate.py" = ["BLE001", "S110", "S112", "SIM102"]
 "tests/test_adversarial.py" = ["BLE001", "S112"]
+# A live estate census must preserve the full roster when one repository or
+# provider read fails. The broad catch converts that single failure into an
+# explicit RETRY_INSPECTION record instead of aborting the entire census.
+"excellence/registry/build_registry.py" = ["BLE001"]
