@@ -1,12 +1,12 @@
 {
   "schema": "glaciereq.excellence-live-registry.v1",
-  "generated_at": "2026-08-10T00:58:56Z",
+  "generated_at": "2026-08-10T01:15:37Z",
   "scope": {
     "source_catalog": "site-v15/data/excellence-multi-repo-catalog.json",
     "source_catalog_blob_sha": "11801654336e25e9b451255a1475000cdc62015b",
     "roster_rule": "updates[].added only",
     "expected_repositories": 37,
-    "job_application_source_sha": "c6c1d3dfc7181bf68e44be4c4a9561d0c74f0902"
+    "job_application_source_sha": "7ceb81c239969dee00bd5c8ba2f6f9045ec5c92d"
   },
   "authority": {
     "public_projection_repository": "GlacierEQ/AKOS",
@@ -30,25 +30,22 @@
       "MISSING": 22,
       "PRESENT": 15
     },
-    "state_valid": 8,
-    "state_invalid_or_missing": 29,
+    "state_valid": 15,
+    "state_invalid_or_missing": 22,
     "effective_principal_states": {
       "DISCOVERED": 22,
       "EVOLVING": 1,
-      "PROBLEM_VERIFIED": 7,
-      "PROMOTED": 7
+      "PROMOTED": 14
     },
     "next_failing_gates": {
-      "CANONICAL_POSITION_RESOLVED": 7,
+      "CANONICAL_POSITION_RESOLVED": 14,
       "IDENTITY_RESOLVED": 22,
-      "NONE": 1,
-      "TARGET_CONTRACT_FROZEN": 7
+      "NONE": 1
     },
     "next_action_classes": {
-      "ADVANCE_GATE": 7,
+      "ADVANCE_GATE": 14,
       "EVOLVE": 1,
-      "INITIALIZE_STATE": 22,
-      "REPAIR_STATE": 7
+      "INITIALIZE_STATE": 22
     }
   },
   "repositories": [
@@ -94,15 +91,15 @@
       "repository": "GlacierEQ/anduril-sensor-health-quorum",
       "inspection_status": "OK",
       "default_branch": "main",
-      "head_sha": "e044ecc0decf40c1288b76cc24c7d9cf7fe8bff6",
-      "tree_sha": "76676efec77b3440d674540a5957165e80887286",
+      "head_sha": "a140e0d6a7225f67f797b176700dc7f66cd2c462",
+      "tree_sha": "80ccd4f52db0eda4b3cbb91fea5f082161fa2979",
       "tree_truncated": false,
       "observed": {
-        "files_total": 25,
+        "files_total": 26,
         "source_files": 4,
         "source_bytes": 4707,
-        "test_files": 4,
-        "test_bytes": 2601,
+        "test_files": 5,
+        "test_bytes": 4629,
         "workflow_files": 1,
         "machine_files": 6,
         "has_readme": true,
@@ -114,18 +111,16 @@
         "has_operability_receipt": true,
         "has_canonical_position": false
       },
-      "state_blob_sha": "7d07ab7efdae665dc1514996615e30001df13a89",
+      "state_blob_sha": "9582fdffd666277651f5da572b846f93eb640197",
       "state": {
         "state_status": "PRESENT",
         "declared_principal_state": "PROMOTED",
-        "effective_principal_state": "PROBLEM_VERIFIED",
-        "prerequisite_errors": [
-          "PROMOTED outruns TARGET_CONTRACT_FROZEN"
-        ],
+        "effective_principal_state": "PROMOTED",
+        "prerequisite_errors": [],
         "disposition_errors": [],
-        "state_valid": false,
-        "next_failing_gate": "TARGET_CONTRACT_FROZEN",
-        "next_action_class": "REPAIR_STATE"
+        "state_valid": true,
+        "next_failing_gate": "CANONICAL_POSITION_RESOLVED",
+        "next_action_class": "ADVANCE_GATE"
       }
     },
     {
@@ -207,15 +202,15 @@
       "repository": "GlacierEQ/anthropic-refusal-replay-harness",
       "inspection_status": "OK",
       "default_branch": "main",
-      "head_sha": "69e7480781ed14600d867cfa218d820130520a9e",
-      "tree_sha": "b92f2b2d4d206727dd2f74be20a71091630b148a",
+      "head_sha": "19da6015adae86b4fcaf530da08f0f17342613bf",
+      "tree_sha": "39ab69d5c2fe8d417c5dc74730584b4c036996c2",
       "tree_truncated": false,
       "observed": {
-        "files_total": 25,
+        "files_total": 26,
         "source_files": 4,
         "source_bytes": 4012,
-        "test_files": 4,
-        "test_bytes": 2774,
+        "test_files": 5,
+        "test_bytes": 4802,
         "workflow_files": 1,
         "machine_files": 6,
         "has_readme": true,
@@ -227,18 +222,16 @@
         "has_operability_receipt": true,
         "has_canonical_position": false
       },
-      "state_blob_sha": "db78a74f2de4abeb1396dbd148e657dda07769f8",
+      "state_blob_sha": "da401588d361296013541afd93b3d2cd72c7a11d",
       "state": {
         "state_status": "PRESENT",
         "declared_principal_state": "PROMOTED",
-        "effective_principal_state": "PROBLEM_VERIFIED",
-        "prerequisite_errors": [
-          "PROMOTED outruns TARGET_CONTRACT_FROZEN"
-        ],
+        "effective_principal_state": "PROMOTED",
+        "prerequisite_errors": [],
         "disposition_errors": [],
-        "state_valid": false,
-        "next_failing_gate": "TARGET_CONTRACT_FROZEN",
-        "next_action_class": "REPAIR_STATE"
+        "state_valid": true,
+        "next_failing_gate": "CANONICAL_POSITION_RESOLVED",
+        "next_action_class": "ADVANCE_GATE"
       }
     },
     {
@@ -246,15 +239,15 @@
       "repository": "GlacierEQ/cloudflare-bot-intent-receipt",
       "inspection_status": "OK",
       "default_branch": "main",
-      "head_sha": "72fa48b993c517947f290d4bce247b29b2fdc17e",
-      "tree_sha": "0c79f2b5a11ae96b2fae1030ab0c1453ee31c291",
+      "head_sha": "f83065ee099e91f4c6f5a1e3fc8f6dc0668cacab",
+      "tree_sha": "da3cfff02263ac63b76be329bf01d02ecb16154e",
       "tree_truncated": false,
       "observed": {
-        "files_total": 25,
+        "files_total": 26,
         "source_files": 4,
         "source_bytes": 4302,
-        "test_files": 4,
-        "test_bytes": 2976,
+        "test_files": 5,
+        "test_bytes": 4976,
         "workflow_files": 1,
         "machine_files": 6,
         "has_readme": true,
@@ -266,18 +259,16 @@
         "has_operability_receipt": true,
         "has_canonical_position": false
       },
-      "state_blob_sha": "04caceac51b569e40749916bbcf95062f31adb4a",
+      "state_blob_sha": "2615de123cc987f5e8824b9ff36837f3ae7bd345",
       "state": {
         "state_status": "PRESENT",
         "declared_principal_state": "PROMOTED",
-        "effective_principal_state": "PROBLEM_VERIFIED",
-        "prerequisite_errors": [
-          "PROMOTED outruns TARGET_CONTRACT_FROZEN"
-        ],
+        "effective_principal_state": "PROMOTED",
+        "prerequisite_errors": [],
         "disposition_errors": [],
-        "state_valid": false,
-        "next_failing_gate": "TARGET_CONTRACT_FROZEN",
-        "next_action_class": "REPAIR_STATE"
+        "state_valid": true,
+        "next_failing_gate": "CANONICAL_POSITION_RESOLVED",
+        "next_action_class": "ADVANCE_GATE"
       }
     },
     {
@@ -692,15 +683,15 @@
       "repository": "GlacierEQ/nvidia-nan-circuit-breaker",
       "inspection_status": "OK",
       "default_branch": "main",
-      "head_sha": "b7242e958827eb45de048b21fd611318f3dd53b0",
-      "tree_sha": "c077dedeaede01ccf94efde8b6eb7e1f1afaa41c",
+      "head_sha": "c47cecf37eb37eccf8b6b268e4a2ae00ca0a477e",
+      "tree_sha": "46459de478d9205ff72e82387c3b202125868b38",
       "tree_truncated": false,
       "observed": {
-        "files_total": 25,
+        "files_total": 26,
         "source_files": 3,
         "source_bytes": 3186,
-        "test_files": 3,
-        "test_bytes": 2358,
+        "test_files": 4,
+        "test_bytes": 3961,
         "workflow_files": 1,
         "machine_files": 6,
         "has_readme": true,
@@ -712,18 +703,16 @@
         "has_operability_receipt": true,
         "has_canonical_position": false
       },
-      "state_blob_sha": "3269afa8f21f285212ef3a532307b6074bbe3dbe",
+      "state_blob_sha": "689c3d53c428e44fbdadbc36acd4b5838288f434",
       "state": {
         "state_status": "PRESENT",
         "declared_principal_state": "PROMOTED",
-        "effective_principal_state": "PROBLEM_VERIFIED",
-        "prerequisite_errors": [
-          "PROMOTED outruns TARGET_CONTRACT_FROZEN"
-        ],
+        "effective_principal_state": "PROMOTED",
+        "prerequisite_errors": [],
         "disposition_errors": [],
-        "state_valid": false,
-        "next_failing_gate": "TARGET_CONTRACT_FROZEN",
-        "next_action_class": "REPAIR_STATE"
+        "state_valid": true,
+        "next_failing_gate": "CANONICAL_POSITION_RESOLVED",
+        "next_action_class": "ADVANCE_GATE"
       }
     },
     {
@@ -842,15 +831,15 @@
       "repository": "GlacierEQ/palantir-object-authority-matrix",
       "inspection_status": "OK",
       "default_branch": "main",
-      "head_sha": "e8ff9c5c4eda1766e27816c3ed0ec024ff444d65",
-      "tree_sha": "0a7f22cb80a116aac61628c857256f9656595590",
+      "head_sha": "64c6cfe1794627ff0eb7ce44134fb71f31a50dc8",
+      "tree_sha": "2c25fb958d417678656b00c0fa0c5e93e13f06e1",
       "tree_truncated": false,
       "observed": {
-        "files_total": 24,
+        "files_total": 25,
         "source_files": 3,
         "source_bytes": 3311,
-        "test_files": 3,
-        "test_bytes": 2304,
+        "test_files": 4,
+        "test_bytes": 3907,
         "workflow_files": 1,
         "machine_files": 6,
         "has_readme": true,
@@ -862,18 +851,16 @@
         "has_operability_receipt": true,
         "has_canonical_position": false
       },
-      "state_blob_sha": "ccd1dd70c306e8c3ad94df45e4d650b9a9045e2e",
+      "state_blob_sha": "ae93d467bc38a50393bb5a1351231692a5b1130d",
       "state": {
         "state_status": "PRESENT",
         "declared_principal_state": "PROMOTED",
-        "effective_principal_state": "PROBLEM_VERIFIED",
-        "prerequisite_errors": [
-          "PROMOTED outruns TARGET_CONTRACT_FROZEN"
-        ],
+        "effective_principal_state": "PROMOTED",
+        "prerequisite_errors": [],
         "disposition_errors": [],
-        "state_valid": false,
-        "next_failing_gate": "TARGET_CONTRACT_FROZEN",
-        "next_action_class": "REPAIR_STATE"
+        "state_valid": true,
+        "next_failing_gate": "CANONICAL_POSITION_RESOLVED",
+        "next_action_class": "ADVANCE_GATE"
       }
     },
     {
@@ -1251,15 +1238,15 @@
       "repository": "GlacierEQ/vercel-preview-truth-gate",
       "inspection_status": "OK",
       "default_branch": "main",
-      "head_sha": "20952c5f1bc50c1c78f23a0ffc89355f8701995f",
-      "tree_sha": "46000e6029da998584fc8c73a7ae9a78410ed029",
+      "head_sha": "fca41d279271d79d18a56419e8541e3fa64d7bea",
+      "tree_sha": "b39b3e44882ec0c97776f8c2189d48e08f9a3a70",
       "tree_truncated": false,
       "observed": {
-        "files_total": 24,
+        "files_total": 25,
         "source_files": 3,
         "source_bytes": 3184,
-        "test_files": 3,
-        "test_bytes": 2256,
+        "test_files": 4,
+        "test_bytes": 3859,
         "workflow_files": 1,
         "machine_files": 6,
         "has_readme": true,
@@ -1271,18 +1258,16 @@
         "has_operability_receipt": true,
         "has_canonical_position": false
       },
-      "state_blob_sha": "e0815cb29494dd190ad83c27401895a2f62a251b",
+      "state_blob_sha": "166ee28990b2570b4c472e3aff0297e6848653d1",
       "state": {
         "state_status": "PRESENT",
         "declared_principal_state": "PROMOTED",
-        "effective_principal_state": "PROBLEM_VERIFIED",
-        "prerequisite_errors": [
-          "PROMOTED outruns TARGET_CONTRACT_FROZEN"
-        ],
+        "effective_principal_state": "PROMOTED",
+        "prerequisite_errors": [],
         "disposition_errors": [],
-        "state_valid": false,
-        "next_failing_gate": "TARGET_CONTRACT_FROZEN",
-        "next_action_class": "REPAIR_STATE"
+        "state_valid": true,
+        "next_failing_gate": "CANONICAL_POSITION_RESOLVED",
+        "next_action_class": "ADVANCE_GATE"
       }
     },
     {
@@ -1401,15 +1386,15 @@
       "repository": "GlacierEQ/xai-claim-promotion-fence",
       "inspection_status": "OK",
       "default_branch": "main",
-      "head_sha": "dd3009f8355d6a1a16d476cf5ae918c2667982e2",
-      "tree_sha": "940b0b88a31c6cfe7888de0f26e306956c80a430",
+      "head_sha": "18ccfe4bc7237dfc26c15bab2b615cdd3e5a4d77",
+      "tree_sha": "3fde25444136542a85a543c03e021cffe1a4080c",
       "tree_truncated": false,
       "observed": {
-        "files_total": 24,
+        "files_total": 25,
         "source_files": 3,
         "source_bytes": 3231,
-        "test_files": 3,
-        "test_bytes": 2131,
+        "test_files": 4,
+        "test_bytes": 3734,
         "workflow_files": 1,
         "machine_files": 6,
         "has_readme": true,
@@ -1421,18 +1406,16 @@
         "has_operability_receipt": true,
         "has_canonical_position": false
       },
-      "state_blob_sha": "fbe52dd1cfce19dc22f7139ab6ff32dae926603e",
+      "state_blob_sha": "9b5d60db6919d99b349c960846a5bb722b77cb96",
       "state": {
         "state_status": "PRESENT",
         "declared_principal_state": "PROMOTED",
-        "effective_principal_state": "PROBLEM_VERIFIED",
-        "prerequisite_errors": [
-          "PROMOTED outruns TARGET_CONTRACT_FROZEN"
-        ],
+        "effective_principal_state": "PROMOTED",
+        "prerequisite_errors": [],
         "disposition_errors": [],
-        "state_valid": false,
-        "next_failing_gate": "TARGET_CONTRACT_FROZEN",
-        "next_action_class": "REPAIR_STATE"
+        "state_valid": true,
+        "next_failing_gate": "CANONICAL_POSITION_RESOLVED",
+        "next_action_class": "ADVANCE_GATE"
       }
     }
   ]

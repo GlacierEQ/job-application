@@ -1,6 +1,6 @@
 {
   "schema": "glaciereq.excellence-priority-queue.v1",
-  "registry_generated_at": "2026-08-10T00:58:56Z",
+  "registry_generated_at": "2026-08-10T01:15:37Z",
   "registry_authority": {
     "public_projection_repository": "GlacierEQ/AKOS",
     "public_projection_head_sha": "a0db5667830c36a09528546bfa50745c43fe6fe4",
@@ -18,213 +18,9 @@
   "queue": [
     {
       "priority": 1,
-      "action": "REPAIR_STATE",
-      "gate": "TARGET_CONTRACT_FROZEN",
-      "count": 7,
-      "repositories": [
-        {
-          "company": "anduril",
-          "repository": "GlacierEQ/anduril-sensor-health-quorum",
-          "head_sha": "e044ecc0decf40c1288b76cc24c7d9cf7fe8bff6",
-          "declared_principal_state": "PROMOTED",
-          "effective_principal_state": "PROBLEM_VERIFIED",
-          "observed": {
-            "files_total": 25,
-            "source_files": 4,
-            "source_bytes": 4707,
-            "test_files": 4,
-            "test_bytes": 2601,
-            "workflow_files": 1,
-            "machine_files": 6,
-            "has_readme": true,
-            "has_issue_contract": true,
-            "has_quality_contract": true,
-            "has_excellence_state": true,
-            "has_target_contract": true,
-            "has_proof_receipt": true,
-            "has_operability_receipt": true,
-            "has_canonical_position": false
-          },
-          "prerequisite_errors": [
-            "PROMOTED outruns TARGET_CONTRACT_FROZEN"
-          ],
-          "disposition_errors": []
-        },
-        {
-          "company": "anthropic",
-          "repository": "GlacierEQ/anthropic-refusal-replay-harness",
-          "head_sha": "69e7480781ed14600d867cfa218d820130520a9e",
-          "declared_principal_state": "PROMOTED",
-          "effective_principal_state": "PROBLEM_VERIFIED",
-          "observed": {
-            "files_total": 25,
-            "source_files": 4,
-            "source_bytes": 4012,
-            "test_files": 4,
-            "test_bytes": 2774,
-            "workflow_files": 1,
-            "machine_files": 6,
-            "has_readme": true,
-            "has_issue_contract": true,
-            "has_quality_contract": true,
-            "has_excellence_state": true,
-            "has_target_contract": true,
-            "has_proof_receipt": true,
-            "has_operability_receipt": true,
-            "has_canonical_position": false
-          },
-          "prerequisite_errors": [
-            "PROMOTED outruns TARGET_CONTRACT_FROZEN"
-          ],
-          "disposition_errors": []
-        },
-        {
-          "company": "cloudflare",
-          "repository": "GlacierEQ/cloudflare-bot-intent-receipt",
-          "head_sha": "72fa48b993c517947f290d4bce247b29b2fdc17e",
-          "declared_principal_state": "PROMOTED",
-          "effective_principal_state": "PROBLEM_VERIFIED",
-          "observed": {
-            "files_total": 25,
-            "source_files": 4,
-            "source_bytes": 4302,
-            "test_files": 4,
-            "test_bytes": 2976,
-            "workflow_files": 1,
-            "machine_files": 6,
-            "has_readme": true,
-            "has_issue_contract": true,
-            "has_quality_contract": true,
-            "has_excellence_state": true,
-            "has_target_contract": true,
-            "has_proof_receipt": true,
-            "has_operability_receipt": true,
-            "has_canonical_position": false
-          },
-          "prerequisite_errors": [
-            "PROMOTED outruns TARGET_CONTRACT_FROZEN"
-          ],
-          "disposition_errors": []
-        },
-        {
-          "company": "nvidia",
-          "repository": "GlacierEQ/nvidia-nan-circuit-breaker",
-          "head_sha": "b7242e958827eb45de048b21fd611318f3dd53b0",
-          "declared_principal_state": "PROMOTED",
-          "effective_principal_state": "PROBLEM_VERIFIED",
-          "observed": {
-            "files_total": 25,
-            "source_files": 3,
-            "source_bytes": 3186,
-            "test_files": 3,
-            "test_bytes": 2358,
-            "workflow_files": 1,
-            "machine_files": 6,
-            "has_readme": true,
-            "has_issue_contract": true,
-            "has_quality_contract": true,
-            "has_excellence_state": true,
-            "has_target_contract": true,
-            "has_proof_receipt": true,
-            "has_operability_receipt": true,
-            "has_canonical_position": false
-          },
-          "prerequisite_errors": [
-            "PROMOTED outruns TARGET_CONTRACT_FROZEN"
-          ],
-          "disposition_errors": []
-        },
-        {
-          "company": "palantir",
-          "repository": "GlacierEQ/palantir-object-authority-matrix",
-          "head_sha": "e8ff9c5c4eda1766e27816c3ed0ec024ff444d65",
-          "declared_principal_state": "PROMOTED",
-          "effective_principal_state": "PROBLEM_VERIFIED",
-          "observed": {
-            "files_total": 24,
-            "source_files": 3,
-            "source_bytes": 3311,
-            "test_files": 3,
-            "test_bytes": 2304,
-            "workflow_files": 1,
-            "machine_files": 6,
-            "has_readme": true,
-            "has_issue_contract": true,
-            "has_quality_contract": true,
-            "has_excellence_state": true,
-            "has_target_contract": true,
-            "has_proof_receipt": true,
-            "has_operability_receipt": true,
-            "has_canonical_position": false
-          },
-          "prerequisite_errors": [
-            "PROMOTED outruns TARGET_CONTRACT_FROZEN"
-          ],
-          "disposition_errors": []
-        },
-        {
-          "company": "vercel",
-          "repository": "GlacierEQ/vercel-preview-truth-gate",
-          "head_sha": "20952c5f1bc50c1c78f23a0ffc89355f8701995f",
-          "declared_principal_state": "PROMOTED",
-          "effective_principal_state": "PROBLEM_VERIFIED",
-          "observed": {
-            "files_total": 24,
-            "source_files": 3,
-            "source_bytes": 3184,
-            "test_files": 3,
-            "test_bytes": 2256,
-            "workflow_files": 1,
-            "machine_files": 6,
-            "has_readme": true,
-            "has_issue_contract": true,
-            "has_quality_contract": true,
-            "has_excellence_state": true,
-            "has_target_contract": true,
-            "has_proof_receipt": true,
-            "has_operability_receipt": true,
-            "has_canonical_position": false
-          },
-          "prerequisite_errors": [
-            "PROMOTED outruns TARGET_CONTRACT_FROZEN"
-          ],
-          "disposition_errors": []
-        },
-        {
-          "company": "xai",
-          "repository": "GlacierEQ/xai-claim-promotion-fence",
-          "head_sha": "dd3009f8355d6a1a16d476cf5ae918c2667982e2",
-          "declared_principal_state": "PROMOTED",
-          "effective_principal_state": "PROBLEM_VERIFIED",
-          "observed": {
-            "files_total": 24,
-            "source_files": 3,
-            "source_bytes": 3231,
-            "test_files": 3,
-            "test_bytes": 2131,
-            "workflow_files": 1,
-            "machine_files": 6,
-            "has_readme": true,
-            "has_issue_contract": true,
-            "has_quality_contract": true,
-            "has_excellence_state": true,
-            "has_target_contract": true,
-            "has_proof_receipt": true,
-            "has_operability_receipt": true,
-            "has_canonical_position": false
-          },
-          "prerequisite_errors": [
-            "PROMOTED outruns TARGET_CONTRACT_FROZEN"
-          ],
-          "disposition_errors": []
-        }
-      ]
-    },
-    {
-      "priority": 2,
       "action": "ADVANCE_GATE",
       "gate": "CANONICAL_POSITION_RESOLVED",
-      "count": 7,
+      "count": 14,
       "repositories": [
         {
           "company": "anduril",
@@ -254,6 +50,32 @@
         },
         {
           "company": "anduril",
+          "repository": "GlacierEQ/anduril-sensor-health-quorum",
+          "head_sha": "a140e0d6a7225f67f797b176700dc7f66cd2c462",
+          "declared_principal_state": "PROMOTED",
+          "effective_principal_state": "PROMOTED",
+          "observed": {
+            "files_total": 26,
+            "source_files": 4,
+            "source_bytes": 4707,
+            "test_files": 5,
+            "test_bytes": 4629,
+            "workflow_files": 1,
+            "machine_files": 6,
+            "has_readme": true,
+            "has_issue_contract": true,
+            "has_quality_contract": true,
+            "has_excellence_state": true,
+            "has_target_contract": true,
+            "has_proof_receipt": true,
+            "has_operability_receipt": true,
+            "has_canonical_position": false
+          },
+          "prerequisite_errors": [],
+          "disposition_errors": []
+        },
+        {
+          "company": "anduril",
           "repository": "GlacierEQ/anduril-track-envelope-compiler",
           "head_sha": "8744d4768ea4a03359944742a33a038619db4de0",
           "declared_principal_state": "PROMOTED",
@@ -264,6 +86,58 @@
             "source_bytes": 6280,
             "test_files": 3,
             "test_bytes": 3838,
+            "workflow_files": 1,
+            "machine_files": 6,
+            "has_readme": true,
+            "has_issue_contract": true,
+            "has_quality_contract": true,
+            "has_excellence_state": true,
+            "has_target_contract": true,
+            "has_proof_receipt": true,
+            "has_operability_receipt": true,
+            "has_canonical_position": false
+          },
+          "prerequisite_errors": [],
+          "disposition_errors": []
+        },
+        {
+          "company": "anthropic",
+          "repository": "GlacierEQ/anthropic-refusal-replay-harness",
+          "head_sha": "19da6015adae86b4fcaf530da08f0f17342613bf",
+          "declared_principal_state": "PROMOTED",
+          "effective_principal_state": "PROMOTED",
+          "observed": {
+            "files_total": 26,
+            "source_files": 4,
+            "source_bytes": 4012,
+            "test_files": 5,
+            "test_bytes": 4802,
+            "workflow_files": 1,
+            "machine_files": 6,
+            "has_readme": true,
+            "has_issue_contract": true,
+            "has_quality_contract": true,
+            "has_excellence_state": true,
+            "has_target_contract": true,
+            "has_proof_receipt": true,
+            "has_operability_receipt": true,
+            "has_canonical_position": false
+          },
+          "prerequisite_errors": [],
+          "disposition_errors": []
+        },
+        {
+          "company": "cloudflare",
+          "repository": "GlacierEQ/cloudflare-bot-intent-receipt",
+          "head_sha": "f83065ee099e91f4c6f5a1e3fc8f6dc0668cacab",
+          "declared_principal_state": "PROMOTED",
+          "effective_principal_state": "PROMOTED",
+          "observed": {
+            "files_total": 26,
+            "source_files": 4,
+            "source_bytes": 4302,
+            "test_files": 5,
+            "test_bytes": 4976,
             "workflow_files": 1,
             "machine_files": 6,
             "has_readme": true,
@@ -407,11 +281,115 @@
           },
           "prerequisite_errors": [],
           "disposition_errors": []
+        },
+        {
+          "company": "nvidia",
+          "repository": "GlacierEQ/nvidia-nan-circuit-breaker",
+          "head_sha": "c47cecf37eb37eccf8b6b268e4a2ae00ca0a477e",
+          "declared_principal_state": "PROMOTED",
+          "effective_principal_state": "PROMOTED",
+          "observed": {
+            "files_total": 26,
+            "source_files": 3,
+            "source_bytes": 3186,
+            "test_files": 4,
+            "test_bytes": 3961,
+            "workflow_files": 1,
+            "machine_files": 6,
+            "has_readme": true,
+            "has_issue_contract": true,
+            "has_quality_contract": true,
+            "has_excellence_state": true,
+            "has_target_contract": true,
+            "has_proof_receipt": true,
+            "has_operability_receipt": true,
+            "has_canonical_position": false
+          },
+          "prerequisite_errors": [],
+          "disposition_errors": []
+        },
+        {
+          "company": "palantir",
+          "repository": "GlacierEQ/palantir-object-authority-matrix",
+          "head_sha": "64c6cfe1794627ff0eb7ce44134fb71f31a50dc8",
+          "declared_principal_state": "PROMOTED",
+          "effective_principal_state": "PROMOTED",
+          "observed": {
+            "files_total": 25,
+            "source_files": 3,
+            "source_bytes": 3311,
+            "test_files": 4,
+            "test_bytes": 3907,
+            "workflow_files": 1,
+            "machine_files": 6,
+            "has_readme": true,
+            "has_issue_contract": true,
+            "has_quality_contract": true,
+            "has_excellence_state": true,
+            "has_target_contract": true,
+            "has_proof_receipt": true,
+            "has_operability_receipt": true,
+            "has_canonical_position": false
+          },
+          "prerequisite_errors": [],
+          "disposition_errors": []
+        },
+        {
+          "company": "vercel",
+          "repository": "GlacierEQ/vercel-preview-truth-gate",
+          "head_sha": "fca41d279271d79d18a56419e8541e3fa64d7bea",
+          "declared_principal_state": "PROMOTED",
+          "effective_principal_state": "PROMOTED",
+          "observed": {
+            "files_total": 25,
+            "source_files": 3,
+            "source_bytes": 3184,
+            "test_files": 4,
+            "test_bytes": 3859,
+            "workflow_files": 1,
+            "machine_files": 6,
+            "has_readme": true,
+            "has_issue_contract": true,
+            "has_quality_contract": true,
+            "has_excellence_state": true,
+            "has_target_contract": true,
+            "has_proof_receipt": true,
+            "has_operability_receipt": true,
+            "has_canonical_position": false
+          },
+          "prerequisite_errors": [],
+          "disposition_errors": []
+        },
+        {
+          "company": "xai",
+          "repository": "GlacierEQ/xai-claim-promotion-fence",
+          "head_sha": "18ccfe4bc7237dfc26c15bab2b615cdd3e5a4d77",
+          "declared_principal_state": "PROMOTED",
+          "effective_principal_state": "PROMOTED",
+          "observed": {
+            "files_total": 25,
+            "source_files": 3,
+            "source_bytes": 3231,
+            "test_files": 4,
+            "test_bytes": 3734,
+            "workflow_files": 1,
+            "machine_files": 6,
+            "has_readme": true,
+            "has_issue_contract": true,
+            "has_quality_contract": true,
+            "has_excellence_state": true,
+            "has_target_contract": true,
+            "has_proof_receipt": true,
+            "has_operability_receipt": true,
+            "has_canonical_position": false
+          },
+          "prerequisite_errors": [],
+          "disposition_errors": []
         }
       ]
     },
     {
-      "priority": 3,
+      "priority": 2,
       "action": "INITIALIZE_STATE",
       "gate": "IDENTITY_RESOLVED",
       "count": 22,
@@ -991,7 +969,7 @@
       ]
     },
     {
-      "priority": 4,
+      "priority": 3,
       "action": "EVOLVE",
       "gate": "NONE",
       "count": 1,
