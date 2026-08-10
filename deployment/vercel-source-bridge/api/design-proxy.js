@@ -2,14 +2,14 @@ const crypto = require('node:crypto');
 const { URL } = require('node:url');
 const proxy = require('./proxy.js');
 
-const WEB_SOURCE_COMMIT = 'c18f593a2eda274ea4deeb01ae95d92bdf80838d';
+const WEB_SOURCE_COMMIT = '261a3fb38d1236f15a50ce0a95d565cc9940bda9';
 const HELIX_COMMIT = '8345955b67f163c3215b23195a267b6021a5be5e';
 const WEB_RAW_ROOT = `https://raw.githubusercontent.com/GlacierEQ/job-application/${WEB_SOURCE_COMMIT}/site-v15/`;
 const GITHUB_TREE_ROOT = `https://api.github.com/repos/GlacierEQ/job-application/git/trees/${WEB_SOURCE_COMMIT}`;
 const COMPLETE_LINK = '<link rel="stylesheet" href="/assets/site.complete.css">';
 const INTERACTION_LINK = '<link rel="stylesheet" href="/assets/site.interaction.css">';
 const RELEASE = 'V21-FIRST-STAR-COMPLETE-WEB';
-const EXPECTED_STATIC_HTML = 105;
+const EXPECTED_STATIC_HTML = 132;
 const MAX_BYTES = 4 * 1024 * 1024;
 const FETCH_TIMEOUT_MS = 12_000;
 
