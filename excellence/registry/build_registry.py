@@ -10,6 +10,7 @@ provenance or copying private runtime material.
 
 This script is read-only with respect to the inspected repositories.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -35,7 +36,12 @@ STATE_PATH = "machine/excellence-state.json"
 
 
 def utc_now() -> str:
-    return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    return (
+        datetime.now(timezone.utc)
+        .replace(microsecond=0)
+        .isoformat()
+        .replace("+00:00", "Z")
+    )
 
 
 def api_get(url: str, token: str | None = None) -> Any:
@@ -57,13 +63,20 @@ def api_get(url: str, token: str | None = None) -> Any:
 
 def decode_content(payload: dict[str, Any]) -> str:
     if payload.get("encoding") != "base64":
-        raise ValueError(f"unexpected GitHub content encoding: {payload.get('encoding')!r}")
+        raise ValueError(
+            f"unexpected GitHub content encoding: {payload.get('encoding')!r}"
+        )
     return base64.b64decode(payload["content"]).decode("utf-8")
 
 
-def fetch_json_file(repo: str, path: str, ref: str, token: str | None) -> tuple[dict[str, Any], str]:
+def fetch_json_file(
+    repo: str, path: str, ref: str, token: str | None
+) -> tuple[dict[str, Any], str]:
     encoded = urllib.parse.quote(path, safe="/")
-    payload = api_get(f"{API}/repos/{repo}/contents/{encoded}?ref={urllib.parse.quote(ref, safe='')}", token)
+    payload = api_get(
+        f"{API}/repos/{repo}/contents/{encoded}?ref={urllib.parse.quote(ref, safe='')}",
+        token,
+    )
     return json.loads(decode_content(payload)), payload["sha"]
 
 
@@ -76,7 +89,9 @@ def load_roster(catalog_path: Path) -> list[dict[str, str]]:
             roster.append({"company": company, "repository": f"{OWNER}/{name}"})
     expected = data.get("created_public_repos")
     if expected is not None and len(roster) != expected:
-        raise ValueError(f"catalog declares {expected} created repos but updates enumerate {len(roster)}")
+        raise ValueError(
+            f"catalog declares {expected} created repos but updates enumerate {len(roster)}"
+        )
     names = [item["repository"] for item in roster]
     if len(names) != len(set(names)):
         raise ValueError("duplicate repository in excellence roster")
@@ -182,7 +197,9 @@ def analyze_state(
         if not isinstance(refs, list) or not refs:
             disposition_errors.append("evidence_refs required")
 
-        reason_needs_equivalence = reason in set(policy.get("equivalence_required_reason_codes", []))
+        reason_needs_equivalence = reason in set(
+            policy.get("equivalence_required_reason_codes", [])
+        )
         action_needs_equivalence = state.get("novelty_action") in set(
             policy.get("equivalence_required_actions", [])
         )
@@ -217,15 +234,21 @@ def observe_tree(tree: list[dict[str, Any]]) -> dict[str, Any]:
         item
         for item in blobs
         if item["path"].startswith(("src/", "go/", "server/", "lib/"))
-        and not item["path"].endswith(("_test.go", ".test.js", ".test.ts", ".spec.js", ".spec.ts"))
+        and not item["path"].endswith(
+            ("_test.go", ".test.js", ".test.ts", ".spec.js", ".spec.ts")
+        )
     ]
     tests = [
         item
         for item in blobs
         if item["path"].startswith("tests/")
-        or item["path"].endswith(("_test.go", ".test.js", ".test.ts", ".spec.js", ".spec.ts"))
+        or item["path"].endswith(
+            ("_test.go", ".test.js", ".test.ts", ".spec.js", ".spec.ts")
+        )
     ]
-    workflows = [item for item in blobs if item["path"].startswith(".github/workflows/")]
+    workflows = [
+        item for item in blobs if item["path"].startswith(".github/workflows/")
+    ]
     machine = [item for item in blobs if item["path"].startswith("machine/")]
     return {
         "files_total": len(blobs),
@@ -262,11 +285,14 @@ def inspect_repository(
         meta = api_get(f"{API}/repos/{repo}", token)
         default_branch = meta["default_branch"]
         branch = api_get(
-            f"{API}/repos/{repo}/branches/{urllib.parse.quote(default_branch, safe='')}", token
+            f"{API}/repos/{repo}/branches/{urllib.parse.quote(default_branch, safe='')}",
+            token,
         )
         head_sha = branch["commit"]["sha"]
         tree_sha = branch["commit"]["commit"]["tree"]["sha"]
-        tree_payload = api_get(f"{API}/repos/{repo}/git/trees/{tree_sha}?recursive=1", token)
+        tree_payload = api_get(
+            f"{API}/repos/{repo}/git/trees/{tree_sha}?recursive=1", token
+        )
         observed = observe_tree(tree_payload.get("tree", []))
         state = None
         state_blob = None
@@ -296,7 +322,9 @@ def inspect_repository(
                     "prerequisite_errors": [],
                     "disposition_errors": [],
                     "state_valid": False,
-                    "next_failing_gate": machine["stage_gates"][machine["principal_states"][1]],
+                    "next_failing_gate": machine["stage_gates"][
+                        machine["principal_states"][1]
+                    ],
                     "next_action_class": "RETRY_INSPECTION",
                 },
             }
@@ -307,8 +335,12 @@ def inspect_repository(
 def summarize(records: list[dict[str, Any]]) -> dict[str, Any]:
     status = Counter(record["inspection_status"] for record in records)
     state_status = Counter(record["state"]["state_status"] for record in records)
-    effective = Counter(record["state"]["effective_principal_state"] for record in records)
-    next_gates = Counter(record["state"].get("next_failing_gate") or "NONE" for record in records)
+    effective = Counter(
+        record["state"]["effective_principal_state"] for record in records
+    )
+    next_gates = Counter(
+        record["state"].get("next_failing_gate") or "NONE" for record in records
+    )
     actions = Counter(record["state"]["next_action_class"] for record in records)
     valid = sum(1 for record in records if record["state"].get("state_valid") is True)
     return {
@@ -367,7 +399,9 @@ def main() -> int:
     token = os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN")
     registry = build_registry(args.catalog, token)
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(json.dumps(registry, indent=2, sort_keys=False) + "\n", encoding="utf-8")
+    args.output.write_text(
+        json.dumps(registry, indent=2, sort_keys=False) + "\n", encoding="utf-8"
+    )
     summary = registry["summary"]
     print(
         "excellence-registry: "
