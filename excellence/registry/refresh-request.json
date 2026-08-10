@@ -1,0 +1,20 @@
+{
+  "schema": "glaciereq.excellence-registry-refresh-request.v1",
+  "requested_at": "2026-08-10T01:12:00Z",
+  "reason": "post-merge readback after seven target-contract prerequisite reconciliations",
+  "expected_changes": {
+    "repair_state_target_contract_frozen": 0,
+    "advance_gate_canonical_position_resolved": 14,
+    "evolving": 1,
+    "initialize_identity": 22
+  },
+  "merged_heads": {
+    "GlacierEQ/anduril-sensor-health-quorum": "a140e0d6a7225f67f797b176700dc7f66cd2c462",
+    "GlacierEQ/anthropic-refusal-replay-harness": "19da6015adae86b4fcaf530da08f0f17342613bf",
+    "GlacierEQ/cloudflare-bot-intent-receipt": "f83065ee099e91f4c6f5a1e3fc8f6dc0668cacab",
+    "GlacierEQ/nvidia-nan-circuit-breaker": "c47cecf37eb37eccf8b6b268e4a2ae00ca0a477e",
+    "GlacierEQ/palantir-object-authority-matrix": "64c6cfe1794627ff0eb7ce44134fb71f31a50dc8",
+    "GlacierEQ/vercel-preview-truth-gate": "fca41d279271d79d18a56419e8541e3fa64d7bea",
+    "GlacierEQ/xai-claim-promotion-fence": "18ccfe4bc7237dfc26c15bab2b615cdd3e5a4d77"
+  }
+}
