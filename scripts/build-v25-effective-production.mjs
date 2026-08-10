@@ -95,8 +95,8 @@ function transformCompiler(source, helixCommit) {
   );
   next = replaceOnce(
     next,
-    /if \(filePath === 'compiler\/index\.html'\) return serveCompilerPage\(req, res\);/,
-    "const companySurface = companySurfaceTarget(filePath);\n  if (companySurface) return serveEffectiveCompanySurface(companySurface, req, res);\n  if (filePath === 'compiler/index.html') return serveCompilerPage(req, res);",
+    /if \(filePath === 'compiler\/index\.html'\) return serveCompilerPage\(req, res(?:, filePath)?\);/,
+    "const companySurface = companySurfaceTarget(filePath);\n  if (companySurface) return serveEffectiveCompanySurface(companySurface, req, res);\n  if (filePath === 'compiler/index.html') return serveCompilerPage(req, res, filePath);",
     'effective_company_surface_route',
   );
 
