@@ -1,0 +1,110 @@
+{
+  "schema": "glaciereq.production-claim-promotion-readback.v1",
+  "company": "GitHub",
+  "capability": "merge_authority_graph",
+  "observed_at_utc": {
+    "from": "2026-08-10T05:54:12Z",
+    "through": "2026-08-10T05:54:48Z"
+  },
+  "promotion_basis": {
+    "historical_claim_receipt_commit": "577f63c506c6c4df9c1751a0ff5b8fa07822e491",
+    "historical_claim_receipt": "projects/github-merge-authority-proof/proof/claim-receipt.json",
+    "historical_projection_closure": "projects/github-merge-authority-proof/proof/production-projection-closure.json",
+    "helix_claim_promotion_commit": "7128a51bcc2bbadce1b2c4452dfea6c3c19d5c8f",
+    "transition": "PROOF_REPRODUCED -> CLAIM_PROMOTED"
+  },
+  "production_projection": {
+    "project": "casey-barton-glaciereq",
+    "deployment_id": "dpl_3fbUSwQHqN59Taaj9M9AGwCnoDyT",
+    "canonical_alias": "casey-barton-glaciereq.vercel.app",
+    "source_repository": "GlacierEQ/job-application",
+    "source_commit": "8bd529e775b7b5c070ef393a45eeac4248da6bd3",
+    "helix_repository": "GlacierEQ/job-app-helix",
+    "helix_commit": "7128a51bcc2bbadce1b2c4452dfea6c3c19d5c8f",
+    "release": "V25-APPLICATION-COMPILER",
+    "title_release": "V26-TRUE-ALGERIAN-TITLE"
+  },
+  "build_receipt": {
+    "status": "PASS",
+    "schema": "glaciereq.v25-deployment-bundle-manifest.v2",
+    "module_count": 9,
+    "api_index_sha256": "a16b29cb5e2e3d86370287707cfc910874645e07993290b43d519af582366ae9",
+    "factory_bundle_sha256": "9ec8499888ac450a9b0a9521179cd47014840b72d656726997f51a879d8ab95b",
+    "self_contained_executable_modules": true,
+    "bootstrap_network_fetch_required": false,
+    "runtime_string_evaluation_required": false,
+    "every_factory_sha256_verified_before_execution": true,
+    "deployment_file_count": 2
+  },
+  "live_readback": {
+    "bundle_verifier": {
+      "path": "/__v25_bundle_verify",
+      "http_status": 200,
+      "status": "PASS",
+      "source_commit": "8bd529e775b7b5c070ef393a45eeac4248da6bd3"
+    },
+    "v25_verifier": {
+      "path": "/__v25_verify",
+      "http_status": 200,
+      "status": "PASS",
+      "compiler_helix_commit": "7128a51bcc2bbadce1b2c4452dfea6c3c19d5c8f",
+      "company_count": 166,
+      "errors": []
+    },
+    "v26_verifier": {
+      "path": "/__v26_verify",
+      "http_status": 200,
+      "status": "PASS",
+      "inherited_v25_status": "PASS",
+      "errors": []
+    },
+    "github_compiler_json": {
+      "path": "/data/application-compiler.json?company=github&depth=senior_engineer",
+      "http_status": 200,
+      "stage": "CLAIM_PROMOTED",
+      "claim_ceiling": "proof_bound_company_specific",
+      "claim_receipts": 2,
+      "helix_commit": "7128a51bcc2bbadce1b2c4452dfea6c3c19d5c8f",
+      "effective_second_depth_overrides": "manifests/company_second_depth_overrides/index.json"
+    },
+    "github_company_record": {
+      "path": "/companies/github/record.json",
+      "http_status": 200,
+      "state": "effective_projection",
+      "stage": "CLAIM_PROMOTED",
+      "claim_ceiling": "proof_bound_company_specific",
+      "claim_receipts": 2,
+      "helix_commit": "7128a51bcc2bbadce1b2c4452dfea6c3c19d5c8f"
+    },
+    "github_company_html": {
+      "path": "/companies/github/",
+      "http_status": 200,
+      "stage": "CLAIM_PROMOTED",
+      "claim_ceiling": "proof_bound_company_specific",
+      "claim_receipts_visible": 2,
+      "independent_work_boundary_visible": true,
+      "script_free": true
+    }
+  },
+  "claim_boundary": {
+    "allowed_claim": "GlacierEQ independently implemented and reproduced a governed GitHub mutation path and now carries a proof-bound company-specific public claim backed by immutable claim and production-projection receipts.",
+    "public_nonclaim": "Independent GlacierEQ work; no GitHub affiliation, endorsement, employment, proprietary access, adoption, or production deployment is claimed.",
+    "portfolio_projection_is_production_deployed": true,
+    "github_capability_production_deployment_claimed": false,
+    "github_adoption_claimed": false,
+    "github_affiliation_claimed": false,
+    "production_scale_reliability_claimed": false,
+    "private_implementation_source_public": false
+  },
+  "gate_decision": {
+    "effective_helix_claim_promoted": true,
+    "outward_projection_compiled_from_effective_authority": true,
+    "canonical_production_readback_matches_authority": true,
+    "claim_receipts_present": 2,
+    "claim_boundary_preserved": true,
+    "company_claim_promotion_readback_closed": true,
+    "apex_repository_state": "PROMOTED",
+    "apex_canonical_transition_not_inferred": true,
+    "future_higher_claim_requires_new_evidence_gate": true
+  }
+}
