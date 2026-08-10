@@ -85,11 +85,27 @@ function transformCompiler(source, helixCommit) {
     'compiler_company_count_contract',
   );
 
+  const companySurface = `function companySurfaceTarget(filePath) {\n  const match = /^companies\\/([a-z0-9_-]+)\\/(record\\.json|index\\.html)$/.exec(filePath);\n  if (!match) return null;\n  return { slug: match[1], kind: match[2] };\n}\n\nfunction companyForSurface(data, slug) {\n  const normalized = String(slug || '').replaceAll('-', '_');\n  return data.projection.companies.find((row) => row.company_id === slug || row.company_id === normalized) || null;\n}\n\nfunction effectiveCompanyRecord(company) {\n  const repositories = Array.isArray(company.repositories)\n    ? company.repositories.map((row) => typeof row === 'string' ? row : row?.repository).filter(Boolean)\n    : [];\n  return {\n    schema: 'glaciereq.company-intelligence.v1',\n    id: company.company_id,\n    route: \`/companies/\${company.company_id.replaceAll('_', '-')}/\`,\n    state: 'effective_projection',\n    track: company.track_state,\n    roles: Array.isArray(company.target_roles) ? company.target_roles : [],\n    repos: repositories,\n    flagships: Array.isArray(company.applicable_flagships) ? company.applicable_flagships : [],\n    second_depth: company.second_depth,\n    gate: company.second_depth?.next_gate || null,\n    boundary: company.non_affiliation,\n    source: {\n      repository: 'GlacierEQ/job-app-helix',\n      commit: COMPILER_HELIX_COMMIT,\n      second_depth: SECOND_DEPTH_PATH,\n      second_depth_overrides: SECOND_DEPTH_OVERRIDE_INDEX_PATH,\n    },\n  };\n}\n\nasync function serveEffectiveCompanySurface(target, req, res) {\n  const data = await loadCompiler();\n  const company = companyForSurface(data, target.slug);\n  if (!company) return typographyProxy(req, res);\n  if (target.kind === 'record.json') {\n    const body = Buffer.from(\`\${JSON.stringify(effectiveCompanyRecord(company), null, 2)}\\n\`);\n    generatedSecurityHeaders(res);\n    res.statusCode = 200;\n    res.setHeader('Content-Type', 'application/json; charset=utf-8');\n    res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');\n    res.setHeader('Content-Length', String(body.length));\n    res.end(body);\n    return;\n  }\n  const roles = Array.isArray(company.target_roles) ? company.target_roles.filter(Boolean) : [];\n  const route = compileRoute(data, { company, role: roles[0] || 'Role route pending', depth: 'company_reviewer' });\n  const body = Buffer.from(compilerHtml(data, route));\n  generatedSecurityHeaders(res);\n  res.statusCode = 200;\n  res.setHeader('Content-Type', 'text/html; charset=utf-8');\n  res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');\n  res.setHeader('Content-Length', String(body.length));\n  res.end(body);\n}\n\n`;
+  next = replaceOnce(
+    next,
+    /function selected\(value, current\) \{/,
+    `${companySurface}function selected(value, current) {`,
+    'effective_company_surface_helpers',
+  );
+  next = replaceOnce(
+    next,
+    /if \(filePath === 'compiler\/index\.html'\) return serveCompilerPage\(req, res\);/,
+    "const companySurface = companySurfaceTarget(filePath);\n  if (companySurface) return serveEffectiveCompanySurface(companySurface, req, res);\n  if (filePath === 'compiler/index.html') return serveCompilerPage(req, res);",
+    'effective_company_surface_route',
+  );
+
   requireValue(next.includes(helixCommit), 'transformed_compiler_missing_helix_pin');
   requireValue(next.includes('loadEffectiveSecondDepth'), 'transformed_compiler_missing_effective_loader');
   requireValue(next.includes('company_second_depth_overrides/index.json'), 'transformed_compiler_missing_override_index');
   requireValue(!next.includes('company_count !== 76'), 'transformed_compiler_stale_cardinality_pin');
   requireValue(next.includes('compiler_company_count_mismatch'), 'transformed_compiler_missing_cardinality_consistency');
+  requireValue(next.includes('serveEffectiveCompanySurface'), 'transformed_compiler_missing_company_surface');
+  requireValue(next.includes("state: 'effective_projection'"), 'transformed_compiler_missing_company_record_state');
   return next;
 }
 
@@ -124,6 +140,7 @@ function main() {
     requireValue(bundle.includes('company_second_depth_overrides/index.json'), 'effective_bundle_override_index_missing');
     requireValue(bundle.includes('compiler_company_count_mismatch'), 'effective_bundle_cardinality_contract_missing');
     requireValue(!bundle.includes('company_count !== 76'), 'effective_bundle_stale_cardinality_pin');
+    requireValue(bundle.includes('serveEffectiveCompanySurface'), 'effective_bundle_company_surface_missing');
     process.stdout.write(JSON.stringify({
       status: 'PASS',
       source_commit: sourceCommit,
