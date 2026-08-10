@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Derive a compact, deterministic execution queue from the live registry."""
+
 from __future__ import annotations
 
 import json
@@ -32,6 +33,8 @@ def main() -> int:
                 "company": record["company"],
                 "repository": record["repository"],
                 "head_sha": record.get("head_sha"),
+                "inspection_status": record.get("inspection_status"),
+                "inspection_error": record.get("error"),
                 "declared_principal_state": state.get("declared_principal_state"),
                 "effective_principal_state": state["effective_principal_state"],
                 "observed": record.get("observed", {}),
@@ -68,7 +71,10 @@ def main() -> int:
         "queue": queue,
     }
     OUTPUT.write_text(json.dumps(out, indent=2) + "\n", encoding="utf-8")
-    print("priority-queue:", " ".join(f"{item['action']}:{item['gate']}={item['count']}" for item in queue))
+    print(
+        "priority-queue:",
+        " ".join(f"{item['action']}:{item['gate']}={item['count']}" for item in queue),
+    )
     return 0
 
 
