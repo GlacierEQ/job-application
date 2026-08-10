@@ -24,6 +24,15 @@
     "release": "V25-APPLICATION-COMPILER",
     "title_release": "V26-TRUE-ALGERIAN-TITLE"
   },
+  "authority_freshness": {
+    "production_helix_commit": "b09b7925a5448b934c69e8f175f6b6747794a474",
+    "current_helix_head_observed": "67f830592f719d072230a7e5dfab41317e99e616",
+    "comparison_status": "RECEIPT_ONLY_NON_PROJECTION_DELTA",
+    "allowed_delta_prefixes": [
+      "excellence/receipts/"
+    ],
+    "equivalence_rule": "A newer Helix head remains projection-equivalent to the deployed immutable authority only when the deployed commit is its ancestor and every intervening changed path is a non-projection receipt under an allowed prefix. Any authority/manifests/source change fails closed and requires a new deployment/readback."
+  },
   "build_receipt": {
     "status": "PASS",
     "schema": "glaciereq.v25-deployment-bundle-manifest.v2",
