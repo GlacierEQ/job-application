@@ -1,0 +1,60 @@
+{
+  "schema": "glaciereq.excellence-registry-refresh-receipt.v1",
+  "generated_at": "2026-08-10T12:25:00Z",
+  "scope": "palantir-triad",
+  "purpose": "Bind the newly canonical Palantir-lens specialist states and trigger a fresh live 37-repository excellence census from the current estate.",
+  "repositories": [
+    {
+      "repository": "GlacierEQ/palantir-action-lineage-graph",
+      "canonical_head": "863d17fe691f5f5bdb45391a16a7d2d98fe9afca",
+      "principal_state": "EVOLVING",
+      "canonical_role": "CANONICAL_SPECIALIST",
+      "owns": "causal_action_provenance",
+      "proof": {
+        "candidate_source_sha": "3f1beb40f92007a3b42bcddb55ddb45a958ecbe5",
+        "candidate_workflow_run": 31388048248,
+        "receipt_inclusive_head": "94d9ec5b65c3f32746d38979a8f33a3bba6a5d04",
+        "receipt_inclusive_workflow_run": 31388106086
+      }
+    },
+    {
+      "repository": "GlacierEQ/palantir-object-authority-matrix",
+      "canonical_head": "98d106ac56b36e798be37576ebfd0a381ffd0c8b",
+      "principal_state": "EVOLVING",
+      "canonical_role": "CANONICAL_SPECIALIST",
+      "owns": "object_type_verb_authorization",
+      "proof": {
+        "candidate_source_sha": "4c11dd140b30f81c6e03fb6b8934b41c3b157ffe",
+        "candidate_workflow_run": 31387960616,
+        "receipt_inclusive_head": "2cb3a5e03f690c0be2f84fcf117688927a030ddc",
+        "receipt_inclusive_workflow_run": 31388126607
+      }
+    },
+    {
+      "repository": "GlacierEQ/palantir-ontology-writeback-ledger",
+      "canonical_head": "a4c29b3f7d55d80a50900206b63690a5be99bb2b",
+      "principal_state": "EVOLVING",
+      "canonical_role": "CANONICAL_SPECIALIST",
+      "owns": "transactional_ontology_writeback",
+      "proof": {
+        "recovery_workflow_run": 31385698942,
+        "post_merge_workflow_run": 31385973492
+      }
+    }
+  ],
+  "triad_contract": {
+    "planes": [
+      "causal_action_provenance",
+      "object_type_verb_authorization",
+      "transactional_ontology_writeback"
+    ],
+    "future_composition": "proposal -> lineage receipt -> authority receipt -> transactional writeback -> canonical readback/receipt -> new lineage node",
+    "integration_exercised": false
+  },
+  "truth_boundary": [
+    "This receipt synchronizes registry inputs; it is not proof of exercised triad integration.",
+    "No Palantir affiliation, adoption, proprietary access, deployment, or production use is claimed.",
+    "The governed roster count remains a census scope and is not an accomplishment count."
+  ],
+  "next_gate": "FRESH_37_REPO_CENSUS"
+}
