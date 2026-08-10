@@ -1,0 +1,46 @@
+name: Excellence Live Registry
+
+on:
+  pull_request:
+    paths:
+      - "excellence/registry/**"
+      - "site-v15/data/excellence-multi-repo-catalog.json"
+      - ".github/workflows/excellence-live-registry.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "excellence/registry/**"
+      - "site-v15/data/excellence-multi-repo-catalog.json"
+      - ".github/workflows/excellence-live-registry.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  census:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: "3.12"
+      - name: Verify registry logic
+        run: python -m unittest discover -s excellence/registry/tests -p 'test_*.py' -v
+      - name: Inspect all 37 live repositories
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python excellence/registry/build_registry.py
+      - name: Derive gate priority queue
+        run: python excellence/registry/build_priority_queue.py
+      - name: Publish census artifacts
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: excellence-live-registry-${{ github.sha }}
+          if-no-files-found: error
+          path: |
+            excellence/registry/excellence-repo-registry.json
+            excellence/registry/excellence-priority-queue.json
