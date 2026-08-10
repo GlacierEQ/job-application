@@ -1,0 +1,40 @@
+{
+  "schema": "glaciereq.portfolio.claim-audit.v1",
+  "kind": "claim_retirement",
+  "status": "RETIRED_PENDING_SOURCE_REWRITE",
+  "audited_at_local": "2026-08-10T11:53:44-10:00",
+  "portfolio_repository": "GlacierEQ/job-application",
+  "portfolio_base": "3f58965324bb8b7799a88fc0428ece4e71b4fa85",
+  "surface": "RESUME.md",
+  "claim_subject": "GlacierEQ/anthropic-agent-coordinator current repository head",
+  "retired_claim": {
+    "stale_current_head": "2329fd6ff7f1722310ce01ff0a6bad42025832d4",
+    "reason": "RESUME.md names this revision as current head, but the repository default branch has advanced."
+  },
+  "verified_current_evidence": {
+    "repository": "GlacierEQ/anthropic-agent-coordinator",
+    "default_branch_head": "0f2ca5199e67664a87ffef3f874d5836984dbbdb",
+    "principal_state": "DISCOVERED",
+    "proof_ok": false,
+    "operable_ok": false,
+    "blocker": "TESTS_FAIL",
+    "excellence_state_path": "machine/excellence-state.json",
+    "excellence_state_blob_sha": "5fd86101521f4a35df43a521fb512d2b39eead3a"
+  },
+  "historical_proof_boundary": {
+    "historical_executable_commit": "87438f57bdfd2cb380730cf51140611963d7c95b",
+    "historical_test_result": "62/62 Python tests",
+    "inheritance_to_current_head": false
+  },
+  "portfolio_effect": {
+    "current_authority_of_stale_sha_as_current_head": false,
+    "historical_62_of_62_claim_preserved_only_at_pinned_revision": true,
+    "current_head_promotion_claim_allowed": false
+  },
+  "next_cursor": "Replace both Agent Coordinator occurrences of 2329fd6ff7f1722310ce01ff0a6bad42025832d4 in RESUME.md with 0f2ca5199e67664a87ffef3f874d5836984dbbdb, retain DISCOVERED/proof_ok=false/operable_ok=false/TESTS_FAIL boundary, then regenerate derived resume surfaces and validate no stale current-head SHA remains.",
+  "nonclaims": [
+    "No current-head test pass is claimed.",
+    "No deployment or production operation is claimed.",
+    "Historical 62/62 proof is not inherited by changed code."
+  ]
+}
