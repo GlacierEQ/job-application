@@ -18,7 +18,9 @@
   },
   "historical_promotion_basis": {
     "claim_receipt": "projects/github-merge-authority-proof/proof/claim-receipt.json",
+    "claim_receipt_git_blob_sha": "8386979ae83426b3e6651d9e67018efbd90bb571",
     "production_closure_receipt": "projects/github-merge-authority-proof/proof/production-projection-closure.json",
+    "production_closure_git_blob_sha": "0726d2f6185f3c7f178760a0629db3b639f7e55f",
     "admitted_commit": "577f63c506c6c4df9c1751a0ff5b8fa07822e491"
   },
   "production_claim_promotion_readback": "projects/github-merge-authority-proof/proof/production-claim-promotion-readback.json",
@@ -30,7 +32,8 @@
     "company HTML presents CLAIM_PROMOTED and the same claim ceiling",
     "company HTML preserves independent-work and non-affiliation/adoption/deployment boundary",
     "fresh effective Helix projection resolves GitHub to the same stage, ceiling, and claim-receipt cardinality",
-    "historical claim and production-closure receipts remain immutable promotion inputs rather than being rewritten as post-promotion evidence",
+    "historical claim and production-closure receipts are bound by their Git blob identities and the admitted promotion commit rather than trusted by shape alone",
+    "the dedicated gate independently fetches the canonical production alias and verifies bundle, V25, V26, compiler JSON, company JSON, and company HTML against the effective authority and recorded deployment",
     "post-promotion production readback binds the deployed job-application source SHA, effective Helix SHA, V25/V26 PASS readbacks, GitHub compiler JSON, GitHub company record, company HTML, claim receipt cardinality, and the same bounded nonclaim",
     "public proof package remains present and source/private boundaries remain explicit"
   ],
@@ -42,5 +45,5 @@
     "The private apex-github-worker implementation source is public.",
     "Production-scale reliability, latency, throughput, durability, or GitHub-scale operation is established."
   ],
-  "promotion_rule": "CLAIM_PROMOTED is closed only when the historical promotion receipts remain valid, the current effective Helix authority is CLAIM_PROMOTED at proof_bound_company_specific, the post-promotion production readback matches that authority across compiler JSON, company record, and company HTML, and the PR carrying this final readback passes the dedicated public-readback gate. Any higher claim requires new evidence and a new gate."
+  "promotion_rule": "CLAIM_PROMOTED is closed only when historical promotion inputs match their content-addressed Git blob identities, the current effective Helix authority is CLAIM_PROMOTED at proof_bound_company_specific, the canonical production alias independently reads back the same deployed source and effective authority across bundle/V25/V26/compiler/company JSON/company HTML, and the PR carrying this final readback passes the dedicated public-readback gate. Any higher claim requires new evidence and a new gate."
 }
