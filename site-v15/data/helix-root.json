@@ -3594,6 +3594,3426 @@
     },
     {
       "applicable_flagships": [],
+      "company_id": "apptronik",
+      "display_name": "Apptronik",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "arm",
+      "display_name": "Arm",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "astera_labs",
+      "display_name": "Astera Labs",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "braintrust",
+      "display_name": "Braintrust",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "clickhouse",
+      "display_name": "ClickHouse",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "etched",
+      "display_name": "Etched",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "figure_ai",
+      "display_name": "Figure AI",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "langchain",
+      "display_name": "LangChain",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "obsidian_security",
+      "display_name": "Obsidian Security",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "safe_superintelligence_ssi",
+      "display_name": "Safe Superintelligence (SSI)",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "shield_ai",
+      "display_name": "Shield AI",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "skild_ai",
+      "display_name": "Skild AI",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "tsmc",
+      "display_name": "TSMC",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "temporal",
+      "display_name": "Temporal",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "thinking_machines_lab",
+      "display_name": "Thinking Machines Lab",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "world_labs",
+      "display_name": "World Labs",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "1x",
+      "display_name": "1X",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "asml",
+      "display_name": "ASML",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "agility_robotics",
+      "display_name": "Agility Robotics",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "arista_networks",
+      "display_name": "Arista Networks",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "ayar_labs",
+      "display_name": "Ayar Labs",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "boston_dynamics",
+      "display_name": "Boston Dynamics",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "broadcom",
+      "display_name": "Broadcom",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "calypsoai",
+      "display_name": "CalypsoAI",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "celestial_ai",
+      "display_name": "Celestial AI",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "cisco",
+      "display_name": "Cisco",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "crowdstrike",
+      "display_name": "CrowdStrike",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "dell_technologies",
+      "display_name": "Dell Technologies",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "digital_realty",
+      "display_name": "Digital Realty",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "eaton",
+      "display_name": "Eaton",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "equinix",
+      "display_name": "Equinix",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "ge_vernova",
+      "display_name": "GE Vernova",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "genesis_ai",
+      "display_name": "Genesis AI",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "hewlett_packard_enterprise",
+      "display_name": "Hewlett Packard Enterprise",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "hiddenlayer",
+      "display_name": "HiddenLayer",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "lightmatter",
+      "display_name": "Lightmatter",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "marvell",
+      "display_name": "Marvell",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "micron",
+      "display_name": "Micron",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "noma_security",
+      "display_name": "Noma Security",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "oklo",
+      "display_name": "Oklo",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "operant_ai",
+      "display_name": "Operant AI",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "palo_alto_networks",
+      "display_name": "Palo Alto Networks",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "physical_intelligence",
+      "display_name": "Physical Intelligence",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "rhoda_ai",
+      "display_name": "Rhoda AI",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "sk_hynix",
+      "display_name": "SK hynix",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "samsung_electronics",
+      "display_name": "Samsung Electronics",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "sanctuary_ai",
+      "display_name": "Sanctuary AI",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "schneider_electric",
+      "display_name": "Schneider Electric",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "supermicro",
+      "display_name": "Supermicro",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "tenstorrent",
+      "display_name": "Tenstorrent",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "unitree_robotics",
+      "display_name": "Unitree Robotics",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "vertiv",
+      "display_name": "Vertiv",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "zenity",
+      "display_name": "Zenity",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "d_matrix",
+      "display_name": "d-Matrix",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "anyscale",
+      "display_name": "Anyscale",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "applied_intuition",
+      "display_name": "Applied Intuition",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "arize_ai",
+      "display_name": "Arize AI",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "aurora_innovation",
+      "display_name": "Aurora Innovation",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "browserbase",
+      "display_name": "Browserbase",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "cockroach_labs",
+      "display_name": "Cockroach Labs",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "confluent",
+      "display_name": "Confluent",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "docker",
+      "display_name": "Docker",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "e2b",
+      "display_name": "E2B",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "gecko_robotics",
+      "display_name": "Gecko Robotics",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "hadrian",
+      "display_name": "Hadrian",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "helicone",
+      "display_name": "Helicone",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "helsing",
+      "display_name": "Helsing",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "inngest",
+      "display_name": "Inngest",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "pydantic",
+      "display_name": "Pydantic",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "restate",
+      "display_name": "Restate",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "saronic",
+      "display_name": "Saronic",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "skydio",
+      "display_name": "Skydio",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "zilliz_milvus",
+      "display_name": "Zilliz / Milvus",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "ai21_labs",
+      "display_name": "AI21 Labs",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "baidu",
+      "display_name": "Baidu",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "bytedance_seed",
+      "display_name": "ByteDance / Seed",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "datadog",
+      "display_name": "Datadog",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "decagon",
+      "display_name": "Decagon",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "grafana_labs",
+      "display_name": "Grafana Labs",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "harvey",
+      "display_name": "Harvey",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "hebbia",
+      "display_name": "Hebbia",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "huawei",
+      "display_name": "Huawei",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "mercor",
+      "display_name": "Mercor",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "minimax",
+      "display_name": "MiniMax",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "sap",
+      "display_name": "SAP",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "sentry",
+      "display_name": "Sentry",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "servicenow",
+      "display_name": "ServiceNow",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "sierra",
+      "display_name": "Sierra",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "tencent",
+      "display_name": "Tencent",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
+      "company_id": "zhipu_ai_z_ai",
+      "display_name": "Zhipu AI / Z.ai",
+      "gap_or_next_gate": "Validate current official/public signals, map provenance-verified GlacierEQ capability donors, then build a bounded prototype and measure its proof gates before promotion.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Strategic innovation-expansion target. A testable GlacierEQ bottleneck hypothesis exists, but no company-specific accomplishment, affiliation, proprietary access, or employer-confirmed internal condition is claimed.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/innovation_expansion_2026_08_09.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [],
       "company_id": "glaciereq_core",
       "display_name": "GlacierEQ Core",
       "gap_or_next_gate": "Cross-company personal systems; ECHO is admitted but remains BLOCKED from promotion pending current-head public-release evidence, while Sigma Glue is admitted as REFERENCE_ONLY until its executable Definition of Done closes.",
@@ -3938,16 +7358,17 @@
       "raw_url": "https://raw.githubusercontent.com/GlacierEQ/job-app-helix/main/manifests/portfolio_root_truth.json",
       "repository": "GlacierEQ/job-app-helix"
     },
-    "root_ref": "8345955b67f163c3215b23195a267b6021a5be5e",
+    "root_ref": "a1628a682dce096bdcbcfe17a3b7a9a4ada84211",
     "root_version": "1.1.0",
-    "source_digest": "2ccae47c601bdeebf750e77a99dcc7a27539c6be5114142049b30435cd13a407",
+    "source_digest": "8d1cff1f36914f819af35d75b989f79df44acd9c654038c819c06e389c6aa3c0",
     "source_hashes": {
       "manifests/application_intelligence/company_bottleneck_atlas.external.json": "2d93f4e0c736426dcf6904be6d0139075a48c78f3051278becf05703ee67f654",
-      "manifests/company_dossiers.json": "c15a8ed9cd12b092407150df7743c307b9b4bdb825601613331e8ca5b0e3347e",
+      "manifests/company_dossiers.json": "ba686d5f26d77098ae64c8df33ac9ec397a68169ec9a026ddecd0a07fe5d3ac1",
       "manifests/company_dossiers/additional_targets.json": "cdafae69f78d6c45a65b8c8f64eb213e12404b4cb9580ebc3ced49b1e75d4096",
       "manifests/company_dossiers/expansion_targets.json": "ec4c2c095d002e111f0a508e89188c9678ddf3de4e21ccb66fab233700ce78e0",
       "manifests/company_dossiers/frontier_ai.json": "f72e7b9ba2defc3dcfd9c3d56e7f20994ee4117a09d4d218c13baf070a7afb4c",
       "manifests/company_dossiers/glaciereq_core.json": "07c9cb10c98702fa409ad60ab725cdb085423a58c4ec292612a686c3f4b7bdae",
+      "manifests/company_dossiers/innovation_expansion_2026_08_09.json": "2c7cc61cbc85c2a59456d738b01fb14e4ba1e602fab662a43ed45dda5ccd2d63",
       "manifests/company_dossiers/model_product_companies.json": "5fab1848b36de973fda5ca8cb46ecc342540a95036be9b83e1d9fdbd92e6db27",
       "manifests/company_dossiers/platform_infrastructure.json": "93a864ed5fae0ef9c78f026b4cd0b050be239f9b454a6545fc5b1d5efc756a5d",
       "manifests/company_second_depth.json": "6df29f45139a99c22d1530c9c09db8e323f0bed7e68b1205be36cbfd6d715d58",
