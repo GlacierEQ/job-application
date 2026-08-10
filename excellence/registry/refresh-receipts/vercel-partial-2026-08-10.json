@@ -1,0 +1,56 @@
+{
+  "schema": "glaciereq.excellence-registry-refresh-receipt.v1",
+  "trigger": "Vercel-lens canonicalization plus explicit authorization-token blocker",
+  "canonical_heads": [
+    {
+      "repository": "GlacierEQ/vercel-deploy-claim-compiler",
+      "merge_sha": "150a8ff31dd05fa1b35f50a1d693b9815d619f73",
+      "state": "EVOLVING",
+      "canonical_role": "evidence_graph_bound_deploy_claim_compilation",
+      "exact_candidate_proof": {
+        "source_sha": "5cdfaba8db55ae2e3bf66e5ebac38159f61542ea",
+        "workflow_run_id": 31399843701,
+        "result": "PASS"
+      },
+      "receipt_inclusive_proof": {
+        "source_sha": "75a2ade90a323fe31787b7e16234bc8d22db5e6a",
+        "workflow_run_id": 31400225004,
+        "result": "PASS"
+      }
+    },
+    {
+      "repository": "GlacierEQ/vercel-preview-truth-gate",
+      "merge_sha": "f1b8226a503625b22bff6e406720c1fa7c986926",
+      "state": "EVOLVING",
+      "canonical_role": "environment_bound_production_claim_truth_gate",
+      "exact_candidate_proof": {
+        "source_sha": "9a3076ba71a6792ea452681fa0f532663635fb4e",
+        "workflow_run_id": 31401313384,
+        "result": "PASS"
+      },
+      "receipt_inclusive_proof": {
+        "source_sha": "e36901af07a3d2bb054b9df278cb088d60674c86",
+        "workflow_run_id": 31401941292,
+        "result": "PASS"
+      }
+    }
+  ],
+  "blocked_heads": [
+    {
+      "repository": "GlacierEQ/vercel-edge-agent-cap-token",
+      "head_sha": "d050e2ed43bd02df9a74775fef7ff1964b9fac55",
+      "state": "PROMOTED",
+      "required_gate": "CANONICAL_POSITION_RESOLVED",
+      "blocker_issue": "https://github.com/GlacierEQ/vercel-edge-agent-cap-token/issues/1",
+      "reason": "request-body canonicalization, signed-field encoding, expiry validation, MAC comparison, and replay-boundary hardening remain unresolved",
+      "promotion_forbidden_until_exact_proof": true
+    }
+  ],
+  "truth_boundary": {
+    "integration_exercised_across_vercel_siblings": false,
+    "production_deployment_claimed": false,
+    "vercel_affiliation_or_adoption_claimed": false,
+    "blocked_repository_promoted_to_canonical": false
+  },
+  "required_next_gate": "live 37-repository census must inspect current canonical heads, preserve the CAP-token blocker, and derive a fresh priority queue"
+}
