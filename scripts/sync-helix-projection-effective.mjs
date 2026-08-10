@@ -93,8 +93,7 @@ globalThis.fetch = async (input, init) => {
   return nativeFetch(input, init);
 };
 
-try {
-  await import('./sync-helix-projection.mjs');
-} finally {
-  globalThis.fetch = nativeFetch;
-}
+// sync-helix-projection.mjs launches main().catch(...) without top-level await.
+// Keep the effective fetch installed for this one-shot Node process so its async
+// source loads cannot race with an early restoration of globalThis.fetch.
+await import('./sync-helix-projection.mjs');
