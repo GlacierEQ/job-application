@@ -62,15 +62,36 @@ function ringPositions(startIndex, count, radius, offsetDegrees) {
   });
 }
 
+function constellationRings(count) {
+  const rings = [];
+  let remaining = count;
+  let ordinal = 0;
+  while (remaining > 0) {
+    const capacity = 12 + ordinal * 8;
+    const assigned = Math.min(remaining, capacity);
+    rings.push(assigned);
+    remaining -= assigned;
+    ordinal += 1;
+  }
+  return rings;
+}
+
 function constellationPositionCss(count) {
-  const inner = Math.min(count, 12);
-  const middle = Math.min(Math.max(count - inner, 0), 20);
-  const outer = Math.max(count - inner - middle, 0);
-  return [
-    ...ringPositions(0, inner, 21, -90),
-    ...ringPositions(inner, middle, 33, -90 + (middle ? 180 / middle : 0)),
-    ...ringPositions(inner + middle, outer, 44, -90 + (outer ? 180 / outer : 0)),
-  ].join('');
+  const rings = constellationRings(count);
+  const innerRadius = 16;
+  const outerRadius = 47;
+  let startIndex = 0;
+  const rows = [];
+  for (let index = 0; index < rings.length; index += 1) {
+    const ringCount = rings[index];
+    const radius = rings.length === 1
+      ? 31
+      : innerRadius + ((outerRadius - innerRadius) * index) / (rings.length - 1);
+    const offset = -90 + (index % 2 === 0 ? 0 : 180 / ringCount);
+    rows.push(...ringPositions(startIndex, ringCount, radius, offset));
+    startIndex += ringCount;
+  }
+  return { css: rows.join(''), ringCount: rings.length, rings };
 }
 
 const snapshotText = await readFile(SNAPSHOT, 'utf8');
@@ -82,9 +103,6 @@ if (!Number.isInteger(companyCount) || companyCount < 1) {
 }
 if (!/^[a-f0-9]{40}$/.test(helixCommit)) {
   throw new Error(`Helix snapshot root_ref is not an immutable commit: ${helixCommit || 'missing'}`);
-}
-if (companyCount > 160) {
-  throw new Error(`Helix company cardinality ${companyCount} exceeds the bounded script-free constellation design limit of 160`);
 }
 
 const stageCounts = Object.fromEntries(SECOND_DEPTH_STAGES.map(stage => [stage, 0]));
@@ -194,8 +212,8 @@ for (const relative of CARDINALITY_CONSUMERS) {
 const cssSource = await readFile(ATLAS_CSS, 'utf8');
 const positionPattern = /\.atlas-star\.star-p\d+\{[^}]*\}/g;
 const cssWithoutPositions = cssSource.replace(positionPattern, '').trimEnd();
-const positionCss = constellationPositionCss(companyCount);
-const cssNext = `${cssWithoutPositions}\n${positionCss}\n`;
+const constellation = constellationPositionCss(companyCount);
+const cssNext = `${cssWithoutPositions}\n${constellation.css}\n`;
 await writeFile(ATLAS_CSS, cssNext, 'utf8');
 
 if (companyCount !== 49 && patched.length === 0) {
@@ -218,7 +236,7 @@ if (!designSource.includes("/^[a-f0-9]{40}$/.test(String(star?.company_projectio
 }
 
 const receipt = {
-  schema: 'glaciereq.public-company-cardinality-reconciliation.v5',
+  schema: 'glaciereq.public-company-cardinality-reconciliation.v6',
   status: 'PASS',
   source: 'site-v15/data/helix-root.json',
   source_sha256: sha256(snapshotText),
@@ -228,13 +246,16 @@ const receipt = {
   legacy_cardinality: 49,
   legacy_constellation_capacity: 64,
   generated_constellation_positions: companyCount,
+  generated_constellation_rings: constellation.ringCount,
+  generated_constellation_ring_population: constellation.rings,
   constellation_css_sha256: sha256(cssNext),
   runtime_helix_pin_consumers: RUNTIME_HELIX_PIN_CONSUMERS,
   patched_consumers: patched,
   invariants: [
     'Downstream public consumers validate the freshly synced Helix company projection rather than a historical fixed track count.',
     'Second-depth stage-count assertions follow the freshly synced public projection and may not preserve obsolete historical distributions.',
-    'The zero-script constellation receives one deterministic CSS position per governed company and never relies on inline style or client-side JavaScript.',
+    'The zero-script constellation scales deterministic concentric rings to the governed company count instead of failing when the estate grows past a historical presentation ceiling.',
+    'Every governed company receives exactly one deterministic CSS position without inline style or client-side JavaScript.',
     'Runtime company-projection bridges use the same immutable Helix commit as the freshly synced static projection while historical static-source pins remain unchanged.',
     'The blob-pinned current-proof receipt preserves its historical Helix identity and is not required to equal the current runtime Helix projection commit.',
   ],
@@ -247,6 +268,7 @@ console.log(JSON.stringify({
   authoritative_company_tracks: companyCount,
   second_depth: stageCounts,
   generated_constellation_positions: companyCount,
+  generated_constellation_rings: constellation.ringCount,
   runtime_helix_pin_consumers: RUNTIME_HELIX_PIN_CONSUMERS.length,
   historical_proof_boundary: 'BLOB_PINNED_IDENTITY_SEPARATE_FROM_LIVE_PROJECTION',
   patched_consumers: patched.length,
