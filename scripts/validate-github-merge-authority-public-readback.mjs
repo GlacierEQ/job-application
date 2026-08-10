@@ -71,7 +71,8 @@ assert(
 );
 
 assert(helix.schema === 'glaciereq.public-portfolio-projection.v1', 'unexpected public Helix projection schema');
-const github = helix.companies?.find((company) => company.company_id === 'github');
+assert(Array.isArray(helix.companies) && helix.companies.length > 0, 'Helix company projection is empty');
+const github = helix.companies.find((company) => company.company_id === 'github');
 assert(github, 'GitHub is missing from the freshly compiled Helix company projection');
 assert(github.second_depth?.stage === expectedStage, 'Helix GitHub stage drift');
 assert(github.second_depth?.claim_ceiling === expectedCeiling, 'Helix GitHub claim ceiling drift');
@@ -137,7 +138,7 @@ for (const key of ['bundle_verifier', 'v25_verifier', 'v26_verifier']) {
   assert(finalProduction.live_readback?.[key]?.status === 'PASS', `${key} did not read back PASS`);
 }
 assert(finalProduction.live_readback?.v25_verifier?.compiler_helix_commit === helix.source?.root_ref, 'V25 verifier Helix authority drift');
-assert(finalProduction.live_readback?.v25_verifier?.company_count === helix.company_count, 'V25 verifier company cardinality drift');
+assert(finalProduction.live_readback?.v25_verifier?.company_count === helix.companies.length, 'V25 verifier company cardinality drift');
 assert(Array.isArray(finalProduction.live_readback?.v25_verifier?.errors) && finalProduction.live_readback.v25_verifier.errors.length === 0, 'V25 verifier errors present');
 assert(Array.isArray(finalProduction.live_readback?.v26_verifier?.errors) && finalProduction.live_readback.v26_verifier.errors.length === 0, 'V26 verifier errors present');
 
