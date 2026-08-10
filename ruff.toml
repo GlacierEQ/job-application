@@ -4,3 +4,12 @@
 # repository-wide quick CI focused on application/runtime Python rather than
 # reformatting this deterministic document-construction source.
 extend-exclude = ["site-v15/scripts/generate-resume-v17.py"]
+
+# The portfolio reflection harness intentionally probes arbitrary imported
+# modules, constructors, and edge paths. Broad exception capture is part of its
+# fail-closed discovery contract rather than application error handling. Keep
+# these ignores scoped to the dynamic harness and adversarial probe tests; all
+# other Ruff rules and repository files remain strict.
+[lint.per-file-ignores]
+"scripts/operate.py" = ["BLE001", "S110", "S112", "SIM102"]
+"tests/test_adversarial.py" = ["BLE001", "S112"]
