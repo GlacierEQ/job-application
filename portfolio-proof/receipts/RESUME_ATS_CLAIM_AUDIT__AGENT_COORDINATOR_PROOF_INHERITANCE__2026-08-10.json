@@ -1,0 +1,41 @@
+{
+  "schema": "glaciereq.portfolio-claim-audit.v1",
+  "cycle_date": "2026-08-10",
+  "lane": 3,
+  "claim_surface": "RESUME_ATS.md",
+  "claim_id": "agent_coordinator_test_verification",
+  "action": "NARROW_AND_CORRECT",
+  "job_application_base": "934daaf06f6b95876e8514e3324061106a455447",
+  "prior_claim": "Agent Coordinator: 62 of 62 recorded Python tests for deterministic ownership, dependency order, capacity, stable priority, shared budgets, and explicit refusal.",
+  "contradiction": "The ATS surface omitted the revision boundary and could be read as current-head verification even though the canonical Agent Coordinator head is explicitly demoted to DISCOVERED with a TESTS_FAIL gap receipt.",
+  "historical_evidence": {
+    "repository": "GlacierEQ/anthropic-agent-coordinator",
+    "executable_commit": "87438f57bdfd2cb380730cf51140611963d7c95b",
+    "tests": "62/62",
+    "scope": "historical pinned executable proof"
+  },
+  "current_evidence": {
+    "repository": "GlacierEQ/anthropic-agent-coordinator",
+    "current_head": "0f2ca5199e67664a87ffef3f874d5836984dbbdb",
+    "excellence_state_path": "machine/excellence-state.json",
+    "excellence_state_blob": "5fd86101521f4a35df43a521fb512d2b39eead3a",
+    "principal_state": "DISCOVERED",
+    "proof_ok": false,
+    "operable_ok": false,
+    "gap_receipt_path": "machine/gap-receipt.json",
+    "gap_receipt_blob": "754a79800a7444a643372461fd2988a60bdb0c61",
+    "blocker": "TESTS_FAIL",
+    "ran": 9,
+    "principal_state_claim": null
+  },
+  "replacement_claim_rule": "The 62/62 result may be stated only as historical pinned evidence at commit 87438f57bdfd2cb380730cf51140611963d7c95b. Current head 0f2ca5199e67664a87ffef3f874d5836984dbbdb must be represented as DISCOVERED / not promoted while its TESTS_FAIL gap receipt remains.",
+  "retired_interpretation": "62/62 as unqualified current Agent Coordinator verification",
+  "nonclaims": [
+    "current-head verification",
+    "current-head promotion",
+    "production deployment",
+    "Anthropic adoption or affiliation"
+  ],
+  "durable_delta": "RESUME_ATS.md now carries the same proof-inheritance boundary already enforced by the canonical resume: historical 62/62 evidence is pinned to its executable commit and current-head TESTS_FAIL/DISCOVERED state is explicit.",
+  "next_cursor": "Run current-head repository-native tests and excellence gates for anthropic-agent-coordinator; only after fresh exact-head green evidence may ATS wording be promoted beyond historical pinned proof."
+}
