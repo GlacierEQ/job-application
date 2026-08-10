@@ -17,10 +17,10 @@ const snapshot = JSON.parse(snapshotText);
 const companyCount = Array.isArray(snapshot.companies) ? snapshot.companies.length : 0;
 const helixCommit = String(snapshot?.source?.root_ref ?? '');
 if (!Number.isInteger(companyCount) || companyCount < 1) {
-  throw new Error('V21 runtime star reconciliation requires a non-empty Helix projection');
+  throw new Error('V21 runtime reconciliation requires a non-empty Helix projection');
 }
 if (!/^[a-f0-9]{40}$/.test(helixCommit)) {
-  throw new Error('V21 runtime star reconciliation requires an immutable Helix commit');
+  throw new Error('V21 runtime reconciliation requires an immutable Helix commit');
 }
 
 const source = await readFile(PROXY_PATH, 'utf8');
@@ -70,6 +70,109 @@ if (!next.includes('function runtimeStarPositionCss(count) {')) {
   const anchor = 'async function verifyDeployment(res) {';
   if (!next.includes(anchor)) throw new Error('proxy.js: V21 verifier anchor missing');
   next = next.replace(anchor, `${generator}${anchor}`);
+}
+
+const overrideConstant = "const SECOND_DEPTH_OVERRIDE_INDEX_PATH = 'manifests/company_second_depth_overrides/index.json';";
+if (!next.includes(overrideConstant)) {
+  const anchor = "const SECOND_DEPTH_PATH = 'manifests/company_second_depth.json';";
+  if (!next.includes(anchor)) throw new Error('proxy.js: second-depth path anchor missing');
+  next = next.replace(anchor, `${anchor}\n${overrideConstant}`);
+}
+
+const effectiveLoader = `function cloneJson(value) {
+  return JSON.parse(JSON.stringify(value));
+}
+
+async function loadEffectiveSecondDepth(base) {
+  if (!base || base.authority !== 'GlacierEQ/job-app-helix') {
+    throw new Error('company second-depth authority mismatch');
+  }
+  if (!base.company_overrides || typeof base.company_overrides !== 'object' || Array.isArray(base.company_overrides)) {
+    throw new Error('company second-depth overrides invalid');
+  }
+  const effective = cloneJson(base);
+  const overrideIndex = await fetchHelixJson(SECOND_DEPTH_OVERRIDE_INDEX_PATH);
+  if (overrideIndex.schema !== 'glaciereq.company-second-depth-overrides.v1') {
+    throw new Error('company second-depth override index schema mismatch');
+  }
+  if (overrideIndex.authority !== 'GlacierEQ/job-app-helix') {
+    throw new Error('company second-depth override authority mismatch');
+  }
+  if (overrideIndex.merge_order !== 'base_company_second_depth_then_company_module') {
+    throw new Error('company second-depth override merge order mismatch');
+  }
+  if (!Array.isArray(overrideIndex.overrides)) {
+    throw new Error('company second-depth override rows missing');
+  }
+  const seen = new Set();
+  for (const ref of overrideIndex.overrides) {
+    if (!ref || typeof ref !== 'object' || Array.isArray(ref)) {
+      throw new Error('company second-depth override ref invalid');
+    }
+    if (typeof ref.company_id !== 'string' || !COMPANY_ID_PATTERN.test(ref.company_id)) {
+      throw new Error('company second-depth override company id invalid');
+    }
+    if (typeof ref.path !== 'string' || !ref.path.startsWith('manifests/company_second_depth_overrides/') || !ref.path.endsWith('.json')) {
+      throw new Error(\`\${ref.company_id}: company second-depth override path invalid\`);
+    }
+    if (seen.has(ref.company_id)) {
+      throw new Error(\`\${ref.company_id}: duplicate modular second-depth override\`);
+    }
+    if (Object.hasOwn(effective.company_overrides, ref.company_id)) {
+      throw new Error(\`\${ref.company_id}: inline and modular second-depth authority collide\`);
+    }
+    seen.add(ref.company_id);
+    const module = await fetchHelixJson(ref.path);
+    if (module.schema !== 'glaciereq.company-second-depth-company.v1' || module.company_id !== ref.company_id) {
+      throw new Error(\`\${ref.company_id}: modular second-depth identity drift\`);
+    }
+    if (!module.state || typeof module.state !== 'object' || Array.isArray(module.state)) {
+      throw new Error(\`\${ref.company_id}: modular second-depth state invalid\`);
+    }
+    effective.company_overrides[ref.company_id] = cloneJson(module.state);
+  }
+  return effective;
+}
+
+`;
+if (!next.includes('async function loadEffectiveSecondDepth(base) {')) {
+  const anchor = 'function validateEvidenceReference(companyId, field, item) {';
+  if (!next.includes(anchor)) throw new Error('proxy.js: evidence validator anchor missing');
+  next = next.replace(anchor, `${effectiveLoader}${anchor}`);
+}
+
+const loadProjectionBase = `      const [shards, secondDepth] = await Promise.all([
+        Promise.all(index.dossier_files.map(fetchHelixJson)),
+        fetchHelixJson(SECOND_DEPTH_PATH),
+      ]);
+      return compileProjection(index, shards, secondDepth);`;
+const loadProjectionEffective = `      const [shards, secondDepthBase] = await Promise.all([
+        Promise.all(index.dossier_files.map(fetchHelixJson)),
+        fetchHelixJson(SECOND_DEPTH_PATH),
+      ]);
+      const secondDepth = await loadEffectiveSecondDepth(secondDepthBase);
+      return compileProjection(index, shards, secondDepth);`;
+if (next.includes(loadProjectionBase)) {
+  next = next.replace(loadProjectionBase, loadProjectionEffective);
+} else if (!next.includes('const secondDepth = await loadEffectiveSecondDepth(secondDepthBase);')) {
+  throw new Error('proxy.js: base second-depth projection loader anchor missing');
+}
+
+const exactPromotedCount = 'stageCounts.CLAIM_PROMOTED === 1 &&';
+const semanticPromotedContract = `stageCounts.CLAIM_PROMOTED >= 2 &&
+      projection.companies
+        .filter((company) => company.second_depth.stage === 'CLAIM_PROMOTED')
+        .every((company) => company.second_depth.evidence.claim_receipts.length > 0) &&
+      projection.companies.some((company) =>
+        company.company_id === 'github' &&
+        company.second_depth.stage === 'CLAIM_PROMOTED' &&
+        company.second_depth.claim_ceiling === 'proof_bound_company_specific' &&
+        company.second_depth.evidence.claim_receipts.length >= 2
+      ) &&`;
+if (next.includes(exactPromotedCount)) {
+  next = next.replace(exactPromotedCount, semanticPromotedContract);
+} else if (!next.includes("company.company_id === 'github'")) {
+  throw new Error('proxy.js: historical promoted-company count anchor missing');
 }
 
 const staticVerifyBlock = `    const stars = await fetchSource('assets/helix-atlas.stars.css');
@@ -133,19 +236,31 @@ if (!next.includes("filePath === 'assets/helix-atlas.stars.css' ||")) {
 if (!next.includes("body: Buffer.from(runtimeStarPositionCss(projection.company_count))")) {
   throw new Error('proxy.js: V21 runtime star CSS route is missing');
 }
+if (!next.includes(overrideConstant) || !next.includes('loadEffectiveSecondDepth')) {
+  throw new Error('proxy.js: V21 runtime is not using effective second-depth authority');
+}
+if (next.includes(exactPromotedCount)) {
+  throw new Error('proxy.js: V21 verifier still hard-codes one promoted company');
+}
+if (!next.includes("company.company_id === 'github'")) {
+  throw new Error('proxy.js: V21 verifier does not preserve the GitHub promoted claim');
+}
 if (!next.includes(`const HELIX_COMMIT = '${helixCommit}';`)) {
   throw new Error('proxy.js: V21 runtime Helix authority does not match fresh projection');
 }
 
 await writeFile(PROXY_PATH, next, 'utf8');
 const receipt = {
-  schema: 'glaciereq.v21-runtime-star-reconciliation.v1',
+  schema: 'glaciereq.v21-runtime-authority-reconciliation.v2',
   status: 'PASS',
   authoritative_helix_commit: helixCommit,
   authoritative_company_tracks: companyCount,
   proxy_before_sha256: sha256(source),
   proxy_after_sha256: sha256(next),
   invariants: [
+    'V21 company routes consume base second-depth plus governed modular company overrides from the same immutable Helix commit.',
+    'Inline and modular second-depth authority cannot collide for the same company.',
+    'The V21 verifier validates promoted-company evidence semantically and preserves both Lockheed Martin and GitHub promotions without an exact global count pin.',
     'V21 star-position CSS is generated from the same immutable Helix projection used for company routes.',
     'The V21 verifier no longer asks a historical static site commit to contain positions for future company tracks.',
     'All governed company stars receive deterministic server-side CSS positions with no client JavaScript.',
@@ -157,6 +272,8 @@ console.log(JSON.stringify({
   status: 'PASS',
   authoritative_helix_commit: helixCommit,
   authoritative_company_tracks: companyCount,
+  effective_second_depth: true,
+  promoted_company_count_pin_removed: true,
   proxy_changed: next !== source,
   proxy_sha256: receipt.proxy_after_sha256,
 }));
