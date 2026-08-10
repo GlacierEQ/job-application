@@ -1,16 +1,37 @@
 {
-  "schema": "glaciereq.hiring-portfolio.v15",
+  "schema": "glaciereq.hiring-portfolio.v1",
   "release": {
-    "name": "V15 Final Hiring Release",
-    "date": "2026-08-04",
+    "name": "Unified Helix-Bound Hire Surface",
+    "date": "2026-08-09",
     "production_url": "https://casey-barton-glaciereq.vercel.app/",
     "source_repository": "GlacierEQ/job-application",
-    "evidence_policy": "claims-do-not-exceed-owning-repository-receipts"
+    "output_directory": "site-v15",
+    "evidence_policy": "claims-do-not-exceed-owning-repository-receipts",
+    "authority": {
+      "control_plane": "GlacierEQ/job-app-helix",
+      "flagship_registry": "manifests/flagship_registry.json",
+      "current_proof": "site-v15/data/current-proof.json",
+      "public_projection": "site-v15/data/helix-root.json"
+    },
+    "stack": {
+      "current_proof": "V21 First Star Completion",
+      "estate": "V22 Estate Intelligence",
+      "truth_sync": "V23-TRUTH-SYNC-COMPLETE-WEB",
+      "typography": "V24-ALGERIAN-DISPLAY",
+      "compiler": "V25-APPLICATION-COMPILER",
+      "title": "V26-TRUE-ALGERIAN-TITLE"
+    },
+    "supersedes": [
+      "V15 Final Hiring Release",
+      "site-v13",
+      "site-v14"
+    ],
+    "note": "Product version is the live stack (headers + current-proof + helix). Directory site-v15 is deploy output path only."
   },
   "person": {
     "name": "Casey Del Carpio Barton",
     "display_name": "Casey Barton",
-    "location": "Honolulu, Hawaiʻi",
+    "location": "Honolulu, Hawai\u02bbi",
     "email": "glacier.equilibrium@gmail.com",
     "roles": [
       "Applied AI Systems Architect",
@@ -31,57 +52,268 @@
     "source_prs_merged": 0
   },
   "capabilities": [
-    {"id":"application-intelligence","title":"Application intelligence","detail":"Connects role research, verified repository evidence, truthful résumé generation, portfolio presentation, package state, and follow-up."},
-    {"id":"agent-governance","title":"Agent and infrastructure governance","detail":"Separates capability, authority, proposal, execution, verification, persistence, and promotion state."},
-    {"id":"multi-agent","title":"Deterministic multi-agent systems","detail":"Coordinates ownership, dependencies, shared budgets, bounded retries, state transitions, and visible closure."},
-    {"id":"evidence-systems","title":"Document and evidence systems","detail":"Preserves source material, extracts structure, links claims to evidence, validates outputs, and packages usable artifacts."},
-    {"id":"polyglot","title":"Evidence-based polyglot architecture","detail":"Assigns language boundaries only where they create measurable implementation value."},
-    {"id":"human-machine","title":"Human and machine interfaces","detail":"Presents one factual graph at different depths without allowing claims, uncertainty, or authority to drift."}
+    {
+      "id": "application-intelligence",
+      "title": "Application intelligence",
+      "detail": "Connects role research, verified repository evidence, truthful r\u00e9sum\u00e9 generation, portfolio presentation, package state, and follow-up."
+    },
+    {
+      "id": "agent-governance",
+      "title": "Agent and infrastructure governance",
+      "detail": "Separates capability, authority, proposal, execution, verification, persistence, and promotion state."
+    },
+    {
+      "id": "multi-agent",
+      "title": "Deterministic multi-agent systems",
+      "detail": "Coordinates ownership, dependencies, shared budgets, bounded retries, state transitions, and visible closure."
+    },
+    {
+      "id": "evidence-systems",
+      "title": "Document and evidence systems",
+      "detail": "Preserves source material, extracts structure, links claims to evidence, validates outputs, and packages usable artifacts."
+    },
+    {
+      "id": "polyglot",
+      "title": "Evidence-based polyglot architecture",
+      "detail": "Assigns language boundaries only where they create measurable implementation value."
+    },
+    {
+      "id": "human-machine",
+      "title": "Human and machine interfaces",
+      "detail": "Presents one factual graph at different depths without allowing claims, uncertainty, or authority to drift."
+    }
   ],
   "flagships": [
     {
-      "id":"receipt-router","rank":1,"name":"Portfolio Receipt Router","repo":"https://github.com/GlacierEQ/xai-colossus-2","state":"TEST_VERIFIED","label":"Executed public flagship","summary":"Replaced an overstated autonomous-control surface with a local, fail-closed evidence router that preserves compatibility while refusing unsupported promotion.","mechanism":["validates source evidence states","reconciles tests and artifacts","routes bounded public claims","blocks unfinished candidates","performs no external actions"],"evidence":"69/69 tests; direct and reusable CI passed; artifact 8910423397; zero external queries and actions.","limit":"Draft source hardening remains unmerged; no production datacenter control or company affiliation is claimed."
+      "id": "helix",
+      "rank": 1,
+      "name": "Job Application Helix",
+      "repo": "https://github.com/GlacierEQ/job-app-helix",
+      "state": "PROMOTED",
+      "label": "Estate-promoted public system",
+      "summary": "Canonical release control plane",
+      "mechanism": [],
+      "evidence": "148/148 plus lint, Protobuf, rollout, provenance and public-surface checks.",
+      "limit": "Next gate: Refresh exact current-SHA receipt and generate all company dossiers.",
+      "level": "L5",
+      "public_surface": "PUBLIC",
+      "system_id": "job_app_helix"
     },
     {
-      "id":"microcode","rank":2,"name":"Microcode Governance","repo":"https://github.com/GlacierEQ/xai-colossus-microcode","state":"REVIEWED_EXECUTION_BLOCKED","label":"Primary pending infrastructure flagship","summary":"Offline firmware-manifest, inventory-drift, compatibility-policy, SBOM, provenance, and approval-gated rollout planning.","mechanism":["hashes policy and inventory","detects drift","evaluates declared compatibility","generates SPDX and CycloneDX","plans canary-zone-fleet rollout without execution"],"evidence":"132-check contract generated; independent static review found no critical defect.","limit":"Private CI failed before runner steps existed; not test-verified and performs no firmware mutation."
+      "id": "akos",
+      "rank": 2,
+      "name": "AKOS Authority Runtime",
+      "repo": "https://github.com/GlacierEQ/AKOS",
+      "state": "PROMOTED",
+      "label": "Estate-promoted public system",
+      "summary": "Authority/evidence/tool-state/closure runtime",
+      "mechanism": [],
+      "evidence": "Diligence records 118/118 per interpreter, 10/10 Forge, 4/4 PSYSOC-X.",
+      "limit": "Next gate: Current connector/artifact lifecycle receipts; isolate case-specific paths.",
+      "level": "L5",
+      "public_surface": "PUBLIC_ALLOWLIST_REQUIRED",
+      "system_id": "akos"
     },
     {
-      "id":"helix","rank":3,"name":"Job Application Helix","repo":"https://github.com/GlacierEQ/job-app-helix","state":"TEST_VERIFIED_WITH_RELEASE_GATES","label":"Application intelligence control plane","summary":"Treats hiring as an evidence-governed system rather than a résumé and disconnected links.","mechanism":["inventories governed repositories","grades evidence by current state","maps proof to role requirements","generates human and machine packages","tracks promotion and application state"],"evidence":"148/148 recorded repository tests.","limit":"Release-specific current-SHA observations and deployment receipts remain separate gates."
+      "id": "doctor-strange",
+      "rank": 3,
+      "name": "Doctor Strange Convergence",
+      "repo": "https://github.com/GlacierEQ/Pro-DOCTOR-STRANGE",
+      "state": "PROMOTED",
+      "label": "Estate-promoted public system",
+      "summary": "Independent-reader convergence authority",
+      "mechanism": [],
+      "evidence": "11/11 tests and cryptographic Receipt Zero replay; no fake consensus.",
+      "limit": "Next gate: Add independent providers and 20-run pilot before multi-provider claims.",
+      "level": "L4",
+      "public_surface": "PUBLIC",
+      "system_id": "doctor_strange"
     },
     {
-      "id":"security","rank":4,"name":"Security Proposal Engine","repo":"https://github.com/GlacierEQ/xai-colossus-security","state":"BOUNDED_TEST_VERIFIED","label":"Authority-safe response planning","summary":"Turns declared threats into deterministic response proposals while keeping external execution outside the system boundary.","mechanism":["detects declared suspicious zones","suppresses duplicates","maps severity to response","requires external authority","accepts receipt-bound resolution"],"evidence":"35 tests; direct and reusable CI passed; external actions executed: 0.","limit":"No authenticated telemetry, network enforcement, physical control, or production security effectiveness is claimed."
+      "id": "tower-of-babel",
+      "rank": 4,
+      "name": "Tower of Babel",
+      "repo": "https://github.com/GlacierEQ/the-tower-of-babel",
+      "state": "REFERENCE_ONLY",
+      "label": "Public reference surface",
+      "summary": "Governed polyglot architecture",
+      "mechanism": [],
+      "evidence": "A- verified-with-hardening; external production references separate from local proof.",
+      "limit": "Next gate: Close Issue #26 and regenerate derived surfaces.",
+      "level": "L4",
+      "public_surface": "PUBLIC",
+      "system_id": "tower_of_babel"
     },
     {
-      "id":"servers","rank":5,"name":"Deterministic Rack Planner","repo":"https://github.com/GlacierEQ/xai-colossus-servers","state":"BOUNDED_TEST_VERIFIED","label":"Capacity planning","summary":"Places declared loads into declared rack capacity with stable ordering, explicit headroom, and transparent unplaced reasons.","mechanism":["validates immutable inputs","sorts deterministically","respects preferred racks","reports headroom","does not mutate external systems"],"evidence":"20 tests; direct and reusable CI passed.","limit":"No hardware inventory, GPU telemetry, topology discovery, or global-optimization claim."
+      "id": "sigma-glue",
+      "rank": 5,
+      "name": "Sigma Glue Orchestration",
+      "repo": "https://github.com/GlacierEQ/sigma-glue",
+      "state": "PROMOTED",
+      "label": "Estate-promoted public system",
+      "summary": "Reversible approval-bound orchestration with provider ambiguity recovery",
+      "mechanism": [],
+      "evidence": "Canonical 4a1ca8e5: 140/140 Node 22 tests; live GitHub Contents canary performed 2 writes/5 reads, recovered a deliberately lost success response to confirmed_applied, preserved restart-readable recovery evidence, and blocked replay before a third write.",
+      "limit": "Next gate: Add a second real provider contract and multi-host coordination before any distributed or provider-transactional exactly-once claim.",
+      "level": "L4",
+      "public_surface": "PUBLIC",
+      "system_id": "sigma_glue"
     },
     {
-      "id":"energy","rank":6,"name":"Energy Family Model","repo":"https://github.com/GlacierEQ/xai-colossus-energy","state":"BOUNDED_TEST_VERIFIED","label":"Exact-commit cross-repository composition","summary":"Combines a Rust/Python energy model with pinned analytical and response components under exact commit identities.","mechanism":["calculates demand and reserve","detects oversubscription","plans priority-aware shedding","pins child commits","degrades safely without providers"],"evidence":"16 bounded family tests plus 19 memory-layer unit tests; three workflows passed.","limit":"No grid integration, telemetry, transformer protection, production shedding, or measured cost claim."
+      "id": "pro-code-runtime",
+      "rank": 6,
+      "name": "Pro-Code Runtime",
+      "repo": "https://github.com/GlacierEQ/pro-code",
+      "state": "REFERENCE_ONLY",
+      "label": "Public reference surface",
+      "summary": "Polyglot runtime implementation",
+      "mechanism": [],
+      "evidence": "Python/TypeScript planes passed; Rust/Haskell blocked.",
+      "limit": "Next gate: Pinned all-language CI and root license.",
+      "level": "L4",
+      "public_surface": "PUBLIC",
+      "system_id": "pro_code_runtime"
     },
     {
-      "id":"cooling","rank":7,"name":"Cooling Simulation Testbed","repo":"https://github.com/GlacierEQ/xai-colossus-cooling","state":"BOUNDED_TEST_VERIFIED","label":"Simulation orchestration and artifacts","summary":"Models bounded thermal scenarios, exercises controller behavior, and produces inspectable engineering artifacts.","mechanism":["validates thermal inputs","evaluates bounded anomalies","runs deterministic controller paths","reports environment limits","generates blueprint artifacts"],"evidence":"37 tests; direct and reusable CI passed; DXF, PDF, SVG, and PNG outputs generated.","limit":"No real GPU telemetry, hardware control, hyperscale performance, PUE, latency, or cost claim."
+      "id": "job-application",
+      "rank": 7,
+      "name": "Job Application Portal",
+      "repo": "https://github.com/GlacierEQ/job-application",
+      "state": "PROMOTED",
+      "label": "Estate-promoted public system",
+      "summary": "Canonical recruiter/runtime source",
+      "mechanism": [],
+      "evidence": "Strong public/private contract and release-candidate website checks.",
+      "limit": "Next gate: Bind production bytes to canonical Git SHA.",
+      "level": "L4",
+      "public_surface": "PUBLIC",
+      "system_id": "job_application"
     },
     {
-      "id":"nanosphere","rank":8,"name":"Nanofluid Scenario Model","repo":"https://github.com/GlacierEQ/xai-colossus-nanosphere","state":"BOUNDED_TEST_VERIFIED","label":"Modeled-versus-measured discipline","summary":"Evaluates declared nanofluid scenarios while explicitly separating modeled outputs from laboratory measurement and physical actuation.","mechanism":["validates physical inputs","selects declared models","computes conductivity and viscosity","scores stability","exports a modeled manifest"],"evidence":"58 tests; direct and reusable CI passed; zero external actions.","limit":"No laboratory validation, material certification, dosing, magnetic control, or physical-system safety claim."
+      "id": "receipt-router",
+      "rank": 8,
+      "name": "Portfolio Receipt Router",
+      "repo": "https://github.com/GlacierEQ/xai-colossus-2",
+      "state": "TEST_VERIFIED",
+      "label": "Executed public flagship",
+      "summary": "Replaced an overstated autonomous-control surface with a local, fail-closed evidence router that preserves compatibility while refusing unsupported promotion.",
+      "mechanism": [
+        "validates source evidence states",
+        "reconciles tests and artifacts",
+        "routes bounded public claims",
+        "blocks unfinished candidates",
+        "performs no external actions"
+      ],
+      "evidence": "69/69 tests recorded in current-proof supporting_proof; local cold unittest path uses pytest.",
+      "limit": "Draft source hardening remains unmerged; no production datacenter control or company affiliation is claimed.",
+      "level": "LEGACY_DEMO",
+      "public_surface": "PUBLIC",
+      "merged_from": "pre-helix portfolio (useful proof retained)"
     },
     {
-      "id":"coordinator","rank":9,"name":"Agent Coordinator","repo":"https://github.com/GlacierEQ/anthropic-agent-coordinator","state":"TEST_VERIFIED_WITH_PROMOTION_GATES","label":"Deterministic multi-agent scheduling","summary":"Assigns task ownership only after checking dependency order, agent role, capacity, stable priority, and a shared token budget.","mechanism":["reads a task graph","checks dependencies","matches roles and capacity","enforces shared budgets","records assignment or refusal"],"evidence":"62/62 recorded Python 3.13 tests.","limit":"Hosted matrix and build-wheel promotion remain open."
-    },
-    {
-      "id":"psysoc-x","rank":10,"name":"PSYSOC-X","repo":"https://github.com/GlacierEQ/AKOS/tree/main/stones/psysoc-x","state":"TEST_VERIFIED","label":"Deterministic audience calibration","summary":"Changes tone, density, skepticism, ordering, and explanation depth without changing facts, uncertainty, dignity, or authority.","mechanism":["accepts explicit audience context","selects a bounded profile","suppresses humor in critical contexts","surfaces limits for skeptical readers","renders inspectable guidance"],"evidence":"Promoted at bounded TEST scope with deterministic cases and receipts.","limit":"No psychological diagnosis, covert persuasion, or manipulation capability is claimed."
+      "id": "cooling",
+      "rank": 9,
+      "name": "Cooling Simulation Testbed",
+      "repo": "https://github.com/GlacierEQ/xai-colossus-cooling",
+      "state": "BOUNDED_TEST_VERIFIED",
+      "label": "Reference simulation testbed",
+      "summary": "Models bounded thermal scenarios, exercises controller behavior, and produces inspectable engineering artifacts.",
+      "mechanism": [
+        "validates thermal inputs",
+        "evaluates bounded anomalies",
+        "runs deterministic controller paths",
+        "reports environment limits",
+        "generates blueprint artifacts"
+      ],
+      "evidence": "Local unittest green (13); no hardware control claimed.",
+      "limit": "No real GPU telemetry, hardware control, hyperscale performance, PUE, latency, or cost claim.",
+      "level": "LEGACY_DEMO",
+      "public_surface": "PUBLIC",
+      "merged_from": "pre-helix portfolio (useful proof retained)"
     }
   ],
   "experience": [
-    {"organization":"GlacierEQ","title":"Founder / Applied AI Systems Builder","location":"Honolulu, Hawaiʻi","period":"January 2025–Present","bullets":["Designs and implements interconnected AI, agent, document, memory, evidence, infrastructure, and hiring systems.","Converts ambiguous architecture into bounded contracts, runnable slices, failure behavior, test gates, machine interfaces, and recruiter-ready artifacts.","Built evidence-governed portfolio infrastructure that distinguishes source presence, behavioral proof, deployment, authority, and completion.","Uses AI-assisted development as an inspectable workflow combining source review, bounded generation, deterministic validation, and human judgment."]},
-    {"organization":"Diamond Head Home Inspections","title":"Certified Home Inspector","location":"Honolulu, Hawaiʻi","period":"2020–2024","bullets":["Inspected residential systems and translated field observations into clear, decision-ready reports under time constraints.","Built disciplined habits around evidence capture, uncertainty, safety, defect priority, system interaction, and plain-language communication.","Applies the same method to software: observe first, separate symptom from cause, test the boundary, and avoid unsupported conclusions."]}
+    {
+      "organization": "GlacierEQ",
+      "title": "Founder / Applied AI Systems Builder",
+      "location": "Honolulu, Hawai\u02bbi",
+      "period": "January 2025\u2013Present",
+      "bullets": [
+        "Designs and implements interconnected AI, agent, document, memory, evidence, infrastructure, and hiring systems.",
+        "Converts ambiguous architecture into bounded contracts, runnable slices, failure behavior, test gates, machine interfaces, and recruiter-ready artifacts.",
+        "Built evidence-governed portfolio infrastructure that distinguishes source presence, behavioral proof, deployment, authority, and completion.",
+        "Uses AI-assisted development as an inspectable workflow combining source review, bounded generation, deterministic validation, and human judgment."
+      ]
+    },
+    {
+      "organization": "Diamond Head Home Inspections",
+      "title": "Certified Home Inspector",
+      "location": "Honolulu, Hawai\u02bbi",
+      "period": "2020\u20132024",
+      "bullets": [
+        "Inspected residential systems and translated field observations into clear, decision-ready reports under time constraints.",
+        "Built disciplined habits around evidence capture, uncertainty, safety, defect priority, system interaction, and plain-language communication.",
+        "Applies the same method to software: observe first, separate symptom from cause, test the boundary, and avoid unsupported conclusions."
+      ]
+    }
   ],
   "education": [
-    {"school":"University of Hawaiʻi at Mānoa","credential":"B.S., Marine Biology","period":"2016"},
-    {"school":"AWS Cloud Institute","credential":"Cloud Application Developer program","period":"2025–2026 · In progress"}
+    {
+      "school": "University of Hawai\u02bbi at M\u0101noa",
+      "credential": "B.S., Marine Biology",
+      "period": "2016"
+    },
+    {
+      "school": "AWS Cloud Institute",
+      "credential": "Cloud Application Developer program",
+      "period": "2025\u20132026 \u00b7 In progress"
+    }
   ],
   "technical": {
-    "primary":["Python","TypeScript","JavaScript","SQL","Bash","Node.js","React","Next.js","FastAPI"],
-    "architecture":["REST","JSON-RPC","MCP","JSON Schema","Protocol Buffers","event design","state machines","idempotency","authority models","evidence models"],
-    "delivery":["Git","GitHub Actions","Docker","Vercel","automated testing","static analysis","dependency auditing","deterministic release checks"],
-    "additional_evidence_bounded":["Go","Rust","C","C++","CUDA","Swift/Metal","Julia","R","Verilog/SystemVerilog","WebAssembly"]
+    "primary": [
+      "Python",
+      "TypeScript",
+      "JavaScript",
+      "SQL",
+      "Bash",
+      "Node.js",
+      "React",
+      "Next.js",
+      "FastAPI"
+    ],
+    "architecture": [
+      "REST",
+      "JSON-RPC",
+      "MCP",
+      "JSON Schema",
+      "Protocol Buffers",
+      "event design",
+      "state machines",
+      "idempotency",
+      "authority models",
+      "evidence models"
+    ],
+    "delivery": [
+      "Git",
+      "GitHub Actions",
+      "Docker",
+      "Vercel",
+      "automated testing",
+      "static analysis",
+      "dependency auditing",
+      "deterministic release checks"
+    ],
+    "additional_evidence_bounded": [
+      "Go",
+      "Rust",
+      "C",
+      "C++",
+      "CUDA",
+      "Swift/Metal",
+      "Julia",
+      "R",
+      "Verilog/SystemVerilog",
+      "WebAssembly"
+    ]
   }
 }

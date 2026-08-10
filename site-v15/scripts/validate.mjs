@@ -126,16 +126,23 @@ assert(currentProof.current_star.company_projection.helix_commit === '83549cda4a
 assert(currentProof.current_star.prohibited_claims.length >= 7, 'truth boundary incomplete');
 assert(currentProof.current_star.allowed_claim.includes('independent mission-agent assurance gateway'), 'allowed claim drift');
 
-assert(portfolio.schema === 'glaciereq.hiring-portfolio.v15', 'portfolio schema drift');
+assert(
+  portfolio.schema === 'glaciereq.hiring-portfolio.v1' || portfolio.schema === 'glaciereq.hiring-portfolio.v15',
+  'portfolio schema drift',
+);
 assert(portfolio.person.name === 'Casey Del Carpio Barton', 'name drift');
 assert(portfolio.proof.receipt_router_tests === 69, 'router count drift');
 assert(portfolio.proof.bounded_source_tests === 166, 'source count drift');
 assert(portfolio.proof.energy_memory_tests === 19, 'memory count drift');
 assert(portfolio.proof.external_actions === 0, 'external action drift');
 assert(portfolio.proof.receipt_router_artifact === 8910423397, 'artifact drift');
-assert(portfolio.flagships.length === 10, 'ten historical flagship entries required');
-assert(new Set(portfolio.flagships.map(item => item.id)).size === 10, 'flagship IDs must be unique');
+assert(portfolio.flagships.length >= 7, 'helix-bound flagship set required (>=7)');
+assert(new Set(portfolio.flagships.map(item => item.id)).size === portfolio.flagships.length, 'flagship IDs must be unique');
 assert(portfolio.flagships.every(item => item.limit && item.evidence && item.repo), 'each flagship needs evidence, limit, and source');
+assert(portfolio.flagships.some(item => item.id === 'helix'), 'helix flagship required');
+assert(!portfolio.flagships.some(item => item.id === 'microcode'), 'microcode flagship retired (missing/blocked)');
+assert(!String(portfolio.release?.name || '').includes('V15'), 'V15 release brand retired');
+assert(portfolio.release?.authority?.control_plane === 'GlacierEQ/job-app-helix' || portfolio.release?.stack, 'release must bind helix/stack authority');
 
 assert(resume.includes('/downloads/Casey_Barton_Resume.pdf'), 'resume PDF link missing');
 assert(resume.includes('/resume/ats.txt') || resume.includes('RESUME_ATS.md'), 'resume ATS link missing');

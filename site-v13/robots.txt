@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://casey-barton-glaciereq.vercel.app/sitemap.xml

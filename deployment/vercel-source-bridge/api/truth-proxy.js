@@ -240,8 +240,19 @@ function transformResumeJson(value) {
 function transformPortfolioJson(value) {
   const data = structuredClone(value);
   data.release = data.release && typeof data.release === 'object' ? data.release : {};
+  // Kill stale V15 product brand; path site-v15 is deploy output only.
+  data.release.name = 'Unified Helix-Bound Hire Surface';
   data.release.truth_sync_authority_commit = TRUTH_COMMIT;
   data.release.truth_sync_release = RELEASE;
+  data.release.supersedes = Array.from(
+    new Set([...(Array.isArray(data.release.supersedes) ? data.release.supersedes : []), 'V15 Final Hiring Release']),
+  );
+  if (!data.release.authority || typeof data.release.authority !== 'object') {
+    data.release.authority = {
+      control_plane: 'GlacierEQ/job-app-helix',
+      flagship_registry: 'manifests/flagship_registry.json',
+    };
+  }
   const flagships = Array.isArray(data.flagships) ? data.flagships : [];
   const helix = flagships.find(
     (flagship) => flagship?.id === 'helix' || flagship?.name === 'Job Application Helix',
@@ -252,6 +263,8 @@ function transformPortfolioJson(value) {
     'Exact 67-repository admitted boundary; Helix package PARTIALLY_VERIFIED; child repositories retain independent evidence states.';
   helix.limit =
     'No aggregate Helix test-count claim is promoted. Child repositories retain independent evidence states and release-specific gates remain separate.';
+  // Drop retired dead weight if present in older static blobs.
+  data.flagships = flagships.filter((flagship) => flagship?.id !== 'microcode');
   return data;
 }
 

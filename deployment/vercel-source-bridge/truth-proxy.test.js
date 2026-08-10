@@ -80,21 +80,25 @@ test('structured resume replaces aggregate test count with admitted boundary', (
   assert.equal(output.x_evidence.proof.other, 9);
 });
 
-test('portfolio projection changes only the Helix truth state', () => {
+test('portfolio projection unifies release brand and Helix truth state', () => {
   const input = {
-    release: { source: 'old' },
+    release: { name: 'V15 Final Hiring Release', source: 'old' },
     flagships: [
       { id: 'helix', name: 'Job Application Helix', state: 'RECORDED_TESTS', evidence: '148/148 recorded tests' },
       { id: 'other', name: 'Other System', state: 'VERIFIED', evidence: 'unchanged' },
+      { id: 'microcode', name: 'Microcode', state: 'REVIEWED_EXECUTION_BLOCKED', evidence: 'drop me' },
     ],
   };
   const output = truth.transformPortfolioJson(input);
   const helix = output.flagships.find((flagship) => flagship.id === 'helix');
   const other = output.flagships.find((flagship) => flagship.id === 'other');
+  assert.equal(output.release.name, 'Unified Helix-Bound Hire Surface');
+  assert.ok(output.release.supersedes.includes('V15 Final Hiring Release'));
   assert.equal(helix.state, 'PARTIALLY_VERIFIED');
   assert.match(helix.evidence, /67-repository admitted boundary/);
   assert.match(helix.limit, /No aggregate Helix test-count claim is promoted/);
   assert.deepEqual(other, input.flagships[1]);
+  assert.equal(output.flagships.some((f) => f.id === 'microcode'), false);
 });
 
 test('stale detector is scoped to Helix rather than arbitrary 148 values', () => {
