@@ -3,8 +3,8 @@
   "company": "GitHub",
   "capability": "merge_authority_graph",
   "observed_at_utc": {
-    "from": "2026-08-10T05:54:12Z",
-    "through": "2026-08-10T05:54:48Z"
+    "from": "2026-08-10T06:02:08Z",
+    "through": "2026-08-10T06:02:44Z"
   },
   "promotion_basis": {
     "historical_claim_receipt_commit": "577f63c506c6c4df9c1751a0ff5b8fa07822e491",
@@ -15,12 +15,12 @@
   },
   "production_projection": {
     "project": "casey-barton-glaciereq",
-    "deployment_id": "dpl_3fbUSwQHqN59Taaj9M9AGwCnoDyT",
+    "deployment_id": "dpl_HxKmXvuPT3jBjEHasbM4kTb1ZrTJ",
     "canonical_alias": "casey-barton-glaciereq.vercel.app",
     "source_repository": "GlacierEQ/job-application",
-    "source_commit": "8bd529e775b7b5c070ef393a45eeac4248da6bd3",
+    "source_commit": "f420ad15c2843a868cdc5acc6852a97003f5149a",
     "helix_repository": "GlacierEQ/job-app-helix",
-    "helix_commit": "7128a51bcc2bbadce1b2c4452dfea6c3c19d5c8f",
+    "helix_commit": "b09b7925a5448b934c69e8f175f6b6747794a474",
     "release": "V25-APPLICATION-COMPILER",
     "title_release": "V26-TRUE-ALGERIAN-TITLE"
   },
@@ -28,8 +28,8 @@
     "status": "PASS",
     "schema": "glaciereq.v25-deployment-bundle-manifest.v2",
     "module_count": 9,
-    "api_index_sha256": "a16b29cb5e2e3d86370287707cfc910874645e07993290b43d519af582366ae9",
-    "factory_bundle_sha256": "9ec8499888ac450a9b0a9521179cd47014840b72d656726997f51a879d8ab95b",
+    "api_index_sha256": "dfd3fef9db2897a1355b1f8310440435e0781731e5eeaa79dc3d9f9dccb6ff1a",
+    "factory_bundle_sha256": "e0921c8bd82fd0fcd7220dbc2af24e19384715049f592bc8c9d1ceb63e40b503",
     "self_contained_executable_modules": true,
     "bootstrap_network_fetch_required": false,
     "runtime_string_evaluation_required": false,
@@ -41,13 +41,13 @@
       "path": "/__v25_bundle_verify",
       "http_status": 200,
       "status": "PASS",
-      "source_commit": "8bd529e775b7b5c070ef393a45eeac4248da6bd3"
+      "source_commit": "f420ad15c2843a868cdc5acc6852a97003f5149a"
     },
     "v25_verifier": {
       "path": "/__v25_verify",
       "http_status": 200,
       "status": "PASS",
-      "compiler_helix_commit": "7128a51bcc2bbadce1b2c4452dfea6c3c19d5c8f",
+      "compiler_helix_commit": "b09b7925a5448b934c69e8f175f6b6747794a474",
       "company_count": 166,
       "errors": []
     },
@@ -64,7 +64,7 @@
       "stage": "CLAIM_PROMOTED",
       "claim_ceiling": "proof_bound_company_specific",
       "claim_receipts": 2,
-      "helix_commit": "7128a51bcc2bbadce1b2c4452dfea6c3c19d5c8f",
+      "helix_commit": "b09b7925a5448b934c69e8f175f6b6747794a474",
       "effective_second_depth_overrides": "manifests/company_second_depth_overrides/index.json"
     },
     "github_company_record": {
@@ -74,7 +74,7 @@
       "stage": "CLAIM_PROMOTED",
       "claim_ceiling": "proof_bound_company_specific",
       "claim_receipts": 2,
-      "helix_commit": "7128a51bcc2bbadce1b2c4452dfea6c3c19d5c8f"
+      "helix_commit": "b09b7925a5448b934c69e8f175f6b6747794a474"
     },
     "github_company_html": {
       "path": "/companies/github/",
