@@ -1,0 +1,63 @@
+{
+  "schema": "glaciereq.excellence-registry-refresh-receipt.v1",
+  "generated_at": "2026-08-10T13:06:00Z",
+  "scope": "scale-triad",
+  "purpose": "Bind the newly canonical Scale-lens specialist states and trigger a fresh live 37-repository excellence census from current canonical heads.",
+  "repositories": [
+    {
+      "repository": "GlacierEQ/scale-agreement-budget-allocator",
+      "canonical_head": "fb03344fa0bbf37a9e400a6a368d5800418c9ac1",
+      "principal_state": "EVOLVING",
+      "canonical_role": "CANONICAL_SPECIALIST",
+      "owns": "uncertainty_weighted_annotation_budget_allocation",
+      "proof": {
+        "candidate_source_sha": "05356e957c2573246438785381bc23bd5c770ca8",
+        "candidate_workflow_run": 31389230584,
+        "receipt_inclusive_head": "84083c8f8df3e398d5050f5328e6b04c79feb32a",
+        "receipt_inclusive_workflow_run": 31389417663
+      }
+    },
+    {
+      "repository": "GlacierEQ/scale-eval-poison-sentinel",
+      "canonical_head": "b42225fcc145311dc71825f0f5038aeb0112dbd9",
+      "principal_state": "EVOLVING",
+      "canonical_role": "CANONICAL_SPECIALIST",
+      "owns": "exact_train_eval_contamination_detection",
+      "proof": {
+        "candidate_source_sha": "965ca718501cc97fd9065721f513d38b92402c35",
+        "candidate_workflow_run": 31389953835,
+        "receipt_inclusive_head": "e99c60309bca8d3d83c4d73a18ca82fff14c9b9f",
+        "receipt_inclusive_workflow_run": 31390171372
+      }
+    },
+    {
+      "repository": "GlacierEQ/scale-label-collusion-bound",
+      "canonical_head": "addd98894f32e4709ecd56ef9219c1236e4c10c3",
+      "principal_state": "EVOLVING",
+      "canonical_role": "CANONICAL_SPECIALIST",
+      "owns": "pairwise_annotator_agreement_anomaly_screening",
+      "proof": {
+        "candidate_source_sha": "03602689bdd86c81759671c74c107bf1e4d99748",
+        "candidate_workflow_run": 31390813501,
+        "receipt_inclusive_head": "ba4e2fb307a89139b51a7ae54bd57a3e0901707c",
+        "receipt_inclusive_workflow_run": 31391019793
+      }
+    }
+  ],
+  "triad_contract": {
+    "planes": [
+      "uncertainty_weighted_annotation_budget_allocation",
+      "exact_train_eval_contamination_detection",
+      "pairwise_annotator_agreement_anomaly_screening"
+    ],
+    "future_composition": "quality/integrity receipts -> bounded policy composition -> independently verified downstream decision",
+    "integration_exercised": false
+  },
+  "truth_boundary": [
+    "This receipt synchronizes registry inputs; it is not proof of exercised Scale-triad integration.",
+    "No Scale AI affiliation, adoption, proprietary access, deployment, or production use is claimed.",
+    "Agreement anomaly is not a misconduct finding; exact feature-hash overlap is not semantic near-duplicate proof.",
+    "The governed roster count remains a census scope and is not an accomplishment count."
+  ],
+  "next_gate": "FRESH_37_REPO_CENSUS"
+}
