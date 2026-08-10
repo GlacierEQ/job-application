@@ -8,7 +8,7 @@ const designSource = fs.readFileSync(path.join(__dirname, 'api', 'design-proxy.j
 const releaseRouterSource = fs.readFileSync(path.join(__dirname, 'api', 'release-router.js'), 'utf8');
 
 test('pins the complete web source and V21 Helix proof authority', () => {
-  assert.equal(design.constants.WEB_SOURCE_COMMIT, '261a3fb38d1236f15a50ce0a95d565cc9940bda9');
+  assert.equal(design.constants.WEB_SOURCE_COMMIT, '95a91fd9b51c77babf51b3bed7c156acfd9d06f7');
   assert.equal(design.constants.HELIX_COMMIT, '8345955b67f163c3215b23195a267b6021a5be5e');
   assert.equal(design.constants.RELEASE, 'V21-FIRST-STAR-COMPLETE-WEB');
 });

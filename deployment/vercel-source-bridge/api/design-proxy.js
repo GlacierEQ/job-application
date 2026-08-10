@@ -2,7 +2,7 @@ const crypto = require('node:crypto');
 const { URL } = require('node:url');
 const proxy = require('./proxy.js');
 
-const WEB_SOURCE_COMMIT = '261a3fb38d1236f15a50ce0a95d565cc9940bda9';
+const WEB_SOURCE_COMMIT = '95a91fd9b51c77babf51b3bed7c156acfd9d06f7';
 const HELIX_COMMIT = '8345955b67f163c3215b23195a267b6021a5be5e';
 const WEB_RAW_ROOT = `https://raw.githubusercontent.com/GlacierEQ/job-application/${WEB_SOURCE_COMMIT}/site-v15/`;
 const GITHUB_TREE_ROOT = `https://api.github.com/repos/GlacierEQ/job-application/git/trees/${WEB_SOURCE_COMMIT}`;
