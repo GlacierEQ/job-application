@@ -1,130 +1,159 @@
 # Company Fit Projection — Anthropic AI Reliability
 
-**Status:** EVIDENCE-BOUNDED COMPANY FIT — MULTI-DONOR  
+**Status:** CURRENT ROLE VERIFIED + INTERNAL PROOF RECONCILED; HELIX SECOND-DEPTH PROMOTION NOT YET WRITTEN  
 **Company:** Anthropic  
-**Target role:** Staff Software Engineer, AI Reliability / adjacent Agent Infrastructure and Applied AI roles  
-**Company-study basis refreshed:** 2026-08-08  
-**Portfolio proof refreshed:** 2026-08-09  
-**Control-plane base:** `GlacierEQ/job-application@c55817c85799037f83a1d358ffeb85fd5b6f3353`  
-**Truth boundary:** Independent GlacierEQ analysis; no Anthropic affiliation, endorsement, employment, proprietary access, provider execution, production deployment, Anthropic-scale reliability, or claim that GlacierEQ systems reproduce Anthropic internals.
+**Current verified role:** Staff Software Engineer, AI Reliability  
+**Locations observed:** San Francisco, CA · New York City, NY · Seattle, WA  
+**Role evidence observed:** 2026-08-09  
+**Job-application base:** `61042c4018db90589715fe1c7f6a2c58879ac2b2`  
+**Helix authority observed:** `GlacierEQ/job-app-helix@ccc46f81792c5b90135e2a10c649fdb02b5be3cd`  
+**Reconciliation receipt:** `portfolio-proof/receipts/ANTHROPIC_AI_RELIABILITY_RECONCILIATION__2026-08-09.json` created at commit `ad7c57240542dac523c67ab6e742246ea7a8463f`  
+**Truth boundary:** Independent GlacierEQ work. No Anthropic affiliation, endorsement, employment, proprietary access, adoption, runtime integration, production deployment, production SLO attainment, Anthropic-scale operation, or model-safety equivalence is claimed.
 
-## Current external bottleneck
+## Canonical correction
 
-Anthropic's current company-study record identifies **Staff Software Engineer, AI Reliability** as a target role and bounds the engineering pressure around long-running agents that must preserve useful state, recover cleanly across failures/context boundaries, expose failure rather than silently erase it, and operate under deterministic safeguards and bounded authority.
+The previous version of this file overreached in one specific way: it described `BEHAVIOR_TESTED_RELIABILITY_CONTROL_ALIGNMENT` as though that were already a promoted Anthropic company-specific second-depth state.
 
-This cycle does not refresh the external research layer. It strengthens the internal proof mapping against the already-canonical company study.
+That wording is retired.
 
-**Bounded bottleneck statement:** Anthropic needs agent infrastructure that can make long-running, increasingly autonomous work **resumable, resource-bounded, failure-visible, provenance-aware, and controllable**. This projection addresses deterministic orchestration plus replay/idempotency/provenance control. It does not claim Anthropic runtime integration, production reliability, sandboxing, or model-safety research.
+At the observed Helix authority head, `manifests/company_second_depth.json` still reports Anthropic through the default `MAPPED_ONLY` / `company_alignment_only` state. The current cycle has now closed substantial evidence gaps — a live role is verified, the role's reliability problem is bounded from the current posting, and the exact promoted coordinator and safety-monitor code paths have been inspected against pinned native proof — but the Helix second-depth manifest has not yet been rewritten through its sequential promotion contract. This proof surface therefore does **not** pretend that canonical stage mutation already happened.
 
-## Canonical company-study state advanced
+The correct distinction is:
 
-The prior projection had one verified donor lane and explicitly deferred importing other continuity systems until an independent multi-repository capability cluster reconciled its proof ceilings.
+- **Internal capability evidence:** strong and test-bounded.
+- **Current Anthropic role/problem evidence:** verified from the live job posting.
+- **Canonical Helix company-second-depth state:** still `MAPPED_ONLY` until the role/problem/code evidence is persisted through the Helix six-field immutable evidence contract and the stage is advanced without skipping prerequisites.
 
-That gate is now closed for the recovery/provenance evidence lane. The canonical portfolio contains `portfolio-proof/CAPABILITY_CLUSTER__IDEMPOTENT_RECOVERY_AND_PROVENANCE__2026-08-08.md` at status `BEHAVIOR_TESTED_MULTI_REPO_PATTERN`, with exact-revision behavioral receipts for Sigma Glue and ECHO plus a separately bounded AKOS equivalence proof. Runtime-recovery alignment remains open.
+## Current Anthropic bottleneck — verified from the live role
 
-This materially strengthens the Anthropic fit from a single deterministic-scheduler donor to two complementary proof families:
+The current Staff Software Engineer, AI Reliability role places AIRE across Anthropic's critical serving path, from SDK and network/API layers through serving infrastructure and accelerators. The role specifically calls for service-level objectives, monitoring and observability, high-availability serving across regions/cloud providers, incident response and recovery, systematic post-incident improvements, and reliability of safeguard model serving.
 
-1. deterministic dependency/resource governance from `anthropic-agent-coordinator`;
-2. stable identity, idempotency/replay boundaries, provenance/integrity verification, and durable reconciliation evidence across independent canonical repositories.
+That makes the defensible company-fit problem:
 
-No repository count is converted into an accomplishment count. The second family is treated as one repeated capability pattern.
+> **Cross-cutting AI serving reliability requires deterministic control, visible failure, bounded authority/resources, observability, and durable recovery discipline across system seams.**
 
-## Strongest verified overlap
+This is narrower than claiming a complete Anthropic-equivalent reliability platform. GlacierEQ evidence below addresses parts of the control envelope, not Anthropic's production scale, GPU fleet, token-serving path, multi-region infrastructure, or SLO performance.
 
-### 1. Deterministic dependency-aware orchestration — VERIFIED AT PINNED TEST EVIDENCE
+## Verified internal proof family A — deterministic agent coordination
 
-Canonical donor: `GlacierEQ/anthropic-agent-coordinator`  
-Verified executable commit: `87438f57bdfd2cb380730cf51140611963d7c95b`  
-Receipt: `receipts/wave-1-test-verification-2026-07-31.json`  
-Verified result: **62 collected / 62 executed / 62 passed / 0 failures / 0 errors / 0 skips**
+**Repository:** `GlacierEQ/anthropic-agent-coordinator`  
+**Canonical head inspected:** `ac977563cfd59deb8e87177f53082184f6468aa8`  
+**Exact code path:** `src/anthropic_agent_coordinator/coordinator.py`  
+**Blob:** `795c8fcd94ec4e4ed65d1c3a4f8254281eaa9f8f`  
+**Helix receipt:** `status/wave-1-anthropic-agent-coordinator-2026-07-31.json` at Helix `ccc46f81792c5b90135e2a10c649fdb02b5be3cd`  
+**Pinned test boundary:** Python 3.13.5 candidate — **62 collected / 62 executed / 62 passed / 0 failures / 0 errors / 0 skips**. The blocked hosted Python 3.11–3.13 matrix is not counted as passing.
 
-Verified mechanisms:
+The inspected implementation verifies:
 
-- dependency-aware deterministic scheduling;
-- prerequisite completion before downstream assignment;
+- deterministic dependency-aware scheduling;
+- explicit stable-priority ordering;
+- prerequisite completion before downstream readiness;
+- full-funding task admission rather than partial-completion inflation;
 - shared global token-budget conservation;
 - aggregate per-role capacity enforcement;
-- full-funding semantics rather than partial-completion inflation;
-- stable declaration-order priority;
-- explicit structured deferrals;
-- fail-fast graph and resource validation;
-- SHA-256-bound positive-count JUnit receipt behavior.
+- structured deferral for global budget, role capacity, or unmet dependencies;
+- fail-closed validation for malformed task graphs, unknown dependencies, cycles, and invalid resource inputs;
+- machine-readable assignment, deferral, budget, and role-usage results.
 
-**Fit:** this covers the deterministic control plane around probabilistic workers: admission, ordering, resource governance, explicit non-completion, and machine-verifiable evidence.
+**Claim ceiling:** this is a deterministic planning/control mechanism. It does not execute agents, call Anthropic or other model providers, prove distributed execution, prove production scale, or prove deployment.
 
-### 2. Idempotent recovery + provenance-bound state — SIGMA GLUE + ECHO BEHAVIOR-TESTED; AKOS EQUIVALENCE-BOUNDED
+## Verified internal proof family B — tool-call safety policy boundary
 
-Canonical proof object: `portfolio-proof/CAPABILITY_CLUSTER__IDEMPOTENT_RECOVERY_AND_PROVENANCE__2026-08-08.md`  
-Status: `BEHAVIOR_TESTED_MULTI_REPO_PATTERN`
+**Repository:** `GlacierEQ/anthropic-safety-monitor`  
+**Canonical head inspected:** `a5c21172e32ce6054994402c38d86f7ef94bc56b`  
+**Exact code path:** `src/anthropic_safety_monitor/policy.py`  
+**Blob:** `f8f7fce09216b565141a05c115587f1a0334be22`  
+**Helix receipt:** `status/wave-1-anthropic-safety-monitor-2026-07-31.json` at Helix `ccc46f81792c5b90135e2a10c649fdb02b5be3cd`  
+**Pinned test boundary:** Python 3.11 / 3.12 / 3.13 — **51 tests per version, 153 total executions, 0 failures / 0 errors / 0 skips**.
 
-Repeated pattern:
+The inspected implementation verifies:
 
-**stable identity → bounded/idempotent execution → provenance/integrity verification → durable reconciliation evidence**
+- explicit `ALLOW`, `CONFIRM`, and `DENY` dispositions;
+- bounded argument review;
+- shell parsing, command segmentation, and wrapper normalization;
+- denial of configured critical destructive patterns such as fork bombs, filesystem formatting, raw device overwrite, and recursive forced deletion of critical paths;
+- human-confirmation gates for configured recursive deletion, force push, cluster-resource deletion, infrastructure destruction, host availability changes, destructive SQL, and dynamic shell expansion;
+- strongest-disposition aggregation across parsed command segments and batches.
 
-Independent canonical evidence:
+The implementation itself states the correct boundary: it reviews proposed calls **without executing them or claiming semantic safety**.
 
-- **Sigma Glue** — revision `4a1ca8e5c88a62e8a94a43213b2c509af6afcea3`; durable idempotency subject binds key, plan fingerprint, provider identity, and operation; mismatched key reuse fails closed; completion persists receipt/reconciliation summaries. Exact-revision `verify` workflow run `31279895318`, job `93159400700`, completed successfully with repository-native `npm test`.
-- **ECHO** — revision `d87276166041d655452abd4e992a755565f9201c`; stable external identity, caller-supplied idempotency keys, integrity recomputation/quarantine, fail-closed unsupported capabilities, and chained attempt receipts. Exact-revision `ECHO CI` run `31139090677`, job `92744931046`, completed successfully across compile, correctness lint, dependency audit, behavioral tests, and CLI verification.
-- **AKOS** — revision `d9aeb424f4d99da6026719e1e58793f6a89efd86`; deterministic identity/idempotency, immutable source-pointer promotion boundaries, deterministic evidence-manifest roots, and fingerprint-only secret quarantine, bounded by the canonical AKOS tree-equivalence receipt. AKOS production/provider behavior is not inferred from this cluster.
+**Claim ceiling:** this is a deterministic policy-review surface. It does not prove complete semantic safety, actual tool execution, automatic approval, production detection coverage, sandboxing, blast-radius containment, Anthropic integration, or deployment.
 
-**Fit:** long-running agent infrastructure must distinguish first execution from retry/replay, preserve stable task identity, reject contradictory reuse, maintain provenance across state changes, and leave durable evidence for reconciliation. Sigma Glue and ECHO behavior-test that control pattern; AKOS contributes only bounded canonical-tree-equivalence evidence. This does not establish runtime-recovery behavior across the cluster.
+## Verified governance proof family C — worker-science admission discipline
 
-### 3. Evidence-bearing failure semantics — VERIFIED ACROSS BOTH PROOF FAMILIES
+**Repository:** `GlacierEQ/job-app-helix`  
+**Authority head:** `ccc46f81792c5b90135e2a10c649fdb02b5be3cd`  
+**Code:** `src/job_app_helix/worker_science.py` — blob `b8901f33775dd1bfe513386efd987c5a4d95bfa6`  
+**Manifest:** `manifests/worker_science_bridge.json` — blob `bd6539aa0431279c2dfccbcece8eec0c9c6ffd5f`
 
-The scheduler does not silently convert constrained work into success; invalid graphs/resources fail closed and unfunded work remains structured deferral. The recovery/provenance cluster similarly rejects mismatched idempotency reuse or integrity violations and preserves durable evidence boundaries.
+The current worker-science contract prevents a different kind of portfolio inflation:
 
-**Fit:** the combined proof is stronger than either donor alone because it covers both **before execution** (admission/dependencies/resources) and **around repeated execution** (identity/replay/integrity/reconciliation).
+- matched comparisons require immutable scoring-rubric references;
+- worker rows must exactly cover the declared topology;
+- baseline/template-delta comparisons freeze required experiment dimensions;
+- infrastructure-invalid attempts cannot be performance-valid;
+- quality is observational rather than causal;
+- marginal system value and outcome leverage remain null until a valid matched ablation exists;
+- provider failure is projected as `PROVIDER_BLOCKED`, not converted into a worker-performance conclusion.
 
-## Partial overlap — do not inflate
+The Anthropic worker-science series is currently bounded by that exact rule: its latest known attempt is infrastructure-invalid/provider-blocked, so no causal worker-value claim is promoted from it.
 
-### Long-horizon continuity
+## Existing recovery/provenance cluster — preserved, not used to skip company gates
 
-The combined proof now covers deterministic orchestration plus durable identity/recovery/provenance patterns. It still does **not** prove a complete multi-session agent-memory runtime, autonomous checkpoint planner, or Anthropic-equivalent resume engine.
+The prior proof surface also linked the canonical `CAPABILITY_CLUSTER__IDEMPOTENT_RECOVERY_AND_PROVENANCE__2026-08-08.md` pattern across Sigma Glue, ECHO, and equivalence-bounded AKOS evidence. That prior artifact remains useful portfolio evidence and is not discarded by this correction.
 
-### Agent safety / containment
-
-Resource ceilings, fail-closed behavior, integrity quarantine, and authority boundaries are relevant controls, but they do not prove sandboxing, capability security, model safety, policy enforcement, or production blast-radius containment.
-
-### Runtime reliability
-
-The recovery/provenance cluster is behavior-tested at Sigma Glue and ECHO, with AKOS limited to equivalence-bounded implementation evidence; it is not runtime-recovery proven. Promotion beyond that ceiling requires exact-revision restart/replay/readback receipts for each promoted runtime assertion.
+However, this cycle does not use that cluster to skip Anthropic's sequential company-second-depth prerequisites. Repository evidence, even strong repository evidence, does not by itself prove that a current company problem has been verified or that a company-specific claim has been canonically promoted.
 
 ## Recruiter surface
 
-> I build deterministic control layers around agentic work: dependency-safe scheduling, explicit resource ceilings, stable identities for retries, idempotent execution boundaries, integrity/provenance checks, visible failures, and durable receipts. The scheduler proof is pinned to 62/62 passing repository-native tests; Sigma Glue and ECHO behavior-test the recovery pattern, while AKOS contributes bounded equivalence evidence. That maps directly to AI reliability work around long-running agents without claiming Anthropic-scale deployment, runtime recovery, or production reliability.
+> I build deterministic reliability controls around agentic systems: dependency-safe scheduling, explicit resource ceilings, visible deferrals, bounded tool-call policy review, fail-closed validation, and experiment governance that refuses to turn infrastructure failures into performance claims. The coordinator is pinned to 62/62 passing tests, and the safety-policy surface is pinned to 153/153 passing cross-version executions. Those mechanisms map directly to the current Anthropic AI Reliability role's emphasis on cross-cutting system reliability, observability, incident resilience, and safeguard-serving reliability — without claiming Anthropic integration, deployment, production scale, or complete semantic safety.
 
 ## Master surface
 
-**Anthropic pressure**  
-Long-running agents accumulate state and errors, need reliable continuation, and require deterministic safeguards as autonomy and access expand.
+**Verified Anthropic pressure**  
+The live AI Reliability role owns cross-system reliability concerns spanning service-level objectives, observability, high availability, incident response/recovery, systematic improvement, and safeguard-serving reliability.
 
 **Verified GlacierEQ mechanisms**  
-One proof family governs dependency graphs, complete-task funding, resource ceilings, and explicit deferral. A second independent family binds stable identity to idempotent/replay-safe execution, provenance/integrity checks, and durable reconciliation evidence, with behavior testing in Sigma Glue and ECHO and equivalence-bounded AKOS support.
+The coordinator supplies deterministic admission, dependency, capacity, and explicit-deferral semantics around agentic work. The safety monitor adds a separate deterministic review boundary for configured destructive or high-risk command classes. Helix worker science adds evidence-admission discipline: invalid infrastructure turns remain invalid and causal worker claims require matched ablations.
 
-**Combined leverage hypothesis**  
-The strongest fit is the reliability envelope around probabilistic workers: validate work before admission, bound resources during execution, make retries semantically stable, expose contradictory or incomplete states, and leave machine-verifiable evidence after execution.
+**Why the combination matters**  
+These are three different reliability seams: **before work** (admission/resources/dependencies), **before risky action** (policy disposition/confirmation), and **before learning or portfolio promotion** (experimental evidence validity). The repeated engineering pattern is not “many agents”; it is **bounded state transition under explicit failure semantics**.
 
 **Unproven boundary**  
-Anthropic runtime integration, production SLOs, model safety/alignment research, sandboxing, large-scale distributed semantics, runtime-recovery proof, and a full persistent multi-session agent runtime remain outside the claim.
+No current evidence establishes Anthropic runtime integration, Claude-serving implementation, GPU-scale operation, multi-region failover, production SLOs, production incident ownership, sandboxing, complete semantic-safety coverage, autonomous tool approval, model-safety research equivalence, or measured business impact.
 
 ## Machine surface
 
 ```yaml
-schema: glaciereq.company-fit-proof.v2
+schema: glaciereq.company-fit-proof.v3
 company: Anthropic
-role_signal:
+run_date: 2026-08-09
+job_application_base: 61042c4018db90589715fe1c7f6a2c58879ac2b2
+helix_authority: ccc46f81792c5b90135e2a10c649fdb02b5be3cd
+current_role:
   title: Staff Software Engineer, AI Reliability
-  company_study_date: 2026-08-08
+  verification: CURRENT_PUBLIC_POSTING_VERIFIED
+  source: https://job-boards.greenhouse.io/anthropic/jobs/5113224008
 company_problem:
-  bounded_statement: >-
-    Long-running autonomous agents need resumable state, deterministic safeguards,
-    failure visibility, stable retry semantics, provenance, and bounded authority/resource
-    behavior as task duration and access expand.
+  verification: CURRENT_PUBLIC_POSTING_BOUNDED
+  mechanisms_requested:
+    - service_level_objectives
+    - monitoring_and_observability
+    - high_availability_multi_region_cloud
+    - incident_response_and_recovery
+    - systematic_reliability_improvement
+    - safeguard_model_serving_reliability
+canonical_company_second_depth:
+  observed_stage: MAPPED_ONLY
+  observed_claim_ceiling: company_alignment_only
+  promotion_written_this_cycle: false
+  rule: do_not_infer_stage_from_portfolio_presence
 proof_families:
   - id: deterministic_agent_coordination
     repository: GlacierEQ/anthropic-agent-coordinator
-    verified_executable_commit: 87438f57bdfd2cb380730cf51140611963d7c95b
-    receipt: receipts/wave-1-test-verification-2026-07-31.json
+    canonical_head: ac977563cfd59deb8e87177f53082184f6468aa8
+    inspected_path: src/anthropic_agent_coordinator/coordinator.py
+    blob: 795c8fcd94ec4e4ed65d1c3a4f8254281eaa9f8f
     evidence_level: TEST
     tests:
       executed: 62
@@ -132,103 +161,96 @@ proof_families:
       failures: 0
       errors: 0
       skipped: 0
-    mechanisms:
-      - dependency_aware_scheduling
-      - complete_task_funding_semantics
-      - global_resource_budget_conservation
-      - aggregate_role_capacity_enforcement
-      - explicit_structured_deferral
-      - fail_fast_graph_and_resource_validation
-  - id: idempotent_recovery_and_provenance
-    canonical_proof: portfolio-proof/CAPABILITY_CLUSTER__IDEMPOTENT_RECOVERY_AND_PROVENANCE__2026-08-08.md
-    status: BEHAVIOR_TESTED_MULTI_REPO_PATTERN
-    independent_sources:
-      - repository: GlacierEQ/sigma-glue
-        revision: 4a1ca8e5c88a62e8a94a43213b2c509af6afcea3
-        workflow_run_id: 31279895318
-        conclusion: success
-      - repository: GlacierEQ/ECHO
-        revision: d87276166041d655452abd4e992a755565f9201c
-        workflow_run_id: 31139090677
-        workflow: ECHO CI
-        conclusion: success
-      - repository: GlacierEQ/AKOS
-        revision: d9aeb424f4d99da6026719e1e58793f6a89efd86
-        proof_kind: canonical_tree_equivalence_plus_implementation_scope
-    evidence_boundary:
-      behavior_tested:
-        - GlacierEQ/sigma-glue
-        - GlacierEQ/ECHO
-      equivalence_bounded:
-        - GlacierEQ/AKOS
-      runtime_recovery_proven: false
-    mechanisms:
-      - stable_identity
-      - idempotency_or_replay_boundary
-      - provenance_or_integrity_boundary
-      - durable_receipt_or_manifest_boundary
-combined_claim_ceiling: BEHAVIOR_TESTED_RELIABILITY_CONTROL_ALIGNMENT
+    nonclaims:
+      - agent_execution
+      - provider_calls
+      - production_scale
+      - deployment
+  - id: deterministic_tool_policy_review
+    repository: GlacierEQ/anthropic-safety-monitor
+    canonical_head: a5c21172e32ce6054994402c38d86f7ef94bc56b
+    inspected_path: src/anthropic_safety_monitor/policy.py
+    blob: f8f7fce09216b565141a05c115587f1a0334be22
+    evidence_level: TEST
+    tests:
+      versions: ["3.11", "3.12", "3.13"]
+      per_version: 51
+      executed: 153
+      failures: 0
+      errors: 0
+      skipped: 0
+    nonclaims:
+      - tool_execution
+      - semantic_safety_completeness
+      - automatic_approval
+      - production_detection_coverage
+      - deployment
+  - id: worker_science_evidence_governance
+    repository: GlacierEQ/job-app-helix
+    canonical_head: ccc46f81792c5b90135e2a10c649fdb02b5be3cd
+    code_blob: b8901f33775dd1bfe513386efd987c5a4d95bfa6
+    manifest_blob: bd6539aa0431279c2dfccbcece8eec0c9c6ffd5f
+    anthropic_series_state: PROVIDER_BLOCKED
+    causal_worker_claim: false
+combined_internal_claim_ceiling: TEST_BOUNDED_RELIABILITY_CONTROL_ALIGNMENT
 nonclaims:
   - anthropic_affiliation_or_endorsement
   - anthropic_runtime_integration
   - production_deployment
-  - production_reliability_or_slos
-  - runtime_recovery_alignment
+  - production_reliability_or_slo_attainment
   - anthropic_scale
-  - exactly_once_distributed_semantics
-  - complete_multi_session_agent_memory_runtime
-  - model_safety_or_alignment_research
-  - sandbox_or_blast_radius_containment
+  - model_safety_or_alignment_equivalence
+  - complete_semantic_safety
+  - causal_worker_value_without_ablation
 ```
 
-## Mesh / remaining gates
+## Mesh
 
 ```text
 Anthropic AI Reliability fit
-  COMPANY STUDY -> bounded 2026-08-08
 
-  PROOF FAMILY A -> deterministic coordination
-    TEST @ 87438f57...
-    62 executed / 62 passed
+CURRENT ROLE
+  VERIFIED -> Staff Software Engineer, AI Reliability
 
-  PROOF FAMILY B -> idempotent recovery + provenance
-    Sigma Glue @ 4a1ca8e5... -> exact-revision verify success (behavior-tested)
-    ECHO @ d8727616... -> exact-revision ECHO CI success (behavior-tested)
-    AKOS @ d9aeb424... -> canonical equivalence-bounded implementation proof
+CURRENT ROLE PROBLEM
+  BOUNDED -> SLOs + observability + HA + incident recovery + safeguard-serving reliability
 
-  COMBINED CEILING:
-    BEHAVIOR_TESTED_RELIABILITY_CONTROL_ALIGNMENT
+INTERNAL PROOF A
+  VERIFIED CODE + PINNED TEST RECEIPT
+  anthropic-agent-coordinator
+  62 / 62 passing
 
-  CLOSED GATE:
-    recovery/provenance evidence reconciled across independent canonical sources
+INTERNAL PROOF B
+  VERIFIED CODE + PINNED CROSS-VERSION TEST RECEIPT
+  anthropic-safety-monitor
+  153 / 153 passing
 
-  OPEN GATE:
-    runtime-recovery alignment remains unproven
+INTERNAL PROOF C
+  VERIFIED GOVERNANCE CODE + MANIFEST
+  worker-science series remains PROVIDER_BLOCKED
+  no causal metric promotion without ablation
 
-  DOES NOT PROVE:
-    Anthropic runtime integration
-    production deployment/reliability/scale
-    runtime recovery
-    exactly-once distributed semantics
-    complete multi-session agent memory
-    model safety/alignment
-    sandboxing/containment
+CANONICAL HELIX COMPANY-SECOND-DEPTH
+  OBSERVED -> MAPPED_ONLY / company_alignment_only
+  DO NOT SKIP -> ROLE_VERIFIED -> PROBLEM_BOUNDED -> CODE_INSPECTED -> ...
 
-  NEXT GATE:
-    bind one exact-revision restart/replay/readback scenario to the recovery cluster;
-    only then consider promoting the company-fit surface from behavior-tested
-    control alignment toward runtime-recovery alignment.
+CLOSED THIS CYCLE
+  stale role uncertainty
+  stale "repository code not inspected" factual premise for the two promoted Anthropic donors
+  unsupported company-fit promotion wording in this proof surface
+
+OPEN CANONICAL GATE
+  persist current role/problem/code evidence through Helix's immutable six-field evidence contract
+  advance the Helix company_second_depth stage sequentially
+  regenerate/read back the public projection
 ```
 
-## Canonical source pointers
+## Supersession decision
 
-- `GlacierEQ/job-application:site-v15/companies/anthropic/record.json`
-- `GlacierEQ/job-application:PROOF_SURFACES_AGENT_COORDINATOR.md`
-- `GlacierEQ/job-application:portfolio-proof/CAPABILITY_CLUSTER__IDEMPOTENT_RECOVERY_AND_PROVENANCE__2026-08-08.md`
-- `GlacierEQ/anthropic-agent-coordinator:receipts/wave-1-test-verification-2026-07-31.json`
+**RETIRED:** any wording that states or implies that `BEHAVIOR_TESTED_RELIABILITY_CONTROL_ALIGNMENT` is already the canonical Anthropic company-specific second-depth promotion.
 
-## Promotion decision
+**CURRENT DEFENSIBLE WORDING:**
 
-**PROMOTE the Anthropic fit surface to `BEHAVIOR_TESTED_RELIABILITY_CONTROL_ALIGNMENT`.**
+> **Verified internal reliability-control evidence aligns strongly with Anthropic's current Staff Software Engineer, AI Reliability role. The role/problem mapping is now current and exact donor code has been inspected against pinned test receipts; canonical Helix company-second-depth promotion remains a separate governed state transition and is not inferred from this proof surface.**
 
-The prior projection's **recovery/provenance evidence gate** is now materially closed by exact-revision behavior testing in Sigma Glue and ECHO plus bounded AKOS canonical-tree-equivalence evidence. The **runtime-recovery alignment gate remains open** and requires an exact-revision restart/replay/readback receipt before any runtime-recovery promotion. The current claim remains bounded to reliability-control alignment and does not imply Anthropic affiliation, runtime equivalence, deployment, or production reliability.
+That is stronger than the old claim because it is both more current and more defensible.
