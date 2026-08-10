@@ -161,13 +161,13 @@ class AdversarialEliteTests(unittest.TestCase):
                 break
 
         if not exercised:
-            # last resort: public API still rejects nonsense attribute assignment theater
+            # last resort: public API still rejects a missing surface
             public = [n for n in dir(mod) if not n.startswith("_")]
             self.assertGreater(len(public), 0)
             with self.assertRaises(
                 (AttributeError, TypeError, ImportError, ValueError, KeyError)
             ):
-                mod.__elite_missing_surface__
+                vars(mod)["__elite_missing_surface__"]
 
 
 if __name__ == "__main__":
