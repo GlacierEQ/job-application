@@ -1,0 +1,40 @@
+name: Portfolio Ruff Autofix Once
+
+on:
+  push:
+    branches:
+      - portfolio/helix-repo-excellence-proof-2026-08-09
+
+permissions:
+  contents: write
+
+jobs:
+  autofix:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: portfolio/helix-repo-excellence-proof-2026-08-09
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Ruff
+        run: python -m pip install --disable-pip-version-check ruff==0.16.2
+      - name: Apply deterministic Ruff fixes and formatting
+        run: |
+          ruff check . --fix --unsafe-fixes || true
+          ruff format .
+      - name: Remove one-shot workflow
+        run: rm -f .github/workflows/portfolio-ruff-autofix-once.yml
+      - name: Commit mechanical fixes
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m 'chore: apply deterministic Ruff autofix for strict portfolio gate'
+          git push origin HEAD:portfolio/helix-repo-excellence-proof-2026-08-09
