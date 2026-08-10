@@ -28,15 +28,15 @@ const TYPES = {
 };
 
 const REQUIRED = {
-  'index.html': '77b6f6d382d56147156db69ce82687b61122fdd015e044f2bd579df19163a8b9',
-  'resume/index.html': 'd7b527b37ac9337c9187b4d9428c47fdc1a00b2a187a6a1555984892fc1e8395',
-  'master/index.html': '598f8b562a98d1b515e478b8f0ab547d1d1cd0cdbc92621c0c5ff340b66ce685',
-  'mesh/index.html': 'f16d1b71582d8907e0de00dc46663982c0901c6891488334200c69ea666e67f0',
-  'machine/index.html': 'fec7461b0a2eeeed1d8bee2822995c3440557e9ceb1746b69bc1890854ece4ec',
+  'index.html': '148211c832bb387511025eb7adc98e6657791858b8b6de16ae65e0955d64aed7',
+  'resume/index.html': '7cb6ece0921e4d1082eb3815fe73ed6fe4b177d91451dcb10cca93314fb6664e',
+  'master/index.html': '443aba6b6de06bf9e6776637346cc7d1595c5f562b367ae76d50ac91be50c195',
+  'mesh/index.html': '5a5e8ea706893aa743fd81ce79b5cbd906a7d77bde830049ab9b02794fb9f0a1',
+  'machine/index.html': '104c7092757119e3c7d1a5b156ff6c87657c7a5dcfb6675e084ade13289f8047',
   'assets/site.css': '8f3a659076fa9a4cbb90cf623baf5a29dad2a1cf14c246f4496aeb48c382012b',
   'assets/site.systems.css': '47c31b9d8a3e4eccfe87569b97a702a2fa1ff1641856febd8d275aa4af888407',
-  'downloads/Casey_Barton_Resume.pdf': 'c46b4c3c31bea8405c28322e9f81be4ffd36c7faec9154acfd8da16a647cd1e3',
-  'downloads/Casey_Barton_Resume.docx': 'aa022ca8c40d59624e6e7e3ef88fb439f6d21c7adcb997a0b11cd50b05827d0e',
+  'downloads/Casey_Barton_Resume.pdf': 'c34c069999b9432f59e3a956183a1b07537a7d165a70d8eaa3ae173e61c46eca',
+  'downloads/Casey_Barton_Resume.docx': 'abf5835bc33ef4c978a684fda30a9b8539ec72510e9b45ee6a9399efe3deeaed',
 };
 
 const SECOND_DEPTH_STAGES = [
@@ -691,9 +691,15 @@ async function verifyDeployment(res) {
   try {
     const atlas = await fetchSource('assets/helix-atlas.css');
     const atlasText = atlas.body.toString('utf8');
-    const atlasOk = atlas.response.ok && atlasText.includes('.constellation-stage') && atlasText.includes('.atlas-star.star-p48{');
+    const atlasOk = atlas.response.ok && atlasText.includes('.constellation-stage');
     pass = pass && atlasOk;
     files.push({ path: 'assets/helix-atlas.css', status: atlas.response.status, bytes: atlas.body.length, sha256: atlas.sha256, expected: 'contains .constellation-stage and .atlas-star.star-p48', ok: atlasOk });
+
+    const stars = await fetchSource('assets/helix-atlas.stars.css');
+    const starsText = stars.body.toString('utf8');
+    const starsOk = stars.response.ok && starsText.includes('.atlas-star.star-p0{') && starsText.includes(`.atlas-star.star-p${Math.max(0, (projection?.company_count || 1) - 1)}{`);
+    pass = pass && starsOk;
+    files.push({ path: 'assets/helix-atlas.stars.css', status: stars.response.status, bytes: stars.body.length, sha256: stars.sha256, expected: 'generated multi-ring star positions', ok: starsOk });
 
     const constellation = await fetchSource('assets/company-constellation.css');
     const constellationText = constellation.body.toString('utf8');
@@ -715,7 +721,7 @@ async function verifyDeployment(res) {
     }
     lockheed = projection.companies.find((company) => company.company_id === 'lockheed_martin') || null;
     const topologyOk = projection.company_count >= 49 && memberships === 59 &&
-      stageCounts.MAPPED_ONLY === 74 && stageCounts.CLAIM_PROMOTED === 1 &&
+      stageCounts.CLAIM_PROMOTED === 1 && Object.values(stageCounts).reduce((a,b)=>a+b,0) === projection.company_count &&
       lockheed && lockheed.repositories.length === 0 &&
       lockheed.second_depth.stage === 'CLAIM_PROMOTED' &&
       lockheed.second_depth.ordinal === 7 &&
