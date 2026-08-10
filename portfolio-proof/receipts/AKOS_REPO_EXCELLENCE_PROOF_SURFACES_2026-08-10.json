@@ -1,0 +1,30 @@
+{
+  "schema": "glaciereq.portfolio-proof.v1",
+  "proof_object": "akos-repo-excellence-governance",
+  "delta_type": "MATERIALLY_STRENGTHENED_PROOF_SURFACE",
+  "system": "GlacierEQ/AKOS",
+  "canonical_head_observed": "a0db5667830c36a09528546bfa50745c43fe6fe4",
+  "merged_pr": 24,
+  "verified_revision": "f870c65c7c9c87758a4c13d46e047d15ba89b4c5",
+  "source_authority": {
+    "system": "private_monolith",
+    "pinned_sha": "1fb8f2e45694f295b958095270779fc1127fc230",
+    "projection_is_authority": false
+  },
+  "verification": {
+    "akos_verification": {"run_id": 31345670477, "conclusion": "success"},
+    "akos_integrity_gate": {"run_id": 31345670470, "conclusion": "success"}
+  },
+  "claim": "AKOS publishes a repository-native, regression-tested governance contract for evidence-based repository evolution: monotonic maturity gates, preservation of unique value and lineage, and functional-plus-proof equivalence before absorption or supersession. The public contract remains pinned to its private source authority and passed AKOS Verification and Integrity Gate on the exact merged PR revision.",
+  "claim_ceiling": "VERIFIED_PUBLIC_REPOSITORY_GOVERNANCE_CONTRACT",
+  "nonclaims": [
+    "estate_wide_adoption",
+    "automated_enforcement_across_every_repository",
+    "production_deployment",
+    "repository_count_as_accomplishment_count",
+    "specific_repository_equivalence_without_separate_proof",
+    "private_monolith_content_disclosure"
+  ],
+  "supersedes": "abstract-only AKOS repository-evolution framing",
+  "next_cursor": "Use this proof object when recruiter/master/machine/mesh surfaces need repository-governance evidence; promote adoption claims only from separate exact repository receipts."
+}
