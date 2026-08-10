@@ -1,38 +1,20 @@
 {
   "boundary": "Independent GlacierEQ work; no NVIDIA affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
   "flagships": [],
-  "gate": "Five direct NVIDIA-named repos exist; all need CUDA/hardware correctness and benchmark receipts. Excellence multi-repo pack linked 2026-08-09T04:51Z (+2 public reference candidates on GlacierEQ).",
+  "gate": "Five direct NVIDIA-named repos exist; all need CUDA/hardware correctness and benchmark receipts.",
   "id": "nvidia",
   "repos": [
     {
       "id": "GlacierEQ/nvidia-deep-reasoning",
       "lvl": "L3",
       "provenance": "ORIGINAL_CANDIDATE",
-      "state": "REFERENCE_ONLY",
-      "url": "https://github.com/GlacierEQ/nvidia-deep-reasoning"
+      "state": "REFERENCE_ONLY"
     },
     {
       "id": "GlacierEQ/nvidia-gpu-health",
       "lvl": "L3",
       "provenance": "ORIGINAL_CANDIDATE",
-      "state": "REFERENCE_ONLY",
-      "url": "https://github.com/GlacierEQ/nvidia-gpu-health"
-    },
-    {
-      "id": "GlacierEQ/nvidia-gradient-integrity-quorum",
-      "lvl": "L3",
-      "provenance": "ORIGINAL_CANDIDATE",
-      "state": "REFERENCE_ONLY",
-      "excellence_wave": "1A-1C",
-      "url": "https://github.com/GlacierEQ/nvidia-gradient-integrity-quorum"
-    },
-    {
-      "id": "GlacierEQ/nvidia-nan-circuit-breaker",
-      "lvl": "L3",
-      "provenance": "ORIGINAL_CANDIDATE",
-      "state": "REFERENCE_ONLY",
-      "excellence_wave": "1A-1C",
-      "url": "https://github.com/GlacierEQ/nvidia-nan-circuit-breaker"
+      "state": "REFERENCE_ONLY"
     }
   ],
   "roles": [
@@ -64,17 +46,5 @@
     "stage": "MAPPED_ONLY"
   },
   "state": "repository-rich",
-  "track": "MAPPED_NOT_RECRUITER_READY",
-  "excellence_pack": {
-    "updated_at": "2026-08-09T04:51Z",
-    "repos": [
-      "GlacierEQ/nvidia-gpu-health",
-      "GlacierEQ/nvidia-deep-reasoning",
-      "GlacierEQ/nvidia-gradient-integrity-quorum",
-      "GlacierEQ/nvidia-nan-circuit-breaker"
-    ],
-    "claim_ceiling": "company_alignment_only_until_proof_reproduced",
-    "harness": "https://github.com/GlacierEQ \u2014 see job-app excellence harness (local)",
-    "public": true
-  }
+  "track": "MAPPED_NOT_RECRUITER_READY"
 }

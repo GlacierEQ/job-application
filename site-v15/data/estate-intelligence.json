@@ -1,0 +1,1347 @@
+{
+  "policy": {
+    "audience_caps": {
+      "company_reviewer": 5,
+      "recruiter": 10,
+      "senior_engineer": 20
+    },
+    "internal_receipts_runner_local": true,
+    "private_repository_identities_excluded": true,
+    "role_fit_is_capability_overlap_not_hiring_prediction": true,
+    "support_counts_as_independent_accomplishment": false
+  },
+  "records": [
+    {
+      "application_move": "Build a recruiter-package creative pipeline with editable artifacts and provenance.",
+      "company_id": "adobe",
+      "display_name": "Adobe",
+      "expected_impact": "Improves creative workflow continuity and artifact trust.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Orchestrating workflows across creative applications and models while retaining editable structure, provenance, and brand control.",
+      "inferred_brick_wall": "Scaling automation without flattening human judgment, losing asset lineage, or creating unauthorized transformations.",
+      "leverage_mechanism": "Preserve source-to-artifact lineage, editable intermediate states, specialized review lanes, and release receipts.",
+      "next_deep_dive": "Generate one controlled multi-format package and validate every source and transformation.",
+      "observed_current_pressure": "Creative work is becoming agentic across ideation, generation, editing, collaboration, and production tools.",
+      "official_sources": [
+        {
+          "observed_signal": "Agentic orchestration across creative applications, models, and production workflows.",
+          "publisher": "Adobe",
+          "source_sha256": "4a1d8ef090b31940a5d757ece84b511a07ffaf4f2917dc3d9d68e9d2aa1c2e69",
+          "title": "Adobe AI",
+          "url": "https://www.adobe.com/ai/overview.html"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "Applied AI Systems Architect",
+        "Forward-Deployed Engineer",
+        "AI Infrastructure / Governance Engineer"
+      ]
+    },
+    {
+      "application_move": "Present a vendor-neutral workload and topology analysis rather than brand-specific claims.",
+      "company_id": "amd",
+      "display_name": "AMD",
+      "expected_impact": "Improves utilization and cross-vendor infrastructure reasoning.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Data movement, network synchronization, memory hierarchy, and software integration.",
+      "inferred_brick_wall": "Supporting synchronized training, low-latency inference, and persistent agent workloads without utilization or power collapse.",
+      "leverage_mechanism": "Model workload phases, compress context, monitor health, and route work around topology bottlenecks.",
+      "next_deep_dive": "Create reproducible performance tests on available hardware or clearly simulated models.",
+      "observed_current_pressure": "AI workloads require coordinated CPU, GPU, networking, memory, and open software across training and inference.",
+      "official_sources": [
+        {
+          "observed_signal": "Open CPU and GPU AI platform with networking, memory, and software integration pressure.",
+          "publisher": "AMD",
+          "source_sha256": "841dca689bc4817990c9d91b8607a139b34e34ca53a04afd192ca0960c6ab5e4",
+          "title": "AMD AI Solutions",
+          "url": "https://www.amd.com/en/solutions/ai.html"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "Applied AI Systems Architect",
+        "Forward-Deployed Engineer",
+        "AI Infrastructure / Governance Engineer"
+      ]
+    },
+    {
+      "application_move": "Present federation and bounded-agent work as mission-orchestration infrastructure, not weapons capability.",
+      "company_id": "anduril",
+      "display_name": "Anduril",
+      "expected_impact": "Makes distributed autonomy more inspectable and resilient to incomplete communication.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Distributed mission planning, sensor fusion, resource allocation, and degraded-communications operation.",
+      "inferred_brick_wall": "Maintaining safe human authority and mission effectiveness under uncertainty, adversarial conditions, and partial connectivity.",
+      "leverage_mechanism": "Use command-intent decomposition, decentralized state packets, invariant checks, and human escalation.",
+      "next_deep_dive": "Build a non-weapon logistics simulation with degraded links and auditable command authority.",
+      "observed_current_pressure": "Autonomous systems must coordinate sensors, vehicles, missions, and human intent in contested environments.",
+      "official_sources": [
+        {
+          "observed_signal": "Distributed autonomous mission orchestration and sensor-to-action systems.",
+          "publisher": "Anduril",
+          "source_sha256": "d390f1d59248c61d4a08ec378b029e18e0c24e4e2577fde27d600cd6b3d894af",
+          "title": "Anduril Lattice",
+          "url": "https://www.anduril.com/lattice/"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "Applied AI Systems Architect",
+        "Forward-Deployed Engineer",
+        "AI Infrastructure / Governance Engineer"
+      ]
+    },
+    {
+      "application_move": "Present the coordinator and safety monitor as bounded systems, with counter-analysis and explicit non-claims.",
+      "company_id": "anthropic",
+      "display_name": "Anthropic",
+      "expected_impact": "Improves safety-case clarity and makes agent limitations visible before deployment.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Increasing useful autonomy while retaining honest uncertainty, safety boundaries, and measurable behavior.",
+      "inferred_brick_wall": "Preventing higher-capability agents from becoming opaque, reward-hacking, unsafe, or operationally unreliable in open-ended environments.",
+      "leverage_mechanism": "Combine deterministic coordination, contradiction-preserving review, escalation gates, and proof-weighted evaluation.",
+      "next_deep_dive": "Deep-read current safety, evals, and agent-infrastructure postings and produce requirement-level evidence matrices.",
+      "observed_current_pressure": "Capability, inference performance, safeguards, evaluations, interpretability, and computer-use reliability are advancing simultaneously.",
+      "official_sources": [
+        {
+          "observed_signal": "Concentrated hiring across inference, safeguards, evaluations, interpretability, computer use, and security.",
+          "publisher": "Anthropic",
+          "source_sha256": "ff0b10b260016cbffe9a4648ccac3227849bb643744def25e39789417e5725b1",
+          "title": "Anthropic Careers",
+          "url": "https://www.anthropic.com/careers/jobs"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "Applied AI Systems Architect",
+        "Agent Infrastructure Engineer",
+        "Evaluation / Reliability Engineer"
+      ]
+    },
+    {
+      "application_move": "Build an on-device/private-cloud architecture story around quantization, compact memory packets, and explicit data boundaries.",
+      "company_id": "apple",
+      "display_name": "Apple",
+      "expected_impact": "Extends useful context while respecting device, privacy, and latency budgets.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Delivering useful personalized context and multimodal inference under strict on-device and privacy constraints.",
+      "inferred_brick_wall": "Learning and acting from personal context without centralizing sensitive data or sacrificing responsiveness and energy efficiency.",
+      "leverage_mechanism": "Use compact local context, quantization-aware state, privacy-separated memory, and proof-bound cloud escalation.",
+      "next_deep_dive": "Run device-realistic benchmarks and document what is measured versus simulated.",
+      "observed_current_pressure": "Personal intelligence must run across device and private cloud while preserving privacy, latency, battery, and product quality.",
+      "official_sources": [
+        {
+          "observed_signal": "Hybrid on-device/private-cloud AI with privacy and efficiency constraints.",
+          "publisher": "Apple",
+          "source_sha256": "87a998d1487b6a35ee3ab6ad9529c7bde7a83fb4d5ec1561eddffee5c73e3b18",
+          "title": "Apple Foundation Models",
+          "url": "https://machinelearning.apple.com/research/introducing-apple-foundation-models"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "AI Infrastructure Engineer",
+        "Distributed Systems Engineer",
+        "Forward-Deployed Systems Engineer"
+      ]
+    },
+    {
+      "application_move": "Translate Helix evidence semantics into an AWS-style agent reliability reference architecture.",
+      "company_id": "aws",
+      "display_name": "AWS",
+      "expected_impact": "Improves cloud-agent reliability while reducing context and operational cost.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Designing reliable agent architectures with memory, isolation, capacity planning, shared-fate control, and cost governance.",
+      "inferred_brick_wall": "Managing stochastic recursive workloads whose failures can amplify across tools, accounts, regions, and memory layers.",
+      "leverage_mechanism": "Use bounded worker lanes, durable compact state, explicit failure semantics, and provider-neutral receipts.",
+      "next_deep_dive": "Produce a Well-Architected mapping across reliability, security, operational excellence, performance, cost, and sustainability.",
+      "observed_current_pressure": "Customers need long-running, secure, persistent, cost-controlled agents operating across managed cloud services.",
+      "official_sources": [
+        {
+          "observed_signal": "Well-architected guidance for reliable, secure, efficient agentic systems.",
+          "publisher": "AWS",
+          "source_sha256": "054dae81315391e89ea11cd79f154f8cecbf4faab525ef0c0b74da971c98b10e",
+          "title": "Agentic AI Lens — AWS Well-Architected",
+          "url": "https://docs.aws.amazon.com/wellarchitected/latest/agentic-ai-lens/agentic-ai-lens.html"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "AI Infrastructure Engineer",
+        "Distributed Systems Engineer",
+        "Forward-Deployed Systems Engineer"
+      ]
+    },
+    {
+      "application_move": "Translate aerospace repos into a neutral launch-and-mission systems portfolio.",
+      "company_id": "blue_origin",
+      "display_name": "Blue Origin",
+      "expected_impact": "Improves program visibility and reduces integration ambiguity.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Production, integration, test, quality, and software coordination across complex physical programs.",
+      "inferred_brick_wall": "Meeting reliability and schedule while hardware, facilities, suppliers, and mission requirements evolve together.",
+      "leverage_mechanism": "Use program dependency maps, test evidence, change-impact analysis, and cross-discipline artifact contracts.",
+      "next_deep_dive": "Map current software and systems roles to public proof and identify missing physical-test boundaries.",
+      "observed_current_pressure": "Launch vehicles, engines, lunar systems, manufacturing, test, and mission software are scaling in parallel.",
+      "official_sources": [
+        {
+          "observed_signal": "Large cross-disciplinary hiring across production and mission systems.",
+          "publisher": "Blue Origin",
+          "source_sha256": "89c97ecc6fe9ff830b31d89b06eedc9a45b7fce5e0b358024551e0facf06fb94",
+          "title": "Blue Origin Careers",
+          "url": "https://www.blueorigin.com/careers"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "Applied AI Systems Architect",
+        "Forward-Deployed Engineer",
+        "AI Infrastructure / Governance Engineer"
+      ]
+    },
+    {
+      "application_move": "Design a provider comparison that tests whether lower latency enables better iterative reasoning.",
+      "company_id": "cerebras",
+      "display_name": "Cerebras",
+      "expected_impact": "Shows where speed materially changes agent design rather than merely benchmark numbers.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Integrating extreme-speed inference into reliable, broadly available production systems.",
+      "inferred_brick_wall": "Maintaining model breadth, availability, distributed-system efficiency, and quality as demand grows.",
+      "leverage_mechanism": "Measure latency-quality tradeoffs, route tasks by model behavior, and preserve exact response receipts.",
+      "next_deep_dive": "Run with real access and record model, version, and request identifiers.",
+      "observed_current_pressure": "Ultra-fast inference is being used to improve interactive reasoning and agent quality.",
+      "official_sources": [
+        {
+          "observed_signal": "High-speed inference positioned as a quality and interactivity lever.",
+          "publisher": "Cerebras",
+          "source_sha256": "de56be4490e271d4e0738770817619db04b846b74e377707da8a8f9e640a3e54",
+          "title": "Cerebras Inference",
+          "url": "https://www.cerebras.ai/inference"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "Applied AI Systems Architect",
+        "Forward-Deployed Engineer",
+        "AI Infrastructure / Governance Engineer"
+      ]
+    },
+    {
+      "application_move": "Package Gatling Tsunami as a durable, bounded dispatch reference architecture.",
+      "company_id": "cloudflare",
+      "display_name": "Cloudflare",
+      "expected_impact": "Improves agent availability and containment at high concurrency.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Durable low-latency agent runtime and secure state across the edge.",
+      "inferred_brick_wall": "Isolating long-running agents and credentials while maintaining global availability, cost, and content and tool safety.",
+      "leverage_mechanism": "Use state-machine receipts, scoped credentials, durable memory packets, and edge-safe tool dispatch.",
+      "next_deep_dive": "Deploy a small Workers and Durable Objects proof when credentials and scope are available.",
+      "observed_current_pressure": "Millions of agents need globally distributed compute, durable state, identity, networking, and security.",
+      "official_sources": [
+        {
+          "observed_signal": "Global durable runtime, workflows, state, and security for production agents.",
+          "publisher": "Cloudflare",
+          "source_sha256": "9d94cc28d6b176af852e904853d10e13122fae2427ff3824cd9d493afac8a108",
+          "title": "Cloudflare Agents",
+          "url": "https://developers.cloudflare.com/agents/"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "Applied AI Systems Architect",
+        "Forward-Deployed Engineer",
+        "AI Infrastructure / Governance Engineer"
+      ]
+    },
+    {
+      "application_move": "Build a multilingual application dossier benchmark with retrieval and token-cost evidence.",
+      "company_id": "cohere",
+      "display_name": "Cohere",
+      "expected_impact": "Improves enterprise readiness and makes TCO and retrieval quality measurable.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Secure retrieval, multilingual grounding, serving efficiency, and production operations.",
+      "inferred_brick_wall": "Crossing the prototype-to-production gap without retrieval failure, access leakage, unfair serving, or runaway TCO.",
+      "leverage_mechanism": "Combine compact retrieval packets, multilingual evidence labels, private deployment boundaries, and cost receipts.",
+      "next_deep_dive": "Evaluate current Cohere models on retrieval quality, multilingual fidelity, and deployment constraints.",
+      "observed_current_pressure": "Private multilingual enterprise AI must move from prototype to production with predictable performance and total cost.",
+      "official_sources": [
+        {
+          "observed_signal": "Private, multilingual, efficient enterprise model deployment.",
+          "publisher": "Cohere",
+          "source_sha256": "a0236c2d413b8c1ca332061604762f7def64b9ddcf1fa7e48dd8a2634bf383d9",
+          "title": "Cohere Enterprise AI",
+          "url": "https://cohere.com/enterprise"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "Applied AI Systems Architect",
+        "Forward-Deployed Engineer",
+        "AI Infrastructure / Governance Engineer"
+      ]
+    },
+    {
+      "application_move": "Build a failure-and-recovery topology case study around the GPU health system.",
+      "company_id": "coreweave",
+      "display_name": "CoreWeave",
+      "expected_impact": "Improves infrastructure resilience and communicates operational depth.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Power, hardware reliability, scheduling, checkpointing, recovery, and utilization at cluster scale.",
+      "inferred_brick_wall": "Maintaining economic and operational reliability amid component failures and huge infrastructure expansion.",
+      "leverage_mechanism": "Use health-driven scheduling, dependency graphs, checkpoint receipts, and failure-injection review.",
+      "next_deep_dive": "Create a simulated cluster failure benchmark with clearly bounded claims.",
+      "observed_current_pressure": "AI clouds must operate mega-clusters across training, inference, observability, and rapidly expanding data-center capacity.",
+      "official_sources": [
+        {
+          "observed_signal": "Specialized AI cloud spanning large GPU clusters, training, inference, and observability.",
+          "publisher": "CoreWeave",
+          "source_sha256": "429a197ac944e1aeffa6a31319c582a371ba0134dbfe4540f75d5df3a15f12b7",
+          "title": "CoreWeave AI Cloud",
+          "url": "https://www.coreweave.com/"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "Applied AI Systems Architect",
+        "Forward-Deployed Engineer",
+        "AI Infrastructure / Governance Engineer"
+      ]
+    },
+    {
+      "application_move": "Map Helix artifacts directly to an agent lifecycle: source, build, eval, deployment, observation.",
+      "company_id": "databricks",
+      "display_name": "Databricks",
+      "expected_impact": "Improves traceability from source data to production agent behavior.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Unifying structured and unstructured data, permissions, evaluation, and observability for production agents.",
+      "inferred_brick_wall": "Maintaining data governance and product quality when agents operate over changing enterprise data and tools.",
+      "leverage_mechanism": "Represent evidence, data lineage, evaluation, deployment, and provider receipts in one governed graph.",
+      "next_deep_dive": "Prototype the 48-track atlas as a lineage graph and measure incremental update behavior.",
+      "observed_current_pressure": "Organizations need one lifecycle for proprietary data, agent development, evaluation, deployment, and monitoring.",
+      "official_sources": [
+        {
+          "observed_signal": "Integrated data, agent development, evaluation, deployment, and observability.",
+          "publisher": "Databricks",
+          "source_sha256": "faf1339fde5500cc02d6dca2605142a208ec634d3d75a2dff4ae17bbd28ae164",
+          "title": "Mosaic AI Agent Framework",
+          "url": "https://www.databricks.com/product/machine-learning/ai-agents"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "Applied AI Systems Architect",
+        "Forward-Deployed Engineer",
+        "AI Infrastructure / Governance Engineer"
+      ]
+    },
+    {
+      "application_move": "Show a version-resilient long-context harness with measured compression and explicit semantic-loss tests.",
+      "company_id": "deepseek",
+      "display_name": "DeepSeek",
+      "expected_impact": "Reduces context cost and migration risk for long-horizon agent workflows.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Maintaining quality, latency, cost, and compatibility across million-token context and evolving model interfaces.",
+      "inferred_brick_wall": "Preventing context growth and version churn from erasing reliability or making agent behavior economically impractical.",
+      "leverage_mechanism": "Use context compaction, compatibility contracts, retrieval receipts, and provider-version test matrices.",
+      "next_deep_dive": "Benchmark against the current API and document deprecations and provider-specific behavior.",
+      "observed_current_pressure": "Long-context reasoning and agent tasks are expanding while API versions and efficiency techniques change quickly.",
+      "official_sources": [
+        {
+          "observed_signal": "Long-context models, agent capability, and active API evolution.",
+          "publisher": "DeepSeek",
+          "source_sha256": "d884839a80754fb24b7d4985bf5ccbe8c225d92569b8d46b37b307431cd1a43b",
+          "title": "DeepSeek API Documentation",
+          "url": "https://api-docs.deepseek.com/"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "Agent Platform Engineer",
+        "Applied AI Engineer",
+        "AI Product Infrastructure Engineer"
+      ]
+    },
+    {
+      "application_move": "Show how the TPU mesh, polyglot boundaries, and proof compiler address heterogeneous frontier deployment.",
+      "company_id": "google_deepmind",
+      "display_name": "Google / DeepMind",
+      "expected_impact": "Improves research-to-product translation and reduces routing, context, and verification debt.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Turning research breakthroughs into low-latency, dependable products across models, chips, devices, and geographic surfaces.",
+      "inferred_brick_wall": "Maintaining quality, responsibility, latency, and cost while routing enormous heterogeneous workloads through rapidly changing model and hardware stacks.",
+      "leverage_mechanism": "Apply polyglot responsibility boundaries, topology-aware routing, compact context, and evidence-backed promotion gates.",
+      "next_deep_dive": "Map current DeepMind infrastructure, agent, and multimodal roles to public demonstrations and benchmark gaps.",
+      "observed_current_pressure": "Frontier multimodal research is being converted into global developer products, agents, and heterogeneous hardware deployments.",
+      "official_sources": [
+        {
+          "observed_signal": "Agentic developer experiences, multimodal models, and broad product integration.",
+          "publisher": "Google / DeepMind",
+          "source_sha256": "a617fe1520903868d1405d532eaca76af734112d54f624444065c582f799852b",
+          "title": "Google I/O 2026 Developer Highlights",
+          "url": "https://blog.google/innovation-and-ai/technology/developers-tools/google-io-2026-developer-highlights/"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "Applied AI Systems Architect",
+        "Agent Infrastructure Engineer",
+        "Evaluation / Reliability Engineer"
+      ]
+    },
+    {
+      "application_move": "Add Groq to a provider-neutral latency, cost, and quality convergence benchmark.",
+      "company_id": "groq",
+      "display_name": "Groq",
+      "expected_impact": "Improves inference economics and makes routing decisions auditable.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Capacity, model coverage, reliability, and economics for globally low-latency inference.",
+      "inferred_brick_wall": "Maintaining deterministic low latency and availability as traffic, models, and regions scale.",
+      "leverage_mechanism": "Route by measured latency and cost, compress repeated context, and retain provider receipts for every result.",
+      "next_deep_dive": "Run real provider tests when credentials are available; do not substitute synthetic latency.",
+      "observed_current_pressure": "Inference demand is expanding geographically and by token volume, with latency central to user experience.",
+      "official_sources": [
+        {
+          "observed_signal": "High-throughput low-latency inference cloud scaling across models and regions.",
+          "publisher": "Groq",
+          "source_sha256": "ab1323339a057d635ec68c7c63d3ba79248bdf483766cb36602022e122e2efc5",
+          "title": "GroqCloud",
+          "url": "https://groq.com/groqcloud"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "Applied AI Systems Architect",
+        "Forward-Deployed Engineer",
+        "AI Infrastructure / Governance Engineer"
+      ]
+    },
+    {
+      "application_move": "Create an agent-ready portfolio index modeled on compact Hub metadata.",
+      "company_id": "hugging_face",
+      "display_name": "Hugging Face",
+      "expected_impact": "Reduces discovery context and lowers open-ecosystem integration risk.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Efficient, predictable, safe discovery and use of open AI artifacts.",
+      "inferred_brick_wall": "Controlling token overhead, provenance, compatibility, and security while ecosystem content changes continuously.",
+      "leverage_mechanism": "Use compact artifact descriptors, provenance hashes, compatibility metadata, and safe execution boundaries.",
+      "next_deep_dive": "Measure token savings and provenance accuracy against raw repository descriptions.",
+      "observed_current_pressure": "Humans and agents must navigate an enormous, fast-changing open ecosystem of models, datasets, spaces, and tools.",
+      "official_sources": [
+        {
+          "observed_signal": "Large open model and data ecosystem increasingly accessed by automated agents.",
+          "publisher": "Hugging Face",
+          "source_sha256": "ae3d46a96f7df65adf7626a675872feea81601f3d9e09fdf3f64828062e5681a",
+          "title": "Hugging Face Hub",
+          "url": "https://huggingface.co/docs/hub/index"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "Applied AI Systems Architect",
+        "Forward-Deployed Engineer",
+        "AI Infrastructure / Governance Engineer"
+      ]
+    },
+    {
+      "application_move": "Present the 48-track Atlas as a concrete agent-estate governance demonstration.",
+      "company_id": "ibm",
+      "display_name": "IBM",
+      "expected_impact": "Makes a mixed agent estate visible and governable without forcing one runtime.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Near-real-time governance, observability, policy, and lifecycle control across agent estates.",
+      "inferred_brick_wall": "Preventing agent sprawl, inconsistent controls, and untraceable actions across vendors and business units.",
+      "leverage_mechanism": "Provide cross-provider inventories, typed authority, normalized receipts, and risk and status propagation.",
+      "next_deep_dive": "Add policy evaluation and drift detection to the Atlas memory plane.",
+      "observed_current_pressure": "Enterprises are accumulating large heterogeneous estates of agents, models, and automation tools.",
+      "official_sources": [
+        {
+          "observed_signal": "Governance, monitoring, risk, and lifecycle control for enterprise AI and agents.",
+          "publisher": "IBM",
+          "source_sha256": "5616cd8d0649cbd1cf553cc4c07ebbcf936a26e2a847b8dc029059f2c2b58a8a",
+          "title": "IBM watsonx.governance",
+          "url": "https://www.ibm.com/products/watsonx-governance"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "Applied AI Systems Architect",
+        "Forward-Deployed Engineer",
+        "AI Infrastructure / Governance Engineer"
+      ]
+    },
+    {
+      "application_move": "Build a vendor-neutral inference topology exhibit with measurable workload boundaries.",
+      "company_id": "intel",
+      "display_name": "Intel",
+      "expected_impact": "Improves portability and makes heterogeneous infrastructure tradeoffs explicit.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Software and systems integration across compute, memory, networking, and accelerator ecosystems.",
+      "inferred_brick_wall": "Delivering competitive utilization and developer usability while hardware and model workloads diversify.",
+      "leverage_mechanism": "Use polyglot adapters, topology models, compact context, and workload-specific proof.",
+      "next_deep_dive": "Benchmark one open stack across CPU and accelerator paths and document bottlenecks.",
+      "observed_current_pressure": "AI infrastructure must support open, disaggregated, rack-scale training and inference across heterogeneous accelerators.",
+      "official_sources": [
+        {
+          "observed_signal": "Open heterogeneous AI infrastructure and rack-scale systems.",
+          "publisher": "Intel",
+          "source_sha256": "271e1a6f94532ecc97dbc87e1c26d7c5d664542dfcdfc35816f0e1451afa0bdf",
+          "title": "Intel AI Infrastructure",
+          "url": "https://www.intel.com/content/www/us/en/artificial-intelligence/overview.html"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "Applied AI Systems Architect",
+        "Forward-Deployed Engineer",
+        "AI Infrastructure / Governance Engineer"
+      ]
+    },
+    {
+      "application_move": "Turn the existing Kimi package into a measured multi-agent long-context demonstration.",
+      "company_id": "kimi",
+      "display_name": "Moonshot AI / Kimi",
+      "expected_impact": "Increases depth per token while limiting repeated context and subagent drift.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Coordinating many tool calls and subagents while preserving context quality and affordable throughput.",
+      "inferred_brick_wall": "Avoiding quality collapse, state divergence, duplicated reasoning, and runaway cost across million-token workflows.",
+      "leverage_mechanism": "Apply diamond decomposition, compact shared memory, contradiction retention, and bounded wave execution.",
+      "next_deep_dive": "Run a provider-backed benchmark when access is available and compare single-agent versus diamond topology.",
+      "observed_current_pressure": "Long-context models are moving toward swarm-style and long-horizon agent execution.",
+      "official_sources": [
+        {
+          "observed_signal": "Long-context agent operation and high-throughput reasoning.",
+          "publisher": "Moonshot AI / Kimi",
+          "source_sha256": "6eff7d06c386363444e1390b13e02e4c9ec3b210ce0e28070afd9a68dfa4627a",
+          "title": "Kimi / Moonshot AI",
+          "url": "https://www.kimi.com/"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "Agent Platform Engineer",
+        "Applied AI Engineer",
+        "AI Product Infrastructure Engineer"
+      ]
+    },
+    {
+      "application_move": "Demonstrate a prompt-to-app workflow with architecture, security, and test reviewers operating as a diamond.",
+      "company_id": "lovable",
+      "display_name": "Lovable",
+      "expected_impact": "Improves maintainability and reduces silent code-generation debt.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Producing secure, maintainable, executable code while preserving project context and user intent.",
+      "inferred_brick_wall": "Preventing autonomous code generation from creating hidden security, architecture, and integration debt at scale.",
+      "leverage_mechanism": "Add specialized review agents, security gates, architecture memory, and commit-bound proof.",
+      "next_deep_dive": "Run a small app build and compare the result before and after Helix gates.",
+      "observed_current_pressure": "Natural-language app building is moving toward subagents, MCP integrations, and production deployment.",
+      "official_sources": [
+        {
+          "observed_signal": "Subagents, integrations, and production-oriented AI app building.",
+          "publisher": "Lovable",
+          "source_sha256": "a09b3a37f7d64526f6e85b7f16792b079b5cae617cf58b129b22f39e6546371f",
+          "title": "Lovable Product Updates",
+          "url": "https://lovable.dev/blog"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "Agent Platform Engineer",
+        "Applied AI Engineer",
+        "AI Product Infrastructure Engineer"
+      ]
+    },
+    {
+      "application_move": "Offer Helix as the missing completion-and-receipt layer for general agents.",
+      "company_id": "manus",
+      "display_name": "Manus",
+      "expected_impact": "Raises completion confidence and exposes the cost and evidence behind autonomous work.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Reliable end-to-end task completion across heterogeneous tools and long horizons.",
+      "inferred_brick_wall": "Avoiding brittle plans, hidden failures, excessive credits, and false completion when environments change.",
+      "leverage_mechanism": "Use independent planning lanes, fail-closed completion tests, compact recovery state, and cross-reader verification.",
+      "next_deep_dive": "Benchmark a fixed multi-step task and record tool failures, retries, cost, and completion evidence.",
+      "observed_current_pressure": "General agents are expected to plan, use tools, and complete complex outcomes with minimal supervision.",
+      "official_sources": [
+        {
+          "observed_signal": "General autonomous task execution with planning and tool use.",
+          "publisher": "Manus",
+          "source_sha256": "e8983a865150a3d7ae46b76e6b28cacd5a6c3cc43eaf838a1ac86e900160a549",
+          "title": "Manus",
+          "url": "https://manus.im/"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "Agent Platform Engineer",
+        "Applied AI Engineer",
+        "AI Product Infrastructure Engineer"
+      ]
+    },
+    {
+      "application_move": "Position the portfolio around adaptable inference systems rather than a single model or accelerator claim.",
+      "company_id": "meta",
+      "display_name": "Meta",
+      "expected_impact": "Improves efficiency and adaptability across changing model families.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Maintaining efficient serving and hardware flexibility as model behavior changes faster than accelerator design cycles.",
+      "inferred_brick_wall": "Balancing model quality, global latency, power, utilization, safety, and hardware longevity at extreme scale.",
+      "leverage_mechanism": "Use workload classification, context compression, phase-aware routing, and contradiction-preserving evaluation.",
+      "next_deep_dive": "Map Meta infrastructure roles to workload scheduling, inference optimization, safety evaluation, and open-model ecosystem evidence.",
+      "observed_current_pressure": "AI must serve billions of users across rapidly evolving recommendation, generative, multimodal, and agent workloads.",
+      "official_sources": [
+        {
+          "observed_signal": "Custom accelerator evolution driven by changing recommendation and generative workloads.",
+          "publisher": "Meta",
+          "source_sha256": "ca74382e2b0cca52d2e85736628b561efa3edd43e9cd0d08d0f2811a77205265",
+          "title": "Meta Training and Inference Accelerator",
+          "url": "https://ai.meta.com/blog/meta-training-inference-accelerator-AI-MTIA/"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "AI Infrastructure Engineer",
+        "Distributed Systems Engineer",
+        "Forward-Deployed Systems Engineer"
+      ]
+    },
+    {
+      "application_move": "Frame GlacierEQ as a federation and governance builder, not another model wrapper.",
+      "company_id": "microsoft",
+      "display_name": "Microsoft",
+      "expected_impact": "Reduces enterprise agent sprawl and makes cross-system action attributable and reversible.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Governed coordination across heterogeneous models, tools, tenants, data estates, and human approval chains.",
+      "inferred_brick_wall": "Allowing agents to act across the enterprise without context fragmentation, privilege drift, audit gaps, or inconsistent completion.",
+      "leverage_mechanism": "Federate independent systems through typed authority, portable context, and evidence-bearing handoffs.",
+      "next_deep_dive": "Map Microsoft AI platform and agent roles to federation, identity, observability, and multi-tenant proof gaps.",
+      "observed_current_pressure": "Enterprise AI is shifting from individual copilots to coordinated agents operating across identity, policy, data, and business systems.",
+      "official_sources": [
+        {
+          "observed_signal": "Integrated AI systems require context, policy, identity, governance, and oversight.",
+          "publisher": "Microsoft",
+          "source_sha256": "b1e1b22663239c722de692f619f564dbf1861eb5cbb135128426f968089fc94d",
+          "title": "AI alone will not change your business—the system running it will",
+          "url": "https://blogs.microsoft.com/blog/2026/06/02/ai-alone-wont-change-your-business-the-system-running-it-will/"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "AI Infrastructure Engineer",
+        "Distributed Systems Engineer",
+        "Forward-Deployed Systems Engineer"
+      ]
+    },
+    {
+      "application_move": "Demonstrate a provider-swappable enterprise research agent with identical receipts.",
+      "company_id": "mistral",
+      "display_name": "Mistral AI",
+      "expected_impact": "Reduces vendor lock-in and improves private-context reliability.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Grounding and operating models on proprietary context across cloud and on-prem environments.",
+      "inferred_brick_wall": "Preserving reliable long-horizon behavior, privacy, control, and cost efficiency across heterogeneous deployments.",
+      "leverage_mechanism": "Use provider-neutral adapters, private source-hashed memory, bounded task graphs, and deployable evidence contracts.",
+      "next_deep_dive": "Test Mistral access when available and compare on-prem-like constraints with cloud providers.",
+      "observed_current_pressure": "Enterprises want sovereign, customizable models and long-running coding and agent workflows under their own control.",
+      "official_sources": [
+        {
+          "observed_signal": "Custom and sovereign enterprise models with agentic workflows.",
+          "publisher": "Mistral AI",
+          "source_sha256": "97639b608d3058ffca48aae22cf9f939ccfd5dfd05c94d5677afbdcf32bdb8d0",
+          "title": "Mistral Enterprise",
+          "url": "https://mistral.ai/solutions/enterprise"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "Applied AI Systems Architect",
+        "Forward-Deployed Engineer",
+        "AI Infrastructure / Governance Engineer"
+      ]
+    },
+    {
+      "application_move": "Map Helix evidence ladders to NASA-style technology readiness and verification.",
+      "company_id": "nasa",
+      "display_name": "NASA",
+      "expected_impact": "Improves credibility by separating concept, simulation, test, integration, and deployment evidence.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Verification, validation, explainability, integration, and technology-readiness progression.",
+      "inferred_brick_wall": "Certifying autonomy for radiation, delay, limited compute, uncertain sensing, and no immediate human intervention.",
+      "leverage_mechanism": "Use technology-readiness gates, invariant checks, simulation evidence, and explicit mission-environment boundaries.",
+      "next_deep_dive": "Produce a TRL-style assessment for one autonomy repository.",
+      "observed_current_pressure": "AI and autonomy must transition from research into mission-certified systems operating under extreme constraints.",
+      "official_sources": [
+        {
+          "observed_signal": "AI and autonomous systems advancing from research to mission operations.",
+          "publisher": "NASA",
+          "source_sha256": "a7122ceb1440fbfcb411a23e019f261c7f6bc4a280946867e856bc5ad53c1d08",
+          "title": "NASA Artificial Intelligence",
+          "url": "https://www.nasa.gov/artificial-intelligence/"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "Applied AI Systems Architect",
+        "Forward-Deployed Engineer",
+        "AI Infrastructure / Governance Engineer"
+      ]
+    },
+    {
+      "application_move": "Demonstrate a Notion-native research-to-application memory loop with provenance and deduplication.",
+      "company_id": "notion",
+      "display_name": "Notion",
+      "expected_impact": "Raises trust and reuse of agent work across persistent team knowledge.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Maintaining current, permission-safe, attributable context across documents, databases, connectors, and agents.",
+      "inferred_brick_wall": "Letting agents remember and act without stale context, permission leakage, duplicated work, or unverifiable edits.",
+      "leverage_mechanism": "Store compact source-linked memory, preserve change history, and require action receipts and authority checks.",
+      "next_deep_dive": "Audit existing Notion repos and build a permission-aware connector demonstration.",
+      "observed_current_pressure": "The workspace is becoming an agent operating environment connected to enterprise knowledge and actions.",
+      "official_sources": [
+        {
+          "observed_signal": "Connected enterprise knowledge and agentic workflows inside a permissioned workspace.",
+          "publisher": "Notion",
+          "source_sha256": "6f932c3d26a93207e11eff952ffcd91a9de3573839717e2fd56d73d65f084c12",
+          "title": "Notion AI",
+          "url": "https://www.notion.com/product/ai"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "AI Infrastructure Engineer",
+        "Distributed Systems Engineer",
+        "Forward-Deployed Systems Engineer"
+      ]
+    },
+    {
+      "application_move": "Present GPU health, reasoning, and token compression as one inference-efficiency and observability package.",
+      "company_id": "nvidia",
+      "display_name": "NVIDIA",
+      "expected_impact": "Improves utilization and reliability while reducing memory and context pressure.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Integrating data movement, memory hierarchy, interconnect, compute, and software as one efficient platform.",
+      "inferred_brick_wall": "Meeting power, latency, utilization, reliability, and security targets while model architectures evolve faster than infrastructure generations.",
+      "leverage_mechanism": "Pair health telemetry and topology-aware routing with compressed context and phase-specific workload policies.",
+      "next_deep_dive": "Benchmark Token Saver honestly and connect it to concrete GPU memory, KV-cache, and networking measurements.",
+      "observed_current_pressure": "AI systems now span compute, networking, storage, context memory, security, and rapidly changing training and inference phases.",
+      "official_sources": [
+        {
+          "observed_signal": "Seven-chip full-stack AI platform integrating compute, networking, memory, and systems software.",
+          "publisher": "NVIDIA",
+          "source_sha256": "b63f98374de83931da2bbebdf7de9405069fdbda1ee07c23a140c8303fe490c7",
+          "title": "NVIDIA Vera Rubin Platform",
+          "url": "https://www.nvidia.com/en-us/data-center/vera-rubin/"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "AI Infrastructure Engineer",
+        "Distributed Systems Engineer",
+        "Forward-Deployed Systems Engineer"
+      ]
+    },
+    {
+      "application_move": "Lead with evidence-bound agent execution: immutable receipts, context compaction, recovery state, and explicit tool authority.",
+      "company_id": "openai",
+      "display_name": "OpenAI",
+      "expected_impact": "Reduces false completion, context waste, and debugging ambiguity in long-running agent infrastructure.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Reliable orchestration, sandboxing, scheduling, state recovery, and observability for model-driven workloads.",
+      "inferred_brick_wall": "Scaling autonomous execution by orders of magnitude without shared-fate failures, privilege leakage, runaway cost, or unverifiable completion.",
+      "leverage_mechanism": "Bring fail-closed receipts, provider convergence, compact context packets, and bounded execution into one inspectable agent-control plane.",
+      "next_deep_dive": "Inspect current Agent Infrastructure and Evals role requirements, then map each requirement to a commit-bound GlacierEQ proof.",
+      "observed_current_pressure": "Agent products are expanding from short requests into isolated, long-running execution environments at extreme scale.",
+      "official_sources": [
+        {
+          "observed_signal": "In-house orchestration, isolated agent workloads, and extreme scaling requirements.",
+          "publisher": "OpenAI",
+          "source_sha256": "d74d6125eebb5fc7935d1efd545d00759d1c6e1055eea6611af779bf0667390d",
+          "title": "Software Engineer, Agent Infrastructure",
+          "url": "https://openai.com/careers/software-engineer-agent-infrastructure-san-francisco/"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "Applied AI Systems Architect",
+        "Agent Infrastructure Engineer",
+        "Evaluation / Reliability Engineer"
+      ]
+    },
+    {
+      "application_move": "Position the GlacierEQ gateway work as a policy and state-integrity layer around OpenClaw-class systems.",
+      "company_id": "openclaw",
+      "display_name": "OpenClaw",
+      "expected_impact": "Reduces integration risk and improves recoverability in personal agent gateways.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Secure routing and persistent state across a very large integration surface.",
+      "inferred_brick_wall": "Maintaining session isolation, credential boundaries, plugin safety, and recoverability across channels and providers.",
+      "leverage_mechanism": "Introduce typed provider and tool permissions, session-scoped memory, audit receipts, and upgrade compatibility tests.",
+      "next_deep_dive": "Audit the owned OpenClaw repository against current upstream security and session behavior.",
+      "observed_current_pressure": "A local and multichannel agent gateway must coordinate providers, sessions, plugins, devices, and user tools.",
+      "official_sources": [
+        {
+          "observed_signal": "Gateway-centered multichannel routing, provider integrations, and session state.",
+          "publisher": "OpenClaw",
+          "source_sha256": "f1f369a27ec3c5f1056b1fb4e61aaf9d704dadab990d9ebd0707e99ae0efd7eb",
+          "title": "OpenClaw Documentation",
+          "url": "https://docs.openclaw.ai/"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "Agent Platform Engineer",
+        "Applied AI Engineer",
+        "AI Product Infrastructure Engineer"
+      ]
+    },
+    {
+      "application_move": "Demonstrate a reversible browser workflow with explicit permission and state capture.",
+      "company_id": "opera",
+      "display_name": "Opera",
+      "expected_impact": "Improves reliability and user trust in browser agents.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Safe, local, reversible action over real browser state and user identity.",
+      "inferred_brick_wall": "Preventing permission abuse, session leakage, brittle automation, and unrecoverable actions across the open web.",
+      "leverage_mechanism": "Add per-action authority, browser-state receipts, rollback checkpoints, and compact session memory.",
+      "next_deep_dive": "Build a live browser proof using available automation tools and record every action and recovery step.",
+      "observed_current_pressure": "Browsers are turning authenticated sessions and live page context into agent-accessible operating surfaces.",
+      "official_sources": [
+        {
+          "observed_signal": "Agents accessing current browser context and authenticated web sessions.",
+          "publisher": "Opera",
+          "source_sha256": "331c79304e3cab6bd70448aed1690556d6f1fc466d381bb3c7eaf2dfef6d0096",
+          "title": "Opera Newsroom",
+          "url": "https://blogs.opera.com/news/"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "Agent Platform Engineer",
+        "Applied AI Engineer",
+        "AI Product Infrastructure Engineer"
+      ]
+    },
+    {
+      "application_move": "Demonstrate database-grounded application intelligence with immutable source and decision hashes.",
+      "company_id": "oracle",
+      "display_name": "Oracle",
+      "expected_impact": "Reduces data movement and improves action traceability.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Unified semantics, transactions, security, retrieval, and agent memory directly over enterprise data.",
+      "inferred_brick_wall": "Allowing real-time agent action without breaking data consistency, access controls, or cross-cloud portability.",
+      "leverage_mechanism": "Attach transactional source identity, permission, freshness, and compact context to every decision.",
+      "next_deep_dive": "Prototype against an accessible SQL system and test concurrency and stale-context behavior.",
+      "observed_current_pressure": "Enterprise agents are moving closer to transactional databases and mixed data types to avoid data movement.",
+      "official_sources": [
+        {
+          "observed_signal": "Agentic AI operating over converged enterprise data with security and transaction requirements.",
+          "publisher": "Oracle",
+          "source_sha256": "b771d78be3eadaf584f983b1e486d2bdfdb1c5e7ded1b4c36b06518f205f6144",
+          "title": "Oracle AI Database",
+          "url": "https://www.oracle.com/database/ai/"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "Applied AI Systems Architect",
+        "Forward-Deployed Engineer",
+        "AI Infrastructure / Governance Engineer"
+      ]
+    },
+    {
+      "application_move": "Map the estate graph to an ontology-style application intelligence system with traceable actions.",
+      "company_id": "palantir",
+      "display_name": "Palantir",
+      "expected_impact": "Improves governed tool discovery and reduces context overhead in operational agents.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Allowing models to discover and use tools while preserving ontology, permissions, lineage, and operational semantics.",
+      "inferred_brick_wall": "Enabling rapid agent creation without bypassing enterprise security, audit, and data governance.",
+      "leverage_mechanism": "Use typed system boundaries, compact tool catalogs, evidence-linked actions, and authority-aware memory.",
+      "next_deep_dive": "Build a small ontology-backed application workflow and quantify tool-search token savings.",
+      "observed_current_pressure": "Enterprise agents are being embedded directly into governed operational data and ontology layers.",
+      "official_sources": [
+        {
+          "observed_signal": "Governed agent actions over ontology-backed enterprise operations.",
+          "publisher": "Palantir",
+          "source_sha256": "c3debe19f893bdf1f3bc3771c2110f3233e3d24d72d82982b954685245a35b2d",
+          "title": "Palantir AIP",
+          "url": "https://www.palantir.com/platforms/aip/"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "Applied AI Systems Architect",
+        "Forward-Deployed Engineer",
+        "AI Infrastructure / Governance Engineer"
+      ]
+    },
+    {
+      "application_move": "Demonstrate an application dossier whose claims trace to current sources and subsequent actions.",
+      "company_id": "perplexity",
+      "display_name": "Perplexity",
+      "expected_impact": "Reduces citation drift and makes research-to-action chains inspectable.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Turning fresh cited context into reliable, permission-aware action.",
+      "inferred_brick_wall": "Maintaining source freshness, attribution, connector trust, and workflow continuity across long enterprise tasks.",
+      "leverage_mechanism": "Attach source hashes and freshness to every decision, preserve provenance through action, and require permission receipts.",
+      "next_deep_dive": "Run the same company research through Perplexity and compare citation completeness and freshness.",
+      "observed_current_pressure": "Answer engines are becoming enterprise action systems with connectors, memory, citations, and computer-use capability.",
+      "official_sources": [
+        {
+          "observed_signal": "Cited research, enterprise connectors, memory, and action-oriented workflows.",
+          "publisher": "Perplexity",
+          "source_sha256": "bf90cbbf6c59d4e1ac77bf1cc141899f48a5dc2cc0e28cb354e8848c0b32b64a",
+          "title": "Perplexity Enterprise",
+          "url": "https://www.perplexity.ai/enterprise"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "Agent Platform Engineer",
+        "Applied AI Engineer",
+        "AI Product Infrastructure Engineer"
+      ]
+    },
+    {
+      "application_move": "Create a measured edge-agent context budget demonstration.",
+      "company_id": "qualcomm",
+      "display_name": "Qualcomm",
+      "expected_impact": "Extends useful on-device context within energy and memory limits.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Memory bandwidth, energy efficiency, model portability, and on-device agent context.",
+      "inferred_brick_wall": "Delivering useful local agents without exhausting memory, battery, thermals, or software compatibility.",
+      "leverage_mechanism": "Use compact memory packets, quantized state, device-tier routing, and privacy-aware cloud fallback.",
+      "next_deep_dive": "Run on available mobile hardware or emulator and clearly label the hardware boundary.",
+      "observed_current_pressure": "Inference is spreading from phones and PCs to edge devices and data centers under strict performance-per-watt constraints.",
+      "official_sources": [
+        {
+          "observed_signal": "On-device and edge AI optimized for power, memory, and heterogeneous compute.",
+          "publisher": "Qualcomm",
+          "source_sha256": "f9508a9375090ac5bbf036d121e4b1d71e74a8fc9e5b88782f0c57bed900728c",
+          "title": "Qualcomm AI",
+          "url": "https://www.qualcomm.com/research/artificial-intelligence"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "Applied AI Systems Architect",
+        "Forward-Deployed Engineer",
+        "AI Infrastructure / Governance Engineer"
+      ]
+    },
+    {
+      "application_move": "Build a cross-runtime Qwen routing exhibit with explicit tool and language boundaries.",
+      "company_id": "qwen",
+      "display_name": "Alibaba / Qwen",
+      "expected_impact": "Improves portability and reliability across open-model deployments.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Consistent tool use, retrieval, multimodal grounding, and deployment portability across languages and context sizes.",
+      "inferred_brick_wall": "Preserving reliable behavior across open weights, varied runtimes, long contexts, and heterogeneous user environments.",
+      "leverage_mechanism": "Use language-specific adapters, tool contracts, routing receipts, and compact multimodal context.",
+      "next_deep_dive": "Test current Qwen models on the same agent task and report capability, latency, and cost differences.",
+      "observed_current_pressure": "Open multilingual and multimodal models are becoming general agent foundations across highly diverse deployment environments.",
+      "official_sources": [
+        {
+          "observed_signal": "Open agent framework for tool use, planning, retrieval, and multimodal models.",
+          "publisher": "Alibaba / Qwen",
+          "source_sha256": "ecbe28576f838e86d3a4f8f9092da51bbcd92312b6095957f346078cca0a1912",
+          "title": "Qwen Agent",
+          "url": "https://github.com/QwenLM/Qwen-Agent"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "Agent Platform Engineer",
+        "Applied AI Engineer",
+        "AI Product Infrastructure Engineer"
+      ]
+    },
+    {
+      "application_move": "Present a verification-first embodied AI architecture rather than a generic robotics demo.",
+      "company_id": "robotics",
+      "display_name": "Robotics / Embodied AI",
+      "expected_impact": "Improves safety-case quality and prevents simulation evidence from being overstated.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Verifiable perception, planning, coordination, and recovery in physical environments.",
+      "inferred_brick_wall": "Guaranteeing bounded risk when observations are incomplete and actions are irreversible.",
+      "leverage_mechanism": "Use scenario decomposition, invariant checks, counterexample agents, and physical-validation gates.",
+      "next_deep_dive": "Select one simulation, define invariants, and produce repeatable failure and recovery evidence.",
+      "observed_current_pressure": "Autonomous systems must plan and act under uncertain sensing, communication, terrain, and power constraints.",
+      "official_sources": [
+        {
+          "observed_signal": "Resilient and distributed autonomy for uncertain, communication-limited environments.",
+          "publisher": "Robotics / Embodied AI",
+          "source_sha256": "004465d9f3f293362c8bd0cdbe3bbc52cc929cc6105c337622f110ffe8e020e1",
+          "title": "NASA Autonomous Systems and Robotics",
+          "url": "https://www.nasa.gov/intelligent-systems-division/autonomous-systems-and-robotics/"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "Agent Platform Engineer",
+        "Applied AI Engineer",
+        "AI Product Infrastructure Engineer"
+      ]
+    },
+    {
+      "application_move": "Build a flight-software release and simulation evidence case study.",
+      "company_id": "rocket_lab",
+      "display_name": "Rocket Lab",
+      "expected_impact": "Shows complete software-lifecycle thinking for aerospace systems.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Maintaining one reliable software lifecycle across vehicles, spacecraft, test, simulation, and operations.",
+      "inferred_brick_wall": "Versioning and validating mission-critical software as products and missions diversify.",
+      "leverage_mechanism": "Use versioned interfaces, simulation receipts, release manifests, and mission-specific acceptance gates.",
+      "next_deep_dive": "Choose one mission thread and validate every interface and test boundary.",
+      "observed_current_pressure": "Launch and spacecraft products require integrated flight software, simulation, ground systems, and rapid mission cadence.",
+      "official_sources": [
+        {
+          "observed_signal": "Flight software, simulation, test, ground, and mission operations as a product suite.",
+          "publisher": "Rocket Lab",
+          "source_sha256": "e89c8f6b51e93bd6c1338bd94f6f54e2d214020e62a7b983b34a2878adc44585",
+          "title": "Rocket Lab Software",
+          "url": "https://www.rocketlabusa.com/space-systems/software/"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "Applied AI Systems Architect",
+        "Forward-Deployed Engineer",
+        "AI Infrastructure / Governance Engineer"
+      ]
+    },
+    {
+      "application_move": "Model the application campaign itself as a CRM agent workflow with no-send default and approval gates.",
+      "company_id": "salesforce",
+      "display_name": "Salesforce",
+      "expected_impact": "Improves trust and auditability for business agents.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Trusted autonomous action over CRM context and enterprise integration layers.",
+      "inferred_brick_wall": "Preventing incorrect or irreversible actions while maintaining identity, consent, observability, and business semantics.",
+      "leverage_mechanism": "Use action policies, identity-aware memory, approval thresholds, and post-action receipts.",
+      "next_deep_dive": "Implement a sandbox campaign flow and verify no external message is sent without authority.",
+      "observed_current_pressure": "CRM agents are expected to reason and act across customer data, workflows, integrations, and business permissions.",
+      "official_sources": [
+        {
+          "observed_signal": "Enterprise agents grounded in CRM data and connected business actions.",
+          "publisher": "Salesforce",
+          "source_sha256": "4847780b61198fc6dc02572ce6e3d5681228ec60089eb35ef24bb96f094d5c05",
+          "title": "Salesforce Agentforce",
+          "url": "https://www.salesforce.com/agentforce/"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "Applied AI Systems Architect",
+        "Forward-Deployed Engineer",
+        "AI Infrastructure / Governance Engineer"
+      ]
+    },
+    {
+      "application_move": "Offer Helix evidence ladders as an evaluation control plane for repository and agent behavior.",
+      "company_id": "scale_ai",
+      "display_name": "Scale AI",
+      "expected_impact": "Improves evaluation validity and prevents single-score overclaiming.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Creating representative, contamination-resistant, non-gameable evaluations for agents and models.",
+      "inferred_brick_wall": "Measuring real capability and risk without overfitting, leaking benchmarks, or mistaking narrow scores for deployment readiness.",
+      "leverage_mechanism": "Use proof ladders, independent readers, contradiction preservation, and scenario-specific completion tests.",
+      "next_deep_dive": "Create a benchmark-contamination threat model and multi-reader evaluation suite.",
+      "observed_current_pressure": "Agent evaluation must move beyond static benchmarks into open-ended product behavior and safety.",
+      "official_sources": [
+        {
+          "observed_signal": "Evaluation of model and agent capability, safety, and product behavior.",
+          "publisher": "Scale AI",
+          "source_sha256": "3d44b75b8132340f5e4f7d45a42a52de38f265373dabad7fca3e482327aa0650",
+          "title": "Scale AI Evaluations",
+          "url": "https://scale.com/evals"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "Applied AI Systems Architect",
+        "Forward-Deployed Engineer",
+        "AI Infrastructure / Governance Engineer"
+      ]
+    },
+    {
+      "application_move": "Demonstrate a governed company-intelligence update stream with freshness and lineage.",
+      "company_id": "snowflake",
+      "display_name": "Snowflake",
+      "expected_impact": "Improves context quality while reducing data movement and prompt overhead.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Converting heterogeneous governed data into fresh, low-latency, permission-correct agent context.",
+      "inferred_brick_wall": "Preserving identity, lineage, semantics, freshness, and cost controls across data, models, and actions.",
+      "leverage_mechanism": "Use semantic memory packets with lineage, freshness, permissions, and compact retrieval.",
+      "next_deep_dive": "Implement incremental refresh and stale-source detection for the atlas.",
+      "observed_current_pressure": "Enterprise data platforms are becoming context and action layers for governed agents.",
+      "official_sources": [
+        {
+          "observed_signal": "Governed AI and agent experiences directly over enterprise data.",
+          "publisher": "Snowflake",
+          "source_sha256": "cc78944978603c619a0caceabea00430485e01397ba2b84c8584ccd942f3eebc",
+          "title": "Snowflake Cortex AI",
+          "url": "https://www.snowflake.com/en/product/features/cortex/"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "Applied AI Systems Architect",
+        "Forward-Deployed Engineer",
+        "AI Infrastructure / Governance Engineer"
+      ]
+    },
+    {
+      "application_move": "Consolidate the SpaceX repositories into mission-control, launch, network, propulsion, and reliability subsystems with explicit interfaces.",
+      "company_id": "spacex",
+      "display_name": "SpaceX",
+      "expected_impact": "Creates a credible systems-integration narrative across software and physical operations.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Low-latency coordination and observability across software, hardware, facilities, orbital dynamics, and distributed operations.",
+      "inferred_brick_wall": "Achieving physical-system determinism and fault tolerance under tight timing, safety, network, and environmental constraints.",
+      "leverage_mechanism": "Represent launch and satellite work as dependency-bound systems with fault domains, simulation evidence, and operational receipts.",
+      "next_deep_dive": "Audit the SpaceX family for executable simulations, remove speculative claims, and select one end-to-end mission thread.",
+      "observed_current_pressure": "Launch, spacecraft, satellite, ground, manufacturing, and network systems must operate at increasing cadence.",
+      "official_sources": [
+        {
+          "observed_signal": "Broad demand for mission-critical software, infrastructure, networking, test, and manufacturing systems.",
+          "publisher": "SpaceX",
+          "source_sha256": "a2a28d02e3f84df7de9b0ea7ff50ead910d34641c85f31c21df60ca550c7c534",
+          "title": "SpaceX Careers",
+          "url": "https://www.spacex.com/careers/"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "AI Infrastructure Engineer",
+        "Distributed Systems Engineer",
+        "Forward-Deployed Systems Engineer"
+      ]
+    },
+    {
+      "application_move": "Show Tasklet as a governed micro-agent system with team-safe memory and cost controls.",
+      "company_id": "tasklet",
+      "display_name": "Tasklet",
+      "expected_impact": "Makes delegation auditable and reduces duplicate automation work.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Reliable delegation and shared context across many integrations and team members.",
+      "inferred_brick_wall": "Controlling credentials, cost, concurrency, and state drift as personal agents become organizational infrastructure.",
+      "leverage_mechanism": "Use bounded worker roles, shared source-hashed memory, queue receipts, and budget limits.",
+      "next_deep_dive": "Compare the repository runtime to current Tasklet features and close missing integration proofs.",
+      "observed_current_pressure": "Personal automations are expanding into shared team infrastructure with subagents, integrations, and persistent sessions.",
+      "official_sources": [
+        {
+          "observed_signal": "Subagent delegation and shared automation infrastructure.",
+          "publisher": "Tasklet",
+          "source_sha256": "d2011d833e981d427869aca0d8a8b5302ef412a7fc1a8ccb191d64788a45ea96",
+          "title": "Tasklet Changelog",
+          "url": "https://www.tasklet.ai/changelog"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "Agent Platform Engineer",
+        "Applied AI Engineer",
+        "AI Product Infrastructure Engineer"
+      ]
+    },
+    {
+      "application_move": "Lead with a perception-to-decision evidence chain and an explicit physical-validation boundary.",
+      "company_id": "tesla",
+      "display_name": "Tesla",
+      "expected_impact": "Improves edge-case visibility and separates simulated evidence from real-world validation.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Closing the data-to-model-to-fleet loop for safe, efficient embodied autonomy.",
+      "inferred_brick_wall": "Generalizing through rare edge cases while meeting hard real-time, energy, safety, and regulatory constraints.",
+      "leverage_mechanism": "Combine streaming perception, bounded scenario analysis, counterexample discovery, and evidence-labeled safety gates.",
+      "next_deep_dive": "Create scenario benchmarks and failure taxonomies without claiming vehicle deployment.",
+      "observed_current_pressure": "Autonomy, robotics, training, inference, data engines, and vehicle systems must improve continuously in the physical world.",
+      "official_sources": [
+        {
+          "observed_signal": "Integrated data, training, inference, autonomy, and robotics stack.",
+          "publisher": "Tesla",
+          "source_sha256": "fa7b218326acb5e42f11c261d7f9ccc6abebfa1aa8c5137f9c4e574cacf58504",
+          "title": "Tesla AI",
+          "url": "https://www.tesla.com/AI"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "AI Infrastructure Engineer",
+        "Distributed Systems Engineer",
+        "Forward-Deployed Systems Engineer"
+      ]
+    },
+    {
+      "application_move": "Deploy the Helix intelligence UI as a concrete Vercel production-agent case study.",
+      "company_id": "vercel",
+      "display_name": "Vercel",
+      "expected_impact": "Shortens prototype-to-production while retaining evidence and security boundaries.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Durable workflows, safe code execution, least-privilege tool access, and full-stack observability.",
+      "inferred_brick_wall": "Turning fast prototypes into recoverable, secure production agents without provider lock-in or hidden runtime state.",
+      "leverage_mechanism": "Add provider-neutral convergence, exact deployment receipts, scoped credential exchange, and recoverable state.",
+      "next_deep_dive": "Finish preview deployment and record commit-to-deployment parity.",
+      "observed_current_pressure": "Developers need a complete production stack for AI applications: models, workflows, sandboxes, auth, observability, and deployment.",
+      "official_sources": [
+        {
+          "observed_signal": "Production AI application stack with agents, workflows, sandboxes, credentials, and observability.",
+          "publisher": "Vercel",
+          "source_sha256": "68387b02aeb66a7aa5224b8c29e9484dd95e56fec69b58c167631ea50e98a1c2",
+          "title": "Vercel AI",
+          "url": "https://vercel.com/ai"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "Applied AI Systems Architect",
+        "Forward-Deployed Engineer",
+        "AI Infrastructure / Governance Engineer"
+      ]
+    },
+    {
+      "application_move": "Present a neutral autonomy-evaluation framework rather than claiming vehicle competence.",
+      "company_id": "waymo",
+      "display_name": "Waymo",
+      "expected_impact": "Improves safety-case presentation and focuses work on long-tail uncertainty.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Maintaining consistent safety and operational quality across new environments and long-tail scenarios.",
+      "inferred_brick_wall": "Proving safe generalization while scaling fleet operations, maps, remote assistance, and public trust.",
+      "leverage_mechanism": "Use scenario taxonomies, counterexample generation, evidence ladders, and transparent boundary reporting.",
+      "next_deep_dive": "Build a scenario corpus and compare how evidence changes across geographies.",
+      "observed_current_pressure": "Driverless service is expanding to more geographies while public and regulatory scrutiny remains intense.",
+      "official_sources": [
+        {
+          "observed_signal": "Safety evidence and operational scaling across driverless-service markets.",
+          "publisher": "Waymo",
+          "source_sha256": "166b9ed9ba7895b199c8fb75cf6b751af06ea6c669eebbbb675bdd6c13fc873c",
+          "title": "Waymo Safety",
+          "url": "https://waymo.com/safety/"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "Applied AI Systems Architect",
+        "Forward-Deployed Engineer",
+        "AI Infrastructure / Governance Engineer"
+      ]
+    },
+    {
+      "application_move": "Pitch a Colossus systems suite—not isolated cooling repos—with explicit topology, failure domains, and verification gates.",
+      "company_id": "xai",
+      "display_name": "xAI",
+      "expected_impact": "Turns dozens of disconnected infrastructure experiments into a coherent reliability and operations story.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Coordinating compute, networking, cooling, power, servers, security, and model operations as one reliable system.",
+      "inferred_brick_wall": "Preserving reliability, safety, and debuggability while scaling infrastructure and shipping at extreme speed.",
+      "leverage_mechanism": "Collapse fragmented variants into one governed infrastructure suite with dependency graphs, incident receipts, and bounded convergence.",
+      "next_deep_dive": "Audit each xAI/Colossus repository for runnable proof and select one flagship plus bounded supporting systems.",
+      "observed_current_pressure": "Rapid model iteration is coupled to a massive training and inference fabric, physical data-center systems, and high-velocity product deployment.",
+      "official_sources": [
+        {
+          "observed_signal": "Hiring pressure around model infrastructure, high-speed systems, and fast execution.",
+          "publisher": "xAI",
+          "source_sha256": "fc904eb4c2606295cc5365a7dbd0fee111b64def9f857fb01bcfbec4603d2e9d",
+          "title": "xAI Careers",
+          "url": "https://x.ai/careers"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "Applied AI Systems Architect",
+        "Agent Infrastructure Engineer",
+        "Evaluation / Reliability Engineer"
+      ]
+    },
+    {
+      "application_move": "Create a redundancy and mission-control architecture exhibit using non-vehicle simulations.",
+      "company_id": "zoox",
+      "display_name": "Zoox",
+      "expected_impact": "Demonstrates systems integration and fault-domain reasoning.",
+      "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+      "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+      "inferred_bottleneck": "Integrating vehicle safety architecture, autonomy, mission control, manufacturing, and market operations.",
+      "inferred_brick_wall": "Preserving no-single-point-failure safety and reliable remote and operational support across diverse environments.",
+      "leverage_mechanism": "Map independent safety channels, operational escalation, and physical-system receipts.",
+      "next_deep_dive": "Define a no-single-point-failure model and test representative failure paths.",
+      "observed_current_pressure": "A purpose-built robotaxi must scale from engineering validation into public service and manufacturing.",
+      "official_sources": [
+        {
+          "observed_signal": "Purpose-built autonomous vehicle with redundancy and operational mission control.",
+          "publisher": "Zoox",
+          "source_sha256": "bfdf1dbc342c74edf39783af61bcc4635ce8d0ba6ab5740de1441e80520b7f6c",
+          "title": "Zoox Safety",
+          "url": "https://zoox.com/safety"
+        }
+      ],
+      "research_as_of": "2026-08-05",
+      "target_roles": [
+        "Applied AI Systems Architect",
+        "Forward-Deployed Engineer",
+        "AI Infrastructure / Governance Engineer"
+      ]
+    }
+  ],
+  "schema": "glaciereq.public-estate-intelligence.v1",
+  "source": {
+    "authority_commit": "ccc46f81792c5b90135e2a10c649fdb02b5be3cd",
+    "external_manifest_path": "manifests/application_intelligence/company_bottleneck_atlas.external.json",
+    "external_manifest_sha256": "2d93f4e0c736426dcf6904be6d0139075a48c78f3051278becf05703ee67f654",
+    "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
+    "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
+    "research_as_of": "2026-08-05",
+    "snapshot_origin_commit": "f3b2092fe0709a6532202a007852121d1ca982e4"
+  },
+  "truth_boundary": {
+    "authenticated_estate_cardinality_published": false,
+    "legal_private_material_published": false,
+    "private_repository_identities_published": false,
+    "source_snapshot_requires_refresh_for_live_application": true
+  }
+}

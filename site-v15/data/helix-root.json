@@ -1532,9 +1532,9 @@
       ],
       "company_id": "intel",
       "display_name": "Intel",
-      "gap_or_next_gate": "A private Intel NPU repository and an archived public fork-shaped copy exist. Audit provenance and unique GlacierEQ implementation before any recruiter promotion.",
+      "gap_or_next_gate": "Keep both repositories below recruiter admission. Isolate candidate Casey-side SDPA robustness changes into a clean patch against the archived Intel base, remove generated/history/node_modules noise and unsupported QA claims, then require deterministic tests and a provenance receipt before considering capability-donor promotion.",
       "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
-      "recruiter_thesis": "No company-named proof is invented; applicable personal flagships are mapped separately.",
+      "recruiter_thesis": "The private NPU repository is a converted, diverged continuation of Intel's upstream library, not an original GlacierEQ system. Casey-side history contains some direct robustness and test edits, but those deltas must be isolated from Intel-authored code, imported feature branches, generated artifacts, and maintenance-only changes before any donor credit is assigned.",
       "repositories": [],
       "second_depth": {
         "blockers": [
@@ -1562,7 +1562,7 @@
         "Applied AI Systems Engineer",
         "Forward-Deployed Engineer"
       ],
-      "track_state": "DIRECT_ESTATE_DISCOVERED_NOT_RECRUITER_READY"
+      "track_state": "UPSTREAM_DERIVED_DELTA_AUDIT"
     },
     {
       "applicable_flagships": [
@@ -1994,9 +1994,9 @@
       ],
       "company_id": "coreweave",
       "display_name": "CoreWeave",
-      "gap_or_next_gate": "Five direct CoreWeave-named private prototypes exist. Audit provenance, implementation depth, tests, and runtime evidence before selecting any public or recruiter-facing flagship.",
+      "gap_or_next_gate": "Promote only through the experiment ladder: prove unique value, add deterministic tests and runtime receipts, integrate surviving mechanisms into a canonical system, then require capability proof and the promotion-score gate. Current source audit found unverified claims and concrete implementation defects, so all five remain private experiments.",
       "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
-      "recruiter_thesis": "No company-named proof is invented; applicable personal flagships are mapped separately.",
+      "recruiter_thesis": "Five private CoreWeave-named prototypes form one reliability R&D family, not five independent accomplishments. None is recruiter proof until claims are bounded and positive verification receipts exist.",
       "repositories": [],
       "second_depth": {
         "blockers": [
@@ -2024,7 +2024,7 @@
         "Applied AI Systems Engineer",
         "Forward-Deployed Engineer"
       ],
-      "track_state": "DIRECT_ESTATE_DISCOVERED_NOT_RECRUITER_READY"
+      "track_state": "PRIVATE_RELIABILITY_LAB_EXPERIMENTS"
     },
     {
       "applicable_flagships": [
@@ -2370,6 +2370,1194 @@
       "track_state": "NO_DIRECT_EXHIBIT_VERIFIED"
     },
     {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "cursor",
+      "display_name": "Cursor / Anysphere",
+      "gap_or_next_gate": "Exclude verified upstream forks from authorship proof. Compare GlacierEQ/awesome-cursorrules against PatrickJS/awesome-cursorrules at commit/tree level, isolate any unique GlacierEQ delta, and require current tests or bounded artifact proof before capability-donor admission.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Direct-name estate repositories exist, but the two strongest name matches are verified upstream forks and the remaining private corpus requires provenance isolation before any Casey-side capability can be credited.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/expansion_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "DIRECT_ESTATE_DISCOVERED_PROVENANCE_AUDIT"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "glean",
+      "display_name": "Glean",
+      "gap_or_next_gate": "Run exact-name plus semantic estate discovery, verify provenance and unique value, map current public company pressures from official sources, then admit only repositories with bounded evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "High-fit strategic target identified from estate capability alignment. No company-specific accomplishment is claimed without direct repository and proof admission.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/expansion_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "replit",
+      "display_name": "Replit",
+      "gap_or_next_gate": "Run exact-name plus semantic estate discovery, verify provenance and unique value, map current public company pressures from official sources, then admit only repositories with bounded evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "High-fit strategic target identified from estate capability alignment. No company-specific accomplishment is claimed without direct repository and proof admission.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/expansion_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "cognition",
+      "display_name": "Cognition",
+      "gap_or_next_gate": "Run exact-name plus semantic estate discovery, verify provenance and unique value, map current public company pressures from official sources, then admit only repositories with bounded evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "High-fit strategic target identified from estate capability alignment. No company-specific accomplishment is claimed without direct repository and proof admission.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/expansion_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "github",
+      "display_name": "GitHub",
+      "gap_or_next_gate": "Run exact-name plus semantic estate discovery, verify provenance and unique value, map current public company pressures from official sources, then admit only repositories with bounded evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "High-fit strategic target identified from estate capability alignment. No company-specific accomplishment is claimed without direct repository and proof admission.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/expansion_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "supabase",
+      "display_name": "Supabase",
+      "gap_or_next_gate": "Compile the admitted public semantic donor relationships and their exact-head proof into Supabase role projections. Expand the public claim surface only when additional public donor mechanisms satisfy the same provenance and verification gates.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Public non-fork GlacierEQ systems provide independently evidenced, transferable Supabase mechanisms: server-side least-privilege Edge Function brokerage, idempotent state/audit persistence, and connector health-state classification. Recruiter projection is capability- and proof-led rather than repository-name-led.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/expansion_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "SEMANTIC_CAPABILITY_DONORS_ADMITTED"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "mongodb",
+      "display_name": "MongoDB",
+      "gap_or_next_gate": "Keep all direct-name forks excluded from authorship. Search canonical GlacierEQ systems for original MongoDB-relevant capabilities—governed MCP/database access, persistent agent state, connector security, observability, and database-grounded workflows—and admit only provenance-verified implementations with current proof.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "Three direct-name estate repositories exist, but GitHub metadata proves all three are upstream forks. They are useful reference and integration-context evidence, not Casey-authored MongoDB proof.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/expansion_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "DIRECT_ESTATE_DISCOVERED_UPSTREAM_ONLY"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "gitlab",
+      "display_name": "GitLab",
+      "gap_or_next_gate": "Run exact-name plus semantic estate discovery, verify provenance and unique value, map current public company pressures from official sources, then admit only repositories with bounded evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "High-fit strategic target identified from estate capability alignment. No company-specific accomplishment is claimed without direct repository and proof admission.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/expansion_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "atlassian",
+      "display_name": "Atlassian",
+      "gap_or_next_gate": "Run exact-name plus semantic estate discovery, verify provenance and unique value, map current public company pressures from official sources, then admit only repositories with bounded evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "High-fit strategic target identified from estate capability alignment. No company-specific accomplishment is claimed without direct repository and proof admission.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/expansion_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "lambda",
+      "display_name": "Lambda",
+      "gap_or_next_gate": "Run exact-name plus semantic estate discovery, verify provenance and unique value, map current public company pressures from official sources, then admit only repositories with bounded evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "High-fit strategic target identified from estate capability alignment. No company-specific accomplishment is claimed without direct repository and proof admission.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/expansion_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "nebius",
+      "display_name": "Nebius",
+      "gap_or_next_gate": "Run exact-name plus semantic estate discovery, verify provenance and unique value, map current public company pressures from official sources, then admit only repositories with bounded evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "High-fit strategic target identified from estate capability alignment. No company-specific accomplishment is claimed without direct repository and proof admission.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/expansion_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "crusoe",
+      "display_name": "Crusoe",
+      "gap_or_next_gate": "Run exact-name plus semantic estate discovery, verify provenance and unique value, map current public company pressures from official sources, then admit only repositories with bounded evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "High-fit strategic target identified from estate capability alignment. No company-specific accomplishment is claimed without direct repository and proof admission.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/expansion_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "together_ai",
+      "display_name": "Together AI",
+      "gap_or_next_gate": "Run exact-name plus semantic estate discovery, verify provenance and unique value, map current public company pressures from official sources, then admit only repositories with bounded evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "High-fit strategic target identified from estate capability alignment. No company-specific accomplishment is claimed without direct repository and proof admission.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/expansion_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "modal",
+      "display_name": "Modal",
+      "gap_or_next_gate": "Run exact-name plus semantic estate discovery, verify provenance and unique value, map current public company pressures from official sources, then admit only repositories with bounded evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "High-fit strategic target identified from estate capability alignment. No company-specific accomplishment is claimed without direct repository and proof admission.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/expansion_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "baseten",
+      "display_name": "Baseten",
+      "gap_or_next_gate": "Run exact-name plus semantic estate discovery, verify provenance and unique value, map current public company pressures from official sources, then admit only repositories with bounded evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "High-fit strategic target identified from estate capability alignment. No company-specific accomplishment is claimed without direct repository and proof admission.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/expansion_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "fireworks_ai",
+      "display_name": "Fireworks AI",
+      "gap_or_next_gate": "Run exact-name plus semantic estate discovery, verify provenance and unique value, map current public company pressures from official sources, then admit only repositories with bounded evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "High-fit strategic target identified from estate capability alignment. No company-specific accomplishment is claimed without direct repository and proof admission.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/expansion_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "replicate",
+      "display_name": "Replicate",
+      "gap_or_next_gate": "Run exact-name plus semantic estate discovery, verify provenance and unique value, map current public company pressures from official sources, then admit only repositories with bounded evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "High-fit strategic target identified from estate capability alignment. No company-specific accomplishment is claimed without direct repository and proof admission.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/expansion_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "runpod",
+      "display_name": "Runpod",
+      "gap_or_next_gate": "Run exact-name plus semantic estate discovery, verify provenance and unique value, map current public company pressures from official sources, then admit only repositories with bounded evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "High-fit strategic target identified from estate capability alignment. No company-specific accomplishment is claimed without direct repository and proof admission.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/expansion_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "sourcegraph",
+      "display_name": "Sourcegraph",
+      "gap_or_next_gate": "Run exact-name plus semantic estate discovery, verify provenance and unique value, map current public company pressures from official sources, then admit only repositories with bounded evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "High-fit strategic target identified from estate capability alignment. No company-specific accomplishment is claimed without direct repository and proof admission.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/expansion_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "windsurf",
+      "display_name": "Windsurf",
+      "gap_or_next_gate": "Run exact-name plus semantic estate discovery, verify provenance and unique value, map current public company pressures from official sources, then admit only repositories with bounded evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "High-fit strategic target identified from estate capability alignment. No company-specific accomplishment is claimed without direct repository and proof admission.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/expansion_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "linear",
+      "display_name": "Linear",
+      "gap_or_next_gate": "Run exact-name plus semantic estate discovery, verify provenance and unique value, map current public company pressures from official sources, then admit only repositories with bounded evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "High-fit strategic target identified from estate capability alignment. No company-specific accomplishment is claimed without direct repository and proof admission.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/expansion_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "elastic",
+      "display_name": "Elastic",
+      "gap_or_next_gate": "Run exact-name plus semantic estate discovery, verify provenance and unique value, map current public company pressures from official sources, then admit only repositories with bounded evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "High-fit strategic target identified from estate capability alignment. No company-specific accomplishment is claimed without direct repository and proof admission.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/expansion_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "redis",
+      "display_name": "Redis",
+      "gap_or_next_gate": "Run exact-name plus semantic estate discovery, verify provenance and unique value, map current public company pressures from official sources, then admit only repositories with bounded evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "High-fit strategic target identified from estate capability alignment. No company-specific accomplishment is claimed without direct repository and proof admission.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/expansion_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "pinecone",
+      "display_name": "Pinecone",
+      "gap_or_next_gate": "Run exact-name plus semantic estate discovery, verify provenance and unique value, map current public company pressures from official sources, then admit only repositories with bounded evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "High-fit strategic target identified from estate capability alignment. No company-specific accomplishment is claimed without direct repository and proof admission.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/expansion_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "weaviate",
+      "display_name": "Weaviate",
+      "gap_or_next_gate": "Run exact-name plus semantic estate discovery, verify provenance and unique value, map current public company pressures from official sources, then admit only repositories with bounded evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "High-fit strategic target identified from estate capability alignment. No company-specific accomplishment is claimed without direct repository and proof admission.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/expansion_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "qdrant",
+      "display_name": "Qdrant",
+      "gap_or_next_gate": "Run exact-name plus semantic estate discovery, verify provenance and unique value, map current public company pressures from official sources, then admit only repositories with bounded evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "High-fit strategic target identified from estate capability alignment. No company-specific accomplishment is claimed without direct repository and proof admission.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/expansion_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+    },
+    {
+      "applicable_flagships": [
+        "job_app_helix",
+        "akos",
+        "doctor_strange",
+        "tower_of_babel",
+        "job_application"
+      ],
+      "company_id": "motherduck",
+      "display_name": "MotherDuck",
+      "gap_or_next_gate": "Compile the public gateway donor's bounded MotherDuck capabilities and exact-head proof into role projections. Promote additional generic analytics mechanisms only after they exist in a neutral recruiter-eligible donor with independently verified evidence.",
+      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "recruiter_thesis": "A public non-fork canonical gateway donor provides two transferable MotherDuck mechanisms: a bounded query facade and structured connector health telemetry. Recruiter projection stays capability-led and makes no production deployment or affiliation claim.",
+      "repositories": [],
+      "second_depth": {
+        "blockers": [
+          "current_role_not_verified",
+          "company_problem_not_bounded",
+          "repository_code_not_inspected",
+          "proof_not_reproduced"
+        ],
+        "claim_ceiling": "company_alignment_only",
+        "evidence": {
+          "claim_receipts": [],
+          "gap_queue": [],
+          "implementation_receipts": [],
+          "inspected_repositories": [],
+          "problem_evidence": [],
+          "proof_artifacts": [],
+          "role_evidence": []
+        },
+        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+        "ordinal": 0,
+        "stage": "MAPPED_ONLY"
+      },
+      "source_shard": "manifests/company_dossiers/expansion_targets.json",
+      "target_roles": [
+        "Applied AI Systems Engineer",
+        "Agent Infrastructure Engineer",
+        "Forward-Deployed Engineer",
+        "Platform / Reliability Engineer"
+      ],
+      "track_state": "SEMANTIC_CAPABILITY_DONORS_ADMITTED_WITH_DEPLOYMENT_BOUNDARY"
+    },
+    {
       "applicable_flagships": [],
       "company_id": "glaciereq_core",
       "display_name": "GlacierEQ Core",
@@ -2606,6 +3794,16 @@
       "system_id": "tower_of_babel"
     },
     {
+      "evidence": "Canonical 4a1ca8e5: 140/140 Node 22 tests; live GitHub Contents canary performed 2 writes/5 reads, recovered a deliberately lost success response to confirmed_applied, preserved restart-readable recovery evidence, and blocked replay before a third write.",
+      "level": "L4",
+      "next_gate": "Add a second real provider contract and multi-host coordination before any distributed or provider-transactional exactly-once claim.",
+      "public_surface": "PUBLIC",
+      "repository": "GlacierEQ/sigma-glue",
+      "role": "Reversible approval-bound orchestration with provider ambiguity recovery",
+      "state": "PROMOTED",
+      "system_id": "sigma_glue"
+    },
+    {
       "evidence": "Python/TypeScript planes passed; Rust/Haskell blocked.",
       "level": "L4",
       "next_gate": "Pinned all-language CI and root license.",
@@ -2629,6 +3827,10 @@
   "invariants": [
     "Helix remains the portfolio authority.",
     "This repository remains a generated public presentation surface.",
+    "The admitted public portfolio inventory is not the authenticated owned-estate census.",
+    "Authenticated estate cardinality, private repository identities, and legal-private material never enter this public consumer.",
+    "External company operating-pressure observations remain separate from GlacierEQ bottleneck and intervention inference.",
+    "Historical external company snapshots remain freshness-gated and require refresh before a live application claims current conditions.",
     "A successful render is not evidence that the source projection is current.",
     "Factual IDs, evidence states, blockers, test counts, and non-affiliation boundaries are invariant across presentation layers.",
     "Company second-depth stage, ordinal, claim ceiling, blockers, next gate, and public evidence references are Helix-governed invariants and may not be inferred or promoted downstream.",
@@ -2701,22 +3903,26 @@
       "raw_url": "https://raw.githubusercontent.com/GlacierEQ/job-app-helix/main/manifests/portfolio_root_truth.json",
       "repository": "GlacierEQ/job-app-helix"
     },
-    "root_ref": "83549cda4af3714304f202d0f4d35b29d28da9f7",
-    "root_version": "1.0.0",
-    "source_digest": "a697367c074d778e923d8174899da8e57c5444597c9e48f0061c674a723447db",
+    "root_ref": "ccc46f81792c5b90135e2a10c649fdb02b5be3cd",
+    "root_version": "1.1.0",
+    "source_digest": "536ab24072ae71da4692c2904841d12e24ba2945a23c389e1f58fbc1c7909b9d",
     "source_hashes": {
-      "manifests/company_dossiers.json": "02be10d6a9787befdf92e2cd762fc3663282dda39a266f4d33fcc9e3fc90a92b",
-      "manifests/company_dossiers/additional_targets.json": "cc27b4487b26634d9a4d59e10f7e9df119499fadee3bbed000020879c568ca26",
+      "manifests/application_intelligence/company_bottleneck_atlas.external.json": "2d93f4e0c736426dcf6904be6d0139075a48c78f3051278becf05703ee67f654",
+      "manifests/company_dossiers.json": "c15a8ed9cd12b092407150df7743c307b9b4bdb825601613331e8ca5b0e3347e",
+      "manifests/company_dossiers/additional_targets.json": "cdafae69f78d6c45a65b8c8f64eb213e12404b4cb9580ebc3ced49b1e75d4096",
+      "manifests/company_dossiers/expansion_targets.json": "ec4c2c095d002e111f0a508e89188c9678ddf3de4e21ccb66fab233700ce78e0",
       "manifests/company_dossiers/frontier_ai.json": "f72e7b9ba2defc3dcfd9c3d56e7f20994ee4117a09d4d218c13baf070a7afb4c",
       "manifests/company_dossiers/glaciereq_core.json": "07c9cb10c98702fa409ad60ab725cdb085423a58c4ec292612a686c3f4b7bdae",
       "manifests/company_dossiers/model_product_companies.json": "5fab1848b36de973fda5ca8cb46ecc342540a95036be9b83e1d9fdbd92e6db27",
       "manifests/company_dossiers/platform_infrastructure.json": "93a864ed5fae0ef9c78f026b4cd0b050be239f9b454a6545fc5b1d5efc756a5d",
       "manifests/company_second_depth.json": "60b19b15fc53778e62cc396dc01157d30bb0629596fbe51af13b625d6add899f",
-      "manifests/flagship_registry.json": "193427a1f91fd800895268dae802139b5980e0498438a4ddf972f7c0c2f328a4",
+      "manifests/estate_compiler.json": "f0aeff92c8b347d704bf90fbaf8c87005017ad8bf0534c9bb0d0ec744aec8f92",
+      "manifests/estate_projection_policy.json": "95517ada8d5535e6b730f301203083d56b056691b0400d8e6a1137f31a250de5",
+      "manifests/flagship_registry.json": "8444aba20e409150846f8179645fd09b55e14e24bbd6ebab93ce65f410518ee0",
       "manifests/language_fit.json": "424dcf0ffb56b531ca4295cca5011f179d606e67527d1b311e43aa12ef241258",
       "manifests/live_repository_evidence.json": "25170fe029a3fb19d6a7a344daffa6d8c58e85094745677bd78e989a0eaf8943",
       "manifests/portfolio_repositories.json": "514ae2516e4060d044e45366aaa774b92f10426ad5bb71257dd97ea6a89778d0",
-      "manifests/portfolio_root_truth.json": "5f9b53c420a2853d3b928f85812fe345871f2100d928c275e9b252b80d933458"
+      "manifests/portfolio_root_truth.json": "0e918cb3e425162fbce1649eec7b0268b0ea27f671d35645e3ac693af5a99dda"
     }
   }
 }

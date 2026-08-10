@@ -81,8 +81,24 @@ async function main() {
     path.join(SITE, "data", "helix-root.json"),
     "Helix snapshot",
   );
+  const { value: receipt } = await parseJsonFile(
+    path.join(SITE, "data", "helix-root.receipt.json"),
+    "Helix projection receipt",
+  );
 
-  assert(snapshot.companies.length === 49, "Company Atlas must render all 49 governed company tracks");
+  assert(
+    snapshot.companies.length >= 49,
+    "Company Atlas must render all governed company tracks (floor 49)",
+  );
+  assert(
+    snapshot.companies.length === receipt.company_tracks,
+    "Company Atlas company count must match helix projection receipt",
+  );
+  assert(
+    atlas.includes(`${snapshot.companies.length} governed`) ||
+      atlas.includes(String(snapshot.companies.length)),
+    "atlas index must surface live governed track count",
+  );
   assert(
     Array.isArray(snapshot.company_second_depth?.stage_order) &&
       snapshot.company_second_depth.stage_order.length === SECOND_DEPTH_STAGES.length,
@@ -116,8 +132,17 @@ async function main() {
   assert(!atlas.includes('visibility": "private"'), "private visibility leaked into Atlas");
 
   const css = await readFile(path.join(SITE, "assets", "helix-atlas.css"), "utf8");
-  assert(css.includes(".atlas-star.star-p48{"), "49th constellation position is missing");
-  assert(css.includes(".atlas-star.star-p63{"), "constellation capacity guard drifted below 64 positions");
+  const starsCss = await readFile(path.join(SITE, "assets", "helix-atlas.stars.css"), "utf8");
+  const lastStar = snapshot.companies.length - 1;
+  assert(
+    starsCss.includes(`.atlas-star.star-p${lastStar}{`),
+    `constellation position star-p${lastStar} missing for live company count`,
+  );
+  assert(
+    starsCss.includes(`.atlas-star.star-p0{`),
+    "constellation position star-p0 missing",
+  );
+  assert(atlas.includes("helix-atlas.stars.css"), "atlas must load generated star positions stylesheet");
 
   const companiesDir = path.join(SITE, "companies");
   const entries = await readdir(companiesDir, { withFileTypes: true });
@@ -248,8 +273,12 @@ async function main() {
 
   const depthCounts = Object.fromEntries(SECOND_DEPTH_STAGES.map((stage) => [stage, 0]));
   for (const company of snapshot.companies) depthCounts[company.second_depth.stage] += 1;
-  assert(depthCounts.MAPPED_ONLY === 48, "mapped-only company count drift");
   assert(depthCounts.CLAIM_PROMOTED === 1, "claim-promoted company count drift");
+  assert(
+    (depthCounts.MAPPED_ONLY || 0) + (depthCounts.CLAIM_PROMOTED || 0) ===
+      snapshot.companies.length,
+    "second-depth stage counts must cover all company tracks",
+  );
 
   console.log(
     JSON.stringify(

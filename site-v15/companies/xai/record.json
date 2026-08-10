@@ -1,7 +1,7 @@
 {
   "boundary": "Independent GlacierEQ work; no xAI affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
   "flagships": [],
-  "gate": "Collapse variants into one suite, one bounded flagship, supporting systems, experiments, public references, private references, and quarantined exclusions; xai-colossal-cooling is public but remains outside admission until successor/unique-value analysis is complete. Excellence multi-repo pack linked 2026-08-09T04:51Z (+2 public reference candidates on GlacierEQ).",
+  "gate": "Collapse variants into one suite, one bounded flagship, supporting systems, experiments, public references, private references, and quarantined exclusions; xai-colossal-cooling is public but remains outside admission until successor/unique-value analysis is complete.",
   "id": "xai",
   "repos": [
     {
@@ -45,22 +45,6 @@
       "lvl": "L2",
       "provenance": "ORIGINAL_CANDIDATE",
       "state": "REFERENCE_ONLY"
-    },
-    {
-      "id": "GlacierEQ/xai-actuation-receipt-bus",
-      "lvl": "L3",
-      "provenance": "ORIGINAL_CANDIDATE",
-      "state": "REFERENCE_ONLY",
-      "excellence_wave": "1A-1C",
-      "url": "https://github.com/GlacierEQ/xai-actuation-receipt-bus"
-    },
-    {
-      "id": "GlacierEQ/xai-claim-promotion-fence",
-      "lvl": "L3",
-      "provenance": "ORIGINAL_CANDIDATE",
-      "state": "REFERENCE_ONLY",
-      "excellence_wave": "1A-1C",
-      "url": "https://github.com/GlacierEQ/xai-claim-promotion-fence"
     }
   ],
   "roles": [
@@ -92,15 +76,5 @@
     "stage": "MAPPED_ONLY"
   },
   "state": "repository-rich",
-  "track": "MAPPED_NOT_RECRUITER_READY",
-  "excellence_pack": {
-    "updated_at": "2026-08-09T04:51Z",
-    "repos": [
-      "GlacierEQ/xai-actuation-receipt-bus",
-      "GlacierEQ/xai-claim-promotion-fence"
-    ],
-    "claim_ceiling": "company_alignment_only_until_proof_reproduced",
-    "harness": "https://github.com/GlacierEQ \u2014 see job-app excellence harness (local)",
-    "public": true
-  }
+  "track": "MAPPED_NOT_RECRUITER_READY"
 }

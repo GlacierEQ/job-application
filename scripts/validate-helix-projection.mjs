@@ -250,7 +250,8 @@ async function main() {
     );
   }
 
-  assert(Array.isArray(snapshot.companies) && snapshot.companies.length === 49, "company projection must contain 49 governed tracks");
+  assert(Array.isArray(snapshot.companies) && snapshot.companies.length > 0, "company projection must contain governed tracks");
+  assert(snapshot.companies.length >= 49, "company projection shrank below established floor (49)");
   const companyIds = snapshot.companies.map((row) => row.company_id);
   assert(new Set(companyIds).size === companyIds.length, "duplicate company IDs");
   for (const company of snapshot.companies) {
@@ -321,7 +322,10 @@ async function main() {
   assert(receipt.consumed_source_digest === snapshot.source.source_digest, "projection receipt source digest mismatch");
   assert(receipt.source_commit === snapshot.source.root_ref, "projection receipt source commit mismatch");
   assert(receipt.output_sha256 === hash(snapshotText), "projection receipt output hash mismatch");
-  assert(receipt.company_tracks === 49, "projection receipt company count mismatch");
+  assert(
+    receipt.company_tracks === snapshot.companies.length,
+    "projection receipt company count mismatch",
+  );
   assert(
     receipt.company_second_depth_source === "manifests/company_second_depth.json",
     "projection receipt second-depth source mismatch",
@@ -329,8 +333,13 @@ async function main() {
 
   const stageCounts = Object.fromEntries(SECOND_DEPTH_STAGES.map((stage) => [stage, 0]));
   for (const company of snapshot.companies) stageCounts[company.second_depth.stage] += 1;
-  assert(stageCounts.MAPPED_ONLY === 48, "mapped-only company count drift");
-  assert(stageCounts.CLAIM_PROMOTED === 1, "claim-promoted company count drift");
+  const mappedOnly = stageCounts.MAPPED_ONLY ?? 0;
+  const claimPromoted = stageCounts.CLAIM_PROMOTED ?? 0;
+  assert(claimPromoted === 1, "claim-promoted company count drift");
+  assert(
+    mappedOnly + claimPromoted === snapshot.companies.length,
+    "second-depth stage counts must cover all company tracks",
+  );
 
   console.log(
     JSON.stringify(

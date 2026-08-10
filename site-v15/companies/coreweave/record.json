@@ -7,7 +7,7 @@
     "tower_of_babel",
     "job_application"
   ],
-  "gate": "Five direct CoreWeave-named private prototypes exist. Audit provenance, implementation depth, tests, and runtime evidence before selecting any public or recruiter-facing flagship.",
+  "gate": "Promote only through the experiment ladder: prove unique value, add deterministic tests and runtime receipts, integrate surviving mechanisms into a canonical system, then require capability proof and the promotion-score gate. Current source audit found unverified claims and concrete implementation defects, so all five remain private experiments.",
   "id": "coreweave",
   "repos": [],
   "roles": [
@@ -38,5 +38,5 @@
     "stage": "MAPPED_ONLY"
   },
   "state": "scaffold",
-  "track": "DIRECT_ESTATE_DISCOVERED_NOT_RECRUITER_READY"
+  "track": "PRIVATE_RELIABILITY_LAB_EXPERIMENTS"
 }

@@ -7,7 +7,7 @@
     "tower_of_babel",
     "job_application"
   ],
-  "gate": "A private Intel NPU repository and an archived public fork-shaped copy exist. Audit provenance and unique GlacierEQ implementation before any recruiter promotion.",
+  "gate": "Keep both repositories below recruiter admission. Isolate candidate Casey-side SDPA robustness changes into a clean patch against the archived Intel base, remove generated/history/node_modules noise and unsupported QA claims, then require deterministic tests and a provenance receipt before considering capability-donor promotion.",
   "id": "intel",
   "repos": [],
   "roles": [
@@ -38,5 +38,5 @@
     "stage": "MAPPED_ONLY"
   },
   "state": "scaffold",
-  "track": "DIRECT_ESTATE_DISCOVERED_NOT_RECRUITER_READY"
+  "track": "UPSTREAM_DERIVED_DELTA_AUDIT"
 }

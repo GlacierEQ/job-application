@@ -94,8 +94,10 @@ async function main() {
   if (!Array.isArray(snapshot.companies)) {
     throw new Error("Helix snapshot companies are missing");
   }
-  if (snapshot.companies.length !== 49) {
-    throw new Error(`expected 49 governed company tracks, received ${snapshot.companies.length}`);
+  if (snapshot.companies.length < 49) {
+    throw new Error(
+      `expected >=49 governed company tracks, received ${snapshot.companies.length}`,
+    );
   }
   if (snapshot.company_second_depth?.schema !== "glaciereq.company-second-depth.v1") {
     throw new Error("Helix snapshot second-depth contract is missing");

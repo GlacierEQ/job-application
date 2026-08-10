@@ -7,34 +7,9 @@
     "tower_of_babel",
     "job_application"
   ],
-  "gate": "No direct company-specific repository was verified in the exact-name and Helix-governed inventory. Build a dossier only from genuine role-aligned evidence. Excellence multi-repo pack linked 2026-08-09T04:51Z (+3 public reference candidates on GlacierEQ).",
+  "gate": "No direct company-specific repository was verified in the exact-name and Helix-governed inventory. Build a dossier only from genuine role-aligned evidence.",
   "id": "palantir",
-  "repos": [
-    {
-      "id": "GlacierEQ/palantir-ontology-writeback-ledger",
-      "lvl": "L3",
-      "provenance": "ORIGINAL_CANDIDATE",
-      "state": "REFERENCE_ONLY",
-      "excellence_wave": "1A-1C",
-      "url": "https://github.com/GlacierEQ/palantir-ontology-writeback-ledger"
-    },
-    {
-      "id": "GlacierEQ/palantir-action-lineage-graph",
-      "lvl": "L3",
-      "provenance": "ORIGINAL_CANDIDATE",
-      "state": "REFERENCE_ONLY",
-      "excellence_wave": "1A-1C",
-      "url": "https://github.com/GlacierEQ/palantir-action-lineage-graph"
-    },
-    {
-      "id": "GlacierEQ/palantir-object-authority-matrix",
-      "lvl": "L3",
-      "provenance": "ORIGINAL_CANDIDATE",
-      "state": "REFERENCE_ONLY",
-      "excellence_wave": "1A-1C",
-      "url": "https://github.com/GlacierEQ/palantir-object-authority-matrix"
-    }
-  ],
+  "repos": [],
   "roles": [
     "Applied AI Systems Engineer",
     "Forward-Deployed Engineer"
@@ -62,17 +37,6 @@
     "ordinal": 0,
     "stage": "MAPPED_ONLY"
   },
-  "state": "repository-rich",
-  "track": "NO_DIRECT_EXHIBIT_VERIFIED",
-  "excellence_pack": {
-    "updated_at": "2026-08-09T04:51Z",
-    "repos": [
-      "GlacierEQ/palantir-ontology-writeback-ledger",
-      "GlacierEQ/palantir-action-lineage-graph",
-      "GlacierEQ/palantir-object-authority-matrix"
-    ],
-    "claim_ceiling": "company_alignment_only_until_proof_reproduced",
-    "harness": "https://github.com/GlacierEQ \u2014 see job-app excellence harness (local)",
-    "public": true
-  }
+  "state": "scaffold",
+  "track": "NO_DIRECT_EXHIBIT_VERIFIED"
 }

@@ -1,0 +1,44 @@
+{
+  "boundary": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+  "flagships": [
+    "job_app_helix",
+    "akos",
+    "doctor_strange",
+    "tower_of_babel",
+    "job_application"
+  ],
+  "gate": "Run exact-name plus semantic estate discovery, verify provenance and unique value, map current public company pressures from official sources, then admit only repositories with bounded evidence.",
+  "id": "lambda",
+  "repos": [],
+  "roles": [
+    "Applied AI Systems Engineer",
+    "Agent Infrastructure Engineer",
+    "Forward-Deployed Engineer",
+    "Platform / Reliability Engineer"
+  ],
+  "route": "/companies/lambda/",
+  "schema": "glaciereq.company-intelligence.v1",
+  "second_depth": {
+    "blockers": [
+      "current_role_not_verified",
+      "company_problem_not_bounded",
+      "repository_code_not_inspected",
+      "proof_not_reproduced"
+    ],
+    "claim_ceiling": "company_alignment_only",
+    "evidence": {
+      "claim_receipts": [],
+      "gap_queue": [],
+      "implementation_receipts": [],
+      "inspected_repositories": [],
+      "problem_evidence": [],
+      "proof_artifacts": [],
+      "role_evidence": []
+    },
+    "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+    "ordinal": 0,
+    "stage": "MAPPED_ONLY"
+  },
+  "state": "scaffold",
+  "track": "CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE"
+}
