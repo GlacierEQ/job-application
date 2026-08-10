@@ -1,0 +1,63 @@
+{
+  "schema": "glaciereq.portfolio-proof-receipt.v1",
+  "proof_object": "CAPABILITY_CLUSTER__REVISION_BOUND_PROOF_PROMOTION__2026-08-10",
+  "job_application_base": "da6a6ac0f5c2a5bd61945e1935c4fcc92bcc5b07",
+  "claim_ceiling": "CROSS_REPOSITORY_PROOF_GOVERNANCE_PATTERN",
+  "accomplishment_count": 1,
+  "repository_count": 3,
+  "forks_or_backups_counted_as_independent": false,
+  "integration_exercised": false,
+  "invariant": "Verification authority belongs to the exact source revision that earned it; changed code cannot inherit prior promotion without fresh evidence.",
+  "donors": [
+    {
+      "repository": "GlacierEQ/anthropic-agent-coordinator",
+      "mechanism": "explicit_proof_non_inheritance_after_head_change",
+      "historical_proof_sha": "87438f57bdfd2cb380730cf51140611963d7c95b",
+      "historical_result": "62/62",
+      "current_head": "0f2ca5199e67664a87ffef3f874d5836984dbbdb",
+      "current_state": "DISCOVERED",
+      "proof_ok": false,
+      "operable_ok": false,
+      "blocker": "TESTS_FAIL",
+      "evidence": {
+        "job_application_receipt": "portfolio-proof/receipts/RESUME_ATS_CLAIM_AUDIT__AGENT_COORDINATOR_PROOF_INHERITANCE__2026-08-10.json",
+        "excellence_state_path": "machine/excellence-state.json",
+        "excellence_state_blob": "5fd86101521f4a35df43a521fb512d2b39eead3a",
+        "gap_receipt_path": "machine/gap-receipt.json",
+        "gap_receipt_blob": "754a79800a7444a643372461fd2988a60bdb0c61"
+      }
+    },
+    {
+      "repository": "GlacierEQ/waymo-phantom-freespace-certificate",
+      "mechanism": "source_bound_component_promotion",
+      "source_proof_sha": "feee6e51999ea391bd8793a77f2576c21b6464bc",
+      "workflow_run": 31403184766,
+      "current_state": "EVOLVING",
+      "evidence": "machine/excellence-state.json"
+    },
+    {
+      "repository": "GlacierEQ/waymo-uncertainty-lane-graph",
+      "mechanism": "source_bound_component_promotion",
+      "source_proof_sha": "e22e8a85d455cca69cfd40ebc7bcae0c2fedad07",
+      "workflow_run": 31404546209,
+      "current_state": "EVOLVING",
+      "external_claim_ceiling": "PROMOTED",
+      "evidence": "machine/excellence-state.json"
+    }
+  ],
+  "defensible_claim": "Designed a repeated proof-governance pattern in which verification is bound to exact source revisions, stale proof is prevented from propagating to changed heads, and re-promotion requires fresh evidence.",
+  "supersedes": [
+    "keeps test results documented",
+    "tracks CI status"
+  ],
+  "nonclaims": [
+    "one integrated verifier across all three repositories",
+    "production deployment of a shared proof service",
+    "automatic cryptographic attestation across the estate",
+    "current-head Agent Coordinator promotion",
+    "Anthropic adoption or affiliation",
+    "Waymo adoption or affiliation",
+    "proprietary-system equivalence"
+  ],
+  "next_cursor": "Build a shared proof-inheritance verifier that compares current repository head to proof-source SHA, invalidates stale promotion automatically, and emits a canonical exact-head receipt only after current gates pass."
+}
