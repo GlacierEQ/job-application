@@ -5,6 +5,7 @@ on:
     paths:
       - "portfolio-source.json"
       - "scripts/sync-helix-projection.mjs"
+      - "scripts/sync-helix-projection-effective.mjs"
       - "scripts/reconcile-helix-company-cardinality.mjs"
       - "scripts/reconcile-company-constellation-taxonomy.mjs"
       - "scripts/project-estate-intelligence.mjs"
@@ -26,6 +27,7 @@ on:
     paths:
       - "portfolio-source.json"
       - "scripts/sync-helix-projection.mjs"
+      - "scripts/sync-helix-projection-effective.mjs"
       - "scripts/reconcile-helix-company-cardinality.mjs"
       - "scripts/reconcile-company-constellation-taxonomy.mjs"
       - "scripts/project-estate-intelligence.mjs"
@@ -68,8 +70,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "24"
-      - name: Compile public-safe Helix projection and receipt
-        run: node scripts/sync-helix-projection.mjs
+      - name: Compile effective public-safe Helix projection and receipt
+        run: node scripts/sync-helix-projection-effective.mjs
       - name: Reconcile downstream company cardinality to fresh Helix authority
         run: node scripts/reconcile-helix-company-cardinality.mjs
       - name: Validate public-safe projection and receipt
