@@ -35,7 +35,17 @@ function capture(path) {
   });
 }
 
-for (const path of ['__v25_verify', '__v26_verify']) {
+const verifiers = [
+  '__v21_verify',
+  '__design_verify',
+  '__v22_verify',
+  '__v23_verify',
+  '__v24_verify',
+  '__v25_verify',
+  '__v26_verify',
+];
+const failures = [];
+for (const path of verifiers) {
   const response = await capture(path);
   let payload;
   try {
@@ -43,15 +53,18 @@ for (const path of ['__v25_verify', '__v26_verify']) {
   } catch (error) {
     throw new Error(`${path}: invalid JSON response: ${error instanceof Error ? error.message : String(error)}`);
   }
-  if (response.status !== 200 || payload?.status !== 'PASS') {
-    throw new Error(`${path}: ${JSON.stringify({ status: response.status, payload })}`);
-  }
-  console.log(JSON.stringify({
+  const result = {
     verifier: path,
-    status: payload.status,
-    schema: payload.schema,
-    release: payload.release,
-    compiler_helix_commit: payload.compiler_helix_commit ?? null,
-    inherited_v25: payload.inherited_v25 ?? null,
-  }));
+    http_status: response.status,
+    status: payload?.status ?? null,
+    schema: payload?.schema ?? null,
+    release: payload?.release ?? null,
+    errors: Array.isArray(payload?.errors) ? payload.errors : [],
+    compiler_helix_commit: payload?.compiler_helix_commit ?? null,
+  };
+  console.log(JSON.stringify(result));
+  if (response.status !== 200 || payload?.status !== 'PASS') failures.push(result);
+}
+if (failures.length) {
+  throw new Error(`release_chain_failed:${JSON.stringify(failures)}`);
 }
