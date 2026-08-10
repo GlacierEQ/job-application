@@ -1,9 +1,14 @@
 name: Excellence Live Registry
 
 on:
+  pull_request:
+    paths:
+      - "excellence/registry/**"
+      - "site-v15/data/excellence-multi-repo-catalog.json"
+      - ".github/workflows/excellence-live-registry.yml"
   push:
     branches:
-      - feat/excellence-live-registry
+      - main
     paths:
       - "excellence/registry/**"
       - "site-v15/data/excellence-multi-repo-catalog.json"
@@ -11,7 +16,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   census:
@@ -19,7 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          persist-credentials: true
+          persist-credentials: false
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -31,16 +36,11 @@ jobs:
         run: python excellence/registry/build_registry.py
       - name: Derive gate priority queue
         run: python excellence/registry/build_priority_queue.py
-      - name: Persist census and queue on the feature branch
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add \
-            excellence/registry/excellence-repo-registry.json \
+      - name: Publish census artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: excellence-live-registry-${{ github.sha }}
+          if-no-files-found: error
+          path: |
+            excellence/registry/excellence-repo-registry.json
             excellence/registry/excellence-priority-queue.json
-          if git diff --cached --quiet; then
-            echo "registry and queue unchanged"
-            exit 0
-          fi
-          git commit -m "chore(excellence): refresh live registry and gate queue"
-          git push origin "HEAD:${GITHUB_REF_NAME}"
