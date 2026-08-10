@@ -1,0 +1,39 @@
+{
+  "schema": "glaciereq.resume-claim-audit.v2",
+  "cycle_date": "2026-08-10",
+  "lane": 3,
+  "delta_type": "CLAIM_NARROWED_CURRENT_HEAD_CONTRADICTION",
+  "claim_surface": "RESUME.md#Selected-Proof + RESUME.md#Agent-Coordinator",
+  "system": "GlacierEQ/anthropic-agent-coordinator",
+  "historical_verified_evidence": {
+    "executable_commit": "87438f57bdfd2cb380730cf51140611963d7c95b",
+    "receipt": "receipts/wave-1-test-verification-2026-07-31.json",
+    "tests_executed": 62,
+    "tests_passed": 62,
+    "evidence_level": "TEST"
+  },
+  "current_repository_state": {
+    "canonical_branch": "master",
+    "head": "2329fd6ff7f1722310ce01ff0a6bad42025832d4",
+    "head_commit_message": "feat(excellence): elite leaf elevation — PROMOTED dual-run receipts or honest DISCOVERED demotion + gap-receipt (XOR clean)",
+    "gap_receipt": "machine/gap-receipt.json",
+    "gap_receipt_blob": "754a79800a7444a643372461fd2988a60bdb0c61",
+    "blocker": "TESTS_FAIL",
+    "not_promoted_reason": "pr_ok=False ran=9 op_ok=True primary_ok=True",
+    "principal_state_claim": null
+  },
+  "audit_result": "HISTORICAL_TEST_PROOF_VALID_BUT_NOT_CURRENT_HEAD_PROMOTION",
+  "retired_interpretation": "62/62 recorded Python tests presented without temporal/head qualification",
+  "replacement_rule": "The 62/62 result may be cited only as immutable historical executable evidence pinned to commit 87438f57bdfd2cb380730cf51140611963d7c95b. Current head 2329fd6ff7f1722310ce01ff0a6bad42025832d4 must remain explicitly unpromoted while machine/gap-receipt.json records TESTS_FAIL.",
+  "nonclaims": [
+    "current-head test verification",
+    "current-head promotion",
+    "deployment",
+    "provider execution",
+    "distributed runtime",
+    "production scale",
+    "production reliability"
+  ],
+  "job_application_correction_commit": "40f0d4562132c6b9394d219c34545ab369eb9c20",
+  "next_cursor": "Repair or supersede the current anthropic-agent-coordinator TESTS_FAIL gap, obtain a fresh passing repository-native receipt on the resulting exact head, then re-audit the resume claim before restoring current-head verification wording."
+}
