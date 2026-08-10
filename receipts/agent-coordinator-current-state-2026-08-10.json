@@ -1,0 +1,15 @@
+{
+  "schema": "glaciereq.portfolio-proof-receipt.v1",
+  "object": "agent-coordinator-current-state",
+  "repository": "GlacierEQ/anthropic-agent-coordinator",
+  "evidence_head": "0f2ca5199e67664a87ffef3f874d5836984dbbdb",
+  "evidence": {
+    "excellence_state": {"path":"machine/excellence-state.json","blob":"5fd86101521f4a35df43a521fb512d2b39eead3a","principal_state":"DISCOVERED","proof_ok":false,"operable_ok":false,"blocker":"TESTS_FAIL"},
+    "gap_receipt": {"path":"machine/gap-receipt.json","blob":"754a79800a7444a643372461fd2988a60bdb0c61","blocker":"TESTS_FAIL","ran":9,"principal_state_claim":null},
+    "historical_executable_proof": {"commit":"87438f57bdfd2cb380730cf51140611963d7c95b","tests":"62/62","scope":"historical-only"}
+  },
+  "claim_ceiling": "HISTORICAL_EXECUTABLE_PROOF_PLUS_CURRENT_FAIL_CLOSED_GOVERNANCE",
+  "nonclaims": ["current-head behavioral verification","current-head 62/62 execution","production deployment","production scale","Anthropic adoption","Anthropic affiliation"],
+  "supersedes": "Any unqualified wording that presents the historical 62/62 result as current-head proof.",
+  "next_cursor": "repair current test failure -> exact-head native verification -> fresh bound receipt -> re-audit claim"
+}
