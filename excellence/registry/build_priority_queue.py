@@ -64,12 +64,12 @@ def _evolution_progress(
     if history is None:
         history = []
     if not isinstance(history, list):
-        raise ValueError(f"{repository}: evolution_history must be a list")
+        raise TypeError(f"{repository}: evolution_history must be a list")
 
     successful: list[dict[str, Any]] = []
     for index, entry in enumerate(history):
         if not isinstance(entry, dict):
-            raise ValueError(
+            raise TypeError(
                 f"{repository}: evolution_history[{index}] must be an object"
             )
         if entry.get("result") != "PASS":
@@ -86,7 +86,7 @@ def _evolution_progress(
     latest = successful[-1]
     receipt = latest.get("receipt")
     if receipt is not None and not isinstance(receipt, str):
-        raise ValueError(f"{repository}: evolution receipt reference must be a string")
+        raise TypeError(f"{repository}: evolution receipt reference must be a string")
     return len(successful), latest["consumed_cursor"], receipt
 
 
