@@ -3,19 +3,20 @@
 ## Evidence contract
 
 System: `GlacierEQ/the-tower-of-babel`
-Canonical head observed: `60625dc7dde95a69212c201ba8d79c991b88c39b`
-Evidence class: current source-contract / flagship-path evidence.
-Claim ceiling: `IMPLEMENTED_BOUNDED_CROSS_LANGUAGE_MISSION_PIPELINE`.
+Canonical head observed: `f7e132c9717eda574f3bb5f643b2f983309f319f`
+Prior proof head: `60625dc7dde95a69212c201ba8d79c991b88c39b`
+Evidence class: current source-contract / flagship-path + current-head CI evidence.
+Claim ceiling: `CURRENT_HEAD_CI_VERIFIED_BOUNDED_CROSS_LANGUAGE_MISSION_PIPELINE`.
 
-The flagship contract defines a typed mission path across Protobuf, ProtoJSON, TypeScript, Python, Rust, Go, SQL, WebAssembly, Lean 4, and a deterministic Tower Receipt. The runner executes every available stage and records exact toolchain blockers for unavailable floors. This surface therefore describes implemented architecture and bounded execution semantics; it does not claim that every language/toolchain stage executed successfully on the current head, production deployment, hosted-scale performance, or external-provider integration.
+The flagship contract defines a typed mission path across Protobuf, ProtoJSON, TypeScript, Python, Rust, Go, SQL, WebAssembly, Lean 4, and a deterministic Tower Receipt. The runner executes every available stage and records exact toolchain blockers for unavailable floors. Current head `f7e132c…` is one commit ahead of the prior proof head; the delta is bounded to the Tower workflow provenance action, integrity ledger, generated README projection, and Kotlin exhibit. Both `Tower Verification` run 573 and `Tower of Babel Quality Gate` run 182 completed successfully on exact head `f7e132c…`. This advances the proof from source-contract-only currentness to exact-current-head CI verification without claiming that every language/toolchain stage executed, production deployment, hosted-scale performance, or external-provider integration.
 
 ## Recruiter surface
 
-**Tower of Babel — bounded cross-language mission execution**
+**Tower of Babel — CI-verified bounded cross-language mission execution**
 
-Built a typed mission pipeline that carries one operator request across language boundaries without discarding authority, provenance, state constraints, or receipt semantics. The path validates and hashes ingress, separates planning from authority, emits evidence-bound telemetry, constrains persisted state, limits tool capability, and seals a deterministic receipt. Unavailable toolchain stages are blockers to record, not successes to imply.
+Built a typed mission pipeline that carries one operator request across language boundaries without discarding authority, provenance, state constraints, or receipt semantics. The path validates and hashes ingress, separates planning from authority, emits evidence-bound telemetry, constrains persisted state, limits tool capability, and seals deterministic evidence. The current canonical revision passed both the Tower verification workflow and repository quality gate; unavailable toolchain stages remain explicit blockers rather than implied successes.
 
-**Why it matters:** polyglot systems usually fail at boundaries. This design makes those boundaries explicit and keeps execution authority narrower than planning intent.
+**Why it matters:** polyglot systems usually fail at boundaries. This design makes those boundaries explicit, keeps execution authority narrower than planning intent, and binds the current portfolio claim to an exact revision that cleared its repository verification gates.
 
 ## Master surface
 
@@ -34,9 +35,18 @@ The architecture assigns one responsibility to each boundary rather than treatin
 
 The important engineering pattern is **authority-preserving translation**: crossing languages may transform representation, but must not silently broaden what the mission is allowed to do.
 
-### Verification boundary
+### Current-head verification boundary
 
-Current repository evidence establishes the flagship source contract and runner behavior that attempts every available stage while recording unavailable toolchain blockers. No fresh current-head claim is made that all listed toolchains executed. A complete runtime promotion requires a current-head receipt showing the exercised stages and blockers.
+Exact current head: `f7e132c9717eda574f3bb5f643b2f983309f319f`.
+
+Current-head workflow evidence:
+
+- `Tower Verification`, run `573`, exact head `f7e132c…`: `completed / success`.
+- `Tower of Babel Quality Gate`, run `182`, exact head `f7e132c…`: `completed / success`.
+- GitHub commit verification for `f7e132c…`: valid signature.
+- Delta from prior proof head `60625dc…`: one commit; workflow provenance action, integrity ledger, README projection, Kotlin exhibit.
+
+This verifies the repository's current gated state. It does **not** convert explicit unavailable-toolchain blockers into passes, prove production deployment, prove hosted-scale behavior, or establish external-provider integration.
 
 ## Machine surface
 
@@ -44,9 +54,25 @@ Current repository evidence establishes the flagship source contract and runner 
 proof_object:
   id: tower-of-babel-bounded-cross-language-mission-pipeline
   system: GlacierEQ/the-tower-of-babel
-  canonical_head: 60625dc7dde95a69212c201ba8d79c991b88c39b
-  evidence_class: current_source_contract_and_flagship_path
+  canonical_head: f7e132c9717eda574f3bb5f643b2f983309f319f
+  prior_proof_head: 60625dc7dde95a69212c201ba8d79c991b88c39b
+  evidence_class: current_source_contract_flagship_path_and_exact_head_ci
   accomplishment_count: 1
+  current_head_verification:
+    commit_signature: valid
+    tower_verification:
+      run_number: 573
+      conclusion: success
+    quality_gate:
+      run_number: 182
+      conclusion: success
+    delta_from_prior_proof_head:
+      commits: 1
+      touched_surfaces:
+        - .github/workflows/tower.yml
+        - .integrity/file_hashes.json
+        - README.md
+        - languages/kotlin/easy_hello.kt
   boundaries:
     contract: protobuf
     bridge: protojson
@@ -68,9 +94,10 @@ proof_object:
     - capability_limited_tool_boundary
     - deterministic_receipt_path
     - unavailable_toolchains_recorded_as_blockers
-  claim_ceiling: IMPLEMENTED_BOUNDED_CROSS_LANGUAGE_MISSION_PIPELINE
+    - exact_current_head_passed_repository_ci_gates
+  claim_ceiling: CURRENT_HEAD_CI_VERIFIED_BOUNDED_CROSS_LANGUAGE_MISSION_PIPELINE
   nonclaims:
-    - all_toolchains_executed_on_current_head
+    - every_toolchain_stage_executed_successfully
     - production_deployment
     - hosted_scale_performance
     - external_provider_integration
@@ -105,16 +132,21 @@ SQL constrained state
       |
       v
 Tower Receipt [deterministic evidence]
+      |
+      v
+Exact current head f7e132c...
+      +--> Tower Verification #573: PASS
+      +--> Quality Gate #182: PASS
 
 Unavailable floor -> explicit blocker, never implicit PASS
 ```
 
 ## Supersession decision
 
-**RETIRED:** describing Tower of Babel primarily as a many-language showcase.
+**RETIRED:** source-contract-only wording tied to prior head `60625dc…` as the current verification boundary.
 
 **CURRENT DEFENSIBLE WORDING:**
 
-> **Tower of Babel implements a typed, authority-preserving cross-language mission pipeline: hashed ingress, separate planning and fail-closed execution authority, evidence-bound telemetry, constrained state, capability-limited tooling, and deterministic receipts. Its runner records unavailable toolchains as blockers rather than widening proof.**
+> **Tower of Babel implements a typed, authority-preserving cross-language mission pipeline: hashed ingress, separate planning and fail-closed execution authority, evidence-bound telemetry, constrained state, capability-limited tooling, and deterministic receipts. Exact current head `f7e132c…` passed both Tower Verification and the repository Quality Gate; unavailable toolchains remain explicit blockers rather than inherited passes.**
 
-This wording turns language breadth into an engineering-boundary proof while keeping runtime and deployment claims below the evidence ceiling.
+This wording preserves one accomplishment, upgrades it with exact-current-head CI evidence, and keeps deployment, scale, and unavailable-toolchain claims below the evidence ceiling.
