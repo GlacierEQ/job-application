@@ -1,0 +1,34 @@
+{
+  "schema": "glaciereq.portfolio-proof-receipt.v1",
+  "proof_object": "NOTION_MCP_EMPOWERMENT_ENGINE_PROOF_SURFACES_2026-08-10",
+  "surface_path": "portfolio-proof/NOTION_MCP_EMPOWERMENT_ENGINE_PROOF_SURFACES_2026-08-10.md",
+  "surface_commit": "4c23d7246f27456a18d949c7ccfe58f936a39fb1",
+  "source_repository": "GlacierEQ/notion-mcp-empowerment-engine",
+  "source_revision": "5615de677a049dffe52fe2e20c746549dd5f654f",
+  "source_proof_receipt_sha256": "9c57a50757137985bf5a8362b64f9cc95397f861322673b95f204401f1a4b88a",
+  "source_proof_result": "PASS",
+  "source_principal_state": "PROMOTED",
+  "evidence": {
+    "excellence_state": "machine/excellence-state.json",
+    "proof_receipt": "machine/proof_receipt.json",
+    "readme": "README.md",
+    "proof_dual_run_ok": true,
+    "runtime_dual_run_ok": true,
+    "deterministic_proof_green": true,
+    "adversarial_survival": true,
+    "operable_and_observable": true,
+    "authority_bound": true,
+    "projection_truth_closed": true
+  },
+  "claim_ceiling": "PROMOTED_LOCAL_REFERENCE_MCP_INTEGRATION",
+  "nonclaims": [
+    "production deployment",
+    "employer affiliation",
+    "proprietary access",
+    "external business impact",
+    "live autonomous control",
+    "estate-wide canonical position"
+  ],
+  "durable_delta": "Created the first receipt-bound recruiter/master/machine/mesh portfolio surface for the verified Notion MCP Empowerment Engine and bounded broad README language to the exact PROMOTED local-reference evidence ceiling.",
+  "next_cursor": "Resolve estate-wide canonical position only from independent estate-role evidence; otherwise preserve this claim ceiling."
+}
