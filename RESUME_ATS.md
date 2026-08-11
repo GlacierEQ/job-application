@@ -8,7 +8,7 @@ GitHub: https://github.com/GlacierEQ
 Applied AI systems architect and agent infrastructure engineer who builds the operating layer between model capability and dependable outcomes. Designs authority-aware, evidence-bound systems for multi-agent coordination, application intelligence, document and evidence pipelines, memory and continuity, infrastructure governance, and human-machine interfaces. Converts ambitious or ambiguous architecture into typed contracts, runnable slices, deterministic validation, explicit refusal behavior, machine-readable facts, and inspectable completion receipts. Core method: observe the actual system, separate evidence from inference, isolate the governing failure, bound authority and risk, build the narrowest useful mechanism, test the stated behavior, expose the limit, and leave a verifiable artifact.
 
 ## Selected Execution Proof
-- Portfolio Receipt Router: 69 of 69 tests passed through direct and reusable CI; artifact 8910423397; zero external queries and actions.
+- Portfolio Receipt Router: local, fail-closed metadata/evidence router. Historical V15 release evidence at release-candidate head `07d3d33aaf75dd1d780c24af39a00b998f87da76` records 69 of 69 tests passed and zero external actions; current `xai-colossus-2` head `726583355c14197eaeed2398eb28eb3e242d8b74` is `DISCOVERED` and does not inherit that historical verification.
 - Bounded infrastructure source systems: 166 source tests passed across Cooling, Energy, Servers, Security, and Nanosphere, plus 19 degraded-mode Energy memory tests and five hashed artifacts.
 - Job Application Helix: evidence-governed hiring and portfolio orchestration for an exact 67-repository admitted public proof boundary. The Helix package is PARTIALLY_VERIFIED; child repositories retain independent evidence states. The 67-repository number is not an accomplishment count and is not the full owned-estate count.
 - Agent Coordinator: deterministic ownership, dependency ordering, capacity, stable priority, and shared-budget scheduling has an immutable historical 62/62 Python test receipt at executable commit `87438f57bdfd2cb380730cf51140611963d7c95b`. Current head `0f2ca5199e67664a87ffef3f874d5836984dbbdb` is explicitly `DISCOVERED` with `proof_ok=false`, `operable_ok=false`, and a `TESTS_FAIL` gap receipt (`ran=9`), so the historical result is not represented as current-head verification or promotion.
@@ -26,7 +26,7 @@ Additional evidence-bounded project exposure: Go, Rust, C, C++, CUDA, Swift/Meta
 GLACIEREQ - Founder / Applied AI Systems Builder - Honolulu, Hawaii - January 2025-Present
 - Design and implement evidence-bound systems spanning agent orchestration, application intelligence, document and evidence pipelines, memory and continuity, infrastructure governance, and human-machine interfaces.
 - Convert broad architecture into typed contracts, runnable slices, deterministic tests, explicit refusal behavior, machine-readable facts, and reviewable completion receipts.
-- Built a public Portfolio Receipt Router that replaced unsupported autonomous-control semantics with a local fail-closed evidence system; 69 of 69 tests passed through direct and reusable CI with zero external actions.
+- Built a public Portfolio Receipt Router that replaced unsupported autonomous-control semantics with a local fail-closed evidence system; historical V15 release evidence records 69 of 69 tests passed with zero external actions. The changed current source head is `DISCOVERED` and is not represented as inheriting that historical verification.
 - Govern a multi-repository engineering estate by separating source presence, review, execution, deployment, authority, and verified completion so public claims cannot outrun proof.
 - Use AI-assisted development as an inspectable engineering process combining source review, bounded generation, adversarial checking, deterministic validation, and human judgment.
 
@@ -40,8 +40,8 @@ HI-CLASS HOME SERVICES / HI CLASS MAINTENANCE OAHU LLC - Owner-Operator, Buildin
 - Translate incomplete real-world requirements into bounded work packages, explicit assumptions, and usable closeout artifacts.
 
 ## Selected Systems
-Portfolio Receipt Router - TEST VERIFIED
-Compatibility-safe architecture repair and evidence routing. Evidence: 69/69 tests; direct and reusable CI; artifact 8910423397; zero external actions. Boundary: independent technical exhibit; no production-operation or company-affiliation claim.
+Portfolio Receipt Router - HISTORICAL RELEASE TEST RECEIPT / CURRENT HEAD NOT PROMOTED
+Local, fail-closed metadata/evidence routing. Historical V15 evidence: 69/69 tests and zero external actions at release-candidate head `07d3d33aaf75dd1d780c24af39a00b998f87da76`; artifact `8910423397`. Current `xai-colossus-2` head `726583355c14197eaeed2398eb28eb3e242d8b74` is `DISCOVERED`, with `proof_ok=false`, `operable_ok=false`, blocker `OPERATE_THEATER`, and evidence state `LOCAL_METADATA_ROUTER_NOT_RUNTIME_ORCHESTRATOR`. Boundary: historical proof is revision/release bounded; no current-head verification, runtime orchestration, production operation, autonomous control, or company-affiliation claim.
 
 Job Application Helix - PARTIALLY_VERIFIED
 Evidence-governed hiring and portfolio orchestration with an exact 67-repository admitted public proof boundary, fail-closed evidence levels, repository-state separation, promotion gates, machine contracts, and role-calibrated package generation. Boundary: the 67 repositories are a public proof set, not accomplishment count or full owned-estate count; child repositories retain independent evidence states.
