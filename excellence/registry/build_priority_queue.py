@@ -13,8 +13,9 @@ import json
 import os
 import sys
 from collections import defaultdict
+from collections.abc import Callable
 from pathlib import Path
-from typing import Any, Callable
+from typing import Any
 
 REGISTRY_DIR = Path(__file__).resolve().parent
 if str(REGISTRY_DIR) not in sys.path:
@@ -56,7 +57,10 @@ def build_queue(
     registry: dict[str, Any],
     *,
     token: str | None = None,
-    fetch_state: Callable[[str, str, str, str | None], tuple[dict[str, Any], str]] | None = None,
+    fetch_state: Callable[
+        [str, str, str, str | None], tuple[dict[str, Any], str]
+    ]
+    | None = None,
 ) -> dict[str, Any]:
     """Build a queue while preserving exact-head evolution intent.
 
@@ -152,7 +156,9 @@ def main() -> int:
     OUTPUT.write_text(json.dumps(out, indent=2) + "\n", encoding="utf-8")
     print(
         "priority-queue:",
-        " ".join(f"{item['action']}:{item['gate']}={item['count']}" for item in out["queue"]),
+        " ".join(
+            f"{item['action']}:{item['gate']}={item['count']}" for item in out["queue"]
+        ),
     )
     evolving = [
         row
