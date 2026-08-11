@@ -1,0 +1,71 @@
+{
+  "schema": "glaciereq.v25-build-time-transport.v2",
+  "release": "V25-APPLICATION-COMPILER",
+  "helix_commit": "9fffd69665c6f1b6c1d62bf88795762469422752",
+  "bundle_workflow_run_id": 31447695345,
+  "bundle_workflow_attempt": 2,
+  "bundle_artifact_id": 9089122619,
+  "bundle_artifact_digest": "sha256:a14dfe99b7ced8562a84542b91f1d059733453a76af008a270f6f5eabe522df4",
+  "bundle_source_commit": "0d75a7ae6c31570eeb57e061f5e96c78d87c0a86",
+  "api_index": {
+    "bytes": 197218,
+    "sha256": "4ef605a0e89c73846b1a827789bb52e39dcca65ce784a8f8f0a2acccf83f422d"
+  },
+  "compression": {
+    "algorithm": "brotli",
+    "quality": 11,
+    "compressed_bytes": 35199
+  },
+  "encoding": "base64",
+  "base64_length": 46932,
+  "chunk_size_chars": 6000,
+  "parts": [
+    {
+      "file": "part-00.b64",
+      "chars": 6000,
+      "sha256": "8ac02ce227a094ded01bf9e4bd9d98d11b245381e5ff4722c2f348d0d399afc5"
+    },
+    {
+      "file": "part-01.b64",
+      "chars": 6000,
+      "sha256": "35f3a9f2cf309e362064405bdd3a909032a950f179ef3d8014eb4925a052dbd3"
+    },
+    {
+      "file": "part-02.b64",
+      "chars": 6000,
+      "sha256": "29e467b92cc6f0c95d6df36a1fbbf9a5042668ce17e6c44033fc6541594d4fd9"
+    },
+    {
+      "file": "part-03.b64",
+      "chars": 6000,
+      "sha256": "b9355f828a3029132449e02eede7423601a65241c5cd9f23d3008116593ea834"
+    },
+    {
+      "file": "part-04.b64",
+      "chars": 6000,
+      "sha256": "c8eb5438e917af44f9fa4f03f00f4307db6c19e97225283c3de2382228e260b7"
+    },
+    {
+      "file": "part-05.b64",
+      "chars": 6000,
+      "sha256": "aada6c9c407ff29d64908e373e73a2cc621c77236b8f74b362cb55aed47352f4"
+    },
+    {
+      "file": "part-06.b64",
+      "chars": 6000,
+      "sha256": "3ed321c32635919f67207aa63eaeac4a5666e29bb180ad28cd5a345dff93ab6e"
+    },
+    {
+      "file": "part-07.b64",
+      "chars": 4932,
+      "sha256": "7b6c40fb1681a77f15c36b1044362e4a7ff694e87b2c4fbc39c86437715f8129"
+    }
+  ],
+  "invariants": {
+    "build_time_only": true,
+    "runtime_bootstrap_network_fetch_required": false,
+    "part_sha256_verified_before_decode": true,
+    "api_index_sha256_verified_before_build": true,
+    "client_script_added": false
+  }
+}
