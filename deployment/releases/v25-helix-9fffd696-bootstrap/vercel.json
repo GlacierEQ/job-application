@@ -1,0 +1,1 @@
+{"version":2,"buildCommand":"node build.js","routes":[{"src":"/(.*)","dest":"/api/index?path=$1"}]}
