@@ -53,6 +53,8 @@ jobs:
             deployment/vercel-source-bridge/truth-proxy.test.js
 
       - name: Build exact Vercel static surface from effective Helix authority
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           node scripts/sync-helix-projection-effective.mjs
