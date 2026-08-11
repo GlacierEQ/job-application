@@ -1,0 +1,66 @@
+{
+  "schema": "glaciereq.v27-build-time-transport.v1",
+  "release": "V25-APPLICATION-COMPILER",
+  "presentation_generation": "V27-MONUMENTAL-ALGERIAN",
+  "helix_commit": "9fffd69665c6f1b6c1d62bf88795762469422752",
+  "bundle_workflow_run_id": 31459712686,
+  "bundle_workflow_attempt": 1,
+  "bundle_artifact_id": 9089339689,
+  "bundle_artifact_digest": "sha256:5a45212c44880959650fad17479355a47beb19c167cfc8bb84ee327053f6df2a",
+  "bundle_source_commit": "086f1591b6cbe828c3f9acf5add1aa828fb32707",
+  "runtime_equivalent_main_commit": "b421edb581ca4f1098d8d09a5e36d682efca8b1e",
+  "runtime_equivalence_boundary": {
+    "compare_base": "086f1591b6cbe828c3f9acf5add1aa828fb32707",
+    "compare_head": "b421edb581ca4f1098d8d09a5e36d682efca8b1e",
+    "only_changed_path": "RESUME_ATS.md",
+    "deployment_runtime_unchanged": true
+  },
+  "api_index": {
+    "bytes": 209356,
+    "sha256": "387fb5058286f10f73cf5cc287f7e83d633d68ce96bb6c9d75966d646af16068"
+  },
+  "compression": {
+    "algorithm": "brotli",
+    "quality": 11,
+    "compressed_bytes": 36180,
+    "sha256": "808a9482b9dd17109eb9133ea751648065aa5f49e8874ba429aecfd7663aff47"
+  },
+  "encoding": "base64",
+  "base64_length": 48240,
+  "chunk_size_chars": 12000,
+  "parts": [
+    {
+      "file": "part-00.b64",
+      "chars": 12000,
+      "sha256": "a25b17e50cbee7caa2c7c0f81387ef6b2c9957b990c080a825b48dd43abd53e9"
+    },
+    {
+      "file": "part-01.b64",
+      "chars": 12000,
+      "sha256": "953036bf62a7faf15ce54389d9afa60edfed33494e575a4e96f15e436c24c17d"
+    },
+    {
+      "file": "part-02.b64",
+      "chars": 12000,
+      "sha256": "ccf8b72d185fb64830ba42b3bdae6e38199b2b493e664b0f5f001a2b0a49164b"
+    },
+    {
+      "file": "part-03.b64",
+      "chars": 12000,
+      "sha256": "ea7793a1cd88169355329ccd8a0a683404462f75714c4d49344aff810ddd1a08"
+    },
+    {
+      "file": "part-04.b64",
+      "chars": 240,
+      "sha256": "942ae5e333d669432884d77af8a333adf0913a5a1fa66919e6a252d6bf8c83f4"
+    }
+  ],
+  "invariants": {
+    "build_time_only": true,
+    "runtime_bootstrap_network_fetch_required": false,
+    "part_sha256_verified_before_decode": true,
+    "compressed_sha256_verified_before_decompress": true,
+    "api_index_sha256_verified_before_build": true,
+    "client_script_added": false
+  }
+}
