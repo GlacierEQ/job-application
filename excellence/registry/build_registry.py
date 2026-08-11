@@ -17,6 +17,7 @@ import argparse
 import base64
 import json
 import os
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -55,12 +56,24 @@ def api_get(url: str, token: str | None = None) -> Any:
     if token:
         headers["Authorization"] = f"Bearer {token}"
     request = urllib.request.Request(url, headers=headers)
-    try:
-        with urllib.request.urlopen(request, timeout=30) as response:
-            return json.load(response)
-    except urllib.error.HTTPError as exc:
-        body = exc.read().decode("utf-8", errors="replace")[:400]
-        raise RuntimeError(f"GitHub API {exc.code} for {url}: {body}") from exc
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(request, timeout=30) as response:
+                return json.load(response)
+        except urllib.error.HTTPError as exc:
+            body = exc.read().decode("utf-8", errors="replace")[:400]
+            retryable = exc.code in {429, 500, 502, 503, 504}
+            if not retryable or attempt == 2:
+                raise RuntimeError(
+                    f"GitHub API {exc.code} for {url}: {body}"
+                ) from exc
+        except urllib.error.URLError as exc:
+            if attempt == 2:
+                raise RuntimeError(
+                    f"GitHub transport failure for {url}: {exc.reason}"
+                ) from exc
+        time.sleep(0.25 * (2**attempt))
+    raise AssertionError("unreachable GitHub request retry state")
 
 
 def decode_content(payload: dict[str, Any]) -> str:
@@ -395,7 +408,7 @@ def inspect_repository(
                 target, target_blob = fetch_json_file(
                     repo, TARGET_CONTRACT_PATH, head_sha, token
                 )
-            except Exception as exc:
+            except (UnicodeDecodeError, ValueError) as exc:
                 target_load_error = str(exc)
         target_analysis = analyze_target_contract(
             target,
