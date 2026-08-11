@@ -13,6 +13,7 @@ const CSS_LINK = '<link rel="stylesheet" href="/assets/site.title-monument.css">
 const FETCH_TIMEOUT_MS = 10_000;
 const MAX_FONT_BYTES = 128 * 1024;
 const EXPECTED_FONT_SHA256 = '2a98066e14efc2176ee1ba818ea565e77409b81a9a909e1b53b286307a2e70fb';
+const V26_TITLE_LINK_RE = /\s*<link\s+rel=["']stylesheet["']\s+href=["']\/assets\/site\.title-font\.css["']\s*>\s*/gi;
 
 let fontPromise = null;
 
@@ -169,9 +170,16 @@ function injectMonument(body) {
   const bytes = Buffer.isBuffer(body) ? body : Buffer.from(body || '');
   let text = bytes.toString('utf8');
   if (!/<\/head>/i.test(text)) return bytes;
+
+  // V27 owns the live title tier. Remove the prior V26 title stylesheet when
+  // transforming previously rendered/cached HTML so the two trueface layers
+  // never compete. The V26 assets themselves remain routable for old clients.
+  text = text.replace(V26_TITLE_LINK_RE, '\n  ');
+  V26_TITLE_LINK_RE.lastIndex = 0;
+
   const matches = text.match(/\/assets\/site\.title-monument\.css/g) || [];
   if (matches.length > 1) throw new Error('duplicate_monument_stylesheet');
-  if (matches.length === 1) return bytes;
+  if (matches.length === 1) return Buffer.from(text);
   const algerian = '<link rel="stylesheet" href="/assets/site.algerian.css">';
   if (text.includes(algerian)) {
     text = text.replace(algerian, `${algerian}\n  ${CSS_LINK}`);
@@ -236,7 +244,9 @@ async function verifyV27(res) {
       bytes: fontResult.body.length,
       woff2_signature: fontResult.body.subarray(0, 4).toString('ascii') === 'wOF2',
     };
-    const html = injectMonument(homeResponse.body).toString('utf8');
+    const sourceHtml = homeResponse.body.toString('utf8');
+    const html = injectMonument(Buffer.from(sourceHtml)).toString('utf8');
+    const scriptCount = (value) => (value.match(/<script\b/gi) || []).length;
     const algerianIndex = html.indexOf('/assets/site.algerian.css');
     const monumentIndex = html.indexOf('/assets/site.title-monument.css');
     homepage = {
@@ -244,10 +254,16 @@ async function verifyV27(res) {
       stylesheet_count: (html.match(/\/assets\/site\.title-monument\.css/g) || []).length,
       algerian_precedes_monument: algerianIndex !== -1 && monumentIndex !== -1 && algerianIndex < monumentIndex,
       old_trueface_absent: !html.includes('/assets/site.title-font.css'),
-      script_free: !/<script\b/i.test(html),
+      client_scripts_added: scriptCount(html) - scriptCount(sourceHtml),
     };
     if (!font.woff2_signature) errors.push('monument_font_signature_failed');
-    if (homepage.status !== 200 || homepage.stylesheet_count !== 1 || !homepage.algerian_precedes_monument || !homepage.old_trueface_absent || !homepage.script_free) {
+    if (
+      homepage.status !== 200
+      || homepage.stylesheet_count !== 1
+      || !homepage.algerian_precedes_monument
+      || !homepage.old_trueface_absent
+      || homepage.client_scripts_added !== 0
+    ) {
       errors.push('monument_homepage_contract_failed');
     }
   } catch (error) {
@@ -262,10 +278,10 @@ async function verifyV27(res) {
     inherited_v26: inherited ? { schema: inherited.schema, status: inherited.status } : null,
     font,
     homepage,
-    title_scope: ['h1', 'brand strong'],
+    title_scope: ['h1', '.brand strong'],
     secondary_heading_owner: 'V24 Algerian/Copperplate layer',
     browser_font_origin: 'self',
-    client_scripts_added: 0,
+    client_scripts_added: homepage?.client_scripts_added ?? null,
     truth_boundary: {
       typography_only: true,
       body_typography_modified: false,
