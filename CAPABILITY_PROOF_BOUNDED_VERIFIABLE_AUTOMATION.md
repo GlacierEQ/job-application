@@ -1,137 +1,96 @@
 # Capability Proof — Bounded, Verifiable Automation
 
+Status: CANONICAL_BOUNDED_PATTERN
+Accomplishment count: 1
+Current independent evidence donors: 2
+
 ## Claim
 
-Across multiple independent GlacierEQ systems, a repeated engineering pattern is visible: automation is designed to be bounded by explicit scope, conservative defaults, verification gates, audit/receipt output, and recoverable failure handling rather than treating attempted execution as success.
+Across independent GlacierEQ systems, a repeated engineering pattern is visible: automation is bounded by explicit scope, conservative defaults, observable completion gates, retained receipts/audit output, and recoverable failure handling rather than treating attempted execution as success.
 
-**Truth class:** VERIFIED AGAINST CURRENT REPOSITORY SOURCE. This artifact verifies the presence of the design and implementation contracts described below. It does **not** claim that every runtime path is currently deployed or that every documented test was re-run during this proof cycle.
+**Truth class:** VERIFIED_SOURCE_CONTRACT_AT_EXACT_REVISIONS. This artifact verifies implementation/design contracts in the exact evidence revisions below. It does **not** claim current production deployment or fresh runtime execution unless separately evidenced.
 
-## Independent evidence donors
+## Recruiter surface
 
-### 1. `GlacierEQ/mastermind` — canonical control-plane contract
+> Designed automation systems that constrain execution scope, default disruptive behavior conservatively, verify observable runtime conditions before declaring success, retain audit/receipt evidence, and preserve stop or rollback paths across MCP filesystem access and browser workflow automation.
 
-Current source: `CANONICAL.md` on `main`.
+## Master surface
 
-Evidence:
+The reusable capability is **bounded, verifiable automation**. The implementations differ in domain but share one control invariant: attempted execution is not equivalent to authorized, observable completion.
 
-- Converts operator intent into a bounded mission routed through a registry, router, scheduler, bound adapter, provider/local execution, execution receipt, finisher closure, and memory/status update.
-- Explicitly prohibits marking work complete because a status field changed, a plan was generated, or narrative output exists.
-- Separates action classes into `READ`, `PLAN`, `WRITE_INTERNAL`, `EXTERNAL`, and `DESTRUCTIVE`.
-- Requires explicit approval for `EXTERNAL` and `DESTRUCTIVE` actions.
-- Requires provider and evidence references before an external action can be marked `SUCCEEDED`.
-- Defines layered health states instead of ceremonial activation.
-- Establishes invariants including no silent broad fallback, no status inflation, no unsupported deployment claims, and explicit human authority for external/destructive actions.
+1. **Filesystem MCP boundary — `GlacierEQ/apex-fs-commander-unified`**
+   - Evidence revision: `de9f94d57d4db3730c3dd0949797fa84cc01511d`
+   - Evidence blob: `README.md` / `c63c227a058f19cce2c2f293e9d8a878e1ef36c8`
+   - Explicit directory allowlist; broad system roots blocked.
+   - Server starts only with at least one existing absolute allowed directory.
+   - Tunnel success requires `process_running=true`, `healthy=true`, and `runtime_state=ready`.
+   - A connected-but-not-ready runtime is stopped automatically.
+   - Runtime status is retained as a receipt.
+   - Tests are documented to preserve operator state and reject an outside-root write.
 
-Repository evidence pointer:
-`https://github.com/GlacierEQ/mastermind/blob/main/CANONICAL.md`
+2. **Guarded browser workflow — `GlacierEQ/ai-auto-driller-unified`**
+   - Evidence revision: `c0c5d8b3d3e1adb47480a9619e10ed18ed1e3f76`
+   - Evidence blob: `INSTALL.md` / `2b57a2674ecdb8bb48d494b3a8ba79474966a5b3`
+   - Auto drill and safe auto-accept default off.
+   - Manual success is required before enabling automated drilling.
+   - Emergency stop immediately disables automated behavior.
+   - A drill is counted only after four observable runtime conditions are satisfied.
+   - Failures are recorded in an exportable audit log.
+   - Explicit rollback restores the prior platform-specific script.
 
-### 2. `GlacierEQ/apex-fs-commander-unified` — filesystem MCP boundary
+These two repositories support **one accomplishment pattern**, not two accomplishments.
 
-Current source: `README.md` on `main`.
+## Machine surface
 
-Evidence:
-
-- Exposes only explicitly allowed local directories through MCP.
-- Blocks broad system roots.
-- Starts only when the allowlist contains at least one existing absolute directory.
-- Requires three runtime conditions before reporting a successful OpenAI tunnel connection: process running, healthy, and runtime state ready.
-- Automatically stops a connection that fails readiness validation.
-- Retains the runtime status response as a receipt.
-- Keeps credentials and user-specific paths out of source.
-- Documents tests for allowed read/write plus rejection of an outside-root write.
-
-Repository evidence pointer:
-`https://github.com/GlacierEQ/apex-fs-commander-unified/blob/main/README.md`
-
-### 3. `GlacierEQ/ai-auto-driller-unified` — guarded browser automation
-
-Current source: `INSTALL.md` on `main`.
-
-Evidence:
-
-- Ships with automation disabled by default, safe auto-accept disabled, bounded depth, minimum interval, and a user-activity quiet period.
-- Requires a manual action to succeed before enabling auto-drill.
-- Keeps Notion AI intentionally manual-only to avoid writing into ordinary Notion pages.
-- Provides an emergency stop that immediately disables automated drill and auto-accept behavior.
-- Counts a drill only after runtime verification of a new assistant response, empty input, actual question insertion, and detected submission start.
-- Records failures in an exportable audit log.
-- Provides an explicit rollback path by disabling the master userscript and re-enabling the prior platform-specific script.
-
-Repository evidence pointer:
-`https://github.com/GlacierEQ/ai-auto-driller-unified/blob/main/INSTALL.md`
-
-## Repeated capability pattern
-
-The common engineering pattern is not merely "automation." It is **bounded automation with explicit proof of completion**:
-
-1. Constrain scope before execution.
-2. Default potentially disruptive behavior to off or narrow access.
-3. Require observable runtime conditions before success is asserted.
-4. Persist receipts, audit records, or status evidence.
-5. Stop or fail closed when readiness or scope validation fails.
-6. Preserve a rollback or recovery path.
-7. Keep human authority explicit at external/destructive boundaries.
-
-## Recruiter-safe proof statement
-
-> Repeatedly designed automation systems that constrain execution scope, default risky behavior conservatively, verify runtime outcomes before declaring success, retain audit/receipt evidence, and preserve rollback paths across agent orchestration, MCP filesystem access, and browser automation.
-
-## Master-level interpretation
-
-This is a cross-domain reliability pattern rather than a single-project feature. The same control philosophy appears in three distinct problem spaces: multi-agent orchestration, local filesystem/MCP access, and browser-based AI workflow automation. The systems differ in implementation and domain, but converge on explicit capability boundaries, observable completion criteria, and recovery-aware execution.
-
-## Machine-level proof map
-
-```json
-{
-  "capability_id": "CAP-BOUNDED-VERIFIABLE-AUTOMATION",
-  "truth_class": "VERIFIED_SOURCE_CONTRACT",
-  "runtime_reverification_in_this_cycle": false,
-  "independent_donors": [
-    {
-      "repo": "GlacierEQ/mastermind",
-      "source": "CANONICAL.md",
-      "mechanisms": [
-        "bounded mission envelope",
-        "adapter-bound execution",
-        "action classes",
-        "approval gates",
-        "execution receipts",
-        "provider-reference requirement",
-        "status-inflation prohibition"
-      ]
-    },
-    {
-      "repo": "GlacierEQ/apex-fs-commander-unified",
-      "source": "README.md",
-      "mechanisms": [
-        "directory allowlist",
-        "broad-root blocking",
-        "readiness gate",
-        "automatic stop on failed validation",
-        "runtime receipt",
-        "outside-root rejection contract"
-      ]
-    },
-    {
-      "repo": "GlacierEQ/ai-auto-driller-unified",
-      "source": "INSTALL.md",
-      "mechanisms": [
-        "safe defaults",
-        "manual-before-auto gate",
-        "emergency stop",
-        "runtime verification rules",
-        "audit export",
-        "rollback path"
-      ]
-    }
-  ]
-}
+```yaml
+capability_id: CAP-BOUNDED-VERIFIABLE-AUTOMATION
+claim_state: CANONICAL_BOUNDED_PATTERN
+truth_class: VERIFIED_SOURCE_CONTRACT_AT_EXACT_REVISIONS
+accomplishment_count: 1
+runtime_reverification_in_this_cycle: false
+current_independent_donors:
+  - repository: GlacierEQ/apex-fs-commander-unified
+    revision: de9f94d57d4db3730c3dd0949797fa84cc01511d
+    path: README.md
+    blob: c63c227a058f19cce2c2f293e9d8a878e1ef36c8
+    mechanisms:
+      - explicit directory allowlist
+      - broad-root refusal
+      - three-condition readiness gate
+      - automatic stop on failed readiness
+      - runtime status receipt
+      - operator-state-preserving test contract
+  - repository: GlacierEQ/ai-auto-driller-unified
+    revision: c0c5d8b3d3e1adb47480a9619e10ed18ed1e3f76
+    path: INSTALL.md
+    blob: 2b57a2674ecdb8bb48d494b3a8ba79474966a5b3
+    mechanisms:
+      - automation defaults off
+      - manual-before-auto gate
+      - emergency stop
+      - four-condition completion verification
+      - audit export
+      - rollback path
+claim_ceiling: INDEPENDENT_EXACT_REVISION_SOURCE_CONTRACTS_FOR_BOUNDED_VERIFIABLE_AUTOMATION
+production_deployment_claimed: false
+fresh_runtime_test_claimed: false
 ```
 
-## Mesh / limitations
+## Mesh surface
 
-- Source contracts are verified from current `main` content for all three donor repositories.
-- This proof does not convert documented test behavior into a fresh runtime-test claim.
-- Deployment state is intentionally not asserted here.
-- Future strengthening path: attach current test-run receipts and, where applicable, live runtime health receipts without changing the recruiter-level claim unless the additional evidence materially increases what can be stated.
+### Proven now
+- Two independent current repository revisions encode bounded execution plus observable success criteria and stop/recovery behavior.
+- Exact revision and blob identities bind the portfolio claim to inspectable source evidence.
+- Repository count is not accomplishment count.
+
+### Corrected / superseded
+The prior version named `GlacierEQ/mastermind/CANONICAL.md` as a **current-source** donor. Current `mastermind` head `dcab9475d668f2fba66b58d1ff45609b46132530` does not contain `CANONICAL.md`; therefore that donor is removed from current evidence rather than silently inheriting an older contract. The broader capability remains supported by the two independent exact-revision donors above.
+
+### Not claimed
+- No production deployment claim.
+- No fresh runtime-test claim from this compiler cycle.
+- No assertion that documented tests were re-run here.
+- No claim that `mastermind` currently implements the previously cited `CANONICAL.md` contract.
+
+### Exact next cursor
+Recover the historical `mastermind/CANONICAL.md` revision if it is needed as historical evidence, or re-admit `mastermind` only after a current exact revision exposes independently verifiable bounded-execution mechanisms. Do not raise the claim ceiling without execution-bound evidence.
