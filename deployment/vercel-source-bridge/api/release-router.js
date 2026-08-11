@@ -5,6 +5,7 @@ const truthRuntime = require('./truth-runtime.js');
 const typographyProxy = require('./typography-proxy.js');
 const compilerProxy = require('./compiler-proxy.js');
 const titleFontProxy = require('./title-font-proxy.js');
+const monumentTitleProxy = require('./monument-title-proxy.js');
 
 module.exports = async function releaseRouter(req, res) {
   const rawPath = proxy.requestPath(req);
@@ -15,5 +16,6 @@ module.exports = async function releaseRouter(req, res) {
   if (rawPath === '__v24_verify') return typographyProxy(req, res);
   if (rawPath === '__v25_verify') return compilerProxy(req, res);
   if (rawPath === '__v26_verify') return titleFontProxy(req, res);
-  return titleFontProxy(req, res);
+  if (rawPath === '__v27_verify') return monumentTitleProxy(req, res);
+  return monumentTitleProxy(req, res);
 };
