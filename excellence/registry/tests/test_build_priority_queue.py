@@ -144,9 +144,7 @@ class PriorityQueueTests(unittest.TestCase):
         out = build_priority_queue.build_queue(
             registry(repo_record()), fetch_state=fetch_state
         )
-        self.assertEqual(
-            out["queue"][0]["repositories"][0]["evolution_generation"], 0
-        )
+        self.assertEqual(out["queue"][0]["repositories"][0]["evolution_generation"], 0)
 
     def test_malformed_successful_evolution_history_fails_closed(self):
         def fetch_state(repo, path, ref, token):
@@ -156,9 +154,7 @@ class PriorityQueueTests(unittest.TestCase):
                 "evolution_history": [{"result": "PASS"}],
             }, "blob"
 
-        with self.assertRaisesRegex(
-            ValueError, r"must bind a next:\* consumed_cursor"
-        ):
+        with self.assertRaisesRegex(ValueError, r"must bind a next:\* consumed_cursor"):
             build_priority_queue.build_queue(
                 registry(repo_record()), fetch_state=fetch_state
             )
