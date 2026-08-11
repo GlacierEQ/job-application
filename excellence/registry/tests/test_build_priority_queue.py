@@ -156,7 +156,9 @@ class PriorityQueueTests(unittest.TestCase):
                 "evolution_history": [{"result": "PASS"}],
             }, "blob"
 
-        with self.assertRaisesRegex(ValueError, "must bind a next:\* consumed_cursor"):
+        with self.assertRaisesRegex(
+            ValueError, r"must bind a next:\* consumed_cursor"
+        ):
             build_priority_queue.build_queue(
                 registry(repo_record()), fetch_state=fetch_state
             )
