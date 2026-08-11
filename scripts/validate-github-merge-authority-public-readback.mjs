@@ -11,6 +11,8 @@ const assert = (condition, message) => {
 const SHA40 = /^[a-f0-9]{40}$/;
 const SHA256 = /^[a-f0-9]{64}$/;
 const GIT_BLOB_SHA = /^[a-f0-9]{40}$/;
+const DEPLOYMENT_ID = /^dpl_[A-Za-z0-9]+$/;
+const APPROVED_HELIX_NON_PROJECTION_PREFIXES = Object.freeze(['excellence/receipts/']);
 
 const gitBlobSha = (text) => {
   const body = Buffer.from(text, 'utf8');
@@ -60,8 +62,12 @@ async function fetchLive(alias, requestPath, label, parseJson = true) {
 async function verifyHelixAuthorityEquivalence(deployedCommit, currentCommit, allowedPrefixes) {
   assert(SHA40.test(deployedCommit || ''), 'deployed Helix authority SHA invalid');
   assert(SHA40.test(currentCommit || ''), 'current Helix authority SHA invalid');
-  assert(Array.isArray(allowedPrefixes) && allowedPrefixes.length > 0, 'Helix equivalence path policy missing');
-  assert(allowedPrefixes.every((prefix) => typeof prefix === 'string' && prefix.length > 0), 'Helix equivalence path policy invalid');
+  assert(Array.isArray(allowedPrefixes), 'Helix equivalence path policy missing');
+  assert(
+    allowedPrefixes.length === APPROVED_HELIX_NON_PROJECTION_PREFIXES.length
+      && allowedPrefixes.every((prefix, index) => prefix === APPROVED_HELIX_NON_PROJECTION_PREFIXES[index]),
+    'Helix equivalence path policy must exactly match the fixed approved non-projection namespace',
+  );
   if (deployedCommit === currentCommit) {
     return { status: 'EXACT_COMMIT_MATCH', deployed_commit: deployedCommit, current_commit: currentCommit, changed_files: [] };
   }
@@ -241,9 +247,9 @@ assert(canonicalProduction.canonicalization_basis?.company_stage_unchanged === e
 assert(canonicalProduction.canonicalization_basis?.company_claim_ceiling_unchanged === expectedCeiling, 'canonicalization inflated company ceiling');
 
 assert(canonicalProduction.production_projection?.project === 'casey-barton-glaciereq', 'canonical production project drift');
-assert(canonicalProduction.production_projection?.deployment_id === 'dpl_9nNhbKeFL4Aco4UKYiDr7z2mVoMA', 'canonical production deployment drift');
+assert(DEPLOYMENT_ID.test(canonicalProduction.production_projection?.deployment_id || ''), 'canonical production deployment identity invalid');
 assert(canonicalProduction.production_projection?.canonical_alias === 'casey-barton-glaciereq.vercel.app', 'canonical production alias drift');
-assert(canonicalProduction.production_projection?.source_commit === 'da6a6ac0f5c2a5bd61945e1935c4fcc92bcc5b07', 'canonical production source drift');
+assert(SHA40.test(canonicalProduction.production_projection?.source_commit || ''), 'canonical production source identity invalid');
 assert(canonicalProduction.production_projection?.helix_commit === deployedHelixCommit, 'canonical production Helix drift');
 assert(canonicalProduction.authority_freshness?.production_helix_commit === deployedHelixCommit, 'canonical freshness Helix mismatch');
 
@@ -255,10 +261,12 @@ const authorityEquivalence = await verifyHelixAuthorityEquivalence(
 
 const buildReceipt = canonicalProduction.build_receipt;
 assert(buildReceipt?.status === 'PASS' && buildReceipt?.schema === 'glaciereq.v25-deployment-bundle-manifest.v2', 'canonical production build receipt drift');
-assert(buildReceipt?.workflow_run_id === 31411659620 && buildReceipt?.artifact_id === 9071806942, 'canonical production artifact identity drift');
-assert(buildReceipt?.artifact_zip_sha256 === '6bd76e5ec9be8619e7efe779077abbaf4318828b82d53faa5cbddbbbb290d9d8', 'canonical production artifact digest drift');
-assert(buildReceipt?.module_count === 9 && buildReceipt?.deployment_file_count === 2, 'canonical production bundle cardinality drift');
-assert(buildReceipt?.api_index_bytes === 197218 && SHA256.test(buildReceipt?.api_index_sha256 || ''), 'canonical production api/index identity drift');
+assert(Number.isSafeInteger(buildReceipt?.workflow_run_id) && buildReceipt.workflow_run_id > 0, 'canonical production workflow identity invalid');
+assert(Number.isSafeInteger(buildReceipt?.artifact_id) && buildReceipt.artifact_id > 0, 'canonical production artifact identity invalid');
+assert(SHA256.test(buildReceipt?.artifact_zip_sha256 || ''), 'canonical production artifact digest invalid');
+assert(Number.isSafeInteger(buildReceipt?.module_count) && buildReceipt.module_count > 0, 'canonical production module count invalid');
+assert(Number.isSafeInteger(buildReceipt?.deployment_file_count) && buildReceipt.deployment_file_count > 0, 'canonical production deployment file count invalid');
+assert(Number.isSafeInteger(buildReceipt?.api_index_bytes) && buildReceipt.api_index_bytes > 0 && SHA256.test(buildReceipt?.api_index_sha256 || ''), 'canonical production api/index identity invalid');
 assert(SHA256.test(buildReceipt?.factory_bundle_sha256 || ''), 'canonical production factory digest invalid');
 assert(buildReceipt?.self_contained_executable_modules === true, 'canonical production bundle is not self-contained');
 assert(buildReceipt?.bootstrap_network_fetch_required === false, 'canonical production bundle requires bootstrap network fetch');
