@@ -38,8 +38,9 @@ test('V27 is materially more monumental while keeping secondary headings under V
   assert.match(css, /:where\(h1,\.brand strong\)/);
   assert.match(css, /-webkit-text-stroke:/);
   assert.match(css, /0 24px 64px rgba\(0,168,112/);
-  assert.match(css, /secondary heading hierarchy/i);
+  assert.match(css, /h2,h3,h4,h5,h6\s*\{/);
   assert.doesNotMatch(css, /:where\(h1,h2,h3,h4,h5,h6/);
+  assert.doesNotMatch(css, /font-family:[^}]*Glacier Algerian Monument[^}]*h2/s);
 });
 
 test('V27 injection replaces V26 presentation ownership rather than stacking trueface fonts', () => {
