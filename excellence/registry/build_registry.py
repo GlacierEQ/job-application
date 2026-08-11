@@ -297,7 +297,9 @@ def apply_target_contract_gate(
     updated["next_failing_gate"] = "TARGET_CONTRACT_FROZEN"
     updated["next_action_class"] = "REPAIR_STATE"
     prerequisites = list(updated.get("prerequisite_errors") or [])
-    prerequisites.extend(f"TARGET_CONTRACT_FROZEN: {error}" for error in contract_errors)
+    prerequisites.extend(
+        f"TARGET_CONTRACT_FROZEN: {error}" for error in contract_errors
+    )
     updated["prerequisite_errors"] = prerequisites
 
     states = machine["principal_states"]
@@ -450,8 +452,7 @@ def summarize(records: list[dict[str, Any]]) -> dict[str, Any]:
     )
     actions = Counter(record["state"]["next_action_class"] for record in records)
     target_status = Counter(
-        record.get("target_contract", {}).get("status", "UNKNOWN")
-        for record in records
+        record.get("target_contract", {}).get("status", "UNKNOWN") for record in records
     )
     valid = sum(1 for record in records if record["state"].get("state_valid") is True)
     target_invalid = sum(
