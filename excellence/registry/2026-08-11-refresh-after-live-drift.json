@@ -1,0 +1,20 @@
+{
+  "schema": "glaciereq.excellence-census-trigger.v1",
+  "reason": "Refresh governed live registry after queue drift was detected against current canonical heads.",
+  "observed_live_state": {
+    "GlacierEQ/anduril-lattice-dissent-freeze": "EVOLVING",
+    "GlacierEQ/anduril-sensor-health-quorum": "EVOLVING",
+    "GlacierEQ/anthropic-refusal-replay-harness": "EVOLVING"
+  },
+  "stale_prior_queue_entries": [
+    "GlacierEQ/anduril-lattice-dissent-freeze: DISCOVERED",
+    "GlacierEQ/anduril-sensor-health-quorum: DISCOVERED",
+    "GlacierEQ/anthropic-refusal-replay-harness: DISCOVERED"
+  ],
+  "invariants": [
+    "derive next queue from current repository heads",
+    "do not promote GlacierEQ/vercel-edge-agent-cap-token without closing its recorded authorization-token defects",
+    "do not infer state from prior census artifacts when live machine state has advanced"
+  ],
+  "asserted_post_refresh_counts": null
+}
