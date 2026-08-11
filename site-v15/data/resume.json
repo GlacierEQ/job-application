@@ -2,10 +2,10 @@
   "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
   "meta": {
     "schema": "glaciereq.resume-intelligence.v17",
-    "version": "17.1.0-final",
+    "version": "17.1.1-router-boundary",
     "profile": "PSYSOC-X_MACHINE",
     "facts_invariant": true,
-    "generated_on": "2026-08-08",
+    "generated_on": "2026-08-10",
     "evidence_policy": "claims-do-not-exceed-current-source-and-receipt-state",
     "layout_policy": "print-safe-letter-margins",
     "invariants": [
@@ -15,6 +15,7 @@
       "limits",
       "authority_boundaries",
       "non_affiliation",
+      "revision-bound-proof",
       "repository-count-is-not-accomplishment-count"
     ]
   },
@@ -48,7 +49,7 @@
       "highlights": [
         "Designs agent, application-intelligence, evidence, memory, infrastructure-governance, and human-machine systems.",
         "Converts broad architecture into typed contracts, deterministic tests, refusal behavior, machine-readable facts, and completion receipts.",
-        "Built Portfolio Receipt Router with 69/69 tests through direct and reusable CI, artifact 8910423397, and zero external actions.",
+        "Portfolio Receipt Router historical V15 release evidence at 07d3d33aaf75dd1d780c24af39a00b998f87da76 records 69/69 tests and zero external actions; current xai-colossus-2 head 726583355c14197eaeed2398eb28eb3e242d8b74 is DISCOVERED and does not inherit that verification.",
         "Separates source presence, review, execution, deployment, authority, and verified completion across a multi-repository engineering estate."
       ]
     },
@@ -157,12 +158,19 @@
     {
       "name": "Portfolio Receipt Router",
       "url": "https://github.com/GlacierEQ/xai-colossus-2",
-      "description": "Local fail-closed evidence router and compatibility-safe architecture repair.",
+      "description": "Local fail-closed metadata/evidence router. Historical V15 release proof is revision-bound; the current head is DISCOVERED and not promoted.",
       "keywords": [
-        "TEST_VERIFIED",
-        "69/69",
+        "HISTORICAL_V15_TEST_RECEIPT",
+        "historical_tests:69/69",
+        "historical_release_candidate:07d3d33aaf75dd1d780c24af39a00b998f87da76",
         "artifact:8910423397",
-        "external_actions:0"
+        "historical_external_actions:0",
+        "current_head:726583355c14197eaeed2398eb28eb3e242d8b74",
+        "current_state:DISCOVERED",
+        "current_proof_ok:false",
+        "current_operable_ok:false",
+        "current_blocker:OPERATE_THEATER",
+        "evidence_state:LOCAL_METADATA_ROUTER_NOT_RUNTIME_ORCHESTRATOR"
       ]
     },
     {
@@ -232,15 +240,25 @@
   "x_evidence": {
     "proof": {
       "receipt_router_tests": 69,
+      "receipt_router_test_scope": "HISTORICAL_V15_RELEASE_ONLY",
+      "receipt_router_historical_head": "07d3d33aaf75dd1d780c24af39a00b998f87da76",
+      "receipt_router_current_head": "726583355c14197eaeed2398eb28eb3e242d8b74",
+      "receipt_router_current_state": "DISCOVERED",
+      "receipt_router_current_proof_ok": false,
+      "receipt_router_current_operable_ok": false,
+      "receipt_router_current_blocker": "OPERATE_THEATER",
+      "receipt_router_evidence_state": "LOCAL_METADATA_ROUTER_NOT_RUNTIME_ORCHESTRATOR",
       "bounded_source_tests": 166,
       "energy_memory_tests": 19,
       "helix_admitted_public_repositories": 67,
       "helix_state": "PARTIALLY_VERIFIED",
       "coordinator_tests": 62,
       "external_actions": 0,
+      "external_actions_scope": "HISTORICAL_V15_RELEASE_ONLY",
       "receipt_router_artifact": 8910423397
     },
     "limits": [
+      "Portfolio Receipt Router historical V15 verification is revision-bound and is not inherited by current xai-colossus-2 head 726583355c14197eaeed2398eb28eb3e242d8b74.",
       "Repository count is not accomplishment count.",
       "The 67-repository Helix figure is an admitted public proof boundary, not the full owned-estate count.",
       "No company affiliation is inferred from company-oriented repositories.",
