@@ -11,9 +11,14 @@ from __future__ import annotations
 
 import json
 import os
+import sys
 from collections import defaultdict
 from pathlib import Path
 from typing import Any, Callable
+
+REGISTRY_DIR = Path(__file__).resolve().parent
+if str(REGISTRY_DIR) not in sys.path:
+    sys.path.insert(0, str(REGISTRY_DIR))
 
 import build_registry
 
