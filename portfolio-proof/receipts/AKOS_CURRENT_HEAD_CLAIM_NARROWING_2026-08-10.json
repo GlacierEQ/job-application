@@ -1,0 +1,36 @@
+{
+  "schema": "glaciereq.portfolio-proof-receipt.v1",
+  "id": "AKOS_CURRENT_HEAD_CLAIM_NARROWING_2026-08-10",
+  "system": "GlacierEQ/AKOS",
+  "portfolio_surface": "portfolio-proof/AKOS_PROOF_SURFACES_2026-08-08.md",
+  "change_type": "CLAIM_NARROWING_AND_SUPERSESSION",
+  "current_evidence": {
+    "head": "079956542500fcfcdf161e88ed81c73e770de49d",
+    "authority_path": "machine/excellence-state.json",
+    "principal_state": "DISCOVERED",
+    "proof_ok": false,
+    "operable_ok": false,
+    "demotion_from": "PROMOTED",
+    "blocker": "TESTS_FAIL"
+  },
+  "historical_evidence_preserved": {
+    "canonical_source_head": "d9aeb424f4d99da6026719e1e58793f6a89efd86",
+    "verified_pr_revision": "c507436e2523f668ae4a1e8e142f59e200f07a90",
+    "shared_tree": "2c82cf61b4f50a8391187f0e6c7b0bc8439f240b",
+    "integrity_gate_run": "31294595571",
+    "verification_run": "31294595577",
+    "equivalence_receipt": "portfolio-proof/receipts/AKOS_CURRENT_HEAD_TREE_EQUIVALENCE_2026-08-08.json"
+  },
+  "retired_claim": "CURRENT_CANONICAL_TREE_EQUIVALENT_TO_VERIFIED_PR_TREE",
+  "replacement_claim_ceiling": "HISTORICAL_REVISION_BOUND_VERIFIED_AKOS_ARCHITECTURE__CURRENT_HEAD_DISCOVERED",
+  "nonclaims": [
+    "current-head verification",
+    "current-head operability",
+    "production deployment",
+    "provider-side connectivity",
+    "external-scale reliability",
+    "inheritance of historical verification by changed code"
+  ],
+  "durable_delta": "The AKOS portfolio proof no longer presents the historical verified tree as current-head proof. Historical workflow/tree evidence is preserved exactly, while present authority is narrowed to DISCOVERED/TESTS_FAIL.",
+  "next_cursor": "Repair TESTS_FAIL on AKOS current head lineage, run fresh exact-revision verification, persist commit-bound proof, then reconsider current-head promotion."
+}
