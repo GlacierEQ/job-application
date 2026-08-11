@@ -6,6 +6,7 @@ on:
       - design/algerian-monument-v27-20260810
     paths:
       - .github/workflows/pin-v27-ewert-font.yml
+      - deployment/vercel-source-bridge/monument-title-proxy.test.js
 
 permissions:
   contents: write
