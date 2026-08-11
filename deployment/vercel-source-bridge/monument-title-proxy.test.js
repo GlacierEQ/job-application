@@ -40,16 +40,18 @@ test('V27 is materially more monumental while keeping secondary headings under V
   assert.match(css, /0 24px 64px rgba\(0,168,112/);
   assert.match(css, /h2,h3,h4,h5,h6\s*\{/);
   assert.doesNotMatch(css, /:where\(h1,h2,h3,h4,h5,h6/);
-  assert.doesNotMatch(css, /font-family:[^}]*Glacier Algerian Monument[^}]*h2/s);
+  assert.doesNotMatch(css, /h2,h3,h4,h5,h6\s*\{[^}]*font-family:[^}]*Glacier Algerian Monument/s);
 });
 
-test('V27 injection replaces V26 presentation ownership rather than stacking trueface fonts', () => {
-  const source = Buffer.from('<html><head><link rel="stylesheet" href="/assets/site.algerian.css"></head><body><h1>Hello</h1></body></html>');
+test('V27 injection removes V26 presentation ownership instead of stacking trueface fonts', () => {
+  const source = Buffer.from('<html><head><link rel="stylesheet" href="/assets/site.algerian.css"><link rel="stylesheet" href="/assets/site.title-font.css"></head><body><h1>Hello</h1></body></html>');
+  assert.equal(source.toString('utf8').includes('site.title-font.css'), true);
   const first = monument.injectMonument(source).toString('utf8');
   const second = monument.injectMonument(Buffer.from(first)).toString('utf8');
   assert.equal((first.match(/site\.title-monument\.css/g) || []).length, 1);
   assert.equal((second.match(/site\.title-monument\.css/g) || []).length, 1);
   assert.equal(first.includes('site.title-font.css'), false);
+  assert.equal(second.includes('site.title-font.css'), false);
   assert.ok(first.indexOf('site.algerian.css') < first.indexOf('site.title-monument.css'));
 });
 
