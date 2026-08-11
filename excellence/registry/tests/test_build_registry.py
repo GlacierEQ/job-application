@@ -132,10 +132,14 @@ class RegistryTests(unittest.TestCase):
 
     def test_target_contract_required_from_target_contracted_onward(self):
         self.assertFalse(
-            build_registry.target_contract_required(state_at("PROBLEM_VERIFIED"), MACHINE)
+            build_registry.target_contract_required(
+                state_at("PROBLEM_VERIFIED"), MACHINE
+            )
         )
         self.assertTrue(
-            build_registry.target_contract_required(state_at("TARGET_CONTRACTED"), MACHINE)
+            build_registry.target_contract_required(
+                state_at("TARGET_CONTRACTED"), MACHINE
+            )
         )
         self.assertTrue(
             build_registry.target_contract_required(state_at("EVOLVING"), MACHINE)
@@ -157,9 +161,7 @@ class RegistryTests(unittest.TestCase):
 
     def test_missing_required_target_contract_forces_repair(self):
         state = state_at("EVOLVING")
-        target = build_registry.analyze_target_contract(
-            None, REPOSITORY, required=True
-        )
+        target = build_registry.analyze_target_contract(None, REPOSITORY, required=True)
         analysis = build_registry.apply_target_contract_gate(
             build_registry.analyze_state(state, MACHINE, POLICY), target, MACHINE
         )
