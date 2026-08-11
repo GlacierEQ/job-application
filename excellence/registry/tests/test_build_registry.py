@@ -67,6 +67,7 @@ POLICY = {
         "size_or_loc_not_dispositive",
     ],
 }
+REPOSITORY = "GlacierEQ/example-repo"
 
 
 def state_at(principal):
@@ -75,6 +76,14 @@ def state_at(principal):
     for stage in MACHINE["principal_states"][1 : idx + 1]:
         gates[MACHINE["stage_gates"][stage]] = {"status": "PASS"}
     return {"principal_state": principal, "gates": gates, "history": []}
+
+
+def valid_target(repository=REPOSITORY):
+    return {
+        "schema": "glaciereq.repo-target-contract.v1",
+        "identity": {"repository_id": repository, "family": "elite-estate"},
+        "current": {"state": "EVOLVING"},
+    }
 
 
 class RegistryTests(unittest.TestCase):
@@ -121,6 +130,95 @@ class RegistryTests(unittest.TestCase):
         self.assertIsNone(result["next_failing_gate"])
         self.assertEqual(result["next_action_class"], "EVOLVE")
 
+    def test_target_contract_required_from_target_contracted_onward(self):
+        self.assertFalse(
+            build_registry.target_contract_required(
+                state_at("PROBLEM_VERIFIED"), MACHINE
+            )
+        )
+        self.assertTrue(
+            build_registry.target_contract_required(
+                state_at("TARGET_CONTRACTED"), MACHINE
+            )
+        )
+        self.assertTrue(
+            build_registry.target_contract_required(state_at("EVOLVING"), MACHINE)
+        )
+
+    def test_valid_target_contract_preserves_evolving_state(self):
+        state = state_at("EVOLVING")
+        target = build_registry.analyze_target_contract(
+            valid_target(), REPOSITORY, required=True
+        )
+        analysis = build_registry.apply_target_contract_gate(
+            build_registry.analyze_state(state, MACHINE, POLICY), target, MACHINE
+        )
+        self.assertTrue(target["valid"])
+        self.assertEqual(target["status"], "PRESENT")
+        self.assertTrue(analysis["state_valid"])
+        self.assertEqual(analysis["effective_principal_state"], "EVOLVING")
+        self.assertEqual(analysis["next_action_class"], "EVOLVE")
+
+    def test_missing_required_target_contract_forces_repair(self):
+        state = state_at("EVOLVING")
+        target = build_registry.analyze_target_contract(None, REPOSITORY, required=True)
+        analysis = build_registry.apply_target_contract_gate(
+            build_registry.analyze_state(state, MACHINE, POLICY), target, MACHINE
+        )
+        self.assertFalse(target["valid"])
+        self.assertEqual(target["status"], "MISSING")
+        self.assertFalse(analysis["state_valid"])
+        self.assertEqual(analysis["effective_principal_state"], "PROBLEM_VERIFIED")
+        self.assertEqual(analysis["next_failing_gate"], "TARGET_CONTRACT_FROZEN")
+        self.assertEqual(analysis["next_action_class"], "REPAIR_STATE")
+
+    def test_unparseable_target_contract_forces_repair(self):
+        target = build_registry.analyze_target_contract(
+            None,
+            REPOSITORY,
+            required=True,
+            load_error="JSONDecodeError: conflict marker at line 2",
+        )
+        analysis = build_registry.apply_target_contract_gate(
+            build_registry.analyze_state(state_at("EVOLVING"), MACHINE, POLICY),
+            target,
+            MACHINE,
+        )
+        self.assertEqual(target["status"], "INVALID")
+        self.assertFalse(target["valid"])
+        self.assertIn("unreadable", target["errors"][0])
+        self.assertFalse(analysis["state_valid"])
+        self.assertEqual(analysis["next_failing_gate"], "TARGET_CONTRACT_FROZEN")
+
+    def test_wrong_target_contract_schema_forces_repair(self):
+        contract = valid_target()
+        contract["schema"] = "glaciereq.wrong.v1"
+        target = build_registry.analyze_target_contract(
+            contract, REPOSITORY, required=True
+        )
+        self.assertFalse(target["valid"])
+        self.assertEqual(target["status"], "INVALID")
+        self.assertIn("unexpected target contract schema", target["errors"][0])
+
+    def test_target_contract_repository_identity_must_match_exact_repo(self):
+        target = build_registry.analyze_target_contract(
+            valid_target("GlacierEQ/other-repo"), REPOSITORY, required=True
+        )
+        self.assertFalse(target["valid"])
+        self.assertEqual(target["status"], "INVALID")
+        self.assertTrue(
+            any("repository identity mismatch" in error for error in target["errors"])
+        )
+
+    def test_present_invalid_contract_is_rejected_even_before_target_gate(self):
+        contract = valid_target()
+        contract["identity"] = None
+        target = build_registry.analyze_target_contract(
+            contract, REPOSITORY, required=False
+        )
+        self.assertFalse(target["valid"])
+        self.assertEqual(target["status"], "INVALID")
+
     def test_protected_disposition_rejects_presentation_reason(self):
         state = {
             "principal_state": "RETIREMENT_READY",
@@ -148,12 +246,14 @@ class RegistryTests(unittest.TestCase):
             {"type": "blob", "path": "tests/test_core.py", "size": 50},
             {"type": "blob", "path": ".github/workflows/tests.yml", "size": 20},
             {"type": "blob", "path": "machine/excellence-state.json", "size": 30},
+            {"type": "blob", "path": "machine/target-contract.json", "size": 40},
         ]
         observed = build_registry.observe_tree(tree)
         self.assertEqual(observed["source_files"], 1)
         self.assertEqual(observed["test_files"], 1)
         self.assertEqual(observed["workflow_files"], 1)
         self.assertTrue(observed["has_excellence_state"])
+        self.assertTrue(observed["has_target_contract"])
 
 
 if __name__ == "__main__":

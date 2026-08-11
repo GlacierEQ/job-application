@@ -17,6 +17,7 @@ import argparse
 import base64
 import json
 import os
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -33,6 +34,8 @@ OWNER = "GlacierEQ"
 PUBLIC_AUTHORITY_REPO = "GlacierEQ/AKOS"
 PUBLIC_CONTRACT_PATH = "governance/glaciereq.repo-excellence-public-contract.v1.json"
 STATE_PATH = "machine/excellence-state.json"
+TARGET_CONTRACT_PATH = "machine/target-contract.json"
+TARGET_CONTRACT_SCHEMA = "glaciereq.repo-target-contract.v1"
 
 
 def utc_now() -> str:
@@ -53,12 +56,22 @@ def api_get(url: str, token: str | None = None) -> Any:
     if token:
         headers["Authorization"] = f"Bearer {token}"
     request = urllib.request.Request(url, headers=headers)
-    try:
-        with urllib.request.urlopen(request, timeout=30) as response:
-            return json.load(response)
-    except urllib.error.HTTPError as exc:
-        body = exc.read().decode("utf-8", errors="replace")[:400]
-        raise RuntimeError(f"GitHub API {exc.code} for {url}: {body}") from exc
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(request, timeout=30) as response:
+                return json.load(response)
+        except urllib.error.HTTPError as exc:
+            body = exc.read().decode("utf-8", errors="replace")[:400]
+            retryable = exc.code in {429, 500, 502, 503, 504}
+            if not retryable or attempt == 2:
+                raise RuntimeError(f"GitHub API {exc.code} for {url}: {body}") from exc
+        except urllib.error.URLError as exc:
+            if attempt == 2:
+                raise RuntimeError(
+                    f"GitHub transport failure for {url}: {exc.reason}"
+                ) from exc
+        time.sleep(0.25 * (2**attempt))
+    raise AssertionError("unreachable GitHub request retry state")
 
 
 def decode_content(payload: dict[str, Any]) -> str:
@@ -128,6 +141,57 @@ def gate_pass(state: dict[str, Any], gate: str) -> bool:
     return (state.get("gates") or {}).get(gate, {}).get("status") == "PASS"
 
 
+def target_contract_required(
+    state: dict[str, Any] | None, machine: dict[str, Any]
+) -> bool:
+    if state is None:
+        return False
+    states = machine["principal_states"]
+    declared = state.get("principal_state")
+    if declared not in states or "TARGET_CONTRACTED" not in states:
+        return False
+    return states.index(declared) >= states.index("TARGET_CONTRACTED")
+
+
+def analyze_target_contract(
+    target: dict[str, Any] | None,
+    repository: str,
+    *,
+    required: bool,
+    load_error: str | None = None,
+) -> dict[str, Any]:
+    errors: list[str] = []
+    if load_error is not None:
+        errors.append(f"target contract unreadable: {load_error}")
+        status = "INVALID"
+    elif target is None:
+        status = "MISSING"
+        if required:
+            errors.append("required target contract missing")
+    else:
+        status = "PRESENT"
+        if target.get("schema") != TARGET_CONTRACT_SCHEMA:
+            errors.append(
+                f"unexpected target contract schema: {target.get('schema')!r}"
+            )
+        identity = target.get("identity")
+        if not isinstance(identity, dict):
+            errors.append("target contract identity must be an object")
+        elif identity.get("repository_id") != repository:
+            errors.append(
+                "target contract repository identity mismatch: "
+                f"{identity.get('repository_id')!r} != {repository!r}"
+            )
+        if errors:
+            status = "INVALID"
+    return {
+        "status": status,
+        "required": required,
+        "valid": not errors,
+        "errors": errors,
+    }
+
+
 def analyze_state(
     state: dict[str, Any] | None,
     machine: dict[str, Any],
@@ -142,6 +206,7 @@ def analyze_state(
             "effective_principal_state": "DISCOVERED",
             "prerequisite_errors": [],
             "disposition_errors": [],
+            "target_contract_errors": [],
             "state_valid": False,
             "next_failing_gate": machine["stage_gates"][states[1]],
             "next_action_class": "INITIALIZE_STATE",
@@ -221,10 +286,42 @@ def analyze_state(
         "effective_principal_state": effective,
         "prerequisite_errors": errors,
         "disposition_errors": disposition_errors,
+        "target_contract_errors": [],
         "state_valid": valid,
         "next_failing_gate": next_gate,
         "next_action_class": action,
     }
+
+
+def apply_target_contract_gate(
+    analysis: dict[str, Any],
+    target_analysis: dict[str, Any],
+    machine: dict[str, Any],
+) -> dict[str, Any]:
+    updated = dict(analysis)
+    contract_errors = list(target_analysis.get("errors") or [])
+    updated["target_contract_errors"] = contract_errors
+    if not contract_errors:
+        return updated
+
+    updated["state_valid"] = False
+    updated["next_failing_gate"] = "TARGET_CONTRACT_FROZEN"
+    updated["next_action_class"] = "REPAIR_STATE"
+    prerequisites = list(updated.get("prerequisite_errors") or [])
+    prerequisites.extend(
+        f"TARGET_CONTRACT_FROZEN: {error}" for error in contract_errors
+    )
+    updated["prerequisite_errors"] = prerequisites
+
+    states = machine["principal_states"]
+    effective = updated.get("effective_principal_state")
+    if (
+        effective in states
+        and "TARGET_CONTRACTED" in states
+        and states.index(effective) >= states.index("TARGET_CONTRACTED")
+    ):
+        updated["effective_principal_state"] = "PROBLEM_VERIFIED"
+    return updated
 
 
 def observe_tree(tree: list[dict[str, Any]]) -> dict[str, Any]:
@@ -249,7 +346,7 @@ def observe_tree(tree: list[dict[str, Any]]) -> dict[str, Any]:
     workflows = [
         item for item in blobs if item["path"].startswith(".github/workflows/")
     ]
-    machine = [item for item in blobs if item["path"].startswith("machine/")]
+    machine_files = [item for item in blobs if item["path"].startswith("machine/")]
     return {
         "files_total": len(blobs),
         "source_files": len(source),
@@ -257,12 +354,12 @@ def observe_tree(tree: list[dict[str, Any]]) -> dict[str, Any]:
         "test_files": len(tests),
         "test_bytes": sum(int(item.get("size") or 0) for item in tests),
         "workflow_files": len(workflows),
-        "machine_files": len(machine),
+        "machine_files": len(machine_files),
         "has_readme": "README.md" in paths,
         "has_issue_contract": "ISSUE_CONTRACT.md" in paths,
         "has_quality_contract": "QUALITY.md" in paths,
         "has_excellence_state": STATE_PATH in paths,
-        "has_target_contract": "machine/target-contract.json" in paths,
+        "has_target_contract": TARGET_CONTRACT_PATH in paths,
         "has_proof_receipt": "machine/proof_receipt.json" in paths,
         "has_operability_receipt": "machine/operability_receipt.json" in paths,
         "has_canonical_position": "machine/canonical-position.json" in paths,
@@ -294,11 +391,31 @@ def inspect_repository(
             f"{API}/repos/{repo}/git/trees/{tree_sha}?recursive=1", token
         )
         observed = observe_tree(tree_payload.get("tree", []))
+
         state = None
         state_blob = None
         if observed["has_excellence_state"]:
             state, state_blob = fetch_json_file(repo, STATE_PATH, head_sha, token)
         analysis = analyze_state(state, machine, policy)
+
+        target = None
+        target_blob = None
+        target_load_error = None
+        if observed["has_target_contract"]:
+            try:
+                target, target_blob = fetch_json_file(
+                    repo, TARGET_CONTRACT_PATH, head_sha, token
+                )
+            except (UnicodeDecodeError, ValueError) as exc:
+                target_load_error = str(exc)
+        target_analysis = analyze_target_contract(
+            target,
+            repo,
+            required=target_contract_required(state, machine),
+            load_error=target_load_error,
+        )
+        analysis = apply_target_contract_gate(analysis, target_analysis, machine)
+
         record.update(
             {
                 "default_branch": default_branch,
@@ -307,6 +424,8 @@ def inspect_repository(
                 "tree_truncated": bool(tree_payload.get("truncated")),
                 "observed": observed,
                 "state_blob_sha": state_blob,
+                "target_contract_blob_sha": target_blob,
+                "target_contract": target_analysis,
                 "state": analysis,
             }
         )
@@ -321,6 +440,7 @@ def inspect_repository(
                     "effective_principal_state": "DISCOVERED",
                     "prerequisite_errors": [],
                     "disposition_errors": [],
+                    "target_contract_errors": [],
                     "state_valid": False,
                     "next_failing_gate": machine["stage_gates"][
                         machine["principal_states"][1]
@@ -342,7 +462,15 @@ def summarize(records: list[dict[str, Any]]) -> dict[str, Any]:
         record["state"].get("next_failing_gate") or "NONE" for record in records
     )
     actions = Counter(record["state"]["next_action_class"] for record in records)
+    target_status = Counter(
+        record.get("target_contract", {}).get("status", "UNKNOWN") for record in records
+    )
     valid = sum(1 for record in records if record["state"].get("state_valid") is True)
+    target_invalid = sum(
+        1
+        for record in records
+        if record.get("target_contract", {}).get("valid") is False
+    )
     return {
         "repositories": len(records),
         "inspection_status": dict(sorted(status.items())),
@@ -352,6 +480,8 @@ def summarize(records: list[dict[str, Any]]) -> dict[str, Any]:
         "effective_principal_states": dict(sorted(effective.items())),
         "next_failing_gates": dict(sorted(next_gates.items())),
         "next_action_classes": dict(sorted(actions.items())),
+        "target_contract_status": dict(sorted(target_status.items())),
+        "target_contract_invalid": target_invalid,
     }
 
 
@@ -408,6 +538,7 @@ def main() -> int:
         f"repos={summary['repositories']} "
         f"valid={summary['state_valid']} "
         f"needs_work={summary['state_invalid_or_missing']} "
+        f"target_contract_invalid={summary['target_contract_invalid']} "
         f"public_authority={registry['authority']['public_projection_head_sha']} "
         f"monolith_source={registry['authority']['source_head_sha']}"
     )
