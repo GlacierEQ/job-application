@@ -64,9 +64,7 @@ def api_get(url: str, token: str | None = None) -> Any:
             body = exc.read().decode("utf-8", errors="replace")[:400]
             retryable = exc.code in {429, 500, 502, 503, 504}
             if not retryable or attempt == 2:
-                raise RuntimeError(
-                    f"GitHub API {exc.code} for {url}: {body}"
-                ) from exc
+                raise RuntimeError(f"GitHub API {exc.code} for {url}: {body}") from exc
         except urllib.error.URLError as exc:
             if attempt == 2:
                 raise RuntimeError(
