@@ -12,6 +12,8 @@ const bytes = filePath => readFile(new URL(filePath, root));
 const assert = (condition, message) => { if (!condition) throw new Error(message); };
 const exists = async filePath => access(fileURLToPath(new URL(filePath, root)));
 const stylesheetPattern = href => new RegExp(`<link\\b[^>]*\\bhref\\s*=\\s*["']${href.replaceAll('/', '\\/')}["'][^>]*>`, 'i');
+const ROUTER_HISTORICAL_HEAD = '07d3d33aaf75dd1d780c24af39a00b998f87da76';
+const ROUTER_CURRENT_HEAD = '726583355c14197eaeed2398eb28eb3e242d8b74';
 
 const paths = {
   recruiter: 'index.html',
@@ -108,6 +110,11 @@ for (const token of [
   '62/62',
   'I make powerful AI <em>dependable enough to use.</em>',
 ]) assert(recruiter.includes(token), `recruiter missing ${token}`);
+for (const token of [ROUTER_HISTORICAL_HEAD, ROUTER_CURRENT_HEAD, 'DISCOVERED']) {
+  assert(recruiter.includes(token), `recruiter missing Receipt Router revision boundary ${token}`);
+}
+assert(!recruiter.includes('Portfolio Receipt Router tests passed'), 'recruiter contains unqualified Receipt Router test-pass wording');
+assert(!recruiter.includes('Portfolio Receipt Router — TEST VERIFIED'), 'recruiter contains unqualified Receipt Router TEST VERIFIED wording');
 assert(recruiter.includes('cockpit') && recruiter.includes('bento') && recruiter.includes('pipeline'), 'cutting-edge visual hierarchy missing');
 for (const route of ['/master/', '/mesh/', '/machine/', '/resume/', '/companies/', '/atlas/']) {
   assert(new RegExp(`href\\s*=\\s*["']${route.replaceAll('/', '\\/')}["']`, 'i').test(recruiter), `route missing ${route}`);
@@ -132,10 +139,22 @@ assert(
 );
 assert(portfolio.person.name === 'Casey Del Carpio Barton', 'name drift');
 assert(portfolio.proof.receipt_router_tests === 69, 'router count drift');
+assert(portfolio.proof.receipt_router_test_scope === 'HISTORICAL_V15_RELEASE_ONLY', 'router scope drift');
+assert(portfolio.proof.receipt_router_historical_head === ROUTER_HISTORICAL_HEAD, 'router historical head drift');
+assert(portfolio.proof.receipt_router_current_head === ROUTER_CURRENT_HEAD, 'router current head drift');
+assert(portfolio.proof.receipt_router_current_state === 'DISCOVERED', 'router current state drift');
+assert(portfolio.proof.receipt_router_current_proof_ok === false, 'router current proof gate drift');
+assert(portfolio.proof.receipt_router_current_operable_ok === false, 'router current operable gate drift');
+assert(portfolio.proof.receipt_router_current_blocker === 'OPERATE_THEATER', 'router blocker drift');
 assert(portfolio.proof.bounded_source_tests === 166, 'source count drift');
 assert(portfolio.proof.energy_memory_tests === 19, 'memory count drift');
 assert(portfolio.proof.external_actions === 0, 'external action drift');
+assert(portfolio.proof.external_actions_scope === 'HISTORICAL_V15_RELEASE_ONLY', 'external action scope drift');
 assert(portfolio.proof.receipt_router_artifact === 8910423397, 'artifact drift');
+const router = portfolio.flagships.find(item => item.id === 'receipt-router');
+assert(router?.state === 'DISCOVERED', 'Receipt Router flagship must be current-state DISCOVERED');
+assert(router?.label.includes('Historical V15') && router?.label.includes('current head not promoted'), 'Receipt Router label must preserve release/current boundary');
+assert(!router?.label.includes('Executed public flagship'), 'Receipt Router cannot be an executed current flagship');
 assert(portfolio.flagships.length >= 7, 'helix-bound flagship set required (>=7)');
 assert(new Set(portfolio.flagships.map(item => item.id)).size === portfolio.flagships.length, 'flagship IDs must be unique');
 assert(portfolio.flagships.every(item => item.limit && item.evidence && item.repo), 'each flagship needs evidence, limit, and source');
@@ -149,11 +168,15 @@ assert(resume.includes('/resume/ats.txt') || resume.includes('RESUME_ATS.md'), '
 const legacyResumeProof = resume.includes('166 source tests');
 const v17ResumeProof = resume.includes('166 + 19') && resume.includes('source + memory tests');
 const helixCurrentBoundary = resume.includes('>67<') && resume.includes('PARTIALLY VERIFIED') && resume.includes('admitted public proof');
-assert(resume.includes('69/69') && (legacyResumeProof || v17ResumeProof) && helixCurrentBoundary && resume.includes('62/62'), 'resume proof drift');
+assert(resume.includes('V15 69/69') && (legacyResumeProof || v17ResumeProof) && helixCurrentBoundary && resume.includes('62/62'), 'resume proof drift');
+assert(resume.includes(ROUTER_HISTORICAL_HEAD) && resume.includes(ROUTER_CURRENT_HEAD) && resume.includes('DISCOVERED'), 'resume Receipt Router revision boundary missing');
+assert(!resume.includes('Portfolio Receipt Router tests passed'), 'resume contains unqualified Receipt Router test-pass wording');
 assert(!resume.includes('148/148') && !resume.includes('148 of 148'), 'resume contains retired Helix test-count framing');
 assert(master.toLowerCase().includes('69 of 69 tests passed') && master.includes('166') && master.includes('19 memory tests'), 'master evidence incomplete');
 assert(master.includes('Owning repositories retain evidence authority') || master.includes('Proof stays with the owning system'), 'master evidence policy missing');
 assert(machine.includes('/data/portfolio.json') && machine.includes('/data/company-families.json') && machine.includes('/data/psysoc-x-profiles.json'), 'machine links incomplete');
+assert(machine.includes(ROUTER_HISTORICAL_HEAD) && machine.includes(ROUTER_CURRENT_HEAD) && machine.includes('"current_state": "DISCOVERED"'), 'machine Receipt Router revision boundary missing');
+assert(!machine.includes('"receipt_router": "69/69"'), 'machine contains unscoped Receipt Router proof');
 
 assert(companies.schema === 'glaciereq.public-company-mesh.v15', 'company schema drift');
 assert(companies.families.length === 27 && companies.totals.families === 27 && companies.totals.unique_repositories === 200 && companies.totals.memberships === 203 && companies.totals.unprocessed === 78 && companies.totals.reference_or_upstream === 34, 'company totals drift');
@@ -194,6 +217,15 @@ assert(resumeArtifacts.artifacts.pdf.bytes === pdf.length, 'PDF manifest byte dr
 assert(resumeArtifacts.artifacts.pdf.sha256 === pdfHash, 'PDF manifest hash drift');
 assert(ats.includes('CASEY DEL CARPIO BARTON'), 'ATS resume identity missing');
 assert(Buffer.byteLength(ats, 'utf8') > 3000, 'ATS resume unexpectedly small');
+assert(ats.includes(ROUTER_HISTORICAL_HEAD) && ats.includes(ROUTER_CURRENT_HEAD) && ats.includes('DISCOVERED'), 'ATS Receipt Router revision boundary missing');
+assert(!ats.includes('Portfolio Receipt Router - TEST VERIFIED'), 'ATS contains unqualified current Receipt Router state');
+
+const combined = `${recruiter}\n${resume}\n${machine}\n${ats}\n${portfolioText}`.toLowerCase();
+for (const phrase of [
+  'portfolio receipt router tests passed',
+  'portfolio receipt router — test verified',
+  'portfolio receipt router - test verified',
+]) assert(!combined.includes(phrase), `stale Receipt Router claim remains: ${phrase}`);
 
 const legacyRoutes = ['/', '/resume/', '/master/', '/mesh/', '/machine/'];
 const visualContracts = [
@@ -219,6 +251,10 @@ console.log(JSON.stringify({
   claim_stage: currentProof.current_star.company_projection.stage,
   profiles: Object.keys(profiles.profiles),
   facts_invariant: true,
+  receipt_router_revision_bound: true,
+  receipt_router_historical_head: ROUTER_HISTORICAL_HEAD,
+  receipt_router_current_head: ROUTER_CURRENT_HEAD,
+  receipt_router_current_state: 'DISCOVERED',
   proof: portfolio.proof,
   legacy_proof: portfolio.proof,
   flagships: portfolio.flagships.length,
