@@ -1,0 +1,44 @@
+{
+  "schema": "glaciereq.portfolio-capability-strengthening-receipt.v1",
+  "proof_object": "capability_cluster/fail_closed_execution_envelopes/v2",
+  "status": "PASS_WITH_EXECUTION_BOUNDARY",
+  "delta": "ADD_INDEPENDENT_DELEGATED_IDENTITY_BINDING_IMPLEMENTATION",
+  "canonical_cluster": "portfolio-proof/CAPABILITY_CLUSTER__FAIL_CLOSED_EXECUTION_ENVELOPES__2026-08-09.md",
+  "new_system": {
+    "repository": "GlacierEQ/AKOS",
+    "canonical_head": "eac3cab001306225b99da41c37370528331966dd",
+    "canonical_head_message": "Merge pull request #27: verify delegated computer-kernel callers",
+    "source_file": "operational_cognition/computer_kernel_client.py",
+    "test_file": "tests/test_computer_kernel_client.py",
+    "implemented_controls": [
+      "require non-empty delegated caller before terminal verification",
+      "bind receipt task_id to requested task",
+      "bind receipt trace_id to invocation trace",
+      "bind receipt caller to delegated caller",
+      "bind receipt executor to GlacierEQ/computer-user",
+      "require completed execution_result",
+      "require PASS verification_result",
+      "verify receipt_sha256 over canonicalized receipt bytes",
+      "return verified caller and source_sha in acceptance result",
+      "fail on failed or cancelled terminal task state"
+    ],
+    "test_source_contains": [
+      "delegated caller acceptance",
+      "delegated caller preservation through invoke_and_verify",
+      "receipt tamper rejection",
+      "terminal receipt readback"
+    ],
+    "evidence_class": "CURRENT_CANONICAL_HEAD_SOURCE_AND_TEST_IMPLEMENTATION",
+    "current_head_ci_observed": false,
+    "runtime_execution_receipt_observed": false
+  },
+  "independence_boundary": {
+    "independent_from_merge_authority_repository": true,
+    "apex_github_worker_current_head": "f791c85a81768e72446619b39b5312ef1c768a02",
+    "merge_authority_exercised_revision": "1a5331a0203e1273c1045589ea66f5bcf1080b55",
+    "shared_claim": "fail-closed execution envelope",
+    "different_mechanism": "AKOS binds delegated caller/task/trace/executor/hash across kernel receipt verification; Merge Authority binds expected repository head/patch/check state before remote mutation and reconciles provider mutation through canonical readback."
+  },
+  "claim_ceiling": "REPEATED_MULTI_REPO_PATTERN_WITH_AKOS_CURRENT_HEAD_SOURCE_IMPLEMENTATION_NOT_AKOS_CURRENT_HEAD_EXECUTED_PROOF",
+  "promotion_blocker": "Obtain an exact-SHA executed test/CI or runtime receipt for GlacierEQ/AKOS@eac3cab001306225b99da41c37370528331966dd before counting AKOS as the additional executable system required by the cluster promotion gate."
+}
