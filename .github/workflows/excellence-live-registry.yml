@@ -40,6 +40,8 @@ jobs:
         id: priority-queue
         if: always()
         continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: python excellence/registry/build_priority_queue.py
       - name: Publish census artifacts
         if: always()
