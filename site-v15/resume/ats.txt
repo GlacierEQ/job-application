@@ -8,7 +8,7 @@ PROFESSIONAL SUMMARY
 Applied AI systems architect and agent infrastructure engineer who builds the operating layer between model capability and dependable outcomes. Designs authority-aware, evidence-bound systems for multi-agent coordination, application intelligence, document and evidence pipelines, memory and continuity, infrastructure governance, and human-machine interfaces. Converts ambitious or ambiguous architecture into typed contracts, runnable slices, deterministic validation, explicit refusal behavior, machine-readable facts, and inspectable completion receipts. Core method: observe the actual system, separate evidence from inference, isolate the governing failure, bound authority and risk, build the narrowest useful mechanism, test the stated behavior, expose the limit, and leave a verifiable artifact.
 
 SELECTED EXECUTION PROOF
-- Portfolio Receipt Router: 69 of 69 tests passed through direct and reusable CI; artifact 8910423397; zero external queries and actions.
+- Portfolio Receipt Router: local, fail-closed metadata/evidence router. Historical V15 release evidence at release-candidate head 07d3d33aaf75dd1d780c24af39a00b998f87da76 records 69 of 69 tests and zero external actions; artifact 8910423397. Current xai-colossus-2 head 726583355c14197eaeed2398eb28eb3e242d8b74 is DISCOVERED with proof_ok=false, operable_ok=false, blocker=OPERATE_THEATER, and evidence state LOCAL_METADATA_ROUTER_NOT_RUNTIME_ORCHESTRATOR. The current head does not inherit the historical verification.
 - Bounded infrastructure source systems: 166 source tests passed across Cooling, Energy, Servers, Security, and Nanosphere, plus 19 degraded-mode Energy memory tests and five hashed artifacts.
 - Job Application Helix: evidence-governed hiring and portfolio orchestration for an exact 67-repository admitted public proof boundary. The Helix package is PARTIALLY_VERIFIED; child repositories retain independent evidence states. The 67-repository number is not an accomplishment count and is not the full owned-estate count.
 - Agent Coordinator: 62 of 62 recorded Python tests for deterministic ownership, dependency order, capacity, stable priority, shared budgets, and explicit refusal.
@@ -26,7 +26,7 @@ PROFESSIONAL EXPERIENCE
 GLACIEREQ - Founder / Applied AI Systems Builder - Honolulu, Hawaii - January 2025-Present
 - Design and implement evidence-bound systems spanning agent orchestration, application intelligence, document and evidence pipelines, memory and continuity, infrastructure governance, and human-machine interfaces.
 - Convert broad architecture into typed contracts, runnable slices, deterministic tests, explicit refusal behavior, machine-readable facts, and reviewable completion receipts.
-- Built a public Portfolio Receipt Router that replaced unsupported autonomous-control semantics with a local fail-closed evidence system; 69 of 69 tests passed through direct and reusable CI with zero external actions.
+- Built a local, fail-closed Portfolio Receipt Router. Historical V15 release evidence at 07d3d33aaf75dd1d780c24af39a00b998f87da76 records 69 of 69 tests and zero external actions; current xai-colossus-2 head 726583355c14197eaeed2398eb28eb3e242d8b74 remains DISCOVERED and is not represented as inheriting that proof.
 - Govern a multi-repository engineering estate by separating source presence, review, execution, deployment, authority, and verified completion so public claims cannot outrun proof.
 - Use AI-assisted development as an inspectable engineering process combining source review, bounded generation, adversarial checking, deterministic validation, and human judgment.
 
@@ -40,8 +40,8 @@ HI-CLASS HOME SERVICES / HI CLASS MAINTENANCE OAHU LLC - Owner-Operator, Buildin
 - Translate incomplete real-world requirements into bounded work packages, explicit assumptions, and usable closeout artifacts.
 
 SELECTED SYSTEMS
-Portfolio Receipt Router - TEST VERIFIED
-Compatibility-safe architecture repair and evidence routing. Evidence: 69/69 tests; direct and reusable CI; artifact 8910423397; zero external actions. Boundary: independent technical exhibit; no production-operation or company-affiliation claim.
+Portfolio Receipt Router - HISTORICAL RELEASE TEST RECEIPT / CURRENT HEAD NOT PROMOTED
+Local fail-closed metadata/evidence router. Historical V15 evidence: release-candidate 07d3d33aaf75dd1d780c24af39a00b998f87da76; 69 of 69 tests; artifact 8910423397; zero external actions. Current head: 726583355c14197eaeed2398eb28eb3e242d8b74; state DISCOVERED; proof_ok=false; operable_ok=false; blocker OPERATE_THEATER; evidence state LOCAL_METADATA_ROUTER_NOT_RUNTIME_ORCHESTRATOR. Boundary: historical proof is revision-bound and is not inherited by the current head; no current-head runtime orchestration, autonomous control, promotion, production operation, or company affiliation is claimed.
 
 Job Application Helix - PARTIALLY_VERIFIED
 Evidence-governed hiring and portfolio orchestration with an exact 67-repository admitted public proof boundary, fail-closed evidence levels, repository-state separation, promotion gates, machine contracts, and role-calibrated package generation. Boundary: the 67 repositories are a public proof set, not accomplishment count or full owned-estate count; child repositories retain independent evidence states.
@@ -66,4 +66,4 @@ EARLIER TECHNICAL CREDENTIALS
 Historical resume records: PSI Visual Cylinder Inspector; PSI Eddy Current Technician; PSI Valve Repair Technician; PSI Oxygen Cleaning Cylinder Technician; NAUI Rescue Diver; NAUI Master Diver; PADI Enriched Air Diver. Current status is not represented as active without updated documentation.
 
 EVIDENCE BOUNDARY
-Independent GlacierEQ work and bounded technical exhibits. Test counts refer only to their stated repository and scope. The 67-repository Helix figure is an admitted public proof boundary, not an accomplishment count or full-estate count. No company affiliation, proprietary access, production deployment, customer impact, formal people-management experience, current certification status, hardware validation, or measured business outcome is claimed without direct evidence.
+Independent GlacierEQ work and bounded technical exhibits. Test counts are revision-bound and refer only to their stated repository, head, release, and scope. Portfolio Receipt Router historical V15 evidence does not verify current xai-colossus-2 head 726583355c14197eaeed2398eb28eb3e242d8b74. The 67-repository Helix figure is an admitted public proof boundary, not an accomplishment count or full-estate count. No company affiliation, proprietary access, production deployment, customer impact, formal people-management experience, current certification status, hardware validation, or measured business outcome is claimed without direct evidence.
