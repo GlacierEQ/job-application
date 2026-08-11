@@ -1,0 +1,97 @@
+name: Receipt Router revision boundary
+
+on:
+  pull_request:
+    paths:
+      - "RESUME.md"
+      - "RESUME_ATS.md"
+      - "site-v15/**"
+      - ".github/workflows/receipt-router-revision-boundary.yml"
+  push:
+    branches: [main]
+    paths:
+      - "RESUME.md"
+      - "RESUME_ATS.md"
+      - "site-v15/**"
+      - ".github/workflows/receipt-router-revision-boundary.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  revision-boundary:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Verify revision-bound Receipt Router public claims
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+
+          historical = "07d3d33aaf75dd1d780c24af39a00b998f87da76"
+          current = "726583355c14197eaeed2398eb28eb3e242d8b74"
+
+          public_text = [
+              Path("RESUME.md"),
+              Path("site-v15/index.html"),
+              Path("site-v15/master/index.html"),
+              Path("site-v15/machine/index.html"),
+              Path("site-v15/resume/index.html"),
+              Path("site-v15/resume/ats.txt"),
+          ]
+          for path in public_text:
+              text = path.read_text(encoding="utf-8")
+              if "Portfolio Receipt Router" not in text and "receipt_router" not in text:
+                  continue
+              if historical not in text:
+                  raise SystemExit(f"{path}: historical V15 head missing")
+              if current not in text:
+                  raise SystemExit(f"{path}: current xai-colossus-2 head missing")
+              if "DISCOVERED" not in text:
+                  raise SystemExit(f"{path}: current DISCOVERED state missing")
+
+          stale = (
+              "Portfolio Receipt Router tests passed",
+              "Portfolio Receipt Router — TEST VERIFIED",
+              "Portfolio Receipt Router - TEST VERIFIED",
+          )
+          for path in public_text:
+              text = path.read_text(encoding="utf-8")
+              for phrase in stale:
+                  if phrase in text:
+                      raise SystemExit(f"{path}: stale unqualified claim: {phrase}")
+
+          resume = json.loads(Path("site-v15/data/resume.json").read_text(encoding="utf-8"))
+          proof = resume["x_evidence"]["proof"]
+          assert proof["receipt_router_test_scope"] == "HISTORICAL_V15_RELEASE_ONLY"
+          assert proof["receipt_router_historical_head"] == historical
+          assert proof["receipt_router_current_head"] == current
+          assert proof["receipt_router_current_state"] == "DISCOVERED"
+          assert proof["receipt_router_current_proof_ok"] is False
+          assert proof["receipt_router_current_operable_ok"] is False
+          assert proof["receipt_router_current_blocker"] == "OPERATE_THEATER"
+
+          portfolio = json.loads(Path("site-v15/data/portfolio.json").read_text(encoding="utf-8"))
+          pproof = portfolio["proof"]
+          assert pproof["receipt_router_test_scope"] == "HISTORICAL_V15_RELEASE_ONLY"
+          assert pproof["receipt_router_historical_head"] == historical
+          assert pproof["receipt_router_current_head"] == current
+          assert pproof["receipt_router_current_state"] == "DISCOVERED"
+          assert pproof["receipt_router_current_proof_ok"] is False
+          assert pproof["receipt_router_current_operable_ok"] is False
+          assert pproof["receipt_router_current_blocker"] == "OPERATE_THEATER"
+          router = next(item for item in portfolio["flagships"] if item["id"] == "receipt-router")
+          assert router["state"] == "DISCOVERED"
+          assert "Historical V15" in router["label"]
+          assert "current head not promoted" in router["label"]
+
+          print("PASS: Receipt Router historical/current revision boundary is explicit")
+          PY
