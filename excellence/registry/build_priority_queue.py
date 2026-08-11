@@ -5,6 +5,10 @@ For mature EVOLVING repositories, the next operation is not another state gate.
 The queue resolves each repository's existing evolution_cursor from the exact live
 head captured by the registry so mature work remains actionable instead of being
 collapsed into EVOLVE:NONE.
+
+Within the EVOLVE cohort, repositories with fewer successfully consumed evolution
+cursors are ordered first. This prevents one alphabetically early repository from
+monopolizing continuous evolution while the rest of the estate remains untouched.
 """
 
 from __future__ import annotations
@@ -53,6 +57,39 @@ def _material_action(cursor: str) -> str:
     return cursor.split(":", 1)[1]
 
 
+def _evolution_progress(
+    raw_state: dict[str, Any], repository: str
+) -> tuple[int, str | None, str | None]:
+    history = raw_state.get("evolution_history", [])
+    if history is None:
+        history = []
+    if not isinstance(history, list):
+        raise ValueError(f"{repository}: evolution_history must be a list")
+
+    successful: list[dict[str, Any]] = []
+    for index, entry in enumerate(history):
+        if not isinstance(entry, dict):
+            raise ValueError(
+                f"{repository}: evolution_history[{index}] must be an object"
+            )
+        if entry.get("result") != "PASS":
+            continue
+        consumed = entry.get("consumed_cursor")
+        if not isinstance(consumed, str) or not consumed.startswith("next:"):
+            raise ValueError(
+                f"{repository}: successful evolution history must bind a next:* consumed_cursor"
+            )
+        successful.append(entry)
+
+    if not successful:
+        return 0, None, None
+    latest = successful[-1]
+    receipt = latest.get("receipt")
+    if receipt is not None and not isinstance(receipt, str):
+        raise ValueError(f"{repository}: evolution receipt reference must be a string")
+    return len(successful), latest["consumed_cursor"], receipt
+
+
 def build_queue(
     registry: dict[str, Any],
     *,
@@ -73,6 +110,9 @@ def build_queue(
         action = state["next_action_class"]
         evolution_cursor = None
         evolution_state_blob_sha = None
+        evolution_generation = None
+        last_consumed_cursor = None
+        last_evolution_receipt = None
 
         if action == "EVOLVE":
             repository = record["repository"]
@@ -92,6 +132,11 @@ def build_queue(
             evolution_cursor = _normalize_evolution_cursor(
                 raw_state.get("evolution_cursor"), repository
             )
+            (
+                evolution_generation,
+                last_consumed_cursor,
+                last_evolution_receipt,
+            ) = _evolution_progress(raw_state, repository)
             gate = "EVOLUTION_CURSOR"
         else:
             gate = state.get("next_failing_gate") or "NONE"
@@ -110,6 +155,9 @@ def build_queue(
                     _material_action(evolution_cursor) if evolution_cursor else None
                 ),
                 "evolution_state_blob_sha": evolution_state_blob_sha,
+                "evolution_generation": evolution_generation,
+                "last_consumed_cursor": last_consumed_cursor,
+                "last_evolution_receipt": last_evolution_receipt,
                 "observed": record.get("observed", {}),
                 "prerequisite_errors": state.get("prerequisite_errors", []),
                 "disposition_errors": state.get("disposition_errors", []),
@@ -125,13 +173,24 @@ def build_queue(
             min(row["repository"] for row in item[1]),
         ),
     ):
-        records.sort(key=lambda row: row["repository"])
+        if action == "EVOLVE":
+            records.sort(
+                key=lambda row: (
+                    row["evolution_generation"],
+                    row["repository"],
+                )
+            )
+            selection_policy = "least_successful_evolutions_first_then_repository"
+        else:
+            records.sort(key=lambda row: row["repository"])
+            selection_policy = "repository"
         queue.append(
             {
                 "priority": len(queue) + 1,
                 "action": action,
                 "gate": gate,
                 "count": len(records),
+                "selection_policy": selection_policy,
                 "repositories": records,
             }
         )
@@ -142,7 +201,7 @@ def build_queue(
         "registry_authority": registry["authority"],
         "ordering": (
             "repair invalid claimed state; advance valid state; initialize missing "
-            "state; evolve mature state from exact-head evolution cursors"
+            "state; evolve mature state from exact-head cursors with least-evolved-first fairness"
         ),
         "queue": queue,
     }
@@ -168,7 +227,8 @@ def main() -> int:
         print(
             "evolution-cursors:",
             " | ".join(
-                f"{row['repository']}={row['evolution_cursor']}" for row in evolving
+                f"g{row['evolution_generation']}:{row['repository']}={row['evolution_cursor']}"
+                for row in evolving
             ),
         )
     return 0
