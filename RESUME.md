@@ -7,7 +7,7 @@ Honolulu, Hawaiʻi | glacier.equilibrium@gmail.com
 
 ## Profile
 
-Applied AI systems architect who converts ambitious, ambiguous ideas into bounded operating systems with explicit authority, deterministic evidence, controlled failure behavior, and inspectable completion receipts. Builds across agent orchestration, application intelligence, document and evidence pipelines, memory and continuity, infrastructure governance, polyglot architecture, and human-machine interfaces.
+Applied AI systems architect who builds agentic and automation systems around fail-closed execution envelopes: validate identity and preconditions before action, constrain authority or resources, refuse invalid or stale state deterministically, reconcile canonical state after execution, and preserve durable evidence of the outcome.
 
 The working method comes from both software and field inspection: observe the actual system, separate evidence from inference, isolate the governing failure, build the narrowest useful mechanism, test the stated behavior, expose the limit, and leave a usable artifact another person or machine can verify.
 
