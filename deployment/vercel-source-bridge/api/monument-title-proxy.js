@@ -12,7 +12,7 @@ const CSS_PATH = 'assets/site.title-monument.css';
 const CSS_LINK = '<link rel="stylesheet" href="/assets/site.title-monument.css">';
 const FETCH_TIMEOUT_MS = 10_000;
 const MAX_FONT_BYTES = 128 * 1024;
-const EXPECTED_FONT_SHA256 = '__PIN_EWERT_SHA256__';
+const EXPECTED_FONT_SHA256 = '2a98066e14efc2176ee1ba818ea565e77409b81a9a909e1b53b286307a2e70fb';
 
 let fontPromise = null;
 
