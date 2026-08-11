@@ -1,0 +1,35 @@
+{
+  "schema": "glaciereq.excellence-registry-refresh-request.v1",
+  "reason": "Refresh the live governed-repository census after closing both xAI specialist canonical gates.",
+  "requested_at": "2026-08-11T01:54:00Z",
+  "base_main_sha": "b5a630dc1a1b1e96b05124ed50d334c27081f86a",
+  "closed_gates": [
+    {
+      "repository": "GlacierEQ/xai-actuation-receipt-bus",
+      "canonical_merge_sha": "8deca59d94be7b0a485137b2aab95d0392887f6b",
+      "estate_role": "monotonic_actuation_lifecycle_receipt_bus",
+      "state_expected_from_live_repo": "EVOLVING"
+    },
+    {
+      "repository": "GlacierEQ/xai-claim-promotion-fence",
+      "canonical_merge_sha": "b26e165504b42ed3e673a757160ca1234c494386",
+      "estate_role": "scoped_evidence_quorum_claim_promotion",
+      "state_expected_from_live_repo": "EVOLVING",
+      "external_claim_ceiling": "PROMOTED"
+    }
+  ],
+  "preserve_blockers": [
+    {
+      "repository": "GlacierEQ/vercel-edge-agent-cap-token",
+      "gate": "CANONICAL_POSITION_RESOLVED",
+      "status": "BLOCKED",
+      "note": "Do not promote until its recorded authorization-token defects are actually repaired and proven."
+    }
+  ],
+  "truth_boundaries": [
+    "No xAI affiliation or adoption is claimed.",
+    "No production Colossus control is claimed.",
+    "The two xAI specialists remain separate; integration_exercised=false unless later executable composition proof changes that.",
+    "This receipt requests a fresh live census; it does not assert the resulting estate counts."
+  ]
+}
