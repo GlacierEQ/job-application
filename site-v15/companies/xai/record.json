@@ -1,80 +1,67 @@
 {
-  "boundary": "Independent GlacierEQ work; no xAI affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
+  "boundary": "Independent GlacierEQ work; no xAI affiliation, endorsement, employment, proprietary access, production deployment, or knowledge of xAI internal observability architecture is claimed.",
   "flagships": [],
-  "gate": "Collapse variants into one suite, one bounded flagship, supporting systems, experiments, public references, private references, and quarantined exclusions; xai-colossal-cooling is public but remains outside admission until successor/unique-value analysis is complete.",
+  "gate": "Keep the Colossus repository family REFERENCE_ONLY until successor/unique-value analysis and reproducible proof are complete. Company fit may use independently verified cross-repository capabilities without promoting those xAI-named repositories.",
   "id": "xai",
   "repos": [
-    {
-      "id": "GlacierEQ/xai-colossus-energy",
-      "lvl": "L3",
-      "provenance": "ORIGINAL_CANDIDATE",
-      "state": "REFERENCE_ONLY"
-    },
-    {
-      "id": "GlacierEQ/xai-colossus-2",
-      "lvl": "L3",
-      "provenance": "ORIGINAL_CANDIDATE",
-      "state": "REFERENCE_ONLY"
-    },
-    {
-      "id": "GlacierEQ/xai-colossus-nanosphere",
-      "lvl": "L3",
-      "provenance": "ORIGINAL_CANDIDATE",
-      "state": "REFERENCE_ONLY"
-    },
-    {
-      "id": "GlacierEQ/xai-colossus-security",
-      "lvl": "L3",
-      "provenance": "ORIGINAL_CANDIDATE",
-      "state": "REFERENCE_ONLY"
-    },
-    {
-      "id": "GlacierEQ/xai-colossus-servers",
-      "lvl": "L3",
-      "provenance": "ORIGINAL_CANDIDATE",
-      "state": "REFERENCE_ONLY"
-    },
-    {
-      "id": "GlacierEQ/grokodile",
-      "lvl": "L3",
-      "provenance": "ORIGINAL_CANDIDATE",
-      "state": "REFERENCE_ONLY"
-    },
-    {
-      "id": "GlacierEQ/xai-colossal-cooling",
-      "lvl": "L2",
-      "provenance": "ORIGINAL_CANDIDATE",
-      "state": "REFERENCE_ONLY"
-    }
+    {"id":"GlacierEQ/xai-colossus-energy","lvl":"L3","provenance":"ORIGINAL_CANDIDATE","state":"REFERENCE_ONLY"},
+    {"id":"GlacierEQ/xai-colossus-2","lvl":"L3","provenance":"ORIGINAL_CANDIDATE","state":"REFERENCE_ONLY"},
+    {"id":"GlacierEQ/xai-colossus-nanosphere","lvl":"L3","provenance":"ORIGINAL_CANDIDATE","state":"REFERENCE_ONLY"},
+    {"id":"GlacierEQ/xai-colossus-security","lvl":"L3","provenance":"ORIGINAL_CANDIDATE","state":"REFERENCE_ONLY"},
+    {"id":"GlacierEQ/xai-colossus-servers","lvl":"L3","provenance":"ORIGINAL_CANDIDATE","state":"REFERENCE_ONLY"},
+    {"id":"GlacierEQ/grokodile","lvl":"L3","provenance":"ORIGINAL_CANDIDATE","state":"REFERENCE_ONLY"},
+    {"id":"GlacierEQ/xai-colossal-cooling","lvl":"L2","provenance":"ORIGINAL_CANDIDATE","state":"REFERENCE_ONLY"}
   ],
   "roles": [
-    "Infrastructure Engineer",
-    "Forward-Deployed Engineer",
-    "Applied AI Systems Engineer"
+    "Software Engineer, Observability",
+    "Member Of Technical Staff - Cloud Infrastructure",
+    "Software Engineer - Platform Infrastructure (Rust, C++)",
+    "ML Infrastructure Engineer"
   ],
   "route": "/companies/xai/",
   "schema": "glaciereq.company-intelligence.v1",
   "second_depth": {
     "blockers": [
-      "current_role_not_verified",
-      "company_problem_not_bounded",
-      "repository_code_not_inspected",
-      "proof_not_reproduced"
+      "xai_internal_observability_problem_not_directly_evidenced",
+      "xai_named_repository_family_not_promoted",
+      "company_adoption_not_evidenced"
     ],
-    "claim_ceiling": "company_alignment_only",
+    "claim_ceiling": "VERIFIED_CAPABILITY_TO_CURRENT_ROLE_ALIGNMENT",
     "evidence": {
       "claim_receipts": [],
-      "gap_queue": [],
+      "gap_queue": [
+        "Inspect the current Software Engineer, Observability job description beyond the role listing and bind explicit responsibilities to capability evidence without inferring xAI internal failures.",
+        "Reconcile successor/unique-value status across the Colossus repository family before promoting any xAI-named repository as company-specific proof."
+      ],
       "implementation_receipts": [],
       "inspected_repositories": [],
       "problem_evidence": [],
-      "proof_artifacts": [],
-      "role_evidence": []
+      "proof_artifacts": [
+        "portfolio-proof/CAPABILITY_CLUSTER__REVISION_BOUND_PROOF_PROMOTION__2026-08-10.md"
+      ],
+      "role_evidence": [
+        {
+          "checked_date": "2026-08-10",
+          "role": "Software Engineer, Observability",
+          "location": "Palo Alto, California, United States",
+          "source": "https://x.ai/careers/open-roles",
+          "status": "CURRENT_PUBLIC_ROLE_VERIFIED"
+        }
+      ]
     },
-    "next_gate": "Verify a current public xAI role/team, select one bounded infrastructure problem, then reconcile successor/unique-value status across the Colossus repository family before any company-specific claim.",
-    "ordinal": 0,
-    "stage": "MAPPED_ONLY"
+    "fit_projection": {
+      "capability": "revision-bound proof promotion",
+      "mapping": "Observability and infrastructure engineering benefit from telemetry and proof that remain attributable to the exact software revision that produced them; GlacierEQ has a verified cross-repository pattern that prevents stale test evidence from silently inheriting authority after code changes.",
+      "status": "ROLE_FACING_INFERENCE_NOT_XAI_INTERNAL_FACT",
+      "supporting_repository_count": 3,
+      "accomplishment_count": 1,
+      "forks_or_backups_counted_as_independent": false,
+      "integration_exercised": false
+    },
+    "next_gate": "Inspect and receipt the current xAI Observability role description, then map only explicit responsibilities to the revision-bound proof capability; separately keep Colossus-family promotion gated on repository evidence.",
+    "ordinal": 1,
+    "stage": "ROLE_VERIFIED_CAPABILITY_MAPPED"
   },
-  "state": "repository-rich",
-  "track": "MAPPED_NOT_RECRUITER_READY"
+  "state": "repository-rich-role-verified",
+  "track": "BOUNDED_ROLE_ALIGNMENT"
 }
