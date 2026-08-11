@@ -53,11 +53,21 @@ test('V27 injection replaces V26 presentation ownership rather than stacking tru
   assert.ok(first.indexOf('site.algerian.css') < first.indexOf('site.title-monument.css'));
 });
 
-test('release router preserves V26 verifier and promotes V27 as default title owner', async () => {
+test('release router preserves V26 verifier and V26 assets while promoting V27 by default', async () => {
   const v26 = await capture(releaseRouter, { url: '/?path=__v26_verify' });
   assert.notEqual(v26.status, 404);
+
+  const legacyCss = await capture(releaseRouter, { url: '/?path=assets/site.title-font.css' });
+  assert.equal(legacyCss.status, 200);
+  assert.match(String(legacyCss.headers.get('content-type')), /^text\/css/);
+  assert.match(legacyCss.body.toString('utf8'), /Glacier Algerian Title/);
+
+  assert.equal(releaseRouter.V26_ASSETS.has('assets/site.title-font.css'), true);
+  assert.equal(releaseRouter.V26_ASSETS.has('assets/title-algerian.woff2'), true);
+
   const source = require('node:fs').readFileSync(require.resolve('./api/release-router.js'), 'utf8');
   assert.match(source, /__v26_verify/);
   assert.match(source, /__v27_verify/);
+  assert.match(source, /V26_ASSETS\.has\(rawPath\)/);
   assert.match(source, /return monumentTitleProxy\(req, res\);/);
 });
