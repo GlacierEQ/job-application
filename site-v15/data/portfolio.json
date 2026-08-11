@@ -2,7 +2,7 @@
   "schema": "glaciereq.hiring-portfolio.v1",
   "release": {
     "name": "Unified Helix-Bound Hire Surface",
-    "date": "2026-08-09",
+    "date": "2026-08-10",
     "production_url": "https://casey-barton-glaciereq.vercel.app/",
     "source_repository": "GlacierEQ/job-application",
     "output_directory": "site-v15",
@@ -19,7 +19,7 @@
       "truth_sync": "V23-TRUTH-SYNC-COMPLETE-WEB",
       "typography": "V24-ALGERIAN-DISPLAY",
       "compiler": "V25-APPLICATION-COMPILER",
-      "title": "V26-TRUE-ALGERIAN-TITLE"
+      "title": "V27-MONUMENTAL-ALGERIAN"
     },
     "supersedes": [
       "V15 Final Hiring Release",
@@ -44,9 +44,18 @@
   },
   "proof": {
     "receipt_router_tests": 69,
+    "receipt_router_test_scope": "HISTORICAL_V15_RELEASE_ONLY",
+    "receipt_router_historical_head": "07d3d33aaf75dd1d780c24af39a00b998f87da76",
+    "receipt_router_current_head": "726583355c14197eaeed2398eb28eb3e242d8b74",
+    "receipt_router_current_state": "DISCOVERED",
+    "receipt_router_current_proof_ok": false,
+    "receipt_router_current_operable_ok": false,
+    "receipt_router_current_blocker": "OPERATE_THEATER",
+    "receipt_router_evidence_state": "LOCAL_METADATA_ROUTER_NOT_RUNTIME_ORCHESTRATOR",
     "bounded_source_tests": 166,
     "energy_memory_tests": 19,
     "external_actions": 0,
+    "external_actions_scope": "HISTORICAL_V15_RELEASE_ONLY",
     "receipt_router_artifact": 8910423397,
     "receipt_router_digest": "sha256:765095a02de74728ed81a28b70b48ac35e41891227f2c55233185643238c34f5",
     "source_artifacts": 5,
@@ -195,21 +204,21 @@
       "rank": 8,
       "name": "Portfolio Receipt Router",
       "repo": "https://github.com/GlacierEQ/xai-colossus-2",
-      "state": "TEST_VERIFIED",
-      "label": "Executed public flagship",
-      "summary": "Replaced an overstated autonomous-control surface with a local, fail-closed evidence router that preserves compatibility while refusing unsupported promotion.",
+      "state": "DISCOVERED",
+      "label": "Historical V15 release proof / current head not promoted",
+      "summary": "Local, fail-closed metadata/evidence router. Historical V15 release verification is revision-bound and is not inherited by the changed current head.",
       "mechanism": [
         "validates source evidence states",
         "reconciles tests and artifacts",
         "routes bounded public claims",
         "blocks unfinished candidates",
-        "performs no external actions"
+        "performs no external actions in the historical V15 release evidence"
       ],
-      "evidence": "69/69 tests recorded in current-proof supporting_proof; local cold unittest path uses pytest.",
-      "limit": "Draft source hardening remains unmerged; no production datacenter control or company affiliation is claimed.",
+      "evidence": "Historical V15 release-candidate head 07d3d33aaf75dd1d780c24af39a00b998f87da76 records 69/69 tests and zero external actions; artifact 8910423397. Current head 726583355c14197eaeed2398eb28eb3e242d8b74 is DISCOVERED with proof_ok=false and operable_ok=false.",
+      "limit": "Current blocker OPERATE_THEATER; evidence state LOCAL_METADATA_ROUTER_NOT_RUNTIME_ORCHESTRATOR. No current-head runtime orchestration, autonomous control, promotion, production operation, or company affiliation is claimed.",
       "level": "LEGACY_DEMO",
       "public_surface": "PUBLIC",
-      "merged_from": "pre-helix portfolio (useful proof retained)"
+      "merged_from": "pre-helix portfolio (historical proof retained with revision boundary)"
     },
     {
       "id": "cooling",
