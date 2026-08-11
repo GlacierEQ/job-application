@@ -11,6 +11,7 @@ const BUILDER = path.join(ROOT, 'scripts', 'build-v25-deployment-bundle.mjs');
 const DEFAULT_OUTPUT = path.join(ROOT, 'artifacts', 'v25-deployment-effective');
 const SHA40 = /^[a-f0-9]{40}$/;
 const NUMERIC_CARDINALITY_PIN = /data\.projection\.company_count\s*!==\s*\d+/;
+const EXPECTED_BUNDLE_MODULE_COUNT = 10;
 
 function requireValue(condition, message) {
   if (!condition) throw new Error(message);
@@ -131,7 +132,7 @@ function main() {
     const manifest = JSON.parse(output);
     requireValue(manifest.schema === 'glaciereq.v25-deployment-bundle-manifest.v2', 'effective_bundle_manifest_schema');
     requireValue(manifest.source_commit === sourceCommit, 'effective_bundle_source_commit');
-    requireValue(manifest.module_count === 9, 'effective_bundle_module_count');
+    requireValue(manifest.module_count === EXPECTED_BUNDLE_MODULE_COUNT, 'effective_bundle_module_count');
     requireValue(manifest.invariants?.self_contained_executable_modules === true, 'effective_bundle_self_contained');
     requireValue(manifest.invariants?.runtime_string_evaluation_required === false, 'effective_bundle_runtime_eval');
     requireValue(manifest.invariants?.factory_bundle_verified_before_module_execution === true, 'effective_bundle_factory_verification');
