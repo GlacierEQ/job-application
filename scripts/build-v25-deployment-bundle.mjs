@@ -15,6 +15,7 @@ const MODULES = [
   'deployment/vercel-source-bridge/api/typography-proxy.js',
   'deployment/vercel-source-bridge/api/compiler-proxy.js',
   'deployment/vercel-source-bridge/api/title-font-proxy.js',
+  'deployment/vercel-source-bridge/api/monument-title-proxy.js',
   'deployment/vercel-source-bridge/api/release-router.js',
 ];
 const ENTRY = 'deployment/vercel-source-bridge/api/release-router.js';

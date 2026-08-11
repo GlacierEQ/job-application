@@ -9,7 +9,7 @@ import test from 'node:test';
 const ROOT = path.resolve(import.meta.dirname, '..', '..');
 const BUILDER = path.join(ROOT, 'scripts', 'build-v25-deployment-bundle.mjs');
 const SOURCE_COMMIT = 'a'.repeat(40);
-const EXPECTED_MODULE_COUNT = 9;
+const EXPECTED_MODULE_COUNT = 10;
 const require = createRequire(import.meta.url);
 
 function runBuilder(args) {
