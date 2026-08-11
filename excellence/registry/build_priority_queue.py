@@ -57,9 +57,7 @@ def build_queue(
     registry: dict[str, Any],
     *,
     token: str | None = None,
-    fetch_state: Callable[
-        [str, str, str, str | None], tuple[dict[str, Any], str]
-    ]
+    fetch_state: Callable[[str, str, str, str | None], tuple[dict[str, Any], str]]
     | None = None,
 ) -> dict[str, Any]:
     """Build a queue while preserving exact-head evolution intent.
