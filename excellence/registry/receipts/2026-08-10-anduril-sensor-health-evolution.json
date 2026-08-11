@@ -1,0 +1,19 @@
+{
+  "schema": "glaciereq.excellence-evolution-readback-request.v1",
+  "repository": "GlacierEQ/anduril-sensor-health-quorum",
+  "consumed_cursor": "next:correlated_fault_detection_recovery_hysteresis_and_explainable_weighting",
+  "merge_sha": "0a7c9b82172db55b4a7a2aeb1497760d8f493267",
+  "post_merge_workflow": 31454116562,
+  "post_merge_python": "PASS",
+  "post_merge_go": "PASS",
+  "target_contract_repaired": true,
+  "expected_principal_state": "EVOLVING",
+  "expected_next_cursor": "next:authenticated_fault_domain_attestation_evidence_freshness_and_durable_decision_receipt_chain",
+  "purpose": "Trigger a fresh read-only governed census after the second material evolution cursor and verify least-evolved-first rotation across the estate.",
+  "truth_boundaries": [
+    "fault_domain and round_id remain caller-supplied evidence labels without external authentication",
+    "peer evidence freshness expiry and durable receipt chaining remain future work",
+    "no Anduril affiliation or production deployment is claimed",
+    "this receipt does not pre-assert the census result"
+  ]
+}
