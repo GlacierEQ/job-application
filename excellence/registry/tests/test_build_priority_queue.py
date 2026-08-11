@@ -10,7 +10,9 @@ assert spec.loader is not None
 spec.loader.exec_module(build_priority_queue)
 
 
-def registry_record(*, action="EVOLVE", gate=None, head="abc123", repository="GlacierEQ/example"):
+def registry_record(
+    *, action="EVOLVE", gate=None, head="abc123", repository="GlacierEQ/example"
+):
     return {
         "schema": "glaciereq.excellence-live-registry.v1",
         "generated_at": "2026-08-11T00:00:00Z",
@@ -25,8 +27,12 @@ def registry_record(*, action="EVOLVE", gate=None, head="abc123", repository="Gl
                 "state": {
                     "next_action_class": action,
                     "next_failing_gate": gate,
-                    "declared_principal_state": "EVOLVING" if action == "EVOLVE" else "PROMOTED",
-                    "effective_principal_state": "EVOLVING" if action == "EVOLVE" else "PROMOTED",
+                    "declared_principal_state": "EVOLVING"
+                    if action == "EVOLVE"
+                    else "PROMOTED",
+                    "effective_principal_state": "EVOLVING"
+                    if action == "EVOLVE"
+                    else "PROMOTED",
                     "prerequisite_errors": [],
                     "disposition_errors": [],
                 },
@@ -49,7 +55,17 @@ class PriorityQueueTests(unittest.TestCase):
         out = build_priority_queue.build_queue(
             registry_record(), token="test-token", fetch_state=fetch_state
         )
-        self.assertEqual(calls, [("GlacierEQ/example", "machine/excellence-state.json", "abc123", "test-token")])
+        self.assertEqual(
+            calls,
+            [
+                (
+                    "GlacierEQ/example",
+                    "machine/excellence-state.json",
+                    "abc123",
+                    "test-token",
+                )
+            ],
+        )
         group = out["queue"][0]
         self.assertEqual(group["action"], "EVOLVE")
         self.assertEqual(group["gate"], "EVOLUTION_CURSOR")
@@ -63,9 +79,7 @@ class PriorityQueueTests(unittest.TestCase):
             return {"principal_state": "EVOLVING", "evolution_cursor": ""}, "blob"
 
         with self.assertRaisesRegex(ValueError, "lacks evolution_cursor"):
-            build_priority_queue.build_queue(
-                registry_record(), fetch_state=fetch_state
-            )
+            build_priority_queue.build_queue(registry_record(), fetch_state=fetch_state)
 
     def test_queue_rejects_state_drift_at_exact_head(self):
         def fetch_state(repo, path, ref, token):
@@ -74,10 +88,10 @@ class PriorityQueueTests(unittest.TestCase):
                 "evolution_cursor": "next:should_not_be_used",
             }, "blob"
 
-        with self.assertRaisesRegex(ValueError, "state changed during queue derivation"):
-            build_priority_queue.build_queue(
-                registry_record(), fetch_state=fetch_state
-            )
+        with self.assertRaisesRegex(
+            ValueError, "state changed during queue derivation"
+        ):
+            build_priority_queue.build_queue(registry_record(), fetch_state=fetch_state)
 
     def test_non_evolving_gate_does_not_fetch_state_again(self):
         def fail_fetch(*args, **kwargs):
