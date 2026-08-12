@@ -172,7 +172,7 @@ for (const token of [
   '48/48',
   'dated semantic convergence',
 ]) assert(master.includes(token), `V23 master evidence drift: ${token}`);
-assert(master.includes('Owning repositories retain evidence authority') || master.includes('Proof stays with the owning system'), 'master evidence policy missing');
+assert(master.includes('The owning system keeps the proof.') && master.includes('Current heads do not inherit historical test receipts.'), 'master evidence policy missing');
 assert(machine.includes('/data/portfolio.json') && machine.includes('/data/company-families.json') && machine.includes('/data/psysoc-x-profiles.json'), 'machine links incomplete');
 
 assert(companies.schema === 'glaciereq.public-company-mesh.v15', 'company schema drift');
