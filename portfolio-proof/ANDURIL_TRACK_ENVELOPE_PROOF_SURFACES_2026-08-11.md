@@ -15,9 +15,9 @@
 
 ### Uncertainty-preserving multi-sensor state fusion
 
-Built and adversarially verified a track-envelope compiler that combines time-decayed sensor evidence without turning missing knowledge into false certainty. The verified evolution expands spatial bounds from covariance, prevents repeated observations from one sensor from masquerading as independent corroboration, fuses distinct sensor support while retaining explicit residual unknown mass, rejects invalid covariance/non-finite evidence, and preserves deterministic envelope identity across evidence ordering.
+Built and adversarially verified a track-envelope compiler that combines time-decayed sensor evidence without turning missing knowledge into false certainty. The verified evolution expands spatial bounds from covariance, prevents repeated observations from one sensor from masquerading as independent corroboration, fuses distinct sensor support while retaining explicit residual unknown mass, rejects invalid covariance/non-finite evidence, and preserves deterministic Python envelope identity across evidence ordering.
 
-**Defensible claim:** Implemented and verified an uncertainty-preserving multi-sensor fusion mechanism in Python and native C that decays stale evidence, expands bounds from covariance, resists same-sensor confidence inflation, preserves residual unknown mass, and fails closed on malformed uncertainty inputs.
+**Defensible claim:** Implemented and verified an uncertainty-preserving multi-sensor fusion mechanism in Python and native C that decays stale evidence, expands bounds from covariance, resists same-sensor confidence inflation, preserves residual unknown mass, and fails closed on malformed uncertainty inputs. Python additionally proves order-invariant envelope fingerprinting.
 
 **Do not claim:** authenticated sensor identity, provenance-attested covariance, operational targeting deployment, Anduril adoption/affiliation, production scale, or current-head execution for `46f0061f…`.
 
@@ -50,7 +50,7 @@ The verified evolution implements:
 
 ### Authority ceiling
 
-Sensor identifiers are caller-supplied labels, not authenticated identities. Distinct labels are treated as independent under this reference rule. Covariance is caller-supplied and not provenance-attested. The proof establishes implementation behavior at the executed candidate revision, not production deployment or operational use.
+Sensor identifiers are caller-supplied labels, not authenticated identities. Distinct labels are treated as independent under this reference rule. Covariance is caller-supplied and not provenance-attested. The proof establishes implementation behavior at the executed candidate revision, not production deployment, operational use, production scale, or Anduril adoption/affiliation. The later canonical head does not inherit execution proof.
 
 ## Machine surface
 
@@ -83,6 +83,7 @@ boundaries:
   - caller_supplied_unattested_covariance
   - no_anduril_affiliation_or_adoption
   - no_production_tracking_or_targeting_deployment
+  - no_production_scale_claim
   - no_current_head_execution_inheritance
 claim_ceiling: EXECUTED_EVOLUTION_CANDIDATE_PYTHON_AND_NATIVE_C_WITH_ADVERSARIAL_UNCERTAINTY_SEMANTICS
 ```
@@ -105,7 +106,7 @@ Track Envelope Compiler
     -> distinct-sensor support fusion
     -> explicit residual unknown mass
     -> fail-closed malformed uncertainty
-    -> deterministic Python fingerprinting
+    -> deterministic/order-invariant Python fingerprinting
     -> native zero-allocation v2 path
 
   REPRESENTED_BY -> Job-Application control plane
@@ -117,12 +118,14 @@ Track Envelope Compiler
   DOES_NOT_PROVE:
     -> authenticated sensor identity
     -> provenance-attested covariance
-    -> provider or Anduril integration
+    -> provider integration
+    -> Anduril affiliation or adoption
     -> production deployment
+    -> production scale
     -> operational targeting use
     -> current-head execution at 46f0061f...
 ```
 
 ## Projection invariant
 
-Recruiter, master, machine, and mesh surfaces must preserve the same executed proof subject (`fb8e460e…`), workflow (`31461547751`), verified mechanisms, and nonclaims. The current canonical head may be named for repository identity, but its later documentation/receipt-packaging commits may not inherit execution proof without a separate exact-SHA run.
+Recruiter, master, machine, and mesh surfaces must preserve the same executed proof subject (`fb8e460e…`), workflow (`31461547751`), verified mechanisms, and authority limits: no authenticated sensor identity, no provenance-attested covariance, no Anduril affiliation/adoption, no production tracking/targeting deployment, no production-scale claim, and no current-head execution inheritance. The current canonical head may be named for repository identity, but its later documentation/receipt-packaging commits may not inherit execution proof without a separate exact-SHA run.
