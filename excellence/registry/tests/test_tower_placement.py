@@ -26,10 +26,11 @@ def authority():
         "contract_blob_sha": "contract-blob",
         "registry_path": "registry/tower.yml",
         "registry_blob_sha": "registry-blob",
+        "technology_catalog_path": "generated/smithery.registry.json",
+        "technology_catalog_blob_sha": "catalog-blob",
         "quality_contract_path": "QUALITY_CONTRACT.md",
         "quality_contract_blob_sha": "quality-blob",
         "technology_ids": ["python", "go", "rust"],
-        "technology_names": ["python", "go", "rust"],
         "contract": {
             "decisions": ["KEEP", "ADD", "SPLIT", "EXPERIMENT"],
             "proof_tiers": ["A", "B", "C"],
@@ -60,7 +61,7 @@ def authority():
     }
 
 
-def placement(*, cursor="next:material_work", decision="ADD", candidate="Go"):
+def placement(*, cursor="next:material_work", decision="ADD", candidate="go"):
     auth = authority()
     return {
         "schema": "glaciereq.tower-placement.v1",
@@ -73,16 +74,18 @@ def placement(*, cursor="next:material_work", decision="ADD", candidate="Go"):
             "contract_blob_sha": auth["contract_blob_sha"],
             "registry_path": auth["registry_path"],
             "registry_blob_sha": auth["registry_blob_sha"],
+            "technology_catalog_path": auth["technology_catalog_path"],
+            "technology_catalog_blob_sha": auth["technology_catalog_blob_sha"],
             "quality_contract_path": auth["quality_contract_path"],
             "quality_contract_blob_sha": auth["quality_contract_blob_sha"],
         },
         "decision": decision,
-        "current_languages": ["Python"],
+        "current_languages": ["python"],
         "boundaries": [
             {
                 "responsibility": "concurrent bounded execution worker",
                 "decision": decision,
-                "incumbent_technology": "Python",
+                "incumbent_technology": "python",
                 "candidate_technology": candidate,
                 "activation_condition": "activate when concurrent worker semantics become material",
                 "why_existing_boundary_is_insufficient": "the incumbent does not own the new concurrency boundary",
@@ -152,7 +155,7 @@ def test_missing_receipt_is_a_prospective_gate_not_state_corruption():
 
 
 def test_cosmetic_or_unknown_language_addition_fails_closed():
-    bad = placement(candidate="MadeUpLang")
+    bad = placement(candidate="madeuplang")
     bad["diversity_value"] = "add another language"
     result = tower_placement.analyze_placement(
         bad, "GlacierEQ/example", "next:material_work", authority()
@@ -174,13 +177,13 @@ def test_semantic_overlap_cannot_drop_parity_contract():
 
 def test_stale_cursor_or_stale_tower_semantic_authority_fails_closed():
     stale = placement(cursor="next:old_work")
-    stale["tower_authority"]["registry_blob_sha"] = "old-registry"
+    stale["tower_authority"]["technology_catalog_blob_sha"] = "old-catalog"
     result = tower_placement.analyze_placement(
         stale, "GlacierEQ/example", "next:material_work", authority()
     )
     assert result["valid"] is False
     assert any("current evolution cursor" in error for error in result["errors"])
-    assert any("registry_blob_sha" in error for error in result["errors"])
+    assert any("technology_catalog_blob_sha" in error for error in result["errors"])
 
 
 def test_queue_routes_missing_placement_to_tower_before_evolution():
