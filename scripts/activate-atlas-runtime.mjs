@@ -40,7 +40,7 @@ export function activateAtlasHtml(input) {
   if (!html.includes('/assets/atlas-runtime.js')) {
     html = html.replace(
       '</body>',
-      '<script type="module" src="/assets/atlas-runtime.js"></script>\n</body>',
+      '<script src="/assets/atlas-runtime.js" defer></script>\n</body>',
     );
   }
 
