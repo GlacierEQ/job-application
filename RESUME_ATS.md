@@ -1,11 +1,11 @@
 # CASEY DEL CARPIO BARTON
-Applied AI Systems Architect - Agent Infrastructure Engineer - Forward-Deployed AI Engineer
+Forward-Deployed AI Architect - Principal Agentic Systems Architect - Principal AI Platform / Automation Architect - Staff / Principal Applied AI Engineer
 Honolulu, Hawaii - 808-936-5654 - glacier.equilibrium@gmail.com
 Portfolio: https://casey-barton-glaciereq.vercel.app/
 GitHub: https://github.com/GlacierEQ
 
 ## Professional Summary
-Applied AI systems architect and agent infrastructure engineer who builds the operating layer between model capability and dependable outcomes. Designs authority-aware, evidence-bound systems for multi-agent coordination, application intelligence, document and evidence pipelines, memory and continuity, infrastructure governance, and human-machine interfaces. Converts ambitious or ambiguous architecture into typed contracts, runnable slices, deterministic validation, explicit refusal behavior, machine-readable facts, and inspectable completion receipts.
+Forward-deployed AI architect and principal agentic systems architect who builds the operating layer between model capability and dependable outcomes. Designs authority-aware, evidence-bound systems for multi-agent coordination, application intelligence, document and evidence pipelines, memory and continuity, infrastructure governance, and human-machine interfaces. Converts ambitious or ambiguous architecture into typed contracts, runnable slices, deterministic validation, explicit refusal behavior, machine-readable facts, and inspectable completion receipts.
 
 ## Selected Execution Proof
 - AKOS execution kernel: exact canonical head `eac3cab001306225b99da41c37370528331966dd` has successful GitHub Actions verification across Python 3.11, 3.12, and 3.13. Python 3.12 evidence records 200 collected, 199 passed, 1 skipped, 0 failures, and 0 errors. AKOS binds delegated caller identity to task/trace context, executor identity, terminal verification state, and receipt-hash validation before accepting execution results. The same audit preserves 160 broader preexisting Ruff findings as quality debt; current-head CI does not establish repository-wide lint cleanliness, production deployment, traffic, scale, or PSYSOC-X verification.
