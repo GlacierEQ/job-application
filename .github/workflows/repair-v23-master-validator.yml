@@ -40,6 +40,6 @@ jobs:
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add site-v15/scripts/validate.mjs .github/workflows/repair-v23-master-validator.yml
+          git add -A site-v15/scripts/validate.mjs .github/workflows
           git commit -m 'fix: bind master validator to actual V23 evidence policy'
           git push origin HEAD:main
