@@ -1,9 +1,12 @@
 {
-  "schema": "glaciereq.public-projection-readback.v1",
+  "schema": "glaciereq.public-projection-readback.v2",
   "company": "GitHub",
   "capability": "merge_authority_graph",
   "projection_authority": {
-    "helix_sha": "721fbb2b8a8048de415a36f5ca018edefecbb337",
+    "helix_sha": "f2559a1581e77da05e564875bf50875d8f2c5686",
+    "repository_state": "EVOLVING",
+    "canonical_anchor_head": "f791c85a81768e72446619b39b5312ef1c768a02",
+    "current_evolved_head": "346b330bbfd705579b3a4d10d298a89493a98ee6",
     "helix_stage": "CLAIM_PROMOTED",
     "helix_claim_ceiling": "proof_bound_company_specific"
   },
@@ -23,30 +26,27 @@
     "production_closure_git_blob_sha": "0726d2f6185f3c7f178760a0629db3b639f7e55f",
     "admitted_commit": "577f63c506c6c4df9c1751a0ff5b8fa07822e491"
   },
-  "production_claim_promotion_readback": "projects/github-merge-authority-proof/proof/production-claim-promotion-readback.json",
-  "production_canonical_freshness_readback": "projects/github-merge-authority-proof/proof/production-canonical-freshness-readback.json",
+  "historical_claim_promotion_readback": "projects/github-merge-authority-proof/proof/production-claim-promotion-readback.json",
+  "historical_canonical_freshness_readback": "projects/github-merge-authority-proof/proof/production-canonical-freshness-readback.json",
+  "current_production_freshness_readback": "projects/github-merge-authority-proof/proof/production-evolving-freshness-readback.json",
   "validation_contract": [
-    "record company identity is GitHub/github",
-    "record second-depth stage is CLAIM_PROMOTED",
-    "record claim ceiling is proof_bound_company_specific",
-    "record contains exactly two admitted public claim receipts",
-    "company HTML presents CLAIM_PROMOTED and the same claim ceiling",
-    "company HTML preserves independent-work and non-affiliation/adoption/deployment boundary",
-    "fresh effective Helix projection resolves GitHub to the same stage, ceiling, and claim-receipt cardinality",
-    "historical claim and production-closure receipts remain content-addressed promotion inputs",
-    "the historical claim-promotion production receipt remains preserved rather than rewritten after repository canonicalization",
-    "the canonical-freshness receipt binds Apex CANONICAL, EVOLVING unearned, the current production deployment, exact job-application and Helix authority, main-push V25 artifact, immutable build-time transport, and live canonical-alias readback",
-    "the dedicated gate reconstructs and hashes the admitted transport runtime, independently fetches the canonical production alias, and verifies bundle, V25, V26, compiler JSON, company JSON, and company HTML against effective authority",
-    "Apex repository canonicalization does not raise the GitHub company claim beyond CLAIM_PROMOTED / proof_bound_company_specific",
-    "public proof package remains present and source/private boundaries remain explicit"
+    "historical promotion receipts remain content-addressed and immutable",
+    "effective Helix authority is f2559a1581e77da05e564875bf50875d8f2c5686",
+    "Apex canonical anchor remains f791c85a81768e72446619b39b5312ef1c768a02 while current evolved head is 346b330bbfd705579b3a4d10d298a89493a98ee6",
+    "repository state is EVOLVING with NEXT_MEASURED_EVOLUTION as the next gate",
+    "current production deployment is dpl_BibJUJCsnFNKdgoNcE9VjfGgxDtL and serves source eddd2415b9305762403ca09bb0f7e03ca38daef9",
+    "bundle, V25, V26, compiler JSON, company JSON, and company HTML independently read back from the canonical public alias",
+    "GitHub company stage remains CLAIM_PROMOTED at proof_bound_company_specific with exactly two admitted claim receipts",
+    "Apex repository remains private while the exact three-file evolution proof slice is truthfully disclosed as public on public-actions-runner-host PR 269",
+    "no GitHub adoption, affiliation, capability production deployment, proprietary access, or production-scale reliability claim is created by repository evolution"
   ],
-  "allowed_public_claim": "GlacierEQ independently implemented and reproduced a governed GitHub mutation path and carries a proof-bound company-specific public claim backed by immutable proof and production receipts. Apex is the canonical GlacierEQ repository for this capability family; that repository status does not imply GitHub adoption or deployment.",
+  "allowed_public_claim": "GlacierEQ independently implemented, reproduced, and measurably evolved a governed repository mutation specialist. The current portfolio production projection is compiled from that evolving GlacierEQ authority while the GitHub company claim remains proof-bound and explicitly non-adoptive.",
   "prohibited_claims": [
     "GitHub uses, adopted, evaluated, endorsed, or deployed this GlacierEQ capability.",
     "Casey Barton is or was employed by GitHub on the basis of this proof.",
-    "Disposable proof-branch execution is a production deployment.",
-    "The private apex-github-worker implementation source is public.",
+    "A GlacierEQ portfolio deployment is a GitHub capability production deployment.",
+    "The entire private apex-github-worker repository is public.",
     "Production-scale reliability, latency, throughput, durability, or GitHub-scale operation is established."
   ],
-  "promotion_rule": "CLAIM_PROMOTED remains the company ceiling. Repository CANONICAL is independently closed only when the Apex canonical-position contract is earned; outward production freshness after that authority change is closed only when the canonical alias reads back the current effective Helix authority and the exact admitted deployment artifact under the dedicated gate. EVOLVING or any higher company claim requires new evidence and a new gate."
+  "promotion_rule": "Repository EVOLVING state and production freshness do not raise the GitHub company claim. Any higher company claim requires new public evidence and a separate gate."
 }
