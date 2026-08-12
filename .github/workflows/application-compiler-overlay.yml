@@ -11,6 +11,10 @@ on:
       - "scripts/reconcile-helix-company-cardinality.mjs"
       - "scripts/reconcile-v21-runtime-stars.mjs"
       - "scripts/verify-v25-v26-runtime.mjs"
+      - "scripts/activate-atlas-runtime.mjs"
+      - "scripts/validate-atlas-interaction.mjs"
+      - "site-v15/assets/atlas-runtime.css"
+      - "tests/atlas-runtime.test.mjs"
       - "package.json"
       - ".github/workflows/application-compiler-overlay.yml"
   pull_request:
@@ -22,6 +26,10 @@ on:
       - "scripts/reconcile-helix-company-cardinality.mjs"
       - "scripts/reconcile-v21-runtime-stars.mjs"
       - "scripts/verify-v25-v26-runtime.mjs"
+      - "scripts/activate-atlas-runtime.mjs"
+      - "scripts/validate-atlas-interaction.mjs"
+      - "site-v15/assets/atlas-runtime.css"
+      - "tests/atlas-runtime.test.mjs"
       - "package.json"
       - ".github/workflows/application-compiler-overlay.yml"
 
@@ -45,8 +53,8 @@ jobs:
           node scripts/sync-helix-projection.mjs
           node scripts/reconcile-helix-company-cardinality.mjs
           node scripts/reconcile-v21-runtime-stars.mjs
-      - name: Run repository and presentation release gates
-        run: npm test
+      - name: Build and verify repository presentation release
+        run: npm run verify:release
       - name: Verify V25 production overlay modules compile
         run: |
           node --check deployment/vercel-source-bridge/api/proxy.js
