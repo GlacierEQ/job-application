@@ -9,6 +9,8 @@ on:
       - "projects/github-merge-authority-proof/**"
       - "scripts/runner_verify.py"
       - "scripts/apply-complete-web-design.mjs"
+      - "scripts/activate-atlas-runtime.mjs"
+      - "scripts/validate-atlas-interaction.mjs"
       - "scripts/validate-algerian-display.mjs"
       - "scripts/harden-public-proof-surface.mjs"
       - "scripts/validate-public-proof-surface.mjs"
@@ -20,6 +22,7 @@ on:
       - "scripts/reconcile-v21-runtime-stars.mjs"
       - "scripts/verify-v25-v26-runtime.mjs"
       - "scripts/validate-github-merge-authority-public-readback.mjs"
+      - "tests/atlas-runtime.test.mjs"
       - "package.json"
       - ".github/workflows/v25-deployment-bundle.yml"
   pull_request:
@@ -29,6 +32,8 @@ on:
       - "projects/github-merge-authority-proof/**"
       - "scripts/runner_verify.py"
       - "scripts/apply-complete-web-design.mjs"
+      - "scripts/activate-atlas-runtime.mjs"
+      - "scripts/validate-atlas-interaction.mjs"
       - "scripts/validate-algerian-display.mjs"
       - "scripts/harden-public-proof-surface.mjs"
       - "scripts/validate-public-proof-surface.mjs"
@@ -40,6 +45,7 @@ on:
       - "scripts/reconcile-v21-runtime-stars.mjs"
       - "scripts/verify-v25-v26-runtime.mjs"
       - "scripts/validate-github-merge-authority-public-readback.mjs"
+      - "tests/atlas-runtime.test.mjs"
       - "package.json"
       - ".github/workflows/v25-deployment-bundle.yml"
   workflow_dispatch:
@@ -64,8 +70,8 @@ jobs:
           node scripts/sync-helix-projection-effective.mjs
           node scripts/reconcile-helix-company-cardinality.mjs
           node scripts/reconcile-v21-runtime-stars.mjs
-      - name: Run full presentation regression suite
-        run: npm test
+      - name: Build and verify full presentation release
+        run: npm run verify:release
       - name: Execute V21 through V26 runtime verifiers
         run: node scripts/verify-v25-v26-runtime.mjs
       - name: Build deterministic self-contained deployment from effective authority
