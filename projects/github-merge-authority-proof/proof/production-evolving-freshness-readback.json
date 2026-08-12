@@ -21,17 +21,17 @@
     "source_commit": "5cbb8c0656a4e8dfc32b4242308b14f25fdea60c",
     "helix_repository": "GlacierEQ/job-app-helix",
     "helix_commit": "63eb32b86d49328eebe02731852cc44345374c6d",
-    "current_helix_head_at_readback": "63eb32b86d49328eebe02731852cc44345374c6d",
+    "current_helix_head_at_readback": "db2b7399aa80ce007b3d2cdaece61d1b3c322849",
     "release": "V25-APPLICATION-COMPILER",
     "title_release": "V27-ALGERIAN-MONUMENT"
   },
   "authority_freshness": {
     "deployed_helix_commit": "63eb32b86d49328eebe02731852cc44345374c6d",
-    "current_helix_commit_at_readback": "63eb32b86d49328eebe02731852cc44345374c6d",
+    "current_helix_commit_at_readback": "db2b7399aa80ce007b3d2cdaece61d1b3c322849",
     "require_deployed_commit_as_merge_base": true,
-    "allowed_delta_prefixes": ["excellence/receipts/"],
-    "semantic_delta_guards": {},
-    "projection_equivalence_rule": "Production freshness is exact at this receipt. A later Helix head may inherit freshness only when the deployed commit is its ancestor and every intervening changed path is receipt-only under excellence/receipts/. Any manifest, rollout, authority, projection, workflow, source, or other non-receipt change fails closed and requires a new production compile/readback."
+    "allowed_delta_prefixes": ["excellence/receipts/", "manifests/portfolio_rollout.json"],
+    "semantic_delta_guards": {"manifests/portfolio_rollout.json":"scripts/validate-helix-rollout-equivalence.mjs"},
+    "projection_equivalence_rule": "Production is bound to exact deployed Helix 63eb32b86d49328eebe02731852cc44345374c6d. Later receipt-only changes may inherit freshness directly. Portfolio rollout-only progress may inherit freshness only when the executable semantic-equivalence guard proves unchanged policy, wave contracts, repository sets, immutable historical completion rows, monotonic progress, and absence of GitHub company identity. Any other Helix delta fails closed and requires a new production compile/readback."
   },
   "build_receipt": {
     "github_actions_run_id": 31637912104,
