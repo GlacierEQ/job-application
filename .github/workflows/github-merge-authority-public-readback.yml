@@ -12,6 +12,7 @@ on:
       - "scripts/validate-helix-atlas.mjs"
       - "scripts/validate-github-merge-authority-path-policy.mjs"
       - "scripts/validate-github-merge-authority-public-readback.mjs"
+      - "scripts/validate-github-merge-authority-public-readback-v2.mjs"
       - "site-v15/companies/github/**"
       - "site-v15/data/company-atlas-summary.json"
       - "vercel.json"
@@ -51,5 +52,5 @@ jobs:
         run: node scripts/validate-helix-atlas.mjs
       - name: Validate fixed Helix non-projection path policy
         run: node scripts/validate-github-merge-authority-path-policy.mjs
-      - name: Validate GitHub public projection readback
-        run: node scripts/validate-github-merge-authority-public-readback.mjs
+      - name: Validate GitHub EVOLVING production public readback
+        run: node scripts/validate-github-merge-authority-public-readback-v2.mjs
