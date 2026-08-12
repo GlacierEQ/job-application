@@ -4,7 +4,7 @@
   "capability": "merge_authority_graph",
   "projection_authority": {
     "deployed_helix_sha": "63eb32b86d49328eebe02731852cc44345374c6d",
-    "current_helix_sha_at_readback": "63eb32b86d49328eebe02731852cc44345374c6d",
+    "current_helix_sha_at_readback": "db2b7399aa80ce007b3d2cdaece61d1b3c322849",
     "repository_state": "EVOLVING",
     "canonical_anchor_head": "f791c85a81768e72446619b39b5312ef1c768a02",
     "current_evolved_head": "346b330bbfd705579b3a4d10d298a89493a98ee6",
@@ -32,8 +32,9 @@
   "current_production_freshness_readback": "projects/github-merge-authority-proof/proof/production-evolving-freshness-readback.json",
   "validation_contract": [
     "historical promotion receipts remain content-addressed and immutable",
-    "deployed production compiler authority exactly matches Helix 63eb32b86d49328eebe02731852cc44345374c6d at this readback",
-    "future Helix freshness inheritance is receipt-only under excellence/receipts/; every other delta requires a new production compile/readback",
+    "deployed production compiler authority is exact Helix 63eb32b86d49328eebe02731852cc44345374c6d",
+    "current Helix db2b7399aa80ce007b3d2cdaece61d1b3c322849 differs only by portfolio rollout progress and that path must pass executable semantic equivalence before freshness is admitted",
+    "receipt-only Helix changes may inherit freshness directly; any other non-rollout delta requires a new production compile/readback",
     "Apex canonical anchor remains f791c85a81768e72446619b39b5312ef1c768a02 while current evolved head is 346b330bbfd705579b3a4d10d298a89493a98ee6",
     "repository state is EVOLVING with NEXT_MEASURED_EVOLUTION as the next gate",
     "current production deployment is dpl_CSJrDfdYfiXYY7aWeQ8AwJ2v4KcQ and live bundle source is exact source 5cbb8c0656a4e8dfc32b4242308b14f25fdea60c",
@@ -43,7 +44,7 @@
     "Apex repository remains private while the exact three-file evolution proof slice is truthfully disclosed as public on public-actions-runner-host PR 269",
     "no GitHub adoption, affiliation, capability production deployment, proprietary access, or production-scale reliability claim is created by repository evolution"
   ],
-  "allowed_public_claim": "GlacierEQ independently implemented, reproduced, and measurably evolved a governed repository mutation specialist. The deployed portfolio projection is bound to exact source and exact Helix authority with GitHub Actions and Vercel agreeing on deterministic deployment hashes. The GitHub company claim remains proof-bound and explicitly non-adoptive.",
+  "allowed_public_claim": "GlacierEQ independently implemented, reproduced, and measurably evolved a governed repository mutation specialist. The deployed portfolio projection is bound to exact source and Helix authority; later portfolio-rollout-only progress is admitted only after executable semantic-equivalence proof. The GitHub company claim remains proof-bound and explicitly non-adoptive.",
   "prohibited_claims": [
     "GitHub uses, adopted, evaluated, endorsed, or deployed this GlacierEQ capability.",
     "Casey Barton is or was employed by GitHub on the basis of this proof.",
