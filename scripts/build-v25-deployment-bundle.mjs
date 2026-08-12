@@ -114,7 +114,12 @@ function factoryObjectSource(factories) {
     .join(',\n');
 }
 
-function bootstrapSource({ sourceCommit, factories, factoryHashes, factoryBundleSha256 }) {
+function bootstrapSource({
+  sourceCommit,
+  factories,
+  factoryHashes,
+  factoryBundleSha256,
+}) {
   const factoryObject = factoryObjectSource(factories);
   const expectedHashes = JSON.stringify(orderedObject(factoryHashes));
   return `const crypto = require('node:crypto');
@@ -135,13 +140,19 @@ let verifiedFactoryIds = null;
 let runtimeHandler = null;
 let bundleVerification = null;
 
-function sha256(value) { return crypto.createHash('sha256').update(value).digest('hex'); }
+function sha256(value) {
+  return crypto.createHash('sha256').update(value).digest('hex');
+}
+
 function resolveRelative(fromId, request) {
   let resolved = path.posix.normalize(path.posix.join(path.posix.dirname(fromId), request));
   if (!resolved.endsWith('.js')) resolved += '.js';
-  if (!resolved.startsWith('api/') || !Object.hasOwn(FACTORIES, resolved)) throw new Error('v25_bundle_module_not_found');
+  if (!resolved.startsWith('api/') || !Object.hasOwn(FACTORIES, resolved)) {
+    throw new Error('v25_bundle_module_not_found');
+  }
   return resolved;
 }
+
 function verifyFactories() {
   if (verifiedFactoryIds) return verifiedFactoryIds;
   const ids = Object.keys(FACTORIES).sort();
@@ -150,13 +161,18 @@ function verifyFactories() {
   for (const id of ids) {
     const source = Function.prototype.toString.call(FACTORIES[id]);
     const digest = sha256(Buffer.from(source));
-    if (digest !== EXPECTED_FACTORY_SHA256[id]) throw new Error('v25_factory_sha256_mismatch');
+    if (digest !== EXPECTED_FACTORY_SHA256[id]) {
+      throw new Error('v25_factory_sha256_mismatch');
+    }
     chunks.push(id + '\\0' + source + '\\0');
   }
-  if (sha256(Buffer.from(chunks.join(''))) !== EXPECTED_FACTORY_BUNDLE_SHA256) throw new Error('v25_factory_bundle_sha256_mismatch');
+  if (sha256(Buffer.from(chunks.join(''))) !== EXPECTED_FACTORY_BUNDLE_SHA256) {
+    throw new Error('v25_factory_bundle_sha256_mismatch');
+  }
   verifiedFactoryIds = Object.freeze(ids.slice());
   return verifiedFactoryIds;
 }
+
 function createModuleLoader() {
   const cache = new Map();
   function load(id) {
@@ -174,6 +190,7 @@ function createModuleLoader() {
   }
   return load;
 }
+
 function getVerifiedRuntimeHandler() {
   verifyFactories();
   if (runtimeHandler) return runtimeHandler;
@@ -183,15 +200,19 @@ function getVerifiedRuntimeHandler() {
   runtimeHandler = handler;
   return runtimeHandler;
 }
+
 function verifyBundle() {
   if (bundleVerification) return bundleVerification;
   const ids = verifyFactories();
   getVerifiedRuntimeHandler();
   bundleVerification = Object.freeze({
     schema: BUNDLE_VERIFY_SCHEMA,
-    status: 'PASS', release: RELEASE, source_commit: SOURCE_COMMIT,
+    status: 'PASS',
+    release: RELEASE,
+    source_commit: SOURCE_COMMIT,
     factory_bundle_sha256: EXPECTED_FACTORY_BUNDLE_SHA256,
-    module_count: ids.length, entry: ENTRY,
+    module_count: ids.length,
+    entry: ENTRY,
     runtime_string_evaluation_required: false,
     bootstrap_network_fetch_required: false,
     every_factory_sha256_verified_before_execution: true,
@@ -199,16 +220,26 @@ function verifyBundle() {
   });
   return bundleVerification;
 }
+
 function requestPath(req) {
   const parsed = new URL(String(req?.url || '/'), 'https://glaciereq.invalid');
   const values = parsed.searchParams.getAll('path');
   if (values.length) return values.join('/').replace(/^\\/+|\\/+$/g, '');
   return parsed.pathname.replace(/^\\/+|\\/+$/g, '');
 }
+
 function serveBundleVerify(res) {
   let payload;
-  try { payload = verifyBundle(); } catch (error) {
-    payload = { schema: BUNDLE_VERIFY_SCHEMA, status: 'FAIL', release: RELEASE, source_commit: SOURCE_COMMIT, errors: [error instanceof Error ? error.message : 'v25_bundle_verification_failed'] };
+  try {
+    payload = verifyBundle();
+  } catch (error) {
+    payload = {
+      schema: BUNDLE_VERIFY_SCHEMA,
+      status: 'FAIL',
+      release: RELEASE,
+      source_commit: SOURCE_COMMIT,
+      errors: [error instanceof Error ? error.message : 'v25_bundle_verification_failed'],
+    };
   }
   const body = Buffer.from(JSON.stringify(payload, null, 2));
   res.statusCode = payload.status === 'PASS' ? 200 : 503;
@@ -220,51 +251,106 @@ function serveBundleVerify(res) {
   res.setHeader('Content-Length', String(body.length));
   res.end(body);
 }
+
 async function getHandler() {
   if (!handlerPromise) {
-    handlerPromise = Promise.resolve().then(getVerifiedRuntimeHandler).catch((error) => { handlerPromise = null; runtimeHandler = null; throw error; });
+    handlerPromise = Promise.resolve().then(getVerifiedRuntimeHandler).catch((error) => {
+      handlerPromise = null;
+      runtimeHandler = null;
+      throw error;
+    });
   }
   return handlerPromise;
 }
-module.exports = async function handler(req, res) {
+
+module.exports = async function v25BundledRelease(req, res) {
   if (requestPath(req) === '__v25_bundle_verify') return serveBundleVerify(res);
-  try { const runtime = await getHandler(); return runtime(req, res); }
-  catch (error) {
-    const body = Buffer.from(JSON.stringify({ schema: 'glaciereq.v25-bundled-runtime-error.v1', status: 'FAIL_CLOSED', source_commit: SOURCE_COMMIT, error: error instanceof Error ? error.message : 'v25_bundled_runtime_failed' }, null, 2));
-    res.statusCode = 503; res.setHeader('Content-Type', 'application/json; charset=utf-8'); res.setHeader('Cache-Control', 'no-store'); res.setHeader('X-Content-Type-Options', 'nosniff'); res.setHeader('X-PSYSOCX-Release', RELEASE); res.setHeader('X-GlacierEQ-Bridge-Commit', SOURCE_COMMIT); res.setHeader('Content-Length', String(body.length)); res.end(body);
+  try {
+    const handler = await getHandler();
+    return handler(req, res);
+  } catch (error) {
+    console.error('V25 bundled release failed', error);
+    const body = Buffer.from('Recruiter presentation temporarily unavailable.');
+    res.statusCode = 502;
+    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+    res.setHeader('Cache-Control', 'no-store');
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('X-PSYSOCX-Release', RELEASE);
+    res.setHeader('X-GlacierEQ-Bridge-Commit', SOURCE_COMMIT);
+    res.setHeader('Content-Length', String(body.length));
+    res.end(body);
   }
 };
+
+module.exports.constants = {
+  BUNDLE_VERIFY_SCHEMA,
+  EXPECTED_FACTORY_BUNDLE_SHA256,
+  RELEASE,
+  SOURCE_COMMIT,
+};
+module.exports.verifyBundle = verifyBundle;
 `;
 }
 
-function routingConfig() {
-  return JSON.stringify({ version: 2, builds: [{ src: DEPLOY_FILE, use: '@vercel/node' }], routes: [{ src: '/(.*)', dest: '/api/index?path=$1' }] }, null, 2) + '\n';
+function routingSource() {
+  return `${JSON.stringify({
+    version: 2,
+    routes: [{ src: '/(.*)', dest: '/api/index?path=$1' }],
+  })}\n`;
+}
+
+function writeAtomic(filePath, bytes) {
+  fs.mkdirSync(path.dirname(filePath), { recursive: true });
+  const temporary = `${filePath}.tmp-${process.pid}`;
+  fs.writeFileSync(temporary, bytes);
+  fs.renameSync(temporary, filePath);
 }
 
 function main() {
   const { outputDir, sourceCommit } = parseArgs(process.argv);
   const { modules, moduleHashes, factories, factoryHashes } = readModules();
   const factoryBundle = factoryBundleBytes(factories);
-  const factoryBundleSha256 = sha256(factoryBundle);
-  const runtime = bootstrapSource({ sourceCommit, factories, factoryHashes, factoryBundleSha256 });
-  fs.rmSync(outputDir, { recursive: true, force: true });
-  fs.mkdirSync(path.join(outputDir, 'api'), { recursive: true });
-  fs.writeFileSync(path.join(outputDir, DEPLOY_FILE), runtime);
-  fs.writeFileSync(path.join(outputDir, ROUTING_FILE), routingConfig());
-  const deploymentFiles = [DEPLOY_FILE, ROUTING_FILE].map((relative) => {
-    const body = fs.readFileSync(path.join(outputDir, relative));
-    return { path: relative, bytes: body.length, sha256: sha256(body) };
-  });
+  const bootstrap = Buffer.from(bootstrapSource({
+    sourceCommit,
+    factories,
+    factoryHashes,
+    factoryBundleSha256: sha256(factoryBundle),
+  }));
+  const routing = Buffer.from(routingSource());
+
+  writeAtomic(path.join(outputDir, DEPLOY_FILE), bootstrap);
+  writeAtomic(path.join(outputDir, ROUTING_FILE), routing);
+
   const manifest = {
-    schema: MANIFEST_SCHEMA, release: 'V25-APPLICATION-COMPILER', source_commit: sourceCommit,
-    entry: ENTRY, runtime_entry: RUNTIME_ENTRY, module_count: MODULES.length,
-    module_sha256: orderedObject(moduleHashes), factory_sha256: orderedObject(factoryHashes),
-    factory_bundle: { bytes: factoryBundle.length, sha256: factoryBundleSha256 }, deployment_files: deploymentFiles,
+    schema: MANIFEST_SCHEMA,
+    release: 'V25-APPLICATION-COMPILER',
+    source_commit: sourceCommit,
+    entry: ENTRY,
+    runtime_entry: RUNTIME_ENTRY,
+    module_count: Object.keys(modules).length,
+    module_sha256: orderedObject(moduleHashes),
+    factory_sha256: orderedObject(factoryHashes),
+    factory_bundle: {
+      bytes: factoryBundle.length,
+      sha256: sha256(factoryBundle),
+    },
+    deployment_files: [
+      { path: DEPLOY_FILE, bytes: bootstrap.length, sha256: sha256(bootstrap) },
+      { path: ROUTING_FILE, bytes: routing.length, sha256: sha256(routing) },
+    ],
     verification_endpoint: '/__v25_bundle_verify',
-    invariants: { self_contained_executable_modules: true, bootstrap_network_fetch_required: false, runtime_string_evaluation_required: false, factory_bundle_verified_before_module_execution: true, every_factory_sha256_verified_before_execution: true, verification_cached_per_instance: true, expected_deployment_file_count: 2 },
+    invariants: {
+      self_contained_executable_modules: true,
+      bootstrap_network_fetch_required: false,
+      runtime_string_evaluation_required: false,
+      factory_bundle_verified_before_module_execution: true,
+      every_factory_sha256_verified_before_execution: true,
+      verification_cached_per_instance: true,
+      expected_deployment_file_count: 2,
+    },
   };
-  fs.writeFileSync(path.join(outputDir, 'deployment-manifest.json'), JSON.stringify(manifest, null, 2) + '\n');
-  process.stdout.write(JSON.stringify(manifest, null, 2) + '\n');
+  writeAtomic(path.join(outputDir, 'deployment-manifest.json'), Buffer.from(`${JSON.stringify(manifest, null, 2)}\n`));
+  process.stdout.write(`${JSON.stringify(manifest, null, 2)}\n`);
 }
 
 main();
