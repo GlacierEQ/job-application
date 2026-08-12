@@ -1,20 +1,22 @@
 {
-  "schema": "glaciereq.public-private-implementation-inspection.v1",
+  "schema": "glaciereq.public-private-implementation-inspection.v2",
   "capability": "merge_authority_graph",
   "owner_repository": "GlacierEQ/apex-github-worker",
   "visibility": "private",
-  "disclosure_class": "PUBLIC_HIGH_LEVEL_ONLY",
+  "disclosure_class": "PUBLIC_HASH_BOUND_WITH_BOUNDED_EVOLUTION_SOURCE_SLICE",
   "canonical_head": "f791c85a81768e72446619b39b5312ef1c768a02",
+  "current_evolved_head": "346b330bbfd705579b3a4d10d298a89493a98ee6",
   "reproduced_source_sha": "1a5331a0203e1273c1045589ea66f5bcf1080b55",
   "inspected_sources": [
     {
       "path": "merge-authority/merge-authority.mjs",
-      "git_blob_sha": "b1e30e9caa593d094de64b934b6b8ef762570b6f",
-      "public_description": "Fail-closed control kernel for structural preflight, exact-change policy evaluation, replay lookup, expected-head gating, provider mutation, bounded readback reconciliation, and receipt-backed terminal state."
+      "canonical_git_blob_sha": "b1e30e9caa593d094de64b934b6b8ef762570b6f",
+      "evolved_git_blob_sha": "b0634ee0f39ff5ef636a806a6d967385c614330d",
+      "public_description": "Fail-closed control kernel for structural preflight, exact-change policy evaluation, unique and well-formed check evidence, replay lookup, expected-head gating, provider mutation, bounded readback reconciliation, and receipt-backed terminal state."
     },
     {
       "path": "merge-authority/github-provider.mjs",
-      "git_blob_sha": "e6e8587931efbf1f6fc0e7e52093c95c0ae70373",
+      "canonical_git_blob_sha": "e6e8587931efbf1f6fc0e7e52093c95c0ae70373",
       "public_description": "Bounded GitHub adapter for exact-byte provider rebinding, non-force branch mutation, disposable-branch creation, canonical receipt storage, and bounded eventually-consistent ref reconciliation."
     }
   ],
@@ -24,6 +26,9 @@
     "exact patch SHA-256 binding",
     "provider-side re-hash of unchanged patch bytes",
     "required-check enforcement",
+    "unique check-evidence admission",
+    "malformed check-evidence rejection before provider access",
+    "order-independent duplicate-check rejection",
     "approval bound to actor, intent, head, and patch",
     "allowlisted target branch",
     "receipt lookup before mutable provider state inspection for completed replay",
@@ -33,10 +38,28 @@
     "replay event receipt without duplicate mutation",
     "explicit provider/readback failure states"
   ],
-  "source_not_disclosed": true,
-  "verification_boundary": "This public record discloses identities, hashes, behavior, proof state, and nonclaims but intentionally omits private implementation bytes.",
+  "source_disclosure": {
+    "canonical_repository_visibility": "private",
+    "entire_private_repository_public": false,
+    "bounded_evolution_source_slice_publicly_disclosed": true,
+    "public_repository": "GlacierEQ/public-actions-runner-host",
+    "public_pull_request": 269,
+    "public_files": [
+      "merge-authority.mjs",
+      "merge-authority.test.mjs",
+      "evolution-benchmark.test.mjs"
+    ],
+    "public_git_blobs": {
+      "merge-authority.mjs": "b0634ee0f39ff5ef636a806a6d967385c614330d",
+      "merge-authority.test.mjs": "5db04e65163f183c1e906ac4a505ba9c73345a2e",
+      "evolution-benchmark.test.mjs": "16b68535908a0e04850a7afaf5979bfdc5038754"
+    },
+    "meaning": "The Apex repository remains private, while the exact three-file evolution candidate used for public proof is publicly visible on public-actions-runner-host PR #269."
+  },
+  "verification_boundary": "This public record discloses identities, hashes, behavior, proof state, nonclaims, and the bounded evolution source slice. It does not disclose the entire private Apex repository or credentials.",
   "nonclaims": [
-    "Hash-bound inspection does not convert the private source repository into a public repository.",
-    "No credential, token, private key, secret value, or proprietary implementation body is contained here."
+    "Publishing the bounded three-file evolution proof slice does not convert the private Apex repository into a public repository.",
+    "No credential, token, private key, or secret value is contained here.",
+    "Public proof of the evolution slice does not imply GitHub adoption, affiliation, endorsement, deployment, or production-scale reliability."
   ]
 }
