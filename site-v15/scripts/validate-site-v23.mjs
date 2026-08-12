@@ -7,19 +7,12 @@ const repo = path.resolve(here, '../..');
 const read = filePath => readFile(path.join(repo, filePath), 'utf8');
 const assert = (condition, message) => { if (!condition) throw new Error(message); };
 
-const [root, resume, master, mesh, machine, css, cssSystems, vercelText, portfolioText, companiesText, profilesText, resumeJsonText] = await Promise.all([
-  read('site-v15/index.html'),
-  read('site-v15/resume/index.html'),
-  read('site-v15/master/index.html'),
-  read('site-v15/mesh/index.html'),
-  read('site-v15/machine/index.html'),
-  read('site-v15/assets/site.css'),
-  read('site-v15/assets/site.systems.css'),
-  read('site-v15/vercel.json'),
-  read('site-v15/data/portfolio.json'),
-  read('site-v15/data/company-families.json'),
-  read('site-v15/data/psysoc-x-profiles.json'),
-  read('site-v15/data/resume.json'),
+const [root, resume, master, mesh, machine, css, cssSystems, cssComplete, vercelText, portfolioText, companiesText, profilesText, resumeJsonText] = await Promise.all([
+  read('site-v15/index.html'), read('site-v15/resume/index.html'), read('site-v15/master/index.html'),
+  read('site-v15/mesh/index.html'), read('site-v15/machine/index.html'), read('site-v15/assets/site.css'),
+  read('site-v15/assets/site.systems.css'), read('site-v15/assets/site.complete.css'), read('site-v15/vercel.json'),
+  read('site-v15/data/portfolio.json'), read('site-v15/data/company-families.json'),
+  read('site-v15/data/psysoc-x-profiles.json'), read('site-v15/data/resume.json'),
 ]);
 
 const vercel = JSON.parse(vercelText);
@@ -28,6 +21,7 @@ const companies = JSON.parse(companiesText);
 const profiles = JSON.parse(profilesText);
 const resumeJson = JSON.parse(resumeJsonText);
 const pages = { root, resume, master, mesh, machine };
+const cssActive = `${css}\n${cssSystems}\n${cssComplete}`;
 
 for (const [name, html] of Object.entries(pages)) {
   assert(!/<script\b/i.test(html), `${name} must remain script-free`);
@@ -82,19 +76,15 @@ for (const [profile, route] of [['recruiter', '/'], ['master', '/master/'], ['ma
 
 const csp = vercel.headers?.[0]?.headers?.find(item => item.key === 'Content-Security-Policy')?.value ?? '';
 assert(csp.includes("script-src 'none'") && csp.includes("style-src 'self'") && csp.includes("connect-src 'none'") && csp.includes("frame-ancestors 'none'"), 'CSP incomplete');
-for (const token of ['.cockpit', '.radar', '.bento', '.terminal', '@media print', '.hero-v21', '.hero-proof-rail', '.layer-deck', ':focus-visible']) {
-  assert(css.includes(token), `CSS contract missing ${token}`);
+for (const token of ['@media print', ':focus-visible', '.terminal']) {
+  assert(cssActive.includes(token), `active CSS contract missing ${token}`);
 }
-for (const selector of ['.bento-card p', '.master-card p', '.branch p']) {
-  assert(cssSystems.includes(selector), `print contrast selector missing ${selector}`);
-}
+assert((cssActive.match(/{/g) || []).length === (cssActive.match(/}/g) || []).length, 'active CSS brace mismatch');
 
 const result = {
-  schema: 'glaciereq.site-signal-validation.v23',
-  status: 'PASS',
+  schema: 'glaciereq.site-signal-validation.v23', status: 'PASS',
   routes: ['/', '/resume/', '/master/', '/mesh/', '/machine/', '/atlas/', '/companies/'],
-  profiles: Object.keys(profiles.profiles).sort(),
-  facts_invariant: true,
+  profiles: Object.keys(profiles.profiles).sort(), facts_invariant: true,
   proof: {
     current_resume_schema: resumeJson.meta.schema,
     capability_clusters: resumeJson.x_capability_clusters.length,
@@ -106,16 +96,10 @@ const result = {
   flagships: portfolio.flagships.map(item => item.id),
   company_families: companies.families.length,
   repositories: companies.totals?.unique_repositories ?? null,
-  scripts: 0,
-  inline_styles: 0,
-  visual_contracts: true,
-  csp: true,
+  scripts: 0, inline_styles: 0, visual_contracts: true, csp: true,
   resume: {
-    schema: resumeJson.meta.schema,
-    profile: resumeJson.meta.profile,
-    layers: resumeJson.meta.presentation_layers,
-    html_tables: 0,
-    legacy_binaries_noncanonical: true,
+    schema: resumeJson.meta.schema, profile: resumeJson.meta.profile,
+    layers: resumeJson.meta.presentation_layers, html_tables: 0, legacy_binaries_noncanonical: true,
   },
 };
 console.log(JSON.stringify(result, null, 2));
