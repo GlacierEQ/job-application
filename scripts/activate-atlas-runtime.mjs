@@ -21,27 +21,27 @@ export function activateAtlasHtml(input) {
     );
   }
 
-  if (!html.includes('data-atlas-search')) {
-    const controls = `<div class="atlas-controls" role="search" aria-label="Filter company lenses">
-<label class="atlas-control"><span>Search companies, stages, or states</span><input data-atlas-search type="search" autocomplete="off" placeholder="Search Adobe, code inspected, promoted…"></label>
-<label class="atlas-control"><span>Evidence depth</span><select data-atlas-evidence><option value="all">All evidence states</option><option value="repository-rich">Repository-rich</option><option value="seeded">Seeded</option><option value="scaffold">Scaffold</option></select></label>
-<p class="atlas-result-count" data-atlas-result-count aria-live="polite">All company lenses visible</p>
-</div>`;
+  if (!html.includes('class="atlas-filters"')) {
+    const controls = `<fieldset class="atlas-filters" aria-label="Filter company lenses by evidence depth">
+<legend>Evidence depth</legend>
+<label class="atlas-filter-option"><input type="radio" name="atlas-evidence" value="all" checked>All company lenses</label>
+<label class="atlas-filter-option"><input type="radio" name="atlas-evidence" value="repository-rich">Repository-rich</label>
+<label class="atlas-filter-option"><input type="radio" name="atlas-evidence" value="seeded">Seeded</label>
+<label class="atlas-filter-option"><input type="radio" name="atlas-evidence" value="scaffold">Scaffold</label>
+<p class="atlas-filter-note">Evidence filtering works without JavaScript. Use browser Find for instant name, stage, or state lookup.</p>
+</fieldset>`;
     html = html.replace('<div class="atlas-directory">', `${controls}<div class="atlas-directory">`);
   }
 
   html = html
-    .replace(' · zero client scripts</span>', ' · local client search</span>')
+    .replace(' · zero client scripts</span>', ' · script-free evidence filters</span>')
     .replace(
       'Pointer precision is optional: the directory is the complete accessibility fallback and browser find provides instant text lookup without weakening the site’s no-script CSP.',
-      'Pointer precision is optional: the directory remains the complete accessibility fallback, while a small self-hosted search layer adds instant company and evidence filtering without third-party code.',
+      'Pointer precision is optional: the complete directory now supports first-class evidence-state filtering with no client script, while browser Find remains available for instant text lookup.',
     );
 
-  if (!html.includes('/assets/atlas-runtime.js')) {
-    html = html.replace(
-      '</body>',
-      '<script src="/assets/atlas-runtime.js" defer></script>\n</body>',
-    );
+  if (/<script\b/i.test(html)) {
+    throw new Error("atlas interaction must remain script-free");
   }
 
   return html;
@@ -57,7 +57,7 @@ export async function activateAtlasFile(filePath = ATLAS) {
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   activateAtlasFile()
     .then(({ changed, path: target }) => {
-      console.log(`Atlas runtime ${changed ? "activated" : "already active"}: ${path.relative(ROOT, target)}`);
+      console.log(`Atlas interaction ${changed ? "activated" : "already active"}: ${path.relative(ROOT, target)}`);
     })
     .catch((error) => {
       console.error(error instanceof Error ? error.stack : error);
