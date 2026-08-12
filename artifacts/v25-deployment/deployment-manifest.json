@@ -1,41 +1,45 @@
 {
   "schema": "glaciereq.v25-deployment-bundle-manifest.v2",
   "release": "V25-APPLICATION-COMPILER",
-  "source_commit": "95a91fd9b51c77babf51b3bed7c156acfd9d06f7",
+  "source_commit": "d2fbab4cff1a4374cb8f867c7a723e3d87181689",
   "entry": "deployment/vercel-source-bridge/api/release-router.js",
   "runtime_entry": "api/release-router.js",
-  "module_count": 9,
+  "module_count": 11,
   "module_sha256": {
-    "api/compiler-proxy.js": "6aade8388bea863398afbe6a3ec6b9e002ef0b0fd2326593327c6a8cc0616a96",
-    "api/design-proxy.js": "8e47a7e2edde38269e44b49fd01b2540d132deac7ff3d38faf1f8252990c8767",
-    "api/estate-proxy.js": "43af4f7aec62489c04244b52ef799f1ad8001642ee4da652e6589e52d8aa9a4a",
-    "api/proxy.js": "609e88cdd72be8433fd670cf788672c9959cf9beffef13c154edba2de00b7cef",
-    "api/release-router.js": "c34fc911a171c6db553d67a45e649832535dafdab033afd6253c9e4f0ed7f18a",
+    "api/compiler-proxy.js": "9e32d3e3d876cb6750f4644831c15a204d8877398390dc7eea4232fe54d15f5a",
+    "api/design-proxy.js": "df8295927af48ed01aa7606b9022adfe634b10e7dc6d8766e4c1c7a7e768df8d",
+    "api/estate-proxy.js": "e37942413a4a3704a534dc9b409f0a9808fd5519f8a2755c9be9e99b23db86b1",
+    "api/monument-title-proxy.js": "d6516c4afe78fa0da0fd4a56b2fa1a41aa6ab8b48195ca7d0e2e175e4ed50fdd",
+    "api/proxy.js": "c5ad173129312a2223a012332b15d1a5cb3da153c6bdc44a1416c1f5295d5352",
+    "api/release-router.js": "1f21c1ccc3bc8d1ee96dd84fc0471687b6e52c561bbc387d3cae12740f802d6e",
+    "api/systems-atlas-proxy.js": "2de013baae4d41b345252bb454f92a25899cde6fbf892f9a8fbc8f913f1d47f4",
     "api/title-font-proxy.js": "1d35b4749b46d4cd6581ef62b682ba6076df6816579e404ad09fe8c8ee422829",
     "api/truth-proxy.js": "b496956a3631f9f2eb6c9083240f67f8ab5f654c5bfd24edcf43a5ace44bd8bc",
     "api/truth-runtime.js": "4075a8d7dd5bec40d82b5dbeea0a1297485d0c46841da211533b4266c0f7fe00",
     "api/typography-proxy.js": "b091a0032b9fe8cd70958b744b7906b1417afd26952dabe106dfb7aae461f293"
   },
   "factory_sha256": {
-    "api/compiler-proxy.js": "1ea880c2c8adcd1ea65e5bea804f9ae992e81c3d558d4ad5c2c8836322fb0597",
-    "api/design-proxy.js": "33f07104e3556cbc85c2f07d32cc94fc5afb4fdf226895344ac402681f668e95",
-    "api/estate-proxy.js": "b41c1ad0b153a9ec1d21851f258cbfa2add975be583d1e908d5d7eb48d814b5f",
-    "api/proxy.js": "935a245227e2abb23a9a5393078f3c835abff4e7fc242f5f2db4ea718d9234c3",
-    "api/release-router.js": "eb08935cee7e98cf9f48c9879cdcda4763fd8ecef928c05cd98396e0d0173a3a",
+    "api/compiler-proxy.js": "69b52f6b50594f39b3d6b20a6892279b03d792ec68afa33af85433b94a13f7de",
+    "api/design-proxy.js": "a6a334989271b8d975768b9afe50ab7dc5f87843dd8641e90c6692ee5d15ed1f",
+    "api/estate-proxy.js": "515fcff9a23adbdc41d2dc813100b6ed97f0a7884651401540791812eac18c6c",
+    "api/monument-title-proxy.js": "62d7ceda213daca5711f38cdedfc0c09efc6ee91f4127425eef9697973ad8af5",
+    "api/proxy.js": "1e6811862913fb019cdf422c9c37964073cab76b0c74d84795362ec256415a3c",
+    "api/release-router.js": "23f7a44edf5009aa5fcf6e5b442cd6322359f29955be7ea39f870fd791fb50d5",
+    "api/systems-atlas-proxy.js": "1d3c0a8862c09390d0b04f95292fd599bff784860e8c5acd46672b27e6af2cbc",
     "api/title-font-proxy.js": "e105aa9b0a2bc29127ccdfa9ffd3b6bf86c4e0bef4831d40cf0c9f2f06825caa",
     "api/truth-proxy.js": "23bbceb16919e9972e864eeeed1c2690e5d354522a9db94b02a75648b511f857",
     "api/truth-runtime.js": "abdc1ee799941fb8c428c8e82602e90e36fadc639f14ea7cb5f5c5ec69ec5ffe",
     "api/typography-proxy.js": "9b5ee6fb647133771e368e7fc15d79a385b831996c71c22d690123b5c3e8f656"
   },
   "factory_bundle": {
-    "bytes": 178690,
-    "sha256": "b91a0724ba4b7fe82930c7ad003f213d8a8ebe598717f9e8ce00d3a3ca7111a3"
+    "bytes": 211638,
+    "sha256": "f5b0c16b3b14bbff979f254c5dea51b4fc7ce0302ec05cdf41ed2749a9dd1586"
   },
   "deployment_files": [
     {
       "path": "api/index.js",
-      "bytes": 185215,
-      "sha256": "bd4fe5d97981f2f0cf002e111a0924e6c049ecfa9798e9aa56cb4ca35ea5d9aa"
+      "bytes": 218363,
+      "sha256": "bfccfad5996c35f179a044ee2e8e9dd4a13319de287bc52abb74c4bf1e72a5a4"
     },
     {
       "path": "vercel.json",

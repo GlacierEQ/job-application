@@ -3,11 +3,11 @@ const path = require('node:path');
 const { URL } = require('node:url');
 
 const RELEASE = 'V25-APPLICATION-COMPILER';
-const SOURCE_COMMIT = '95a91fd9b51c77babf51b3bed7c156acfd9d06f7';
+const SOURCE_COMMIT = 'd2fbab4cff1a4374cb8f867c7a723e3d87181689';
 const ENTRY = 'api/release-router.js';
-const EXPECTED_FACTORY_BUNDLE_SHA256 = 'b91a0724ba4b7fe82930c7ad003f213d8a8ebe598717f9e8ce00d3a3ca7111a3';
+const EXPECTED_FACTORY_BUNDLE_SHA256 = 'f5b0c16b3b14bbff979f254c5dea51b4fc7ce0302ec05cdf41ed2749a9dd1586';
 const BUNDLE_VERIFY_SCHEMA = 'glaciereq.v25-bundled-release-verification.v2';
-const EXPECTED_FACTORY_SHA256 = Object.freeze({"api/compiler-proxy.js":"1ea880c2c8adcd1ea65e5bea804f9ae992e81c3d558d4ad5c2c8836322fb0597","api/design-proxy.js":"33f07104e3556cbc85c2f07d32cc94fc5afb4fdf226895344ac402681f668e95","api/estate-proxy.js":"b41c1ad0b153a9ec1d21851f258cbfa2add975be583d1e908d5d7eb48d814b5f","api/proxy.js":"935a245227e2abb23a9a5393078f3c835abff4e7fc242f5f2db4ea718d9234c3","api/release-router.js":"eb08935cee7e98cf9f48c9879cdcda4763fd8ecef928c05cd98396e0d0173a3a","api/title-font-proxy.js":"e105aa9b0a2bc29127ccdfa9ffd3b6bf86c4e0bef4831d40cf0c9f2f06825caa","api/truth-proxy.js":"23bbceb16919e9972e864eeeed1c2690e5d354522a9db94b02a75648b511f857","api/truth-runtime.js":"abdc1ee799941fb8c428c8e82602e90e36fadc639f14ea7cb5f5c5ec69ec5ffe","api/typography-proxy.js":"9b5ee6fb647133771e368e7fc15d79a385b831996c71c22d690123b5c3e8f656"});
+const EXPECTED_FACTORY_SHA256 = Object.freeze({"api/compiler-proxy.js":"69b52f6b50594f39b3d6b20a6892279b03d792ec68afa33af85433b94a13f7de","api/design-proxy.js":"a6a334989271b8d975768b9afe50ab7dc5f87843dd8641e90c6692ee5d15ed1f","api/estate-proxy.js":"515fcff9a23adbdc41d2dc813100b6ed97f0a7884651401540791812eac18c6c","api/monument-title-proxy.js":"62d7ceda213daca5711f38cdedfc0c09efc6ee91f4127425eef9697973ad8af5","api/proxy.js":"1e6811862913fb019cdf422c9c37964073cab76b0c74d84795362ec256415a3c","api/release-router.js":"23f7a44edf5009aa5fcf6e5b442cd6322359f29955be7ea39f870fd791fb50d5","api/systems-atlas-proxy.js":"1d3c0a8862c09390d0b04f95292fd599bff784860e8c5acd46672b27e6af2cbc","api/title-font-proxy.js":"e105aa9b0a2bc29127ccdfa9ffd3b6bf86c4e0bef4831d40cf0c9f2f06825caa","api/truth-proxy.js":"23bbceb16919e9972e864eeeed1c2690e5d354522a9db94b02a75648b511f857","api/truth-runtime.js":"abdc1ee799941fb8c428c8e82602e90e36fadc639f14ea7cb5f5c5ec69ec5ffe","api/typography-proxy.js":"9b5ee6fb647133771e368e7fc15d79a385b831996c71c22d690123b5c3e8f656"});
 const FACTORIES = Object.freeze({
 "api/compiler-proxy.js":function(exports, require, module, __filename, __dirname) {
 const crypto = require('node:crypto');
@@ -16,10 +16,11 @@ const estateProxy = require('./estate-proxy.js');
 const proxy = require('./proxy.js');
 const typographyProxy = require('./typography-proxy.js');
 
-const COMPILER_HELIX_COMMIT = '435c1e9d5dd4bf7466d869aa7c6918b56225b788';
+const COMPILER_HELIX_COMMIT = '86c3630d51b231c1637dc9e8b138b28eaf70ba68';
 const HELIX_RAW = `https://raw.githubusercontent.com/GlacierEQ/job-app-helix/${COMPILER_HELIX_COMMIT}/`;
 const COMPANY_INDEX_PATH = 'manifests/company_dossiers.json';
 const SECOND_DEPTH_PATH = 'manifests/company_second_depth.json';
+const SECOND_DEPTH_OVERRIDE_INDEX_PATH = 'manifests/company_second_depth_overrides/index.json';
 const FLAGSHIP_PATH = 'manifests/flagship_registry.json';
 const PRESSURE_MANIFEST_PATH = 'manifests/application_intelligence/company_bottleneck_atlas.external.json';
 const PRESSURE_MANIFEST_SHA256 = '2d93f4e0c736426dcf6904be6d0139075a48c78f3051278becf05703ee67f654';
@@ -134,6 +135,36 @@ async function fetchHelixJson(filePath, label = filePath) {
   }
 }
 
+function cloneJson(value) {
+  return JSON.parse(JSON.stringify(value));
+}
+
+async function loadEffectiveSecondDepth(base) {
+  requireValue(base?.authority === 'GlacierEQ/job-app-helix', 'compiler_second_depth_authority');
+  requireValue(base?.company_overrides && typeof base.company_overrides === 'object' && !Array.isArray(base.company_overrides), 'compiler_second_depth_company_overrides');
+  const effective = cloneJson(base);
+  const overrideIndex = (await fetchHelixJson(SECOND_DEPTH_OVERRIDE_INDEX_PATH, 'second_depth_override_index')).value;
+  requireValue(overrideIndex.schema === 'glaciereq.company-second-depth-overrides.v1', 'compiler_second_depth_override_schema');
+  requireValue(overrideIndex.authority === 'GlacierEQ/job-app-helix', 'compiler_second_depth_override_authority');
+  requireValue(overrideIndex.merge_order === 'base_company_second_depth_then_company_module', 'compiler_second_depth_override_merge_order');
+  requireValue(Array.isArray(overrideIndex.overrides), 'compiler_second_depth_override_rows');
+  const seen = new Set();
+  for (const ref of overrideIndex.overrides) {
+    requireValue(ref && typeof ref === 'object' && !Array.isArray(ref), 'compiler_second_depth_override_ref');
+    requireValue(typeof ref.company_id === 'string' && COMPANY_ID.test(ref.company_id), 'compiler_second_depth_override_company_id');
+    requireValue(typeof ref.path === 'string' && ref.path.startsWith('manifests/company_second_depth_overrides/') && ref.path.endsWith('.json'), 'compiler_second_depth_override_path');
+    requireValue(!seen.has(ref.company_id), `compiler_second_depth_override_duplicate_ref:${ref.company_id}`);
+    requireValue(!Object.hasOwn(effective.company_overrides, ref.company_id), `compiler_second_depth_inline_modular_duplicate:${ref.company_id}`);
+    seen.add(ref.company_id);
+    const module = (await fetchHelixJson(ref.path, `second_depth_override:${ref.company_id}`)).value;
+    requireValue(module.schema === 'glaciereq.company-second-depth-company.v1', `compiler_second_depth_override_module_schema:${ref.company_id}`);
+    requireValue(module.company_id === ref.company_id, `compiler_second_depth_override_module_identity:${ref.company_id}`);
+    requireValue(module.state && typeof module.state === 'object' && !Array.isArray(module.state), `compiler_second_depth_override_module_state:${ref.company_id}`);
+    effective.company_overrides[ref.company_id] = cloneJson(module.state);
+  }
+  return effective;
+}
+
 function normalizeFlagships(registry) {
   requireValue(registry.schema === 'glaciereq.flagship-registry.v2', 'compiler_flagship_schema');
   requireValue(registry.authority === 'GlacierEQ/job-app-helix', 'compiler_flagship_authority');
@@ -207,11 +238,12 @@ async function loadCompiler() {
         loadPressureRecords(),
       ]);
       const index = indexResult.value;
+      const effectiveSecondDepth = await loadEffectiveSecondDepth(secondDepthResult.value);
       requireValue(Array.isArray(index.dossier_files) && index.dossier_files.length, 'compiler_dossier_files');
       const shards = await Promise.all(
         index.dossier_files.map(async (filePath) => (await fetchHelixJson(filePath)).value),
       );
-      const projection = proxy.compileProjection(index, shards, secondDepthResult.value);
+      const projection = proxy.compileProjection(index, shards, effectiveSecondDepth);
       projection.source_commit = COMPILER_HELIX_COMMIT;
       const flagships = normalizeFlagships(flagshipResult.value);
       return {
@@ -228,9 +260,19 @@ async function loadCompiler() {
   return compilerPromise;
 }
 
-function queryState(req, projection) {
+/**
+ * Company routes live under both /companies/<slug>/ and legacy /atlas/<slug>/.
+ * Atlas company pages must not fall through to the thin scaffold shell.
+ */
+function companyIdFromPath(filePath) {
+  const match = /^(?:companies|atlas)\/([a-z0-9-]+)\/index\.html$/.exec(String(filePath || ''));
+  return match ? match[1].replaceAll('-', '_') : null;
+}
+
+function queryState(req, projection, filePath = '') {
   const parsed = new URL(String(req.url || '/'), 'https://glaciereq.invalid');
-  const requestedCompany = parsed.searchParams.get('company') || 'openai';
+  const fromPath = companyIdFromPath(filePath);
+  const requestedCompany = parsed.searchParams.get('company') || fromPath || 'openai';
   const company = projection.companies.find((row) => row.company_id === requestedCompany)
     || projection.companies.find((row) => row.company_id === 'openai')
     || projection.companies[0];
@@ -241,9 +283,11 @@ function queryState(req, projection) {
     : [];
   const requestedRole = parsed.searchParams.get('role') || '';
   const role = roles.includes(requestedRole) ? requestedRole : (roles[0] || 'Role route pending');
-  const requestedDepth = parsed.searchParams.get('depth') || 'recruiter';
-  const depth = DEPTHS.has(requestedDepth) ? requestedDepth : 'recruiter';
-  return { company, role, depth };
+  // Path-based company routes default to company_reviewer depth (intervention surface).
+  const defaultDepth = fromPath ? 'company_reviewer' : 'recruiter';
+  const requestedDepth = parsed.searchParams.get('depth') || defaultDepth;
+  const depth = DEPTHS.has(requestedDepth) ? requestedDepth : defaultDepth;
+  return { company, role, depth, from_path: Boolean(fromPath) };
 }
 
 function publicCapabilityDonors(company, flagships) {
@@ -281,6 +325,7 @@ function compileRoute(data, state) {
       commit: COMPILER_HELIX_COMMIT,
       company_index: COMPANY_INDEX_PATH,
       second_depth: SECOND_DEPTH_PATH,
+      second_depth_overrides: SECOND_DEPTH_OVERRIDE_INDEX_PATH,
       flagship_registry: FLAGSHIP_PATH,
       pressure_manifest: PRESSURE_MANIFEST_PATH,
       pressure_manifest_sha256: PRESSURE_MANIFEST_SHA256,
@@ -333,6 +378,67 @@ function compileRoute(data, state) {
       company_naming_does_not_imply_affiliation: true,
     },
   };
+}
+
+function companySurfaceTarget(filePath) {
+  const match = /^companies\/([a-z0-9_-]+)\/(record\.json|index\.html)$/.exec(filePath);
+  if (!match) return null;
+  return { slug: match[1], kind: match[2] };
+}
+
+function companyForSurface(data, slug) {
+  const normalized = String(slug || '').replaceAll('-', '_');
+  return data.projection.companies.find((row) => row.company_id === slug || row.company_id === normalized) || null;
+}
+
+function effectiveCompanyRecord(company) {
+  const repositories = Array.isArray(company.repositories)
+    ? company.repositories.map((row) => typeof row === 'string' ? row : row?.repository).filter(Boolean)
+    : [];
+  return {
+    schema: 'glaciereq.company-intelligence.v1',
+    id: company.company_id,
+    route: `/companies/${company.company_id.replaceAll('_', '-')}/`,
+    state: 'effective_projection',
+    track: company.track_state,
+    roles: Array.isArray(company.target_roles) ? company.target_roles : [],
+    repos: repositories,
+    flagships: Array.isArray(company.applicable_flagships) ? company.applicable_flagships : [],
+    second_depth: company.second_depth,
+    gate: company.second_depth?.next_gate || null,
+    boundary: company.non_affiliation,
+    source: {
+      repository: 'GlacierEQ/job-app-helix',
+      commit: COMPILER_HELIX_COMMIT,
+      second_depth: SECOND_DEPTH_PATH,
+      second_depth_overrides: SECOND_DEPTH_OVERRIDE_INDEX_PATH,
+    },
+  };
+}
+
+async function serveEffectiveCompanySurface(target, req, res) {
+  const data = await loadCompiler();
+  const company = companyForSurface(data, target.slug);
+  if (!company) return typographyProxy(req, res);
+  if (target.kind === 'record.json') {
+    const body = Buffer.from(`${JSON.stringify(effectiveCompanyRecord(company), null, 2)}\n`);
+    generatedSecurityHeaders(res);
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json; charset=utf-8');
+    res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
+    res.setHeader('Content-Length', String(body.length));
+    res.end(body);
+    return;
+  }
+  const roles = Array.isArray(company.target_roles) ? company.target_roles.filter(Boolean) : [];
+  const route = compileRoute(data, { company, role: roles[0] || 'Role route pending', depth: 'company_reviewer' });
+  const body = Buffer.from(compilerHtml(data, route));
+  generatedSecurityHeaders(res);
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
+  res.setHeader('Content-Length', String(body.length));
+  res.end(body);
 }
 
 function selected(value, current) {
@@ -556,8 +662,10 @@ function injectEmeraldMotion(body) {
   if (matches.length > 1) throw new Error('duplicate_emerald_motion_stylesheet');
   if (matches.length === 1) return bytes;
   const typography = '<link rel="stylesheet" href="/assets/site.algerian.css">';
-  if (html.includes(typography)) html = html.replace(typography, `${typography}\n  ${EMERALD_MOTION_LINK}`);
-  else html = html.replace(/<\/head>/i, `  ${EMERALD_MOTION_LINK}\n</head>`);
+  if (html.includes(typography)) html = html.replace(typography, `${typography}
+  ${EMERALD_MOTION_LINK}`);
+  else html = html.replace(/<\/head>/i, `  ${EMERALD_MOTION_LINK}
+</head>`);
   return Buffer.from(html);
 }
 
@@ -587,15 +695,20 @@ function generatedSecurityHeaders(res) {
   applyReleaseHeaders(res);
 }
 
-async function serveCompilerPage(req, res) {
+async function serveCompilerPage(req, res, filePath = '') {
   const data = await loadCompiler();
-  const state = queryState(req, data.projection);
+  const state = queryState(req, data.projection, filePath);
   const route = compileRoute(data, state);
   const body = Buffer.from(compilerHtml(data, route));
   generatedSecurityHeaders(res);
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=300, must-revalidate');
+  // Canonical company surface is /companies/<slug>/ even when served from /atlas/<slug>/.
+  if (state.from_path && state.company?.company_id) {
+    const slug = String(state.company.company_id).replaceAll('_', '-');
+    res.setHeader('X-GlacierEQ-Company-Canonical', `https://casey-barton-glaciereq.vercel.app/companies/${slug}/`);
+  }
   res.setHeader('Content-Length', String(body.length));
   res.end(body);
 }
@@ -604,7 +717,8 @@ async function serveCompilerJson(req, res) {
   const data = await loadCompiler();
   const state = queryState(req, data.projection);
   const route = compileRoute(data, state);
-  const body = Buffer.from(`${JSON.stringify(route, null, 2)}\n`);
+  const body = Buffer.from(`${JSON.stringify(route, null, 2)}
+`);
   generatedSecurityHeaders(res);
   res.statusCode = 200;
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
@@ -663,7 +777,8 @@ async function verifyV25(res) {
       machine_projection: html.includes('/data/application-compiler.json'),
     };
     if (data.projection.source_commit !== COMPILER_HELIX_COMMIT) errors.push('compiler_projection_authority_mismatch');
-    if (data.projection.company_count !== 76) errors.push('compiler_company_count');
+    if (!Number.isInteger(data.projection.company_count) || data.projection.company_count < 1) errors.push('compiler_company_count');
+    if (!Array.isArray(data.projection.companies) || data.projection.company_count !== data.projection.companies.length) errors.push('compiler_company_count_mismatch');
     if (route.route.company_id !== 'openai') errors.push('compiler_openai_route_missing');
     if (!route.observed_pressure) errors.push('compiler_openai_pressure_missing');
     if (!page.script_free || !page.inline_style_free) errors.push('compiler_script_free_contract_failed');
@@ -717,7 +832,12 @@ module.exports = async function compilerProxy(req, res) {
   if (rawPath === '__v25_verify') return verifyV25(res);
   const filePath = proxy.normalize(rawPath);
   if (!filePath) return typographyProxy(req, res);
-  if (filePath === 'compiler/index.html') return serveCompilerPage(req, res);
+  const companySurface = companySurfaceTarget(filePath);
+  if (companySurface) return serveEffectiveCompanySurface(companySurface, req, res);
+  if (filePath === 'compiler/index.html') return serveCompilerPage(req, res, filePath);
+  // Unify company intelligence: both namespaces get the Application Compiler surface.
+  // This retires the thin scaffold shells previously served at /atlas/<slug>/.
+  if (companyIdFromPath(filePath)) return serveCompilerPage(req, res, filePath);
   if (filePath === 'data/application-compiler.json') return serveCompilerJson(req, res);
   if (filePath === 'assets/application-compiler.css') return serveCompilerCss(res);
   if (filePath === 'assets/site.emerald-motion.css') return serveEmeraldMotionCss(res);
@@ -751,6 +871,7 @@ module.exports.EMERALD_MOTION_CSS = EMERALD_MOTION_CSS;
 module.exports.loadCompiler = loadCompiler;
 module.exports.normalizeFlagships = normalizeFlagships;
 module.exports.queryState = queryState;
+module.exports.companyIdFromPath = companyIdFromPath;
 
 },
 "api/design-proxy.js":function(exports, require, module, __filename, __dirname) {
@@ -759,7 +880,7 @@ const { URL } = require('node:url');
 const proxy = require('./proxy.js');
 
 const WEB_SOURCE_COMMIT = '95a91fd9b51c77babf51b3bed7c156acfd9d06f7';
-const HELIX_COMMIT = '8345955b67f163c3215b23195a267b6021a5be5e';
+const HELIX_COMMIT = '86c3630d51b231c1637dc9e8b138b28eaf70ba68';
 const WEB_RAW_ROOT = `https://raw.githubusercontent.com/GlacierEQ/job-application/${WEB_SOURCE_COMMIT}/site-v15/`;
 const GITHUB_TREE_ROOT = `https://api.github.com/repos/GlacierEQ/job-application/git/trees/${WEB_SOURCE_COMMIT}`;
 const COMPLETE_LINK = '<link rel="stylesheet" href="/assets/site.complete.css">';
@@ -941,7 +1062,7 @@ async function verifyGeneratedSurface() {
   const projectionResponse = await captureProxy('data/company-atlas.json');
   if (projectionResponse.status !== 200) throw new Error('company_projection_route_failed');
   const projection = JSON.parse(projectionResponse.body.toString('utf8'));
-  if (projection.company_count < 49 || !Array.isArray(projection.companies)) throw new Error('company_projection_topology_drift');
+  if (projection.company_count < 166 || !Array.isArray(projection.companies)) throw new Error('company_projection_topology_drift');
   let htmlRoutes = 0;
   let recordRoutes = 0;
   for (const route of ['atlas/index.html', 'companies/index.html']) {
@@ -1457,7 +1578,8 @@ ${END}`;
 }
 
 function companyIdForPath(filePath) {
-  const match = /^companies\/([a-z0-9-]+)\/index\.html$/.exec(filePath);
+  // Prefer /companies/; also accept legacy /atlas/<slug>/ for estate injection.
+  const match = /^(?:companies|atlas)\/([a-z0-9-]+)\/index\.html$/.exec(filePath);
   return match ? match[1].replaceAll('-', '_') : null;
 }
 
@@ -1617,17 +1739,355 @@ module.exports.normalizeRecord = normalizeRecord;
 module.exports.replaceOrInsert = replaceOrInsert;
 
 },
+"api/monument-title-proxy.js":function(exports, require, module, __filename, __dirname) {
+const crypto = require('node:crypto');
+const compilerProxy = require('./compiler-proxy.js');
+const titleFontProxy = require('./title-font-proxy.js');
+const proxy = require('./proxy.js');
+
+const RELEASE = 'V27-ALGERIAN-MONUMENT';
+const VERIFY_SCHEMA = 'glaciereq.v27-monument-title-verification.v1';
+const FONT_SOURCE = 'Fontsource Ewert 5.3.0 · OFL-1.1';
+const FONT_URL = 'https://cdn.jsdelivr.net/fontsource/fonts/ewert@5.3.0/latin-400-normal.woff2';
+const FONT_PATH = 'assets/title-monument.woff2';
+const CSS_PATH = 'assets/site.title-monument.css';
+const CSS_LINK = '<link rel="stylesheet" href="/assets/site.title-monument.css">';
+const FETCH_TIMEOUT_MS = 10_000;
+const MAX_FONT_BYTES = 128 * 1024;
+const EXPECTED_FONT_SHA256 = '2a98066e14efc2176ee1ba818ea565e77409b81a9a909e1b53b286307a2e70fb';
+const V26_TITLE_LINK_RE = /\s*<link\s+rel=["']stylesheet["']\s+href=["']\/assets\/site\.title-font\.css["']\s*>\s*/gi;
+
+let fontPromise = null;
+
+const MONUMENT_CSS = `
+@font-face {
+  font-family: "Glacier Algerian Monument";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url("/assets/title-monument.woff2") format("woff2");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+:where(h1,.brand strong) {
+  font-family: "Glacier Algerian Monument", "Algerian", "Copperplate", "Copperplate Gothic Bold", serif;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: geometricPrecision;
+  letter-spacing: .022em;
+  -webkit-text-stroke: .18px rgba(224,255,244,.20);
+  text-shadow:
+    0 1px 0 rgba(237,255,248,.20),
+    0 2px 0 rgba(13,35,27,.92),
+    0 3px 0 rgba(0,0,0,.76),
+    0 10px 28px rgba(27,255,162,.11),
+    0 24px 64px rgba(0,168,112,.08);
+}
+
+.hero-v21 h1,
+.page-hero h1,
+.compiler-hero h1 {
+  letter-spacing: .016em;
+  line-height: .98;
+}
+
+.hero-v21 h1 em,
+.page-hero h1 em,
+.compiler-hero h1 em {
+  font: inherit;
+  color: inherit;
+}
+
+.brand strong {
+  letter-spacing: .075em;
+}
+
+.master-card h1,
+.master-card h2,
+.master-card h3,
+h2,h3,h4,h5,h6 {
+  /* Preserve V24's more restrained Algerian/Copperplate hierarchy below the title tier. */
+}
+
+@media (max-width: 900px) {
+  :where(h1,.brand strong) {
+    letter-spacing: .015em;
+  }
+}
+
+@media (max-width: 640px) {
+  :where(h1,.brand strong) {
+    letter-spacing: .010em;
+    -webkit-text-stroke: .12px rgba(224,255,244,.16);
+    text-shadow:
+      0 1px 0 rgba(237,255,248,.16),
+      0 2px 0 rgba(5,22,16,.82),
+      0 7px 22px rgba(27,255,162,.08),
+      0 16px 40px rgba(0,168,112,.05);
+  }
+  .brand strong { letter-spacing: .055em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(h1,.brand strong) { text-shadow: 0 1px 0 rgba(237,255,248,.14), 0 2px 0 rgba(5,22,16,.80); }
+}
+
+@media print {
+  :where(h1,.brand strong) {
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 700;
+    -webkit-text-stroke: 0;
+    text-shadow: none;
+  }
+}
+`;
+
+function sha256(body) {
+  return crypto.createHash('sha256').update(body).digest('hex');
+}
+
+function requireValue(condition, message) {
+  if (!condition) throw new Error(message);
+}
+
+async function loadFont() {
+  if (!fontPromise) {
+    fontPromise = (async () => {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+      try {
+        const response = await fetch(FONT_URL, {
+          headers: { 'user-agent': 'GlacierEQ-V27-Monument-Title/1.0' },
+          signal: controller.signal,
+          redirect: 'error',
+        });
+        requireValue(response.ok, `monument_font_http_${response.status}`);
+        const declared = Number(response.headers.get('content-length') || 0);
+        requireValue(!declared || declared <= MAX_FONT_BYTES, 'monument_font_declared_too_large');
+        const body = Buffer.from(await response.arrayBuffer());
+        requireValue(body.length > 1024 && body.length <= MAX_FONT_BYTES, 'monument_font_size_invalid');
+        requireValue(body.subarray(0, 4).toString('ascii') === 'wOF2', 'monument_font_not_woff2');
+        const digest = sha256(body);
+        requireValue(digest === EXPECTED_FONT_SHA256, 'monument_font_sha256_mismatch');
+        return Object.freeze({ body, sha256: digest });
+      } catch (error) {
+        if (error?.name === 'AbortError') throw new Error('monument_font_fetch_timeout');
+        throw error;
+      } finally {
+        clearTimeout(timer);
+      }
+    })().catch((error) => {
+      fontPromise = null;
+      throw error;
+    });
+  }
+  return fontPromise;
+}
+
+function capture(handler, req) {
+  return new Promise((resolve, reject) => {
+    const headers = new Map();
+    let settled = false;
+    const res = {
+      statusCode: 200,
+      setHeader(name, value) { headers.set(String(name).toLowerCase(), value); },
+      getHeader(name) { return headers.get(String(name).toLowerCase()); },
+      end(chunk = '') {
+        if (settled) return;
+        settled = true;
+        resolve({
+          status: this.statusCode,
+          headers,
+          body: Buffer.isBuffer(chunk) ? chunk : Buffer.from(String(chunk)),
+        });
+      },
+    };
+    Promise.resolve(handler(req, res))
+      .then(() => { if (!settled) reject(new Error('monument_capture_did_not_end')); })
+      .catch(reject);
+  });
+}
+
+function injectMonument(body) {
+  const bytes = Buffer.isBuffer(body) ? body : Buffer.from(body || '');
+  let text = bytes.toString('utf8');
+  if (!/<\/head>/i.test(text)) return bytes;
+
+  // V27 owns the live title tier. Remove the prior V26 title stylesheet when
+  // transforming previously rendered/cached HTML so the two trueface layers
+  // never compete. The V26 assets themselves remain routable for old clients.
+  text = text.replace(V26_TITLE_LINK_RE, '\n  ');
+  V26_TITLE_LINK_RE.lastIndex = 0;
+
+  const matches = text.match(/\/assets\/site\.title-monument\.css/g) || [];
+  if (matches.length > 1) throw new Error('duplicate_monument_stylesheet');
+  if (matches.length === 1) return Buffer.from(text);
+  const algerian = '<link rel="stylesheet" href="/assets/site.algerian.css">';
+  if (text.includes(algerian)) {
+    text = text.replace(algerian, `${algerian}\n  ${CSS_LINK}`);
+  } else {
+    text = text.replace(/<\/head>/i, `  ${CSS_LINK}\n</head>`);
+  }
+  return Buffer.from(text);
+}
+
+function applyReleaseHeaders(res) {
+  res.setHeader('X-PSYSOCX-Title-Release', RELEASE);
+  res.setHeader('X-GlacierEQ-Title-Font-Source', 'fontsource-ewert-5.3.0');
+}
+
+function replayHeaders(headers, res) {
+  for (const [name, value] of headers) {
+    if (name === 'content-length' || name === 'x-psysocx-title-release') continue;
+    res.setHeader(name, value);
+  }
+  applyReleaseHeaders(res);
+}
+
+function serveCss(res) {
+  const body = Buffer.from(MONUMENT_CSS);
+  applyReleaseHeaders(res);
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/css; charset=utf-8');
+  res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=900, must-revalidate');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('Content-Length', String(body.length));
+  res.end(body);
+}
+
+async function serveFont(res) {
+  const font = await loadFont();
+  applyReleaseHeaders(res);
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'font/woff2');
+  res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-GlacierEQ-Title-Font-SHA256', font.sha256);
+  res.setHeader('Content-Length', String(font.body.length));
+  res.end(font.body);
+}
+
+async function verifyV27(res) {
+  const errors = [];
+  let inherited = null;
+  let font = null;
+  let homepage = null;
+  try {
+    const [v26Response, fontResult, homeResponse] = await Promise.all([
+      capture(titleFontProxy, { url: '/?path=__v26_verify' }),
+      loadFont(),
+      capture(compilerProxy, { url: '/?path=index.html' }),
+    ]);
+    try { inherited = JSON.parse(v26Response.body.toString('utf8')); } catch {}
+    if (v26Response.status !== 200 || inherited?.status !== 'PASS') errors.push('v26_inheritance_failed');
+    font = {
+      source: FONT_SOURCE,
+      sha256: fontResult.sha256,
+      bytes: fontResult.body.length,
+      woff2_signature: fontResult.body.subarray(0, 4).toString('ascii') === 'wOF2',
+    };
+    const sourceHtml = homeResponse.body.toString('utf8');
+    const html = injectMonument(Buffer.from(sourceHtml)).toString('utf8');
+    const scriptCount = (value) => (value.match(/<script\b/gi) || []).length;
+    const algerianIndex = html.indexOf('/assets/site.algerian.css');
+    const monumentIndex = html.indexOf('/assets/site.title-monument.css');
+    homepage = {
+      status: homeResponse.status,
+      stylesheet_count: (html.match(/\/assets\/site\.title-monument\.css/g) || []).length,
+      algerian_precedes_monument: algerianIndex !== -1 && monumentIndex !== -1 && algerianIndex < monumentIndex,
+      old_trueface_absent: !html.includes('/assets/site.title-font.css'),
+      client_scripts_added: scriptCount(html) - scriptCount(sourceHtml),
+    };
+    if (!font.woff2_signature) errors.push('monument_font_signature_failed');
+    if (
+      homepage.status !== 200
+      || homepage.stylesheet_count !== 1
+      || !homepage.algerian_precedes_monument
+      || !homepage.old_trueface_absent
+      || homepage.client_scripts_added !== 0
+    ) {
+      errors.push('monument_homepage_contract_failed');
+    }
+  } catch (error) {
+    errors.push(error instanceof Error ? error.message : 'v27_verification_failed');
+  }
+
+  const pass = errors.length === 0;
+  const body = Buffer.from(JSON.stringify({
+    schema: VERIFY_SCHEMA,
+    status: pass ? 'PASS' : 'FAIL',
+    release: RELEASE,
+    inherited_v26: inherited ? { schema: inherited.schema, status: inherited.status } : null,
+    font,
+    homepage,
+    title_scope: ['h1', '.brand strong'],
+    secondary_heading_owner: 'V24 Algerian/Copperplate layer',
+    browser_font_origin: 'self',
+    client_scripts_added: homepage?.client_scripts_added ?? null,
+    truth_boundary: {
+      typography_only: true,
+      body_typography_modified: false,
+      secondary_heading_hierarchy_replaced: false,
+      historical_proof_authorities_modified: false,
+      external_browser_font_origin_added: false,
+    },
+    errors,
+  }, null, 2));
+  applyReleaseHeaders(res);
+  res.statusCode = pass ? 200 : 503;
+  res.setHeader('Content-Type', 'application/json; charset=utf-8');
+  res.setHeader('Cache-Control', 'no-store');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('Content-Length', String(body.length));
+  res.end(body);
+}
+
+module.exports = async function monumentTitleProxy(req, res) {
+  const rawPath = proxy.requestPath(req);
+  if (rawPath === '__v27_verify') return verifyV27(res);
+  const filePath = proxy.normalize(rawPath);
+  if (!filePath) return compilerProxy(req, res);
+  if (filePath === CSS_PATH) return serveCss(res);
+  if (filePath === FONT_PATH) return serveFont(res);
+
+  const captured = await capture(compilerProxy, req);
+  replayHeaders(captured.headers, res);
+  res.statusCode = captured.status;
+  let body = captured.body;
+  const type = String(captured.headers.get('content-type') || '');
+  if (type.startsWith('text/html')) body = injectMonument(body);
+  res.setHeader('Content-Length', String(body.length));
+  res.end(body);
+};
+
+module.exports.constants = {
+  RELEASE,
+  VERIFY_SCHEMA,
+  FONT_SOURCE,
+  FONT_URL,
+  FONT_PATH,
+  CSS_PATH,
+  CSS_LINK,
+  EXPECTED_FONT_SHA256,
+};
+module.exports.MONUMENT_CSS = MONUMENT_CSS;
+module.exports.injectMonument = injectMonument;
+module.exports.loadFont = loadFont;
+module.exports.sha256 = sha256;
+
+},
 "api/proxy.js":function(exports, require, module, __filename, __dirname) {
 const crypto = require('crypto');
 const { URL } = require('node:url');
 
 const SOURCE_COMMIT = '95a91fd9b51c77babf51b3bed7c156acfd9d06f7';
-const HELIX_COMMIT = '8345955b67f163c3215b23195a267b6021a5be5e';
+const HELIX_COMMIT = '86c3630d51b231c1637dc9e8b138b28eaf70ba68';
 const RAW_ROOT = `https://raw.githubusercontent.com/GlacierEQ/job-application/${SOURCE_COMMIT}/site-v15/`;
 const HELIX_ROOT = `https://raw.githubusercontent.com/GlacierEQ/job-app-helix/${HELIX_COMMIT}/`;
 const PUBLIC_ORIGIN = 'https://casey-barton-glaciereq.vercel.app';
 const COMPANY_INDEX_PATH = 'manifests/company_dossiers.json';
 const SECOND_DEPTH_PATH = 'manifests/company_second_depth.json';
+const SECOND_DEPTH_OVERRIDE_INDEX_PATH = 'manifests/company_second_depth_overrides/index.json';
 
 const REPOSITORY_PATTERN = /^GlacierEQ\/[A-Za-z0-9_.-]+$/;
 const COMPANY_ID_PATTERN = /^[a-z0-9_]+$/;
@@ -1799,6 +2259,61 @@ async function fetchHelixJson(filePath) {
   } catch (error) {
     throw new Error(`${filePath} contains invalid JSON: ${error.message}`);
   }
+}
+
+function cloneJson(value) {
+  return JSON.parse(JSON.stringify(value));
+}
+
+async function loadEffectiveSecondDepth(base) {
+  if (!base || base.authority !== 'GlacierEQ/job-app-helix') {
+    throw new Error('company second-depth authority mismatch');
+  }
+  if (!base.company_overrides || typeof base.company_overrides !== 'object' || Array.isArray(base.company_overrides)) {
+    throw new Error('company second-depth overrides invalid');
+  }
+  const effective = cloneJson(base);
+  const overrideIndex = await fetchHelixJson(SECOND_DEPTH_OVERRIDE_INDEX_PATH);
+  if (overrideIndex.schema !== 'glaciereq.company-second-depth-overrides.v1') {
+    throw new Error('company second-depth override index schema mismatch');
+  }
+  if (overrideIndex.authority !== 'GlacierEQ/job-app-helix') {
+    throw new Error('company second-depth override authority mismatch');
+  }
+  if (overrideIndex.merge_order !== 'base_company_second_depth_then_company_module') {
+    throw new Error('company second-depth override merge order mismatch');
+  }
+  if (!Array.isArray(overrideIndex.overrides)) {
+    throw new Error('company second-depth override rows missing');
+  }
+  const seen = new Set();
+  for (const ref of overrideIndex.overrides) {
+    if (!ref || typeof ref !== 'object' || Array.isArray(ref)) {
+      throw new Error('company second-depth override ref invalid');
+    }
+    if (typeof ref.company_id !== 'string' || !COMPANY_ID_PATTERN.test(ref.company_id)) {
+      throw new Error('company second-depth override company id invalid');
+    }
+    if (typeof ref.path !== 'string' || !ref.path.startsWith('manifests/company_second_depth_overrides/') || !ref.path.endsWith('.json')) {
+      throw new Error(`${ref.company_id}: company second-depth override path invalid`);
+    }
+    if (seen.has(ref.company_id)) {
+      throw new Error(`${ref.company_id}: duplicate modular second-depth override`);
+    }
+    if (Object.hasOwn(effective.company_overrides, ref.company_id)) {
+      throw new Error(`${ref.company_id}: inline and modular second-depth authority collide`);
+    }
+    seen.add(ref.company_id);
+    const module = await fetchHelixJson(ref.path);
+    if (module.schema !== 'glaciereq.company-second-depth-company.v1' || module.company_id !== ref.company_id) {
+      throw new Error(`${ref.company_id}: modular second-depth identity drift`);
+    }
+    if (!module.state || typeof module.state !== 'object' || Array.isArray(module.state)) {
+      throw new Error(`${ref.company_id}: modular second-depth state invalid`);
+    }
+    effective.company_overrides[ref.company_id] = cloneJson(module.state);
+  }
+  return effective;
 }
 
 function validateEvidenceReference(companyId, field, item) {
@@ -2024,7 +2539,7 @@ function compileProjection(index, shards, secondDepthRegistry) {
   });
 
   companies.sort((a, b) => a.display_name.localeCompare(b.display_name));
-  if (companies.length < 49) throw new Error(`expected >=49 company tracks, received ${companies.length}`);
+  if (companies.length < 166) throw new Error(`expected >=166 company tracks, received ${companies.length}`);
   return {
     schema: 'glaciereq.company-atlas-projection.v2',
     authority: 'GlacierEQ/job-app-helix',
@@ -2058,10 +2573,11 @@ async function loadProjection() {
       if (!Array.isArray(index.dossier_files) || !index.dossier_files.length) {
         throw new Error('dossier files are missing');
       }
-      const [shards, secondDepth] = await Promise.all([
+      const [shards, secondDepthBase] = await Promise.all([
         Promise.all(index.dossier_files.map(fetchHelixJson)),
         fetchHelixJson(SECOND_DEPTH_PATH),
       ]);
+      const secondDepth = await loadEffectiveSecondDepth(secondDepthBase);
       return compileProjection(index, shards, secondDepth);
     })().catch((error) => {
       projectionPromise = null;
@@ -2114,7 +2630,7 @@ function nav(current = '') {
 }
 
 function shell({ title, description, signal, signalNote, current = 'Atlas', body, footer }) {
-  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#03080b"><meta name="description" content="${esc(description)}"><meta name="robots" content="index,follow"><title>${esc(title)}</title><link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/assets/site.css"><link rel="stylesheet" href="/assets/site.systems.css"><link rel="stylesheet" href="/assets/helix-atlas.css"><link rel="stylesheet" href="/assets/company-constellation.css"></head><body><a class="skip" href="#main">Skip to content</a><div class="signal-bar"><div class="shell signal-inner"><span class="signal-live">${esc(signal)}</span><span>${esc(signalNote || 'pinned public evidence · no affiliation implied')}</span></div></div><header class="site-header"><div class="shell nav"><a class="brand" href="/"><span class="mark">CB</span><span><strong>CASEY BARTON</strong><small>APPLIED AI SYSTEMS ARCHITECT</small></span></a>${nav(current)}<a class="nav-cta" href="mailto:glacier.equilibrium@gmail.com">Start a conversation</a></div></header><main id="main">${body}</main><footer class="site-footer"><div class="shell"><p><strong>Casey Barton · GlacierEQ</strong></p><p>${esc(footer || 'Independent systems work. Company alignment does not imply affiliation, endorsement, employment, proprietary access, contract relationship, clearance, or production deployment.')}</p></div></footer></body></html>\n`;
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#03080b"><meta name="description" content="${esc(description)}"><meta name="robots" content="index,follow"><title>${esc(title)}</title><link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/assets/site.css"><link rel="stylesheet" href="/assets/site.systems.css"><link rel="stylesheet" href="/assets/helix-atlas.css"><link rel="stylesheet" href="/assets/helix-atlas.stars.css"><link rel="stylesheet" href="/assets/company-constellation.css"></head><body><a class="skip" href="#main">Skip to content</a><div class="signal-bar"><div class="shell signal-inner"><span class="signal-live">${esc(signal)}</span><span>${esc(signalNote || 'pinned public evidence · no affiliation implied')}</span></div></div><header class="site-header"><div class="shell nav"><a class="brand" href="/"><span class="mark">CB</span><span><strong>CASEY BARTON</strong><small>APPLIED AI SYSTEMS ARCHITECT</small></span></a>${nav(current)}<a class="nav-cta" href="mailto:glacier.equilibrium@gmail.com">Start a conversation</a></div></header><main id="main">${body}</main><footer class="site-footer"><div class="shell"><p><strong>Casey Barton · GlacierEQ</strong></p><p>${esc(footer || 'Independent systems work. Company alignment does not imply affiliation, endorsement, employment, proprietary access, contract relationship, clearance, or production deployment.')}</p></div></footer></body></html>\n`;
 }
 
 function star(company, index) {
@@ -2289,6 +2805,44 @@ function augmentLlms(body, projection) {
   return Buffer.from(lines.join('\n'));
 }
 
+function runtimeStarPositionCss(count) {
+  if (!Number.isInteger(count) || count < 1) {
+    throw new Error('runtime star projection requires a positive company count');
+  }
+  const rings = [];
+  let remaining = count;
+  let ring = 0;
+  while (remaining > 0) {
+    const capacity = 12 + ring * 10;
+    const take = Math.min(remaining, capacity);
+    rings.push(take);
+    remaining -= take;
+    ring += 1;
+  }
+  const rules = [
+    '/* AUTO-GENERATED by V21 runtime projection — no client script */',
+    `/* ${count} governed company stars */`,
+  ];
+  let index = 0;
+  for (let ringIndex = 0; ringIndex < rings.length; ringIndex += 1) {
+    const ringCount = rings[ringIndex];
+    const radius = rings.length === 1
+      ? 31
+      : 16 + (31 * ringIndex) / (rings.length - 1);
+    const offset = -Math.PI / 2 + (ringIndex % 2 === 0 ? 0 : Math.PI / ringCount);
+    for (let item = 0; item < ringCount; item += 1) {
+      const angle = offset + (Math.PI * 2 * item) / ringCount;
+      const left = 50 + radius * Math.cos(angle);
+      const top = 50 + radius * Math.sin(angle);
+      rules.push(
+        `.atlas-star.star-p${index}{left:${left.toFixed(3)}%;top:${top.toFixed(3)}%}`,
+      );
+      index += 1;
+    }
+  }
+  return `${rules.join('\n')}\n`;
+}
+
 async function verifyDeployment(res) {
   const files = [];
   let pass = true;
@@ -2315,11 +2869,19 @@ async function verifyDeployment(res) {
     pass = pass && atlasOk;
     files.push({ path: 'assets/helix-atlas.css', status: atlas.response.status, bytes: atlas.body.length, sha256: atlas.sha256, expected: 'contains .constellation-stage and .atlas-star.star-p48', ok: atlasOk });
 
-    const stars = await fetchSource('assets/helix-atlas.stars.css');
-    const starsText = stars.body.toString('utf8');
-    const starsOk = stars.response.ok && starsText.includes('.atlas-star.star-p0{') && starsText.includes(`.atlas-star.star-p${Math.max(0, (projection?.company_count || 1) - 1)}{`);
+    const starsText = projection ? runtimeStarPositionCss(projection.company_count) : '';
+    const starsBody = Buffer.from(starsText);
+    const starsOk = Boolean(projection) && starsText.includes('.atlas-star.star-p0{') &&
+      starsText.includes(`.atlas-star.star-p${Math.max(0, (projection?.company_count || 1) - 1)}{`);
     pass = pass && starsOk;
-    files.push({ path: 'assets/helix-atlas.stars.css', status: stars.response.status, bytes: stars.body.length, sha256: stars.sha256, expected: 'generated multi-ring star positions', ok: starsOk });
+    files.push({
+      path: 'assets/helix-atlas.stars.css',
+      status: projection ? 200 : 503,
+      bytes: starsBody.length,
+      sha256: sha256(starsBody),
+      expected: 'runtime-generated multi-ring star positions from pinned Helix projection',
+      ok: starsOk,
+    });
 
     const constellation = await fetchSource('assets/company-constellation.css');
     const constellationText = constellation.body.toString('utf8');
@@ -2340,8 +2902,17 @@ async function verifyDeployment(res) {
       memberships += company.repositories.length;
     }
     lockheed = projection.companies.find((company) => company.company_id === 'lockheed_martin') || null;
-    const topologyOk = projection.company_count >= 49 && memberships === 59 &&
-      stageCounts.CLAIM_PROMOTED === 1 && Object.values(stageCounts).reduce((a,b)=>a+b,0) === projection.company_count &&
+    const topologyOk = projection.company_count >= 166 && memberships === 59 &&
+      stageCounts.CLAIM_PROMOTED >= 2 &&
+      projection.companies
+        .filter((company) => company.second_depth.stage === 'CLAIM_PROMOTED')
+        .every((company) => company.second_depth.evidence.claim_receipts.length > 0) &&
+      projection.companies.some((company) =>
+        company.company_id === 'github' &&
+        company.second_depth.stage === 'CLAIM_PROMOTED' &&
+        company.second_depth.claim_ceiling === 'proof_bound_company_specific' &&
+        company.second_depth.evidence.claim_receipts.length >= 2
+      ) && Object.values(stageCounts).reduce((a,b)=>a+b,0) === projection.company_count &&
       lockheed && lockheed.repositories.length === 0 &&
       lockheed.second_depth.stage === 'CLAIM_PROMOTED' &&
       lockheed.second_depth.ordinal === 7 &&
@@ -2393,7 +2964,8 @@ async function verifyDeployment(res) {
 }
 
 function needsProjection(filePath) {
-  return filePath === 'atlas/index.html' ||
+  return filePath === 'assets/helix-atlas.stars.css' ||
+    filePath === 'atlas/index.html' ||
     filePath === 'companies/index.html' ||
     filePath === 'data/company-atlas.json' ||
     filePath === 'sitemap.xml' ||
@@ -2403,6 +2975,13 @@ function needsProjection(filePath) {
 }
 
 async function dynamicResponse(filePath, projection) {
+  if (filePath === 'assets/helix-atlas.stars.css') {
+    return {
+      status: 200,
+      type: TYPES['.css'],
+      body: Buffer.from(runtimeStarPositionCss(projection.company_count)),
+    };
+  }
   if (filePath === 'atlas/index.html' || filePath === 'companies/index.html') {
     return { status: 200, type: TYPES['.html'], body: Buffer.from(renderAtlas(projection)) };
   }
@@ -2524,18 +3103,221 @@ const truthRuntime = require('./truth-runtime.js');
 const typographyProxy = require('./typography-proxy.js');
 const compilerProxy = require('./compiler-proxy.js');
 const titleFontProxy = require('./title-font-proxy.js');
+const monumentTitleProxy = require('./monument-title-proxy.js');
+const systemsAtlasProxy = require('./systems-atlas-proxy.js');
+
+const V26_ASSETS = new Set([
+  'assets/title-algerian.woff2',
+  'assets/site.title-font.css',
+]);
 
 module.exports = async function releaseRouter(req, res) {
   const rawPath = proxy.requestPath(req);
+  if (rawPath === '__systems_atlas_verify' || systemsAtlasProxy.handles(rawPath)) {
+    return systemsAtlasProxy(req, res);
+  }
   if (rawPath === '__v21_verify') return proxy(req, res);
   if (rawPath === '__design_verify') return designProxy(req, res);
   if (rawPath === '__v22_verify') return estateProxy(req, res);
   if (rawPath === '__v23_verify') return truthRuntime(req, res);
   if (rawPath === '__v24_verify') return typographyProxy(req, res);
   if (rawPath === '__v25_verify') return compilerProxy(req, res);
-  if (rawPath === '__v26_verify') return titleFontProxy(req, res);
-  return titleFontProxy(req, res);
+  if (rawPath === '__v26_verify' || V26_ASSETS.has(rawPath)) return titleFontProxy(req, res);
+  if (rawPath === '__v27_verify') return monumentTitleProxy(req, res);
+  return monumentTitleProxy(req, res);
 };
+
+module.exports.V26_ASSETS = V26_ASSETS;
+
+},
+"api/systems-atlas-proxy.js":function(exports, require, module, __filename, __dirname) {
+const proxy = require('./proxy.js');
+
+const SOURCE_COMMIT = '675b295f6e8c19a85daef50b9ac46bdef224ceea';
+const RELEASE = 'V23-SYSTEMS-ATLAS-RESOURCE-GROUNDED';
+const VERIFY_SCHEMA = 'glaciereq.v23-systems-atlas-runtime-verification.v1';
+const FETCH_TIMEOUT_MS = 12_000;
+const MAX_BYTES = 4 * 1024 * 1024;
+const COMMIT_RE = /^[a-f0-9]{40}$/;
+
+const PATHS = Object.freeze({
+  'resume/index.html': { type: 'text/html; charset=utf-8', markers: ['SYSTEMS ATLAS RESUME', 'Evidence-carrying execution', 'BIOLOGICAL SYSTEMS', '199/200'] },
+  'master/index.html': { type: 'text/html; charset=utf-8', markers: ['REPEATED ENGINEERING PATTERNS', 'SYSTEMS LINEAGE', 'TOWER OF BABEL', '200 collected, 199 passed, 1 skipped'] },
+  'resume/ats.txt': { type: 'text/plain; charset=utf-8', markers: ['SYSTEMS ATLAS MASTER', 'FRONTIER ENGINEERING SIGNAL', '200 collected, 199 passed, 1 skipped', 'ARCHITECTURE CHRONOLOGY - TIMESTAMPED, BOUNDED'] },
+  'data/resume.json': { type: 'application/json; charset=utf-8', json: true },
+  'llms.txt': { type: 'text/plain; charset=utf-8', markers: ['Systems Atlas V23', 'evidence-carrying execution', 'systems-lineage summary'] },
+  'assets/site.css': { type: 'text/css; charset=utf-8' },
+  'assets/site.systems.css': { type: 'text/css; charset=utf-8' },
+  'assets/site.complete.css': { type: 'text/css; charset=utf-8' },
+  'assets/site.interaction.css': { type: 'text/css; charset=utf-8' },
+  'assets/site.algerian.css': { type: 'text/css; charset=utf-8' },
+  'assets/resume.v17.css': { type: 'text/css; charset=utf-8' },
+  'assets/resume.final.css': { type: 'text/css; charset=utf-8' },
+});
+
+let cache = new Map();
+
+function requireValue(condition, message) {
+  if (!condition) throw new Error(message);
+}
+
+function normalizeRequest(req) {
+  const raw = proxy.requestPath(req);
+  if (raw === '__systems_atlas_verify') return raw;
+  return proxy.normalize(raw);
+}
+
+function handles(value) {
+  const raw = String(value || '').replace(/^\/+|\/+$/g, '');
+  if (raw === '__systems_atlas_verify') return true;
+  const normalized = proxy.normalize(raw);
+  return Boolean(normalized && Object.hasOwn(PATHS, normalized));
+}
+
+function rawUrl(filePath) {
+  requireValue(COMMIT_RE.test(SOURCE_COMMIT), 'systems_atlas_source_commit_not_bound');
+  requireValue(Object.hasOwn(PATHS, filePath), `systems_atlas_path_not_allowed:${filePath}`);
+  return `https://raw.githubusercontent.com/GlacierEQ/job-application/${SOURCE_COMMIT}/site-v15/${filePath}`;
+}
+
+async function fetchBounded(filePath) {
+  if (cache.has(filePath)) return cache.get(filePath);
+  const promise = (async () => {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+    try {
+      const response = await fetch(rawUrl(filePath), {
+        headers: { 'user-agent': 'GlacierEQ-Systems-Atlas-V23/1.0' },
+        signal: controller.signal,
+        redirect: 'error',
+      });
+      requireValue(response.ok, `systems_atlas_http_${response.status}:${filePath}`);
+      const declared = Number(response.headers.get('content-length') || 0);
+      requireValue(!declared || declared <= MAX_BYTES, `systems_atlas_declared_too_large:${filePath}`);
+      const body = Buffer.from(await response.arrayBuffer());
+      requireValue(body.length > 0 && body.length <= MAX_BYTES, `systems_atlas_body_size:${filePath}`);
+      validate(filePath, body);
+      return body;
+    } catch (error) {
+      if (error?.name === 'AbortError') throw new Error(`systems_atlas_fetch_timeout:${filePath}`);
+      throw error;
+    } finally {
+      clearTimeout(timer);
+    }
+  })().catch((error) => {
+    cache.delete(filePath);
+    throw error;
+  });
+  cache.set(filePath, promise);
+  return promise;
+}
+
+function validate(filePath, body) {
+  const contract = PATHS[filePath];
+  requireValue(contract, `systems_atlas_contract_missing:${filePath}`);
+  const text = body.toString('utf8');
+  for (const marker of contract.markers || []) {
+    requireValue(text.toLowerCase().includes(marker.toLowerCase()), `systems_atlas_marker_missing:${filePath}:${marker}`);
+  }
+  if (contract.json) {
+    const value = JSON.parse(text);
+    requireValue(value?.meta?.schema === 'glaciereq.resume-intelligence.v23', 'systems_atlas_resume_schema');
+    requireValue(value?.meta?.version === '23.0.0-resource-grounded', 'systems_atlas_resume_version');
+    requireValue(value?.meta?.profile === 'SYSTEMS_ATLAS_FOUR_LAYER', 'systems_atlas_resume_profile');
+    requireValue(value?.meta?.facts_invariant === true, 'systems_atlas_resume_invariant');
+    requireValue(Array.isArray(value?.x_capability_clusters) && value.x_capability_clusters.length === 6, 'systems_atlas_capability_clusters');
+    requireValue(Array.isArray(value?.x_systems_lineage?.mappings) && value.x_systems_lineage.mappings.length >= 8, 'systems_atlas_lineage_mappings');
+    requireValue(value?.x_chronology?.classification === 'DATED_SEMANTIC_CONVERGENCE_ONLY', 'systems_atlas_chronology_boundary');
+  }
+  if (filePath.endsWith('.html')) {
+    requireValue(!/<script\b/i.test(text), `systems_atlas_script_forbidden:${filePath}`);
+    requireValue(!/\sstyle\s*=\s*/i.test(text), `systems_atlas_inline_style_forbidden:${filePath}`);
+    if (filePath === 'resume/index.html') requireValue(!/<table\b/i.test(text), 'systems_atlas_resume_table_forbidden');
+  }
+}
+
+function securityHeaders(res) {
+  res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'none'; style-src 'self'; img-src 'self' data:; connect-src 'none'; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self' mailto:; upgrade-insecure-requests");
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), payment=()');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+  res.setHeader('X-GlacierEQ-Source-Commit', SOURCE_COMMIT);
+  res.setHeader('X-PSYSOCX-Resume-Release', RELEASE);
+}
+
+async function serve(filePath, res) {
+  try {
+    const body = await fetchBounded(filePath);
+    securityHeaders(res);
+    res.statusCode = 200;
+    res.setHeader('Content-Type', PATHS[filePath].type);
+    res.setHeader('Cache-Control', filePath.endsWith('.css') ? 'public, max-age=0, s-maxage=900, must-revalidate' : 'public, max-age=0, must-revalidate');
+    res.setHeader('Content-Length', String(body.length));
+    res.end(body);
+  } catch (error) {
+    const body = Buffer.from(JSON.stringify({
+      schema: 'glaciereq.v23-systems-atlas-runtime-error.v1',
+      status: 'FAIL_CLOSED',
+      source_commit: SOURCE_COMMIT,
+      path: filePath,
+      error: error instanceof Error ? error.message : String(error),
+    }, null, 2));
+    securityHeaders(res);
+    res.statusCode = 503;
+    res.setHeader('Content-Type', 'application/json; charset=utf-8');
+    res.setHeader('Cache-Control', 'no-store');
+    res.setHeader('Content-Length', String(body.length));
+    res.end(body);
+  }
+}
+
+async function verify(res) {
+  const errors = [];
+  const checks = {};
+  for (const filePath of ['resume/index.html', 'master/index.html', 'resume/ats.txt', 'data/resume.json', 'llms.txt']) {
+    try {
+      const body = await fetchBounded(filePath);
+      checks[filePath] = { status: 'PASS', bytes: body.length };
+    } catch (error) {
+      checks[filePath] = { status: 'FAIL', error: error instanceof Error ? error.message : String(error) };
+      errors.push(filePath);
+    }
+  }
+  const payload = Buffer.from(JSON.stringify({
+    schema: VERIFY_SCHEMA,
+    status: errors.length ? 'FAIL' : 'PASS',
+    release: RELEASE,
+    source_commit: SOURCE_COMMIT,
+    canonical_surfaces: Object.keys(PATHS),
+    checks,
+    scraper_contract: { resume_tables: 0, scripts: 0, inline_styles: 0 },
+    errors,
+  }, null, 2));
+  securityHeaders(res);
+  res.statusCode = errors.length ? 503 : 200;
+  res.setHeader('Content-Type', 'application/json; charset=utf-8');
+  res.setHeader('Cache-Control', 'no-store');
+  res.setHeader('Content-Length', String(payload.length));
+  res.end(payload);
+}
+
+module.exports = async function systemsAtlasProxy(req, res) {
+  const filePath = normalizeRequest(req);
+  if (filePath === '__systems_atlas_verify') return verify(res);
+  if (!filePath || !Object.hasOwn(PATHS, filePath)) {
+    res.statusCode = 404;
+    res.end('Not found');
+    return;
+  }
+  return serve(filePath, res);
+};
+
+module.exports.handles = handles;
+module.exports.constants = { SOURCE_COMMIT, RELEASE, VERIFY_SCHEMA, PATHS };
+module.exports.validate = validate;
+
 },
 "api/title-font-proxy.js":function(exports, require, module, __filename, __dirname) {
 const crypto = require('node:crypto');
@@ -3873,7 +4655,7 @@ function resolveRelative(fromId, request) {
 function verifyFactories() {
   if (verifiedFactoryIds) return verifiedFactoryIds;
   const ids = Object.keys(FACTORIES).sort();
-  if (ids.length !== 9) throw new Error('v25_bundle_module_count_mismatch');
+  if (ids.length !== 11) throw new Error('v25_bundle_module_count_mismatch');
   const chunks = [];
   for (const id of ids) {
     const source = Function.prototype.toString.call(FACTORIES[id]);
