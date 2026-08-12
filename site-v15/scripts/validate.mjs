@@ -146,12 +146,32 @@ assert(portfolio.release?.authority?.control_plane === 'GlacierEQ/job-app-helix'
 
 assert(resume.includes('/downloads/Casey_Barton_Resume.pdf'), 'resume PDF link missing');
 assert(resume.includes('/resume/ats.txt') || resume.includes('RESUME_ATS.md'), 'resume ATS link missing');
-const legacyResumeProof = resume.includes('166 source tests');
-const v17ResumeProof = resume.includes('166 + 19') && resume.includes('source + memory tests');
-const helixCurrentBoundary = resume.includes('>67<') && resume.includes('PARTIALLY VERIFIED') && resume.includes('admitted public proof');
-assert(resume.includes('69/69') && (legacyResumeProof || v17ResumeProof) && helixCurrentBoundary && resume.includes('62/62'), 'resume proof drift');
+for (const token of [
+  'SYSTEMS ATLAS RESUME',
+  'Evidence-carrying execution',
+  'Fail-closed execution envelopes',
+  'Bounded state transitions',
+  'Idempotent recovery',
+  'Truth-preserving public projections',
+  'Reversible verified change',
+  '199/200',
+  '48/48',
+  '40 / 80',
+  '62/62',
+  'BIOLOGICAL SYSTEMS',
+]) assert(resume.includes(token), `V23 resume proof drift: ${token}`);
 assert(!resume.includes('148/148') && !resume.includes('148 of 148'), 'resume contains retired Helix test-count framing');
-assert(master.toLowerCase().includes('69 of 69 tests passed') && master.includes('166') && master.includes('19 memory tests'), 'master evidence incomplete');
+for (const token of [
+  'REPEATED ENGINEERING PATTERNS',
+  'SYSTEMS LINEAGE',
+  'AKOS + ECHO',
+  'Colossal Agent',
+  'Spiral Engine / Double Helix',
+  'TOWER OF BABEL',
+  '200 collected, 199 passed, 1 skipped',
+  '48/48',
+  'dated semantic convergence',
+]) assert(master.includes(token), `V23 master evidence drift: ${token}`);
 assert(master.includes('Owning repositories retain evidence authority') || master.includes('Proof stays with the owning system'), 'master evidence policy missing');
 assert(machine.includes('/data/portfolio.json') && machine.includes('/data/company-families.json') && machine.includes('/data/psysoc-x-profiles.json'), 'machine links incomplete');
 
