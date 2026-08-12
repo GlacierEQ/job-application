@@ -1,0 +1,110 @@
+{
+  "schema": "glaciereq.v23-systems-atlas-production-receipt.v1",
+  "status": "VERIFIED_PRODUCTION",
+  "date": "2026-08-12",
+  "public_domain": "https://casey-barton-glaciereq.vercel.app",
+  "vercel": {
+    "project_id": "prj_5i9v2K5MyET7Yi7JwN2PCIj1AGZ1",
+    "deployment_id": "dpl_CuZ2673Nm2B7DJNZsu22ZNjYfd6v",
+    "state": "READY",
+    "target": "production",
+    "canonical_alias": "casey-barton-glaciereq.vercel.app"
+  },
+  "runtime_bundle": {
+    "source_commit": "d2fbab4cff1a4374cb8f867c7a723e3d87181689",
+    "helix_commit": "86c3630d51b231c1637dc9e8b138b28eaf70ba68",
+    "module_count": 11,
+    "factory_bundle_sha256": "f5b0c16b3b14bbff979f254c5dea51b4fc7ce0302ec05cdf41ed2749a9dd1586",
+    "runtime_bytes": 218363,
+    "bootstrap_network_fetch_required": false,
+    "runtime_string_evaluation_required": false,
+    "every_factory_sha256_verified_before_execution": true,
+    "verification_endpoint": "/__v25_bundle_verify"
+  },
+  "systems_atlas_projection": {
+    "release": "V23-SYSTEMS-ATLAS-RESOURCE-GROUNDED",
+    "content_authority_commit": "675b295f6e8c19a85daef50b9ac46bdef224ceea",
+    "verification_endpoint": "/__systems_atlas_verify",
+    "runtime_verification": "PASS",
+    "canonical_surfaces": [
+      "/resume/",
+      "/master/",
+      "/resume/ats.txt",
+      "/data/resume.json",
+      "/llms.txt"
+    ],
+    "scraper_contract": {
+      "resume_tables": 0,
+      "scripts": 0,
+      "inline_styles": 0
+    },
+    "source_header": "X-GlacierEQ-Source-Commit: 675b295f6e8c19a85daef50b9ac46bdef224ceea"
+  },
+  "production_readback": {
+    "resume": {
+      "status": 200,
+      "required_markers_observed": [
+        "SYSTEMS ATLAS RESUME · V23 RESOURCE-GROUNDED",
+        "Evidence-carrying execution",
+        "Fail-closed execution envelopes",
+        "Bounded state transitions",
+        "Idempotent recovery + provenance",
+        "Truth-preserving public projections",
+        "Reversible verified change",
+        "BIOLOGICAL SYSTEMS → ENGINEERED SYSTEMS",
+        "199/200",
+        "48/48",
+        "40 / 80",
+        "62/62"
+      ]
+    },
+    "master": {
+      "status": 200,
+      "required_markers_observed": [
+        "REPEATED ENGINEERING PATTERNS",
+        "SYSTEMS LINEAGE",
+        "AKOS + ECHO",
+        "Colossal Agent",
+        "Spiral Engine / Double Helix",
+        "TOWER OF BABEL",
+        "EDUCATION AS ARCHITECTURE LINEAGE",
+        "dated semantic convergence"
+      ]
+    },
+    "resume_json": {
+      "status": 200,
+      "schema": "glaciereq.resume-intelligence.v23",
+      "version": "23.0.0-resource-grounded",
+      "profile": "SYSTEMS_ATLAS_FOUR_LAYER",
+      "facts_invariant": true,
+      "capability_clusters": 6,
+      "systems_lineage_mappings": 8
+    }
+  },
+  "ci": {
+    "v23_resume_intelligence": {
+      "head": "675b295f6e8c19a85daef50b9ac46bdef224ceea",
+      "result": "SUCCESS"
+    },
+    "v23_signal_architecture": {
+      "head": "675b295f6e8c19a85daef50b9ac46bdef224ceea",
+      "result": "SUCCESS"
+    },
+    "v25_deployment_bundle": {
+      "head": "d2fbab4cff1a4374cb8f867c7a723e3d87181689",
+      "run_id": 31618347685,
+      "result": "SUCCESS",
+      "full_regression_suite": "SUCCESS",
+      "runtime_verifiers": "SUCCESS",
+      "deterministic_bundle": "SUCCESS",
+      "deployment_file_contract": "SUCCESS"
+    }
+  },
+  "authority_boundary": {
+    "resume_content_authority": "675b295f6e8c19a85daef50b9ac46bdef224ceea",
+    "deployment_runtime_authority": "d2fbab4cff1a4374cb8f867c7a723e3d87181689",
+    "portfolio_authority": "86c3630d51b231c1637dc9e8b138b28eaf70ba68",
+    "legacy_v17_pdf_docx": "HISTORICAL_NONCANONICAL",
+    "repository_count_is_accomplishment_count": false
+  }
+}
