@@ -9,6 +9,47 @@ build_priority_queue = importlib.util.module_from_spec(spec)
 assert spec.loader is not None
 spec.loader.exec_module(build_priority_queue)
 
+# Existing queue tests exercise state/cursor/fairness semantics rather than Tower
+# placement validation. Keep those tests isolated from the network and let the
+# dedicated Tower tests below exercise the real placement analyzer.
+_FAKE_AUTHORITY = {
+    "repository": "GlacierEQ/the-tower-of-babel",
+    "commit_sha": "a" * 40,
+    "contract_path": "governance/evolution-placement-contract.v1.json",
+    "contract_blob_sha": "contract-blob",
+    "registry_path": "registry/tower.yml",
+    "registry_blob_sha": "registry-blob",
+    "quality_contract_path": "QUALITY_CONTRACT.md",
+    "quality_contract_blob_sha": "quality-blob",
+}
+build_priority_queue.tower_placement.fetch_tower_authority = lambda token: dict(
+    _FAKE_AUTHORITY
+)
+build_priority_queue.tower_placement.fetch_placement = (
+    lambda repository, ref, token: ({}, "placement-blob")
+)
+build_priority_queue.tower_placement.analyze_placement = (
+    lambda placement, repository, cursor, authority: {
+        "status": "VALID",
+        "valid": True,
+        "errors": [],
+        "decision": "KEEP",
+    }
+)
+build_priority_queue.tower_placement.public_authority = lambda authority: {
+    key: authority[key]
+    for key in (
+        "repository",
+        "commit_sha",
+        "contract_path",
+        "contract_blob_sha",
+        "registry_path",
+        "registry_blob_sha",
+        "quality_contract_path",
+        "quality_contract_blob_sha",
+    )
+}
+
 
 def repo_record(
     repository="GlacierEQ/example",
@@ -85,6 +126,8 @@ class PriorityQueueTests(unittest.TestCase):
         self.assertEqual(row["evolution_state_blob_sha"], "blob123")
         self.assertEqual(row["evolution_generation"], 0)
         self.assertIsNone(row["last_consumed_cursor"])
+        self.assertEqual(row["tower_placement_status"], "VALID")
+        self.assertEqual(row["tower_placement_decision"], "KEEP")
 
     def test_least_evolved_repository_rotates_to_front(self):
         states = {
@@ -203,6 +246,7 @@ class PriorityQueueTests(unittest.TestCase):
         self.assertIsNone(row["evolution_cursor"])
         self.assertIsNone(row["next_material_action"])
         self.assertIsNone(row["evolution_generation"])
+        self.assertIsNone(row["tower_placement_status"])
 
 
 if __name__ == "__main__":
