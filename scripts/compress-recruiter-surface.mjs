@@ -15,12 +15,15 @@ const RECRUITER_NAV = '<nav class="links" aria-label="Primary navigation"><a hre
 const PRIMARY_NAV_RE = /<nav class="links" aria-label="Primary navigation">[\s\S]*?<\/nav>/;
 const ATS_LINK_RE = /<a\b[^>]*href=["']\/resume\/ats\.txt["'][^>]*>[\s\S]*?<\/a>/g;
 
-const REQUIRED_DEEP_ROUTES = [
+// These routes are static inputs at the point this transform runs. Compiler is
+// generated later in the release pipeline and is verified by its own compiler
+// proxy/validator, so requiring compiler/index.html here would create a false
+// ordering dependency rather than protect a real route.
+const REQUIRED_STATIC_DEEP_ROUTES = [
   'master/index.html',
   'mesh/index.html',
   'machine/index.html',
   'atlas/index.html',
-  'compiler/index.html',
   'resume/index.html',
 ];
 
@@ -79,9 +82,9 @@ function validate(home, resume) {
   const atsCount = [...resume.matchAll(ATS_LINK_RE)].length;
   if (atsCount !== 1) throw new Error(`resume_ats_cta_count:${atsCount}`);
 
-  for (const relative of REQUIRED_DEEP_ROUTES) {
+  for (const relative of REQUIRED_STATIC_DEEP_ROUTES) {
     if (!fs.existsSync(path.join(SITE, relative))) {
-      throw new Error(`deep_route_missing:${relative}`);
+      throw new Error(`static_deep_route_missing:${relative}`);
     }
   }
 
@@ -90,7 +93,8 @@ function validate(home, resume) {
     primary_nav_links: hrefs,
     contact_cta: 'mailto:glacier.equilibrium@gmail.com',
     ats_cta_count: atsCount,
-    deep_routes_preserved: REQUIRED_DEEP_ROUTES.length,
+    static_deep_routes_preserved: REQUIRED_STATIC_DEEP_ROUTES.length,
+    compiler_route: 'verified_by_release_compiler_stage',
   };
 }
 
