@@ -26,7 +26,7 @@ Evidence class: **CURRENT_HEAD_EXECUTED_AND_SOURCE_INSPECTED**.
 
 **Repository:** `GlacierEQ/job-app-helix`  
 **Exact canonical head:** `86c3630d51b231c1637dc9e8b138b28eaf70ba68`  
-**Exact-head control-plane status:** `buildkite/job-app-helix = success`.
+**Immutable build receipt:** Buildkite build `#32` — `https://buildkite.com/casey-1/job-app-helix/builds/32` — `success` at the exact head above.
 
 The canonical revision replaces legacy scaffold/promotion interpretation with a source-bound implementation-surface audit. It explicitly marks the historical `47 / 47 PROMOTED` Wave C label as non-current promotion truth and requires dedicated implementation, exact-head deterministic/adversarial proof, source-bound `machine/implementation-proof.json`, and current authority/projection gates before strict `BUILT_RIGHT` promotion.
 
@@ -98,6 +98,12 @@ A future reusable implementation should expose at minimum:
 - admission rule IDs;
 - excluded classes;
 - proof state;
+- verification receipt or run ID;
+- verified source SHA;
+- required check set and individual results;
+- verifier identity;
+- verified_at;
+- expires_at or stale-after policy;
 - projection digest;
 - authority ceiling;
 - explicit nonclaims;
