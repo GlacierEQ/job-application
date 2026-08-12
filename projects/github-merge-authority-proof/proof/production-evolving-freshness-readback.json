@@ -3,7 +3,7 @@
   "status": "PASS",
   "company": "GitHub",
   "capability": "merge_authority_graph",
-  "observed_at_utc": "2026-08-12T20:40:46Z",
+  "observed_at_utc": "2026-08-12T20:46:22Z",
   "repository_evolution": {
     "canonical_anchor_head": "f791c85a81768e72446619b39b5312ef1c768a02",
     "evolved_head": "346b330bbfd705579b3a4d10d298a89493a98ee6",
@@ -15,47 +15,34 @@
   },
   "production_projection": {
     "project": "casey-barton-glaciereq",
-    "deployment_id": "dpl_5UK8ZJSnr36NDjJCssUP2eCjWWSD",
+    "deployment_id": "dpl_CSJrDfdYfiXYY7aWeQ8AwJ2v4KcQ",
     "canonical_alias": "casey-barton-glaciereq.vercel.app",
     "source_repository": "GlacierEQ/job-application",
     "source_commit": "5cbb8c0656a4e8dfc32b4242308b14f25fdea60c",
     "helix_repository": "GlacierEQ/job-app-helix",
-    "helix_commit": "502ef904ae8dc809d9d17188ee79cd4033dd4d6c",
+    "helix_commit": "63eb32b86d49328eebe02731852cc44345374c6d",
     "current_helix_head_at_readback": "63eb32b86d49328eebe02731852cc44345374c6d",
     "release": "V25-APPLICATION-COMPILER",
     "title_release": "V27-ALGERIAN-MONUMENT"
   },
   "authority_freshness": {
-    "deployed_helix_commit": "502ef904ae8dc809d9d17188ee79cd4033dd4d6c",
+    "deployed_helix_commit": "63eb32b86d49328eebe02731852cc44345374c6d",
     "current_helix_commit_at_readback": "63eb32b86d49328eebe02731852cc44345374c6d",
     "require_deployed_commit_as_merge_base": true,
-    "allowed_delta_prefixes": [
-      ".github/workflows/crystallization-estate-",
-      "scripts/build_estate_work_queue.py",
-      "scripts/crawl_crystallization_estate.py",
-      "scripts/publish_private_crystallization_receipt.py",
-      "src/job_app_helix/crystallization_crawler.py",
-      "tests/test_crystallization_",
-      "tests/test_estate_work_queue.py",
-      "tests/test_private_crystallization_publisher.py",
-      "excellence/receipts/",
-      "manifests/portfolio_rollout.json"
-    ],
-    "semantic_delta_guards": {
-      "manifests/portfolio_rollout.json": "scripts/validate-helix-rollout-equivalence.mjs"
-    },
-    "projection_equivalence_rule": "Current Helix deltas are admitted only inside audited non-projection namespaces. The portfolio rollout path additionally requires executable semantic proof that policy, wave contracts, repository sets, acceptance rules, and historical completion rows are invariant while governed progress advances monotonically. Any other projection-capable delta invalidates this freshness receipt and requires a new production compile/readback."
+    "allowed_delta_prefixes": ["excellence/receipts/"],
+    "semantic_delta_guards": {},
+    "projection_equivalence_rule": "Production freshness is exact at this receipt. A later Helix head may inherit freshness only when the deployed commit is its ancestor and every intervening changed path is receipt-only under excellence/receipts/. Any manifest, rollout, authority, projection, workflow, source, or other non-receipt change fails closed and requires a new production compile/readback."
   },
   "build_receipt": {
     "github_actions_run_id": 31637912104,
-    "github_actions_artifact_id": 9157688025,
+    "github_actions_artifact_id": 9158124025,
     "github_actions_artifact_name": "v25-deployment-5cbb8c0656a4e8dfc32b4242308b14f25fdea60c",
-    "github_actions_artifact_digest": "sha256:d53e5a378b87375438bf0a5a74b69aa5a2f0a13dc36a90634353fdb7e89d2dfb",
+    "github_actions_artifact_digest": "sha256:2004679fbe5b3abe322cc0bc5225cb904af729b42cc5796e9ef0b8cd24646967",
     "manifest_schema": "glaciereq.v25-deployment-bundle-manifest.v2",
     "status": "PASS",
     "api_index_bytes": 218363,
-    "api_index_sha256": "afe06b30f7e9e9ffbb6afffd0e3cec36560fbfa066f068861e24d00c862d0739",
-    "factory_bundle_sha256": "915f107a8cbfae7fe9d861417f05c56d2a241a6d897853d6da7819dd921841cb",
+    "api_index_sha256": "4876b908fd8788307c8fabe49e4285973d939e76f2547115d372592f104c0472",
+    "factory_bundle_sha256": "3094518ed9eaaf177a0e388e733ea7546cdc8ee2798ad911cb31867147d31fab",
     "module_count": 11,
     "deployment_file_count": 2,
     "self_contained_executable_modules": true,
@@ -64,54 +51,12 @@
     "every_factory_sha256_verified_before_execution": true
   },
   "live_readback": {
-    "bundle_verifier": {
-      "path": "/__v25_bundle_verify",
-      "http_status": 200,
-      "status": "PASS",
-      "source_commit": "5cbb8c0656a4e8dfc32b4242308b14f25fdea60c",
-      "factory_bundle_sha256": "915f107a8cbfae7fe9d861417f05c56d2a241a6d897853d6da7819dd921841cb",
-      "module_count": 11
-    },
-    "v25_verifier": {
-      "path": "/__v25_verify",
-      "http_status": 200,
-      "status": "PASS",
-      "compiler_helix_commit": "502ef904ae8dc809d9d17188ee79cd4033dd4d6c",
-      "errors": []
-    },
-    "v26_verifier": {
-      "path": "/__v26_verify",
-      "http_status": 200,
-      "status": "PASS",
-      "inherited_v25_status": "PASS",
-      "errors": []
-    },
-    "github_compiler_json": {
-      "path": "/data/application-compiler.json?company=github&depth=senior_engineer",
-      "http_status": 200,
-      "stage": "CLAIM_PROMOTED",
-      "claim_ceiling": "proof_bound_company_specific",
-      "claim_receipts": 2,
-      "helix_commit": "502ef904ae8dc809d9d17188ee79cd4033dd4d6c"
-    },
-    "github_company_record": {
-      "path": "/companies/github/record.json",
-      "http_status": 200,
-      "state": "effective_projection",
-      "stage": "CLAIM_PROMOTED",
-      "claim_ceiling": "proof_bound_company_specific",
-      "claim_receipts": 2,
-      "helix_commit": "502ef904ae8dc809d9d17188ee79cd4033dd4d6c"
-    },
-    "github_company_html": {
-      "path": "/companies/github/",
-      "http_status": 200,
-      "stage": "CLAIM_PROMOTED",
-      "claim_ceiling": "proof_bound_company_specific",
-      "claim_receipts_visible": 2,
-      "independent_work_boundary_visible": true,
-      "script_free": true
-    }
+    "bundle_verifier": {"path":"/__v25_bundle_verify","http_status":200,"status":"PASS","source_commit":"5cbb8c0656a4e8dfc32b4242308b14f25fdea60c","factory_bundle_sha256":"3094518ed9eaaf177a0e388e733ea7546cdc8ee2798ad911cb31867147d31fab","module_count":11},
+    "v25_verifier": {"path":"/__v25_verify","http_status":200,"status":"PASS","compiler_helix_commit":"63eb32b86d49328eebe02731852cc44345374c6d","errors":[]},
+    "v26_verifier": {"path":"/__v26_verify","http_status":200,"status":"PASS","inherited_v25_status":"PASS","errors":[]},
+    "github_compiler_json": {"path":"/data/application-compiler.json?company=github&depth=senior_engineer","http_status":200,"stage":"CLAIM_PROMOTED","claim_ceiling":"proof_bound_company_specific","claim_receipts":2,"helix_commit":"63eb32b86d49328eebe02731852cc44345374c6d"},
+    "github_company_record": {"path":"/companies/github/record.json","http_status":200,"state":"effective_projection","stage":"CLAIM_PROMOTED","claim_ceiling":"proof_bound_company_specific","claim_receipts":2,"helix_commit":"63eb32b86d49328eebe02731852cc44345374c6d"},
+    "github_company_html": {"path":"/companies/github/","http_status":200,"stage":"CLAIM_PROMOTED","claim_ceiling":"proof_bound_company_specific","claim_receipts_visible":2,"independent_work_boundary_visible":true,"script_free":true}
   },
   "source_disclosure": {
     "canonical_repository_visibility": "private",
@@ -119,16 +64,8 @@
     "bounded_evolution_source_slice_publicly_disclosed": true,
     "public_repository": "GlacierEQ/public-actions-runner-host",
     "public_pull_request": 269,
-    "public_files": [
-      "merge-authority.mjs",
-      "merge-authority.test.mjs",
-      "evolution-benchmark.test.mjs"
-    ],
-    "public_git_blobs": {
-      "merge-authority.mjs": "b0634ee0f39ff5ef636a806a6d967385c614330d",
-      "merge-authority.test.mjs": "5db04e65163f183c1e906ac4a505ba9c73345a2e",
-      "evolution-benchmark.test.mjs": "16b68535908a0e04850a7afaf5979bfdc5038754"
-    }
+    "public_files": ["merge-authority.mjs","merge-authority.test.mjs","evolution-benchmark.test.mjs"],
+    "public_git_blobs": {"merge-authority.mjs":"b0634ee0f39ff5ef636a806a6d967385c614330d","merge-authority.test.mjs":"5db04e65163f183c1e906ac4a505ba9c73345a2e","evolution-benchmark.test.mjs":"16b68535908a0e04850a7afaf5979bfdc5038754"}
   },
   "claim_boundary": {
     "company_stage": "CLAIM_PROMOTED",
