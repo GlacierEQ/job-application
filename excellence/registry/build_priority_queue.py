@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """Derive a deterministic execution queue from the live excellence registry.
 
-For mature EVOLVING repositories, the next operation is not another state gate.
-The queue resolves each repository's existing evolution_cursor from the exact live
-head captured by the registry so mature work remains actionable instead of being
-collapsed into EVOLVE:NONE.
+For mature EVOLVING repositories, the queue resolves each exact-head evolution
+cursor and then requires a Tower-of-Babel technology-placement decision before
+material implementation is scheduled. Existing excellence state is not rewritten:
+Tower placement is a prospective execution gate.
 
-Within the EVOLVE cohort, repositories with fewer successfully consumed evolution
-cursors are ordered first. This prevents one alphabetically early repository from
-monopolizing continuous evolution while the rest of the estate remains untouched.
+Within both TOWER_PLACE and EVOLVE cohorts, repositories with fewer successfully
+consumed evolution cursors are ordered first. This prevents one repository from
+monopolizing continuous evolution while preserving the estate-wide fairness rule.
 """
 
 from __future__ import annotations
@@ -26,6 +26,7 @@ if str(REGISTRY_DIR) not in sys.path:
     sys.path.insert(0, str(REGISTRY_DIR))
 
 import build_registry
+import tower_placement
 
 ROOT = Path(__file__).resolve().parents[2]
 REGISTRY = ROOT / "excellence" / "registry" / "excellence-repo-registry.json"
@@ -36,9 +37,10 @@ ACTION_ORDER = {
     "REPAIR_STATE": 0,
     "ADVANCE_GATE": 1,
     "INITIALIZE_STATE": 2,
-    "EVOLVE": 3,
-    "REVIEW_SIDE_EXIT": 4,
-    "RETRY_INSPECTION": 5,
+    "TOWER_PLACE": 3,
+    "EVOLVE": 4,
+    "REVIEW_SIDE_EXIT": 5,
+    "RETRY_INSPECTION": 6,
 }
 
 
@@ -96,14 +98,25 @@ def build_queue(
     token: str | None = None,
     fetch_state: Callable[[str, str, str, str | None], tuple[dict[str, Any], str]]
     | None = None,
+    fetch_tower_authority: Callable[[str | None], dict[str, Any]] | None = None,
+    fetch_placement: Callable[
+        [str, str, str | None], tuple[dict[str, Any] | None, str | None]
+    ]
+    | None = None,
 ) -> dict[str, Any]:
-    """Build a queue while preserving exact-head evolution intent.
-
-    `fetch_state` is injectable for deterministic unit tests. Production uses the
-    same exact-ref JSON reader as the live registry builder.
-    """
+    """Build the exact-head queue with prospective Tower placement governance."""
     fetch_state = fetch_state or build_registry.fetch_json_file
+    fetch_tower_authority = (
+        fetch_tower_authority or tower_placement.fetch_tower_authority
+    )
+    fetch_placement = fetch_placement or tower_placement.fetch_placement
     groups: dict[tuple[str, str], list[dict[str, Any]]] = defaultdict(list)
+
+    has_evolving = any(
+        record.get("state", {}).get("next_action_class") == "EVOLVE"
+        for record in registry["repositories"]
+    )
+    tower_authority = fetch_tower_authority(token) if has_evolving else None
 
     for record in registry["repositories"]:
         state = record["state"]
@@ -113,8 +126,11 @@ def build_queue(
         evolution_generation = None
         last_consumed_cursor = None
         last_evolution_receipt = None
+        placement_blob_sha = None
+        placement_analysis: dict[str, Any] | None = None
 
         if action == "EVOLVE":
+            assert tower_authority is not None
             repository = record["repository"]
             head_sha = record.get("head_sha")
             if not isinstance(head_sha, str) or not head_sha:
@@ -137,7 +153,21 @@ def build_queue(
                 last_consumed_cursor,
                 last_evolution_receipt,
             ) = _evolution_progress(raw_state, repository)
-            gate = "EVOLUTION_CURSOR"
+
+            placement, placement_blob_sha = fetch_placement(
+                repository, head_sha, token
+            )
+            placement_analysis = tower_placement.analyze_placement(
+                placement,
+                repository,
+                evolution_cursor,
+                tower_authority,
+            )
+            if placement_analysis["valid"]:
+                gate = "EVOLUTION_CURSOR"
+            else:
+                action = "TOWER_PLACE"
+                gate = "TOWER_PLACEMENT"
         else:
             gate = state.get("next_failing_gate") or "NONE"
 
@@ -158,6 +188,19 @@ def build_queue(
                 "evolution_generation": evolution_generation,
                 "last_consumed_cursor": last_consumed_cursor,
                 "last_evolution_receipt": last_evolution_receipt,
+                "tower_placement_status": (
+                    placement_analysis["status"] if placement_analysis else None
+                ),
+                "tower_placement_valid": (
+                    placement_analysis["valid"] if placement_analysis else None
+                ),
+                "tower_placement_decision": (
+                    placement_analysis["decision"] if placement_analysis else None
+                ),
+                "tower_placement_errors": (
+                    placement_analysis["errors"] if placement_analysis else []
+                ),
+                "tower_placement_blob_sha": placement_blob_sha,
                 "observed": record.get("observed", {}),
                 "prerequisite_errors": state.get("prerequisite_errors", []),
                 "disposition_errors": state.get("disposition_errors", []),
@@ -173,7 +216,7 @@ def build_queue(
             min(row["repository"] for row in item[1]),
         ),
     ):
-        if action == "EVOLVE":
+        if action in {"TOWER_PLACE", "EVOLVE"}:
             records.sort(
                 key=lambda row: (
                     row["evolution_generation"],
@@ -196,12 +239,18 @@ def build_queue(
         )
 
     return {
-        "schema": "glaciereq.excellence-priority-queue.v1",
+        "schema": "glaciereq.excellence-priority-queue.v2",
         "registry_generated_at": registry["generated_at"],
         "registry_authority": registry["authority"],
+        "tower_authority": (
+            tower_placement.public_authority(tower_authority)
+            if tower_authority is not None
+            else None
+        ),
         "ordering": (
-            "repair invalid claimed state; advance valid state; initialize missing "
-            "state; evolve mature state from exact-head cursors with least-evolved-first fairness"
+            "repair invalid claimed state; advance valid state; initialize missing state; "
+            "obtain Tower technology placement for exact-head evolution cursors; then evolve "
+            "material work with least-evolved-first fairness"
         ),
         "queue": queue,
     }
@@ -220,14 +269,15 @@ def main() -> int:
     evolving = [
         row
         for item in out["queue"]
-        if item["action"] == "EVOLVE"
+        if item["action"] in {"TOWER_PLACE", "EVOLVE"}
         for row in item["repositories"]
     ]
     if evolving:
         print(
             "evolution-cursors:",
             " | ".join(
-                f"g{row['evolution_generation']}:{row['repository']}={row['evolution_cursor']}"
+                f"{row['tower_placement_status']}:g{row['evolution_generation']}:"
+                f"{row['repository']}={row['evolution_cursor']}"
                 for row in evolving
             ),
         )
