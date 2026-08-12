@@ -5,8 +5,12 @@ on:
     branches: [main]
     paths:
       - "site-v15/assets/site.algerian.css"
+      - "site-v15/assets/atlas-runtime.css"
       - "scripts/apply-complete-web-design.mjs"
+      - "scripts/activate-atlas-runtime.mjs"
+      - "scripts/validate-atlas-interaction.mjs"
       - "scripts/validate-algerian-display.mjs"
+      - "tests/atlas-runtime.test.mjs"
       - "deployment/vercel-source-bridge/api/typography-proxy.js"
       - "deployment/vercel-source-bridge/api/release-router.js"
       - "deployment/vercel-source-bridge/typography-proxy.test.js"
@@ -16,8 +20,12 @@ on:
   pull_request:
     paths:
       - "site-v15/assets/site.algerian.css"
+      - "site-v15/assets/atlas-runtime.css"
       - "scripts/apply-complete-web-design.mjs"
+      - "scripts/activate-atlas-runtime.mjs"
+      - "scripts/validate-atlas-interaction.mjs"
       - "scripts/validate-algerian-display.mjs"
+      - "tests/atlas-runtime.test.mjs"
       - "deployment/vercel-source-bridge/api/typography-proxy.js"
       - "deployment/vercel-source-bridge/api/release-router.js"
       - "deployment/vercel-source-bridge/typography-proxy.test.js"
@@ -40,8 +48,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - name: Run repository and typography release gates
-        run: npm test
+      - name: Build and verify repository typography release
+        run: npm run verify:release
       - name: Verify production overlay modules compile
         run: |
           node --check deployment/vercel-source-bridge/api/typography-proxy.js
