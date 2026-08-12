@@ -1,14 +1,25 @@
 {
+  "schema": "glaciereq.resume-artifacts.v17",
+  "status": "LEGACY_PRE_V23_NOT_CANONICAL",
+  "canonical_resume_version": "23.0.0-resource-grounded",
+  "canonical_surfaces": [
+    "resume/index.html",
+    "resume/ats.txt",
+    "data/resume.json",
+    "../RESUME.md"
+  ],
   "artifacts": {
     "docx": {
       "bytes": 42584,
       "path": "downloads/Casey_Barton_Resume.docx",
-      "sha256": "abf5835bc33ef4c978a684fda30a9b8539ec72510e9b45ee6a9399efe3deeaed"
+      "sha256": "abf5835bc33ef4c978a684fda30a9b8539ec72510e9b45ee6a9399efe3deeaed",
+      "status": "LEGACY_GENERATED_V17"
     },
     "pdf": {
       "bytes": 79875,
       "path": "downloads/Casey_Barton_Resume.pdf",
-      "sha256": "c34c069999b9432f59e3a956183a1b07537a7d165a70d8eaa3ae173e61c46eca"
+      "sha256": "c34c069999b9432f59e3a956183a1b07537a7d165a70d8eaa3ae173e61c46eca",
+      "status": "LEGACY_GENERATED_V17"
     }
   },
   "builder": "site-v15/scripts/build-resume-v17-deterministic.py",
@@ -16,6 +27,6 @@
     "docx": "fixed core timestamps, sorted ZIP members, fixed ZIP timestamps",
     "pdf": "LibreOffice visual export rewritten by pypdf with fixed metadata"
   },
-  "schema": "glaciereq.resume-artifacts.v17",
-  "source_generator": "site-v15/scripts/generate-resume-v17.py"
+  "source_generator": "site-v15/scripts/generate-resume-v17.py",
+  "boundary": "These hashes preserve historical V17 binary integrity only. They do not represent the canonical V23 web, ATS, JSON, or RESUME.md content and must not be used to infer V23 content parity."
 }
