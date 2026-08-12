@@ -7,8 +7,9 @@ on:
       - 'site-v15/resume/**'
       - 'site-v15/master/**'
       - 'site-v15/data/resume.json'
+      - 'site-v15/data/resume-artifacts.json'
       - 'site-v15/llms.txt'
-      - 'site-v15/scripts/validate.mjs'
+      - 'site-v15/scripts/validate-site-v23.mjs'
       - 'site-v15/scripts/validate-resume-v23.mjs'
       - '.github/workflows/v17-resume-intelligence.yml'
   push:
@@ -20,8 +21,9 @@ on:
       - 'site-v15/resume/**'
       - 'site-v15/master/**'
       - 'site-v15/data/resume.json'
+      - 'site-v15/data/resume-artifacts.json'
       - 'site-v15/llms.txt'
-      - 'site-v15/scripts/validate.mjs'
+      - 'site-v15/scripts/validate-site-v23.mjs'
       - 'site-v15/scripts/validate-resume-v23.mjs'
       - '.github/workflows/v17-resume-intelligence.yml'
   workflow_dispatch:
@@ -44,8 +46,8 @@ jobs:
         with:
           node-version: '24'
 
-      - name: Preserve whole-site factual invariants
-        run: node site-v15/scripts/validate.mjs
+      - name: Validate whole V23 hiring surface
+        run: node site-v15/scripts/validate-site-v23.mjs
 
       - name: Validate V23 Systems Atlas resume intelligence
         run: |
@@ -67,6 +69,23 @@ jobs:
             throw new Error('V23 validation receipt contract failed');
           }
           NODE
+
+      - name: Verify retained legacy binary integrity without promoting it
+        run: |
+          python3 - <<'PY'
+          import json
+          from hashlib import sha256
+          from pathlib import Path
+          manifest = json.loads(Path('site-v15/data/resume-artifacts.json').read_text(encoding='utf-8'))
+          assert manifest['status'] == 'LEGACY_PRE_V23_NOT_CANONICAL'
+          for kind in ('pdf', 'docx'):
+              entry = manifest['artifacts'][kind]
+              data = Path('site-v15', entry['path']).read_bytes()
+              assert len(data) == entry['bytes']
+              assert sha256(data).hexdigest() == entry['sha256']
+              assert entry['status'] == 'LEGACY_GENERATED_V17'
+          print({'status': 'PASS', 'legacy_binary_integrity': True, 'canonical_v23': False})
+          PY
 
       - name: Hash exact-head validation receipt
         run: sha256sum .verification-artifacts/v23-resume-validation.json > .verification-artifacts/v23-resume-validation.sha256
