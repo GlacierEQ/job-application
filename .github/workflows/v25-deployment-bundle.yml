@@ -6,6 +6,7 @@ on:
     paths:
       - "deployment/vercel-source-bridge/**"
       - "site-v15/**"
+      - "projects/github-merge-authority-proof/**"
       - "scripts/runner_verify.py"
       - "scripts/apply-complete-web-design.mjs"
       - "scripts/validate-algerian-display.mjs"
@@ -18,12 +19,14 @@ on:
       - "scripts/reconcile-helix-company-cardinality.mjs"
       - "scripts/reconcile-v21-runtime-stars.mjs"
       - "scripts/verify-v25-v26-runtime.mjs"
+      - "scripts/validate-github-merge-authority-public-readback.mjs"
       - "package.json"
       - ".github/workflows/v25-deployment-bundle.yml"
   pull_request:
     paths:
       - "deployment/vercel-source-bridge/**"
       - "site-v15/**"
+      - "projects/github-merge-authority-proof/**"
       - "scripts/runner_verify.py"
       - "scripts/apply-complete-web-design.mjs"
       - "scripts/validate-algerian-display.mjs"
@@ -36,6 +39,7 @@ on:
       - "scripts/reconcile-helix-company-cardinality.mjs"
       - "scripts/reconcile-v21-runtime-stars.mjs"
       - "scripts/verify-v25-v26-runtime.mjs"
+      - "scripts/validate-github-merge-authority-public-readback.mjs"
       - "package.json"
       - ".github/workflows/v25-deployment-bundle.yml"
   workflow_dispatch:
