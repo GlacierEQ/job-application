@@ -1,0 +1,49 @@
+{
+  "schema": "glaciereq.portfolio-claim-audit.v1",
+  "date": "2026-08-12",
+  "subject": "GlacierEQ/ECHO",
+  "claim_surface": "RESUME.md::Current Proof Signal::ECHO continuity / recovery",
+  "canonical_repository_head": "6acdb3be1739f1659f3cec9f4b7d39d5799cd476",
+  "claim_text_audited": "ECHO continuity / recovery: current head 6acdb3be1739f1659f3cec9f4b7d39d5799cd476 is the merged public/privacy-boundary repair. The canonical hiring proof binds it to compile, correctness lint, dependency audit, 48/48 tests, and CLI verification.",
+  "evidence": {
+    "github_actions": {
+      "workflow": "ECHO CI",
+      "run_id": 31340641961,
+      "job_id": 93313713924,
+      "head_sha": "6acdb3be1739f1659f3cec9f4b7d39d5799cd476",
+      "conclusion": "success",
+      "python": "3.12.13",
+      "compile": "pass",
+      "correctness_lint": "ruff --select F pass",
+      "dependency_audit": "pip-audit: no known vulnerabilities found",
+      "behavioral_tests": {
+        "collected": 48,
+        "passed": 48,
+        "failed": 0
+      },
+      "cli_verify": "VERIFIED"
+    },
+    "authority_boundary": {
+      "github_token_contents": "read",
+      "checkout_persist_credentials": false
+    },
+    "separate_workflow": {
+      "name": "AI Autonomous Deploy",
+      "run_id": 31340641959,
+      "head_sha": "6acdb3be1739f1659f3cec9f4b7d39d5799cd476",
+      "conclusion": "success",
+      "proof_use": "workflow success only; workflow name is not production deployment evidence"
+    }
+  },
+  "audit_result": "STRENGTHENED_WITH_EXACT_CURRENT_HEAD_EXECUTION_RECEIPT",
+  "claim_ceiling": "ECHO_CURRENT_HEAD_CI_VERIFIED_COMPILE_F_LINT_DEPENDENCY_AUDIT_48_OF_48_BEHAVIORAL_TESTS_AND_CLI_VERIFY_NOT_PRODUCTION_DEPLOYMENT",
+  "forbidden_inferences": [
+    "production deployment from workflow naming",
+    "production traffic or scale",
+    "external adoption",
+    "repository-wide lint cleanliness beyond the executed Ruff F-select gate",
+    "future-head inheritance",
+    "AKOS verification inheritance"
+  ],
+  "next_cursor": "Propagate this exact run-bound evidence into recruiter/master/machine/mesh surfaces only where the ECHO claim is currently weaker or ambiguous; preserve the non-deployment boundary."
+}
