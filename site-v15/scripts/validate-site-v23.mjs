@@ -29,7 +29,6 @@ const profiles = JSON.parse(profilesText);
 const resumeJson = JSON.parse(resumeJsonText);
 const pages = { root, resume, master, mesh, machine };
 
-// Public site stays static, deterministic, and scraper-friendly.
 for (const [name, html] of Object.entries(pages)) {
   assert(!/<script\b/i.test(html), `${name} must remain script-free`);
   assert(!/\sstyle\s*=\s*/i.test(html), `${name} must not use inline styles`);
@@ -40,42 +39,20 @@ assert(resume.includes('/resume/ats.txt') && resume.includes('/data/resume.json'
 assert(resume.includes('/downloads/Casey_Barton_Resume.pdf') && resume.includes('/downloads/Casey_Barton_Resume.docx'), 'legacy binary routes must remain reachable while retained');
 assert(resume.includes('Legacy generated PDF') && resume.includes('Legacy generated DOCX'), 'legacy binaries must be visibly noncanonical');
 
-// V23 resume truth: current proof + four-layer systems atlas.
 for (const token of [
-  'SYSTEMS ATLAS RESUME',
-  '01 / HUMAN',
-  '02 / MASTER',
-  '03 / MACHINE',
-  '04 / MESH',
-  'Evidence-carrying execution',
-  'Fail-closed execution envelopes',
-  'Bounded state transitions',
-  'Idempotent recovery',
-  'Truth-preserving public projections',
-  'Reversible verified change',
-  '199/200',
-  '48/48',
-  '40 / 80',
-  '62/62',
-  'BIOLOGICAL SYSTEMS',
+  'SYSTEMS ATLAS RESUME', '01 / HUMAN', '02 / MASTER', '03 / MACHINE', '04 / MESH',
+  'Evidence-carrying execution', 'Fail-closed execution envelopes', 'Bounded state transitions',
+  'Idempotent recovery', 'Truth-preserving public projections', 'Reversible verified change',
+  '199/200', '48/48', '40 / 80', '62/62', 'BIOLOGICAL SYSTEMS',
 ]) assert(resume.includes(token), `V23 resume token missing: ${token}`);
 assert(!resume.includes('148/148') && !resume.includes('148 of 148'), 'retired Helix 148/148 framing remains in resume');
 
-// Master must expose architecture, lineage, current proof, and claim ceilings.
 for (const token of [
-  'REPEATED ENGINEERING PATTERNS',
-  'SYSTEMS LINEAGE',
-  'AKOS + ECHO',
-  'Colossal Agent',
-  'Spiral Engine / Double Helix',
-  'The Tower of Babel',
-  'Pillars &amp; Pistons',
-  '200 collected, 199 passed, 1 skipped',
-  '48/48',
-  'dated semantic convergence',
+  'REPEATED ENGINEERING PATTERNS', 'SYSTEMS LINEAGE', 'AKOS + ECHO', 'Colossal Agent',
+  'Spiral Engine / Double Helix', 'TOWER OF BABEL', 'Pillars &amp; Pistons',
+  '200 collected, 199 passed, 1 skipped', '48/48', 'dated semantic convergence',
 ]) assert(master.includes(token), `V23 master token missing: ${token}`);
 
-// Machine resume owns the structured four-layer contract.
 assert(resumeJson.meta.schema === 'glaciereq.resume-intelligence.v23', 'resume JSON schema drift');
 assert(resumeJson.meta.profile === 'SYSTEMS_ATLAS_FOUR_LAYER', 'resume JSON profile drift');
 assert(resumeJson.meta.facts_invariant === true, 'resume facts invariant missing');
@@ -85,7 +62,6 @@ assert(resumeJson.x_systems_lineage?.mappings?.length >= 8, 'systems lineage map
 assert(resumeJson.x_chronology?.classification === 'DATED_SEMANTIC_CONVERGENCE_ONLY', 'chronology boundary drift');
 assert(resumeJson.x_chronology?.nonclaims?.includes('causation'), 'chronology causation nonclaim missing');
 
-// Portfolio source authority remains separate from resume presentation authority.
 assert(portfolio.person?.name === 'Casey Del Carpio Barton', 'portfolio person drift');
 assert(portfolio.proof?.receipt_router_tests === 69, 'historical router proof drift');
 assert(portfolio.proof?.bounded_source_tests === 166, 'historical bounded-source proof drift');
@@ -96,7 +72,6 @@ assert(new Set(portfolio.flagships.map(item => item.id)).size === portfolio.flag
 assert(portfolio.flagships.every(item => item.limit && item.evidence && item.repo), 'each flagship needs evidence, limit, and source');
 assert(portfolio.flagships.some(item => item.id === 'helix'), 'Helix flagship required');
 
-// Existing company and audience registries remain governed independently.
 assert(companies.schema === 'glaciereq.public-company-mesh.v15', 'company schema drift');
 assert(Array.isArray(companies.families) && companies.families.length > 0, 'company families missing');
 assert(profiles.schema === 'glaciereq.psysoc-x.presentation-profiles.v15', 'presentation profile schema drift');
@@ -105,7 +80,6 @@ for (const [profile, route] of [['recruiter', '/'], ['master', '/master/'], ['ma
   assert(profiles.profiles[profile].route === route, `${profile} route drift`);
 }
 
-// Security and visual contracts remain inherited from the production site.
 const csp = vercel.headers?.[0]?.headers?.find(item => item.key === 'Content-Security-Policy')?.value ?? '';
 assert(csp.includes("script-src 'none'") && csp.includes("style-src 'self'") && csp.includes("connect-src 'none'") && csp.includes("frame-ancestors 'none'"), 'CSP incomplete');
 for (const token of ['.cockpit', '.radar', '.bento', '.terminal', '@media print', '.hero-v21', '.hero-proof-rail', '.layer-deck', ':focus-visible']) {
