@@ -3,7 +3,7 @@
   "status": "PASS",
   "company": "GitHub",
   "capability": "merge_authority_graph",
-  "observed_at_utc": "2026-08-12T16:05:00Z",
+  "observed_at_utc": "2026-08-12T20:22:56Z",
   "repository_evolution": {
     "canonical_anchor_head": "f791c85a81768e72446619b39b5312ef1c768a02",
     "evolved_head": "346b330bbfd705579b3a4d10d298a89493a98ee6",
@@ -15,59 +15,69 @@
   },
   "production_projection": {
     "project": "casey-barton-glaciereq",
-    "deployment_id": "dpl_BibJUJCsnFNKdgoNcE9VjfGgxDtL",
+    "deployment_id": "dpl_CuZ2673Nm2B7DJNZsu22ZNjYfd6v",
     "canonical_alias": "casey-barton-glaciereq.vercel.app",
     "source_repository": "GlacierEQ/job-application",
-    "source_commit": "eddd2415b9305762403ca09bb0f7e03ca38daef9",
+    "source_commit": "d2fbab4cff1a4374cb8f867c7a723e3d87181689",
     "helix_repository": "GlacierEQ/job-app-helix",
-    "helix_commit": "f2559a1581e77da05e564875bf50875d8f2c5686",
+    "helix_commit": "86c3630d51b231c1637dc9e8b138b28eaf70ba68",
+    "current_helix_head_at_readback": "90a9d9750fa0f6e180752352ab54fd43a1b12fd4",
     "release": "V25-APPLICATION-COMPILER",
-    "title_release": "V26-TRUE-ALGERIAN-TITLE"
+    "title_release": "V27-ALGERIAN-MONUMENT"
+  },
+  "authority_freshness": {
+    "deployed_helix_commit": "86c3630d51b231c1637dc9e8b138b28eaf70ba68",
+    "current_helix_commit_at_readback": "90a9d9750fa0f6e180752352ab54fd43a1b12fd4",
+    "require_deployed_commit_as_merge_base": true,
+    "allowed_delta_prefixes": [
+      ".github/workflows/crystallization-estate-",
+      "scripts/build_estate_work_queue.py",
+      "scripts/crawl_crystallization_estate.py",
+      "scripts/publish_private_crystallization_receipt.py",
+      "src/job_app_helix/crystallization_crawler.py",
+      "tests/test_crystallization_",
+      "tests/test_estate_work_queue.py",
+      "tests/test_private_crystallization_publisher.py",
+      "excellence/receipts/"
+    ],
+    "known_intervening_commits": [
+      "538a298c2df09a9e06ba252bbf172fdae134a581",
+      "6b5799a14dcc86b5c5be9fb45424f06b95196bbc",
+      "90a9d9750fa0f6e180752352ab54fd43a1b12fd4"
+    ],
+    "projection_equivalence_rule": "Any current Helix file delta outside the exact audited non-projection prefixes invalidates this freshness receipt and requires a new production compile/readback."
   },
   "build_receipt": {
-    "github_actions_run_id": 31613207650,
-    "github_actions_artifact_id": 9148084544,
-    "github_actions_artifact_name": "v25-deployment-eddd2415b9305762403ca09bb0f7e03ca38daef9",
-    "github_actions_artifact_digest": "sha256:951f42f04675c048ab0aed49cec6e2100b34e068b88d1512baafb2b5053c9b6e",
+    "github_actions_run_id": 31618347685,
+    "github_actions_artifact_id": 9150184538,
+    "github_actions_artifact_name": "v25-deployment-d2fbab4cff1a4374cb8f867c7a723e3d87181689",
+    "github_actions_artifact_digest": "sha256:38dcf27d01b5f2b50fd9a3cc6d435a6298dda53c8b9f7cef96d96558af65e5ae",
     "manifest_schema": "glaciereq.v25-deployment-bundle-manifest.v2",
     "status": "PASS",
-    "api_index_bytes": 209356,
-    "api_index_sha256": "9d6c5a187573647d6e3ae9921bc3529c9dd0ee3d07db108d3a03de6f7ea6df15",
-    "factory_bundle_sha256": "65b7d998a9523c19fce3a1669520dbd6518f7d455f9c1807142f50e8cdc18da9",
-    "module_count": 10,
+    "api_index_bytes": 218363,
+    "api_index_sha256": "bfccfad5996c35f179a044ee2e8e9dd4a13319de287bc52abb74c4bf1e72a5a4",
+    "factory_bundle_sha256": "f5b0c16b3b14bbff979f254c5dea51b4fc7ce0302ec05cdf41ed2749a9dd1586",
+    "module_count": 11,
     "deployment_file_count": 2,
     "self_contained_executable_modules": true,
     "bootstrap_network_fetch_required": false,
     "runtime_string_evaluation_required": false,
     "every_factory_sha256_verified_before_execution": true
   },
-  "deployment_transport": {
-    "strategy": "PINNED_SOURCE_DETERMINISTIC_REBUILD",
-    "preview_deployment_id": "dpl_5oiyevpG167xHgcnVKBdbFwRsjb3",
-    "preview_build_exact": true,
-    "production_build_exact": true,
-    "pinned_source_commit": "eddd2415b9305762403ca09bb0f7e03ca38daef9",
-    "pinned_helix_commit": "f2559a1581e77da05e564875bf50875d8f2c5686",
-    "build_time_network_fetch_only": true,
-    "runtime_network_bootstrap_added": false,
-    "runtime_string_evaluation_added": false,
-    "preview_http_runtime_readback_blocked_by_vercel_auth": true,
-    "production_public_readback_required_for_closure": true
-  },
   "live_readback": {
     "bundle_verifier": {
       "path": "/__v25_bundle_verify",
       "http_status": 200,
       "status": "PASS",
-      "source_commit": "eddd2415b9305762403ca09bb0f7e03ca38daef9",
-      "factory_bundle_sha256": "65b7d998a9523c19fce3a1669520dbd6518f7d455f9c1807142f50e8cdc18da9",
-      "module_count": 10
+      "source_commit": "d2fbab4cff1a4374cb8f867c7a723e3d87181689",
+      "factory_bundle_sha256": "f5b0c16b3b14bbff979f254c5dea51b4fc7ce0302ec05cdf41ed2749a9dd1586",
+      "module_count": 11
     },
     "v25_verifier": {
       "path": "/__v25_verify",
       "http_status": 200,
       "status": "PASS",
-      "compiler_helix_commit": "f2559a1581e77da05e564875bf50875d8f2c5686",
+      "compiler_helix_commit": "86c3630d51b231c1637dc9e8b138b28eaf70ba68",
       "errors": []
     },
     "v26_verifier": {
@@ -83,7 +93,7 @@
       "stage": "CLAIM_PROMOTED",
       "claim_ceiling": "proof_bound_company_specific",
       "claim_receipts": 2,
-      "helix_commit": "f2559a1581e77da05e564875bf50875d8f2c5686"
+      "helix_commit": "86c3630d51b231c1637dc9e8b138b28eaf70ba68"
     },
     "github_company_record": {
       "path": "/companies/github/record.json",
@@ -92,7 +102,7 @@
       "stage": "CLAIM_PROMOTED",
       "claim_ceiling": "proof_bound_company_specific",
       "claim_receipts": 2,
-      "helix_commit": "f2559a1581e77da05e564875bf50875d8f2c5686"
+      "helix_commit": "86c3630d51b231c1637dc9e8b138b28eaf70ba68"
     },
     "github_company_html": {
       "path": "/companies/github/",
@@ -135,9 +145,10 @@
   "gate_decision": {
     "repository_evolution_earned": true,
     "winner_preserved_on_apex_main": true,
-    "production_projection_recompiled_from_evolving_helix": true,
-    "production_build_matches_admitted_main_artifact": true,
-    "canonical_alias_readback_matches_evolving_authority": true,
+    "production_projection_compiled_after_evolving_transition": true,
+    "production_build_matches_exact_source_artifact": true,
+    "current_helix_projection_equivalent_under_audited_nonprojection_delta": true,
+    "canonical_alias_readback_matches_deployed_authority": true,
     "claim_boundary_preserved": true,
     "company_claim_unchanged": true,
     "production_freshness_closed": true,
