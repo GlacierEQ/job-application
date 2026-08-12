@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "test": "python3 scripts/runner_verify.py && node --test deployment/vercel-source-bridge/design-proxy.test.js deployment/vercel-source-bridge/typography-proxy.test.js deployment/vercel-source-bridge/compiler-proxy.test.js deployment/vercel-source-bridge/title-font-proxy.test.js deployment/vercel-source-bridge/monument-title-proxy.test.js deployment/vercel-source-bridge/bootstrap-v25.test.mjs && node scripts/apply-complete-web-design.mjs && node scripts/validate-algerian-display.mjs && node scripts/validate-sealed-v25-production.mjs && node scripts/validate-master-evidence-policy.mjs"
+    "build:atlas-runtime": "node scripts/activate-atlas-runtime.mjs",
+    "test:atlas-runtime": "node --test tests/atlas-runtime.test.mjs",
+    "test": "python3 scripts/runner_verify.py && node --test deployment/vercel-source-bridge/design-proxy.test.js deployment/vercel-source-bridge/typography-proxy.test.js deployment/vercel-source-bridge/compiler-proxy.test.js deployment/vercel-source-bridge/title-font-proxy.test.js deployment/vercel-source-bridge/monument-title-proxy.test.js deployment/vercel-source-bridge/bootstrap-v25.test.mjs tests/atlas-runtime.test.mjs && node scripts/validate-algerian-display.mjs && node scripts/validate-sealed-v25-production.mjs && node scripts/validate-master-evidence-policy.mjs"
   }
 }
