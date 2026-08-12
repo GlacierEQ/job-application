@@ -1,7 +1,6 @@
-const { URL } = require('node:url');
 const proxy = require('./proxy.js');
 
-const SOURCE_COMMIT = '__BUILD_SOURCE_COMMIT__';
+const SOURCE_COMMIT = '675b295f6e8c19a85daef50b9ac46bdef224ceea';
 const RELEASE = 'V23-SYSTEMS-ATLAS-RESOURCE-GROUNDED';
 const VERIFY_SCHEMA = 'glaciereq.v23-systems-atlas-runtime-verification.v1';
 const FETCH_TIMEOUT_MS = 12_000;
