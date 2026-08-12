@@ -17,6 +17,7 @@ import build_registry
 TOWER_REPO = "GlacierEQ/the-tower-of-babel"
 CONTRACT_PATH = "governance/evolution-placement-contract.v1.json"
 REGISTRY_PATH = "registry/tower.yml"
+CATALOG_PATH = "generated/smithery.registry.json"
 QUALITY_PATH = "QUALITY_CONTRACT.md"
 PLACEMENT_PATH = "machine/tower-placement.json"
 PLACEMENT_SCHEMA = "glaciereq.tower-placement.v1"
@@ -45,6 +46,9 @@ def fetch_tower_authority(token: str | None) -> dict[str, Any]:
     registry, registry_blob_sha = build_registry.fetch_json_file(
         TOWER_REPO, REGISTRY_PATH, commit_sha, token
     )
+    catalog, catalog_blob_sha = build_registry.fetch_json_file(
+        TOWER_REPO, CATALOG_PATH, commit_sha, token
+    )
     quality_text, quality_blob_sha = _fetch_text_file(
         TOWER_REPO, QUALITY_PATH, commit_sha, token
     )
@@ -54,6 +58,10 @@ def fetch_tower_authority(token: str | None) -> dict[str, Any]:
     authority = contract.get("authority")
     if not isinstance(authority, dict) or authority.get("repository") != TOWER_REPO:
         raise ValueError("Tower placement contract lost Tower source authority")
+    if authority.get("registry") != REGISTRY_PATH:
+        raise ValueError("Tower placement contract lost canonical registry authority")
+    if authority.get("technology_catalog") != CATALOG_PATH:
+        raise ValueError("Tower placement contract lost generated technology catalog authority")
     integration = contract.get("integration")
     if not isinstance(integration, dict) or not integration.get(
         "placement_required_before_material_evolution"
@@ -61,20 +69,23 @@ def fetch_tower_authority(token: str | None) -> dict[str, Any]:
         raise ValueError("Tower placement contract does not govern material evolution")
     if registry.get("tower_id") != "glaciereq.tower-of-babel.v1":
         raise ValueError("unexpected canonical Tower registry identity")
+    if catalog.get("source") != REGISTRY_PATH:
+        raise ValueError("Tower technology catalog is not bound to canonical registry")
     if "Polyglot quality semantics" not in quality_text:
         raise ValueError("Tower quality contract lost polyglot proof semantics")
 
-    technologies = registry.get("technologies", [])
-    technology_names: set[str] = set()
-    technology_ids: set[str] = set()
-    if isinstance(technologies, list):
-        for row in technologies:
-            if not isinstance(row, dict):
-                continue
-            if isinstance(row.get("id"), str):
-                technology_ids.add(row["id"].casefold())
-            if isinstance(row.get("name"), str):
-                technology_names.add(row["name"].casefold())
+    capabilities = catalog.get("capabilities")
+    if not isinstance(capabilities, list):
+        raise ValueError("Tower technology catalog capabilities must be a list")
+    technology_ids = sorted(
+        item.split(":", 1)[1].casefold()
+        for item in capabilities
+        if isinstance(item, str)
+        and item.startswith("technology:")
+        and len(item) > len("technology:")
+    )
+    if not technology_ids:
+        raise ValueError("Tower generated technology catalog is empty")
 
     return {
         "repository": TOWER_REPO,
@@ -83,11 +94,12 @@ def fetch_tower_authority(token: str | None) -> dict[str, Any]:
         "contract_blob_sha": contract_blob_sha,
         "registry_path": REGISTRY_PATH,
         "registry_blob_sha": registry_blob_sha,
+        "technology_catalog_path": CATALOG_PATH,
+        "technology_catalog_blob_sha": catalog_blob_sha,
         "quality_contract_path": QUALITY_PATH,
         "quality_contract_blob_sha": quality_blob_sha,
         "contract": contract,
-        "technology_ids": sorted(technology_ids),
-        "technology_names": sorted(technology_names),
+        "technology_ids": technology_ids,
     }
 
 
@@ -111,10 +123,7 @@ def _substantive(value: Any, minimum: int = 8) -> bool:
 def _technology_known(value: Any, authority: dict[str, Any]) -> bool:
     if not isinstance(value, str) or not value.strip():
         return False
-    key = value.casefold().strip()
-    return key in set(authority["technology_ids"]) or key in set(
-        authority["technology_names"]
-    )
+    return value.casefold().strip() in set(authority["technology_ids"])
 
 
 def analyze_placement(
@@ -158,6 +167,10 @@ def analyze_placement(
             "contract_blob_sha": authority["contract_blob_sha"],
             "registry_path": authority["registry_path"],
             "registry_blob_sha": authority["registry_blob_sha"],
+            "technology_catalog_path": authority["technology_catalog_path"],
+            "technology_catalog_blob_sha": authority[
+                "technology_catalog_blob_sha"
+            ],
             "quality_contract_path": authority["quality_contract_path"],
             "quality_contract_blob_sha": authority["quality_contract_blob_sha"],
         }
@@ -247,6 +260,8 @@ def public_authority(authority: dict[str, Any]) -> dict[str, Any]:
             "contract_blob_sha",
             "registry_path",
             "registry_blob_sha",
+            "technology_catalog_path",
+            "technology_catalog_blob_sha",
             "quality_contract_path",
             "quality_contract_blob_sha",
         )
