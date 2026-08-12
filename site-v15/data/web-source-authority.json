@@ -1,0 +1,7 @@
+{
+  "schema": "glaciereq.web-source-authority.v1",
+  "authority": "GlacierEQ/job-application",
+  "source_commit": "2f7507c2eda545016af755d3091f05c595f828da",
+  "materialized_surface": "site-v15",
+  "reason": "Current canonical ATS proof materialized without changing existing V25/V26 runtime semantics."
+}
