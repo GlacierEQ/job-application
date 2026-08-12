@@ -53,26 +53,26 @@ def _require_blob(path: str, observed: str) -> None:
 def fetch_tower_authority(token: str | None) -> dict[str, Any]:
     """Load the exact canonical Tower placement authority, never floating main."""
     commit_sha = TOWER_AUTHORITY_COMMIT
+
     contract, contract_blob_sha = build_registry.fetch_json_file(
         TOWER_REPO, CONTRACT_PATH, commit_sha, token
     )
+    _require_blob(CONTRACT_PATH, contract_blob_sha)
+
     registry, registry_blob_sha = build_registry.fetch_json_file(
         TOWER_REPO, REGISTRY_PATH, commit_sha, token
     )
+    _require_blob(REGISTRY_PATH, registry_blob_sha)
+
     catalog, catalog_blob_sha = build_registry.fetch_json_file(
         TOWER_REPO, CATALOG_PATH, commit_sha, token
     )
+    _require_blob(CATALOG_PATH, catalog_blob_sha)
+
     quality_text, quality_blob_sha = _fetch_text_file(
         TOWER_REPO, QUALITY_PATH, commit_sha, token
     )
-
-    for path, observed in (
-        (CONTRACT_PATH, contract_blob_sha),
-        (REGISTRY_PATH, registry_blob_sha),
-        (CATALOG_PATH, catalog_blob_sha),
-        (QUALITY_PATH, quality_blob_sha),
-    ):
-        _require_blob(path, observed)
+    _require_blob(QUALITY_PATH, quality_blob_sha)
 
     if contract.get("schema") != CONTRACT_SCHEMA:
         raise ValueError("unexpected Tower evolution-placement contract schema")
