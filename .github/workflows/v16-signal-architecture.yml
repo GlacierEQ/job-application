@@ -1,17 +1,17 @@
-name: V16 Signal Architecture
+name: V23 Signal Architecture
 
 on:
   pull_request:
     paths:
       - 'site-v15/**'
-      - 'RESUME_ATS.md'
+      - 'RESUME.md'
       - 'deployment-receipts/V16_*'
       - '.github/workflows/v16-signal-architecture.yml'
   push:
     branches: [main]
     paths:
       - 'site-v15/**'
-      - 'RESUME_ATS.md'
+      - 'RESUME.md'
       - 'deployment-receipts/V16_*'
       - '.github/workflows/v16-signal-architecture.yml'
 
@@ -19,7 +19,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: v16-signal-architecture-${{ github.ref }}
+  group: v23-signal-architecture-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -37,28 +37,28 @@ jobs:
         with:
           node-version: '24'
 
-      - name: Validate V16 PSYSOC-X signal architecture
+      - name: Validate V23 hiring-system signal architecture
         id: validate
         continue-on-error: true
         run: |
           mkdir -p .verification-artifacts
           set -o pipefail
-          node site-v15/scripts/validate.mjs 2>&1 | tee .verification-artifacts/v16-validation.log
+          node site-v15/scripts/validate-site-v23.mjs 2>&1 | tee .verification-artifacts/v23-site-validation.log
 
       - name: Preserve structured success result
         if: steps.validate.outcome == 'success'
         run: |
-          cp .verification-artifacts/v16-validation.log .verification-artifacts/v16-validation-result.json
-          node -e "const fs=require('node:fs'); const result=JSON.parse(fs.readFileSync('.verification-artifacts/v16-validation-result.json','utf8')); if(result.status!=='PASS') throw new Error('V16 structured result is not PASS')"
+          cp .verification-artifacts/v23-site-validation.log .verification-artifacts/v23-site-validation-result.json
+          node -e "const fs=require('node:fs'); const result=JSON.parse(fs.readFileSync('.verification-artifacts/v23-site-validation-result.json','utf8')); if(result.status!=='PASS'||result.schema!=='glaciereq.site-signal-validation.v23') throw new Error('V23 structured result is not PASS')"
 
       - name: Upload validation diagnostics
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: v16-validation-diagnostics
+          name: v23-site-validation-diagnostics
           path: |
-            .verification-artifacts/v16-validation.log
-            .verification-artifacts/v16-validation-result.json
+            .verification-artifacts/v23-site-validation.log
+            .verification-artifacts/v23-site-validation-result.json
           if-no-files-found: error
           retention-days: 14
           include-hidden-files: true
@@ -66,58 +66,52 @@ jobs:
       - name: Enforce validation result
         if: steps.validate.outcome != 'success'
         run: |
-          cat .verification-artifacts/v16-validation.log
+          cat .verification-artifacts/v23-site-validation.log
           exit 1
 
-      - name: Verify exact resume artifacts
+      - name: Verify retained legacy resume binaries as historical artifacts only
         run: |
           python3 - <<'PY'
           import json
           from hashlib import sha256
           from pathlib import Path
-
-          pdf_path = Path('site-v15/downloads/Casey_Barton_Resume.pdf')
-          pdf = pdf_path.read_bytes()
+          manifest = json.loads(Path('site-v15/data/resume-artifacts.json').read_text(encoding='utf-8'))
+          assert manifest['status'] == 'LEGACY_PRE_V23_NOT_CANONICAL'
+          assert manifest['canonical_resume_version'] == '23.0.0-resource-grounded'
+          for kind in ('pdf', 'docx'):
+              entry = manifest['artifacts'][kind]
+              data = Path('site-v15', entry['path']).read_bytes()
+              assert len(data) == entry['bytes']
+              assert sha256(data).hexdigest() == entry['sha256']
+              assert entry['status'] == 'LEGACY_GENERATED_V17'
           ats = Path('site-v15/resume/ats.txt').read_bytes()
-          manifest_path = Path('site-v15/data/resume-artifacts.json')
-          manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
-
-          assert pdf.startswith(b'%PDF-'), 'resume PDF signature invalid'
-          assert len(pdf) > 8_000, 'resume PDF unexpectedly small'
-          assert manifest['schema'] == 'glaciereq.resume-artifacts.v17', 'resume artifact manifest schema drift'
-          expected = manifest['artifacts']['pdf']
-          assert expected['path'] == 'downloads/Casey_Barton_Resume.pdf', 'resume PDF manifest path drift'
-          assert len(pdf) == expected['bytes'], 'resume PDF byte count drift'
-          actual_hash = sha256(pdf).hexdigest()
-          assert actual_hash == expected['sha256'], 'resume PDF hash drift'
-          assert b'CASEY DEL CARPIO BARTON' in ats, 'ATS resume identity missing'
-          assert len(ats) > 3_000, 'ATS resume unexpectedly small'
-          print({'pdf_bytes': len(pdf), 'pdf_sha256': actual_hash, 'ats_bytes': len(ats), 'manifest_bound': True, 'status': 'PASS'})
+          assert b'CASEY DEL CARPIO BARTON' in ats
+          assert len(ats) > 10_000
+          print({'status': 'PASS', 'legacy_binary_integrity': True, 'canonical_resume_version': manifest['canonical_resume_version']})
           PY
 
-      - name: Emit exact-head validation receipt
+      - name: Emit exact-head V23 validation receipt
         run: |
           python3 - <<'PY'
           import hashlib, json, os
           from pathlib import Path
 
-          validation = json.loads(Path('.verification-artifacts/v16-validation-result.json').read_text())
+          validation = json.loads(Path('.verification-artifacts/v23-site-validation-result.json').read_text())
           assert validation['status'] == 'PASS'
           paths = [
-            'site-v15/index.html','site-v15/resume/index.html','site-v15/master/index.html',
+            'RESUME.md','site-v15/index.html','site-v15/resume/index.html','site-v15/master/index.html',
             'site-v15/mesh/index.html','site-v15/machine/index.html','site-v15/404.html',
             'site-v15/assets/site.css','site-v15/assets/site.systems.css',
-            'site-v15/assets/social-card.svg','site-v15/assets/favicon.svg',
             'site-v15/data/portfolio.json','site-v15/data/company-families.json',
-            'site-v15/data/psysoc-x-profiles.json','site-v15/data/resume-artifacts.json',
-            'site-v15/downloads/Casey_Barton_Resume.pdf','site-v15/resume/ats.txt'
+            'site-v15/data/psysoc-x-profiles.json','site-v15/data/resume.json',
+            'site-v15/data/resume-artifacts.json','site-v15/resume/ats.txt','site-v15/llms.txt'
           ]
           files = {}
           for p in paths:
             data = Path(p).read_bytes()
             files[p] = {'bytes': len(data), 'sha256': hashlib.sha256(data).hexdigest()}
           receipt = {
-            'schema': 'glaciereq.v16-signal-architecture-validation.v3',
+            'schema': 'glaciereq.v23-signal-architecture-validation.v1',
             'commit': os.environ.get('GITHUB_SHA'),
             'status': validation['status'],
             'routes': validation['routes'],
@@ -131,21 +125,22 @@ jobs:
             'inline_styles': validation['inline_styles'],
             'visual_contracts': validation['visual_contracts'],
             'csp': validation['csp'],
+            'resume': validation['resume'],
             'files': files,
           }
-          out = Path('.verification-artifacts/v16-validation-receipt.json')
+          out = Path('.verification-artifacts/v23-site-validation-receipt.json')
           out.write_text(json.dumps(receipt, indent=2, sort_keys=True) + '\n')
           digest = hashlib.sha256(out.read_bytes()).hexdigest()
-          Path('.verification-artifacts/v16-validation-receipt.sha256').write_text(digest + '  v16-validation-receipt.json\n')
+          Path('.verification-artifacts/v23-site-validation-receipt.sha256').write_text(digest + '  v23-site-validation-receipt.json\n')
           PY
 
-      - name: Upload V16 exact-head receipt
+      - name: Upload V23 exact-head receipt
         uses: actions/upload-artifact@v4
         with:
-          name: v16-signal-architecture-receipt
+          name: v23-signal-architecture-receipt
           path: |
-            .verification-artifacts/v16-validation-receipt.json
-            .verification-artifacts/v16-validation-receipt.sha256
+            .verification-artifacts/v23-site-validation-receipt.json
+            .verification-artifacts/v23-site-validation-receipt.sha256
           if-no-files-found: error
           retention-days: 14
           include-hidden-files: true
