@@ -61,7 +61,11 @@ The implementations are independent and domain-specific, but they share the same
 4. Expose the unresolved state explicitly to downstream consumers.
 5. Never relabel partial satisfaction as full completion/confidence.
 
-This is distinct from the existing **Fail-Closed Execution Envelopes** cluster, which is primarily about authority and terminal verification, and from **Evidence-Carrying Execution**, which is primarily about provenance and receipts. Conservative State Promotion is specifically about preserving uncertainty or incompleteness in the semantic output.
+Semantic boundary versus adjacent clusters:
+
+- **Conservative State Promotion** — preserves uncertainty, deferral, or incompleteness in the semantic output until the promotion condition is satisfied.
+- **Fail-Closed Execution Envelopes** — prevents execution or terminal-result acceptance when authority, identity, state, or verification conditions fail.
+- **Evidence-Carrying Execution** — binds provenance and receipts to an execution/result so downstream consumers can verify what produced it.
 
 ## Machine surface
 
@@ -78,7 +82,7 @@ invariant:
 donors:
   - repo: GlacierEQ/anduril-track-envelope-compiler
     revision: 46f0061f27070e5bcfbfcfe77d5b06b0e014c31f
-    evidence_class: current_canonical_source_with_bound_promoted_evolution_proof
+    evidence_class: CURRENT_CANONICAL_SOURCE_WITH_BOUND_PROMOTED_EVOLUTION_PROOF
     proof_candidate: fb8e460e3b76b9d0453e702dfd2bd167368dd6a5
     workflow_run: 31461547751
     anchors:
@@ -89,7 +93,7 @@ donors:
       - residual_uncertainty
   - repo: GlacierEQ/anthropic-agent-coordinator
     revision: 87438f57bdfd2cb380730cf51140611963d7c95b
-    evidence_class: historical_exact_revision_test_proof
+    evidence_class: HISTORICAL_EXACT_REVISION_TEST_PROOF
     tests:
       collected: 62
       executed: 62
@@ -104,13 +108,19 @@ donors:
       - dependency_not_completed_deferral
       - complete_only_when_no_deferred_tasks
 forbidden_inferences:
-  - repositories_are_integrated
-  - repository_count_equals_accomplishment_count
-  - coordinator_current_head_inherits_historical_test_proof
-  - production_deployment
-  - employer_or_company_affiliation
-  - authenticated_sensor_identity
-  - agent_execution_or_provider_calls
+  integration:
+    - repositories_are_integrated
+    - agent_execution_or_provider_calls
+  accomplishment:
+    - repository_count_equals_accomplishment_count
+  proof_inheritance:
+    - coordinator_current_head_inherits_historical_test_proof
+  deployment:
+    - production_deployment
+  affiliation:
+    - employer_or_company_affiliation
+  authority:
+    - authenticated_sensor_identity
 ```
 
 ## Next cursor
