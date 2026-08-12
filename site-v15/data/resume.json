@@ -1,13 +1,13 @@
 {
   "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
   "meta": {
-    "schema": "glaciereq.resume-intelligence.v17",
-    "version": "17.1.0-final",
-    "profile": "PSYSOC-X_MACHINE",
+    "schema": "glaciereq.resume-intelligence.v23",
+    "version": "23.0.0-resource-grounded",
+    "profile": "SYSTEMS_ATLAS_FOUR_LAYER",
     "facts_invariant": true,
-    "generated_on": "2026-08-08",
-    "evidence_policy": "claims-do-not-exceed-current-source-and-receipt-state",
-    "layout_policy": "print-safe-letter-margins",
+    "generated_on": "2026-08-12",
+    "evidence_policy": "claims-do-not-exceed-owning-source-revision-and-receipt",
+    "presentation_layers": ["HUMAN", "MASTER", "MACHINE", "MESH"],
     "invariants": [
       "identity",
       "dates",
@@ -15,73 +15,70 @@
       "limits",
       "authority_boundaries",
       "non_affiliation",
-      "repository-count-is-not-accomplishment-count"
+      "current_head_does_not_inherit_historical_proof",
+      "repository_count_is_not_accomplishment_count"
     ]
   },
   "basics": {
     "name": "Casey Del Carpio Barton",
-    "label": "Forward-Deployed AI Architect | Principal Agentic Systems Architect | Principal AI Platform Architect",
+    "label": "Applied AI Systems Architect | Forward-Deployed AI Engineer | Agent Infrastructure Engineer",
     "phone": "+1-808-936-5654",
     "email": "glacier.equilibrium@gmail.com",
     "url": "https://casey-barton-glaciereq.vercel.app/",
-    "location": {
-      "city": "Honolulu",
-      "region": "Hawaii",
-      "countryCode": "US"
-    },
-    "profiles": [
-      {
-        "network": "GitHub",
-        "username": "GlacierEQ",
-        "url": "https://github.com/GlacierEQ"
-      }
-    ],
-    "summary": "AI systems architect who turns ambiguous operating problems into dependable agentic systems using explicit authority, bounded tool execution, longitudinal evaluation, durable recovery, provenance, and human-verifiable completion."
+    "location": {"city": "Honolulu", "region": "Hawaiʻi", "countryCode": "US"},
+    "profiles": [{"network": "GitHub", "username": "GlacierEQ", "url": "https://github.com/GlacierEQ"}],
+    "summary": "Builds the control layer between powerful models and dependable real-world outcomes: bind identity and authority before execution, carry evidence through the operation, make failure states explicit, reconcile canonical state afterward, and refuse completion when the receipt does not match what actually ran."
   },
   "work": [
     {
       "name": "GlacierEQ",
       "position": "Founder / Applied AI Systems Builder",
-      "location": "Honolulu, Hawaii",
+      "location": "Honolulu, Hawaiʻi",
       "startDate": "2025-01",
-      "summary": "Independent evidence-bound AI systems engineering.",
+      "summary": "Independent evidence-bound AI systems engineering across agent, memory, document, infrastructure, evidence, and hiring systems.",
       "highlights": [
-        "Designs agent, application-intelligence, evidence, memory, infrastructure-governance, and human-machine systems.",
-        "Converts broad architecture into typed contracts, deterministic tests, refusal behavior, machine-readable facts, and completion receipts.",
-        "Built Portfolio Receipt Router with 69/69 tests through direct and reusable CI, artifact 8910423397, and zero external actions.",
-        "Separates source presence, review, execution, deployment, authority, and verified completion across a multi-repository engineering estate."
+        "Designs explicit control-plane, execution-plane, receipt-plane, source-authority, and projection boundaries.",
+        "Converts ambiguous missions into typed contracts, runnable vertical slices, deterministic tests, refusal behavior, recovery paths, machine interfaces, and reviewable completion receipts.",
+        "Builds repeated reliability mechanisms across independent systems: evidence-carrying execution, fail-closed envelopes, bounded transitions, idempotent recovery, truth-preserving projections, and reversible verified change.",
+        "Maintains explicit public/private, original/upstream, simulation/hardware, proposal/execution, current-head/historical-proof, and source/presentation boundaries."
       ]
     },
     {
       "name": "Diamond Head Home Inspections",
       "position": "Certified Home Inspector",
-      "location": "Honolulu, Hawaii",
+      "location": "Honolulu, Hawaiʻi",
       "startDate": "2020",
       "endDate": "2024",
-      "summary": "Residential systems inspection and decision-ready reporting.",
+      "summary": "Residential systems inspection and decision-ready reporting under incomplete field evidence.",
       "highlights": [
-        "Inspected structural, roofing, electrical, plumbing, HVAC, moisture, and safety conditions.",
-        "Applied evidence capture, uncertainty labeling, defect prioritization, interacting-system analysis, and plain-language communication."
+        "Diagnosed structural, roofing, electrical, plumbing, HVAC, moisture, and safety conditions under time pressure.",
+        "Separated symptom, cause, evidence strength, consequence, and recommended action before reporting conclusions.",
+        "Carries the same field discipline into software: observe first, preserve evidence, test the boundary, explain uncertainty, and avoid unsupported conclusions."
       ]
     },
     {
       "name": "Hi-Class Home Services / Hi Class Maintenance Oahu LLC",
       "position": "Owner-Operator, Building Systems and Field Services",
-      "location": "Honolulu, Hawaii",
+      "location": "Honolulu, Hawaiʻi",
       "startDate": "2017",
-      "summary": "Residential repair, estimates, field execution, and closeout artifacts.",
+      "summary": "Residential repair, estimates, field execution, sequencing, and closeout artifacts.",
       "highlights": [
-        "Scopes work, prepares estimates, coordinates execution, and communicates assumptions, constraints, and completion status.",
-        "Translates incomplete real-world requirements into bounded work packages and usable closeout artifacts."
+        "Scopes work, prepares estimates, coordinates execution, and translates incomplete real-world requirements into bounded work packages.",
+        "Balances interacting-system failure modes, safety, sequencing, client priorities, uncertainty, and completion under real resource constraints."
       ]
     }
   ],
   "education": [
     {
-      "institution": "University of Hawaii at Manoa",
+      "institution": "University of Hawaiʻi at Mānoa",
       "area": "Marine Biology",
       "studyType": "Bachelor of Science",
-      "endDate": "2016"
+      "endDate": "2016",
+      "summary": "Systems-science foundation in interacting biological systems, ecology, physiology, scientific method, experimental design, quantitative reasoning, field/lab investigation, evidence evaluation, and professional communication.",
+      "highlights": [
+        "Sea-urchin morphometric research, 2016-2017: processed physical measurements of gill structures to support visual species identification.",
+        "The resulting systems lineage now appears in engineered boundaries: selective permeability, signal-response, homeostasis, adaptation, structure/function, classification, and nested organization."
+      ]
     },
     {
       "institution": "AWS Cloud Institute",
@@ -89,168 +86,144 @@
       "studyType": "Professional program",
       "startDate": "2025",
       "endDate": "2026",
-      "score": "In progress"
+      "score": "In progress",
+      "summary": "Hands-on cloud development spanning applications, architecture, security, DevOps, data, labs, capstone work, and certification preparation."
     }
   ],
   "skills": [
     {
+      "name": "Evidence-carrying execution",
+      "keywords": ["operation identity", "authority binding", "typed evidence", "receipt verification", "terminal promotion gates"]
+    },
+    {
+      "name": "Fail-closed execution and bounded state transitions",
+      "keywords": ["preconditions", "resource ceilings", "ALLOW-CONFIRM-DENY", "deferral", "canonical reconciliation", "explicit failure semantics"]
+    },
+    {
+      "name": "Recovery and provenance",
+      "keywords": ["stable identity", "idempotency", "replay boundaries", "integrity hashing", "durable receipts", "known-good state", "rollback"]
+    },
+    {
       "name": "Agent infrastructure and governance",
-      "keywords": [
-        "multi-agent orchestration",
-        "Model Context Protocol",
-        "tool contracts",
-        "capability and authority separation",
-        "approval models",
-        "state machines",
-        "bounded retries",
-        "failure and recovery",
-        "human-in-the-loop systems"
-      ]
-    },
-    {
-      "name": "Evidence and release engineering",
-      "keywords": [
-        "provenance",
-        "claim-to-source mapping",
-        "deterministic testing",
-        "JSON Schema",
-        "CI/CD",
-        "static analysis",
-        "dependency auditing",
-        "integrity hashing",
-        "release receipts",
-        "machine-readable interfaces"
-      ]
-    },
-    {
-      "name": "Application and document intelligence",
-      "keywords": [
-        "role research",
-        "evidence-qualified resume generation",
-        "document extraction",
-        "structured artifacts",
-        "human and machine presentation surfaces"
-      ]
+      "keywords": ["multi-agent coordination", "MCP", "tool contracts", "capability-authority separation", "approval models", "state machines", "bounded retries"]
     },
     {
       "name": "Primary technology",
-      "keywords": [
-        "Python",
-        "TypeScript",
-        "JavaScript",
-        "SQL",
-        "Bash",
-        "Node.js",
-        "React",
-        "Next.js",
-        "FastAPI",
-        "REST",
-        "JSON-RPC 2.0",
-        "MCP",
-        "GitHub Actions",
-        "Docker",
-        "Vercel"
-      ]
+      "keywords": ["Python", "TypeScript", "JavaScript", "SQL", "Bash", "Node.js", "React", "Next.js", "FastAPI", "REST", "JSON-RPC", "MCP", "GitHub Actions", "Docker", "Vercel"]
+    },
+    {
+      "name": "Evidence-bounded polyglot exposure",
+      "keywords": ["Go", "Rust", "C", "C++", "CUDA", "Swift", "Metal", "Julia", "R", "Verilog", "SystemVerilog", "WebAssembly", "Lean 4"]
     }
   ],
   "projects": [
     {
-      "name": "Portfolio Receipt Router",
-      "url": "https://github.com/GlacierEQ/xai-colossus-2",
-      "description": "Local fail-closed evidence router and compatibility-safe architecture repair.",
-      "keywords": [
-        "TEST_VERIFIED",
-        "69/69",
-        "artifact:8910423397",
-        "external_actions:0"
-      ]
+      "name": "AKOS",
+      "url": "https://github.com/GlacierEQ/AKOS",
+      "description": "Current-head tested execution authority and delegated-identity verification.",
+      "keywords": ["current_head:eac3cab001306225b99da41c37370528331966dd", "python:3.11-3.13", "collected:200", "passed:199", "skipped:1", "failures:0", "errors:0", "ruff_quality_debt:160"]
+    },
+    {
+      "name": "ECHO",
+      "url": "https://github.com/GlacierEQ/ECHO",
+      "description": "Continuity, idempotent flow, recovery, provenance, and receipt-backed orchestration under an AKOS governance boundary.",
+      "keywords": ["current_head:6acdb3be1739f1659f3cec9f4b7d39d5799cd476", "privacy_boundary_hardened", "tests:48/48", "cli:VERIFIED"]
+    },
+    {
+      "name": "The Tower of Babel",
+      "url": "https://github.com/GlacierEQ/the-tower-of-babel",
+      "description": "Executable technology placement, interoperability, proof gates, and deterministic receipts.",
+      "keywords": ["technology_floors:40", "easy_advanced_exhibits:80", "behavioral_proof_floors:17", "formal_proof_floors:3", "explicitly_gated_floors:9"]
     },
     {
       "name": "Job Application Helix",
       "url": "https://github.com/GlacierEQ/job-app-helix",
-      "description": "Evidence-governed hiring and portfolio orchestration with an exact 67-repository admitted public proof boundary.",
-      "keywords": [
-        "PARTIALLY_VERIFIED",
-        "admitted_public_repositories:67",
-        "repository_count_not_accomplishment_count",
-        "full_owned_estate_count_not_asserted"
-      ]
+      "description": "Portfolio authority for admission, evidence state, company/role alignment, flagship hierarchy, freshness, and public-safe projection policy.",
+      "keywords": ["portfolio_authority", "fail_closed_evidence_ladder", "machine_contracts", "repository_count_not_accomplishment_count"]
     },
     {
       "name": "Agent Coordinator",
       "url": "https://github.com/GlacierEQ/anthropic-agent-coordinator",
-      "description": "Deterministic task ownership, dependency order, capacity, stable priority, and shared budgets.",
-      "keywords": [
-        "RECORDED_TESTS",
-        "62/62"
-      ]
+      "description": "Deterministic dependency, capacity, priority, and shared-budget scheduling.",
+      "keywords": ["pinned_behavioral_evidence", "tests:62/62"]
     },
     {
-      "name": "AKOS / PSYSOC-X",
-      "url": "https://github.com/GlacierEQ/AKOS/tree/main/stones/psysoc-x",
-      "description": "Authority, evidence, closure, and audience calibration without factual, uncertainty, dignity, or authority drift.",
-      "keywords": [
-        "BOUNDED_VERIFIED_SURFACES"
-      ]
+      "name": "Colossal Agent / Spiral Engine",
+      "url": "https://github.com/GlacierEQ/spiral-engine",
+      "description": "Biologically inspired systems lineage: nested organization, paired strands, persistent iterative state, and principle/mechanism separation.",
+      "keywords": ["double_helix", "spiral_state_advancement", "pillars_and_pistons", "sanitized_public_description"]
     }
   ],
-  "x_cross_domain_foundation": [
+  "x_capability_clusters": [
     {
-      "domain": "scientific_measurement",
-      "organization": "University of Hawaii",
-      "role": "Sea Urchin Morphometric Research",
-      "period": "2016-2017",
-      "scope": "Processed physical measurements of gill structures to support visual species identification."
+      "id": "evidence_carrying_execution",
+      "status": "THREE_INDEPENDENT_IMPLEMENTATIONS_WITH_ONE_CURRENT_HEAD_EXECUTED_CI_ANCHOR",
+      "pattern": "bind operation identity/input -> attenuate authority -> carry evidence through execution -> reject terminal promotion without receipt closure"
     },
     {
-      "domain": "compressed_gas_systems",
-      "organization": "Hawaiian Diving Adventures and UH Dive Office",
-      "role": "Scuba Tank Technician",
-      "period": "2016-2017",
-      "scope": "Tank filling, transport, inspection and repair support, and gas mixing under safety-critical procedures."
+      "id": "fail_closed_execution_envelopes",
+      "status": "EVIDENCE_BOUND_MULTI_REPO_PATTERN",
+      "pattern": "identity/intent -> precondition validation -> bounded authority/resources -> deterministic execution or refusal -> canonical reconciliation -> durable evidence"
     },
     {
-      "domain": "historical_leadership",
-      "organization": "Civil Air Patrol",
-      "role": "Cadet Commander / Search-and-Rescue Ground Team Leader",
-      "period": "2007-2011",
-      "scope": "Historical leadership context; not represented as formal professional people-management experience."
+      "id": "bounded_state_transitions",
+      "status": "BEHAVIOR_TESTED_MULTI_REPO_PATTERN",
+      "pattern": "proposed state -> validate prerequisites/authority/resources/evidence -> admit | defer | confirm | deny | invalidate -> machine-readable reason"
+    },
+    {
+      "id": "idempotent_recovery_and_provenance",
+      "status": "BEHAVIOR_TESTED_MULTI_REPO_PATTERN",
+      "pattern": "stable identity -> replay boundary -> provenance/integrity -> durable receipt -> later reconciliation"
+    },
+    {
+      "id": "truth_preserving_public_projections",
+      "status": "MULTI_REPOSITORY_PATTERN_VERIFIED",
+      "pattern": "canonical or sensitive source truth -> admission boundary -> public-safe source-bound representation without widened proof"
+    },
+    {
+      "id": "reversible_verified_change",
+      "status": "INDEPENDENT_MULTI_SYSTEM_PATTERN",
+      "pattern": "preserve known-good state -> gate mutation -> verify changed state -> restore on failed post-change checks"
     }
+  ],
+  "x_systems_lineage": {
+    "thesis": "Biological systems -> field diagnosis -> safety-critical physical systems -> engineered AI systems.",
+    "mappings": [
+      ["nested biological organization", "system/subsystem/component ownership"],
+      ["membranes and selective permeability", "tool/data/privacy/authority admission boundaries"],
+      ["receptors and signal response", "connectors/events/typed inputs/observability"],
+      ["homeostasis", "health checks/bounded recovery/known-good state/rollback"],
+      ["adaptation", "correction/policy/regression test/next operating cycle"],
+      ["structure/function", "technology placement where every component earns a boundary"],
+      ["morphometric classification", "observable features/measurable signals/defensible state"],
+      ["DNA/double helix", "shared invariants across coordinated strands without collapsed identity"]
+    ]
+  },
+  "x_cross_domain_foundation": [
+    {"domain": "scientific_measurement", "organization": "University of Hawaiʻi", "role": "Sea Urchin Morphometric Research", "period": "2016-2017", "scope": "Processed physical measurements of gill structures to support visual species identification."},
+    {"domain": "compressed_gas_systems", "organization": "Hawaiian Diving Adventures and UH Dive Office", "role": "Scuba Tank Technician", "period": "2016-2017", "scope": "Tank filling, transport, inspection and repair support, and gas mixing under safety-critical procedures."},
+    {"domain": "historical_leadership", "organization": "Civil Air Patrol", "role": "Cadet Commander / Search-and-Rescue Ground Team Leader", "period": "2007-2011", "scope": "Historical leadership context; an official 2009 certificate documents Cadet Officer appointment; not represented as formal professional people-management experience."}
   ],
   "x_historical_credentials": {
     "status": "CURRENT_STATUS_NOT_ASSERTED",
-    "items": [
-      "PSI Visual Cylinder Inspector",
-      "PSI Eddy Current Technician",
-      "PSI Valve Repair Technician",
-      "PSI Oxygen Cleaning Cylinder Technician",
-      "NAUI Rescue Diver",
-      "NAUI Master Diver",
-      "PADI Enriched Air Diver"
-    ]
+    "items": ["PSI Visual Cylinder Inspector", "PSI Eddy Current Technician", "PSI Valve Repair Technician", "PSI Oxygen Cleaning Cylinder Technician", "NAUI Rescue Diver", "NAUI Master Diver", "PADI Enriched Air Diver"]
+  },
+  "x_chronology": {
+    "classification": "DATED_SEMANTIC_CONVERGENCE_ONLY",
+    "anchors": [
+      {"concept": "Pillars & Pistons", "date": "2026-03-16"},
+      {"concept": "Spiral Engine public artifact", "date": "2026-03-24"},
+      {"comparator": "OpenAI public three-pillar/self-improvement architecture", "date": "2026-05-27", "lead_days": [72, 64]}
+    ],
+    "nonclaims": ["access", "copying", "transmission", "causation", "ownership_of_ordinary_terminology"]
   },
   "x_evidence": {
-    "proof": {
-      "receipt_router_tests": 69,
-      "bounded_source_tests": 166,
-      "energy_memory_tests": 19,
-      "helix_admitted_public_repositories": 67,
-      "helix_state": "PARTIALLY_VERIFIED",
-      "coordinator_tests": 62,
-      "external_actions": 0,
-      "receipt_router_artifact": 8910423397
-    },
     "limits": [
+      "Exact test totals and revision claims apply only to the stated repository, SHA, workflow, or receipt.",
       "Repository count is not accomplishment count.",
-      "The 67-repository Helix figure is an admitted public proof boundary, not the full owned-estate count.",
       "No company affiliation is inferred from company-oriented repositories.",
-      "No production deployment, customer impact, formal people management, proprietary access, current certification status, hardware validation, or measured business outcome is claimed without direct evidence.",
+      "No production scale, customer adoption, proprietary access, formal people management, current certification status, hardware equivalence, or measured business outcome is claimed without direct evidence.",
       "Reviewed or generated work is not represented as executed proof."
-    ],
-    "source_classes": [
-      "current GitHub receipts",
-      "current canonical portfolio",
-      "prior user resume records"
     ]
   }
 }
