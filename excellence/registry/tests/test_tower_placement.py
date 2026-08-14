@@ -226,6 +226,36 @@ class TowerPlacementTests(unittest.TestCase):
             any("technology_catalog_blob_sha" in error for error in result["errors"])
         )
 
+    def test_whitespace_cannot_fake_distinct_candidate_technology(self):
+        bad = placement(candidate="python ")
+        result = tower_placement.analyze_placement(
+            bad, "GlacierEQ/example", "next:material_work", authority()
+        )
+        self.assertFalse(result["valid"])
+        self.assertTrue(
+            any(
+                "requires a distinct candidate technology" in error
+                for error in result["errors"]
+            )
+        )
+
+    def test_non_object_receipt_routes_to_invalid_instead_of_crashing(self):
+        result = tower_placement.analyze_placement(
+            ["not", "an", "object"],
+            "GlacierEQ/example",
+            "next:material_work",
+            authority(),
+        )
+        self.assertEqual(
+            result,
+            {
+                "status": "INVALID",
+                "valid": False,
+                "errors": ["Tower placement receipt must be an object"],
+                "decision": None,
+            },
+        )
+
     def test_unknown_runtime_or_missing_parity_fails_closed(self):
         bad = placement(candidate="madeuplang")
         bad["boundaries"][0]["parity_contract"] = "none"
