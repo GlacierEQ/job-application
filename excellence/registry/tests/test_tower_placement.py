@@ -18,13 +18,21 @@ def authority():
         "repository": tower_placement.TOWER_REPO,
         "commit_sha": tower_placement.TOWER_AUTHORITY_COMMIT,
         "contract_path": tower_placement.CONTRACT_PATH,
-        "contract_blob_sha": tower_placement.EXPECTED_BLOBS[tower_placement.CONTRACT_PATH],
+        "contract_blob_sha": tower_placement.EXPECTED_BLOBS[
+            tower_placement.CONTRACT_PATH
+        ],
         "registry_path": tower_placement.REGISTRY_PATH,
-        "registry_blob_sha": tower_placement.EXPECTED_BLOBS[tower_placement.REGISTRY_PATH],
+        "registry_blob_sha": tower_placement.EXPECTED_BLOBS[
+            tower_placement.REGISTRY_PATH
+        ],
         "technology_catalog_path": tower_placement.CATALOG_PATH,
-        "technology_catalog_blob_sha": tower_placement.EXPECTED_BLOBS[tower_placement.CATALOG_PATH],
+        "technology_catalog_blob_sha": tower_placement.EXPECTED_BLOBS[
+            tower_placement.CATALOG_PATH
+        ],
         "quality_contract_path": tower_placement.QUALITY_PATH,
-        "quality_contract_blob_sha": tower_placement.EXPECTED_BLOBS[tower_placement.QUALITY_PATH],
+        "quality_contract_blob_sha": tower_placement.EXPECTED_BLOBS[
+            tower_placement.QUALITY_PATH
+        ],
         "technology_ids": ["python", "go", "rust"],
         "contract": {
             "decisions": ["KEEP", "ADD", "SPLIT", "EXPERIMENT"],
@@ -139,9 +147,12 @@ class TowerPlacementTests(unittest.TestCase):
                 tower_placement.EXPECTED_BLOBS[path],
             )
 
-        with patch.object(
-            tower_placement.build_registry, "fetch_json_file", side_effect=fake_json
-        ), patch.object(tower_placement, "_fetch_text_file", side_effect=fake_text):
+        with (
+            patch.object(
+                tower_placement.build_registry, "fetch_json_file", side_effect=fake_json
+            ),
+            patch.object(tower_placement, "_fetch_text_file", side_effect=fake_text),
+        ):
             observed = tower_placement.fetch_tower_authority("token")
 
         self.assertEqual(observed["commit_sha"], tower_placement.TOWER_AUTHORITY_COMMIT)
@@ -173,9 +184,12 @@ class TowerPlacementTests(unittest.TestCase):
                 return contract, "0" * 40
             raise AssertionError("blob drift should fail on first authority artifact")
 
-        with patch.object(
-            tower_placement.build_registry, "fetch_json_file", side_effect=fake_json
-        ), self.assertRaisesRegex(ValueError, "authority blob drift"):
+        with (
+            patch.object(
+                tower_placement.build_registry, "fetch_json_file", side_effect=fake_json
+            ),
+            self.assertRaisesRegex(ValueError, "authority blob drift"),
+        ):
             tower_placement.fetch_tower_authority(None)
 
     def test_valid_addition_requires_known_runtime_boundary_and_parity(self):
@@ -194,7 +208,9 @@ class TowerPlacementTests(unittest.TestCase):
             stale, "GlacierEQ/example", "next:material_work", authority()
         )
         self.assertFalse(result["valid"])
-        self.assertIn("Tower placement authority mismatch: commit_sha", result["errors"])
+        self.assertIn(
+            "Tower placement authority mismatch: commit_sha", result["errors"]
+        )
 
     def test_stale_cursor_and_stale_catalog_authority_fail_closed(self):
         stale = placement(cursor="next:old_work")
@@ -203,8 +219,12 @@ class TowerPlacementTests(unittest.TestCase):
             stale, "GlacierEQ/example", "next:material_work", authority()
         )
         self.assertFalse(result["valid"])
-        self.assertTrue(any("current evolution cursor" in error for error in result["errors"]))
-        self.assertTrue(any("technology_catalog_blob_sha" in error for error in result["errors"]))
+        self.assertTrue(
+            any("current evolution cursor" in error for error in result["errors"])
+        )
+        self.assertTrue(
+            any("technology_catalog_blob_sha" in error for error in result["errors"])
+        )
 
     def test_unknown_runtime_or_missing_parity_fails_closed(self):
         bad = placement(candidate="madeuplang")
@@ -213,7 +233,9 @@ class TowerPlacementTests(unittest.TestCase):
             bad, "GlacierEQ/example", "next:material_work", authority()
         )
         self.assertFalse(result["valid"])
-        self.assertTrue(any("not in Tower registry" in error for error in result["errors"]))
+        self.assertTrue(
+            any("not in Tower registry" in error for error in result["errors"])
+        )
         self.assertTrue(any("parity_contract" in error for error in result["errors"]))
 
     def test_missing_receipt_is_prospective_gate_not_state_corruption(self):
