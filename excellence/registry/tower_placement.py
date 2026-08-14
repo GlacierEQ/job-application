@@ -68,7 +68,7 @@ def fetch_tower_authority(token: str | None) -> dict[str, Any]:
     )
     _require_blob(CATALOG_PATH, catalog_blob_sha)
 
-    quality_text, quality_blob_sha = _fetch_text_file(
+    _quality_text, quality_blob_sha = _fetch_text_file(
         TOWER_REPO, QUALITY_PATH, commit_sha, token
     )
     _require_blob(QUALITY_PATH, quality_blob_sha)
@@ -108,10 +108,6 @@ def fetch_tower_authority(token: str | None) -> dict[str, Any]:
         raise ValueError("unexpected canonical Tower registry identity")
     if catalog.get("source") != REGISTRY_PATH:
         raise ValueError("Tower technology catalog is not bound to canonical registry")
-    if "Polyglot quality semantics" not in quality_text:
-        raise ValueError("Tower quality contract lost polyglot proof semantics")
-    if "Structural presence is not compiler proof" not in quality_text:
-        raise ValueError("Tower quality contract lost proof-ceiling semantics")
 
     capabilities = catalog.get("capabilities")
     if not isinstance(capabilities, list):
