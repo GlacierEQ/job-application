@@ -273,6 +273,22 @@ class PriorityQueueTests(unittest.TestCase):
         ):
             governed_build(registry(repo_record()), fetch_state=fetch_state)
 
+    def test_missing_tower_authority_fails_explicitly(self):
+        def fetch_state(repo, path, ref, token):
+            return {
+                "principal_state": "EVOLVING",
+                "evolution_cursor": "next:material_work",
+            }, "state-blob"
+
+        with self.assertRaisesRegex(
+            RuntimeError, "Tower authority is required to queue EVOLVE work"
+        ):
+            build_priority_queue.build_queue(
+                registry(repo_record()),
+                fetch_state=fetch_state,
+                fetch_tower_authority=lambda token: None,
+            )
+
     def test_missing_placement_routes_repo_to_tower_before_evolution(self):
         def fetch_state(repo, path, ref, token):
             return {
