@@ -10,6 +10,79 @@ assert spec.loader is not None
 spec.loader.exec_module(build_priority_queue)
 
 
+def fake_authority():
+    return {
+        "repository": "GlacierEQ/the-tower-of-babel",
+        "commit_sha": "a" * 40,
+        "contract_path": "governance/evolution-placement-contract.v1.json",
+        "contract_blob_sha": "contract-blob",
+        "registry_path": "registry/tower.yml",
+        "registry_blob_sha": "registry-blob",
+        "technology_catalog_path": "generated/smithery.registry.json",
+        "technology_catalog_blob_sha": "catalog-blob",
+        "quality_contract_path": "QUALITY_CONTRACT.md",
+        "quality_contract_blob_sha": "quality-blob",
+        "technology_ids": ["python", "go", "rust"],
+        "contract": {
+            "decisions": ["KEEP", "ADD", "SPLIT", "EXPERIMENT"],
+            "proof_tiers": ["A", "B", "C"],
+            "required_receipt_fields": [
+                "schema",
+                "repository",
+                "evolution_cursor",
+                "tower_authority",
+                "decision",
+                "current_languages",
+                "boundaries",
+                "diversity_value",
+                "nonclaims",
+            ],
+            "boundary_required_fields": [
+                "responsibility",
+                "decision",
+                "incumbent_technology",
+                "candidate_technology",
+                "activation_condition",
+                "why_existing_boundary_is_insufficient",
+                "interface_contract",
+                "proof_tier",
+                "parity_required",
+                "parity_contract",
+            ],
+        },
+    }
+
+
+def valid_placement(repository, cursor):
+    authority = fake_authority()
+    return {
+        "schema": "glaciereq.tower-placement.v1",
+        "repository": repository,
+        "evolution_cursor": cursor,
+        "tower_authority": build_priority_queue.tower_placement.public_authority(
+            authority
+        ),
+        "decision": "KEEP",
+        "current_languages": ["python"],
+        "boundaries": [
+            {
+                "responsibility": "preserve the current deterministic execution boundary",
+                "decision": "KEEP",
+                "incumbent_technology": "python",
+                "candidate_technology": "python",
+                "activation_condition": "keep while the current responsibility and proof surface remain stable",
+                "why_existing_boundary_is_insufficient": "it is not insufficient; adding another runtime would duplicate the same responsibility",
+                "interface_contract": "retain the existing typed request and deterministic receipt interface",
+                "proof_tier": "B",
+                "parity_required": False,
+                "parity_contract": "not applicable because the incumbent boundary remains authoritative",
+            }
+        ],
+        "diversity_value": "Preserving Python avoids decorative runtime duplication while keeping the proven responsibility explicit.",
+        "nonclaims": ["language count is not treated as engineering maturity"],
+    }
+
+
 def repo_record(
     repository="GlacierEQ/example",
     *,
@@ -47,6 +120,25 @@ def registry(*records):
     }
 
 
+def governed_build(registry_data, **kwargs):
+    fetch_tower_authority = kwargs.pop(
+        "fetch_tower_authority", lambda token: fake_authority()
+    )
+    fetch_placement = kwargs.pop(
+        "fetch_placement",
+        lambda repository, ref, token: (
+            valid_placement(repository, "next:material_work"),
+            "placement-blob",
+        ),
+    )
+    return build_priority_queue.build_queue(
+        registry_data,
+        fetch_tower_authority=fetch_tower_authority,
+        fetch_placement=fetch_placement,
+        **kwargs,
+    )
+
+
 class PriorityQueueTests(unittest.TestCase):
     def test_evolving_repo_uses_exact_head_cursor(self):
         calls = []
@@ -55,10 +147,10 @@ class PriorityQueueTests(unittest.TestCase):
             calls.append((repo, path, ref, token))
             return {
                 "principal_state": "EVOLVING",
-                "evolution_cursor": "next:exercise_pair_integration",
+                "evolution_cursor": "next:material_work",
             }, "blob123"
 
-        out = build_priority_queue.build_queue(
+        out = governed_build(
             registry(repo_record()), token="test-token", fetch_state=fetch_state
         )
         self.assertEqual(
@@ -80,11 +172,15 @@ class PriorityQueueTests(unittest.TestCase):
             "least_successful_evolutions_first_then_repository",
         )
         row = group["repositories"][0]
-        self.assertEqual(row["evolution_cursor"], "next:exercise_pair_integration")
-        self.assertEqual(row["next_material_action"], "exercise_pair_integration")
+        self.assertEqual(row["evolution_cursor"], "next:material_work")
+        self.assertEqual(row["next_material_action"], "material_work")
         self.assertEqual(row["evolution_state_blob_sha"], "blob123")
         self.assertEqual(row["evolution_generation"], 0)
         self.assertIsNone(row["last_consumed_cursor"])
+        self.assertEqual(row["tower_placement_status"], "VALID")
+        self.assertEqual(row["tower_placement_decision"], "KEEP")
+        self.assertEqual(out["schema"], "glaciereq.excellence-priority-queue.v2")
+        self.assertEqual(out["tower_authority"]["commit_sha"], "a" * 40)
 
     def test_least_evolved_repository_rotates_to_front(self):
         states = {
@@ -108,12 +204,18 @@ class PriorityQueueTests(unittest.TestCase):
         def fetch_state(repo, path, ref, token):
             return states[repo], f"blob-{repo.rsplit('/', 1)[1]}"
 
-        out = build_priority_queue.build_queue(
+        def fetch_placement(repo, ref, token):
+            return valid_placement(
+                repo, states[repo]["evolution_cursor"]
+            ), f"placement-{repo}"
+
+        out = governed_build(
             registry(
                 repo_record("GlacierEQ/alpha", head="alpha-head"),
                 repo_record("GlacierEQ/beta", head="beta-head"),
             ),
             fetch_state=fetch_state,
+            fetch_placement=fetch_placement,
         )
         rows = out["queue"][0]["repositories"]
         self.assertEqual(
@@ -132,59 +234,93 @@ class PriorityQueueTests(unittest.TestCase):
         def fetch_state(repo, path, ref, token):
             return {
                 "principal_state": "EVOLVING",
-                "evolution_cursor": "next:retry_material_work",
+                "evolution_cursor": "next:material_work",
                 "evolution_history": [
-                    {
-                        "consumed_cursor": "next:failed_attempt",
-                        "result": "FAIL",
-                    }
+                    {"consumed_cursor": "next:failed_attempt", "result": "FAIL"}
                 ],
             }, "blob"
 
-        out = build_priority_queue.build_queue(
-            registry(repo_record()), fetch_state=fetch_state
-        )
+        out = governed_build(registry(repo_record()), fetch_state=fetch_state)
         self.assertEqual(out["queue"][0]["repositories"][0]["evolution_generation"], 0)
 
     def test_malformed_successful_evolution_history_fails_closed(self):
         def fetch_state(repo, path, ref, token):
             return {
                 "principal_state": "EVOLVING",
-                "evolution_cursor": "next:current",
+                "evolution_cursor": "next:material_work",
                 "evolution_history": [{"result": "PASS"}],
             }, "blob"
 
         with self.assertRaisesRegex(ValueError, r"must bind a next:\* consumed_cursor"):
-            build_priority_queue.build_queue(
-                registry(repo_record()), fetch_state=fetch_state
-            )
+            governed_build(registry(repo_record()), fetch_state=fetch_state)
 
     def test_evolving_repo_without_material_cursor_fails_closed(self):
         def fetch_state(repo, path, ref, token):
             return {"principal_state": "EVOLVING", "evolution_cursor": ""}, "blob"
 
         with self.assertRaisesRegex(ValueError, "lacks evolution_cursor"):
-            build_priority_queue.build_queue(
-                registry(repo_record()), fetch_state=fetch_state
-            )
+            governed_build(registry(repo_record()), fetch_state=fetch_state)
 
     def test_queue_rejects_state_drift_at_exact_head(self):
         def fetch_state(repo, path, ref, token):
             return {
                 "principal_state": "PROMOTED",
-                "evolution_cursor": "next:should_not_be_used",
+                "evolution_cursor": "next:material_work",
             }, "blob"
 
         with self.assertRaisesRegex(
             ValueError, "state changed during queue derivation"
         ):
+            governed_build(registry(repo_record()), fetch_state=fetch_state)
+
+    def test_missing_tower_authority_fails_explicitly(self):
+        def fetch_state(repo, path, ref, token):
+            return {
+                "principal_state": "EVOLVING",
+                "evolution_cursor": "next:material_work",
+            }, "state-blob"
+
+        with self.assertRaisesRegex(
+            RuntimeError, "Tower authority is required to queue EVOLVE work"
+        ):
             build_priority_queue.build_queue(
-                registry(repo_record()), fetch_state=fetch_state
+                registry(repo_record()),
+                fetch_state=fetch_state,
+                fetch_tower_authority=lambda token: None,
             )
 
-    def test_non_evolving_gate_does_not_fetch_state_again(self):
+    def test_missing_placement_routes_repo_to_tower_before_evolution(self):
+        def fetch_state(repo, path, ref, token):
+            return {
+                "principal_state": "EVOLVING",
+                "evolution_cursor": "next:material_work",
+            }, "state-blob"
+
+        out = governed_build(
+            registry(repo_record()),
+            fetch_state=fetch_state,
+            fetch_placement=lambda repo, ref, token: (None, None),
+        )
+        group = out["queue"][0]
+        self.assertEqual(group["action"], "TOWER_PLACE")
+        self.assertEqual(group["gate"], "TOWER_PLACEMENT")
+        self.assertEqual(
+            group["selection_policy"],
+            "least_successful_evolutions_first_then_repository",
+        )
+        row = group["repositories"][0]
+        self.assertEqual(row["evolution_cursor"], "next:material_work")
+        self.assertEqual(row["evolution_generation"], 0)
+        self.assertEqual(row["tower_placement_status"], "MISSING")
+        self.assertFalse(row["tower_placement_valid"])
+        self.assertIsNone(row["tower_placement_decision"])
+        self.assertTrue(row["tower_placement_errors"])
+
+    def test_non_evolving_gate_does_not_fetch_state_or_tower(self):
         def fail_fetch(*args, **kwargs):
-            raise AssertionError("non-EVOLVING record should not refetch state")
+            raise AssertionError(
+                "non-EVOLVING record should not fetch execution authority"
+            )
 
         out = build_priority_queue.build_queue(
             registry(
@@ -194,6 +330,8 @@ class PriorityQueueTests(unittest.TestCase):
                 )
             ),
             fetch_state=fail_fetch,
+            fetch_tower_authority=fail_fetch,
+            fetch_placement=fail_fetch,
         )
         group = out["queue"][0]
         self.assertEqual(group["action"], "ADVANCE_GATE")
@@ -203,6 +341,8 @@ class PriorityQueueTests(unittest.TestCase):
         self.assertIsNone(row["evolution_cursor"])
         self.assertIsNone(row["next_material_action"])
         self.assertIsNone(row["evolution_generation"])
+        self.assertIsNone(row["tower_placement_status"])
+        self.assertIsNone(out["tower_authority"])
 
 
 if __name__ == "__main__":
