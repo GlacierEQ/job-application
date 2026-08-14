@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import sys
 import unittest
 from pathlib import Path
@@ -255,6 +256,30 @@ class TowerPlacementTests(unittest.TestCase):
                 "decision": None,
             },
         )
+
+    def test_malformed_json_receipt_routes_to_invalid_instead_of_crashing(self):
+        decode_error = json.JSONDecodeError("Expecting value", "not-json", 0)
+        with patch.object(
+            tower_placement.build_registry,
+            "fetch_json_file",
+            side_effect=decode_error,
+        ):
+            malformed, blob_sha = tower_placement.fetch_placement(
+                "GlacierEQ/example", "abc123", None
+            )
+
+        self.assertEqual(malformed, [])
+        self.assertIsNone(blob_sha)
+        result = tower_placement.analyze_placement(
+            malformed,
+            "GlacierEQ/example",
+            "next:material_work",
+            authority(),
+        )
+        self.assertEqual(result["status"], "INVALID")
+        self.assertFalse(result["valid"])
+        self.assertEqual(result["decision"], None)
+        self.assertTrue(result["errors"])
 
     def test_unknown_runtime_or_missing_parity_fails_closed(self):
         bad = placement(candidate="madeuplang")
