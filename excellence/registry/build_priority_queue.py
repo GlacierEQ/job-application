@@ -130,7 +130,8 @@ def build_queue(
         placement_analysis: dict[str, Any] | None = None
 
         if action == "EVOLVE":
-            assert tower_authority is not None
+            if tower_authority is None:
+                raise RuntimeError("Tower authority is required to queue EVOLVE work")
             repository = record["repository"]
             head_sha = record.get("head_sha")
             if not isinstance(head_sha, str) or not head_sha:
