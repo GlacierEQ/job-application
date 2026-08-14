@@ -154,9 +154,7 @@ def build_queue(
                 last_evolution_receipt,
             ) = _evolution_progress(raw_state, repository)
 
-            placement, placement_blob_sha = fetch_placement(
-                repository, head_sha, token
-            )
+            placement, placement_blob_sha = fetch_placement(repository, head_sha, token)
             placement_analysis = tower_placement.analyze_placement(
                 placement,
                 repository,
