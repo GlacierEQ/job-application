@@ -139,9 +139,9 @@ class TowerPlacementTests(unittest.TestCase):
                 tower_placement.EXPECTED_BLOBS[path],
             )
 
-        with patch.object(tower_placement.build_registry, "fetch_json_file", side_effect=fake_json), patch.object(
-            tower_placement, "_fetch_text_file", side_effect=fake_text
-        ):
+        with patch.object(
+            tower_placement.build_registry, "fetch_json_file", side_effect=fake_json
+        ), patch.object(tower_placement, "_fetch_text_file", side_effect=fake_text):
             observed = tower_placement.fetch_tower_authority("token")
 
         self.assertEqual(observed["commit_sha"], tower_placement.TOWER_AUTHORITY_COMMIT)
@@ -173,9 +173,10 @@ class TowerPlacementTests(unittest.TestCase):
                 return contract, "0" * 40
             raise AssertionError("blob drift should fail on first authority artifact")
 
-        with patch.object(tower_placement.build_registry, "fetch_json_file", side_effect=fake_json):
-            with self.assertRaisesRegex(ValueError, "authority blob drift"):
-                tower_placement.fetch_tower_authority(None)
+        with patch.object(
+            tower_placement.build_registry, "fetch_json_file", side_effect=fake_json
+        ), self.assertRaisesRegex(ValueError, "authority blob drift"):
+            tower_placement.fetch_tower_authority(None)
 
     def test_valid_addition_requires_known_runtime_boundary_and_parity(self):
         result = tower_placement.analyze_placement(
