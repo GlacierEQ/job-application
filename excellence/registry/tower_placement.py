@@ -81,7 +81,9 @@ def fetch_tower_authority(token: str | None) -> dict[str, Any]:
     if authority.get("registry") != REGISTRY_PATH:
         raise ValueError("Tower placement contract lost canonical registry authority")
     if authority.get("technology_catalog") != CATALOG_PATH:
-        raise ValueError("Tower placement contract lost generated technology catalog authority")
+        raise ValueError(
+            "Tower placement contract lost generated technology catalog authority"
+        )
     if authority.get("quality_contract") != QUALITY_PATH:
         raise ValueError("Tower placement contract lost canonical quality authority")
 
@@ -89,12 +91,17 @@ def fetch_tower_authority(token: str | None) -> dict[str, Any]:
     if not isinstance(integration, dict):
         raise TypeError("Tower placement contract integration must be an object")
     if integration.get("consumer") != "GlacierEQ/job-application":
-        raise ValueError("Tower placement contract lost job-application consumer identity")
+        raise ValueError(
+            "Tower placement contract lost job-application consumer identity"
+        )
     if integration.get("placement_receipt_path") != PLACEMENT_PATH:
         raise ValueError("Tower placement receipt path drift")
     if not integration.get("placement_required_before_material_evolution"):
         raise ValueError("Tower placement contract does not govern material evolution")
-    if integration.get("retroactively_invalidates_existing_excellence_state") is not False:
+    if (
+        integration.get("retroactively_invalidates_existing_excellence_state")
+        is not False
+    ):
         raise ValueError("Tower placement may not rewrite existing excellence history")
 
     if registry.get("tower_id") != "glaciereq.tower-of-babel.v1":
@@ -201,8 +208,10 @@ def analyze_placement(
         errors.append(f"Tower placement decision is not governed: {decision!r}")
 
     languages = placement.get("current_languages")
-    if not isinstance(languages, list) or not languages or not all(
-        isinstance(item, str) and item.strip() for item in languages
+    if (
+        not isinstance(languages, list)
+        or not languages
+        or not all(isinstance(item, str) and item.strip() for item in languages)
     ):
         errors.append("current_languages must be a non-empty string list")
 
@@ -253,8 +262,10 @@ def analyze_placement(
     if not _substantive(placement.get("diversity_value"), 20):
         errors.append("diversity_value must explain architectural value")
     nonclaims = placement.get("nonclaims")
-    if not isinstance(nonclaims, list) or not nonclaims or not all(
-        isinstance(item, str) and item.strip() for item in nonclaims
+    if (
+        not isinstance(nonclaims, list)
+        or not nonclaims
+        or not all(isinstance(item, str) and item.strip() for item in nonclaims)
     ):
         errors.append("nonclaims must be a non-empty string list")
 
