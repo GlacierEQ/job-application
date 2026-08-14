@@ -140,7 +140,7 @@ def fetch_tower_authority(token: str | None) -> dict[str, Any]:
 
 def fetch_placement(
     repository: str, ref: str, token: str | None
-) -> tuple[dict[str, Any] | None, str | None]:
+) -> tuple[Any | None, str | None]:
     try:
         return build_registry.fetch_json_file(repository, PLACEMENT_PATH, ref, token)
     except RuntimeError as exc:
@@ -160,7 +160,7 @@ def _technology_known(value: Any, authority: dict[str, Any]) -> bool:
 
 
 def analyze_placement(
-    placement: dict[str, Any] | None,
+    placement: Any,
     repository: str,
     evolution_cursor: str,
     authority: dict[str, Any],
@@ -171,6 +171,13 @@ def analyze_placement(
             "status": "MISSING",
             "valid": False,
             "errors": ["Tower placement receipt missing for current evolution cursor"],
+            "decision": None,
+        }
+    if not isinstance(placement, dict):
+        return {
+            "status": "INVALID",
+            "valid": False,
+            "errors": ["Tower placement receipt must be an object"],
             "decision": None,
         }
 
@@ -236,7 +243,7 @@ def analyze_placement(
         if boundary_decision in {"ADD", "SPLIT", "EXPERIMENT"} and (
             isinstance(incumbent, str)
             and isinstance(candidate, str)
-            and incumbent.casefold() == candidate.casefold()
+            and incumbent.strip().casefold() == candidate.strip().casefold()
         ):
             errors.append(f"{label} requires a distinct candidate technology")
         for field in (
