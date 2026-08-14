@@ -59,7 +59,9 @@ def valid_placement(repository, cursor):
         "schema": "glaciereq.tower-placement.v1",
         "repository": repository,
         "evolution_cursor": cursor,
-        "tower_authority": build_priority_queue.tower_placement.public_authority(authority),
+        "tower_authority": build_priority_queue.tower_placement.public_authority(
+            authority
+        ),
         "decision": "KEEP",
         "current_languages": ["python"],
         "boundaries": [
@@ -203,7 +205,9 @@ class PriorityQueueTests(unittest.TestCase):
             return states[repo], f"blob-{repo.rsplit('/', 1)[1]}"
 
         def fetch_placement(repo, ref, token):
-            return valid_placement(repo, states[repo]["evolution_cursor"]), f"placement-{repo}"
+            return valid_placement(
+                repo, states[repo]["evolution_cursor"]
+            ), f"placement-{repo}"
 
         out = governed_build(
             registry(
@@ -264,7 +268,9 @@ class PriorityQueueTests(unittest.TestCase):
                 "evolution_cursor": "next:material_work",
             }, "blob"
 
-        with self.assertRaisesRegex(ValueError, "state changed during queue derivation"):
+        with self.assertRaisesRegex(
+            ValueError, "state changed during queue derivation"
+        ):
             governed_build(registry(repo_record()), fetch_state=fetch_state)
 
     def test_missing_placement_routes_repo_to_tower_before_evolution(self):
@@ -296,7 +302,9 @@ class PriorityQueueTests(unittest.TestCase):
 
     def test_non_evolving_gate_does_not_fetch_state_or_tower(self):
         def fail_fetch(*args, **kwargs):
-            raise AssertionError("non-EVOLVING record should not fetch execution authority")
+            raise AssertionError(
+                "non-EVOLVING record should not fetch execution authority"
+            )
 
         out = build_priority_queue.build_queue(
             registry(
