@@ -143,7 +143,7 @@ class TowerPlacementTests(unittest.TestCase):
         def fake_text(repo, path, ref, token):
             calls.append((repo, path, ref))
             return (
-                "Polyglot quality semantics\nStructural presence is not compiler proof, and compiler proof is not production proof.",
+                "wording is not a second authority when the exact Git blob is pinned",
                 tower_placement.EXPECTED_BLOBS[path],
             )
 
