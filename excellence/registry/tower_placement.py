@@ -8,6 +8,7 @@ placement decision bound to one immutable Tower authority revision.
 
 from __future__ import annotations
 
+import json
 import urllib.parse
 from typing import Any
 
@@ -143,6 +144,8 @@ def fetch_placement(
 ) -> tuple[Any | None, str | None]:
     try:
         return build_registry.fetch_json_file(repository, PLACEMENT_PATH, ref, token)
+    except json.JSONDecodeError:
+        return [], None
     except RuntimeError as exc:
         if "GitHub API 404" in str(exc):
             return None, None
