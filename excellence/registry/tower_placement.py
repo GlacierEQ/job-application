@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Exact-revision Tower placement authority for material repository evolution.
 
 Tower decides technology placement; Repo Excellence decides scheduling and state.
@@ -88,7 +87,7 @@ def fetch_tower_authority(token: str | None) -> dict[str, Any]:
 
     integration = contract.get("integration")
     if not isinstance(integration, dict):
-        raise ValueError("Tower placement contract integration must be an object")
+        raise TypeError("Tower placement contract integration must be an object")
     if integration.get("consumer") != "GlacierEQ/job-application":
         raise ValueError("Tower placement contract lost job-application consumer identity")
     if integration.get("placement_receipt_path") != PLACEMENT_PATH:
@@ -109,7 +108,7 @@ def fetch_tower_authority(token: str | None) -> dict[str, Any]:
 
     capabilities = catalog.get("capabilities")
     if not isinstance(capabilities, list):
-        raise ValueError("Tower technology catalog capabilities must be a list")
+        raise TypeError("Tower technology catalog capabilities must be a list")
     technology_ids = sorted(
         item.split(":", 1)[1].casefold()
         for item in capabilities
