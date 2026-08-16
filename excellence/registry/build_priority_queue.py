@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """Derive a deterministic execution queue from the live excellence registry.
 
-For mature EVOLVING repositories, the queue resolves each exact-head evolution
-cursor and then requires a Tower-of-Babel technology-placement decision before
-material implementation is scheduled. Existing excellence state is not rewritten:
-Tower placement is a prospective execution gate.
+For mature EVOLVING repositories, the next operation is material evolution from the
+exact-head evolution cursor. Tower-of-Babel placement remains useful engineering
+analysis, but it is advisory metadata and may not become a prerequisite that blocks
+or replaces the material action.
 
-Within both TOWER_PLACE and EVOLVE cohorts, repositories with fewer successfully
-consumed evolution cursors are ordered first. This prevents one repository from
-monopolizing continuous evolution while preserving the estate-wide fairness rule.
+Within the EVOLVE cohort, repositories with fewer successfully consumed evolution
+cursors are ordered first. This prevents one repository from monopolizing continuous
+evolution while preserving estate-wide forward motion.
 """
 
 from __future__ import annotations
@@ -37,8 +37,10 @@ ACTION_ORDER = {
     "REPAIR_STATE": 0,
     "ADVANCE_GATE": 1,
     "INITIALIZE_STATE": 2,
-    "TOWER_PLACE": 3,
-    "EVOLVE": 4,
+    "EVOLVE": 3,
+    # Retained only so stale historical inputs remain sortable. This builder never
+    # converts EVOLVE into TOWER_PLACE.
+    "TOWER_PLACE": 4,
     "REVIEW_SIDE_EXIT": 5,
     "RETRY_INSPECTION": 6,
 }
@@ -92,6 +94,57 @@ def _evolution_progress(
     return len(successful), latest["consumed_cursor"], receipt
 
 
+def _tower_advisory(
+    *,
+    repository: str,
+    head_sha: str,
+    evolution_cursor: str,
+    token: str | None,
+    tower_authority: dict[str, Any] | None,
+    tower_authority_error: str | None,
+    fetch_placement: Callable[
+        [str, str, str | None], tuple[dict[str, Any] | None, str | None]
+    ],
+) -> tuple[dict[str, Any], str | None]:
+    """Return non-blocking Tower analysis for an EVOLVE record.
+
+    Placement failure is telemetry. It never rewrites the queue action or gate.
+    """
+    if tower_authority is None:
+        return (
+            {
+                "status": "UNAVAILABLE",
+                "valid": False,
+                "decision": None,
+                "errors": [
+                    tower_authority_error
+                    or "Tower placement authority unavailable; evolution remains actionable"
+                ],
+            },
+            None,
+        )
+
+    try:
+        placement, placement_blob_sha = fetch_placement(repository, head_sha, token)
+        analysis = tower_placement.analyze_placement(
+            placement,
+            repository,
+            evolution_cursor,
+            tower_authority,
+        )
+        return analysis, placement_blob_sha
+    except Exception as exc:
+        return (
+            {
+                "status": "ERROR",
+                "valid": False,
+                "decision": None,
+                "errors": [f"{type(exc).__name__}: {exc}"],
+            },
+            None,
+        )
+
+
 def build_queue(
     registry: dict[str, Any],
     *,
@@ -104,7 +157,7 @@ def build_queue(
     ]
     | None = None,
 ) -> dict[str, Any]:
-    """Build the exact-head queue with prospective Tower placement governance."""
+    """Build the exact-head queue with Tower placement as advisory engineering input."""
     fetch_state = fetch_state or build_registry.fetch_json_file
     fetch_tower_authority = (
         fetch_tower_authority or tower_placement.fetch_tower_authority
@@ -116,7 +169,19 @@ def build_queue(
         record.get("state", {}).get("next_action_class") == "EVOLVE"
         for record in registry["repositories"]
     )
-    tower_authority = fetch_tower_authority(token) if has_evolving else None
+    tower_authority: dict[str, Any] | None = None
+    tower_authority_error: str | None = None
+    if has_evolving:
+        try:
+            candidate = fetch_tower_authority(token)
+            if isinstance(candidate, dict):
+                tower_authority = candidate
+            else:
+                tower_authority_error = (
+                    "Tower authority unavailable; placement advisory skipped"
+                )
+        except Exception as exc:
+            tower_authority_error = f"{type(exc).__name__}: {exc}"
 
     for record in registry["repositories"]:
         state = record["state"]
@@ -130,8 +195,6 @@ def build_queue(
         placement_analysis: dict[str, Any] | None = None
 
         if action == "EVOLVE":
-            if tower_authority is None:
-                raise RuntimeError("Tower authority is required to queue EVOLVE work")
             repository = record["repository"]
             head_sha = record.get("head_sha")
             if not isinstance(head_sha, str) or not head_sha:
@@ -155,18 +218,17 @@ def build_queue(
                 last_evolution_receipt,
             ) = _evolution_progress(raw_state, repository)
 
-            placement, placement_blob_sha = fetch_placement(repository, head_sha, token)
-            placement_analysis = tower_placement.analyze_placement(
-                placement,
-                repository,
-                evolution_cursor,
-                tower_authority,
+            placement_analysis, placement_blob_sha = _tower_advisory(
+                repository=repository,
+                head_sha=head_sha,
+                evolution_cursor=evolution_cursor,
+                token=token,
+                tower_authority=tower_authority,
+                tower_authority_error=tower_authority_error,
+                fetch_placement=fetch_placement,
             )
-            if placement_analysis["valid"]:
-                gate = "EVOLUTION_CURSOR"
-            else:
-                action = "TOWER_PLACE"
-                gate = "TOWER_PLACEMENT"
+            # Material evolution remains the executable action regardless of advisory state.
+            gate = "EVOLUTION_CURSOR"
         else:
             gate = state.get("next_failing_gate") or "NONE"
 
@@ -187,6 +249,8 @@ def build_queue(
                 "evolution_generation": evolution_generation,
                 "last_consumed_cursor": last_consumed_cursor,
                 "last_evolution_receipt": last_evolution_receipt,
+                "tower_placement_advisory": placement_analysis is not None,
+                "tower_placement_blocking": False,
                 "tower_placement_status": (
                     placement_analysis["status"] if placement_analysis else None
                 ),
@@ -215,7 +279,7 @@ def build_queue(
             min(row["repository"] for row in item[1]),
         ),
     ):
-        if action in {"TOWER_PLACE", "EVOLVE"}:
+        if action == "EVOLVE":
             records.sort(
                 key=lambda row: (
                     row["evolution_generation"],
@@ -238,9 +302,19 @@ def build_queue(
         )
 
     return {
-        "schema": "glaciereq.excellence-priority-queue.v2",
+        "schema": "glaciereq.excellence-priority-queue.v3",
         "registry_generated_at": registry["generated_at"],
         "registry_authority": registry["authority"],
+        "tower_advisory": {
+            "blocking": False,
+            "authority": (
+                tower_placement.public_authority(tower_authority)
+                if tower_authority is not None
+                else None
+            ),
+            "authority_error": tower_authority_error,
+        },
+        # Compatibility field retained for consumers, but placement is explicitly advisory.
         "tower_authority": (
             tower_placement.public_authority(tower_authority)
             if tower_authority is not None
@@ -248,8 +322,8 @@ def build_queue(
         ),
         "ordering": (
             "repair invalid claimed state; advance valid state; initialize missing state; "
-            "obtain Tower technology placement for exact-head evolution cursors; then evolve "
-            "material work with least-evolved-first fairness"
+            "then execute exact-head material evolution with least-evolved-first fairness; "
+            "Tower placement is advisory and cannot replace EVOLVE"
         ),
         "queue": queue,
     }
@@ -268,7 +342,7 @@ def main() -> int:
     evolving = [
         row
         for item in out["queue"]
-        if item["action"] in {"TOWER_PLACE", "EVOLVE"}
+        if item["action"] == "EVOLVE"
         for row in item["repositories"]
     ]
     if evolving:
