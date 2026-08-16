@@ -94,7 +94,8 @@ def placement(*, cursor="next:material_work", decision="ADD", candidate="go"):
 
 
 class TowerPlacementTests(unittest.TestCase):
-    def test_canonical_tower_pin_and_blob_contract_are_exact(self):
+    def test_exact_tower_reference_pin_and_blob_contract_are_reproducible(self):
+        self.assertTrue(tower_placement.PLACEMENT_IS_ADVISORY)
         self.assertEqual(
             tower_placement.TOWER_AUTHORITY_COMMIT,
             "fab6abe811ea20d60d4a7fa9c2063093aac24475",
@@ -109,7 +110,7 @@ class TowerPlacementTests(unittest.TestCase):
             },
         )
 
-    def test_fetch_authority_uses_only_exact_pinned_revision(self):
+    def test_fetch_reference_uses_only_exact_pinned_revision(self):
         calls = []
         contract = {
             "schema": tower_placement.CONTRACT_SCHEMA,
@@ -122,6 +123,8 @@ class TowerPlacementTests(unittest.TestCase):
             "integration": {
                 "consumer": "GlacierEQ/job-application",
                 "placement_receipt_path": tower_placement.PLACEMENT_PATH,
+                # Historical field intentionally remains true in the source contract;
+                # this consumer treats it as non-binding advisory metadata.
                 "placement_required_before_material_evolution": True,
                 "retroactively_invalidates_existing_excellence_state": False,
             },
@@ -144,7 +147,7 @@ class TowerPlacementTests(unittest.TestCase):
         def fake_text(repo, path, ref, token):
             calls.append((repo, path, ref))
             return (
-                "wording is not a second authority when the exact Git blob is pinned",
+                "exact Git blob retained as reproducible engineering reference",
                 tower_placement.EXPECTED_BLOBS[path],
             )
 
@@ -163,7 +166,7 @@ class TowerPlacementTests(unittest.TestCase):
             self.assertEqual(repo, tower_placement.TOWER_REPO)
             self.assertEqual(ref, tower_placement.TOWER_AUTHORITY_COMMIT)
 
-    def test_authority_blob_drift_fails_closed(self):
+    def test_reference_blob_drift_fails_analysis_closed_without_blocking_evolution(self):
         contract = {
             "schema": tower_placement.CONTRACT_SCHEMA,
             "authority": {
@@ -183,37 +186,41 @@ class TowerPlacementTests(unittest.TestCase):
         def fake_json(repo, path, ref, token):
             if path == tower_placement.CONTRACT_PATH:
                 return contract, "0" * 40
-            raise AssertionError("blob drift should fail on first authority artifact")
+            raise AssertionError("blob drift should fail on first reference artifact")
 
         with (
             patch.object(
                 tower_placement.build_registry, "fetch_json_file", side_effect=fake_json
             ),
-            self.assertRaisesRegex(ValueError, "authority blob drift"),
+            self.assertRaisesRegex(ValueError, "reference blob drift"),
         ):
             tower_placement.fetch_tower_authority(None)
 
-    def test_valid_addition_requires_known_runtime_boundary_and_parity(self):
+    def test_valid_addition_is_advisory_and_requires_known_runtime_boundary_and_parity(self):
         result = tower_placement.analyze_placement(
             placement(), "GlacierEQ/example", "next:material_work", authority()
         )
         self.assertEqual(
             result,
-            {"status": "VALID", "valid": True, "errors": [], "decision": "ADD"},
+            {
+                "status": "VALID",
+                "valid": True,
+                "errors": [],
+                "decision": "ADD",
+                "blocking": False,
+            },
         )
 
-    def test_wrong_tower_commit_is_rejected_even_when_shape_is_valid(self):
+    def test_wrong_tower_reference_commit_is_rejected_for_analysis(self):
         stale = placement()
         stale["tower_authority"]["commit_sha"] = "b" * 40
         result = tower_placement.analyze_placement(
             stale, "GlacierEQ/example", "next:material_work", authority()
         )
         self.assertFalse(result["valid"])
-        self.assertIn(
-            "Tower placement authority mismatch: commit_sha", result["errors"]
-        )
+        self.assertIn("Tower placement reference mismatch: commit_sha", result["errors"])
 
-    def test_stale_cursor_and_stale_catalog_authority_fail_closed(self):
+    def test_stale_cursor_and_stale_catalog_reference_are_invalid_analysis(self):
         stale = placement(cursor="next:old_work")
         stale["tower_authority"]["technology_catalog_blob_sha"] = "old-catalog"
         result = tower_placement.analyze_placement(
@@ -281,7 +288,7 @@ class TowerPlacementTests(unittest.TestCase):
         self.assertEqual(result["decision"], None)
         self.assertTrue(result["errors"])
 
-    def test_unknown_runtime_or_missing_parity_fails_closed(self):
+    def test_unknown_runtime_or_missing_parity_is_invalid_analysis(self):
         bad = placement(candidate="madeuplang")
         bad["boundaries"][0]["parity_contract"] = "none"
         result = tower_placement.analyze_placement(
@@ -293,7 +300,7 @@ class TowerPlacementTests(unittest.TestCase):
         )
         self.assertTrue(any("parity_contract" in error for error in result["errors"]))
 
-    def test_missing_receipt_is_prospective_gate_not_state_corruption(self):
+    def test_missing_receipt_is_advisory_telemetry_not_execution_gate(self):
         result = tower_placement.analyze_placement(
             None, "GlacierEQ/example", "next:material_work", authority()
         )
