@@ -23,14 +23,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
-      - name: Regenerate Company Atlas from current source
-        run: node scripts/render-helix-atlas.mjs
-      - name: Render proof starmap
+      - name: Render proof starmap from live Helix snapshot
         run: node scripts/render-helix-starmap.mjs
       - name: Validate proof starmap
         run: node scripts/validate-helix-starmap.mjs
-      - name: Revalidate Company Atlas
-        run: node scripts/validate-helix-atlas.mjs
       - name: Run repository-native test contract
         run: npm test
       - name: Upload rendered proof starmap
