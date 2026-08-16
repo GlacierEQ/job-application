@@ -31,7 +31,7 @@ The repository has progressed beyond the historical V12/V13 prototypes.
 - **V15 hiring-system foundation:** the current script-free public-site architecture and validation line.
 - **V16 signal architecture:** higher-impact recruiter presentation while preserving the underlying factual graph.
 - **V17 résumé intelligence:** two-page human résumé, editable DOCX, ATS text, structured résumé JSON, evidence IDs, and PSYSOC-X factual-invariance validation.
-- **Helix projection architecture:** the production hiring site is compiled from a commit-pinned public-safe snapshot of canonical Job App Helix root truth rather than relying on live GitHub requests in the browser.
+- **Helix projection architecture:** the production hiring site is compiled from a commit-pinned public-safe snapshot of Job App Helix source truth rather than relying on live GitHub requests in the browser.
 - **Retained V17 source bridge:** the historical Node 24 compatibility bridge remains repaired and runtime-verified, but it is not the active production delivery mechanism.
 
 Release names describe compatible layers of one hiring system; they are not independent competing portfolios.
@@ -51,7 +51,7 @@ Release names describe compatible layers of one hiring system; they are not inde
 
 ### Child repositories are source authority
 
-Each canonical child repository owns its own:
+Each child repository owns its own:
 
 - implementation;
 - README and technical contract;
@@ -168,7 +168,7 @@ The browser therefore does not need a live GitHub request to decide portfolio tr
 
 ## Production and Compatibility Boundary
 
-The canonical public domain is:
+The current public domain is:
 
 `https://casey-barton-glaciereq.vercel.app`
 
@@ -241,7 +241,7 @@ A public change is complete only when:
 3. Helix root truth accepts the evidence and classification change when portfolio state is affected;
 4. the public projection is rebuilt from one immutable Helix commit;
 5. the generated artifacts match their receipts;
-6. the Vercel production deployment is verified at the canonical domain;
+6. the Vercel production deployment is verified at the current public domain;
 7. the human, ATS, master, mesh, atlas, and machine surfaces remain mutually consistent.
 
 **The presentation may be ambitious. The evidence contract may not bluff.**
