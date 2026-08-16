@@ -1,9 +1,12 @@
-"""Exact-revision Tower placement authority for material repository evolution.
+"""Exact-revision Tower placement analysis for material repository evolution.
 
-Tower decides technology placement; Repo Excellence decides scheduling and state.
-A placement receipt is prospective: existing EVOLVING state remains valid, but the
-next material evolution is not executable until its exact cursor has a valid Tower
-placement decision bound to one immutable Tower authority revision.
+Tower is an engineering reference for technology and boundary placement. Repo
+Excellence owns scheduling, and neither Tower nor a placement receipt may replace,
+block, or narrow an Operator-directed material evolution cursor.
+
+The historical Tower contract is still loaded at an exact revision for reproducible
+analysis. Its former `placement_required_before_material_evolution` setting is
+historical input only; this consumer does not grant it execution authority.
 """
 
 from __future__ import annotations
@@ -23,6 +26,7 @@ QUALITY_PATH = "QUALITY_CONTRACT.md"
 PLACEMENT_PATH = "machine/tower-placement.json"
 PLACEMENT_SCHEMA = "glaciereq.tower-placement.v1"
 CONTRACT_SCHEMA = "glaciereq.tower-evolution-placement-contract.v1"
+PLACEMENT_IS_ADVISORY = True
 EXPECTED_BLOBS = {
     CONTRACT_PATH: "c009635ba4d126f9d23855367ea0d93ab7a9741d",
     REGISTRY_PATH: "f43c2a434aa7d4ad5441a0fdbe8245cc07ed6fdf",
@@ -46,12 +50,12 @@ def _require_blob(path: str, observed: str) -> None:
     expected = EXPECTED_BLOBS[path]
     if observed != expected:
         raise ValueError(
-            f"Tower authority blob drift for {path}: expected {expected}, got {observed}"
+            f"Tower reference blob drift for {path}: expected {expected}, got {observed}"
         )
 
 
 def fetch_tower_authority(token: str | None) -> dict[str, Any]:
-    """Load the exact canonical Tower placement authority, never floating main."""
+    """Load the exact historical Tower placement reference for reproducible analysis."""
     commit_sha = TOWER_AUTHORITY_COMMIT
 
     contract, contract_blob_sha = build_registry.fetch_json_file(
@@ -78,15 +82,15 @@ def fetch_tower_authority(token: str | None) -> dict[str, Any]:
         raise ValueError("unexpected Tower evolution-placement contract schema")
     authority = contract.get("authority")
     if not isinstance(authority, dict) or authority.get("repository") != TOWER_REPO:
-        raise ValueError("Tower placement contract lost Tower source authority")
+        raise ValueError("Tower placement contract lost Tower source identity")
     if authority.get("registry") != REGISTRY_PATH:
-        raise ValueError("Tower placement contract lost canonical registry authority")
+        raise ValueError("Tower placement contract lost registry reference")
     if authority.get("technology_catalog") != CATALOG_PATH:
         raise ValueError(
-            "Tower placement contract lost generated technology catalog authority"
+            "Tower placement contract lost generated technology catalog reference"
         )
     if authority.get("quality_contract") != QUALITY_PATH:
-        raise ValueError("Tower placement contract lost canonical quality authority")
+        raise ValueError("Tower placement contract lost quality reference")
 
     integration = contract.get("integration")
     if not isinstance(integration, dict):
@@ -97,8 +101,8 @@ def fetch_tower_authority(token: str | None) -> dict[str, Any]:
         )
     if integration.get("placement_receipt_path") != PLACEMENT_PATH:
         raise ValueError("Tower placement receipt path drift")
-    if not integration.get("placement_required_before_material_evolution"):
-        raise ValueError("Tower placement contract does not govern material evolution")
+    # Deliberately do not enforce the historical
+    # placement_required_before_material_evolution flag. Placement is advisory.
     if (
         integration.get("retroactively_invalidates_existing_excellence_state")
         is not False
@@ -106,9 +110,9 @@ def fetch_tower_authority(token: str | None) -> dict[str, Any]:
         raise ValueError("Tower placement may not rewrite existing excellence history")
 
     if registry.get("tower_id") != "glaciereq.tower-of-babel.v1":
-        raise ValueError("unexpected canonical Tower registry identity")
+        raise ValueError("unexpected Tower registry identity")
     if catalog.get("source") != REGISTRY_PATH:
-        raise ValueError("Tower technology catalog is not bound to canonical registry")
+        raise ValueError("Tower technology catalog is not bound to its registry")
 
     capabilities = catalog.get("capabilities")
     if not isinstance(capabilities, list):
@@ -168,6 +172,7 @@ def analyze_placement(
     evolution_cursor: str,
     authority: dict[str, Any],
 ) -> dict[str, Any]:
+    """Analyze placement quality without deciding whether evolution may execute."""
     errors: list[str] = []
     if placement is None:
         return {
@@ -207,11 +212,11 @@ def analyze_placement(
         expected = public_authority(authority)
         for key, value in expected.items():
             if bound.get(key) != value:
-                errors.append(f"Tower placement authority mismatch: {key}")
+                errors.append(f"Tower placement reference mismatch: {key}")
 
     decision = placement.get("decision")
     if decision not in allowed_decisions:
-        errors.append(f"Tower placement decision is not governed: {decision!r}")
+        errors.append(f"Tower placement decision is outside the reference contract: {decision!r}")
 
     languages = placement.get("current_languages")
     if (
@@ -236,7 +241,7 @@ def analyze_placement(
             continue
         boundary_decision = boundary.get("decision")
         if boundary_decision not in allowed_decisions:
-            errors.append(f"{label}.decision is not governed")
+            errors.append(f"{label}.decision is outside the reference contract")
         incumbent = boundary.get("incumbent_technology")
         candidate = boundary.get("candidate_technology")
         if not _technology_known(incumbent, authority):
@@ -258,7 +263,7 @@ def analyze_placement(
             if not _substantive(boundary.get(field), 12):
                 errors.append(f"{label}.{field} must be substantive")
         if boundary.get("proof_tier") not in allowed_tiers:
-            errors.append(f"{label}.proof_tier is not governed")
+            errors.append(f"{label}.proof_tier is outside the reference contract")
         parity_required = boundary.get("parity_required")
         if not isinstance(parity_required, bool):
             errors.append(f"{label}.parity_required must be boolean")
@@ -280,10 +285,12 @@ def analyze_placement(
         "valid": not errors,
         "errors": errors,
         "decision": decision,
+        "blocking": False,
     }
 
 
 def public_authority(authority: dict[str, Any]) -> dict[str, Any]:
+    """Compatibility projection of the exact Tower reference identity."""
     return {
         key: authority[key]
         for key in (
