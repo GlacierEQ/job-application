@@ -166,7 +166,9 @@ class TowerPlacementTests(unittest.TestCase):
             self.assertEqual(repo, tower_placement.TOWER_REPO)
             self.assertEqual(ref, tower_placement.TOWER_AUTHORITY_COMMIT)
 
-    def test_reference_blob_drift_fails_analysis_closed_without_blocking_evolution(self):
+    def test_reference_blob_drift_fails_analysis_closed_without_blocking_evolution(
+        self,
+    ):
         contract = {
             "schema": tower_placement.CONTRACT_SCHEMA,
             "authority": {
@@ -196,7 +198,9 @@ class TowerPlacementTests(unittest.TestCase):
         ):
             tower_placement.fetch_tower_authority(None)
 
-    def test_valid_addition_is_advisory_and_requires_known_runtime_boundary_and_parity(self):
+    def test_valid_addition_is_advisory_and_requires_known_runtime_boundary_and_parity(
+        self,
+    ):
         result = tower_placement.analyze_placement(
             placement(), "GlacierEQ/example", "next:material_work", authority()
         )
@@ -218,7 +222,9 @@ class TowerPlacementTests(unittest.TestCase):
             stale, "GlacierEQ/example", "next:material_work", authority()
         )
         self.assertFalse(result["valid"])
-        self.assertIn("Tower placement reference mismatch: commit_sha", result["errors"])
+        self.assertIn(
+            "Tower placement reference mismatch: commit_sha", result["errors"]
+        )
 
     def test_stale_cursor_and_stale_catalog_reference_are_invalid_analysis(self):
         stale = placement(cursor="next:old_work")
