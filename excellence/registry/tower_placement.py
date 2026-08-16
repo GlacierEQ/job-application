@@ -216,7 +216,9 @@ def analyze_placement(
 
     decision = placement.get("decision")
     if decision not in allowed_decisions:
-        errors.append(f"Tower placement decision is outside the reference contract: {decision!r}")
+        errors.append(
+            f"Tower placement decision is outside the reference contract: {decision!r}"
+        )
 
     languages = placement.get("current_languages")
     if (
