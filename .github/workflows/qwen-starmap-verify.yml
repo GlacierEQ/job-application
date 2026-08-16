@@ -24,7 +24,26 @@ jobs:
         with:
           node-version: '24'
       - name: Render proof starmap from live Helix snapshot
-        run: node scripts/render-helix-starmap.mjs
+        shell: bash
+        run: |
+          set +e
+          node scripts/render-helix-starmap.mjs > starmap-render.log 2>&1
+          status=$?
+          set -e
+          printf '%s\n' "$status" > starmap-render.status
+          cat starmap-render.log
+      - name: Preserve render diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qwen-proof-starmap-render-diagnostics
+          path: |
+            starmap-render.log
+            starmap-render.status
+          if-no-files-found: error
+      - name: Assert render success
+        shell: bash
+        run: test "$(cat starmap-render.status)" = "0"
       - name: Validate proof starmap
         run: node scripts/validate-helix-starmap.mjs
       - name: Run repository-native test contract
