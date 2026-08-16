@@ -179,8 +179,11 @@ class PriorityQueueTests(unittest.TestCase):
         self.assertIsNone(row["last_consumed_cursor"])
         self.assertEqual(row["tower_placement_status"], "VALID")
         self.assertEqual(row["tower_placement_decision"], "KEEP")
-        self.assertEqual(out["schema"], "glaciereq.excellence-priority-queue.v2")
+        self.assertTrue(row["tower_placement_advisory"])
+        self.assertFalse(row["tower_placement_blocking"])
+        self.assertEqual(out["schema"], "glaciereq.excellence-priority-queue.v3")
         self.assertEqual(out["tower_authority"]["commit_sha"], "a" * 40)
+        self.assertFalse(out["tower_advisory"]["blocking"])
 
     def test_least_evolved_repository_rotates_to_front(self):
         states = {
@@ -273,23 +276,29 @@ class PriorityQueueTests(unittest.TestCase):
         ):
             governed_build(registry(repo_record()), fetch_state=fetch_state)
 
-    def test_missing_tower_authority_fails_explicitly(self):
+    def test_missing_tower_authority_is_telemetry_not_evolution_blocker(self):
         def fetch_state(repo, path, ref, token):
             return {
                 "principal_state": "EVOLVING",
                 "evolution_cursor": "next:material_work",
             }, "state-blob"
 
-        with self.assertRaisesRegex(
-            RuntimeError, "Tower authority is required to queue EVOLVE work"
-        ):
-            build_priority_queue.build_queue(
-                registry(repo_record()),
-                fetch_state=fetch_state,
-                fetch_tower_authority=lambda token: None,
-            )
+        out = build_priority_queue.build_queue(
+            registry(repo_record()),
+            fetch_state=fetch_state,
+            fetch_tower_authority=lambda token: None,
+        )
+        group = out["queue"][0]
+        row = group["repositories"][0]
+        self.assertEqual(group["action"], "EVOLVE")
+        self.assertEqual(group["gate"], "EVOLUTION_CURSOR")
+        self.assertEqual(row["tower_placement_status"], "UNAVAILABLE")
+        self.assertFalse(row["tower_placement_blocking"])
+        self.assertIsNone(out["tower_authority"])
+        self.assertFalse(out["tower_advisory"]["blocking"])
+        self.assertTrue(out["tower_advisory"]["authority_error"])
 
-    def test_missing_placement_routes_repo_to_tower_before_evolution(self):
+    def test_missing_placement_does_not_replace_material_evolution(self):
         def fetch_state(repo, path, ref, token):
             return {
                 "principal_state": "EVOLVING",
@@ -302,8 +311,8 @@ class PriorityQueueTests(unittest.TestCase):
             fetch_placement=lambda repo, ref, token: (None, None),
         )
         group = out["queue"][0]
-        self.assertEqual(group["action"], "TOWER_PLACE")
-        self.assertEqual(group["gate"], "TOWER_PLACEMENT")
+        self.assertEqual(group["action"], "EVOLVE")
+        self.assertEqual(group["gate"], "EVOLUTION_CURSOR")
         self.assertEqual(
             group["selection_policy"],
             "least_successful_evolutions_first_then_repository",
@@ -313,8 +322,32 @@ class PriorityQueueTests(unittest.TestCase):
         self.assertEqual(row["evolution_generation"], 0)
         self.assertEqual(row["tower_placement_status"], "MISSING")
         self.assertFalse(row["tower_placement_valid"])
+        self.assertFalse(row["tower_placement_blocking"])
         self.assertIsNone(row["tower_placement_decision"])
         self.assertTrue(row["tower_placement_errors"])
+
+    def test_tower_placement_exception_does_not_replace_material_evolution(self):
+        def fetch_state(repo, path, ref, token):
+            return {
+                "principal_state": "EVOLVING",
+                "evolution_cursor": "next:material_work",
+            }, "state-blob"
+
+        def broken_placement(repo, ref, token):
+            raise RuntimeError("placement service unavailable")
+
+        out = governed_build(
+            registry(repo_record()),
+            fetch_state=fetch_state,
+            fetch_placement=broken_placement,
+        )
+        group = out["queue"][0]
+        row = group["repositories"][0]
+        self.assertEqual(group["action"], "EVOLVE")
+        self.assertEqual(group["gate"], "EVOLUTION_CURSOR")
+        self.assertEqual(row["tower_placement_status"], "ERROR")
+        self.assertFalse(row["tower_placement_blocking"])
+        self.assertIn("placement service unavailable", row["tower_placement_errors"][0])
 
     def test_non_evolving_gate_does_not_fetch_state_or_tower(self):
         def fail_fetch(*args, **kwargs):
@@ -343,6 +376,7 @@ class PriorityQueueTests(unittest.TestCase):
         self.assertIsNone(row["evolution_generation"])
         self.assertIsNone(row["tower_placement_status"])
         self.assertIsNone(out["tower_authority"])
+        self.assertFalse(out["tower_advisory"]["blocking"])
 
 
 if __name__ == "__main__":
