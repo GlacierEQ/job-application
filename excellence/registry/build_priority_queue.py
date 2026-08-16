@@ -44,6 +44,7 @@ ACTION_ORDER = {
     "REVIEW_SIDE_EXIT": 5,
     "RETRY_INSPECTION": 6,
 }
+ADVISORY_ERRORS = (OSError, RuntimeError, ValueError, TypeError, KeyError)
 
 
 def _normalize_evolution_cursor(value: Any, repository: str) -> str:
@@ -133,7 +134,7 @@ def _tower_advisory(
             tower_authority,
         )
         return analysis, placement_blob_sha
-    except Exception as exc:
+    except ADVISORY_ERRORS as exc:
         return (
             {
                 "status": "ERROR",
@@ -180,7 +181,7 @@ def build_queue(
                 tower_authority_error = (
                     "Tower authority unavailable; placement advisory skipped"
                 )
-        except Exception as exc:
+        except ADVISORY_ERRORS as exc:
             tower_authority_error = f"{type(exc).__name__}: {exc}"
 
     for record in registry["repositories"]:
