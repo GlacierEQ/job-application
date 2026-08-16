@@ -1,0 +1,32 @@
+{
+  "schema": "glaciereq.starmap-lenses.v1",
+  "authority": "PRESENTATION_ONLY",
+  "boundary": "Interpretive naming metaphors only. These strings are not evidence of company priorities, bottlenecks, affiliation, adoption, or etymological authority.",
+  "onomastics": {
+    "palantir": "A far-seeing stone — a metaphor for visibility that still needs coherent interpretation.",
+    "anduril": "A reforged blade — a metaphor for power that remains bounded by the hand directing it.",
+    "cerebras": "A brain-shaped name — a metaphor for specialized parts coordinating as one system.",
+    "oracle": "An answer-giving figure — a metaphor for answers that also need authority, provenance, and rollback.",
+    "anthropic": "Human-centered language — a metaphor for capability remaining subordinate to human authority.",
+    "mistral": "A strong wind — a metaphor for speed and sovereignty without losing governance.",
+    "snowflake": "A unique crystal — a metaphor for fine-grained identity, permissions, and lineage.",
+    "coreweave": "A woven core — a metaphor for matching heterogeneous compute threads to the right workload.",
+    "databricks": "Bricks of data — a metaphor for governance that remains structural when agents act on top of it.",
+    "adobe": "A building material — a metaphor for preserving creative intent, history, and provenance.",
+    "blue_origin": "A return to origin — a metaphor for reusable systems whose state must survive the full cycle.",
+    "cloudflare": "A flare at the cloud edge — a metaphor for authority and state that must hold globally.",
+    "cohere": "To hold together — a metaphor for context that stays high-signal enough to remain useful.",
+    "groq": "To understand deeply — a metaphor for understanding delivered under extreme latency pressure.",
+    "deepseek": "Seeking deeply — a metaphor for routing, memory, and observability remaining coherent as depth grows.",
+    "notion": "An idea — a metaphor for turning scattered knowledge into governed action.",
+    "manus": "A hand — a metaphor for autonomous reach that stays bounded, checkpointed, and reversible.",
+    "qwen": "A thousand questions — a metaphor for matching heterogeneous requests to the right capability.",
+    "openai": "Openness — a metaphor for capability that remains dependable, inspectable, and controllable.",
+    "spacex": "Space plus an unknown — a metaphor for coherent mission state across radically different clocks.",
+    "xai": "An unknown variable — a metaphor for finding the next system constraint rather than optimizing one subsystem forever.",
+    "tesla": "Electrical motion — a metaphor for perception and control streams that cannot tolerate silent gaps.",
+    "lockheed_martin": "Mission systems — a metaphor for telemetry, state, confidence, authority, human decision, execution, and receipt.",
+    "nasa": "Exploration under constraint — a metaphor for autonomy operating inside hard safety boundaries.",
+    "glaciereq_core": "Ice in equilibrium — a metaphor for a large layered system that preserves its record while it evolves."
+  }
+}
