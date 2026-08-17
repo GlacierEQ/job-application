@@ -50,7 +50,8 @@ jobs:
             deployment/vercel-source-bridge/proxy.test.js \
             deployment/vercel-source-bridge/design-proxy.test.js \
             deployment/vercel-source-bridge/estate-proxy.test.js \
-            deployment/vercel-source-bridge/truth-proxy.test.js
+            deployment/vercel-source-bridge/truth-proxy.test.js \
+            tests/private-capability-boundary.test.mjs
 
       - name: Build exact Vercel static surface from effective Helix authority
         env:
@@ -70,6 +71,7 @@ jobs:
           node scripts/validate-estate-intelligence.mjs
           node scripts/validate-helix-atlas.mjs
           node scripts/harden-public-proof-surface.mjs
+          node scripts/preserve-private-capability-cards.mjs
           node scripts/validate-public-proof-surface.mjs
           node scripts/compress-recruiter-surface.mjs
           node scripts/compress-recruiter-surface.mjs --check
