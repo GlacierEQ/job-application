@@ -4,16 +4,26 @@ on:
   pull_request:
     branches: [main]
     paths:
-      - 'site-v14/company-atlas/**'
-      - 'site-v14/assets/company-atlas.css'
-      - 'site-v14/scripts/validate-company-atlas.mjs'
+      - 'site-v15/atlas/**'
+      - 'site-v15/assets/atlas-runtime.css'
+      - 'site-v15/data/helix-root.json'
+      - 'scripts/render-helix-atlas.mjs'
+      - 'scripts/activate-atlas-runtime.mjs'
+      - 'scripts/validate-atlas-interaction.mjs'
+      - 'tests/atlas-runtime.test.mjs'
+      - 'package.json'
       - '.github/workflows/company-atlas-verify.yml'
   push:
     branches: [main]
     paths:
-      - 'site-v14/company-atlas/**'
-      - 'site-v14/assets/company-atlas.css'
-      - 'site-v14/scripts/validate-company-atlas.mjs'
+      - 'site-v15/atlas/**'
+      - 'site-v15/assets/atlas-runtime.css'
+      - 'site-v15/data/helix-root.json'
+      - 'scripts/render-helix-atlas.mjs'
+      - 'scripts/activate-atlas-runtime.mjs'
+      - 'scripts/validate-atlas-interaction.mjs'
+      - 'tests/atlas-runtime.test.mjs'
+      - 'package.json'
       - '.github/workflows/company-atlas-verify.yml'
 
 permissions:
@@ -22,11 +32,19 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
-      - name: Validate evidence-aware company atlas
-        run: node site-v14/scripts/validate-company-atlas.mjs
+      - name: Prove pure interaction transform
+        run: node --test tests/atlas-runtime.test.mjs
+      - name: Render current Atlas authority
+        run: node scripts/render-helix-atlas.mjs
+      - name: Activate recovered script-free interaction
+        run: node scripts/activate-atlas-runtime.mjs
+      - name: Validate final current-company surface
+        run: node scripts/validate-atlas-interaction.mjs
