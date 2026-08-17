@@ -11,7 +11,10 @@ const VERIFY_ONLY = process.argv.includes('--check');
 const HOME = path.join(SITE, 'index.html');
 const RESUME = path.join(SITE, 'resume', 'index.html');
 
-const RECRUITER_NAV = '<nav class="links" aria-label="Primary navigation"><a href="#proof">Proof</a><a href="#systems">Systems</a><a href="/resume/">Résumé</a><a href="/master/">Technical</a></nav>';
+// Recruiter compression should reduce decision noise, not erase the estate's
+// strongest problem-first discovery surface. Inventions earns a primary slot
+// because it routes capability -> systems -> evidence without exposing raw repo volume.
+const RECRUITER_NAV = '<nav class="links" aria-label="Primary navigation"><a href="#proof">Proof</a><a href="#systems">Systems</a><a href="/inventions/">Inventions</a><a href="/resume/">Résumé</a><a href="/master/">Technical</a></nav>';
 const PRIMARY_NAV_RE = /<nav class="links" aria-label="Primary navigation">[\s\S]*?<\/nav>/;
 const ATS_LINK_RE = /<a\b[^>]*href=["']\/resume\/ats\.txt["'][^>]*>[\s\S]*?<\/a>/g;
 
@@ -24,6 +27,7 @@ const REQUIRED_STATIC_DEEP_ROUTES = [
   'mesh/index.html',
   'machine/index.html',
   'atlas/index.html',
+  'inventions/index.html',
   'resume/index.html',
 ];
 
@@ -64,7 +68,7 @@ function extractPrimaryNav(source) {
 function validate(home, resume) {
   const nav = extractPrimaryNav(home);
   const hrefs = [...nav.matchAll(/<a\b[^>]*href=["']([^"']+)["']/g)].map((match) => match[1]);
-  const expected = ['#proof', '#systems', '/resume/', '/master/'];
+  const expected = ['#proof', '#systems', '/inventions/', '/resume/', '/master/'];
   if (JSON.stringify(hrefs) !== JSON.stringify(expected)) {
     throw new Error(`recruiter_nav_contract_failed:${JSON.stringify(hrefs)}`);
   }
@@ -94,6 +98,7 @@ function validate(home, resume) {
     contact_cta: 'mailto:glacier.equilibrium@gmail.com',
     ats_cta_count: atsCount,
     static_deep_routes_preserved: REQUIRED_STATIC_DEEP_ROUTES.length,
+    invention_route: 'problem_first_capability_discovery',
     compiler_route: 'verified_by_release_compiler_stage',
   };
 }
