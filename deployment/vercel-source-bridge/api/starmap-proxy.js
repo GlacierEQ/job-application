@@ -118,8 +118,8 @@ function companyLayout(companies) {
   const centerX = 550;
   const centerY = 390;
   const ordered = [...companies].sort((a, b) => {
-    const depth = Number(b.second_depth?.ordinal || 0) - Number(a.second_depth?.ordinal || 0);
-    return depth || String(a.display_name).localeCompare(String(b.display_name));
+    const depth = Number(b.ordinal || 0) - Number(a.ordinal || 0);
+    return depth || String(a.name).localeCompare(String(b.name)) || String(a.id).localeCompare(String(b.id));
   });
   const rings = [];
   let remaining = ordered.length;
@@ -137,7 +137,7 @@ function companyLayout(companies) {
     for (let slot = 0; slot < count; slot += 1) {
       const angle = (Math.PI * 2 * slot) / count - Math.PI / 2 + (ringIndex % 2 ? Math.PI / count : 0);
       const company = ordered[index];
-      positions.set(company.company_id, [
+      positions.set(company.id, [
         centerX + radius * Math.cos(angle),
         centerY + radius * Math.sin(angle),
       ]);
