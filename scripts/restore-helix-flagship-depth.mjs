@@ -65,10 +65,8 @@ async function repositoryIsPublic(repository) {
 function sanitizedCard(row) {
   return {
     system_id: row.system_id,
-    repository: null,
     repository_identity: WITHHELD_IDENTITY,
     level: row.level,
-    state: 'SANITIZED_CAPABILITY',
     source_state: row.state,
     role: row.role,
     evidence: row.evidence,
@@ -123,33 +121,35 @@ async function main() {
 
   assert(eligible.length >= 6, `authority-eligible live-public flagship floor regressed: ${eligible.length}`);
   assert(sanitized.length >= 4, `sanitized capability floor regressed: ${sanitized.length}`);
-  const allRows = [...eligible, ...sanitized];
-  const allIds = allRows.map((row) => row.system_id);
-  assert(new Set(allIds).size === allIds.length, 'duplicate projected flagship IDs');
+  const eligibleIds = eligible.map((row) => row.system_id);
+  const sanitizedIds = sanitized.map((row) => row.system_id);
+  assert(new Set([...eligibleIds, ...sanitizedIds]).size === eligibleIds.length + sanitizedIds.length, 'duplicate projected capability IDs');
 
   const beforeIds = new Set((Array.isArray(snapshot.flagships) ? snapshot.flagships : []).map((row) => row.system_id));
-  snapshot.flagships = allRows;
+  snapshot.flagships = eligible;
+  snapshot.sanitized_capabilities = sanitized;
   snapshot.flagship_projection = {
     schema: 'glaciereq.public-flagship-projection.v3',
     source: 'manifests/flagship_registry.json',
     source_commit: rootRef,
     authority_eligible_count: eligible.length,
     sanitized_capability_count: sanitized.length,
-    projected_capability_count: allRows.length,
+    projected_capability_count: eligible.length + sanitized.length,
     prior_company_coupled_count: beforeIds.size,
     company_membership_required: false,
     repository_public_state_verified_live: true,
     sanitized_capability_identity_withheld: true,
-    sanitized_system_ids: sanitized.map((row) => row.system_id).sort(),
+    sanitized_system_ids: sanitizedIds.sort(),
     nonpublic_authority_rows_withheld: nonPublic.sort(),
-    selection_rule: 'publish live-public authority flagships plus SANITIZED_CARD_ONLY capability cards; sanitized cards preserve role/evidence/next-gate while withholding repository identity',
+    selection_rule: 'flagships remain live-public repository identities; SANITIZED_CARD_ONLY rows are emitted separately as capability cards with repository identity withheld',
   };
   const snapshotText = stableJson(snapshot);
   await writeFile(SNAPSHOT_PATH, snapshotText, 'utf8');
   receipt.output_sha256 = sha256(snapshotText);
-  receipt.flagship_count = allRows.length;
+  receipt.flagship_count = eligible.length;
   receipt.live_public_flagship_count = eligible.length;
   receipt.sanitized_capability_count = sanitized.length;
+  receipt.projected_capability_count = eligible.length + sanitized.length;
   receipt.flagship_projection_schema = snapshot.flagship_projection.schema;
   await writeFile(RECEIPT_PATH, stableJson(receipt), 'utf8');
   console.log(JSON.stringify({
@@ -158,9 +158,9 @@ async function main() {
     flagships_before: beforeIds.size,
     live_public_flagships: eligible.length,
     sanitized_capabilities: sanitized.length,
-    flagships_after: allRows.length,
-    restored_system_ids: allIds.filter((id) => !beforeIds.has(id)),
-    sanitized_system_ids: sanitized.map((row) => row.system_id).sort(),
+    projected_capabilities: eligible.length + sanitized.length,
+    restored_system_ids: [...eligibleIds, ...sanitizedIds].filter((id) => !beforeIds.has(id)),
+    sanitized_system_ids: sanitizedIds.sort(),
     nonpublic_authority_rows_withheld: nonPublic.sort(),
     company_membership_required: false,
   }, null, 2));
