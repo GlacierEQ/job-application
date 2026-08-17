@@ -1,0 +1,43 @@
+name: Visualizer Evidence Boundary
+
+on:
+  pull_request:
+    paths:
+      - 'site-v15/visualizer/**'
+      - 'site-v15/assets/site.visualizer.css'
+      - 'tests/visualizer-evidence-bound.test.mjs'
+      - 'package.json'
+      - '.github/workflows/visualizer-evidence-bound.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'site-v15/visualizer/**'
+      - 'site-v15/assets/site.visualizer.css'
+      - 'tests/visualizer-evidence-bound.test.mjs'
+      - 'package.json'
+      - '.github/workflows/visualizer-evidence-bound.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  prove:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Prove evidence-bound visualizer
+        run: npm run test:visualizer-evidence
+      - name: Prove public script-free boundary
+        run: |
+          ! grep -Rni '<script\b' site-v15/visualizer/index.html
+          ! grep -RniE 'GITHUB_MASTER_TOKEN|LIVE TELEMETRY MATRIX|100% OPERATIONAL|ONLINE 200|0\.12ms|Math\.random|setInterval' site-v15/visualizer/index.html
+          grep -q 'EVIDENCE-BOUND ARCHITECTURE EXPLORER' site-v15/visualizer/index.html
+          grep -q 'site.visualizer.css' site-v15/visualizer/index.html
