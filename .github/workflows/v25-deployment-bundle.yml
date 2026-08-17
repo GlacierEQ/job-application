@@ -9,6 +9,9 @@ on:
       - "projects/github-merge-authority-proof/**"
       - "scripts/runner_verify.py"
       - "scripts/apply-complete-web-design.mjs"
+      - "scripts/activate-atlas-runtime.mjs"
+      - "scripts/validate-atlas-interaction.mjs"
+      - "tests/atlas-runtime.test.mjs"
       - "scripts/validate-algerian-display.mjs"
       - "scripts/harden-public-proof-surface.mjs"
       - "scripts/validate-public-proof-surface.mjs"
@@ -29,6 +32,9 @@ on:
       - "projects/github-merge-authority-proof/**"
       - "scripts/runner_verify.py"
       - "scripts/apply-complete-web-design.mjs"
+      - "scripts/activate-atlas-runtime.mjs"
+      - "scripts/validate-atlas-interaction.mjs"
+      - "tests/atlas-runtime.test.mjs"
       - "scripts/validate-algerian-display.mjs"
       - "scripts/harden-public-proof-surface.mjs"
       - "scripts/validate-public-proof-surface.mjs"
@@ -60,6 +66,8 @@ jobs:
         with:
           node-version: "24"
       - name: Refresh effective immutable Helix release authority
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           node scripts/sync-helix-projection-effective.mjs
           node scripts/reconcile-helix-company-cardinality.mjs

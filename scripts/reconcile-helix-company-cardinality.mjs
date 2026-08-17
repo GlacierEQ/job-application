@@ -133,16 +133,23 @@ function updateCompilerTestPin(source, helixCommit) {
 }
 
 function scaleAtlasRenderer(source) {
-  let next = source;
+  const adaptiveRadiusPattern = /const radialStep = rings\.length > 1 \? 30 \/ \(rings\.length - 1\) : 0;\n    const radius = 16 \+ r \* radialStep;/;
+  const legacyRadiusPattern = /const radius = 21 \+ r \* 12; \/\/ 21%, 33%, 45%, 57%, \.\.\./;
   const guardPattern = /\n  if \(companies\.length > \d+\) \{\n    throw new Error\("constellation supports at most \d+ governed company positions"\);\n  \}\n/;
+  let next = source;
+
+  // The renderer owns scalable geometry. Reconciliation may migrate the old fixed
+  // formula, but an already-scaled renderer is a valid terminal state, not an error.
   if (guardPattern.test(next)) next = next.replace(guardPattern, '\n');
-  const radiusPattern = /const radius = 21 \+ r \* 12; \/\/ 21%, 33%, 45%, 57%, \.\.\./;
-  if (!radiusPattern.test(next)) {
-    throw new Error('render-helix-atlas.mjs: scalable constellation radius anchor missing');
+  if (adaptiveRadiusPattern.test(next)) {
+    return { source: next, changed: next !== source };
+  }
+  if (!legacyRadiusPattern.test(next)) {
+    throw new Error('render-helix-atlas.mjs: neither adaptive nor legacy constellation radius contract found');
   }
   next = next.replace(
-    radiusPattern,
-    'const radius = rings.length === 1 ? 31 : 16 + (31 * r) / (rings.length - 1);',
+    legacyRadiusPattern,
+    'const radialStep = rings.length > 1 ? 30 / (rings.length - 1) : 0;\n    const radius = 16 + r * radialStep;',
   );
   return { source: next, changed: next !== source };
 }
@@ -320,8 +327,9 @@ const rendererSource = await readFile(path.join(ROOT, 'scripts/render-helix-atla
 if (/companies\.length > \d+/.test(rendererSource)) {
   throw new Error('render-helix-atlas.mjs: historical constellation ceiling remains');
 }
-if (!rendererSource.includes('16 + (31 * r) / (rings.length - 1)')) {
-  throw new Error('render-helix-atlas.mjs: bounded scalable ring radius missing');
+if (!rendererSource.includes('const radialStep = rings.length > 1 ? 30 / (rings.length - 1) : 0;') ||
+    !rendererSource.includes('const radius = 16 + r * radialStep;')) {
+  throw new Error('render-helix-atlas.mjs: bounded adaptive ring radius missing');
 }
 
 const designSource = await readFile(path.join(ROOT, 'deployment/vercel-source-bridge/api/design-proxy.js'), 'utf8');
