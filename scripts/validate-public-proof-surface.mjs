@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const PRIVATE_MICROCODE_URL = 'https://github.com/GlacierEQ/xai-colossus-microcode';
+const PRIVATE_IDENTITY_WITHHELD = 'PRIVATE_REPOSITORY_IDENTITY_WITHHELD';
 
 async function text(relative) {
   return readFile(path.join(ROOT, relative), 'utf8');
@@ -24,11 +25,14 @@ const machineHtml = await text('site-v15/machine/index.html');
 const llms = await text('site-v15/llms.txt');
 const ats = await text('site-v15/resume/ats.txt');
 
-assert(!portfolio.flagships.some((item) => item.id === 'microcode'), 'microcode must not remain a public core flagship');
-assert(!portfolioText.includes(PRIVATE_MICROCODE_URL), 'private microcode repository must not appear in portfolio JSON');
+const microcode = portfolio.flagships.find((item) => item.id === 'microcode');
+assert(microcode, 'microcode capability must be preserved');
+assert(microcode.repo === PRIVATE_IDENTITY_WITHHELD, 'private microcode identity must be redacted, not deleted');
+assert(microcode.public_surface === 'PRIVATE_IDENTITY_WITHHELD', 'microcode privacy state must be explicit');
+assert(!portfolioText.includes(PRIVATE_MICROCODE_URL), 'private microcode repository must not appear in public portfolio JSON');
 assert(!String(portfolio.release?.name || '').includes('V15'), 'V15 product brand must be retired from release.name');
 assert(portfolio.flagships.some((item) => item.id === 'helix'), 'helix flagship required');
-assert(portfolio.flagships.length >= 7, 'helix-bound flagship set required');
+assert(portfolio.flagships.length >= 16, 'recovered flagship capability set required');
 
 assert(resume.basics.label.startsWith('Forward-Deployed AI Architect'), 'resume primary role was not promoted');
 assert(portfolio.person.roles[0] === 'Forward-Deployed AI Architect', 'portfolio primary role was not promoted');
@@ -65,9 +69,11 @@ console.log(
   JSON.stringify({
     status: 'PASS',
     checks: {
-      microcode_retired: true,
+      microcode_capability_preserved: true,
+      private_microcode_identity_redacted: true,
       v15_brand_retired: true,
       helix_flagship: true,
+      recovered_flagship_floor: true,
       senior_role_positioning: true,
       machine_discovery_links: true,
       private_public_boundary: true,
