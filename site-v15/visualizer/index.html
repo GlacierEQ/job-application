@@ -4,391 +4,74 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#03080b">
-  <meta name="description" content="Live 3D Dynamic Architecture Visualizer & Verifiable Telemetry Matrix for Casey Barton's APEX Sovereign Systems.">
+  <meta name="description" content="Interactive, evidence-bound architecture explorer for GlacierEQ systems. Curated repository topology, not simulated live telemetry.">
   <link rel="canonical" href="https://casey-barton-glaciereq.vercel.app/visualizer/">
-  <title>Dynamic Architecture Visualizer · Casey Barton</title>
+  <title>Architecture Evidence Explorer · Casey Barton</title>
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/site.css">
   <link rel="stylesheet" href="/assets/site.systems.css">
   <link rel="stylesheet" href="/assets/site.complete.css">
   <link rel="stylesheet" href="/assets/site.interaction.css">
   <style>
-    :root {
-      --bg-deep: #03070a;
-      --bg-card: #081017;
-      --border-glow: rgba(0, 230, 180, 0.25);
-      --accent-cyan: #00f0ff;
-      --accent-emerald: #00e6b4;
-      --accent-gold: #ffd166;
-      --text-main: #e6f1f8;
-      --text-muted: #88a2b5;
-    }
-    body {
-      background: var(--bg-deep);
-      color: var(--text-main);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      margin: 0;
-      overflow-x: hidden;
-    }
-    .viz-header {
-      padding: 1.5rem 0;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      background: rgba(3,7,10,0.85);
-      backdrop-filter: blur(12px);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    .viz-layout {
-      display: grid;
-      grid-template-columns: 1fr 380px;
-      gap: 1.5rem;
-      padding: 1.5rem 0 3rem;
-      min-height: calc(100vh - 160px);
-    }
-    @media (max-width: 960px) {
-      .viz-layout { grid-template-columns: 1fr; }
-    }
-    .canvas-container {
-      background: #020406;
-      border: 1px solid var(--border-glow);
-      border-radius: 12px;
-      position: relative;
-      overflow: hidden;
-      min-height: 540px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.6), inset 0 0 80px rgba(0,230,180,0.03);
-    }
-    canvas {
-      width: 100%;
-      height: 100%;
-      display: block;
-      cursor: grab;
-    }
-    canvas:active { cursor: grabbing; }
-    .canvas-overlay-stats {
-      position: absolute;
-      top: 16px;
-      left: 16px;
-      display: flex;
-      gap: 12px;
-      pointer-events: none;
-      z-index: 10;
-    }
-    .stat-pill {
-      background: rgba(8, 16, 23, 0.85);
-      border: 1px solid rgba(0, 240, 255, 0.3);
-      border-radius: 20px;
-      padding: 6px 14px;
-      font-size: 0.78rem;
-      color: var(--accent-cyan);
-      backdrop-filter: blur(8px);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .stat-pill b { color: #fff; }
-    .live-dot {
-      width: 8px;
-      height: 8px;
-      background: var(--accent-emerald);
-      border-radius: 50%;
-      display: inline-block;
-      box-shadow: 0 0 8px var(--accent-emerald);
-      animation: pulse 1.8s infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(0.85); }
-    }
-    .telemetry-sidebar {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .telemetry-panel {
-      background: var(--bg-card);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 12px;
-      padding: 1.25rem;
-    }
-    .telemetry-panel h3 {
-      margin: 0 0 1rem;
-      font-size: 0.92rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--accent-cyan);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .node-detail-title {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 0.5rem;
-    }
-    .node-detail-desc {
-      font-size: 0.84rem;
-      color: var(--text-muted);
-      line-height: 1.5;
-      margin-bottom: 1rem;
-    }
-    .metrics-list {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin-bottom: 1rem;
-    }
-    .metric-box {
-      background: rgba(0,0,0,0.3);
-      padding: 8px 10px;
-      border-radius: 6px;
-      border: 1px solid rgba(255,255,255,0.05);
-    }
-    .metric-box small {
-      display: block;
-      font-size: 0.7rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-    }
-    .metric-box span {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--accent-emerald);
-    }
-    .log-stream {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      font-size: 0.75rem;
-      background: rgba(0,0,0,0.5);
-      border-radius: 8px;
-      padding: 10px;
-      height: 180px;
-      overflow-y: auto;
-      color: #a0c0d8;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .log-entry {
-      line-height: 1.4;
-      display: flex;
-      gap: 6px;
-    }
-    .log-ts { color: #5a7d96; }
-    .log-tag { color: var(--accent-gold); }
-    .log-ok { color: var(--accent-emerald); }
+    :root{--bg:#03070a;--panel:#081017;--border:rgba(0,230,180,.25);--cyan:#00f0ff;--mint:#00e6b4;--gold:#ffd166;--text:#e6f1f8;--muted:#88a2b5}
+    body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;margin:0;overflow-x:hidden}
+    .viz-header{padding:1.5rem 0;border-bottom:1px solid rgba(255,255,255,.08);background:rgba(3,7,10,.9);backdrop-filter:blur(12px);position:sticky;top:0;z-index:100}
+    .truth-bar{border-bottom:1px solid rgba(0,240,255,.16);background:#061016}
+    .truth-inner{display:flex;justify-content:space-between;gap:1rem;padding:.65rem 0;font-size:.76rem;letter-spacing:.05em;color:var(--muted)}
+    .truth-inner strong{color:var(--mint)}
+    .viz-layout{display:grid;grid-template-columns:minmax(0,1fr) 390px;gap:1.5rem;padding:1.5rem 0 3rem;min-height:calc(100vh - 180px)}
+    @media(max-width:960px){.viz-layout{grid-template-columns:1fr}.truth-inner{flex-direction:column}.canvas-overlay{flex-wrap:wrap}}
+    .canvas-container{background:#020406;border:1px solid var(--border);border-radius:12px;position:relative;overflow:hidden;min-height:560px;box-shadow:0 8px 32px rgba(0,0,0,.6),inset 0 0 80px rgba(0,230,180,.03)}
+    canvas{width:100%;height:100%;display:block;cursor:pointer}
+    .canvas-overlay{position:absolute;top:16px;left:16px;right:16px;display:flex;gap:10px;pointer-events:none;z-index:10}
+    .pill{background:rgba(8,16,23,.9);border:1px solid rgba(0,240,255,.28);border-radius:20px;padding:6px 12px;font-size:.74rem;color:var(--cyan);backdrop-filter:blur(8px)}
+    .pill b{color:#fff}
+    .sidebar{display:flex;flex-direction:column;gap:1rem}
+    .panel{background:var(--panel);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:1.25rem}
+    .panel h3{margin:0 0 1rem;font-size:.9rem;text-transform:uppercase;letter-spacing:.08em;color:var(--cyan);display:flex;justify-content:space-between;gap:1rem;align-items:center}
+    .node-title{font-size:1.15rem;font-weight:750;color:#fff;margin-bottom:.5rem}.node-desc{font-size:.84rem;color:var(--muted);line-height:1.55;margin-bottom:1rem}
+    .metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1rem}.metric{background:rgba(0,0,0,.28);padding:9px 10px;border-radius:6px;border:1px solid rgba(255,255,255,.05)}
+    .metric small{display:block;font-size:.66rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}.metric span{font-size:.88rem;font-weight:650;color:var(--mint)}
+    .evidence-link{display:inline-flex;align-items:center;gap:.45rem;text-decoration:none;color:#071012;background:var(--mint);font-size:.78rem;font-weight:800;padding:.6rem .8rem;border-radius:7px}.evidence-link:focus-visible{outline:3px solid #fff;outline-offset:3px}
+    .receipt-list{display:flex;flex-direction:column;gap:.6rem}.receipt{padding:.7rem;border-left:2px solid var(--gold);background:rgba(0,0,0,.25);font-size:.76rem;line-height:1.45;color:var(--muted)}.receipt b{display:block;color:var(--gold);margin-bottom:.2rem}
+    .boundary{font-size:.74rem;line-height:1.55;color:var(--muted);margin:0}.boundary strong{color:#fff}
   </style>
 </head>
 <body>
-  <div class="signal-bar">
-    <div class="shell signal-inner">
-      <span class="signal-live"><span class="live-dot"></span> LIVE TELEMETRY MATRIX · 100% OPERATIONAL</span>
-      <span>49-Language Tower of Babel · Colossus Trinity Gateway · 32+ MCP Mesh</span>
-    </div>
-  </div>
-
-  <header class="site-header viz-header">
-    <div class="shell nav">
-      <a class="brand" href="/">
-        <span class="mark">CB</span>
-        <span><strong>CASEY BARTON</strong><small>DYNAMIC ARCHITECTURE VISUALIZER</small></span>
-      </a>
-      <nav class="links">
-        <a href="/">Recruiter</a>
-        <a href="/master/">Master</a>
-        <a href="/mesh/">Mesh</a>
-        <a href="/visualizer/" aria-current="page" style="color: var(--accent-cyan);">Visualizer</a>
-        <a href="/resume/">Résumé</a>
-      </nav>
-      <a class="nav-cta" href="https://github.com/GlacierEQ" target="_blank" rel="noopener">GitHub Matrix</a>
-    </div>
-  </header>
-
-  <main class="shell">
-    <div class="viz-layout">
-      <div class="canvas-container" id="canvas-container">
-        <div class="canvas-overlay-stats">
-          <div class="stat-pill"><span class="live-dot"></span> Node Mesh: <b>7 Live Clusters</b></div>
-          <div class="stat-pill">Babel Proofs: <b>73/73 Verified</b></div>
-          <div class="stat-pill">Latency: <b>0.12ms</b></div>
-        </div>
-        <canvas id="viz-canvas"></canvas>
-      </div>
-
-      <div class="telemetry-sidebar">
-        <div class="telemetry-panel" id="node-inspector">
-          <h3><span>Cluster Inspector</span> <small style="color: var(--accent-emerald);">CLICK NODE</small></h3>
-          <div id="inspector-content">
-            <div class="node-detail-title" id="node-title">Colossus Gateway (Port 3000)</div>
-            <div class="node-detail-desc" id="node-desc">Universal Connector & Tool Routing Engine. Direct JSON-RPC proxy for 32+ multi-cloud MCP servers with dynamic token compression.</div>
-            <div class="metrics-list" id="node-metrics">
-              <div class="metric-box"><small>Tools Active</small><span id="m-tools">195 Tools</span></div>
-              <div class="metric-box"><small>Compression</small><span id="m-comp">78% Token Sav</span></div>
-              <div class="metric-box"><small>Status</small><span id="m-status">ONLINE 200</span></div>
-              <div class="metric-box"><small>Verification</small><span id="m-ver">Cryptographic</span></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="telemetry-panel">
-          <h3><span>Real-Time Execution Log</span> <span class="live-dot"></span></h3>
-          <div class="log-stream" id="log-stream">
-            <div class="log-entry"><span class="log-ts">[01:50:41]</span> <span class="log-tag">[TRINITY]</span> <span class="log-ok">Port 3000: ONLINE (Gateway)</span></div>
-            <div class="log-entry"><span class="log-ts">[01:50:41]</span> <span class="log-tag">[TRINITY]</span> <span class="log-ok">Port 4000: ONLINE (Gatekeeper)</span></div>
-            <div class="log-entry"><span class="log-ts">[01:50:41]</span> <span class="log-tag">[TRINITY]</span> <span class="log-ok">Port 4001: ONLINE (Key Master)</span></div>
-            <div class="log-entry"><span class="log-ts">[01:50:41]</span> <span class="log-tag">[TRINITY]</span> <span class="log-ok">Port 4002: ONLINE (Supermemory)</span></div>
-            <div class="log-entry"><span class="log-ts">[01:50:41]</span> <span class="log-tag">[BABEL]</span> <span class="log-ok">73/73 Formal Proofs PASSED (11.77s)</span></div>
-            <div class="log-entry"><span class="log-ts">[01:50:41]</span> <span class="log-tag">[VAULT]</span> <span class="log-ok">GITHUB_MASTER_TOKEN active (5000 rem)</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </main>
-
+  <div class="truth-bar"><div class="shell truth-inner"><strong>EVIDENCE-BOUND ARCHITECTURE EXPLORER</strong><span>Interactive topology · repository-linked · deterministic presentation · not live operational telemetry</span></div></div>
+  <header class="site-header viz-header"><div class="shell nav"><a class="brand" href="/" aria-label="Casey Barton portfolio home"><span class="mark">CB</span><span><strong>CASEY BARTON</strong><small>ARCHITECTURE EVIDENCE EXPLORER</small></span></a><nav class="links" aria-label="Primary navigation"><a href="/">Recruiter</a><a href="/master/">Master</a><a href="/mesh/">Mesh</a><a href="/visualizer/" aria-current="page">Visualizer</a><a href="/resume/">Résumé</a></nav><a class="nav-cta" href="https://github.com/GlacierEQ" target="_blank" rel="noopener">Open source estate</a></div></header>
+  <main class="shell"><div class="viz-layout">
+    <section class="canvas-container" id="canvas-container" aria-label="Interactive GlacierEQ architecture topology">
+      <div class="canvas-overlay"><div class="pill">Mode: <b>Evidence Map</b></div><div class="pill">Nodes: <b>7 system families</b></div><div class="pill">Motion: <b>visual only</b></div></div>
+      <canvas id="viz-canvas" role="img" aria-label="Interactive system relationship graph. Select a node for repository evidence."></canvas>
+    </section>
+    <aside class="sidebar">
+      <section class="panel" id="node-inspector"><h3><span>System inspector</span><small>SELECT NODE</small></h3><div class="node-title" id="node-title"></div><div class="node-desc" id="node-desc"></div><div class="metrics"><div class="metric"><small>Evidence state</small><span id="m-state"></span></div><div class="metric"><small>Surface</small><span id="m-surface"></span></div><div class="metric"><small>Role</small><span id="m-role"></span></div><div class="metric"><small>Claim boundary</small><span id="m-boundary"></span></div></div><a class="evidence-link" id="evidence-link" target="_blank" rel="noopener">Inspect repository evidence ↗</a></section>
+      <section class="panel"><h3><span>Evidence semantics</span></h3><div class="receipt-list"><div class="receipt"><b>SOURCE OBSERVED</b>Repository source or public project surface exists and is the evidence anchor for this node.</div><div class="receipt"><b>ARCHITECTURE ROLE</b>The graph describes how systems are intended to compose. It does not assert that every edge is live in production.</div><div class="receipt"><b>NO SYNTHETIC HEALTH</b>No randomized logs, fake latency, invented HTTP health, credential state, or simulated execution status is displayed.</div></div></section>
+      <section class="panel"><p class="boundary"><strong>Why this boundary exists:</strong> an architecture visualizer should make a complex estate legible without laundering a drawing into runtime proof. Operational claims belong on exact receipts, tests, deployment readbacks, and repository evidence surfaces.</p></section>
+    </aside>
+  </div></main>
   <script>
-    (function() {
+    (() => {
       const container = document.getElementById('canvas-container');
       const canvas = document.getElementById('viz-canvas');
       const ctx = canvas.getContext('2d');
-
-      function resize() {
-        canvas.width = container.clientWidth * window.devicePixelRatio;
-        canvas.height = container.clientHeight * window.devicePixelRatio;
-        ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
-      }
-      window.addEventListener('resize', resize);
-      resize();
-
       const nodes = [
-        { id: 'core', label: 'Antigravity Runtime', x: 0.5, y: 0.48, r: 28, color: '#00f0ff', desc: 'Master agent orchestration plane and dynamic mesh router.', tools: 'Continuous', comp: '85% Aspen', status: 'ACTIVE', ver: 'Self-Healing' },
-        { id: 'gateway', label: 'Colossus Gateway :3000', x: 0.32, y: 0.32, r: 22, color: '#00e6b4', desc: 'Universal Connector & Tool Routing Engine with 195 tools & 14 connectors.', tools: '195 Tools', comp: '78% Sav', status: 'ONLINE 200', ver: 'Receipted' },
-        { id: 'gatekeeper', label: 'Gatekeeper AES-256 :4000', x: 0.24, y: 0.56, r: 18, color: '#ffd166', desc: 'Per-agent connector policy governor and strict AES-256 access boundary.', tools: '7 Agents', comp: 'Role Gated', status: 'ONLINE 200', ver: 'Encrypted' },
-        { id: 'keymaster', label: 'Key Master :4001', x: 0.38, y: 0.72, r: 18, color: '#ffd166', desc: 'AES-256-GCM secure key governance across 500+ environment secrets.', tools: '500+ Keys', comp: 'Vaulted', status: 'ONLINE 200', ver: 'AES-GCM' },
-        { id: 'brain', label: 'Supermemory Brain :4002', x: 0.68, y: 0.32, r: 22, color: '#ff5c8a', desc: 'Episodic memory cathedral & CATACLYSM autonomous decision engine.', tools: '4 Brains', comp: '0.12ms Cache', status: 'ONLINE 200', ver: 'Vector HNSW' },
-        { id: 'babel', label: 'Tower of Babel AST', x: 0.76, y: 0.56, r: 24, color: '#a277ff', desc: '49-Language formal verification engine, AST parsers, Lean 4 theorems.', tools: '49 Langs', comp: '73/73 Pass', status: 'VERIFIED', ver: 'Lean 4 Math' },
-        { id: 'device', label: 'Device RPC HAL :8990', x: 0.62, y: 0.72, r: 20, color: '#00f0ff', desc: 'Direct Android HAL bridge: Battery telemetry, camera, haptics, sensors.', tools: 'Android HAL', comp: 'Native Termux', status: 'ONLINE 200', ver: 'Live HAL' }
+        {id:'helix',label:'Job App Helix',x:.50,y:.46,r:29,color:'#00f0ff',desc:'Job-ecosystem intelligence, restoration, evidence projection, and application orchestration.',state:'SOURCE OBSERVED',surface:'Python + workflows',role:'Orchestration',boundary:'Repo evidence',url:'https://github.com/GlacierEQ/job-app-helix'},
+        {id:'application',label:'Job Application',x:.27,y:.29,r:24,color:'#00e6b4',desc:'Recruiter-facing application, evidence maps, company surfaces, release routing, and portfolio projections.',state:'SOURCE OBSERVED',surface:'Web + release runtime',role:'Projection',boundary:'Public evidence',url:'https://github.com/GlacierEQ/job-application'},
+        {id:'akos',label:'AKOS Runtime',x:.23,y:.61,r:21,color:'#ffd166',desc:'Agent/runtime execution architecture and capability substrate used across GlacierEQ engineering work.',state:'SOURCE OBSERVED',surface:'Runtime',role:'Execution',boundary:'Repo evidence',url:'https://github.com/GlacierEQ/AKOS'},
+        {id:'echo',label:'ECHO Continuity',x:.40,y:.75,r:20,color:'#ff5c8a',desc:'Continuity and state-survival mechanisms for retaining execution context across boundaries.',state:'SOURCE OBSERVED',surface:'Continuity',role:'State',boundary:'Repo evidence',url:'https://github.com/GlacierEQ/ECHO'},
+        {id:'babel',label:'Tower of Babel',x:.76,y:.29,r:23,color:'#a277ff',desc:'Language/runtime boundary exploration and polyglot engineering mechanisms.',state:'SOURCE OBSERVED',surface:'Polyglot systems',role:'Boundary fitness',boundary:'Repo evidence',url:'https://github.com/GlacierEQ/the-tower-of-babel'},
+        {id:'procode',label:'Pro-Code Pair',x:.78,y:.59,r:22,color:'#00e6b4',desc:'Intentional paired engineering systems: Pro_Code and pro-code, preserving distinct architectural roles.',state:'SOURCE OBSERVED',surface:'Engineering systems',role:'Capability pair',boundary:'Repo evidence',url:'https://github.com/GlacierEQ'},
+        {id:'estate',label:'GlacierEQ Estate',x:.62,y:.76,r:23,color:'#00f0ff',desc:'The broader repository estate that supplies donor mechanisms, application evidence, and composable systems.',state:'SOURCE OBSERVED',surface:'Repository estate',role:'Composition',boundary:'Public/private varies',url:'https://github.com/GlacierEQ'}
       ];
-
-      const links = [
-        ['core', 'gateway'], ['core', 'gatekeeper'], ['core', 'keymaster'],
-        ['core', 'brain'], ['core', 'babel'], ['core', 'device'],
-        ['gateway', 'gatekeeper'], ['gatekeeper', 'keymaster'], ['brain', 'babel'], ['gateway', 'device']
-      ];
-
-      let selectedNode = nodes[1];
-      let angle = 0;
-
-      function draw() {
-        const w = container.clientWidth;
-        const h = container.clientHeight;
-        ctx.clearRect(0, 0, w, h);
-
-        angle += 0.003;
-
-        // Draw Links & Pulses
-        links.forEach(([srcId, dstId]) => {
-          const src = nodes.find(n => n.id === srcId);
-          const dst = nodes.find(n => n.id === dstId);
-          const sx = src.x * w;
-          const sy = src.y * h;
-          const dx = dst.x * w;
-          const dy = dst.y * h;
-
-          ctx.beginPath();
-          ctx.moveTo(sx, sy);
-          ctx.lineTo(dx, dy);
-          ctx.strokeStyle = 'rgba(0, 240, 255, 0.15)';
-          ctx.lineWidth = 1.5;
-          ctx.stroke();
-
-          // Data Pulse
-          const t = (Math.sin(Date.now() * 0.002 + src.x * 10) + 1) / 2;
-          const px = sx + (dx - sx) * t;
-          const py = sy + (dy - sy) * t;
-          ctx.beginPath();
-          ctx.arc(px, py, 3, 0, Math.PI * 2);
-          ctx.fillStyle = '#00f0ff';
-          ctx.shadowColor = '#00f0ff';
-          ctx.shadowBlur = 8;
-          ctx.fill();
-          ctx.shadowBlur = 0;
-        });
-
-        // Draw Nodes
-        nodes.forEach(node => {
-          const nx = node.x * w;
-          const ny = node.y * h;
-          const isSel = selectedNode && selectedNode.id === node.id;
-
-          // Outer Glow
-          ctx.beginPath();
-          ctx.arc(nx, ny, node.r + (isSel ? 8 : 4), 0, Math.PI * 2);
-          ctx.fillStyle = isSel ? 'rgba(0, 240, 255, 0.25)' : 'rgba(255, 255, 255, 0.04)';
-          ctx.fill();
-
-          // Node Body
-          ctx.beginPath();
-          ctx.arc(nx, ny, node.r, 0, Math.PI * 2);
-          ctx.fillStyle = node.color;
-          ctx.shadowColor = node.color;
-          ctx.shadowBlur = isSel ? 16 : 8;
-          ctx.fill();
-          ctx.shadowBlur = 0;
-
-          // Label
-          ctx.fillStyle = '#fff';
-          ctx.font = '600 12px -apple-system, sans-serif';
-          ctx.textAlign = 'center';
-          ctx.fillText(node.label, nx, ny + node.r + 16);
-        });
-
-        requestAnimationFrame(draw);
-      }
-      draw();
-
-      canvas.addEventListener('click', (e) => {
-        const rect = canvas.getBoundingClientRect();
-        const mx = e.clientX - rect.left;
-        const my = e.clientY - rect.top;
-        const w = container.clientWidth;
-        const h = container.clientHeight;
-
-        nodes.forEach(node => {
-          const nx = node.x * w;
-          const ny = node.y * h;
-          const dist = Math.hypot(mx - nx, my - ny);
-          if (dist <= node.r + 10) {
-            selectedNode = node;
-            document.getElementById('node-title').innerText = node.label;
-            document.getElementById('node-desc').innerText = node.desc;
-            document.getElementById('m-tools').innerText = node.tools;
-            document.getElementById('m-comp').innerText = node.comp;
-            document.getElementById('m-status').innerText = node.status;
-            document.getElementById('m-ver').innerText = node.ver;
-          }
-        });
-      });
-
-      // Periodic Log Injection for dynamic liveliness
-      const logStream = document.getElementById('log-stream');
-      const events = [
-        { tag: 'ROUTER', msg: 'Sub-second AST translation dispatched (0.08ms)' },
-        { tag: 'GATEWAY', msg: '32+ MCP connector pool verified active' },
-        { tag: 'QUANTUM', msg: 'Aspen Grove pointer index hit: 85% reduction' },
-        { tag: 'TASKLET', msg: 'Autonomous webhook event dispatched successfully' },
-        { tag: 'HAL', msg: 'Android battery & hardware sensor telemetry updated' }
-      ];
-
-      setInterval(() => {
-        const ev = events[Math.floor(Math.random() * events.length)];
-        const timeStr = new Date().toTimeString().split(' ')[0];
-        const entry = document.createElement('div');
-        entry.className = 'log-entry';
-        entry.innerHTML = `<span class="log-ts">[${timeStr}]</span> <span class="log-tag">[${ev.tag}]</span> <span class="log-ok">${ev.msg}</span>`;
-        logStream.appendChild(entry);
-        if (logStream.children.length > 25) logStream.removeChild(logStream.children[0]);
-        logStream.scrollTop = logStream.scrollHeight;
-      }, 3500);
+      const edges=[['helix','application'],['helix','akos'],['helix','echo'],['helix','babel'],['helix','procode'],['helix','estate'],['application','estate'],['akos','echo'],['babel','procode'],['procode','estate']];
+      let selected=nodes[0];
+      function fit(){const dpr=Math.max(1,window.devicePixelRatio||1);canvas.width=Math.round(container.clientWidth*dpr);canvas.height=Math.round(container.clientHeight*dpr);canvas.style.width=`${container.clientWidth}px`;canvas.style.height=`${container.clientHeight}px`;ctx.setTransform(dpr,0,0,dpr,0,0);draw()}
+      function draw(){const w=container.clientWidth,h=container.clientHeight;ctx.clearRect(0,0,w,h);edges.forEach(([a,b])=>{const s=nodes.find(n=>n.id===a),t=nodes.find(n=>n.id===b);ctx.beginPath();ctx.moveTo(s.x*w,s.y*h);ctx.lineTo(t.x*w,t.y*h);ctx.strokeStyle='rgba(0,240,255,.18)';ctx.lineWidth=1.5;ctx.stroke()});nodes.forEach(n=>{const x=n.x*w,y=n.y*h,active=n.id===selected.id;ctx.beginPath();ctx.arc(x,y,n.r+(active?8:4),0,Math.PI*2);ctx.fillStyle=active?'rgba(0,240,255,.20)':'rgba(255,255,255,.04)';ctx.fill();ctx.beginPath();ctx.arc(x,y,n.r,0,Math.PI*2);ctx.fillStyle=n.color;ctx.shadowColor=n.color;ctx.shadowBlur=active?16:8;ctx.fill();ctx.shadowBlur=0;ctx.fillStyle='#fff';ctx.font='600 12px -apple-system,sans-serif';ctx.textAlign='center';ctx.fillText(n.label,x,y+n.r+17)})}
+      function inspect(n){selected=n;document.getElementById('node-title').textContent=n.label;document.getElementById('node-desc').textContent=n.desc;document.getElementById('m-state').textContent=n.state;document.getElementById('m-surface').textContent=n.surface;document.getElementById('m-role').textContent=n.role;document.getElementById('m-boundary').textContent=n.boundary;const link=document.getElementById('evidence-link');link.href=n.url;link.setAttribute('aria-label',`Inspect repository evidence for ${n.label}`);draw()}
+      canvas.addEventListener('click',e=>{const rect=canvas.getBoundingClientRect(),mx=e.clientX-rect.left,my=e.clientY-rect.top,w=container.clientWidth,h=container.clientHeight;const hit=nodes.find(n=>Math.hypot(mx-n.x*w,my-n.y*h)<=n.r+12);if(hit)inspect(hit)});
+      window.addEventListener('resize',fit);inspect(selected);fit();
     })();
   </script>
 </body>
