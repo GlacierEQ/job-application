@@ -17,6 +17,7 @@ const MODULES = [
   'deployment/vercel-source-bridge/api/title-font-proxy.js',
   'deployment/vercel-source-bridge/api/monument-title-proxy.js',
   'deployment/vercel-source-bridge/api/systems-atlas-proxy.js',
+  'deployment/vercel-source-bridge/api/inventions-proxy.js',
   'deployment/vercel-source-bridge/api/release-router.js',
 ];
 const ENTRY = 'deployment/vercel-source-bridge/api/release-router.js';
@@ -90,6 +91,9 @@ function readModules() {
   }
   if (!modules['api/systems-atlas-proxy.js'].includes('V23-SYSTEMS-ATLAS-RESOURCE-GROUNDED')) {
     throw new Error('systems_atlas_release_marker_missing');
+  }
+  if (!modules['api/inventions-proxy.js'].includes('V28-INVENTION-EVIDENCE-RUNTIME')) {
+    throw new Error('invention_evidence_runtime_release_marker_missing');
   }
   return { modules, moduleHashes, factories, factoryHashes };
 }
