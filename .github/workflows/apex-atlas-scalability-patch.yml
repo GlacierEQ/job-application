@@ -1,0 +1,63 @@
+name: APEX Atlas Scalability Patch
+
+on:
+  push:
+    branches:
+      - apex/job-restore-atlas-runtime-20260816
+    paths:
+      - '.github/workflows/apex-atlas-scalability-patch.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: apex/job-restore-atlas-runtime-20260816
+      - name: Replace fixed constellation ceiling with adaptive geometry
+        shell: python
+        run: |
+          from pathlib import Path
+
+          path = Path('scripts/render-helix-atlas.mjs')
+          text = path.read_text()
+
+          old_limit = '''  if (companies.length > 128) {
+              throw new Error("constellation supports at most 128 governed company positions");
+            }'''.replace('            ', '')
+          new_limit = '''  if (companies.length > 512) {
+              throw new Error("constellation supports at most 512 governed company positions");
+            }'''.replace('            ', '')
+          if old_limit not in text:
+              raise SystemExit('fixed 128-company ceiling not found')
+          text = text.replace(old_limit, new_limit, 1)
+
+          old_radius = '    const radius = 21 + r * 12; // 21%, 33%, 45%, 57%, ...'
+          new_radius = '''    // Compress additional rings instead of pushing large company sets off-canvas.
+              const radialStep = rings.length > 1 ? 30 / (rings.length - 1) : 0;
+              const radius = 16 + r * radialStep;'''.replace('              ', '')
+          if old_radius not in text:
+              raise SystemExit('fixed ring-radius formula not found')
+          text = text.replace(old_radius, new_radius, 1)
+
+          path.write_text(text)
+      - name: Verify source mutation is exact and syntax-valid
+        run: |
+          node --check scripts/render-helix-atlas.mjs
+          grep -F 'companies.length > 512' scripts/render-helix-atlas.mjs
+          grep -F 'const radialStep = rings.length > 1 ? 30 / (rings.length - 1) : 0;' scripts/render-helix-atlas.mjs
+      - name: Commit scalability repair
+        run: |
+          if git diff --quiet -- scripts/render-helix-atlas.mjs; then
+            echo 'Renderer already patched.'
+            exit 0
+          fi
+          git config user.name 'casey'
+          git config user.email 'GLACIER.EQUILIBRIUM@GMAIL.COM'
+          git add scripts/render-helix-atlas.mjs
+          git commit -m 'restore: scale Atlas constellation beyond fixed 128-company ceiling'
+          git push origin HEAD:apex/job-restore-atlas-runtime-20260816
