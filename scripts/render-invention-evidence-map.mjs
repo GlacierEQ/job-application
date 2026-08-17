@@ -9,8 +9,8 @@ const OUTPUT_JSON = resolve(ROOT, "site-v15/data/invention-map.json");
 const OUTPUT_HTML = resolve(ROOT, "site-v15/inventions/index.html");
 
 // V13's strongest recruiter mechanic was problem-first discovery. The modern
-// site keeps stricter proof boundaries, so these routes are deliberately small,
-// explicit joins over the current evidence graph rather than a revived legacy UI.
+// site keeps stricter proof boundaries, so these routes are explicit joins over
+// the current evidence graph rather than a revived legacy UI.
 const REVIEW_LENSES = [
   {
     id: "application-intelligence",
@@ -43,6 +43,45 @@ const REVIEW_LENSES = [
     systemIds: ["job-application", "helix", "akos"],
   },
 ];
+
+// These are review/composition routes, not claims that one repository imports or
+// executes another. That distinction preserves the public evidence boundary while
+// recovering V13's lost cross-repository workflow-map capability.
+const REVIEW_TOPOLOGY = [
+  {
+    id: "role-to-package",
+    title: "Role signal → application package",
+    stages: ["helix", "job-application", "receipt-router"],
+    outcome: "Role evidence is routed through application state into a public package whose claims remain bounded by proof.",
+  },
+  {
+    id: "agent-to-receipt",
+    title: "Agent intent → recoverable execution evidence",
+    stages: ["akos", "sigma-glue", "doctor-strange"],
+    outcome: "Authority, reversible execution, and independent convergence form a review path for dependable agent operations.",
+  },
+  {
+    id: "architecture-to-runtime",
+    title: "Architecture decision → implementation surface",
+    stages: ["tower-of-babel", "pro-code-runtime", "sigma-glue"],
+    outcome: "Polyglot architecture is connected to runnable implementation and orchestration without flattening repository ownership.",
+  },
+  {
+    id: "proof-to-human-machine",
+    title: "Proof receipt → human and machine projection",
+    stages: ["receipt-router", "job-application", "helix"],
+    outcome: "Bounded technical proof reaches recruiter and machine surfaces through one evidence-aware application graph.",
+  },
+];
+
+const CAPABILITY_ROUTES = {
+  "application-intelligence": ["helix", "job-application", "receipt-router"],
+  "agent-governance": ["akos", "sigma-glue", "doctor-strange"],
+  "multi-agent": ["akos", "sigma-glue", "doctor-strange"],
+  "evidence-systems": ["receipt-router", "job-application", "doctor-strange"],
+  polyglot: ["tower-of-babel", "pro-code-runtime", "sigma-glue"],
+  "human-machine": ["job-application", "helix", "akos"],
+};
 
 function stableStringify(value) {
   if (Array.isArray(value)) return `[${value.map(stableStringify).join(",")}]`;
@@ -85,19 +124,56 @@ function normalizeSystem(system) {
   };
 }
 
+function requireSystems(systemMap, ids, context) {
+  const missing = ids.filter((id) => !systemMap.has(id));
+  if (missing.length) {
+    throw new Error(`${context} references missing current flagship ids: ${[...new Set(missing)].join(", ")}`);
+  }
+  return ids.map((id) => systemMap.get(id));
+}
+
 function buildMap(portfolio) {
   const systems = new Map(portfolio.flagships.map((system) => [system.id, normalizeSystem(system)]));
-  const missing = REVIEW_LENSES.flatMap((lens) => lens.systemIds).filter((id) => !systems.has(id));
-  if (missing.length) {
-    throw new Error(`Invention map references missing current flagship ids: ${[...new Set(missing)].join(", ")}`);
-  }
 
   const lenses = REVIEW_LENSES.map((lens) => ({
     id: lens.id,
     title: lens.title,
     question: lens.question,
-    systems: lens.systemIds.map((id) => systems.get(id)),
+    systems: requireSystems(systems, lens.systemIds, `lens ${lens.id}`),
   }));
+
+  const topology = REVIEW_TOPOLOGY.map((route) => ({
+    id: route.id,
+    title: route.title,
+    outcome: route.outcome,
+    relationship: "review_and_composition_route_not_runtime_dependency",
+    stages: requireSystems(systems, route.stages, `topology ${route.id}`).map(({ id, name, repo, state, level, evidence, limit }) => ({
+      id,
+      name,
+      repo,
+      state,
+      level,
+      evidence,
+      limit,
+    })),
+  }));
+
+  const capabilityRoutes = portfolio.capabilities.map((capability) => {
+    const ids = CAPABILITY_ROUTES[capability.id];
+    if (!ids) throw new Error(`No current-system route exists for capability ${capability.id}`);
+    return {
+      id: capability.id,
+      title: capability.title,
+      detail: capability.detail,
+      systems: requireSystems(systems, ids, `capability ${capability.id}`).map(({ id, name, repo, state, level }) => ({
+        id,
+        name,
+        repo,
+        state,
+        level,
+      })),
+    };
+  });
 
   const roleRoutes = portfolio.person.roles.map((role) => ({
     role,
@@ -108,8 +184,24 @@ function buildMap(portfolio) {
     })),
   }));
 
+  const routedSystemIds = new Set([
+    ...lenses.flatMap((lens) => lens.systems.map(({ id }) => id)),
+    ...topology.flatMap((route) => route.stages.map(({ id }) => id)),
+    ...capabilityRoutes.flatMap((route) => route.systems.map(({ id }) => id)),
+  ]);
+
+  const coverage = {
+    current_flagships: portfolio.flagships.length,
+    routed_flagships: routedSystemIds.size,
+    route_coverage_ratio: Number((routedSystemIds.size / portfolio.flagships.length).toFixed(4)),
+    problem_lenses: lenses.length,
+    workflow_routes: topology.length,
+    capability_routes: capabilityRoutes.length,
+    role_routes: roleRoutes.length,
+  };
+
   const core = {
-    schema: "glaciereq.invention-evidence-map.v1",
+    schema: "glaciereq.invention-evidence-map.v2",
     source: {
       portfolio: "site-v15/data/portfolio.json",
       evidence_policy: portfolio.release.evidence_policy,
@@ -124,6 +216,8 @@ function buildMap(portfolio) {
         "repository-to-evidence routing",
         "cross-system review combinations",
         "role-to-repository evidence map",
+        "cross-repository workflow topology",
+        "capability-to-system proof routing",
       ],
       preserved_later_gains: [
         "script-free public CSP",
@@ -132,7 +226,10 @@ function buildMap(portfolio) {
         "V25 application compiler and later deployment stack",
       ],
     },
+    coverage,
     lenses,
+    topology,
+    capability_routes: capabilityRoutes,
     role_routes: roleRoutes,
   };
 
@@ -153,6 +250,35 @@ function systemCard(system) {
   </article>`;
 }
 
+function topologyRoute(route, index) {
+  const stages = route.stages
+    .map(
+      (stage, stageIndex) => `<div class="topology-stage">
+        <span>${String(stageIndex + 1).padStart(2, "0")}</span>
+        <div><b>${escapeHtml(stage.name)}</b><small>${escapeHtml(stage.state)} · ${escapeHtml(stage.level)}</small></div>
+        <a href="${escapeHtml(stage.repo)}" target="_blank" rel="noopener">source ↗</a>
+      </div>`,
+    )
+    .join("");
+  return `<article class="topology-route">
+    <div class="topology-route-head"><span>${String(index + 1).padStart(2, "0")}</span><div><p>COMPOSITION ROUTE</p><h3>${escapeHtml(route.title)}</h3></div></div>
+    <div class="topology-stages">${stages}</div>
+    <p class="topology-outcome">${escapeHtml(route.outcome)}</p>
+    <small class="topology-boundary">Review/composition route. No runtime dependency is implied.</small>
+  </article>`;
+}
+
+function capabilityRoute(route) {
+  return `<article class="capability-route">
+    <div><p class="eyebrow">${escapeHtml(route.id)}</p><h3>${escapeHtml(route.title)}</h3><p>${escapeHtml(route.detail)}</p></div>
+    <ol>${route.systems
+      .map(
+        (system) => `<li><a href="${escapeHtml(system.repo)}" target="_blank" rel="noopener"><b>${escapeHtml(system.name)}</b><span>${escapeHtml(system.state)} · ${escapeHtml(system.level)}</span></a></li>`,
+      )
+      .join("")}</ol>
+  </article>`;
+}
+
 function renderHtml(map) {
   const lensSections = map.lenses
     .map(
@@ -162,6 +288,9 @@ function renderHtml(map) {
       </section>`,
     )
     .join("");
+
+  const topologyRoutes = map.topology.map(topologyRoute).join("");
+  const capabilityRoutes = map.capability_routes.map(capabilityRoute).join("");
 
   const roleRows = map.role_routes
     .map(
@@ -177,7 +306,7 @@ function renderHtml(map) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#03070a">
-  <meta name="description" content="Problem-centered map of GlacierEQ inventions, repositories, evidence, and current proof ceilings.">
+  <meta name="description" content="Problem-centered map of GlacierEQ inventions, cross-system workflows, repositories, evidence, and current proof ceilings.">
   <title>Casey Barton · Invention Evidence Map</title>
   <link rel="stylesheet" href="/assets/site.css">
   <link rel="stylesheet" href="/assets/site.systems.css">
@@ -189,9 +318,11 @@ function renderHtml(map) {
 </head>
 <body>
 <a class="skip" href="#main">Skip to invention map</a>
-<header class="site-header"><div class="shell nav"><a class="brand" href="/"><span class="mark">CB</span><span><strong>CASEY BARTON</strong><small>INVENTION EVIDENCE MAP</small></span></a><nav class="links" aria-label="Invention map navigation">${map.lenses.map((lens) => `<a href="#${escapeHtml(lens.id)}">${escapeHtml(lens.title)}</a>`).join("")}</nav><a class="nav-cta" href="/">Portfolio home</a></div></header>
+<header class="site-header"><div class="shell nav"><a class="brand" href="/"><span class="mark">CB</span><span><strong>CASEY BARTON</strong><small>INVENTION EVIDENCE MAP</small></span></a><nav class="links" aria-label="Invention map navigation"><a href="#topology">Topology</a><a href="#capabilities">Capabilities</a>${map.lenses.map((lens) => `<a href="#${escapeHtml(lens.id)}">${escapeHtml(lens.title)}</a>`).join("")}</nav><a class="nav-cta" href="/">Portfolio home</a></div></header>
 <main id="main" class="invention-main">
-<section class="invention-hero"><div class="shell"><p class="eyebrow">RECOVERED + COMPOSED · PROBLEM-CENTERED REVIEW</p><h1>Start with the problem. Follow the mechanism to its proof.</h1><p class="lead">The modern hiring surface keeps the strongest idea from the earlier invention constellation: repositories are useful only when a reviewer can see what problem they attack, how systems combine, what evidence exists, and where the current proof stops.</p><div class="invention-receipt"><span>Evidence policy</span><b>${escapeHtml(map.source.evidence_policy)}</b><span>Map receipt</span><code>${map.receipt_sha256.slice(0, 16)}</code></div></div></section>
+<section class="invention-hero"><div class="shell"><p class="eyebrow">RECOVERED + COMPOSED · PROBLEM-CENTERED REVIEW</p><h1>Start with the problem. Follow the mechanism to its proof.</h1><p class="lead">The modern hiring surface keeps the strongest idea from the earlier invention constellation: repositories are useful only when a reviewer can see what problem they attack, how systems combine, what evidence exists, and where the current proof stops.</p><div class="invention-receipt"><span>Evidence policy</span><b>${escapeHtml(map.source.evidence_policy)}</b><span>Map receipt</span><code>${map.receipt_sha256.slice(0, 16)}</code></div><div class="coverage-strip"><div><b>${map.coverage.routed_flagships}/${map.coverage.current_flagships}</b><span>current flagships routed</span></div><div><b>${map.coverage.workflow_routes}</b><span>cross-system review routes</span></div><div><b>${map.coverage.capability_routes}</b><span>capability routes</span></div><div><b>${map.coverage.problem_lenses}</b><span>problem lenses</span></div></div></div></section>
+<section id="topology" class="topology-section"><div class="shell"><div class="section-head"><div><p class="eyebrow">CROSS-REPOSITORY WORKFLOW TOPOLOGY</p><h2>See how independent systems combine without pretending they are one monolith.</h2></div><p>These routes recover the old workflow-map leverage while preserving the modern evidence boundary: composition is shown explicitly, repository ownership stays visible, and no runtime coupling is invented.</p></div><div class="topology-grid">${topologyRoutes}</div></div></section>
+<section id="capabilities" class="capability-section"><div class="shell"><div class="section-head"><div><p class="eyebrow">CAPABILITY → SYSTEM → PROOF</p><h2>Route from what a team needs to the systems that demonstrate it.</h2></div><p>This turns the estate back into a navigable capability graph instead of a flat repository list.</p></div><div class="capability-grid">${capabilityRoutes}</div></div></section>
 <div class="shell">${lensSections}</div>
 <section class="role-map"><div class="shell"><div class="section-head"><div><p class="eyebrow">ROLE → PROBLEM → REPOSITORY</p><h2>One estate, routed by the decision being made.</h2></div><p>This restores V13's role-to-repository evidence path without reviving its client-side runtime. Every route is generated from the current portfolio graph and deploys under the script-free public CSP.</p></div><div class="role-route-grid">${roleRows}</div></div></section>
 <section class="lineage"><div class="shell"><p class="eyebrow">RESTORATION LINEAGE</p><h2>Recovered mechanism, not reverted website.</h2><p>Donor <code>${map.restoration_lineage.donor_commit.slice(0, 12)}</code> → contraction <code>${map.restoration_lineage.contraction_commit.slice(0, 12)}</code>. Preserved later gains: ${map.restoration_lineage.preserved_later_gains.map(escapeHtml).join(" · ")}.</p><a class="button primary" href="/machine/">Inspect machine surface</a></div></section>
@@ -211,5 +342,8 @@ export async function renderInventionEvidenceMap() {
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const map = await renderInventionEvidenceMap();
-  console.log(`Rendered ${map.lenses.length} problem lenses; receipt ${map.receipt_sha256}`);
+  console.log(
+    `Rendered ${map.lenses.length} problem lenses, ${map.topology.length} topology routes, ` +
+      `${map.capability_routes.length} capability routes; receipt ${map.receipt_sha256}`,
+  );
 }
