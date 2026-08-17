@@ -101,12 +101,11 @@ function buildMap(portfolio) {
 
   const roleRoutes = portfolio.person.roles.map((role) => ({
     role,
-    route: lenses
-      .map((lens) => ({
-        lens_id: lens.id,
-        lens_title: lens.title,
-        systems: lens.systems.map(({ id, name, repo, state, level }) => ({ id, name, repo, state, level })),
-      })),
+    route: lenses.map((lens) => ({
+      lens_id: lens.id,
+      lens_title: lens.title,
+      systems: lens.systems.map(({ id, name, repo, state, level }) => ({ id, name, repo, state, level })),
+    })),
   }));
 
   const core = {
@@ -181,7 +180,10 @@ function renderHtml(map) {
   <meta name="description" content="Problem-centered map of GlacierEQ inventions, repositories, evidence, and current proof ceilings.">
   <title>Casey Barton · Invention Evidence Map</title>
   <link rel="stylesheet" href="/assets/site.css">
+  <link rel="stylesheet" href="/assets/site.systems.css">
   <link rel="stylesheet" href="/assets/site.complete.css">
+  <link rel="stylesheet" href="/assets/site.interaction.css">
+  <link rel="stylesheet" href="/assets/site.algerian.css">
   <link rel="stylesheet" href="/assets/site.inventions.css">
   <link rel="alternate" type="application/json" href="/data/invention-map.json" title="Machine-readable invention evidence map">
 </head>
