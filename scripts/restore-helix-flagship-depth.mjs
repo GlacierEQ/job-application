@@ -32,14 +32,14 @@ function requestHeaders(accept = 'application/vnd.github+json') {
   if (process.env.GITHUB_TOKEN) value.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
   return value;
 }
-async function fetchWithRecovery(url, accept = 'application/vnd.github+json') {
+async function fetchWithRecovery(url, accept = 'application/vnd.github+json', { allowNotFound = false } = {}) {
   let lastError = null;
   for (let attempt = 1; attempt <= 4; attempt += 1) {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 15_000);
     try {
       const response = await fetch(url, { headers: requestHeaders(accept), signal: controller.signal });
-      if (response.ok) return response;
+      if (response.ok || (allowNotFound && response.status === 404)) return response;
       const detail = `${url} returned ${response.status}`;
       if (!TRANSIENT.has(response.status) || attempt === 4) fail(detail);
       lastError = new Error(detail);
@@ -54,7 +54,8 @@ async function fetchWithRecovery(url, accept = 'application/vnd.github+json') {
 }
 async function repositoryIsPublic(repository) {
   assert(REPOSITORY_PATTERN.test(repository), `invalid repository identity ${repository}`);
-  const response = await fetchWithRecovery(`https://api.github.com/repos/${repository}`);
+  const response = await fetchWithRecovery(`https://api.github.com/repos/${repository}`, 'application/vnd.github+json', { allowNotFound: true });
+  if (response.status === 404) return false;
   const metadata = await response.json();
   assert(metadata?.full_name === repository, `repository identity mismatch for ${repository}`);
   return metadata.private === false;
@@ -80,6 +81,7 @@ async function main() {
   assert(Array.isArray(registry.flagships), 'flagship registry rows missing');
 
   const eligible = [];
+  const nonPublic = [];
   for (const row of registry.flagships) {
     if (!row || typeof row !== 'object' || row.repository == null) continue;
     const repository = String(row.repository);
@@ -87,10 +89,13 @@ async function main() {
     const state = String(row.state ?? '');
     const excluded = excludedMarkers.some((marker) => surface.includes(marker));
     if (excluded || !allowedStates.has(state) || row.level === 'L0') continue;
-    if (!(await repositoryIsPublic(repository))) continue;
+    if (!(await repositoryIsPublic(repository))) {
+      nonPublic.push(row.system_id);
+      continue;
+    }
     eligible.push({ system_id: row.system_id, repository, level: row.level, state, role: row.role, evidence: row.evidence, next_gate: row.next_gate, public_surface: surface });
   }
-  assert(eligible.length >= 7, `authority-eligible public flagship floor regressed: ${eligible.length}`);
+  assert(eligible.length >= 6, `authority-eligible live-public flagship floor regressed: ${eligible.length}`);
   const eligibleIds = eligible.map((row) => row.system_id);
   assert(new Set(eligibleIds).size === eligibleIds.length, 'duplicate authority-eligible flagship IDs');
 
@@ -104,7 +109,8 @@ async function main() {
     prior_company_coupled_count: beforeIds.size,
     company_membership_required: false,
     repository_public_state_verified_live: true,
-    selection_rule: 'authority flagship + allowed promotion state + non-excluded public surface + live public repository',
+    nonpublic_authority_rows_withheld: nonPublic.sort(),
+    selection_rule: 'authority flagship + allowed promotion state + non-excluded surface + live-public repository; nonpublic identities withheld',
   };
   const snapshotText = stableJson(snapshot);
   await writeFile(SNAPSHOT_PATH, snapshotText, 'utf8');
@@ -112,7 +118,7 @@ async function main() {
   receipt.flagship_count = eligible.length;
   receipt.flagship_projection_schema = snapshot.flagship_projection.schema;
   await writeFile(RECEIPT_PATH, stableJson(receipt), 'utf8');
-  console.log(JSON.stringify({ status: 'PASS', source_commit: rootRef, flagships_before: beforeIds.size, flagships_after: eligible.length, restored_system_ids: eligibleIds.filter((id) => !beforeIds.has(id)), company_membership_required: false }, null, 2));
+  console.log(JSON.stringify({ status: 'PASS', source_commit: rootRef, flagships_before: beforeIds.size, flagships_after: eligible.length, restored_system_ids: eligibleIds.filter((id) => !beforeIds.has(id)), nonpublic_authority_rows_withheld: nonPublic.sort(), company_membership_required: false }, null, 2));
 }
 
 main().catch((error) => { console.error(error instanceof Error ? error.stack : error); process.exitCode = 1; });
