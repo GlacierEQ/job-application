@@ -77,17 +77,23 @@ test('server-side selectors fail closed instead of broadening evidence', () => {
   assert.deepEqual(invalidCompany.companies, []);
 });
 
-test('rendered runtime preserves script-free proof, donor, machine, and company routes', () => {
+test('rendered runtime preserves script-free proof, donor, machine, drilldown, and company routes', () => {
   const map = runtime.buildMap(projection(24));
-  const selected = runtime.selection({ url: '/atlas/starmap/' }, map);
-  const html = runtime.renderHtml(map, selected);
-  assert.doesNotMatch(html, /<script(?:\s|>)/i);
-  assert.match(html, /V30-PROOF-STARMAP-RUNTIME/);
-  assert.match(html, /\/data\/proof-starmap\.json/);
-  assert.match(html, /\/companies\/company-000\//);
-  assert.match(html, /class="donor-edge"/);
-  assert.match(html, /CLAIM PROMOTED/);
-  assert.match(html, /server-rendered and fail closed/i);
+  const overview = runtime.renderHtml(map, runtime.selection({ url: '/atlas/starmap/' }, map));
+  assert.doesNotMatch(overview, /<script(?:\s|>)/i);
+  assert.match(overview, /V30-PROOF-STARMAP-RUNTIME/);
+  assert.match(overview, /\/data\/proof-starmap\.json/);
+  assert.match(overview, /\?company=company_000#detail/);
+  assert.match(overview, /class="donor-edge"/);
+  assert.match(overview, /CLAIM PROMOTED/);
+  assert.match(overview, /server-rendered and fail closed/i);
+
+  const detail = runtime.renderHtml(
+    map,
+    runtime.selection({ url: '/atlas/starmap/?company=company_000' }, map),
+  );
+  assert.match(detail, /\/companies\/company-000\//);
+  assert.match(detail, /Open full company route/);
 });
 
 test('runtime route ownership is narrow and CSS stays self-contained', () => {
