@@ -9,13 +9,14 @@ const titleFontProxy = require('./title-font-proxy.js');
 const monumentTitleProxy = require('./monument-title-proxy.js');
 const systemsAtlasProxy = require('./systems-atlas-proxy.js');
 const inventionsProxy = require('./inventions-proxy.js');
+const starmapProxy = require('./starmap-proxy.js');
 
 const PUBLIC_ORIGIN = 'https://casey-barton-glaciereq.vercel.app';
 const V26_ASSETS = new Set([
   'assets/title-algerian.woff2',
   'assets/site.title-font.css',
 ]);
-const ROUTE_SELECTOR_PARAMS = ['company', 'role', 'depth'];
+const ROUTE_SELECTOR_PARAMS = ['company', 'role', 'depth', 'stage'];
 
 function requestUrl(req) {
   return new URL(String(req?.url || '/'), 'https://glaciereq.invalid');
@@ -35,7 +36,7 @@ function seoPolicy(req, rawPath) {
   }
 
   let match = /^atlas\/([a-z0-9-]+)\/(index\.html|record\.json)$/.exec(filePath);
-  if (match) {
+  if (match && match[1] !== 'starmap') {
     const [, slug, leaf] = match;
     return {
       kind: 'redirect',
@@ -50,6 +51,14 @@ function seoPolicy(req, rawPath) {
       kind: 'html',
       canonical: `${PUBLIC_ORIGIN}/atlas/`,
       robots: 'index,follow',
+    };
+  }
+
+  if (filePath === 'atlas/starmap/index.html') {
+    return {
+      kind: 'html',
+      canonical: `${PUBLIC_ORIGIN}/atlas/starmap/`,
+      robots: hasRouteSelectors(req) ? 'noindex,follow' : 'index,follow',
     };
   }
 
@@ -99,7 +108,7 @@ function rewriteSitemapSeo(body) {
     '',
   );
   xml = xml.replace(
-    /\s*<url><loc>https:\/\/casey-barton-glaciereq\.vercel\.app\/atlas\/[a-z0-9-]+\/<\/loc>(?:<priority>[^<]*<\/priority>)?<\/url>/g,
+    /\s*<url><loc>https:\/\/casey-barton-glaciereq\.vercel\.app\/atlas\/(?!starmap\/)[a-z0-9-]+\/<\/loc>(?:<priority>[^<]*<\/priority>)?<\/url>/g,
     '',
   );
   return Buffer.from(xml.endsWith('\n') ? xml : `${xml}\n`);
@@ -176,6 +185,9 @@ module.exports = async function releaseRouter(req, res) {
   }
   if (rawPath === '__inventions_verify' || inventionsProxy.handles(rawPath)) {
     return inventionsProxy(req, res);
+  }
+  if (rawPath === '__starmap_verify' || starmapProxy.handles(rawPath)) {
+    return starmapProxy(req, res);
   }
   if (rawPath === '__v21_verify') return proxy(req, res);
   if (rawPath === '__design_verify') return designProxy(req, res);
