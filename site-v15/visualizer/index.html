@@ -12,67 +12,43 @@
   <link rel="stylesheet" href="/assets/site.systems.css">
   <link rel="stylesheet" href="/assets/site.complete.css">
   <link rel="stylesheet" href="/assets/site.interaction.css">
-  <style>
-    :root{--bg:#03070a;--panel:#081017;--border:rgba(0,230,180,.25);--cyan:#00f0ff;--mint:#00e6b4;--gold:#ffd166;--text:#e6f1f8;--muted:#88a2b5}
-    body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;margin:0;overflow-x:hidden}
-    .viz-header{padding:1.5rem 0;border-bottom:1px solid rgba(255,255,255,.08);background:rgba(3,7,10,.9);backdrop-filter:blur(12px);position:sticky;top:0;z-index:100}
-    .truth-bar{border-bottom:1px solid rgba(0,240,255,.16);background:#061016}
-    .truth-inner{display:flex;justify-content:space-between;gap:1rem;padding:.65rem 0;font-size:.76rem;letter-spacing:.05em;color:var(--muted)}
-    .truth-inner strong{color:var(--mint)}
-    .viz-layout{display:grid;grid-template-columns:minmax(0,1fr) 390px;gap:1.5rem;padding:1.5rem 0 3rem;min-height:calc(100vh - 180px)}
-    @media(max-width:960px){.viz-layout{grid-template-columns:1fr}.truth-inner{flex-direction:column}.canvas-overlay{flex-wrap:wrap}}
-    .canvas-container{background:#020406;border:1px solid var(--border);border-radius:12px;position:relative;overflow:hidden;min-height:560px;box-shadow:0 8px 32px rgba(0,0,0,.6),inset 0 0 80px rgba(0,230,180,.03)}
-    canvas{width:100%;height:100%;display:block;cursor:pointer}
-    .canvas-overlay{position:absolute;top:16px;left:16px;right:16px;display:flex;gap:10px;pointer-events:none;z-index:10}
-    .pill{background:rgba(8,16,23,.9);border:1px solid rgba(0,240,255,.28);border-radius:20px;padding:6px 12px;font-size:.74rem;color:var(--cyan);backdrop-filter:blur(8px)}
-    .pill b{color:#fff}
-    .sidebar{display:flex;flex-direction:column;gap:1rem}
-    .panel{background:var(--panel);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:1.25rem}
-    .panel h3{margin:0 0 1rem;font-size:.9rem;text-transform:uppercase;letter-spacing:.08em;color:var(--cyan);display:flex;justify-content:space-between;gap:1rem;align-items:center}
-    .node-title{font-size:1.15rem;font-weight:750;color:#fff;margin-bottom:.5rem}.node-desc{font-size:.84rem;color:var(--muted);line-height:1.55;margin-bottom:1rem}
-    .metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1rem}.metric{background:rgba(0,0,0,.28);padding:9px 10px;border-radius:6px;border:1px solid rgba(255,255,255,.05)}
-    .metric small{display:block;font-size:.66rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}.metric span{font-size:.88rem;font-weight:650;color:var(--mint)}
-    .evidence-link{display:inline-flex;align-items:center;gap:.45rem;text-decoration:none;color:#071012;background:var(--mint);font-size:.78rem;font-weight:800;padding:.6rem .8rem;border-radius:7px}.evidence-link:focus-visible{outline:3px solid #fff;outline-offset:3px}
-    .receipt-list{display:flex;flex-direction:column;gap:.6rem}.receipt{padding:.7rem;border-left:2px solid var(--gold);background:rgba(0,0,0,.25);font-size:.76rem;line-height:1.45;color:var(--muted)}.receipt b{display:block;color:var(--gold);margin-bottom:.2rem}
-    .boundary{font-size:.74rem;line-height:1.55;color:var(--muted);margin:0}.boundary strong{color:#fff}
-  </style>
+  <link rel="stylesheet" href="/assets/site.visualizer.css">
 </head>
 <body>
-  <div class="truth-bar"><div class="shell truth-inner"><strong>EVIDENCE-BOUND ARCHITECTURE EXPLORER</strong><span>Interactive topology · repository-linked · deterministic presentation · not live operational telemetry</span></div></div>
-  <header class="site-header viz-header"><div class="shell nav"><a class="brand" href="/" aria-label="Casey Barton portfolio home"><span class="mark">CB</span><span><strong>CASEY BARTON</strong><small>ARCHITECTURE EVIDENCE EXPLORER</small></span></a><nav class="links" aria-label="Primary navigation"><a href="/">Recruiter</a><a href="/master/">Master</a><a href="/mesh/">Mesh</a><a href="/visualizer/" aria-current="page">Visualizer</a><a href="/resume/">Résumé</a></nav><a class="nav-cta" href="https://github.com/GlacierEQ" target="_blank" rel="noopener">Open source estate</a></div></header>
-  <main class="shell"><div class="viz-layout">
-    <section class="canvas-container" id="canvas-container" aria-label="Interactive GlacierEQ architecture topology">
-      <div class="canvas-overlay"><div class="pill">Mode: <b>Evidence Map</b></div><div class="pill">Nodes: <b>7 system families</b></div><div class="pill">Motion: <b>visual only</b></div></div>
-      <canvas id="viz-canvas" role="img" aria-label="Interactive system relationship graph. Select a node for repository evidence."></canvas>
+  <div class="visualizer-truth-bar"><div class="shell visualizer-truth-inner"><strong>EVIDENCE-BOUND ARCHITECTURE EXPLORER</strong><span>Interactive topology · repository-linked · deterministic presentation · not live operational telemetry</span></div></div>
+  <header class="site-header visualizer-header"><div class="shell nav"><a class="brand" href="/" aria-label="Casey Barton portfolio home"><span class="mark">CB</span><span><strong>CASEY BARTON</strong><small>ARCHITECTURE EVIDENCE EXPLORER</small></span></a><nav class="links" aria-label="Primary navigation"><a href="/">Recruiter</a><a href="/master/">Master</a><a href="/mesh/">Mesh</a><a href="/visualizer/" aria-current="page">Visualizer</a><a href="/resume/">Résumé</a></nav><a class="nav-cta" href="https://github.com/GlacierEQ" target="_blank" rel="noopener">Open source estate</a></div></header>
+  <main class="shell visualizer-main">
+    <section class="visualizer-intro"><p class="eyebrow">SYSTEM COMPOSITION · SOURCE EVIDENCE · CLAIM BOUNDARIES</p><h1>See the architecture. Follow the evidence.</h1><p class="lead">This map explains how GlacierEQ system families compose while keeping runtime truth separate from presentation. Every node routes to repository evidence. Relationships describe architecture, not invented production health.</p></section>
+    <div class="visualizer-layout">
+      <section class="visualizer-map" aria-labelledby="map-title"><div class="visualizer-map-head"><div><p class="eyebrow">TOPOLOGY</p><h2 id="map-title">GlacierEQ composition graph</h2></div><div class="visualizer-pills"><span>7 system families</span><span>10 composition edges</span><span>0 synthetic health events</span></div></div>
+        <svg class="architecture-svg" viewBox="0 0 900 620" role="img" aria-labelledby="map-svg-title map-svg-desc">
+          <title id="map-svg-title">GlacierEQ system relationship graph</title><desc id="map-svg-desc">Seven evidence-linked system families connected by architecture composition relationships. Select a node to jump to its evidence card.</desc>
+          <g class="architecture-edges" aria-hidden="true"><path d="M450 285 L225 175"/><path d="M450 285 L200 390"/><path d="M450 285 L355 500"/><path d="M450 285 L690 165"/><path d="M450 285 L710 385"/><path d="M450 285 L555 505"/><path d="M225 175 L555 505"/><path d="M200 390 L355 500"/><path d="M690 165 L710 385"/><path d="M710 385 L555 505"/></g>
+          <a class="architecture-node node-core" href="#system-helix"><circle cx="450" cy="285" r="58"/><text x="450" y="278">Job App</text><text x="450" y="302">Helix</text></a>
+          <a class="architecture-node node-projection" href="#system-application"><circle cx="225" cy="175" r="48"/><text x="225" y="170">Job</text><text x="225" y="193">Application</text></a>
+          <a class="architecture-node node-execution" href="#system-akos"><circle cx="200" cy="390" r="45"/><text x="200" y="397">AKOS</text></a>
+          <a class="architecture-node node-state" href="#system-echo"><circle cx="355" cy="500" r="43"/><text x="355" y="507">ECHO</text></a>
+          <a class="architecture-node node-language" href="#system-babel"><circle cx="690" cy="165" r="47"/><text x="690" y="158">Tower of</text><text x="690" y="181">Babel</text></a>
+          <a class="architecture-node node-procode" href="#system-procode"><circle cx="710" cy="385" r="46"/><text x="710" y="379">Pro-Code</text><text x="710" y="402">Pair</text></a>
+          <a class="architecture-node node-estate" href="#system-estate"><circle cx="555" cy="505" r="49"/><text x="555" y="499">GlacierEQ</text><text x="555" y="522">Estate</text></a>
+        </svg>
+        <p class="visualizer-map-note">Node selection uses native document anchors. No client runtime, fake polling, random events, or synthetic telemetry is required.</p>
+      </section>
+      <aside class="visualizer-sidebar">
+        <section class="visualizer-panel"><h2>Evidence semantics</h2><dl class="semantic-list"><div><dt>SOURCE OBSERVED</dt><dd>A repository/project source exists and anchors the node.</dd></div><div><dt>ARCHITECTURE ROLE</dt><dd>Edges show intended composition, not guaranteed live connectivity.</dd></div><div><dt>NO SYNTHETIC HEALTH</dt><dd>No invented latency, HTTP status, credential state, or randomized execution log.</dd></div></dl></section>
+        <section class="visualizer-panel"><h2>Proof boundary</h2><p>Operational status belongs on exact test receipts, deployment readbacks, runtime probes, and source-linked evidence. A diagram does not promote itself into execution proof.</p></section>
+      </aside>
+    </div>
+    <section class="system-evidence-grid" aria-labelledby="evidence-title"><div class="section-head"><p class="eyebrow">SYSTEM EVIDENCE</p><h2 id="evidence-title">Inspect the system families</h2></div>
+      <details class="system-card" id="system-helix" data-system-node="helix" open><summary><span>Job App Helix</span><b>SOURCE OBSERVED</b></summary><p>Job-ecosystem intelligence, restoration, evidence projection, and application orchestration.</p><dl><div><dt>Role</dt><dd>Orchestration</dd></div><div><dt>Boundary</dt><dd>Repository evidence</dd></div></dl><a href="https://github.com/GlacierEQ/job-app-helix" target="_blank" rel="noopener">Inspect repository evidence ↗</a></details>
+      <details class="system-card" id="system-application" data-system-node="application"><summary><span>Job Application</span><b>SOURCE OBSERVED</b></summary><p>Recruiter-facing application, evidence maps, company surfaces, release routing, and portfolio projections.</p><dl><div><dt>Role</dt><dd>Projection</dd></div><div><dt>Boundary</dt><dd>Public evidence</dd></div></dl><a href="https://github.com/GlacierEQ/job-application" target="_blank" rel="noopener">Inspect repository evidence ↗</a></details>
+      <details class="system-card" id="system-akos" data-system-node="akos"><summary><span>AKOS Runtime</span><b>SOURCE OBSERVED</b></summary><p>Agent/runtime execution architecture and capability substrate used across GlacierEQ engineering work.</p><dl><div><dt>Role</dt><dd>Execution</dd></div><div><dt>Boundary</dt><dd>Repository evidence</dd></div></dl><a href="https://github.com/GlacierEQ/AKOS" target="_blank" rel="noopener">Inspect repository evidence ↗</a></details>
+      <details class="system-card" id="system-echo" data-system-node="echo"><summary><span>ECHO Continuity</span><b>SOURCE OBSERVED</b></summary><p>Continuity and state-survival mechanisms for retaining execution context across boundaries.</p><dl><div><dt>Role</dt><dd>State continuity</dd></div><div><dt>Boundary</dt><dd>Repository evidence</dd></div></dl><a href="https://github.com/GlacierEQ/ECHO" target="_blank" rel="noopener">Inspect repository evidence ↗</a></details>
+      <details class="system-card" id="system-babel" data-system-node="babel"><summary><span>Tower of Babel</span><b>SOURCE OBSERVED</b></summary><p>Language/runtime boundary exploration and polyglot engineering mechanisms.</p><dl><div><dt>Role</dt><dd>Boundary fitness</dd></div><div><dt>Boundary</dt><dd>Repository evidence</dd></div></dl><a href="https://github.com/GlacierEQ/the-tower-of-babel" target="_blank" rel="noopener">Inspect repository evidence ↗</a></details>
+      <details class="system-card" id="system-procode" data-system-node="procode"><summary><span>Pro-Code Pair</span><b>SOURCE OBSERVED</b></summary><p>Intentional paired engineering systems, Pro_Code and pro-code, preserving distinct architectural roles.</p><dl><div><dt>Role</dt><dd>Capability pair</dd></div><div><dt>Boundary</dt><dd>Repository evidence</dd></div></dl><a href="https://github.com/GlacierEQ" target="_blank" rel="noopener">Inspect repository estate ↗</a></details>
+      <details class="system-card" id="system-estate" data-system-node="estate"><summary><span>GlacierEQ Estate</span><b>SOURCE OBSERVED</b></summary><p>The broader repository estate supplying donor mechanisms, application evidence, and composable systems.</p><dl><div><dt>Role</dt><dd>Composition</dd></div><div><dt>Boundary</dt><dd>Public/private varies</dd></div></dl><a href="https://github.com/GlacierEQ" target="_blank" rel="noopener">Inspect repository estate ↗</a></details>
     </section>
-    <aside class="sidebar">
-      <section class="panel" id="node-inspector"><h3><span>System inspector</span><small>SELECT NODE</small></h3><div class="node-title" id="node-title"></div><div class="node-desc" id="node-desc"></div><div class="metrics"><div class="metric"><small>Evidence state</small><span id="m-state"></span></div><div class="metric"><small>Surface</small><span id="m-surface"></span></div><div class="metric"><small>Role</small><span id="m-role"></span></div><div class="metric"><small>Claim boundary</small><span id="m-boundary"></span></div></div><a class="evidence-link" id="evidence-link" target="_blank" rel="noopener">Inspect repository evidence ↗</a></section>
-      <section class="panel"><h3><span>Evidence semantics</span></h3><div class="receipt-list"><div class="receipt"><b>SOURCE OBSERVED</b>Repository source or public project surface exists and is the evidence anchor for this node.</div><div class="receipt"><b>ARCHITECTURE ROLE</b>The graph describes how systems are intended to compose. It does not assert that every edge is live in production.</div><div class="receipt"><b>NO SYNTHETIC HEALTH</b>No randomized logs, fake latency, invented HTTP health, credential state, or simulated execution status is displayed.</div></div></section>
-      <section class="panel"><p class="boundary"><strong>Why this boundary exists:</strong> an architecture visualizer should make a complex estate legible without laundering a drawing into runtime proof. Operational claims belong on exact receipts, tests, deployment readbacks, and repository evidence surfaces.</p></section>
-    </aside>
-  </div></main>
-  <script>
-    (() => {
-      const container = document.getElementById('canvas-container');
-      const canvas = document.getElementById('viz-canvas');
-      const ctx = canvas.getContext('2d');
-      const nodes = [
-        {id:'helix',label:'Job App Helix',x:.50,y:.46,r:29,color:'#00f0ff',desc:'Job-ecosystem intelligence, restoration, evidence projection, and application orchestration.',state:'SOURCE OBSERVED',surface:'Python + workflows',role:'Orchestration',boundary:'Repo evidence',url:'https://github.com/GlacierEQ/job-app-helix'},
-        {id:'application',label:'Job Application',x:.27,y:.29,r:24,color:'#00e6b4',desc:'Recruiter-facing application, evidence maps, company surfaces, release routing, and portfolio projections.',state:'SOURCE OBSERVED',surface:'Web + release runtime',role:'Projection',boundary:'Public evidence',url:'https://github.com/GlacierEQ/job-application'},
-        {id:'akos',label:'AKOS Runtime',x:.23,y:.61,r:21,color:'#ffd166',desc:'Agent/runtime execution architecture and capability substrate used across GlacierEQ engineering work.',state:'SOURCE OBSERVED',surface:'Runtime',role:'Execution',boundary:'Repo evidence',url:'https://github.com/GlacierEQ/AKOS'},
-        {id:'echo',label:'ECHO Continuity',x:.40,y:.75,r:20,color:'#ff5c8a',desc:'Continuity and state-survival mechanisms for retaining execution context across boundaries.',state:'SOURCE OBSERVED',surface:'Continuity',role:'State',boundary:'Repo evidence',url:'https://github.com/GlacierEQ/ECHO'},
-        {id:'babel',label:'Tower of Babel',x:.76,y:.29,r:23,color:'#a277ff',desc:'Language/runtime boundary exploration and polyglot engineering mechanisms.',state:'SOURCE OBSERVED',surface:'Polyglot systems',role:'Boundary fitness',boundary:'Repo evidence',url:'https://github.com/GlacierEQ/the-tower-of-babel'},
-        {id:'procode',label:'Pro-Code Pair',x:.78,y:.59,r:22,color:'#00e6b4',desc:'Intentional paired engineering systems: Pro_Code and pro-code, preserving distinct architectural roles.',state:'SOURCE OBSERVED',surface:'Engineering systems',role:'Capability pair',boundary:'Repo evidence',url:'https://github.com/GlacierEQ'},
-        {id:'estate',label:'GlacierEQ Estate',x:.62,y:.76,r:23,color:'#00f0ff',desc:'The broader repository estate that supplies donor mechanisms, application evidence, and composable systems.',state:'SOURCE OBSERVED',surface:'Repository estate',role:'Composition',boundary:'Public/private varies',url:'https://github.com/GlacierEQ'}
-      ];
-      const edges=[['helix','application'],['helix','akos'],['helix','echo'],['helix','babel'],['helix','procode'],['helix','estate'],['application','estate'],['akos','echo'],['babel','procode'],['procode','estate']];
-      let selected=nodes[0];
-      function fit(){const dpr=Math.max(1,window.devicePixelRatio||1);canvas.width=Math.round(container.clientWidth*dpr);canvas.height=Math.round(container.clientHeight*dpr);canvas.style.width=`${container.clientWidth}px`;canvas.style.height=`${container.clientHeight}px`;ctx.setTransform(dpr,0,0,dpr,0,0);draw()}
-      function draw(){const w=container.clientWidth,h=container.clientHeight;ctx.clearRect(0,0,w,h);edges.forEach(([a,b])=>{const s=nodes.find(n=>n.id===a),t=nodes.find(n=>n.id===b);ctx.beginPath();ctx.moveTo(s.x*w,s.y*h);ctx.lineTo(t.x*w,t.y*h);ctx.strokeStyle='rgba(0,240,255,.18)';ctx.lineWidth=1.5;ctx.stroke()});nodes.forEach(n=>{const x=n.x*w,y=n.y*h,active=n.id===selected.id;ctx.beginPath();ctx.arc(x,y,n.r+(active?8:4),0,Math.PI*2);ctx.fillStyle=active?'rgba(0,240,255,.20)':'rgba(255,255,255,.04)';ctx.fill();ctx.beginPath();ctx.arc(x,y,n.r,0,Math.PI*2);ctx.fillStyle=n.color;ctx.shadowColor=n.color;ctx.shadowBlur=active?16:8;ctx.fill();ctx.shadowBlur=0;ctx.fillStyle='#fff';ctx.font='600 12px -apple-system,sans-serif';ctx.textAlign='center';ctx.fillText(n.label,x,y+n.r+17)})}
-      function inspect(n){selected=n;document.getElementById('node-title').textContent=n.label;document.getElementById('node-desc').textContent=n.desc;document.getElementById('m-state').textContent=n.state;document.getElementById('m-surface').textContent=n.surface;document.getElementById('m-role').textContent=n.role;document.getElementById('m-boundary').textContent=n.boundary;const link=document.getElementById('evidence-link');link.href=n.url;link.setAttribute('aria-label',`Inspect repository evidence for ${n.label}`);draw()}
-      canvas.addEventListener('click',e=>{const rect=canvas.getBoundingClientRect(),mx=e.clientX-rect.left,my=e.clientY-rect.top,w=container.clientWidth,h=container.clientHeight;const hit=nodes.find(n=>Math.hypot(mx-n.x*w,my-n.y*h)<=n.r+12);if(hit)inspect(hit)});
-      window.addEventListener('resize',fit);inspect(selected);fit();
-    })();
-  </script>
+  </main>
+  <footer class="site-footer"><div class="shell"><p>Casey Barton · Honolulu · evidence-bound systems engineering</p></div></footer>
 </body>
 </html>
