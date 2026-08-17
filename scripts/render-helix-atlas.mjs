@@ -351,9 +351,6 @@ async function main() {
     }
     requireSecondDepth(company);
   }
-  if (companies.length > 512) {
-    throw new Error("constellation supports at most 512 governed company positions");
-  }
 
   const publicMemberships = companies.reduce((count, company) => count + company.repositories.length, 0);
   const rich = companies.filter((company) => evidenceState(company) === "repository-rich").length;
