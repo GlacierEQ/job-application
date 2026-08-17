@@ -1,0 +1,45 @@
+name: V29 Workflow Topology
+
+on:
+  pull_request:
+    paths:
+      - 'deployment/vercel-source-bridge/api/workflow-topology-proxy.js'
+      - 'deployment/vercel-source-bridge/workflow-topology-proxy.test.js'
+      - 'deployment/vercel-source-bridge/api/release-router.js'
+      - 'package.json'
+      - '.github/workflows/v29-workflow-topology.yml'
+  push:
+    branches:
+      - apex/v29-current-main-recovery-20260817
+    paths:
+      - 'deployment/vercel-source-bridge/api/workflow-topology-proxy.js'
+      - 'deployment/vercel-source-bridge/workflow-topology-proxy.test.js'
+      - 'deployment/vercel-source-bridge/api/release-router.js'
+      - 'package.json'
+      - '.github/workflows/v29-workflow-topology.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  prove:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Run V29 adversarial topology proof
+        run: npm run test:workflow-topology
+      - name: Parse production router
+        run: node --check deployment/vercel-source-bridge/api/release-router.js
+      - name: Enforce recovered public boundary
+        run: |
+          grep -q 'V29-WORKFLOW-TOPOLOGY-RUNTIME' deployment/vercel-source-bridge/api/workflow-topology-proxy.js
+          grep -q 'workflowTopologyProxy.handles' deployment/vercel-source-bridge/api/release-router.js
+          ! grep -ni '<script\b' deployment/vercel-source-bridge/api/workflow-topology-proxy.js
