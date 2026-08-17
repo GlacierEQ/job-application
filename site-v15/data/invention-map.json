@@ -1,0 +1,1170 @@
+{
+  "schema": "glaciereq.invention-evidence-map.v2",
+  "source": {
+    "portfolio": "site-v15/data/portfolio.json",
+    "evidence_policy": "claims-do-not-exceed-owning-repository-receipts",
+    "release_name": "Unified Helix-Bound Hire Surface",
+    "production_url": "https://casey-barton-glaciereq.vercel.app/"
+  },
+  "restoration_lineage": {
+    "donor_commit": "901fe77d2c6015feb1650133b751efff8aa0d24c",
+    "contraction_commit": "61042c4018db90589715fe1c7f6a2c58879ac2b2",
+    "recovered_mechanisms": [
+      "problem-centered invention discovery",
+      "repository-to-evidence routing",
+      "cross-system review combinations",
+      "role-to-repository evidence map",
+      "cross-repository workflow topology",
+      "capability-to-system proof routing"
+    ],
+    "preserved_later_gains": [
+      "script-free public CSP",
+      "current Helix-bound evidence policy",
+      "V21+ proof surfaces",
+      "V25 application compiler and later deployment stack"
+    ]
+  },
+  "coverage": {
+    "current_flagships": 9,
+    "routed_flagships": 8,
+    "route_coverage_ratio": 0.8889,
+    "problem_lenses": 5,
+    "workflow_routes": 4,
+    "capability_routes": 6,
+    "role_routes": 4
+  },
+  "lenses": [
+    {
+      "id": "application-intelligence",
+      "title": "Application intelligence",
+      "question": "How do you turn scattered role, repository, proof, and follow-up state into one usable hiring system?",
+      "systems": [
+        {
+          "id": "helix",
+          "rank": 1,
+          "name": "Job Application Helix",
+          "repo": "https://github.com/GlacierEQ/job-app-helix",
+          "state": "PROMOTED",
+          "label": "Estate-promoted public system",
+          "summary": "Canonical release control plane",
+          "mechanism": [],
+          "evidence": "148/148 plus lint, Protobuf, rollout, provenance and public-surface checks.",
+          "limit": "Next gate: Refresh exact current-SHA receipt and generate all company dossiers.",
+          "level": "L5",
+          "public_surface": "PUBLIC"
+        },
+        {
+          "id": "job-application",
+          "rank": 7,
+          "name": "Job Application Portal",
+          "repo": "https://github.com/GlacierEQ/job-application",
+          "state": "PROMOTED",
+          "label": "Estate-promoted public system",
+          "summary": "Canonical recruiter/runtime source",
+          "mechanism": [],
+          "evidence": "Strong public/private contract and release-candidate website checks.",
+          "limit": "Next gate: Bind production bytes to canonical Git SHA.",
+          "level": "L4",
+          "public_surface": "PUBLIC"
+        },
+        {
+          "id": "receipt-router",
+          "rank": 8,
+          "name": "Portfolio Receipt Router",
+          "repo": "https://github.com/GlacierEQ/xai-colossus-2",
+          "state": "TEST_VERIFIED",
+          "label": "Executed public flagship",
+          "summary": "Replaced an overstated autonomous-control surface with a local, fail-closed evidence router that preserves compatibility while refusing unsupported promotion.",
+          "mechanism": [
+            "validates source evidence states",
+            "reconciles tests and artifacts",
+            "routes bounded public claims",
+            "blocks unfinished candidates",
+            "performs no external actions"
+          ],
+          "evidence": "69/69 tests recorded in current-proof supporting_proof; local cold unittest path uses pytest.",
+          "limit": "Draft source hardening remains unmerged; no production datacenter control or company affiliation is claimed.",
+          "level": "LEGACY_DEMO",
+          "public_surface": "PUBLIC"
+        }
+      ]
+    },
+    {
+      "id": "agent-assurance",
+      "title": "Dependable agent operations",
+      "question": "How do you let capable agents act without collapsing authority, replay safety, recovery, and evidence?",
+      "systems": [
+        {
+          "id": "akos",
+          "rank": 2,
+          "name": "AKOS Authority Runtime",
+          "repo": "https://github.com/GlacierEQ/AKOS",
+          "state": "PROMOTED",
+          "label": "Estate-promoted public system",
+          "summary": "Authority/evidence/tool-state/closure runtime",
+          "mechanism": [],
+          "evidence": "Diligence records 118/118 per interpreter, 10/10 Forge, 4/4 PSYSOC-X.",
+          "limit": "Next gate: Current connector/artifact lifecycle receipts; isolate case-specific paths.",
+          "level": "L5",
+          "public_surface": "PUBLIC_ALLOWLIST_REQUIRED"
+        },
+        {
+          "id": "sigma-glue",
+          "rank": 5,
+          "name": "Sigma Glue Orchestration",
+          "repo": "https://github.com/GlacierEQ/sigma-glue",
+          "state": "PROMOTED",
+          "label": "Estate-promoted public system",
+          "summary": "Reversible approval-bound orchestration with provider ambiguity recovery",
+          "mechanism": [],
+          "evidence": "Canonical 4a1ca8e5: 140/140 Node 22 tests; live GitHub Contents canary performed 2 writes/5 reads, recovered a deliberately lost success response to confirmed_applied, preserved restart-readable recovery evidence, and blocked replay before a third write.",
+          "limit": "Next gate: Add a second real provider contract and multi-host coordination before any distributed or provider-transactional exactly-once claim.",
+          "level": "L4",
+          "public_surface": "PUBLIC"
+        },
+        {
+          "id": "doctor-strange",
+          "rank": 3,
+          "name": "Doctor Strange Convergence",
+          "repo": "https://github.com/GlacierEQ/Pro-DOCTOR-STRANGE",
+          "state": "PROMOTED",
+          "label": "Estate-promoted public system",
+          "summary": "Independent-reader convergence authority",
+          "mechanism": [],
+          "evidence": "11/11 tests and cryptographic Receipt Zero replay; no fake consensus.",
+          "limit": "Next gate: Add independent providers and 20-run pilot before multi-provider claims.",
+          "level": "L4",
+          "public_surface": "PUBLIC"
+        }
+      ]
+    },
+    {
+      "id": "evidence-verification",
+      "title": "Evidence and verification",
+      "question": "How do you make technical claims inspectable without confusing source presence with reproduced proof?",
+      "systems": [
+        {
+          "id": "receipt-router",
+          "rank": 8,
+          "name": "Portfolio Receipt Router",
+          "repo": "https://github.com/GlacierEQ/xai-colossus-2",
+          "state": "TEST_VERIFIED",
+          "label": "Executed public flagship",
+          "summary": "Replaced an overstated autonomous-control surface with a local, fail-closed evidence router that preserves compatibility while refusing unsupported promotion.",
+          "mechanism": [
+            "validates source evidence states",
+            "reconciles tests and artifacts",
+            "routes bounded public claims",
+            "blocks unfinished candidates",
+            "performs no external actions"
+          ],
+          "evidence": "69/69 tests recorded in current-proof supporting_proof; local cold unittest path uses pytest.",
+          "limit": "Draft source hardening remains unmerged; no production datacenter control or company affiliation is claimed.",
+          "level": "LEGACY_DEMO",
+          "public_surface": "PUBLIC"
+        },
+        {
+          "id": "doctor-strange",
+          "rank": 3,
+          "name": "Doctor Strange Convergence",
+          "repo": "https://github.com/GlacierEQ/Pro-DOCTOR-STRANGE",
+          "state": "PROMOTED",
+          "label": "Estate-promoted public system",
+          "summary": "Independent-reader convergence authority",
+          "mechanism": [],
+          "evidence": "11/11 tests and cryptographic Receipt Zero replay; no fake consensus.",
+          "limit": "Next gate: Add independent providers and 20-run pilot before multi-provider claims.",
+          "level": "L4",
+          "public_surface": "PUBLIC"
+        },
+        {
+          "id": "job-application",
+          "rank": 7,
+          "name": "Job Application Portal",
+          "repo": "https://github.com/GlacierEQ/job-application",
+          "state": "PROMOTED",
+          "label": "Estate-promoted public system",
+          "summary": "Canonical recruiter/runtime source",
+          "mechanism": [],
+          "evidence": "Strong public/private contract and release-candidate website checks.",
+          "limit": "Next gate: Bind production bytes to canonical Git SHA.",
+          "level": "L4",
+          "public_surface": "PUBLIC"
+        }
+      ]
+    },
+    {
+      "id": "architecture-federation",
+      "title": "Architecture and federation",
+      "question": "How do independent systems compose without erasing ownership, boundaries, or failure semantics?",
+      "systems": [
+        {
+          "id": "tower-of-babel",
+          "rank": 4,
+          "name": "Tower of Babel",
+          "repo": "https://github.com/GlacierEQ/the-tower-of-babel",
+          "state": "REFERENCE_ONLY",
+          "label": "Public reference surface",
+          "summary": "Governed polyglot architecture",
+          "mechanism": [],
+          "evidence": "A- verified-with-hardening; external production references separate from local proof.",
+          "limit": "Next gate: Close Issue #26 and regenerate derived surfaces.",
+          "level": "L4",
+          "public_surface": "PUBLIC"
+        },
+        {
+          "id": "pro-code-runtime",
+          "rank": 6,
+          "name": "Pro-Code Runtime",
+          "repo": "https://github.com/GlacierEQ/pro-code",
+          "state": "REFERENCE_ONLY",
+          "label": "Public reference surface",
+          "summary": "Polyglot runtime implementation",
+          "mechanism": [],
+          "evidence": "Python/TypeScript planes passed; Rust/Haskell blocked.",
+          "limit": "Next gate: Pinned all-language CI and root license.",
+          "level": "L4",
+          "public_surface": "PUBLIC"
+        },
+        {
+          "id": "sigma-glue",
+          "rank": 5,
+          "name": "Sigma Glue Orchestration",
+          "repo": "https://github.com/GlacierEQ/sigma-glue",
+          "state": "PROMOTED",
+          "label": "Estate-promoted public system",
+          "summary": "Reversible approval-bound orchestration with provider ambiguity recovery",
+          "mechanism": [],
+          "evidence": "Canonical 4a1ca8e5: 140/140 Node 22 tests; live GitHub Contents canary performed 2 writes/5 reads, recovered a deliberately lost success response to confirmed_applied, preserved restart-readable recovery evidence, and blocked replay before a third write.",
+          "limit": "Next gate: Add a second real provider contract and multi-host coordination before any distributed or provider-transactional exactly-once claim.",
+          "level": "L4",
+          "public_surface": "PUBLIC"
+        }
+      ]
+    },
+    {
+      "id": "human-machine",
+      "title": "Human and machine review surfaces",
+      "question": "How do recruiters, engineers, and machines inspect different depths of one factual system without truth drift?",
+      "systems": [
+        {
+          "id": "job-application",
+          "rank": 7,
+          "name": "Job Application Portal",
+          "repo": "https://github.com/GlacierEQ/job-application",
+          "state": "PROMOTED",
+          "label": "Estate-promoted public system",
+          "summary": "Canonical recruiter/runtime source",
+          "mechanism": [],
+          "evidence": "Strong public/private contract and release-candidate website checks.",
+          "limit": "Next gate: Bind production bytes to canonical Git SHA.",
+          "level": "L4",
+          "public_surface": "PUBLIC"
+        },
+        {
+          "id": "helix",
+          "rank": 1,
+          "name": "Job Application Helix",
+          "repo": "https://github.com/GlacierEQ/job-app-helix",
+          "state": "PROMOTED",
+          "label": "Estate-promoted public system",
+          "summary": "Canonical release control plane",
+          "mechanism": [],
+          "evidence": "148/148 plus lint, Protobuf, rollout, provenance and public-surface checks.",
+          "limit": "Next gate: Refresh exact current-SHA receipt and generate all company dossiers.",
+          "level": "L5",
+          "public_surface": "PUBLIC"
+        },
+        {
+          "id": "akos",
+          "rank": 2,
+          "name": "AKOS Authority Runtime",
+          "repo": "https://github.com/GlacierEQ/AKOS",
+          "state": "PROMOTED",
+          "label": "Estate-promoted public system",
+          "summary": "Authority/evidence/tool-state/closure runtime",
+          "mechanism": [],
+          "evidence": "Diligence records 118/118 per interpreter, 10/10 Forge, 4/4 PSYSOC-X.",
+          "limit": "Next gate: Current connector/artifact lifecycle receipts; isolate case-specific paths.",
+          "level": "L5",
+          "public_surface": "PUBLIC_ALLOWLIST_REQUIRED"
+        }
+      ]
+    }
+  ],
+  "topology": [
+    {
+      "id": "role-to-package",
+      "title": "Role signal → application package",
+      "outcome": "Role evidence is routed through application state into a public package whose claims remain bounded by proof.",
+      "relationship": "review_and_composition_route_not_runtime_dependency",
+      "stages": [
+        {
+          "id": "helix",
+          "name": "Job Application Helix",
+          "repo": "https://github.com/GlacierEQ/job-app-helix",
+          "state": "PROMOTED",
+          "level": "L5",
+          "evidence": "148/148 plus lint, Protobuf, rollout, provenance and public-surface checks.",
+          "limit": "Next gate: Refresh exact current-SHA receipt and generate all company dossiers."
+        },
+        {
+          "id": "job-application",
+          "name": "Job Application Portal",
+          "repo": "https://github.com/GlacierEQ/job-application",
+          "state": "PROMOTED",
+          "level": "L4",
+          "evidence": "Strong public/private contract and release-candidate website checks.",
+          "limit": "Next gate: Bind production bytes to canonical Git SHA."
+        },
+        {
+          "id": "receipt-router",
+          "name": "Portfolio Receipt Router",
+          "repo": "https://github.com/GlacierEQ/xai-colossus-2",
+          "state": "TEST_VERIFIED",
+          "level": "LEGACY_DEMO",
+          "evidence": "69/69 tests recorded in current-proof supporting_proof; local cold unittest path uses pytest.",
+          "limit": "Draft source hardening remains unmerged; no production datacenter control or company affiliation is claimed."
+        }
+      ]
+    },
+    {
+      "id": "agent-to-receipt",
+      "title": "Agent intent → recoverable execution evidence",
+      "outcome": "Authority, reversible execution, and independent convergence form a review path for dependable agent operations.",
+      "relationship": "review_and_composition_route_not_runtime_dependency",
+      "stages": [
+        {
+          "id": "akos",
+          "name": "AKOS Authority Runtime",
+          "repo": "https://github.com/GlacierEQ/AKOS",
+          "state": "PROMOTED",
+          "level": "L5",
+          "evidence": "Diligence records 118/118 per interpreter, 10/10 Forge, 4/4 PSYSOC-X.",
+          "limit": "Next gate: Current connector/artifact lifecycle receipts; isolate case-specific paths."
+        },
+        {
+          "id": "sigma-glue",
+          "name": "Sigma Glue Orchestration",
+          "repo": "https://github.com/GlacierEQ/sigma-glue",
+          "state": "PROMOTED",
+          "level": "L4",
+          "evidence": "Canonical 4a1ca8e5: 140/140 Node 22 tests; live GitHub Contents canary performed 2 writes/5 reads, recovered a deliberately lost success response to confirmed_applied, preserved restart-readable recovery evidence, and blocked replay before a third write.",
+          "limit": "Next gate: Add a second real provider contract and multi-host coordination before any distributed or provider-transactional exactly-once claim."
+        },
+        {
+          "id": "doctor-strange",
+          "name": "Doctor Strange Convergence",
+          "repo": "https://github.com/GlacierEQ/Pro-DOCTOR-STRANGE",
+          "state": "PROMOTED",
+          "level": "L4",
+          "evidence": "11/11 tests and cryptographic Receipt Zero replay; no fake consensus.",
+          "limit": "Next gate: Add independent providers and 20-run pilot before multi-provider claims."
+        }
+      ]
+    },
+    {
+      "id": "architecture-to-runtime",
+      "title": "Architecture decision → implementation surface",
+      "outcome": "Polyglot architecture is connected to runnable implementation and orchestration without flattening repository ownership.",
+      "relationship": "review_and_composition_route_not_runtime_dependency",
+      "stages": [
+        {
+          "id": "tower-of-babel",
+          "name": "Tower of Babel",
+          "repo": "https://github.com/GlacierEQ/the-tower-of-babel",
+          "state": "REFERENCE_ONLY",
+          "level": "L4",
+          "evidence": "A- verified-with-hardening; external production references separate from local proof.",
+          "limit": "Next gate: Close Issue #26 and regenerate derived surfaces."
+        },
+        {
+          "id": "pro-code-runtime",
+          "name": "Pro-Code Runtime",
+          "repo": "https://github.com/GlacierEQ/pro-code",
+          "state": "REFERENCE_ONLY",
+          "level": "L4",
+          "evidence": "Python/TypeScript planes passed; Rust/Haskell blocked.",
+          "limit": "Next gate: Pinned all-language CI and root license."
+        },
+        {
+          "id": "sigma-glue",
+          "name": "Sigma Glue Orchestration",
+          "repo": "https://github.com/GlacierEQ/sigma-glue",
+          "state": "PROMOTED",
+          "level": "L4",
+          "evidence": "Canonical 4a1ca8e5: 140/140 Node 22 tests; live GitHub Contents canary performed 2 writes/5 reads, recovered a deliberately lost success response to confirmed_applied, preserved restart-readable recovery evidence, and blocked replay before a third write.",
+          "limit": "Next gate: Add a second real provider contract and multi-host coordination before any distributed or provider-transactional exactly-once claim."
+        }
+      ]
+    },
+    {
+      "id": "proof-to-human-machine",
+      "title": "Proof receipt → human and machine projection",
+      "outcome": "Bounded technical proof reaches recruiter and machine surfaces through one evidence-aware application graph.",
+      "relationship": "review_and_composition_route_not_runtime_dependency",
+      "stages": [
+        {
+          "id": "receipt-router",
+          "name": "Portfolio Receipt Router",
+          "repo": "https://github.com/GlacierEQ/xai-colossus-2",
+          "state": "TEST_VERIFIED",
+          "level": "LEGACY_DEMO",
+          "evidence": "69/69 tests recorded in current-proof supporting_proof; local cold unittest path uses pytest.",
+          "limit": "Draft source hardening remains unmerged; no production datacenter control or company affiliation is claimed."
+        },
+        {
+          "id": "job-application",
+          "name": "Job Application Portal",
+          "repo": "https://github.com/GlacierEQ/job-application",
+          "state": "PROMOTED",
+          "level": "L4",
+          "evidence": "Strong public/private contract and release-candidate website checks.",
+          "limit": "Next gate: Bind production bytes to canonical Git SHA."
+        },
+        {
+          "id": "helix",
+          "name": "Job Application Helix",
+          "repo": "https://github.com/GlacierEQ/job-app-helix",
+          "state": "PROMOTED",
+          "level": "L5",
+          "evidence": "148/148 plus lint, Protobuf, rollout, provenance and public-surface checks.",
+          "limit": "Next gate: Refresh exact current-SHA receipt and generate all company dossiers."
+        }
+      ]
+    }
+  ],
+  "capability_routes": [
+    {
+      "id": "application-intelligence",
+      "title": "Application intelligence",
+      "detail": "Connects role research, verified repository evidence, truthful résumé generation, portfolio presentation, package state, and follow-up.",
+      "systems": [
+        {
+          "id": "helix",
+          "name": "Job Application Helix",
+          "repo": "https://github.com/GlacierEQ/job-app-helix",
+          "state": "PROMOTED",
+          "level": "L5"
+        },
+        {
+          "id": "job-application",
+          "name": "Job Application Portal",
+          "repo": "https://github.com/GlacierEQ/job-application",
+          "state": "PROMOTED",
+          "level": "L4"
+        },
+        {
+          "id": "receipt-router",
+          "name": "Portfolio Receipt Router",
+          "repo": "https://github.com/GlacierEQ/xai-colossus-2",
+          "state": "TEST_VERIFIED",
+          "level": "LEGACY_DEMO"
+        }
+      ]
+    },
+    {
+      "id": "agent-governance",
+      "title": "Agent and infrastructure governance",
+      "detail": "Separates capability, authority, proposal, execution, verification, persistence, and promotion state.",
+      "systems": [
+        {
+          "id": "akos",
+          "name": "AKOS Authority Runtime",
+          "repo": "https://github.com/GlacierEQ/AKOS",
+          "state": "PROMOTED",
+          "level": "L5"
+        },
+        {
+          "id": "sigma-glue",
+          "name": "Sigma Glue Orchestration",
+          "repo": "https://github.com/GlacierEQ/sigma-glue",
+          "state": "PROMOTED",
+          "level": "L4"
+        },
+        {
+          "id": "doctor-strange",
+          "name": "Doctor Strange Convergence",
+          "repo": "https://github.com/GlacierEQ/Pro-DOCTOR-STRANGE",
+          "state": "PROMOTED",
+          "level": "L4"
+        }
+      ]
+    },
+    {
+      "id": "multi-agent",
+      "title": "Deterministic multi-agent systems",
+      "detail": "Coordinates ownership, dependencies, shared budgets, bounded retries, state transitions, and visible closure.",
+      "systems": [
+        {
+          "id": "akos",
+          "name": "AKOS Authority Runtime",
+          "repo": "https://github.com/GlacierEQ/AKOS",
+          "state": "PROMOTED",
+          "level": "L5"
+        },
+        {
+          "id": "sigma-glue",
+          "name": "Sigma Glue Orchestration",
+          "repo": "https://github.com/GlacierEQ/sigma-glue",
+          "state": "PROMOTED",
+          "level": "L4"
+        },
+        {
+          "id": "doctor-strange",
+          "name": "Doctor Strange Convergence",
+          "repo": "https://github.com/GlacierEQ/Pro-DOCTOR-STRANGE",
+          "state": "PROMOTED",
+          "level": "L4"
+        }
+      ]
+    },
+    {
+      "id": "evidence-systems",
+      "title": "Document and evidence systems",
+      "detail": "Preserves source material, extracts structure, links claims to evidence, validates outputs, and packages usable artifacts.",
+      "systems": [
+        {
+          "id": "receipt-router",
+          "name": "Portfolio Receipt Router",
+          "repo": "https://github.com/GlacierEQ/xai-colossus-2",
+          "state": "TEST_VERIFIED",
+          "level": "LEGACY_DEMO"
+        },
+        {
+          "id": "job-application",
+          "name": "Job Application Portal",
+          "repo": "https://github.com/GlacierEQ/job-application",
+          "state": "PROMOTED",
+          "level": "L4"
+        },
+        {
+          "id": "doctor-strange",
+          "name": "Doctor Strange Convergence",
+          "repo": "https://github.com/GlacierEQ/Pro-DOCTOR-STRANGE",
+          "state": "PROMOTED",
+          "level": "L4"
+        }
+      ]
+    },
+    {
+      "id": "polyglot",
+      "title": "Evidence-based polyglot architecture",
+      "detail": "Assigns language boundaries only where they create measurable implementation value.",
+      "systems": [
+        {
+          "id": "tower-of-babel",
+          "name": "Tower of Babel",
+          "repo": "https://github.com/GlacierEQ/the-tower-of-babel",
+          "state": "REFERENCE_ONLY",
+          "level": "L4"
+        },
+        {
+          "id": "pro-code-runtime",
+          "name": "Pro-Code Runtime",
+          "repo": "https://github.com/GlacierEQ/pro-code",
+          "state": "REFERENCE_ONLY",
+          "level": "L4"
+        },
+        {
+          "id": "sigma-glue",
+          "name": "Sigma Glue Orchestration",
+          "repo": "https://github.com/GlacierEQ/sigma-glue",
+          "state": "PROMOTED",
+          "level": "L4"
+        }
+      ]
+    },
+    {
+      "id": "human-machine",
+      "title": "Human and machine interfaces",
+      "detail": "Presents one factual graph at different depths without allowing claims, uncertainty, or authority to drift.",
+      "systems": [
+        {
+          "id": "job-application",
+          "name": "Job Application Portal",
+          "repo": "https://github.com/GlacierEQ/job-application",
+          "state": "PROMOTED",
+          "level": "L4"
+        },
+        {
+          "id": "helix",
+          "name": "Job Application Helix",
+          "repo": "https://github.com/GlacierEQ/job-app-helix",
+          "state": "PROMOTED",
+          "level": "L5"
+        },
+        {
+          "id": "akos",
+          "name": "AKOS Authority Runtime",
+          "repo": "https://github.com/GlacierEQ/AKOS",
+          "state": "PROMOTED",
+          "level": "L5"
+        }
+      ]
+    }
+  ],
+  "role_routes": [
+    {
+      "role": "Forward-Deployed AI Architect",
+      "route": [
+        {
+          "lens_id": "application-intelligence",
+          "lens_title": "Application intelligence",
+          "systems": [
+            {
+              "id": "helix",
+              "name": "Job Application Helix",
+              "repo": "https://github.com/GlacierEQ/job-app-helix",
+              "state": "PROMOTED",
+              "level": "L5"
+            },
+            {
+              "id": "job-application",
+              "name": "Job Application Portal",
+              "repo": "https://github.com/GlacierEQ/job-application",
+              "state": "PROMOTED",
+              "level": "L4"
+            },
+            {
+              "id": "receipt-router",
+              "name": "Portfolio Receipt Router",
+              "repo": "https://github.com/GlacierEQ/xai-colossus-2",
+              "state": "TEST_VERIFIED",
+              "level": "LEGACY_DEMO"
+            }
+          ]
+        },
+        {
+          "lens_id": "agent-assurance",
+          "lens_title": "Dependable agent operations",
+          "systems": [
+            {
+              "id": "akos",
+              "name": "AKOS Authority Runtime",
+              "repo": "https://github.com/GlacierEQ/AKOS",
+              "state": "PROMOTED",
+              "level": "L5"
+            },
+            {
+              "id": "sigma-glue",
+              "name": "Sigma Glue Orchestration",
+              "repo": "https://github.com/GlacierEQ/sigma-glue",
+              "state": "PROMOTED",
+              "level": "L4"
+            },
+            {
+              "id": "doctor-strange",
+              "name": "Doctor Strange Convergence",
+              "repo": "https://github.com/GlacierEQ/Pro-DOCTOR-STRANGE",
+              "state": "PROMOTED",
+              "level": "L4"
+            }
+          ]
+        },
+        {
+          "lens_id": "evidence-verification",
+          "lens_title": "Evidence and verification",
+          "systems": [
+            {
+              "id": "receipt-router",
+              "name": "Portfolio Receipt Router",
+              "repo": "https://github.com/GlacierEQ/xai-colossus-2",
+              "state": "TEST_VERIFIED",
+              "level": "LEGACY_DEMO"
+            },
+            {
+              "id": "doctor-strange",
+              "name": "Doctor Strange Convergence",
+              "repo": "https://github.com/GlacierEQ/Pro-DOCTOR-STRANGE",
+              "state": "PROMOTED",
+              "level": "L4"
+            },
+            {
+              "id": "job-application",
+              "name": "Job Application Portal",
+              "repo": "https://github.com/GlacierEQ/job-application",
+              "state": "PROMOTED",
+              "level": "L4"
+            }
+          ]
+        },
+        {
+          "lens_id": "architecture-federation",
+          "lens_title": "Architecture and federation",
+          "systems": [
+            {
+              "id": "tower-of-babel",
+              "name": "Tower of Babel",
+              "repo": "https://github.com/GlacierEQ/the-tower-of-babel",
+              "state": "REFERENCE_ONLY",
+              "level": "L4"
+            },
+            {
+              "id": "pro-code-runtime",
+              "name": "Pro-Code Runtime",
+              "repo": "https://github.com/GlacierEQ/pro-code",
+              "state": "REFERENCE_ONLY",
+              "level": "L4"
+            },
+            {
+              "id": "sigma-glue",
+              "name": "Sigma Glue Orchestration",
+              "repo": "https://github.com/GlacierEQ/sigma-glue",
+              "state": "PROMOTED",
+              "level": "L4"
+            }
+          ]
+        },
+        {
+          "lens_id": "human-machine",
+          "lens_title": "Human and machine review surfaces",
+          "systems": [
+            {
+              "id": "job-application",
+              "name": "Job Application Portal",
+              "repo": "https://github.com/GlacierEQ/job-application",
+              "state": "PROMOTED",
+              "level": "L4"
+            },
+            {
+              "id": "helix",
+              "name": "Job Application Helix",
+              "repo": "https://github.com/GlacierEQ/job-app-helix",
+              "state": "PROMOTED",
+              "level": "L5"
+            },
+            {
+              "id": "akos",
+              "name": "AKOS Authority Runtime",
+              "repo": "https://github.com/GlacierEQ/AKOS",
+              "state": "PROMOTED",
+              "level": "L5"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "role": "Principal Agentic Systems Architect",
+      "route": [
+        {
+          "lens_id": "application-intelligence",
+          "lens_title": "Application intelligence",
+          "systems": [
+            {
+              "id": "helix",
+              "name": "Job Application Helix",
+              "repo": "https://github.com/GlacierEQ/job-app-helix",
+              "state": "PROMOTED",
+              "level": "L5"
+            },
+            {
+              "id": "job-application",
+              "name": "Job Application Portal",
+              "repo": "https://github.com/GlacierEQ/job-application",
+              "state": "PROMOTED",
+              "level": "L4"
+            },
+            {
+              "id": "receipt-router",
+              "name": "Portfolio Receipt Router",
+              "repo": "https://github.com/GlacierEQ/xai-colossus-2",
+              "state": "TEST_VERIFIED",
+              "level": "LEGACY_DEMO"
+            }
+          ]
+        },
+        {
+          "lens_id": "agent-assurance",
+          "lens_title": "Dependable agent operations",
+          "systems": [
+            {
+              "id": "akos",
+              "name": "AKOS Authority Runtime",
+              "repo": "https://github.com/GlacierEQ/AKOS",
+              "state": "PROMOTED",
+              "level": "L5"
+            },
+            {
+              "id": "sigma-glue",
+              "name": "Sigma Glue Orchestration",
+              "repo": "https://github.com/GlacierEQ/sigma-glue",
+              "state": "PROMOTED",
+              "level": "L4"
+            },
+            {
+              "id": "doctor-strange",
+              "name": "Doctor Strange Convergence",
+              "repo": "https://github.com/GlacierEQ/Pro-DOCTOR-STRANGE",
+              "state": "PROMOTED",
+              "level": "L4"
+            }
+          ]
+        },
+        {
+          "lens_id": "evidence-verification",
+          "lens_title": "Evidence and verification",
+          "systems": [
+            {
+              "id": "receipt-router",
+              "name": "Portfolio Receipt Router",
+              "repo": "https://github.com/GlacierEQ/xai-colossus-2",
+              "state": "TEST_VERIFIED",
+              "level": "LEGACY_DEMO"
+            },
+            {
+              "id": "doctor-strange",
+              "name": "Doctor Strange Convergence",
+              "repo": "https://github.com/GlacierEQ/Pro-DOCTOR-STRANGE",
+              "state": "PROMOTED",
+              "level": "L4"
+            },
+            {
+              "id": "job-application",
+              "name": "Job Application Portal",
+              "repo": "https://github.com/GlacierEQ/job-application",
+              "state": "PROMOTED",
+              "level": "L4"
+            }
+          ]
+        },
+        {
+          "lens_id": "architecture-federation",
+          "lens_title": "Architecture and federation",
+          "systems": [
+            {
+              "id": "tower-of-babel",
+              "name": "Tower of Babel",
+              "repo": "https://github.com/GlacierEQ/the-tower-of-babel",
+              "state": "REFERENCE_ONLY",
+              "level": "L4"
+            },
+            {
+              "id": "pro-code-runtime",
+              "name": "Pro-Code Runtime",
+              "repo": "https://github.com/GlacierEQ/pro-code",
+              "state": "REFERENCE_ONLY",
+              "level": "L4"
+            },
+            {
+              "id": "sigma-glue",
+              "name": "Sigma Glue Orchestration",
+              "repo": "https://github.com/GlacierEQ/sigma-glue",
+              "state": "PROMOTED",
+              "level": "L4"
+            }
+          ]
+        },
+        {
+          "lens_id": "human-machine",
+          "lens_title": "Human and machine review surfaces",
+          "systems": [
+            {
+              "id": "job-application",
+              "name": "Job Application Portal",
+              "repo": "https://github.com/GlacierEQ/job-application",
+              "state": "PROMOTED",
+              "level": "L4"
+            },
+            {
+              "id": "helix",
+              "name": "Job Application Helix",
+              "repo": "https://github.com/GlacierEQ/job-app-helix",
+              "state": "PROMOTED",
+              "level": "L5"
+            },
+            {
+              "id": "akos",
+              "name": "AKOS Authority Runtime",
+              "repo": "https://github.com/GlacierEQ/AKOS",
+              "state": "PROMOTED",
+              "level": "L5"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "role": "Principal AI Platform / Automation Architect",
+      "route": [
+        {
+          "lens_id": "application-intelligence",
+          "lens_title": "Application intelligence",
+          "systems": [
+            {
+              "id": "helix",
+              "name": "Job Application Helix",
+              "repo": "https://github.com/GlacierEQ/job-app-helix",
+              "state": "PROMOTED",
+              "level": "L5"
+            },
+            {
+              "id": "job-application",
+              "name": "Job Application Portal",
+              "repo": "https://github.com/GlacierEQ/job-application",
+              "state": "PROMOTED",
+              "level": "L4"
+            },
+            {
+              "id": "receipt-router",
+              "name": "Portfolio Receipt Router",
+              "repo": "https://github.com/GlacierEQ/xai-colossus-2",
+              "state": "TEST_VERIFIED",
+              "level": "LEGACY_DEMO"
+            }
+          ]
+        },
+        {
+          "lens_id": "agent-assurance",
+          "lens_title": "Dependable agent operations",
+          "systems": [
+            {
+              "id": "akos",
+              "name": "AKOS Authority Runtime",
+              "repo": "https://github.com/GlacierEQ/AKOS",
+              "state": "PROMOTED",
+              "level": "L5"
+            },
+            {
+              "id": "sigma-glue",
+              "name": "Sigma Glue Orchestration",
+              "repo": "https://github.com/GlacierEQ/sigma-glue",
+              "state": "PROMOTED",
+              "level": "L4"
+            },
+            {
+              "id": "doctor-strange",
+              "name": "Doctor Strange Convergence",
+              "repo": "https://github.com/GlacierEQ/Pro-DOCTOR-STRANGE",
+              "state": "PROMOTED",
+              "level": "L4"
+            }
+          ]
+        },
+        {
+          "lens_id": "evidence-verification",
+          "lens_title": "Evidence and verification",
+          "systems": [
+            {
+              "id": "receipt-router",
+              "name": "Portfolio Receipt Router",
+              "repo": "https://github.com/GlacierEQ/xai-colossus-2",
+              "state": "TEST_VERIFIED",
+              "level": "LEGACY_DEMO"
+            },
+            {
+              "id": "doctor-strange",
+              "name": "Doctor Strange Convergence",
+              "repo": "https://github.com/GlacierEQ/Pro-DOCTOR-STRANGE",
+              "state": "PROMOTED",
+              "level": "L4"
+            },
+            {
+              "id": "job-application",
+              "name": "Job Application Portal",
+              "repo": "https://github.com/GlacierEQ/job-application",
+              "state": "PROMOTED",
+              "level": "L4"
+            }
+          ]
+        },
+        {
+          "lens_id": "architecture-federation",
+          "lens_title": "Architecture and federation",
+          "systems": [
+            {
+              "id": "tower-of-babel",
+              "name": "Tower of Babel",
+              "repo": "https://github.com/GlacierEQ/the-tower-of-babel",
+              "state": "REFERENCE_ONLY",
+              "level": "L4"
+            },
+            {
+              "id": "pro-code-runtime",
+              "name": "Pro-Code Runtime",
+              "repo": "https://github.com/GlacierEQ/pro-code",
+              "state": "REFERENCE_ONLY",
+              "level": "L4"
+            },
+            {
+              "id": "sigma-glue",
+              "name": "Sigma Glue Orchestration",
+              "repo": "https://github.com/GlacierEQ/sigma-glue",
+              "state": "PROMOTED",
+              "level": "L4"
+            }
+          ]
+        },
+        {
+          "lens_id": "human-machine",
+          "lens_title": "Human and machine review surfaces",
+          "systems": [
+            {
+              "id": "job-application",
+              "name": "Job Application Portal",
+              "repo": "https://github.com/GlacierEQ/job-application",
+              "state": "PROMOTED",
+              "level": "L4"
+            },
+            {
+              "id": "helix",
+              "name": "Job Application Helix",
+              "repo": "https://github.com/GlacierEQ/job-app-helix",
+              "state": "PROMOTED",
+              "level": "L5"
+            },
+            {
+              "id": "akos",
+              "name": "AKOS Authority Runtime",
+              "repo": "https://github.com/GlacierEQ/AKOS",
+              "state": "PROMOTED",
+              "level": "L5"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "role": "Staff / Principal Applied AI Engineer",
+      "route": [
+        {
+          "lens_id": "application-intelligence",
+          "lens_title": "Application intelligence",
+          "systems": [
+            {
+              "id": "helix",
+              "name": "Job Application Helix",
+              "repo": "https://github.com/GlacierEQ/job-app-helix",
+              "state": "PROMOTED",
+              "level": "L5"
+            },
+            {
+              "id": "job-application",
+              "name": "Job Application Portal",
+              "repo": "https://github.com/GlacierEQ/job-application",
+              "state": "PROMOTED",
+              "level": "L4"
+            },
+            {
+              "id": "receipt-router",
+              "name": "Portfolio Receipt Router",
+              "repo": "https://github.com/GlacierEQ/xai-colossus-2",
+              "state": "TEST_VERIFIED",
+              "level": "LEGACY_DEMO"
+            }
+          ]
+        },
+        {
+          "lens_id": "agent-assurance",
+          "lens_title": "Dependable agent operations",
+          "systems": [
+            {
+              "id": "akos",
+              "name": "AKOS Authority Runtime",
+              "repo": "https://github.com/GlacierEQ/AKOS",
+              "state": "PROMOTED",
+              "level": "L5"
+            },
+            {
+              "id": "sigma-glue",
+              "name": "Sigma Glue Orchestration",
+              "repo": "https://github.com/GlacierEQ/sigma-glue",
+              "state": "PROMOTED",
+              "level": "L4"
+            },
+            {
+              "id": "doctor-strange",
+              "name": "Doctor Strange Convergence",
+              "repo": "https://github.com/GlacierEQ/Pro-DOCTOR-STRANGE",
+              "state": "PROMOTED",
+              "level": "L4"
+            }
+          ]
+        },
+        {
+          "lens_id": "evidence-verification",
+          "lens_title": "Evidence and verification",
+          "systems": [
+            {
+              "id": "receipt-router",
+              "name": "Portfolio Receipt Router",
+              "repo": "https://github.com/GlacierEQ/xai-colossus-2",
+              "state": "TEST_VERIFIED",
+              "level": "LEGACY_DEMO"
+            },
+            {
+              "id": "doctor-strange",
+              "name": "Doctor Strange Convergence",
+              "repo": "https://github.com/GlacierEQ/Pro-DOCTOR-STRANGE",
+              "state": "PROMOTED",
+              "level": "L4"
+            },
+            {
+              "id": "job-application",
+              "name": "Job Application Portal",
+              "repo": "https://github.com/GlacierEQ/job-application",
+              "state": "PROMOTED",
+              "level": "L4"
+            }
+          ]
+        },
+        {
+          "lens_id": "architecture-federation",
+          "lens_title": "Architecture and federation",
+          "systems": [
+            {
+              "id": "tower-of-babel",
+              "name": "Tower of Babel",
+              "repo": "https://github.com/GlacierEQ/the-tower-of-babel",
+              "state": "REFERENCE_ONLY",
+              "level": "L4"
+            },
+            {
+              "id": "pro-code-runtime",
+              "name": "Pro-Code Runtime",
+              "repo": "https://github.com/GlacierEQ/pro-code",
+              "state": "REFERENCE_ONLY",
+              "level": "L4"
+            },
+            {
+              "id": "sigma-glue",
+              "name": "Sigma Glue Orchestration",
+              "repo": "https://github.com/GlacierEQ/sigma-glue",
+              "state": "PROMOTED",
+              "level": "L4"
+            }
+          ]
+        },
+        {
+          "lens_id": "human-machine",
+          "lens_title": "Human and machine review surfaces",
+          "systems": [
+            {
+              "id": "job-application",
+              "name": "Job Application Portal",
+              "repo": "https://github.com/GlacierEQ/job-application",
+              "state": "PROMOTED",
+              "level": "L4"
+            },
+            {
+              "id": "helix",
+              "name": "Job Application Helix",
+              "repo": "https://github.com/GlacierEQ/job-app-helix",
+              "state": "PROMOTED",
+              "level": "L5"
+            },
+            {
+              "id": "akos",
+              "name": "AKOS Authority Runtime",
+              "repo": "https://github.com/GlacierEQ/AKOS",
+              "state": "PROMOTED",
+              "level": "L5"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "receipt_sha256": "de6d91d7619372dc33fc006c23bcddf297a372cf55c0cdfc060401e3db4c3a33"
+}
