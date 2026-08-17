@@ -1,7 +1,7 @@
 const crypto = require('node:crypto');
 const { URL } = require('node:url');
 
-const PORTFOLIO_COMMIT = 'b4ed2a05182e1e055ed4e9d59e59a0aab21097ad';
+const PORTFOLIO_COMMIT = 'e870a5153bb38d533540e44c888759a8cd3b7169';
 const DONOR_COMMIT = '901fe77d2c6015feb1650133b751efff8aa0d24c';
 const CONTRACTION_COMMIT = '61042c4018db90589715fe1c7f6a2c58879ac2b2';
 const RELEASE = 'V29-INVENTION-PROOF-ROUTING';
