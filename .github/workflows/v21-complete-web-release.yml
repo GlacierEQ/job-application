@@ -69,6 +69,8 @@ jobs:
           node scripts/validate-helix-atlas.mjs
           node scripts/harden-public-proof-surface.mjs
           node scripts/validate-public-proof-surface.mjs
+          node scripts/compress-recruiter-surface.mjs
+          node scripts/compress-recruiter-surface.mjs --check
           node site-v15/scripts/validate.mjs
 
       - name: Exercise immutable V21 static and generated runtime surfaces
