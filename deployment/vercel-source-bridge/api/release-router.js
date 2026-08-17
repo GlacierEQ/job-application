@@ -8,6 +8,7 @@ const compilerProxy = require('./compiler-proxy.js');
 const titleFontProxy = require('./title-font-proxy.js');
 const monumentTitleProxy = require('./monument-title-proxy.js');
 const systemsAtlasProxy = require('./systems-atlas-proxy.js');
+const inventionsProxy = require('./inventions-proxy.js');
 
 const PUBLIC_ORIGIN = 'https://casey-barton-glaciereq.vercel.app';
 const V26_ASSETS = new Set([
@@ -172,6 +173,9 @@ module.exports = async function releaseRouter(req, res) {
   const rawPath = proxy.requestPath(req);
   if (rawPath === '__systems_atlas_verify' || systemsAtlasProxy.handles(rawPath)) {
     return systemsAtlasProxy(req, res);
+  }
+  if (rawPath === '__inventions_verify' || inventionsProxy.handles(rawPath)) {
+    return inventionsProxy(req, res);
   }
   if (rawPath === '__v21_verify') return proxy(req, res);
   if (rawPath === '__design_verify') return designProxy(req, res);

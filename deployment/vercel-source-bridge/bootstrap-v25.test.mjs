@@ -9,7 +9,7 @@ import test from 'node:test';
 const ROOT = path.resolve(import.meta.dirname, '..', '..');
 const BUILDER = path.join(ROOT, 'scripts', 'build-v25-deployment-bundle.mjs');
 const SOURCE_COMMIT = 'a'.repeat(40);
-const EXPECTED_MODULE_COUNT = 11;
+const EXPECTED_MODULE_COUNT = 12;
 const require = createRequire(import.meta.url);
 
 function runBuilder(args) {
@@ -75,6 +75,7 @@ test('generated bootstrap verifies precompiled factories without runtime string 
   assert.equal(source.includes('new Function('), false);
   assert.equal(source.includes('eval('), false);
   assert.equal(source.includes("require('node:vm')"), false);
+  assert.ok(source.includes('V28-INVENTION-EVIDENCE-RUNTIME'));
 });
 
 test('generated two-file routing targets the bundled Lambda catch-all', () => {

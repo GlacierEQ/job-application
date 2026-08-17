@@ -11,7 +11,7 @@ const BUILDER = path.join(ROOT, 'scripts', 'build-v25-deployment-bundle.mjs');
 const DEFAULT_OUTPUT = path.join(ROOT, 'artifacts', 'v25-deployment-effective');
 const SHA40 = /^[a-f0-9]{40}$/;
 const NUMERIC_CARDINALITY_PIN = /data\.projection\.company_count\s*!==\s*\d+/;
-const EXPECTED_BUNDLE_MODULE_COUNT = 11;
+const EXPECTED_BUNDLE_MODULE_COUNT = 12;
 
 function requireValue(condition, message) {
   if (!condition) throw new Error(message);
@@ -100,6 +100,8 @@ function main() {
     requireValue(bundle.includes('serveEffectiveCompanySurface'), 'effective_bundle_company_surface_missing');
     requireValue(bundle.includes('V23-SYSTEMS-ATLAS-RESOURCE-GROUNDED'), 'effective_bundle_systems_atlas_missing');
     requireValue(bundle.includes('675b295f6e8c19a85daef50b9ac46bdef224ceea'), 'effective_bundle_systems_atlas_source_missing');
+    requireValue(bundle.includes('V28-INVENTION-EVIDENCE-RUNTIME'), 'effective_bundle_invention_runtime_missing');
+    requireValue(bundle.includes('e870a5153bb38d533540e44c888759a8cd3b7169'), 'effective_bundle_invention_source_missing');
     process.stdout.write(JSON.stringify({ status: 'PASS', source_commit: sourceCommit, helix_commit: helixCommit, manifest }, null, 2) + '\n');
   } finally {
     fs.writeFileSync(COMPILER, original, 'utf8');
