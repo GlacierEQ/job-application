@@ -6,6 +6,8 @@ on:
       - 'RESUME.md'
       - 'RESUME_ATS.md'
       - 'site-v15/**'
+      - 'scripts/render-invention-evidence-map.mjs'
+      - 'scripts/validate-invention-evidence-map.mjs'
       - 'deployment/vercel-source-bridge/**'
       - 'deployment-receipts/V15_*'
       - '.github/workflows/v15-final-hiring-release.yml'
@@ -15,6 +17,8 @@ on:
       - 'RESUME.md'
       - 'RESUME_ATS.md'
       - 'site-v15/**'
+      - 'scripts/render-invention-evidence-map.mjs'
+      - 'scripts/validate-invention-evidence-map.mjs'
       - 'deployment/vercel-source-bridge/**'
       - 'deployment-receipts/V15_*'
       - '.github/workflows/v15-final-hiring-release.yml'
@@ -44,6 +48,11 @@ jobs:
       - name: Validate WHATWG source-bridge request parsing
         run: node --test deployment/vercel-source-bridge/proxy.test.js
 
+      - name: Render and validate problem-centered invention map
+        run: |
+          node scripts/render-invention-evidence-map.mjs
+          node scripts/validate-invention-evidence-map.mjs
+
       - name: Validate PSYSOC-X calibrated hiring system
         run: node site-v15/scripts/validate.mjs
 
@@ -70,11 +79,13 @@ jobs:
               'RESUME.md',
               'RESUME_ATS.md',
               'site-v15/index.html',
+              'site-v15/inventions/index.html',
               'site-v15/resume/index.html',
               'site-v15/master/index.html',
               'site-v15/machine/index.html',
               'site-v15/mesh/index.html',
               'site-v15/data/portfolio.json',
+              'site-v15/data/invention-map.json',
               'site-v15/data/company-families.json',
               'site-v15/data/psysoc-x-profiles.json',
               'site-v15/downloads/Casey_Barton_Resume.pdf',
@@ -87,7 +98,7 @@ jobs:
               'schema': 'glaciereq.v15-hiring-release-validation.v1',
               'commit': os.environ.get('GITHUB_SHA'),
               'status': 'PASS',
-              'routes': ['/', '/resume/', '/master/', '/machine/', '/mesh/'],
+              'routes': ['/', '/inventions/', '/resume/', '/master/', '/machine/', '/mesh/'],
               'psysoc_x_profiles': ['recruiter', 'master', 'machine', 'mesh'],
               'facts_invariant': True,
               'scripts': 0,
