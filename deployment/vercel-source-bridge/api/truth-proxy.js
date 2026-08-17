@@ -240,7 +240,6 @@ function transformResumeJson(value) {
 function transformPortfolioJson(value) {
   const data = structuredClone(value);
   data.release = data.release && typeof data.release === 'object' ? data.release : {};
-  // Kill stale V15 product brand; path site-v15 is deploy output only.
   data.release.name = 'Unified Helix-Bound Hire Surface';
   data.release.truth_sync_authority_commit = TRUTH_COMMIT;
   data.release.truth_sync_release = RELEASE;
@@ -263,8 +262,8 @@ function transformPortfolioJson(value) {
     'Exact 67-repository admitted boundary; Helix package PARTIALLY_VERIFIED; child repositories retain independent evidence states.';
   helix.limit =
     'No aggregate Helix test-count claim is promoted. Child repositories retain independent evidence states and release-specific gates remain separate.';
-  // Drop retired dead weight if present in older static blobs.
-  data.flagships = flagships.filter((flagship) => flagship?.id !== 'microcode');
+  // Truth projection may correct claims, but it must never delete source capability.
+  data.flagships = flagships;
   return data;
 }
 
