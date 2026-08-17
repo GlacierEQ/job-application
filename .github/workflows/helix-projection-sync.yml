@@ -7,6 +7,8 @@ on:
       - "scripts/sync-helix-projection.mjs"
       - "scripts/sync-helix-projection-effective.mjs"
       - "scripts/github-fetch-resilience.mjs"
+      - "scripts/restore-helix-flagship-depth.mjs"
+      - "scripts/validate-helix-flagship-depth.mjs"
       - "scripts/reconcile-helix-company-cardinality.mjs"
       - "scripts/reconcile-company-constellation-taxonomy.mjs"
       - "scripts/project-estate-intelligence.mjs"
@@ -30,6 +32,8 @@ on:
       - "scripts/sync-helix-projection.mjs"
       - "scripts/sync-helix-projection-effective.mjs"
       - "scripts/github-fetch-resilience.mjs"
+      - "scripts/restore-helix-flagship-depth.mjs"
+      - "scripts/validate-helix-flagship-depth.mjs"
       - "scripts/reconcile-helix-company-cardinality.mjs"
       - "scripts/reconcile-company-constellation-taxonomy.mjs"
       - "scripts/project-estate-intelligence.mjs"
@@ -75,6 +79,10 @@ jobs:
           node-version: "24"
       - name: Compile effective public-safe Helix projection and receipt
         run: node scripts/sync-helix-projection-effective.mjs
+      - name: Restore authority-eligible flagship depth
+        run: node scripts/restore-helix-flagship-depth.mjs
+      - name: Validate restored flagship depth
+        run: node scripts/validate-helix-flagship-depth.mjs
       - name: Reconcile downstream company cardinality to fresh Helix authority
         run: node scripts/reconcile-helix-company-cardinality.mjs
       - name: Validate public-safe projection and receipt
