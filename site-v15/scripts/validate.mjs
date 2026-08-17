@@ -109,7 +109,7 @@ for (const token of [
   'I make powerful AI <em>dependable enough to use.</em>',
 ]) assert(recruiter.includes(token), `recruiter missing ${token}`);
 assert(recruiter.includes('cockpit') && recruiter.includes('bento') && recruiter.includes('pipeline'), 'cutting-edge visual hierarchy missing');
-for (const route of ['/master/', '/mesh/', '/machine/', '/resume/', '/companies/', '/atlas/']) {
+for (const route of ['/master/', '/mesh/', '/machine/', '/resume/', '/companies/', '/atlas/', '/visualizer/', '/inventions/']) {
   assert(new RegExp(`href\\s*=\\s*["']${route.replaceAll('/', '\\/')}["']`, 'i').test(recruiter), `route missing ${route}`);
 }
 
@@ -136,11 +136,14 @@ assert(portfolio.proof.bounded_source_tests === 166, 'source count drift');
 assert(portfolio.proof.energy_memory_tests === 19, 'memory count drift');
 assert(portfolio.proof.external_actions === 0, 'external action drift');
 assert(portfolio.proof.receipt_router_artifact === 8910423397, 'artifact drift');
-assert(portfolio.flagships.length >= 7, 'helix-bound flagship set required (>=7)');
+assert(portfolio.flagships.length >= 16, 'restored flagship set required (>=16)');
 assert(new Set(portfolio.flagships.map(item => item.id)).size === portfolio.flagships.length, 'flagship IDs must be unique');
 assert(portfolio.flagships.every(item => item.limit && item.evidence && item.repo), 'each flagship needs evidence, limit, and source');
 assert(portfolio.flagships.some(item => item.id === 'helix'), 'helix flagship required');
-assert(!portfolio.flagships.some(item => item.id === 'microcode'), 'microcode flagship retired (missing/blocked)');
+const microcode = portfolio.flagships.find(item => item.id === 'microcode');
+assert(microcode, 'restored microcode capability required');
+assert(microcode.repo === 'PRIVATE_REPOSITORY_IDENTITY_WITHHELD', 'private microcode repository identity must remain redacted');
+assert(!portfolioText.includes('https://github.com/GlacierEQ/xai-colossus-microcode'), 'private microcode repository URL leaked');
 assert(!String(portfolio.release?.name || '').includes('V15'), 'V15 release brand retired');
 assert(portfolio.release?.authority?.control_plane === 'GlacierEQ/job-app-helix' || portfolio.release?.stack, 'release must bind helix/stack authority');
 
