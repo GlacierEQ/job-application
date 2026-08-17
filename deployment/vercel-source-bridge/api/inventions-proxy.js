@@ -7,6 +7,7 @@ const CONTRACTION_COMMIT = '61042c4018db90589715fe1c7f6a2c58879ac2b2';
 const RELEASE = 'V29-INVENTION-PROOF-ROUTING';
 const VERIFY_SCHEMA = 'glaciereq.v29-invention-proof-routing-verification.v1';
 const MAP_SCHEMA = 'glaciereq.invention-evidence-map.v3';
+const BUNDLE_COMPATIBILITY_MARKER = 'V28-INVENTION-EVIDENCE-RUNTIME';
 const PORTFOLIO_URL = `https://raw.githubusercontent.com/GlacierEQ/job-application/${PORTFOLIO_COMMIT}/site-v15/data/portfolio.json`;
 const CSS_URL = `https://raw.githubusercontent.com/GlacierEQ/job-application/${PORTFOLIO_COMMIT}/site-v15/assets/site.inventions.css`;
 const FETCH_TIMEOUT_MS = 12_000;
@@ -499,6 +500,7 @@ module.exports.constants = {
   RELEASE,
   VERIFY_SCHEMA,
   MAP_SCHEMA,
+  BUNDLE_COMPATIBILITY_MARKER,
   LENSES,
   ROLE_BLUEPRINTS,
   WORKFLOW_BLUEPRINTS,
