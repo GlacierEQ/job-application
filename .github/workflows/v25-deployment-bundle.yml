@@ -68,8 +68,21 @@ jobs:
       - name: Refresh effective immutable Helix release authority
         env:
           GITHUB_TOKEN: ${{ github.token }}
+        shell: bash
         run: |
-          node scripts/sync-helix-projection-effective.mjs
+          set -euo pipefail
+          attempt=1
+          max_attempts=4
+          until node scripts/sync-helix-projection-effective.mjs; do
+            if (( attempt >= max_attempts )); then
+              echo "Helix projection refresh failed after ${attempt} attempts" >&2
+              exit 1
+            fi
+            delay=$(( attempt * 8 ))
+            echo "Helix projection refresh attempt ${attempt} failed; retrying in ${delay}s" >&2
+            sleep "$delay"
+            attempt=$(( attempt + 1 ))
+          done
           node scripts/reconcile-helix-company-cardinality.mjs
           node scripts/reconcile-v21-runtime-stars.mjs
       - name: Run full presentation regression suite
