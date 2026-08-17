@@ -58,6 +58,8 @@ jobs:
         run: |
           set -euo pipefail
           node scripts/sync-helix-projection-effective.mjs
+          node scripts/restore-helix-flagship-depth.mjs
+          node scripts/validate-helix-flagship-depth.mjs
           node scripts/reconcile-helix-company-cardinality.mjs
           node scripts/reconcile-v21-runtime-stars.mjs
           node scripts/validate-helix-projection.mjs
