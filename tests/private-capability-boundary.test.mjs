@@ -1,11 +1,49 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { WITHHELD, ownedRepositoryFromUrl, sanitizePortfolio } from '../scripts/preserve-private-capability-cards.mjs';
+import {
+  WITHHELD,
+  mergeSanitizedCapabilities,
+  ownedRepositoryFromUrl,
+  sanitizePortfolio,
+} from '../scripts/preserve-private-capability-cards.mjs';
 
 test('ownedRepositoryFromUrl resolves nested GlacierEQ links to repository identity', () => {
   assert.equal(ownedRepositoryFromUrl('https://github.com/GlacierEQ/AKOS/tree/main/stones/psysoc-x'), 'GlacierEQ/AKOS');
   assert.equal(ownedRepositoryFromUrl('https://github.com/other/repo'), null);
+});
+
+test('sanitized Helix capability cards are added without publishing repository identity', () => {
+  const portfolio = {
+    release: {},
+    flagships: [{ id: 'existing', system_id: 'existing', rank: 1, repo: 'https://github.com/GlacierEQ/existing' }],
+  };
+  const helix = {
+    sanitized_capabilities: [
+      {
+        system_id: 'monolith',
+        repository_identity: WITHHELD,
+        repository_identity_withheld: true,
+        capability_preserved: true,
+        level: 'L4',
+        source_state: 'PRIVATE_AUTHORITY',
+        role: 'Estate catalog/evidence authority',
+        evidence: 'Catalog evidence preserved',
+        next_gate: 'Refresh deterministic receipt',
+      },
+    ],
+  };
+  const { portfolio: output, added } = mergeSanitizedCapabilities(structuredClone(portfolio), helix);
+  assert.deepEqual(added, ['monolith']);
+  assert.equal(output.flagships.length, 2);
+  const card = output.flagships[1];
+  assert.equal(card.id, 'monolith');
+  assert.equal(card.name, 'Monolith Estate Catalog');
+  assert.equal(card.repo, WITHHELD);
+  assert.equal(card.identity_disclosure.repository_identity_published, false);
+  assert.equal(card.summary, 'Estate catalog/evidence authority');
+  assert.equal(card.evidence, 'Catalog evidence preserved');
+  assert.equal(output.release.sanitized_helix_capability_projection.capability_cards_added, 1);
 });
 
 test('sanitizer preserves every capability card while withholding nonpublic repository identity', async () => {
