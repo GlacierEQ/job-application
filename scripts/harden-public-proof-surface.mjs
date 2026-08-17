@@ -16,6 +16,7 @@ const PRIMARY_ROLES = [
 const PRIMARY_ROLE_LINE =
   'Forward-Deployed AI Architect · Principal Agentic Systems Architect · Principal AI Platform Architect';
 const PRIVATE_MICROCODE_URL = 'https://github.com/GlacierEQ/xai-colossus-microcode';
+const PRIVATE_IDENTITY_WITHHELD = 'PRIVATE_REPOSITORY_IDENTITY_WITHHELD';
 
 async function readText(relative) {
   return readFile(path.join(ROOT, relative), 'utf8');
@@ -43,8 +44,12 @@ await updateJson('site-v15/data/portfolio.json', (portfolio) => {
   portfolio.person.positioning =
     'I design and deploy dependable AI operating systems across model, tool, data, security, evaluation, recovery, and human-workflow boundaries.';
 
-  // Unified surface: microcode is NOT a top flagship. Strip private URL if present.
-  portfolio.flagships = (portfolio.flagships || []).filter((item) => item.id !== 'microcode');
+  // Preserve capability. Public hardening may redact a private repository identity, never delete the capability node.
+  const microcode = (portfolio.flagships || []).find((item) => item.id === 'microcode');
+  if (microcode) {
+    if (microcode.repo === PRIVATE_MICROCODE_URL) microcode.repo = PRIVATE_IDENTITY_WITHHELD;
+    microcode.public_surface = 'PRIVATE_IDENTITY_WITHHELD';
+  }
   if (!portfolio.release || typeof portfolio.release !== 'object') portfolio.release = {};
   if (String(portfolio.release.name || '').includes('V15')) {
     portfolio.release.name = 'Unified Helix-Bound Hire Surface';
@@ -101,7 +106,6 @@ home = replaceOnceOrAlready(
   '<small>FORWARD-DEPLOYED AI ARCHITECT</small>',
   'home brand role',
 );
-// Role line may already be updated
 if (home.includes('<p class="hero-role">Applied AI Systems Architect · Agent Infrastructure Engineer · Forward-Deployed AI Engineer</p>')) {
   home = home.replace(
     '<p class="hero-role">Applied AI Systems Architect · Agent Infrastructure Engineer · Forward-Deployed AI Engineer</p>',
@@ -144,8 +148,14 @@ console.log(
   JSON.stringify({
     status: 'PASS',
     primary_roles: PRIMARY_ROLES,
-    microcode_flagship: 'RETIRED_FROM_PUBLIC_CORE',
+    microcode_capability: microcodeState(await readText('site-v15/data/portfolio.json')),
     private_microcode_url_forbidden: PRIVATE_MICROCODE_URL,
     machine_discovery: ['/data/resume.json', '/data/portfolio.json', '/resume/ats.txt'],
   }),
 );
+
+function microcodeState(portfolioText) {
+  const portfolio = JSON.parse(portfolioText);
+  const microcode = (portfolio.flagships || []).find((item) => item.id === 'microcode');
+  return microcode ? 'PRESERVED_PRIVATE_IDENTITY_WITHHELD' : 'MISSING';
+}

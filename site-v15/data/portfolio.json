@@ -231,6 +231,153 @@
       "level": "LEGACY_DEMO",
       "public_surface": "PUBLIC",
       "merged_from": "pre-helix portfolio (useful proof retained)"
+    },
+    {
+      "id": "microcode",
+      "rank": 10,
+      "name": "Microcode Governance",
+      "repo": "https://github.com/GlacierEQ/xai-colossus-microcode",
+      "state": "REVIEWED_EXECUTION_BLOCKED",
+      "label": "Recovered infrastructure flagship",
+      "summary": "Offline firmware-manifest, inventory-drift, compatibility-policy, SBOM, provenance, and approval-gated rollout planning.",
+      "mechanism": [
+        "hashes policy and inventory",
+        "detects drift",
+        "evaluates declared compatibility",
+        "generates SPDX and CycloneDX",
+        "plans canary-zone-fleet rollout without execution"
+      ],
+      "evidence": "132-check contract generated; independent static review found no critical defect.",
+      "limit": "Private CI failed before runner steps existed; not test-verified and performs no firmware mutation.",
+      "level": "RECOVERED_DONOR",
+      "public_surface": "PUBLIC",
+      "merged_from": "901fe77d2c6015feb1650133b751efff8aa0d24c"
+    },
+    {
+      "id": "security",
+      "rank": 11,
+      "name": "Security Proposal Engine",
+      "repo": "https://github.com/GlacierEQ/xai-colossus-security",
+      "state": "BOUNDED_TEST_VERIFIED",
+      "label": "Recovered authority-safe response planning",
+      "summary": "Turns declared threats into deterministic response proposals while keeping external execution outside the system boundary.",
+      "mechanism": [
+        "detects declared suspicious zones",
+        "suppresses duplicates",
+        "maps severity to response",
+        "requires external authority",
+        "accepts receipt-bound resolution"
+      ],
+      "evidence": "35 tests; direct and reusable CI passed; external actions executed: 0.",
+      "limit": "No authenticated telemetry, network enforcement, physical control, or production security effectiveness is claimed.",
+      "level": "RECOVERED_DONOR",
+      "public_surface": "PUBLIC",
+      "merged_from": "901fe77d2c6015feb1650133b751efff8aa0d24c"
+    },
+    {
+      "id": "servers",
+      "rank": 12,
+      "name": "Deterministic Rack Planner",
+      "repo": "https://github.com/GlacierEQ/xai-colossus-servers",
+      "state": "BOUNDED_TEST_VERIFIED",
+      "label": "Recovered capacity planning",
+      "summary": "Places declared loads into declared rack capacity with stable ordering, explicit headroom, and transparent unplaced reasons.",
+      "mechanism": [
+        "validates immutable inputs",
+        "sorts deterministically",
+        "respects preferred racks",
+        "reports headroom",
+        "does not mutate external systems"
+      ],
+      "evidence": "20 tests; direct and reusable CI passed.",
+      "limit": "No hardware inventory, GPU telemetry, topology discovery, or global-optimization claim.",
+      "level": "RECOVERED_DONOR",
+      "public_surface": "PUBLIC",
+      "merged_from": "901fe77d2c6015feb1650133b751efff8aa0d24c"
+    },
+    {
+      "id": "energy",
+      "rank": 13,
+      "name": "Energy Family Model",
+      "repo": "https://github.com/GlacierEQ/xai-colossus-energy",
+      "state": "BOUNDED_TEST_VERIFIED",
+      "label": "Recovered exact-commit composition",
+      "summary": "Combines a Rust/Python energy model with pinned analytical and response components under exact commit identities.",
+      "mechanism": [
+        "calculates demand and reserve",
+        "detects oversubscription",
+        "plans priority-aware shedding",
+        "pins child commits",
+        "degrades safely without providers"
+      ],
+      "evidence": "16 bounded family tests plus 19 memory-layer unit tests; three workflows passed.",
+      "limit": "No grid integration, telemetry, transformer protection, production shedding, or measured cost claim.",
+      "level": "RECOVERED_DONOR",
+      "public_surface": "PUBLIC",
+      "merged_from": "901fe77d2c6015feb1650133b751efff8aa0d24c"
+    },
+    {
+      "id": "nanosphere",
+      "rank": 14,
+      "name": "Nanofluid Scenario Model",
+      "repo": "https://github.com/GlacierEQ/xai-colossus-nanosphere",
+      "state": "BOUNDED_TEST_VERIFIED",
+      "label": "Recovered modeled-versus-measured discipline",
+      "summary": "Evaluates declared nanofluid scenarios while explicitly separating modeled outputs from laboratory measurement and physical actuation.",
+      "mechanism": [
+        "validates physical inputs",
+        "selects declared models",
+        "computes conductivity and viscosity",
+        "scores stability",
+        "exports a modeled manifest"
+      ],
+      "evidence": "58 tests; direct and reusable CI passed; zero external actions.",
+      "limit": "No laboratory validation, material certification, dosing, magnetic control, or physical-system safety claim.",
+      "level": "RECOVERED_DONOR",
+      "public_surface": "PUBLIC",
+      "merged_from": "901fe77d2c6015feb1650133b751efff8aa0d24c"
+    },
+    {
+      "id": "coordinator",
+      "rank": 15,
+      "name": "Agent Coordinator",
+      "repo": "https://github.com/GlacierEQ/anthropic-agent-coordinator",
+      "state": "TEST_VERIFIED_WITH_PROMOTION_GATES",
+      "label": "Recovered deterministic multi-agent scheduling",
+      "summary": "Assigns task ownership only after checking dependency order, agent role, capacity, stable priority, and a shared token budget.",
+      "mechanism": [
+        "reads a task graph",
+        "checks dependencies",
+        "matches roles and capacity",
+        "enforces shared budgets",
+        "records assignment or refusal"
+      ],
+      "evidence": "62/62 recorded Python 3.13 tests.",
+      "limit": "Hosted matrix and build-wheel promotion remain open.",
+      "level": "RECOVERED_DONOR",
+      "public_surface": "PUBLIC",
+      "merged_from": "901fe77d2c6015feb1650133b751efff8aa0d24c"
+    },
+    {
+      "id": "psysoc-x",
+      "rank": 16,
+      "name": "PSYSOC-X",
+      "repo": "https://github.com/GlacierEQ/AKOS/tree/main/stones/psysoc-x",
+      "state": "TEST_VERIFIED",
+      "label": "Recovered deterministic audience calibration",
+      "summary": "Changes tone, density, skepticism, ordering, and explanation depth without changing facts, uncertainty, dignity, or authority.",
+      "mechanism": [
+        "accepts explicit audience context",
+        "selects a bounded profile",
+        "suppresses humor in critical contexts",
+        "surfaces limits for skeptical readers",
+        "renders inspectable guidance"
+      ],
+      "evidence": "Promoted at bounded TEST scope with deterministic cases and receipts.",
+      "limit": "No psychological diagnosis, covert persuasion, or manipulation capability is claimed.",
+      "level": "RECOVERED_DONOR",
+      "public_surface": "PUBLIC_ALLOWLIST_REQUIRED",
+      "merged_from": "901fe77d2c6015feb1650133b751efff8aa0d24c"
     }
   ],
   "experience": [

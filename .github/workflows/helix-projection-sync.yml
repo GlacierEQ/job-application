@@ -6,6 +6,7 @@ on:
       - "portfolio-source.json"
       - "scripts/sync-helix-projection.mjs"
       - "scripts/sync-helix-projection-effective.mjs"
+      - "scripts/github-fetch-resilience.mjs"
       - "scripts/reconcile-helix-company-cardinality.mjs"
       - "scripts/reconcile-company-constellation-taxonomy.mjs"
       - "scripts/project-estate-intelligence.mjs"
@@ -28,6 +29,7 @@ on:
       - "portfolio-source.json"
       - "scripts/sync-helix-projection.mjs"
       - "scripts/sync-helix-projection-effective.mjs"
+      - "scripts/github-fetch-resilience.mjs"
       - "scripts/reconcile-helix-company-cardinality.mjs"
       - "scripts/reconcile-company-constellation-taxonomy.mjs"
       - "scripts/project-estate-intelligence.mjs"
@@ -61,6 +63,7 @@ jobs:
     timeout-minutes: 10
     env:
       GITHUB_TOKEN: ${{ github.token }}
+      NODE_OPTIONS: --import=./scripts/github-fetch-resilience.mjs
     steps:
       - name: Checkout exact portal source
         uses: actions/checkout@v4
