@@ -1,22 +1,21 @@
 name: V21 Complete Web Release
 
 on:
-  pull_request:
-    branches: [main]
-    paths:
-      - "site-v15/**"
-      - "scripts/**"
-      - "deployment/vercel-source-bridge/**"
-      - "vercel.json"
-      - "package.json"
-      - ".github/workflows/v21-complete-web-release.yml"
   push:
     branches: [main]
     paths:
       - "site-v15/**"
-      - "scripts/**"
       - "deployment/vercel-source-bridge/**"
-      - "vercel.json"
+      - "scripts/**"
+      - "portfolio-source.json"
+      - "package.json"
+      - ".github/workflows/v21-complete-web-release.yml"
+  pull_request:
+    paths:
+      - "site-v15/**"
+      - "deployment/vercel-source-bridge/**"
+      - "scripts/**"
+      - "portfolio-source.json"
       - "package.json"
       - ".github/workflows/v21-complete-web-release.yml"
   workflow_dispatch:
@@ -25,22 +24,21 @@ permissions:
   contents: read
 
 concurrency:
-  group: v21-complete-web-${{ github.event.pull_request.number || github.ref }}
+  group: v21-complete-web-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  verify-complete-web:
-    name: Build, verify, and exercise complete web surface
-    runs-on: ubuntu-latest
-    timeout-minutes: 12
+  prove:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
     steps:
-      - name: Checkout exact source without persisted credentials
-        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Checkout exact portal source
+        uses: actions/checkout@v4
         with:
           persist-credentials: false
 
-      - name: Set up Node.js
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+      - name: Configure Node
+        uses: actions/setup-node@v4
         with:
           node-version: 24
 
@@ -50,7 +48,8 @@ jobs:
             deployment/vercel-source-bridge/proxy.test.js \
             deployment/vercel-source-bridge/design-proxy.test.js \
             deployment/vercel-source-bridge/estate-proxy.test.js \
-            deployment/vercel-source-bridge/truth-proxy.test.js
+            deployment/vercel-source-bridge/truth-proxy.test.js \
+            tests/private-capability-boundary.test.mjs
 
       - name: Build exact Vercel static surface from effective Helix authority
         env:
@@ -70,6 +69,7 @@ jobs:
           node scripts/validate-estate-intelligence.mjs
           node scripts/validate-helix-atlas.mjs
           node scripts/harden-public-proof-surface.mjs
+          node scripts/preserve-private-capability-cards.mjs
           node scripts/validate-public-proof-surface.mjs
           node scripts/compress-recruiter-surface.mjs
           node scripts/compress-recruiter-surface.mjs --check
@@ -94,72 +94,15 @@ jobs:
               helix_commit: design.constants.HELIX_COMMIT,
               static_surface: staticSurface,
               generated_surface: generatedSurface,
-              client_scripts: 0,
             }, null, 2));
           }).catch((error) => {
-            console.error(error instanceof Error ? error.stack : error);
+            console.error(error);
             process.exit(1);
           });
           NODE
 
-      - name: Exercise V22 estate-intelligence verifier
-        run: |
-          node <<'NODE'
-          const estate = require('./deployment/vercel-source-bridge/api/estate-proxy.js');
-          const headers = new Map();
-          let body = Buffer.alloc(0);
-          const res = {
-            statusCode: 200,
-            setHeader(name, value) { headers.set(String(name).toLowerCase(), value); },
-            getHeader(name) { return headers.get(String(name).toLowerCase()); },
-            end(chunk = '') { body = Buffer.isBuffer(chunk) ? chunk : Buffer.from(String(chunk)); },
-          };
-          Promise.resolve(estate({ url: '/?path=__v22_verify' }, res)).then(() => {
-            const payload = JSON.parse(body.toString('utf8'));
-            if (res.statusCode !== 200 || payload.status !== 'PASS') {
-              console.error(JSON.stringify(payload, null, 2));
-              process.exit(1);
-            }
-            console.log(JSON.stringify(payload, null, 2));
-          }).catch((error) => {
-            console.error(error instanceof Error ? error.stack : error);
-            process.exit(1);
-          });
-          NODE
+      - name: Verify V22 estate intelligence runtime
+        run: node scripts/verify-v22-estate-intelligence.mjs
 
-      - name: Exercise V23 truth-synchronization verifier
-        run: |
-          node <<'NODE'
-          const truth = require('./deployment/vercel-source-bridge/api/truth-runtime.js');
-          const headers = new Map();
-          let body = Buffer.alloc(0);
-          const res = {
-            statusCode: 200,
-            setHeader(name, value) { headers.set(String(name).toLowerCase(), value); },
-            getHeader(name) { return headers.get(String(name).toLowerCase()); },
-            end(chunk = '') { body = Buffer.isBuffer(chunk) ? chunk : Buffer.from(String(chunk)); },
-          };
-          Promise.resolve(truth({ url: '/?path=__v23_verify' }, res)).then(() => {
-            const payload = JSON.parse(body.toString('utf8'));
-            if (res.statusCode !== 200 || payload.status !== 'PASS') {
-              console.error(JSON.stringify(payload, null, 2));
-              process.exit(1);
-            }
-            if (payload.helix_public_boundary?.admitted_repositories !== 67) {
-              console.error(JSON.stringify(payload, null, 2));
-              process.exit(1);
-            }
-            if (payload.helix_public_boundary?.package_state !== 'PARTIALLY_VERIFIED') {
-              console.error(JSON.stringify(payload, null, 2));
-              process.exit(1);
-            }
-            if (payload.helix_public_boundary?.aggregate_test_count_promoted !== false) {
-              console.error(JSON.stringify(payload, null, 2));
-              process.exit(1);
-            }
-            console.log(JSON.stringify(payload, null, 2));
-          }).catch((error) => {
-            console.error(error instanceof Error ? error.stack : error);
-            process.exit(1);
-          });
-          NODE
+      - name: Verify V23 truth sync runtime
+        run: node scripts/verify-v23-truth-sync.mjs
