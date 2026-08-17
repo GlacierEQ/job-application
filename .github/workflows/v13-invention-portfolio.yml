@@ -1,15 +1,29 @@
-name: V13 Invention Portfolio
+name: Invention Evidence Map
 
 on:
   pull_request:
     paths:
-      - "site-v13/**"
+      - "scripts/render-invention-evidence-map.mjs"
+      - "scripts/validate-invention-evidence-map.mjs"
+      - "scripts/compress-recruiter-surface.mjs"
+      - "site-v15/data/portfolio.json"
+      - "site-v15/data/invention-map.json"
+      - "site-v15/inventions/**"
+      - "site-v15/assets/site.inventions.css"
+      - "site-v15/index.html"
       - ".github/workflows/v13-invention-portfolio.yml"
   push:
     branches:
       - main
     paths:
-      - "site-v13/**"
+      - "scripts/render-invention-evidence-map.mjs"
+      - "scripts/validate-invention-evidence-map.mjs"
+      - "scripts/compress-recruiter-surface.mjs"
+      - "site-v15/data/portfolio.json"
+      - "site-v15/data/invention-map.json"
+      - "site-v15/inventions/**"
+      - "site-v15/assets/site.inventions.css"
+      - "site-v15/index.html"
       - ".github/workflows/v13-invention-portfolio.yml"
 
 permissions:
@@ -20,16 +34,43 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Check out source without persistent credentials
+      - name: Check out exact source without persistent credentials
         uses: actions/checkout@v4
         with:
           persist-credentials: false
 
-      - name: Set up Node
+      - name: Set up Node 24
         uses: actions/setup-node@v4
         with:
           node-version: "24"
 
-      - name: Verify invention-first source, visuals, and contracts
-        working-directory: site-v13
-        run: npm run check
+      - name: Render invention evidence map from current portfolio graph
+        run: node scripts/render-invention-evidence-map.mjs
+
+      - name: Refuse generated-surface drift
+        run: |
+          git diff --exit-code -- \
+            site-v15/data/invention-map.json \
+            site-v15/inventions/index.html
+
+      - name: Validate topology, capability routing, lineage, and proof boundaries
+        run: node scripts/validate-invention-evidence-map.mjs
+
+      - name: Verify recruiter discoverability remains normalized
+        run: node scripts/compress-recruiter-surface.mjs --check
+
+      - name: Enforce script-free public invention surface
+        run: |
+          if grep -Eiq '<script\b' site-v15/inventions/index.html; then
+            echo 'invention surface introduced client-side script' >&2
+            exit 1
+          fi
+
+      - name: Emit exact-source receipt
+        run: |
+          printf 'source_sha=%s\n' "$GITHUB_SHA"
+          sha256sum \
+            site-v15/data/invention-map.json \
+            site-v15/inventions/index.html \
+            scripts/render-invention-evidence-map.mjs \
+            scripts/validate-invention-evidence-map.mjs
