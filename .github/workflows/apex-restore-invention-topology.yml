@@ -38,12 +38,18 @@ jobs:
 
       - name: Persist generated evidence surface
         run: |
-          if git diff --quiet -- site-v15/data/invention-map.json site-v15/inventions/index.html; then
+          changes="$(git status --porcelain -- site-v15/data/invention-map.json site-v15/inventions/index.html)"
+          if [ -z "$changes" ]; then
             echo 'generated surfaces already current'
             exit 0
           fi
+          printf '%s\n' "$changes"
           git config user.name 'GlacierEQ APEX'
           git config user.email 'glacier.equilibrium@gmail.com'
           git add site-v15/data/invention-map.json site-v15/inventions/index.html
+          git diff --cached --exit-code && {
+            echo 'expected generated surfaces to be staged but index is empty' >&2
+            exit 1
+          }
           git commit -m 'build(portfolio): materialize restored invention topology'
           git push origin HEAD:apex/restore-invention-topology-20260816
