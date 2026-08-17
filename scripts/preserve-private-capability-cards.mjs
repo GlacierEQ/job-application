@@ -7,9 +7,16 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const PORTFOLIO_PATH = path.join(ROOT, 'site-v15/data/portfolio.json');
+const HELIX_PATH = path.join(ROOT, 'site-v15/data/helix-root.json');
 const WITHHELD = 'PRIVATE_REPOSITORY_IDENTITY_WITHHELD';
 const OWNER = 'GlacierEQ';
 const RETRYABLE = new Set([408, 409, 425, 429, 500, 502, 503, 504]);
+const SANITIZED_NAMES = new Map([
+  ['pro_code_doctrine', 'Pro-Code Doctrine'],
+  ['monolith', 'Monolith Estate Catalog'],
+  ['mega_pdf', 'MEGA-PDF Document Intelligence'],
+  ['fileboss', 'FILEBOSS File Governance'],
+]);
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -61,6 +68,61 @@ async function githubRepositoryVisibility(repository, fetchImpl = globalThis.fet
   fail(`visibility_unresolved:${repository}:${lastError instanceof Error ? lastError.message : String(lastError)}`);
 }
 
+export function mergeSanitizedCapabilities(portfolio, helix) {
+  if (!portfolio || typeof portfolio !== 'object' || !Array.isArray(portfolio.flagships)) fail('portfolio_invalid');
+  const sanitized = Array.isArray(helix?.sanitized_capabilities) ? helix.sanitized_capabilities : [];
+  const existing = new Set(portfolio.flagships.map((row) => row?.system_id ?? row?.id));
+  let nextRank = portfolio.flagships.reduce((max, row) => Math.max(max, Number(row?.rank) || 0), 0) + 1;
+  const added = [];
+
+  for (const capability of sanitized) {
+    if (!capability || typeof capability !== 'object') fail('sanitized_capability_invalid');
+    const id = capability.system_id;
+    if (typeof id !== 'string' || !id) fail('sanitized_capability_id_missing');
+    if (existing.has(id)) continue;
+    if (capability.repository_identity !== WITHHELD || capability.repository_identity_withheld !== true) {
+      fail(`sanitized_identity_boundary_missing:${id}`);
+    }
+    const name = SANITIZED_NAMES.get(id) ?? id.replaceAll('_', ' ').replace(/\b\w/g, (letter) => letter.toUpperCase());
+    portfolio.flagships.push({
+      id,
+      system_id: id,
+      rank: nextRank,
+      name,
+      repo: WITHHELD,
+      state: 'SANITIZED_CAPABILITY',
+      label: 'Private architecture · recruiter-safe capability card',
+      summary: capability.role,
+      mechanism: [],
+      evidence: capability.evidence,
+      limit: capability.next_gate,
+      level: capability.level,
+      public_surface: 'SANITIZED_CARD_ONLY',
+      source_state: capability.source_state,
+      identity_disclosure: {
+        state: 'WITHHELD',
+        capability_preserved: true,
+        repository_identity_published: false,
+        reason: 'sanitized_capability_card',
+      },
+    });
+    nextRank += 1;
+    existing.add(id);
+    added.push(id);
+  }
+
+  portfolio.release = portfolio.release && typeof portfolio.release === 'object' ? portfolio.release : {};
+  portfolio.release.sanitized_helix_capability_projection = {
+    schema: 'glaciereq.sanitized-helix-capability-projection.v1',
+    source: 'site-v15/data/helix-root.json#sanitized_capabilities',
+    capability_cards_added: added.length,
+    projected_system_ids: sanitized.map((row) => row.system_id).sort(),
+    repository_identities_published: 0,
+    policy: 'preserve private architecture capability as recruiter-safe card; never publish private repository identity',
+  };
+  return { portfolio, added };
+}
+
 export async function sanitizePortfolio(portfolio, resolveVisibility = githubRepositoryVisibility) {
   if (!portfolio || typeof portfolio !== 'object' || Array.isArray(portfolio)) fail('portfolio_invalid');
   if (!Array.isArray(portfolio.flagships)) fail('flagships_missing');
@@ -82,7 +144,7 @@ export async function sanitizePortfolio(portfolio, resolveVisibility = githubRep
         state: 'WITHHELD',
         capability_preserved: true,
         repository_identity_published: false,
-        reason: 'nonpublic_repository_identity',
+        reason: row.identity_disclosure?.reason ?? 'nonpublic_repository_identity',
       };
       redacted.push(row.id);
       continue;
@@ -142,10 +204,14 @@ export async function sanitizePortfolio(portfolio, resolveVisibility = githubRep
 }
 
 async function main() {
-  const portfolio = JSON.parse(await readFile(PORTFOLIO_PATH, 'utf8'));
-  const { portfolio: output, receipt } = await sanitizePortfolio(portfolio);
+  const [portfolio, helix] = await Promise.all([
+    readFile(PORTFOLIO_PATH, 'utf8').then(JSON.parse),
+    readFile(HELIX_PATH, 'utf8').then(JSON.parse),
+  ]);
+  const { portfolio: expanded, added } = mergeSanitizedCapabilities(portfolio, helix);
+  const { portfolio: output, receipt } = await sanitizePortfolio(expanded);
   await writeFile(PORTFOLIO_PATH, `${JSON.stringify(output, null, 2)}\n`, 'utf8');
-  console.log(JSON.stringify(receipt, null, 2));
+  console.log(JSON.stringify({ ...receipt, sanitized_capability_cards_added: added.length, sanitized_system_ids_added: added.sort() }, null, 2));
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
