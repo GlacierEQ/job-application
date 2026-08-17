@@ -18,6 +18,7 @@ const MODULES = [
   'deployment/vercel-source-bridge/api/monument-title-proxy.js',
   'deployment/vercel-source-bridge/api/systems-atlas-proxy.js',
   'deployment/vercel-source-bridge/api/inventions-proxy.js',
+  'deployment/vercel-source-bridge/api/starmap-proxy.js',
   'deployment/vercel-source-bridge/api/release-router.js',
 ];
 const ENTRY = 'deployment/vercel-source-bridge/api/release-router.js';
@@ -94,6 +95,9 @@ function readModules() {
   }
   if (!modules['api/inventions-proxy.js'].includes('V28-INVENTION-EVIDENCE-RUNTIME')) {
     throw new Error('invention_evidence_runtime_release_marker_missing');
+  }
+  if (!modules['api/starmap-proxy.js'].includes('V30-PROOF-STARMAP-RUNTIME')) {
+    throw new Error('proof_starmap_runtime_release_marker_missing');
   }
   return { modules, moduleHashes, factories, factoryHashes };
 }
