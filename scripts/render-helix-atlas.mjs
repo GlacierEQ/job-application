@@ -157,7 +157,9 @@ function generateStarPositionCss(count) {
   let index = 0;
   for (let r = 0; r < rings.length; r += 1) {
     const n = rings[r];
-    const radius = 21 + r * 12; // 21%, 33%, 45%, 57%, ...
+    // Compress additional rings instead of pushing large company sets off-canvas.
+    const radialStep = rings.length > 1 ? 30 / (rings.length - 1) : 0;
+    const radius = 16 + r * radialStep;
     for (let i = 0; i < n; i += 1) {
       const angle = (Math.PI * 2 * i) / n - Math.PI / 2;
       const left = 50 + radius * Math.cos(angle);
@@ -349,8 +351,8 @@ async function main() {
     }
     requireSecondDepth(company);
   }
-  if (companies.length > 128) {
-    throw new Error("constellation supports at most 128 governed company positions");
+  if (companies.length > 512) {
+    throw new Error("constellation supports at most 512 governed company positions");
   }
 
   const publicMemberships = companies.reduce((count, company) => count + company.repositories.length, 0);
