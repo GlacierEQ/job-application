@@ -9,7 +9,7 @@ import test from 'node:test';
 const ROOT = path.resolve(import.meta.dirname, '..', '..');
 const BUILDER = path.join(ROOT, 'scripts', 'build-v25-deployment-bundle.mjs');
 const SOURCE_COMMIT = 'a'.repeat(40);
-const EXPECTED_MODULE_COUNT = 12;
+const EXPECTED_MODULE_COUNT = 13;
 const require = createRequire(import.meta.url);
 
 function runBuilder(args) {
@@ -76,6 +76,8 @@ test('generated bootstrap verifies precompiled factories without runtime string 
   assert.equal(source.includes('eval('), false);
   assert.equal(source.includes("require('node:vm')"), false);
   assert.ok(source.includes('V28-INVENTION-EVIDENCE-RUNTIME'));
+  assert.ok(source.includes('V30-PROOF-STARMAP-RUNTIME'));
+  assert.ok(source.includes('api/starmap-proxy.js'));
 });
 
 test('generated two-file routing targets the bundled Lambda catch-all', () => {

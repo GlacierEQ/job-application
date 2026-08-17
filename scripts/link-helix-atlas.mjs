@@ -74,6 +74,7 @@ async function updateSitemap(companyIds) {
   );
   const wanted = [
     "https://casey-barton-glaciereq.vercel.app/atlas/",
+    "https://casey-barton-glaciereq.vercel.app/atlas/starmap/",
     ...companyIds.map(
       (id) => `https://casey-barton-glaciereq.vercel.app/companies/${companySlug(id)}/`,
     ),
