@@ -11,7 +11,7 @@ const BUILDER = path.join(ROOT, 'scripts', 'build-v25-deployment-bundle.mjs');
 const DEFAULT_OUTPUT = path.join(ROOT, 'artifacts', 'v25-deployment-effective');
 const SHA40 = /^[a-f0-9]{40}$/;
 const NUMERIC_CARDINALITY_PIN = /data\.projection\.company_count\s*!==\s*\d+/;
-const EXPECTED_BUNDLE_MODULE_COUNT = 13;
+const EXPECTED_BUNDLE_MODULE_COUNT = 14;
 
 function requireValue(condition, message) {
   if (!condition) throw new Error(message);
@@ -92,6 +92,8 @@ function main() {
     requireValue(manifest.invariants?.runtime_string_evaluation_required === false, 'effective_bundle_runtime_eval');
     requireValue(manifest.invariants?.factory_bundle_verified_before_module_execution === true, 'effective_bundle_factory_verification');
     requireValue(manifest.deployment_files?.length === 2, 'effective_bundle_file_count');
+    requireValue(Object.hasOwn(manifest.module_sha256 || {}, 'api/workflow-topology-proxy.js'), 'effective_bundle_topology_manifest_missing');
+    requireValue(Object.hasOwn(manifest.factory_sha256 || {}, 'api/workflow-topology-proxy.js'), 'effective_bundle_topology_factory_missing');
     const bundle = fs.readFileSync(path.join(outputDir, 'api', 'index.js'), 'utf8');
     requireValue(bundle.includes(helixCommit), 'effective_bundle_helix_pin_missing');
     requireValue(bundle.includes('company_second_depth_overrides/index.json'), 'effective_bundle_override_index_missing');
@@ -104,6 +106,8 @@ function main() {
     requireValue(bundle.includes('e870a5153bb38d533540e44c888759a8cd3b7169'), 'effective_bundle_invention_source_missing');
     requireValue(bundle.includes('V30-PROOF-STARMAP-RUNTIME'), 'effective_bundle_starmap_runtime_missing');
     requireValue(bundle.includes('api/starmap-proxy.js'), 'effective_bundle_starmap_module_missing');
+    requireValue(bundle.includes('V29-WORKFLOW-TOPOLOGY-RUNTIME'), 'effective_bundle_topology_runtime_missing');
+    requireValue(bundle.includes('api/workflow-topology-proxy.js'), 'effective_bundle_topology_module_missing');
     process.stdout.write(JSON.stringify({ status: 'PASS', source_commit: sourceCommit, helix_commit: helixCommit, manifest }, null, 2) + '\n');
   } finally {
     fs.writeFileSync(COMPILER, original, 'utf8');
