@@ -69,6 +69,7 @@ jobs:
           node scripts/link-helix-atlas.mjs
           node scripts/project-estate-intelligence.mjs
           node scripts/render-full-estate-explorer.mjs
+          node scripts/normalize-full-estate-design.mjs
           node scripts/validate-full-estate-explorer.mjs
           node scripts/apply-complete-web-design.mjs
           node scripts/validate-estate-intelligence.mjs
@@ -78,6 +79,7 @@ jobs:
           node scripts/validate-public-proof-surface.mjs
           node scripts/compress-recruiter-surface.mjs
           node scripts/compress-recruiter-surface.mjs --check
+          node scripts/normalize-full-estate-design.mjs --check
           node scripts/validate-full-estate-explorer.mjs
           node site-v15/scripts/validate.mjs
 
