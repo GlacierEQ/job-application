@@ -117,7 +117,10 @@ export function renderLibrary(model) {
   <title>Capability Library · Casey Barton</title>
   <link rel="canonical" href="https://casey-barton-glaciereq.vercel.app/library/">
   <link rel="stylesheet" href="/assets/site.css">
+  <link rel="stylesheet" href="/assets/site.systems.css">
   <link rel="stylesheet" href="/assets/site.complete.css">
+  <link rel="stylesheet" href="/assets/site.interaction.css">
+  <link rel="stylesheet" href="/assets/site.algerian.css">
   <link rel="stylesheet" href="/assets/site.repositories.css">
   <link rel="alternate" type="application/json" href="/data/capability-library.json" title="Machine-readable capability library">
 </head>
