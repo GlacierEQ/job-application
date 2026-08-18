@@ -6,6 +6,7 @@ on:
     paths:
       - "site-v15/**"
       - "scripts/**"
+      - "tests/**"
       - "deployment/vercel-source-bridge/**"
       - "vercel.json"
       - "package.json"
@@ -15,6 +16,7 @@ on:
     paths:
       - "site-v15/**"
       - "scripts/**"
+      - "tests/**"
       - "deployment/vercel-source-bridge/**"
       - "vercel.json"
       - "package.json"
@@ -44,14 +46,15 @@ jobs:
         with:
           node-version: 24
 
-      - name: Verify hardened source bridge contracts
+      - name: Verify hardened source bridge and capability-library contracts
         run: |
           node --test \
             deployment/vercel-source-bridge/proxy.test.js \
             deployment/vercel-source-bridge/design-proxy.test.js \
             deployment/vercel-source-bridge/estate-proxy.test.js \
             deployment/vercel-source-bridge/truth-proxy.test.js \
-            tests/private-capability-boundary.test.mjs
+            tests/private-capability-boundary.test.mjs \
+            tests/capability-library.test.mjs
 
       - name: Build exact Vercel static surface from effective Helix authority
         env:
@@ -73,6 +76,7 @@ jobs:
           node scripts/harden-public-proof-surface.mjs
           node scripts/preserve-private-capability-cards.mjs
           node scripts/validate-public-proof-surface.mjs
+          node scripts/render-capability-library.mjs
           node scripts/compress-recruiter-surface.mjs
           node scripts/compress-recruiter-surface.mjs --check
           node site-v15/scripts/validate.mjs
