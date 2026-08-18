@@ -225,11 +225,17 @@ export function injectRoleLenses(html, rendered) {
   let base = html;
   if (start >= 0 || end >= 0) {
     if (start < 0 || end < start) fail('estate role-lens marker pair corrupt');
-    base = `${html.slice(0, start)}${html.slice(end + END.length)}`;
+    let removeStart = start;
+    let removeEnd = end + END.length;
+    if (removeStart > 0 && html[removeStart - 1] === '\n') removeStart -= 1;
+    if (removeEnd < html.length && html[removeEnd] === '\n') removeEnd += 1;
+    base = `${html.slice(0, removeStart)}${html.slice(removeEnd)}`;
   }
   const anchor = base.indexOf(INSERTION);
   if (anchor < 0) fail('estate HTML insertion anchor missing after normalization');
-  return `${base.slice(0, anchor)}${rendered}\n${base.slice(anchor)}`;
+  const prefix = base.slice(0, anchor);
+  const separator = prefix.endsWith('\n') || prefix.length === 0 ? '' : '\n';
+  return `${prefix}${separator}${rendered}\n${base.slice(anchor)}`;
 }
 
 async function main() {
