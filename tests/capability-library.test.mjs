@@ -45,7 +45,7 @@ test('withheld private identities never become links', () => {
   assert.ok(html.includes('Repository identity withheld'));
 });
 
-test('library emits machine-readable and human discovery contracts', () => {
+test('library emits machine-readable, human discovery, and complete-site design contracts', () => {
   const model = buildLibraryModel(portfolio);
   const html = renderLibrary(model);
   assert.equal(model.schema, 'glaciereq.recruiter-capability-library.v1');
@@ -53,4 +53,7 @@ test('library emits machine-readable and human discovery contracts', () => {
   assert.match(html, /\/data\/capability-library\.json/);
   assert.match(html, /\/inventions\//);
   assert.match(html, /\/visualizer\//);
+  for (const stylesheet of ['site.systems.css', 'site.complete.css', 'site.interaction.css', 'site.algerian.css', 'site.repositories.css']) {
+    assert.ok(html.includes(`/assets/${stylesheet}`), `missing complete-site stylesheet: ${stylesheet}`);
+  }
 });
