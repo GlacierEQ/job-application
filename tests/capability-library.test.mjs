@@ -23,10 +23,21 @@ test('recovered donor capabilities remain discoverable', () => {
 });
 
 test('withheld private identities never become links', () => {
-  const model = buildLibraryModel(portfolio);
-  for (const system of model.systems.filter((row) => row.repository_identity_withheld)) {
-    assert.equal(system.repository, null);
-  }
+  const sanitized = structuredClone(portfolio);
+  sanitized.flagships[0] = {
+    ...sanitized.flagships[0],
+    repo: 'PRIVATE_REPOSITORY_IDENTITY_WITHHELD',
+    identity_disclosure: {
+      state: 'WITHHELD',
+      capability_preserved: true,
+      repository_identity_published: false,
+      reason: 'test_nonpublic_repository_identity',
+    },
+  };
+  const model = buildLibraryModel(sanitized);
+  const withheld = model.systems.find((row) => row.id === sanitized.flagships[0].id);
+  assert.equal(withheld.repository, null);
+  assert.equal(withheld.repository_identity_withheld, true);
   const html = renderLibrary(model);
   assert.ok(!html.includes('PRIVATE_REPOSITORY_IDENTITY_WITHHELD" target='));
   assert.ok(html.includes('Repository identity withheld'));
