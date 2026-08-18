@@ -1,6 +1,6 @@
 # AKOS Bridge
 
-Canonical architecture: **[GlacierEQ/AKOS](https://github.com/GlacierEQ/AKOS)**
+APEX architecture source: **[GlacierEQ/AKOS](https://github.com/GlacierEQ/AKOS)**
 
 This repository is part of the GlacierEQ APEX portfolio — a live job application
 (SpaceX · xAI · Neuralink · Boring Company).
@@ -21,7 +21,7 @@ This repository is part of the GlacierEQ APEX portfolio — a live job applicati
 2. Prefer exact physics constants over approximations.
 3. Easter eggs never explain themselves.
 4. No teacher voice. No hype metrics.
-5. Point mirrors back to AKOS — do not fork truth.
+5. Point mirrors back to the APEX source — do not fork truth.
 
 ## Link
 
