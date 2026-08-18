@@ -44,14 +44,15 @@ jobs:
         with:
           node-version: 24
 
-      - name: Verify hardened source bridge contracts
+      - name: Verify hardened source bridge and estate preservation contracts
         run: |
           node --test \
             deployment/vercel-source-bridge/proxy.test.js \
             deployment/vercel-source-bridge/design-proxy.test.js \
             deployment/vercel-source-bridge/estate-proxy.test.js \
             deployment/vercel-source-bridge/truth-proxy.test.js \
-            tests/private-capability-boundary.test.mjs
+            tests/private-capability-boundary.test.mjs \
+            tests/full-estate-explorer.test.mjs
 
       - name: Build exact Vercel static surface from effective Helix authority
         env:
@@ -67,6 +68,9 @@ jobs:
           node scripts/render-helix-atlas.mjs
           node scripts/link-helix-atlas.mjs
           node scripts/project-estate-intelligence.mjs
+          node scripts/render-full-estate-explorer.mjs
+          node scripts/normalize-full-estate-design.mjs
+          node scripts/validate-full-estate-explorer.mjs
           node scripts/apply-complete-web-design.mjs
           node scripts/validate-estate-intelligence.mjs
           node scripts/validate-helix-atlas.mjs
@@ -75,6 +79,8 @@ jobs:
           node scripts/validate-public-proof-surface.mjs
           node scripts/compress-recruiter-surface.mjs
           node scripts/compress-recruiter-surface.mjs --check
+          node scripts/normalize-full-estate-design.mjs --check
+          node scripts/validate-full-estate-explorer.mjs
           node site-v15/scripts/validate.mjs
 
       - name: Exercise immutable V21 static and generated runtime surfaces

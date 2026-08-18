@@ -1,0 +1,41 @@
+{
+  "schema": "glaciereq.public-estate-scope.v1",
+  "owner": "GlacierEQ",
+  "source": {
+    "repository": "GlacierEQ/job-app-helix",
+    "commit": "ab65f08fc7b4128771db5fe1f6579afd83c2bc02",
+    "path": "manifests/estate_scope_receipt_2026-08-17.json",
+    "blob_sha": "3c9413b3f44c8a2fc8fbc8a3d2c6f80de7d018ec",
+    "observed_at": "2026-08-17T12:42:00Z"
+  },
+  "estate": {
+    "repository_count": 1183,
+    "public_repository_count": 672,
+    "private_repository_count": 511,
+    "archived_repository_count": 68,
+    "archived_public_repository_count": 40,
+    "archived_private_repository_count": 28
+  },
+  "job_rollout_projection": {
+    "repository_count": 67,
+    "workspace_child_count": 66,
+    "outside_projection_repository_count": 1116,
+    "estate_coverage_ratio": 0.0566356720202874,
+    "is_full_estate_inventory": false
+  },
+  "invariants": {
+    "full_estate_discovery_precedes_rollout_admission": true,
+    "all_owned_repositories_are_relevance_analysis_candidates": true,
+    "private_visibility_is_metadata_not_exclusion": true,
+    "archived_state_is_metadata_not_exclusion": true,
+    "fork_state_is_metadata_not_exclusion": true,
+    "rollout_membership_is_not_evidence_admissibility": true,
+    "private_repository_names_must_not_be_emitted_to_public_artifacts": true
+  },
+  "interpretation": "The 67-repository job rollout is a routed projection over the owner estate. It is not the estate and may not erase repositories outside that projection.",
+  "nonclaims": [
+    "Repository inventory does not by itself establish authorship, originality, functionality, deployment, or recruiter relevance.",
+    "Private repository identities are intentionally omitted from public artifacts.",
+    "Archived repositories remain discoverable capability and lineage sources unless the operator explicitly directs otherwise."
+  ]
+}
