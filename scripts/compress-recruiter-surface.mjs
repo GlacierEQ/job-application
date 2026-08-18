@@ -11,23 +11,19 @@ const VERIFY_ONLY = process.argv.includes('--check');
 const HOME = path.join(SITE, 'index.html');
 const RESUME = path.join(SITE, 'resume', 'index.html');
 
-// Recruiter compression should reduce decision noise without hiding the estate's
-// strongest proof-discovery surfaces. Visualizer communicates system composition,
-// Inventions communicates problem-first capability, and Atlas communicates
-// company-specific fit. Those are product capabilities, not internal tooling.
-const RECRUITER_NAV = '<nav class="links" aria-label="Primary navigation"><a href="#proof">Proof</a><a href="#systems">Systems</a><a href="/visualizer/">Visualizer</a><a href="/inventions/">Inventions</a><a href="/atlas/">Company Atlas</a><a href="/resume/">Résumé</a><a href="/master/">Technical</a></nav>';
+// Recruiter compression should reduce decision noise without deleting discovery.
+// The capability library restores the V13 browse-the-estate experience using the
+// current proof-bound portfolio rather than reviving stale historical output.
+const RECRUITER_NAV = '<nav class="links" aria-label="Primary navigation"><a href="#proof">Proof</a><a href="#systems">Systems</a><a href="/library/">Library</a><a href="/visualizer/">Visualizer</a><a href="/inventions/">Inventions</a><a href="/atlas/">Company Atlas</a><a href="/resume/">Résumé</a><a href="/master/">Technical</a></nav>';
 const PRIMARY_NAV_RE = /<nav class="links" aria-label="Primary navigation">[\s\S]*?<\/nav>/;
 const ATS_LINK_RE = /<a\b[^>]*href=["']\/resume\/ats\.txt["'][^>]*>[\s\S]*?<\/a>/g;
 
-// These routes are static inputs at the point this transform runs. Compiler is
-// generated later in the release pipeline and is verified by its own compiler
-// proxy/validator, so requiring compiler/index.html here would create a false
-// ordering dependency rather than protect a real route.
 const REQUIRED_STATIC_DEEP_ROUTES = [
   'master/index.html',
   'mesh/index.html',
   'machine/index.html',
   'atlas/index.html',
+  'library/index.html',
   'visualizer/index.html',
   'inventions/index.html',
   'resume/index.html',
@@ -70,12 +66,12 @@ function extractPrimaryNav(source) {
 function validate(home, resume) {
   const nav = extractPrimaryNav(home);
   const hrefs = [...nav.matchAll(/<a\b[^>]*href=["']([^"']+)["']/g)].map((match) => match[1]);
-  const expected = ['#proof', '#systems', '/visualizer/', '/inventions/', '/atlas/', '/resume/', '/master/'];
+  const expected = ['#proof', '#systems', '/library/', '/visualizer/', '/inventions/', '/atlas/', '/resume/', '/master/'];
   if (JSON.stringify(hrefs) !== JSON.stringify(expected)) {
     throw new Error(`recruiter_nav_contract_failed:${JSON.stringify(hrefs)}`);
   }
 
-  for (const required of ['/visualizer/', '/inventions/', '/atlas/']) {
+  for (const required of ['/library/', '/visualizer/', '/inventions/', '/atlas/']) {
     if (!nav.includes(`href="${required}"`)) {
       throw new Error(`recruiter_discovery_route_missing:${required}`);
     }
@@ -107,6 +103,7 @@ function validate(home, resume) {
     ats_cta_count: atsCount,
     static_deep_routes_preserved: REQUIRED_STATIC_DEEP_ROUTES.length,
     discovery_routes: {
+      library: 'current_capability_inventory_discovery',
       visualizer: 'system_composition_discovery',
       inventions: 'problem_first_capability_discovery',
       atlas: 'company_specific_evidence_discovery',
@@ -129,7 +126,7 @@ if (!VERIFY_ONLY) {
 
 const result = validate(VERIFY_ONLY ? originalHome : nextHome, VERIFY_ONLY ? originalResume : nextResume);
 console.log(JSON.stringify({
-  schema: 'glaciereq.recruiter-surface-compression.v2',
+  schema: 'glaciereq.recruiter-surface-compression.v3',
   mode: VERIFY_ONLY ? 'check' : 'apply',
   ...result,
 }, null, 2));
