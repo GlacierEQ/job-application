@@ -35,7 +35,9 @@ test('withheld private identities never become links', () => {
     },
   };
   const model = buildLibraryModel(sanitized);
-  const withheld = model.systems.find((row) => row.id === sanitized.flagships[0].id);
+  const expectedId = sanitized.flagships[0].system_id ?? sanitized.flagships[0].id;
+  const withheld = model.systems.find((row) => row.id === expectedId);
+  assert.ok(withheld, `withheld capability missing from model: ${expectedId}`);
   assert.equal(withheld.repository, null);
   assert.equal(withheld.repository_identity_withheld, true);
   const html = renderLibrary(model);
