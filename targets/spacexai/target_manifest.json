@@ -1,0 +1,14 @@
+{
+  "schema": "glaciereq.target-intelligence-manifest.v1",
+  "sources": [
+    {
+      "company": "SpaceXAI",
+      "provider": "greenhouse",
+      "board_key": "xai",
+      "include_title_terms": ["Exceptional Software Engineer"],
+      "max_openings": 4,
+      "acquisition_plan": "company_intelligence_plan.json",
+      "role": "Exceptional Software Engineer"
+    }
+  ]
+}
