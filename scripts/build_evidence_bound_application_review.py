@@ -55,7 +55,9 @@ def _evidence_rows(preparation: Mapping[str, object]) -> list[dict[str, object]]
     result: list[dict[str, object]] = []
     for index, row in enumerate(rows):
         if not isinstance(row, dict):
-            raise EvidenceReviewError(f"preparation.evidence[{index}] must be an object")
+            raise EvidenceReviewError(
+                f"preparation.evidence[{index}] must be an object"
+            )
         text = _required_text(row.get("text"), field=f"evidence[{index}].text")
         provenance = _required_text(
             row.get("provenance"), field=f"evidence[{index}].provenance"
@@ -110,7 +112,9 @@ def select_diverse_evidence(
 ) -> tuple[dict[str, object], ...]:
     """Select at most three claims while guaranteeing independent provenance when available."""
     deduped = _dedupe(rows)
-    achievements = [r for r in deduped if r["evidence_class"] == "candidate_achievement"]
+    achievements = [
+        r for r in deduped if r["evidence_class"] == "candidate_achievement"
+    ]
     reviewed = [
         r for r in deduped if r["evidence_class"] == "source_reviewed_portfolio_claim"
     ]
@@ -149,7 +153,9 @@ def build_review(preparation_path: Path) -> dict[str, object]:
     prompt = _exceptional_prompt(preparation)
     selected = select_diverse_evidence(_evidence_rows(preparation))
 
-    application_id = _required_text(preparation.get("application_id"), field="application_id")
+    application_id = _required_text(
+        preparation.get("application_id"), field="application_id"
+    )
     opening_id = _required_text(preparation.get("opening_id"), field="opening_id")
     field_name = _required_text(prompt.get("field_name"), field="prompt.field_name")
     label = _required_text(prompt.get("label"), field="prompt.label")
