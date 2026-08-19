@@ -1,11 +1,8 @@
-from __future__ import annotations
-
 import importlib.util
 import json
 from pathlib import Path
 
 import pytest
-
 
 SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "build_evidence_bound_application_review.py"
 SPEC = importlib.util.spec_from_file_location("evidence_review", SCRIPT)
