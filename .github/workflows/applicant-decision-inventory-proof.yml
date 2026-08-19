@@ -1,0 +1,42 @@
+name: Applicant Decision Inventory Proof
+
+on:
+  pull_request:
+    paths:
+      - "tools/build_applicant_decision_inventory.py"
+      - "tools/build_applicant_decision_packet.py"
+      - "scripts/build_evidence_bound_application_review.py"
+      - "tests/test_applicant_decision_inventory.py"
+      - "tests/test_applicant_decision_packet.py"
+      - ".github/workflows/applicant-decision-inventory-proof.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  proof:
+    name: Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Compile runtime
+        run: |
+          python -m py_compile \
+            tools/build_applicant_decision_inventory.py \
+            tools/build_applicant_decision_packet.py \
+            scripts/build_evidence_bound_application_review.py
+      - name: Run adversarial composition tests
+        run: |
+          python -m unittest \
+            tests.test_applicant_decision_inventory \
+            tests.test_applicant_decision_packet
+      - name: Exercise direct CLI
+        run: python tools/build_applicant_decision_inventory.py --help >/dev/null
