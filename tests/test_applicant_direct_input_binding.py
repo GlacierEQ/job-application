@@ -119,7 +119,9 @@ class ApplicantDirectInputBindingTests(unittest.TestCase):
         payload["opening_id"] = "stale-opening"
         _seal(payload)
         self.direct_inputs.write_text(json.dumps(payload), encoding="utf-8")
-        with self.assertRaisesRegex(ApplicantDirectInputError, "opening identity drift"):
+        with self.assertRaisesRegex(
+            ApplicantDirectInputError, "opening identity drift"
+        ):
             bind_direct_inputs(self.inventory_path, self.direct_inputs)
 
     def test_rejects_direct_binding_to_reviewed_generated_field(self) -> None:
