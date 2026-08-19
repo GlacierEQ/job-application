@@ -11,10 +11,13 @@ on:
 permissions:
   contents: read
 
+env:
+  HELIX_SHA: 725e785453ab01350d7b273c94ddb4dac70501af
+
 jobs:
   live-target-application:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - name: Check out hiring repository
         uses: actions/checkout@v6
@@ -25,7 +28,7 @@ jobs:
         uses: actions/checkout@v6
         with:
           repository: GlacierEQ/job-app-helix
-          ref: 4fa39c0d3cfbf413b1cda69fe2dbbd63761d18d7
+          ref: ${{ env.HELIX_SHA }}
           path: .helix-runtime
           persist-credentials: false
 
@@ -90,11 +93,115 @@ jobs:
               "bundle_sha256": selected["bundle_sha256"],
               "opening_count": discovered["opening_count"],
               "release_sha256": hashlib.sha256(release_path.read_bytes()).hexdigest(),
-              "helix_sha": "4fa39c0d3cfbf413b1cda69fe2dbbd63761d18d7"
+              "helix_sha": "725e785453ab01350d7b273c94ddb4dac70501af"
           }, indent=2, sort_keys=True))
           PY
 
-      - name: Upload live application-ready package
+      - name: Prepare exact live Greenhouse application fields
+        run: |
+          JOB_ID="$(python - <<'PY'
+          import json
+          from pathlib import Path
+          release = json.loads(Path("helix-live/state/APPLICATION_READY_TARGET.json").read_text())
+          print(release["selected"]["opening_id"])
+          PY
+          )"
+          job-app-helix-greenhouse-prepare \
+            --release helix-live/state/APPLICATION_READY_TARGET.json \
+            --profile helix-live/state/COMPILED_CANDIDATE_PROFILE.json \
+            --board-key xai \
+            --job-id "$JOB_ID" \
+            --output helix-live/greenhouse-preparation.json \
+            > helix-live/greenhouse-preparation-output.json
+
+      - name: Bind production resume to exact live file field
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          release = json.loads(Path("helix-live/state/APPLICATION_READY_TARGET.json").read_text())
+          packet_dir = Path(release["selected"]["packet_dir"])
+          bundle = json.loads((packet_dir / "GREENHOUSE_APPLICATION_FIELDS.json").read_text())
+          file_fields = [
+              row["field"]
+              for row in bundle["fields"]
+              if row["field"]["field_type"] == "input_file"
+          ]
+          resume_fields = [
+              field for field in file_fields
+              if "resume" in f'{field["label"]} {field["name"]}'.casefold()
+              or "cv" in f'{field["label"]} {field["name"]}'.casefold()
+          ]
+          assert len(resume_fields) == 1, (
+              "expected exactly one live resume/CV file field, found "
+              f"{[(f['name'], f['label']) for f in resume_fields]}"
+          )
+          payload = {
+              "attachments": [{
+                  "field_name": resume_fields[0]["name"],
+                  "path": "RESUME_ATS.md",
+                  "provenance": "GlacierEQ/job-application:RESUME_ATS.md@workflow-head"
+              }]
+          }
+          destination = Path("helix-live/greenhouse-attachments.json")
+          destination.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
+          print(json.dumps(payload, indent=2, sort_keys=True))
+          PY
+
+      - name: Build hash-bound Greenhouse final review packet
+        id: finalize
+        shell: bash
+        run: |
+          set +e
+          job-app-helix-greenhouse-finalize \
+            --preparation helix-live/greenhouse-preparation.json \
+            --attachment-source helix-live/greenhouse-attachments.json \
+            --output helix-live/greenhouse-final.json \
+            > helix-live/greenhouse-final-output.json
+          code=$?
+          set -e
+          if [[ "$code" != "0" && "$code" != "2" ]]; then
+            echo "unexpected finalization exit code: $code" >&2
+            exit "$code"
+          fi
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+
+      - name: Verify final review integrity and remaining applicant decisions
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+
+          final_path = Path("helix-live/greenhouse-final.json")
+          assert final_path.is_file(), "final review artifact was not produced"
+          final = json.loads(final_path.read_text(encoding="utf-8"))
+          attachments = final["attachments"]
+          assert len(attachments) == 1
+          attachment = attachments[0]
+          expected_resume = Path("RESUME_ATS.md").resolve()
+          assert Path(attachment["path"]).resolve() == expected_resume
+          assert attachment["sha256"] == hashlib.sha256(expected_resume.read_bytes()).hexdigest()
+          assert final["resolved_required_count"] <= final["required_field_count"]
+          unresolved = final["unresolved_required_fields"]
+          ready = final["ready_for_human_submission"]
+          assert ready is (len(unresolved) == 0)
+
+          print(json.dumps({
+              "application_id": final["application_id"],
+              "opening_id": final["opening_id"],
+              "required_field_count": final["required_field_count"],
+              "resolved_required_count": final["resolved_required_count"],
+              "unresolved_required_fields": unresolved,
+              "ready_for_human_submission": ready,
+              "attachment_sha256": attachment["sha256"],
+              "final_receipt_sha256": final["receipt_sha256"],
+              "helix_sha": "725e785453ab01350d7b273c94ddb4dac70501af"
+          }, indent=2, sort_keys=True))
+          PY
+
+      - name: Upload live application final-review package
         uses: actions/upload-artifact@v4
         with:
           name: helix-live-spacexai-application
@@ -102,4 +209,9 @@ jobs:
             helix-live/state/
             helix-live/packets/
             helix-live/target-application-output.json
+            helix-live/greenhouse-preparation.json
+            helix-live/greenhouse-preparation-output.json
+            helix-live/greenhouse-attachments.json
+            helix-live/greenhouse-final.json
+            helix-live/greenhouse-final-output.json
           if-no-files-found: error
