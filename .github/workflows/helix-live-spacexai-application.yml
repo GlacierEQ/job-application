@@ -180,8 +180,9 @@ jobs:
           attachments = final["attachments"]
           assert len(attachments) == 1
           attachment = attachments[0]
-          assert attachment["path"] == "RESUME_ATS.md"
-          assert attachment["sha256"] == hashlib.sha256(Path("RESUME_ATS.md").read_bytes()).hexdigest()
+          expected_resume = Path("RESUME_ATS.md").resolve()
+          assert Path(attachment["path"]).resolve() == expected_resume
+          assert attachment["sha256"] == hashlib.sha256(expected_resume.read_bytes()).hexdigest()
           assert final["resolved_required_count"] <= final["required_field_count"]
           unresolved = final["unresolved_required_fields"]
           ready = final["ready_for_human_submission"]
