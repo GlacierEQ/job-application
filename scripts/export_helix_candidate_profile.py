@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Project the maintained production resume into the Job Application Helix profile contract.
 
 The resume remains the owning record. This bridge is deterministic and loss-conscious:
@@ -85,7 +84,7 @@ def _project_achievement(project: dict[str, Any]) -> str:
 def build_helix_profile(resume: dict[str, Any]) -> dict[str, Any]:
     basics = resume.get("basics")
     if not isinstance(basics, dict):
-        raise ValueError("resume requires a basics object")
+        raise TypeError("resume requires a basics object")
     name = _clean(basics.get("name"))
     if not name:
         raise ValueError("resume basics requires name")
@@ -167,7 +166,7 @@ def build_helix_profile(resume: dict[str, Any]) -> dict[str, Any]:
 def _load(path: Path) -> dict[str, Any]:
     value = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(value, dict):
-        raise ValueError(f"{path} must contain a JSON object")
+        raise TypeError(f"{path} must contain a JSON object")
     return value
 
 
