@@ -37,7 +37,9 @@ def _canonical_bytes(payload: Mapping[str, object]) -> bytes:
 
 def _required_text(value: object, *, field: str) -> str:
     if not isinstance(value, str) or not value.strip():
-        raise ApplicantDecisionInventoryError(f"required non-empty string missing: {field}")
+        raise ApplicantDecisionInventoryError(
+            f"required non-empty string missing: {field}"
+        )
     return value.strip()
 
 
@@ -45,7 +47,9 @@ def _load_preparation(path: Path) -> dict[str, Any]:
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
-        raise ApplicantDecisionInventoryError(f"invalid preparation {path}: {exc}") from exc
+        raise ApplicantDecisionInventoryError(
+            f"invalid preparation {path}: {exc}"
+        ) from exc
     if not isinstance(payload, dict):
         raise ApplicantDecisionInventoryError("preparation must be a JSON object")
     return payload
@@ -54,17 +58,25 @@ def _load_preparation(path: Path) -> dict[str, Any]:
 def _live_prompts(preparation: Mapping[str, Any]) -> list[dict[str, str]]:
     prompts = preparation.get("prompts")
     if not isinstance(prompts, list) or not prompts:
-        raise ApplicantDecisionInventoryError("preparation.prompts must be a non-empty list")
+        raise ApplicantDecisionInventoryError(
+            "preparation.prompts must be a non-empty list"
+        )
 
     result: list[dict[str, str]] = []
     seen: set[str] = set()
     for index, prompt in enumerate(prompts):
         if not isinstance(prompt, Mapping):
-            raise ApplicantDecisionInventoryError(f"preparation.prompts[{index}] must be an object")
-        field_name = _required_text(prompt.get("field_name"), field=f"prompts[{index}].field_name")
+            raise ApplicantDecisionInventoryError(
+                f"preparation.prompts[{index}] must be an object"
+            )
+        field_name = _required_text(
+            prompt.get("field_name"), field=f"prompts[{index}].field_name"
+        )
         label = _required_text(prompt.get("label"), field=f"prompts[{index}].label")
         if field_name in seen:
-            raise ApplicantDecisionInventoryError(f"duplicate live field identity: {field_name}")
+            raise ApplicantDecisionInventoryError(
+                f"duplicate live field identity: {field_name}"
+            )
         seen.add(field_name)
         result.append({"field_name": field_name, "label": label})
     return result
@@ -73,7 +85,9 @@ def _live_prompts(preparation: Mapping[str, Any]) -> list[dict[str, str]]:
 def build_decision_inventory(preparation_path: Path) -> dict[str, Any]:
     """Return an identity-complete inventory without inferring unresolved applicant values."""
     preparation = _load_preparation(preparation_path)
-    application_id = _required_text(preparation.get("application_id"), field="application_id")
+    application_id = _required_text(
+        preparation.get("application_id"), field="application_id"
+    )
     opening_id = _required_text(preparation.get("opening_id"), field="opening_id")
     prompts = _live_prompts(preparation)
 
@@ -82,13 +96,22 @@ def build_decision_inventory(preparation_path: Path) -> dict[str, Any]:
     except RuntimeError as exc:
         raise ApplicantDecisionInventoryError(str(exc)) from exc
 
-    if reviewed_packet.get("application_id") != application_id or reviewed_packet.get("opening_id") != opening_id:
-        raise ApplicantDecisionInventoryError("reviewed decision identity drifted from live preparation")
+    if (
+        reviewed_packet.get("application_id") != application_id
+        or reviewed_packet.get("opening_id") != opening_id
+    ):
+        raise ApplicantDecisionInventoryError(
+            "reviewed decision identity drifted from live preparation"
+        )
 
     reviewed = reviewed_packet["decision"]
-    reviewed_field = _required_text(reviewed.get("field_name"), field="reviewed.field_name")
+    reviewed_field = _required_text(
+        reviewed.get("field_name"), field="reviewed.field_name"
+    )
     if reviewed_field not in {prompt["field_name"] for prompt in prompts}:
-        raise ApplicantDecisionInventoryError("reviewed field is absent from the live prompt inventory")
+        raise ApplicantDecisionInventoryError(
+            "reviewed field is absent from the live prompt inventory"
+        )
 
     decisions: list[dict[str, Any]] = []
     for prompt in prompts:
@@ -138,14 +161,18 @@ def build_decision_inventory(preparation_path: Path) -> dict[str, Any]:
         },
         "reviewed_packet_receipt_sha256": reviewed_packet["receipt_sha256"],
     }
-    inventory["receipt_sha256"] = hashlib.sha256(_canonical_bytes(inventory)).hexdigest()
+    inventory["receipt_sha256"] = hashlib.sha256(
+        _canonical_bytes(inventory)
+    ).hexdigest()
     return inventory
 
 
 def _atomic_write_json(path: Path, payload: Mapping[str, object]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     encoded = json.dumps(payload, indent=2, sort_keys=True) + "\n"
-    fd, temporary_name = tempfile.mkstemp(dir=path.parent, prefix=f".{path.name}.", suffix=".tmp", text=True)
+    fd, temporary_name = tempfile.mkstemp(
+        dir=path.parent, prefix=f".{path.name}.", suffix=".tmp", text=True
+    )
     temporary = Path(temporary_name)
     try:
         with os.fdopen(fd, "w", encoding="utf-8") as handle:
@@ -158,7 +185,9 @@ def _atomic_write_json(path: Path, payload: Mapping[str, object]) -> None:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Build an exact multi-field applicant decision inventory.")
+    parser = argparse.ArgumentParser(
+        description="Build an exact multi-field applicant decision inventory."
+    )
     parser.add_argument("--preparation", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args(argv)
