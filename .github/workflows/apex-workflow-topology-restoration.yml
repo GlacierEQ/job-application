@@ -4,14 +4,19 @@ on:
   pull_request:
     paths:
       - 'deployment/vercel-source-bridge/api/workflow-topology-proxy.js'
+      - 'deployment/vercel-source-bridge/api/release-router.js'
       - 'deployment/vercel-source-bridge/workflow-topology-proxy.test.js'
+      - 'deployment/vercel-source-bridge/release-router-workflow-topology.test.js'
       - '.github/workflows/apex-workflow-topology-restoration.yml'
   push:
     branches:
       - apex/restore-workflow-topology-20260819
+      - apex/compose-workflow-topology-router-20260819
     paths:
       - 'deployment/vercel-source-bridge/api/workflow-topology-proxy.js'
+      - 'deployment/vercel-source-bridge/api/release-router.js'
       - 'deployment/vercel-source-bridge/workflow-topology-proxy.test.js'
+      - 'deployment/vercel-source-bridge/release-router-workflow-topology.test.js'
       - '.github/workflows/apex-workflow-topology-restoration.yml'
 
 permissions:
@@ -30,14 +35,18 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '24'
-      - name: Parse restored runtime
-        run: node --check deployment/vercel-source-bridge/api/workflow-topology-proxy.js
-      - name: Run adversarial topology tests
-        run: node --test deployment/vercel-source-bridge/workflow-topology-proxy.test.js
-      - name: Execute real immutable-source verifier
+      - name: Parse restored runtime and current release router
+        run: |
+          node --check deployment/vercel-source-bridge/api/workflow-topology-proxy.js
+          node --check deployment/vercel-source-bridge/api/release-router.js
+      - name: Run adversarial topology and current-router tests
+        run: |
+          node --test deployment/vercel-source-bridge/workflow-topology-proxy.test.js
+          node --test deployment/vercel-source-bridge/release-router-workflow-topology.test.js
+      - name: Execute real immutable-source verifier through current release router
         run: |
           node <<'NODE'
-          const handler = require('./deployment/vercel-source-bridge/api/workflow-topology-proxy.js');
+          const handler = require('./deployment/vercel-source-bridge/api/release-router.js');
           const headers = new Map();
           const res = {
             statusCode: 200,
@@ -45,13 +54,13 @@ jobs:
             getHeader(name) { return headers.get(String(name).toLowerCase()); },
             end(chunk = '') { this.body = Buffer.isBuffer(chunk) ? chunk : Buffer.from(String(chunk)); },
           };
-          handler({ url: '/__workflow_topology_verify' }, res).then(() => {
+          handler({ url: '/api/release-router?path=__workflow_topology_verify' }, res).then(() => {
             if (res.statusCode !== 200) throw new Error(`verifier_http_${res.statusCode}`);
             const receipt = JSON.parse(res.body.toString('utf8'));
             if (receipt.status !== 'PASS') throw new Error(`verifier_status_${receipt.status}`);
             if (receipt.public_contract?.scripts !== 0) throw new Error('public_contract_scripts_not_zero');
             if (!receipt.public_contract?.machine_json) throw new Error('machine_json_not_proven');
             if (!/^[a-f0-9]{64}$/.test(receipt.receipt_sha256 || '')) throw new Error('receipt_missing');
-            console.log(JSON.stringify({status: receipt.status, receipt_sha256: receipt.receipt_sha256, source: receipt.source, public_contract: receipt.public_contract}, null, 2));
+            console.log(JSON.stringify({status: receipt.status, receipt_sha256: receipt.receipt_sha256, source: receipt.source, public_contract: receipt.public_contract, routed_through: 'release-router'}, null, 2));
           }).catch((error) => { console.error(error); process.exit(1); });
           NODE
