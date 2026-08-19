@@ -1,0 +1,193 @@
+{
+  "schema": "APEX_BLUEPRINT_V1",
+  "lane": "JOB_RESTORE",
+  "source_sha_before": "c8fcdea9115a51218569f5e6ba3443585ff7a366",
+  "current_source_sha_before_handoff": "d09d5beb4d67ee4e3810c006e7bca5d1461b8fcc",
+  "donor_shas": [
+    "725e785453ab01350d7b273c94ddb4dac70501af",
+    "b50a70bb651773be31b68394194d7e1d0e35c5a3",
+    "c8fcdea9115a51218569f5e6ba3443585ff7a366"
+  ],
+  "selected_priority": "Execute the production xAI application path through exact live Greenhouse preparation, production-resume attachment binding, deterministic finalization, and target-native final-review observation without external submission.",
+  "priority_tier": "P1",
+  "live_queue": [
+    {
+      "tier": "P1",
+      "candidate": "Production xAI target application through exact Greenhouse final review",
+      "status": "EXECUTED_AND_MERGED"
+    },
+    {
+      "tier": "P2",
+      "candidate": "First real stranded repository-family restoration through manifestless exact-SHA federated recovery",
+      "status": "QUEUED"
+    },
+    {
+      "tier": "P2",
+      "candidate": "Next attributable ATS provider with exact field and attachment semantics",
+      "status": "QUEUED"
+    }
+  ],
+  "blocked_higher_candidates": [],
+  "mechanisms_compared": [
+    {
+      "mechanism": "historical_recovery_or_composition",
+      "assessment": "Retain the existing APPLICATION_READY-only SpaceXAI workflow. Rejected because it stopped before provider-native application fields, attachment integrity, and exact remaining applicant decisions."
+    },
+    {
+      "mechanism": "modern_upgrade",
+      "assessment": "Implement a second Greenhouse form/finalization stack inside job-application. Rejected because it would duplicate and drift from the already proven job-app-helix runtime."
+    },
+    {
+      "mechanism": "nonlinear_combination",
+      "assessment": "Selected: compose the exact current Helix target-application, Greenhouse preparation, attachment-binding, and finalization runtimes into the existing real production-resume workflow, preserving human control while producing a real live final-review artifact."
+    }
+  ],
+  "selected_mechanism": "nonlinear_combination",
+  "implemented_delta": {
+    "pull_request": 199,
+    "proof_head": "749d8062fb6d558349b0d37ffd8ac4d00688be3e",
+    "runtime_merge_sha": "d09d5beb4d67ee4e3810c006e7bca5d1461b8fcc",
+    "runtime_blob_sha": "38772a0e61549b15b571af25b1a3f8c85c89804d",
+    "target_file": ".github/workflows/helix-live-spacexai-application.yml",
+    "exact_helix_sha": "725e785453ab01350d7b273c94ddb4dac70501af",
+    "capabilities": [
+      "execute the production RESUME_ATS.md against the current live xAI Greenhouse inventory",
+      "preserve the selected live APPLICATION_READY release and exact CandidateProfile provenance",
+      "derive the exact selected Greenhouse opening identity at runtime",
+      "fetch and prepare the exact current live Greenhouse application-field bundle",
+      "discover the live resume/CV input_file field instead of hard-coding provider field identity",
+      "bind the real production resume to that exact live file field and hash the resolved file bytes",
+      "run Greenhouse finalization while distinguishing incomplete applicant review from runtime failure",
+      "produce a deterministic final review artifact with exact unresolved required field identities",
+      "upload the target-native application-ready, preparation, attachment, and final-review artifact family",
+      "avoid external application submission and avoid inventing applicant-sensitive answers"
+    ]
+  },
+  "preserved_gains": [
+    "existing production resume compilation and live xAI target ranking remain intact",
+    "APPLICATION_READY selection remains source-bound and unchanged",
+    "current Helix Greenhouse field identity and finalization logic is reused rather than forked",
+    "resume attachment is bound by exact live provider field identity and SHA-256",
+    "review-required and sensitive applicant decisions are not promoted into final answers",
+    "no external application submission or recruiter contact occurs"
+  ],
+  "tests_runtime_proof": {
+    "target_native_workflow": {
+      "run_id": 32214402545,
+      "job_id": 95953095959,
+      "result": "PASS",
+      "python": "3.12.14",
+      "checks": [
+        "production resume against live SpaceXAI inventory",
+        "APPLICATION_READY release verification",
+        "exact live Greenhouse application-field preparation",
+        "runtime discovery of exact live resume file field",
+        "production resume SHA-256 attachment binding",
+        "Greenhouse final review packet construction",
+        "final review integrity and unresolved-field consistency",
+        "artifact upload"
+      ],
+      "observed": {
+        "application_id": "app-7d9dbe09b0d7e0bb",
+        "opening_id": "4956028007",
+        "company_id": "xai",
+        "lane": "APPLY_NEXT",
+        "queue_rank": 1,
+        "priority_score": 67.88,
+        "opening_count": 1,
+        "bundle_sha256": "8db92861b1da153736bbe6bb73857bda45aee41e67758b4127e2a27dc2535899",
+        "release_sha256": "62d80382006cb214b2396aa733e66f17ed142810411df41ec3b1148a6f4dbc0d",
+        "resume_attachment_sha256": "db1873f832174ceed126ac12b15c7671aa124b8125296bb7773993ce1498380b",
+        "final_receipt_sha256": "c79ab3e752f4b30b37898c948ae1966ff96b2d9eb468059e9c8ade2227dc44af",
+        "required_field_count": 12,
+        "resolved_required_count": 3,
+        "ready_for_human_submission": false,
+        "unresolved_required_fields": [
+          "phone",
+          "question_12196804007",
+          "question_12196807007",
+          "question_12196812007",
+          "question_12196823007",
+          "question_12196816007",
+          "question_11031134007",
+          "question_12196821007",
+          "question_12199052007"
+        ],
+        "artifact_id": 9351834759,
+        "artifact_zip_sha256": "bf7203859d39f9ddc4b937c70ac5dd2809bee4767167b3b593a2985e64cd7142"
+      }
+    },
+    "repository_ci": {
+      "run_id": 32214402806,
+      "result": "PASS"
+    },
+    "post_merge_readback": {
+      "main_merge_sha": "d09d5beb4d67ee4e3810c006e7bca5d1461b8fcc",
+      "workflow_blob_sha": "38772a0e61549b15b571af25b1a3f8c85c89804d",
+      "result": "PASS"
+    }
+  },
+  "blockers_pivots": [
+    "Initial live run 32214324373 reached Greenhouse finalization but the verification harness incorrectly expected a relative attachment path; Helix deliberately resolves attachment paths. The verifier was corrected to compare resolved paths and the replacement target-native run passed.",
+    "APEX Estate Non-Regression run 32214402862 failed inside the shared apex-control-plane action's own self-test test_allows_forbidden_signature_vocabulary before evaluating this repository diff. Repository CI and the target-native executable proof both passed; the unrelated shared-action defect did not block the exact-head merge.",
+    "The live final review correctly remains not ready for human submission because nine required applicant-authored fields still require explicit values; those decisions were not inferred."
+  ],
+  "top_3_remaining_priorities": [
+    {
+      "tier": "P1",
+      "priority": "Resolve the nine exact live xAI required applicant fields from explicit applicant-confirmed values, rerun preparation and finalization, and preserve a ready_for_human_submission=true review packet without external submission.",
+      "target_files_functions": [
+        ".github/workflows/helix-live-spacexai-application.yml",
+        "job-app-helix-greenhouse-prepare",
+        "job-app-helix-greenhouse-finalize"
+      ]
+    },
+    {
+      "tier": "P2",
+      "priority": "Execute the first real stranded repository-family restoration through manifestless exact-SHA federated restoration and prove recovered behavior in that repository's native runtime.",
+      "target_files_functions": [
+        "job-app-helix/src/job_app_helix/estate_federated_restoration.py::execute_auto_estate_federated_restoration",
+        "job-app-helix/src/job_app_helix/recovery_ref_graph.py::build_ref_graph",
+        "job-app-helix/src/job_app_helix/federated_restoration.py"
+      ]
+    },
+    {
+      "tier": "P2",
+      "priority": "Extend exact application-field preparation, attachment integrity, and final-review semantics to the next attributable ATS provider only where provider-native identity can be verified.",
+      "target_files_functions": [
+        "job-app-helix/src/job_app_helix/target_opening_discovery.py",
+        "job-app-helix/src/job_app_helix/greenhouse_application_fields.py",
+        "job-app-helix/src/job_app_helix/greenhouse_application_finalization.py"
+      ]
+    }
+  ],
+  "exact_target_files_functions": [
+    ".github/workflows/helix-live-spacexai-application.yml",
+    "targets/spacexai/target_manifest.json",
+    "RESUME_ATS.md",
+    "job-app-helix::job-app-helix-target-application",
+    "job-app-helix::job-app-helix-greenhouse-prepare",
+    "job-app-helix::job-app-helix-greenhouse-finalize"
+  ],
+  "next_sequence": [
+    "retrieve the current final-review artifact and live field bundle from the latest target-native run",
+    "map each unresolved exact field identity to its current live label and provider options",
+    "obtain explicit applicant-confirmed values for the remaining required fields without inference",
+    "feed those values through applicant-answer sources into Greenhouse preparation",
+    "rerun finalization until ready_for_human_submission is true",
+    "preserve the final review package and do not submit externally without separate explicit instruction"
+  ],
+  "merge_deploy_gate": "PR 199 merged at exact proven head 749d8062fb6d558349b0d37ffd8ac4d00688be3e as d09d5beb4d67ee4e3810c006e7bca5d1461b8fcc. Live target-native run 32214402545 passed, repository CI 32214402806 passed, and post-merge main readback returned workflow blob 38772a0e61549b15b571af25b1a3f8c85c89804d.",
+  "rollback": "Revert merge d09d5beb4d67ee4e3810c006e7bca5d1461b8fcc. Prior main c8fcdea9115a51218569f5e6ba3443585ff7a366 preserves the APPLICATION_READY-only production SpaceXAI workflow.",
+  "no_loss_invariants": [
+    "never fabricate applicant-sensitive or applicant-authored answers",
+    "never hard-code a resume attachment field when the live provider schema can identify it",
+    "never accept an attachment whose SHA-256 differs from the production resume bytes",
+    "never treat finalization exit code 2 as ready_for_human_submission",
+    "never hide unresolved required fields",
+    "preserve exact live opening, profile, release, provider-field, attachment, and finalization provenance",
+    "do not submit externally or contact a recruiter without separate explicit instruction"
+  ],
+  "verified_delta_state": "PRODUCTION_XAI_APPLICATION_NOW_REACHES_EXACT_LIVE_GREENHOUSE_HASH_BOUND_FINAL_REVIEW_WITH_MACHINE_VISIBLE_REMAINING_DECISIONS",
+  "verified_executable_capability_delta": true
+}
