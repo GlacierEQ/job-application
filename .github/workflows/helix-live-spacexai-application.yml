@@ -4,6 +4,8 @@ on:
   pull_request:
     paths:
       - "RESUME_ATS.md"
+      - "site-v15/data/resume.json"
+      - "scripts/export_helix_candidate_profile.py"
       - "targets/spacexai/**"
       - ".github/workflows/helix-live-spacexai-application.yml"
   workflow_dispatch:
@@ -40,13 +42,64 @@ jobs:
       - name: Install exact Helix runtime
         run: python -m pip install -e ./.helix-runtime
 
-      - name: Execute production resume against live SpaceXAI inventory
+      - name: Export maintained production CandidateProfile
         run: |
           mkdir -p helix-live/state helix-live/packets
+          python scripts/export_helix_candidate_profile.py \
+            --source site-v15/data/resume.json \
+            --output helix-live/state/COMPILED_CANDIDATE_PROFILE.json
+          python scripts/export_helix_candidate_profile.py \
+            --source site-v15/data/resume.json \
+            --output helix-live/state/COMPILED_CANDIDATE_PROFILE.json \
+            --check
+
+      - name: Verify maintained profile provenance before live execution
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+
+          source_path = Path("site-v15/data/resume.json")
+          profile_path = Path("helix-live/state/COMPILED_CANDIDATE_PROFILE.json")
+          source = json.loads(source_path.read_text(encoding="utf-8"))
+          profile = json.loads(profile_path.read_text(encoding="utf-8"))
+
+          canonical = json.dumps(
+              source,
+              ensure_ascii=False,
+              sort_keys=True,
+              separators=(",", ":"),
+          ).encode("utf-8")
+          source_digest = hashlib.sha256(canonical).hexdigest()
+          provenance = profile["provenance"]
+
+          assert profile["schema"] == "glaciereq.job-app-helix.candidate-profile.v1"
+          assert profile["name"] == source["basics"]["name"]
+          assert profile["headline"]
+          assert profile["summary"]
+          assert profile["skills"]
+          assert profile["experience"]
+          assert profile["achievements"]
+          assert provenance["source"] == "site-v15/data/resume.json"
+          assert provenance["source_sha256"] == source_digest
+          assert provenance["projection"] == "scripts/export_helix_candidate_profile.py"
+          assert provenance["evidence_policy"] == "projection_may_not_exceed_source_resume"
+
+          print(json.dumps({
+              "profile_id": profile["profile_id"],
+              "source_sha256": source_digest,
+              "skills": len(profile["skills"]),
+              "experience": len(profile["experience"]),
+              "achievements": len(profile["achievements"]),
+          }, indent=2, sort_keys=True))
+          PY
+
+      - name: Execute maintained profile against live SpaceXAI inventory
+        run: |
           job-app-helix-target-application \
             --manifest targets/spacexai/target_manifest.json \
-            --resume RESUME_ATS.md \
-            --profile-id casey-production \
+            --profile helix-live/state/COMPILED_CANDIDATE_PROFILE.json \
             --state-dir helix-live/state \
             --output-dir helix-live/packets \
             --database helix-live/applications.sqlite \
@@ -80,8 +133,9 @@ jobs:
           assert selected["opening_id"]
           assert selected["bundle_sha256"]
           assert selected["artifact_sha256"]
-          assert profile["profile_id"] == "casey-production"
-          assert profile["provenance"]["policy"] == "source_text_only_no_claim_invention"
+          assert profile["provenance"]["source"] == "site-v15/data/resume.json"
+          assert profile["provenance"]["projection"] == "scripts/export_helix_candidate_profile.py"
+          assert profile["provenance"]["evidence_policy"] == "projection_may_not_exceed_source_resume"
 
           print(json.dumps({
               "application_id": selected["application_id"],
@@ -92,6 +146,8 @@ jobs:
               "priority_score": selected["priority_score"],
               "bundle_sha256": selected["bundle_sha256"],
               "opening_count": discovered["opening_count"],
+              "profile_id": profile["profile_id"],
+              "profile_source_sha256": profile["provenance"]["source_sha256"],
               "release_sha256": hashlib.sha256(release_path.read_bytes()).hexdigest(),
               "helix_sha": "725e785453ab01350d7b273c94ddb4dac70501af"
           }, indent=2, sort_keys=True))
