@@ -5,7 +5,7 @@
   "max_age_days": 30,
   "sources": [
     {
-      "kind": "values",
+      "kind": "value",
       "source_url": "https://x.ai/careers",
       "allowed_domains": ["x.ai"],
       "include_patterns": [
