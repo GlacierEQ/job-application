@@ -2,7 +2,7 @@
   "schema": "glaciereq.target-intelligence-manifest.v1",
   "sources": [
     {
-      "company": "SpaceXAI",
+      "company": "xAI",
       "provider": "greenhouse",
       "board_key": "xai",
       "include_title_terms": ["Exceptional Software Engineer"],
