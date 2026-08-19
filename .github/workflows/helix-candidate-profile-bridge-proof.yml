@@ -1,0 +1,52 @@
+name: Helix Candidate Profile Bridge Proof
+
+on:
+  pull_request:
+    paths:
+      - 'site-v15/data/resume.json'
+      - 'scripts/export_helix_candidate_profile.py'
+      - 'tests/test_helix_candidate_profile_bridge.py'
+      - '.github/workflows/helix-candidate-profile-bridge-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  bridge-proof:
+    name: Candidate profile bridge / Python ${{ matrix.python-version }}
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.11', '3.12', '3.13']
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Compile bridge
+        run: python -m py_compile scripts/export_helix_candidate_profile.py tests/test_helix_candidate_profile_bridge.py
+      - name: Run adversarial bridge tests
+        run: python -m unittest -v tests.test_helix_candidate_profile_bridge
+      - name: Export live production candidate profile
+        run: python scripts/export_helix_candidate_profile.py --output "$RUNNER_TEMP/candidate-profile.json"
+      - name: Prove deterministic freshness and Helix-required fields
+        run: |
+          python scripts/export_helix_candidate_profile.py --output "$RUNNER_TEMP/candidate-profile.json" --check
+          python - "$RUNNER_TEMP/candidate-profile.json" <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+
+          profile = json.loads(Path(sys.argv[1]).read_text(encoding='utf-8'))
+          required = ('name', 'headline', 'summary', 'skills', 'experience', 'achievements')
+          missing = [field for field in required if not profile.get(field)]
+          if missing:
+              raise SystemExit(f'missing Helix profile fields: {missing}')
+          digest = profile.get('provenance', {}).get('source_sha256', '')
+          if len(digest) != 64:
+              raise SystemExit('source provenance digest missing')
+          print(profile['profile_id'])
+          print(f"skills={len(profile['skills'])} experience={len(profile['experience'])} achievements={len(profile['achievements'])}")
+          PY
