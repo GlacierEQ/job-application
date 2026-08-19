@@ -5,6 +5,7 @@ applicant-confirmed values in a stable semantic source, then resolves each inten
 current field bundle with fail-closed ambiguity checks. The emitted JSON is directly accepted
 by job-app-helix-greenhouse-prepare --applicant-answer-source.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -82,7 +83,9 @@ def _live_fields(bundle: dict[str, Any]) -> tuple[LiveField, ...]:
             )
         )
     if not fields:
-        raise AnswerBridgeError("Greenhouse field bundle contains no usable live fields")
+        raise AnswerBridgeError(
+            "Greenhouse field bundle contains no usable live fields"
+        )
     return tuple(fields)
 
 
