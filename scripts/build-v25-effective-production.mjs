@@ -11,7 +11,7 @@ const BUILDER = path.join(ROOT, 'scripts', 'build-v25-deployment-bundle.mjs');
 const DEFAULT_OUTPUT = path.join(ROOT, 'artifacts', 'v25-deployment-effective');
 const SHA40 = /^[a-f0-9]{40}$/;
 const NUMERIC_CARDINALITY_PIN = /data\.projection\.company_count\s*!==\s*\d+/;
-const EXPECTED_BUNDLE_MODULE_COUNT = 13;
+const EXPECTED_BUNDLE_MODULE_COUNT = 14;
 
 function requireValue(condition, message) {
   if (!condition) throw new Error(message);
@@ -104,6 +104,8 @@ function main() {
     requireValue(bundle.includes('e870a5153bb38d533540e44c888759a8cd3b7169'), 'effective_bundle_invention_source_missing');
     requireValue(bundle.includes('V30-PROOF-STARMAP-RUNTIME'), 'effective_bundle_starmap_runtime_missing');
     requireValue(bundle.includes('api/starmap-proxy.js'), 'effective_bundle_starmap_module_missing');
+    requireValue(bundle.includes('V29-WORKFLOW-TOPOLOGY-RUNTIME'), 'effective_bundle_workflow_topology_runtime_missing');
+    requireValue(bundle.includes('api/workflow-topology-proxy.js'), 'effective_bundle_workflow_topology_module_missing');
     process.stdout.write(JSON.stringify({ status: 'PASS', source_commit: sourceCommit, helix_commit: helixCommit, manifest }, null, 2) + '\n');
   } finally {
     fs.writeFileSync(COMPILER, original, 'utf8');
