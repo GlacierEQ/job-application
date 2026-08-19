@@ -4,7 +4,11 @@ from pathlib import Path
 
 import pytest
 
-SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "build_evidence_bound_application_review.py"
+SCRIPT = (
+    Path(__file__).resolve().parents[1]
+    / "scripts"
+    / "build_evidence_bound_application_review.py"
+)
 SPEC = importlib.util.spec_from_file_location("evidence_review", SCRIPT)
 assert SPEC is not None and SPEC.loader is not None
 review = importlib.util.module_from_spec(SPEC)
@@ -83,17 +87,25 @@ def test_review_is_deterministic_and_hash_bound(tmp_path: Path) -> None:
     assert len(first["receipt_sha256"]) == 64
 
 
-def test_review_refuses_to_relabel_unreviewed_profile_only_evidence(tmp_path: Path) -> None:
+def test_review_refuses_to_relabel_unreviewed_profile_only_evidence(
+    tmp_path: Path,
+) -> None:
     source = _write_preparation(tmp_path, include_reviewed=False)
-    with pytest.raises(review.EvidenceReviewError, match="source-reviewed portfolio evidence"):
+    with pytest.raises(
+        review.EvidenceReviewError, match="source-reviewed portfolio evidence"
+    ):
         review.build_review(source)
 
 
-def test_review_requires_exactly_one_live_exceptional_work_field(tmp_path: Path) -> None:
+def test_review_requires_exactly_one_live_exceptional_work_field(
+    tmp_path: Path,
+) -> None:
     source = _write_preparation(tmp_path)
     payload = json.loads(source.read_text(encoding="utf-8"))
     payload["prompts"] = []
     source.write_text(json.dumps(payload), encoding="utf-8")
 
-    with pytest.raises(review.EvidenceReviewError, match="exactly one exceptional-work"):
+    with pytest.raises(
+        review.EvidenceReviewError, match="exactly one exceptional-work"
+    ):
         review.build_review(source)
