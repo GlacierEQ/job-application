@@ -1,0 +1,23 @@
+{
+  "schema": "glaciereq.company-intelligence-acquisition-plan.v1",
+  "company_id": "spacexai",
+  "company": "SpaceXAI",
+  "max_age_days": 30,
+  "sources": [
+    {
+      "kind": "values",
+      "source_url": "https://x.ai/careers",
+      "allowed_domains": ["x.ai"],
+      "include_patterns": [
+        "engineering excellence",
+        "ambitious goals",
+        "fast execution",
+        "truth-seeking",
+        "mission"
+      ],
+      "extractor": "html",
+      "source_title": "SpaceXAI Careers",
+      "max_statements": 6
+    }
+  ]
+}
