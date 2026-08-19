@@ -86,7 +86,9 @@ class EvidenceReviewConfirmationTests(unittest.TestCase):
             {
                 "field_name": "question_12196822007",
                 "label": "Why are you interested in xAI?",
-                "draft": "I want to build systems whose capability is matched by rigor and speed.",
+                "draft": (
+                    "I want to build systems whose capability is matched by rigor and speed."
+                ),
             }
         )
         review.pop("receipt_sha256", None)
@@ -216,7 +218,9 @@ class EvidenceReviewConfirmationTests(unittest.TestCase):
             )
 
     def test_multi_field_rejects_duplicate_provider_field(self) -> None:
-        with self.assertRaisesRegex(ReviewConfirmationError, "duplicate confirmed provider field"):
+        with self.assertRaisesRegex(
+            ReviewConfirmationError, "duplicate confirmed provider field"
+        ):
             build_semantic_answer_sources(
                 [
                     (self.review_path, self.confirmation_path),
