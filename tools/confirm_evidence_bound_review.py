@@ -60,7 +60,9 @@ def _required_text(value: object, *, field: str) -> str:
 
 def _verify_review(review: Mapping[str, Any]) -> str:
     if review.get("schema") != REVIEW_SCHEMA:
-        raise ReviewConfirmationError(f"unsupported review schema: {review.get('schema')!r}")
+        raise ReviewConfirmationError(
+            f"unsupported review schema: {review.get('schema')!r}"
+        )
     if review.get("status") != "DRAFT_REVIEW_REQUIRED":
         raise ReviewConfirmationError("review is not in DRAFT_REVIEW_REQUIRED state")
 
@@ -68,16 +70,24 @@ def _verify_review(review: Mapping[str, Any]) -> str:
     if not isinstance(policy, dict):
         raise ReviewConfirmationError("review.review_policy must be an object")
     if policy.get("applicant_confirmation_required") is not True:
-        raise ReviewConfirmationError("review must require explicit applicant confirmation")
+        raise ReviewConfirmationError(
+            "review must require explicit applicant confirmation"
+        )
     if policy.get("external_submission_performed") is not False:
-        raise ReviewConfirmationError("review indicates external submission or has invalid policy state")
+        raise ReviewConfirmationError(
+            "review indicates external submission or has invalid policy state"
+        )
 
-    receipt = _required_text(review.get("receipt_sha256"), field="review.receipt_sha256")
+    receipt = _required_text(
+        review.get("receipt_sha256"), field="review.receipt_sha256"
+    )
     unsigned = dict(review)
     unsigned.pop("receipt_sha256", None)
     expected = _sha256_bytes(_canonical_bytes(unsigned))
     if receipt != expected:
-        raise ReviewConfirmationError("review receipt SHA-256 does not match review content")
+        raise ReviewConfirmationError(
+            "review receipt SHA-256 does not match review content"
+        )
     return receipt
 
 
@@ -105,7 +115,9 @@ def _verify_confirmation(
         field="confirmation.review_receipt_sha256",
     )
     if confirmation_receipt != review_receipt:
-        raise ReviewConfirmationError("confirmation references a different review receipt")
+        raise ReviewConfirmationError(
+            "confirmation references a different review receipt"
+        )
 
     draft = _required_text(review.get("draft"), field="review.draft")
     accepted_text = _required_text(
@@ -130,7 +142,9 @@ def build_semantic_answer_source(
 
     label = _required_text(review.get("label"), field="review.label")
     field_name = _required_text(review.get("field_name"), field="review.field_name")
-    application_id = _required_text(review.get("application_id"), field="review.application_id")
+    application_id = _required_text(
+        review.get("application_id"), field="review.application_id"
+    )
     opening_id = _required_text(review.get("opening_id"), field="review.opening_id")
     confirmation_sha256 = _sha256_file(confirmation_path)
     review_sha256 = _sha256_file(review_path)
