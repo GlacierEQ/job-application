@@ -130,7 +130,10 @@ def _semantic_answers(
         exact_field_name_value = match.get("field_name")
         exact_field_name = None
         if exact_field_name_value is not None:
-            if not isinstance(exact_field_name_value, str) or not exact_field_name_value.strip():
+            if (
+                not isinstance(exact_field_name_value, str)
+                or not exact_field_name_value.strip()
+            ):
                 raise AnswerBridgeError(
                     f"semantic answer {key} match.field_name must be a non-empty string"
                 )
