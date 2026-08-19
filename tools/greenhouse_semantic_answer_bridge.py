@@ -2,8 +2,8 @@
 
 The live provider schema can rotate opaque field names between postings. This bridge keeps
 applicant-confirmed values in a stable semantic source, then resolves each intent against the
-current field bundle with fail-closed ambiguity checks. The emitted JSON is directly accepted
-by job-app-helix-greenhouse-prepare --applicant-answer-source.
+current field bundle with fail-closed ambiguity and identity checks. The emitted JSON is
+directly accepted by job-app-helix-greenhouse-prepare --applicant-answer-source.
 """
 
 from __future__ import annotations
@@ -37,6 +37,7 @@ class SemanticAnswer:
     label_pattern: str
     field_types: tuple[str, ...]
     provenance: str
+    exact_field_name: str | None = None
 
 
 def _read_json(path: Path) -> dict[str, Any]:
@@ -126,6 +127,17 @@ def _semantic_answers(
             raise AnswerBridgeError(
                 f"semantic answer {key} match.field_types must be a string list"
             )
+        exact_field_name_value = match.get("field_name")
+        exact_field_name = None
+        if exact_field_name_value is not None:
+            if (
+                not isinstance(exact_field_name_value, str)
+                or not exact_field_name_value.strip()
+            ):
+                raise AnswerBridgeError(
+                    f"semantic answer {key} match.field_name must be a non-empty string"
+                )
+            exact_field_name = exact_field_name_value.strip()
         provenance = str(
             row.get("provenance") or f"{source_path}#answers[{index}]"
         ).strip()
@@ -136,6 +148,7 @@ def _semantic_answers(
                 pattern,
                 tuple(item.strip() for item in raw_types),
                 provenance,
+                exact_field_name,
             )
         )
     return tuple(answers)
@@ -146,8 +159,9 @@ def _matches(answer: SemanticAnswer, field: LiveField) -> bool:
         return False
     if answer.field_types and field.field_type not in answer.field_types:
         return False
-    haystack = f"{field.label} {field.name}"
-    return re.search(answer.label_pattern, haystack, flags=re.IGNORECASE) is not None
+    if answer.exact_field_name is not None and field.name != answer.exact_field_name:
+        return False
+    return re.search(answer.label_pattern, field.label, flags=re.IGNORECASE) is not None
 
 
 def _normalize_option(field: LiveField, value: str) -> str:
@@ -167,11 +181,30 @@ def _normalize_option(field: LiveField, value: str) -> str:
     return matches[0]
 
 
+def _verify_source_identity(bundle: dict[str, Any], source: dict[str, Any]) -> None:
+    source_opening = source.get("opening_id")
+    if source_opening is None:
+        return
+    if not isinstance(source_opening, str) or not source_opening.strip():
+        raise AnswerBridgeError("semantic source opening_id must be a non-empty string")
+    bundle_job = str(bundle.get("job_id") or "").strip()
+    if not bundle_job:
+        raise AnswerBridgeError(
+            "Greenhouse field bundle requires job_id when semantic source is opening-bound"
+        )
+    if source_opening.strip() != bundle_job:
+        raise AnswerBridgeError(
+            "semantic source/provider opening identity drift: "
+            f"{source_opening.strip()} != {bundle_job}"
+        )
+
+
 def compile_answer_source(
     field_bundle_path: Path, semantic_source_path: Path
 ) -> dict[str, Any]:
     bundle = _read_json(field_bundle_path)
     source = _read_json(semantic_source_path)
+    _verify_source_identity(bundle, source)
     fields = _live_fields(bundle)
     semantic = _semantic_answers(source, semantic_source_path)
     compiled: list[dict[str, str]] = []
@@ -213,6 +246,8 @@ def compile_answer_source(
         "schema": "glaciereq.greenhouse-semantic-answer-bridge.v1",
         "field_bundle_sha256": _sha256(field_bundle_path),
         "semantic_source_sha256": _sha256(semantic_source_path),
+        "application_id": source.get("application_id"),
+        "opening_id": source.get("opening_id"),
         "answers": compiled,
         "bindings": bindings,
     }

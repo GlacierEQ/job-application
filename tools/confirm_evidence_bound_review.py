@@ -162,6 +162,7 @@ def build_semantic_answer_source(
                 "value": accepted_text,
                 "match": {
                     "label_pattern": rf"^\s*{re.escape(label)}\s*$",
+                    "field_name": field_name,
                     "field_types": [],
                 },
                 "provenance": (

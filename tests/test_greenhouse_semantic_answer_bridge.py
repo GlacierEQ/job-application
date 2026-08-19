@@ -17,6 +17,7 @@ class SemanticAnswerBridgeTest(unittest.TestCase):
         self.bundle.write_text(
             json.dumps(
                 {
+                    "job_id": "4956028007",
                     "fields": [
                         {
                             "field": {
@@ -39,13 +40,21 @@ class SemanticAnswerBridgeTest(unittest.TestCase):
                         },
                         {
                             "field": {
+                                "name": "question_12196821007",
+                                "label": "What exceptional work have you done?",
+                                "field_type": "textarea",
+                                "required": True,
+                            }
+                        },
+                        {
+                            "field": {
                                 "name": "resume",
                                 "label": "Resume/CV",
                                 "field_type": "input_file",
                                 "required": True,
                             }
                         },
-                    ]
+                    ],
                 }
             ),
             encoding="utf-8",
@@ -54,9 +63,12 @@ class SemanticAnswerBridgeTest(unittest.TestCase):
     def tearDown(self):
         self.tmp.cleanup()
 
-    def _source(self, answers):
+    def _source(self, answers, **metadata):
         path = self.root / "answers.json"
-        path.write_text(json.dumps({"answers": answers}), encoding="utf-8")
+        path.write_text(
+            json.dumps({**metadata, "answers": answers}),
+            encoding="utf-8",
+        )
         return path
 
     def test_binds_semantics_to_current_opaque_field_names_and_normalizes_options(self):
@@ -88,6 +100,71 @@ class SemanticAnswerBridgeTest(unittest.TestCase):
         self.assertEqual(result["answers"][1]["value"], "0")
         self.assertEqual(result["bindings"][1]["semantic_key"], "sponsorship")
         self.assertEqual(len(result["receipt_sha256"]), 64)
+
+    def test_exact_confirmed_field_uses_label_only_and_preserves_identity(self):
+        source = self._source(
+            [
+                {
+                    "key": "exceptional_work",
+                    "value": "Evidence-bound accepted draft.",
+                    "match": {
+                        "label_pattern": (
+                            r"^\s*What\ exceptional\ work\ have\ you\ done\?\s*$"
+                        ),
+                        "field_name": "question_12196821007",
+                        "field_types": [],
+                    },
+                }
+            ],
+            application_id="app-live-xai",
+            opening_id="4956028007",
+        )
+        result = compile_answer_source(self.bundle, source)
+        self.assertEqual(result["application_id"], "app-live-xai")
+        self.assertEqual(result["opening_id"], "4956028007")
+        self.assertEqual(
+            result["answers"][0]["field_name"],
+            "question_12196821007",
+        )
+        self.assertEqual(
+            result["answers"][0]["value"],
+            "Evidence-bound accepted draft.",
+        )
+
+    def test_refuses_exact_field_identity_drift_even_when_label_matches(self):
+        source = self._source(
+            [
+                {
+                    "key": "exceptional_work",
+                    "value": "Evidence-bound accepted draft.",
+                    "match": {
+                        "label_pattern": "exceptional work",
+                        "field_name": "question_rotated",
+                        "field_types": [],
+                    },
+                }
+            ],
+            opening_id="4956028007",
+        )
+        with self.assertRaisesRegex(AnswerBridgeError, "matched 0 live fields"):
+            compile_answer_source(self.bundle, source)
+
+    def test_refuses_opening_identity_drift_before_field_binding(self):
+        source = self._source(
+            [
+                {
+                    "key": "phone",
+                    "value": "+1 808 555 0100",
+                    "match": {
+                        "label_pattern": "phone",
+                        "field_types": ["input_text"],
+                    },
+                }
+            ],
+            opening_id="different-opening",
+        )
+        with self.assertRaisesRegex(AnswerBridgeError, "opening identity drift"):
+            compile_answer_source(self.bundle, source)
 
     def test_refuses_ambiguous_semantic_match(self):
         payload = json.loads(self.bundle.read_text())

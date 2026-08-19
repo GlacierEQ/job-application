@@ -10,6 +10,10 @@ from tools.confirm_evidence_bound_review import (
     ReviewConfirmationError,
     build_semantic_answer_source,
 )
+from tools.greenhouse_semantic_answer_bridge import (
+    AnswerBridgeError,
+    compile_answer_source,
+)
 
 
 def canonical_sha(payload: dict[str, object]) -> str:
@@ -22,6 +26,7 @@ class EvidenceReviewConfirmationTests(unittest.TestCase):
     def setUp(self) -> None:
         self.temp = tempfile.TemporaryDirectory()
         root = Path(self.temp.name)
+        self.root = root
         self.review_path = root / "review.json"
         self.confirmation_path = root / "confirmation.json"
 
@@ -85,12 +90,85 @@ class EvidenceReviewConfirmationTests(unittest.TestCase):
             answers[0]["match"]["label_pattern"],
             r"^\s*What\ exceptional\ work\ have\ you\ done\?\s*$",
         )
+        self.assertEqual(
+            answers[0]["match"]["field_name"],
+            "question_12196821007",
+        )
         self.assertIn(self.review["receipt_sha256"], answers[0]["provenance"])
         self.assertFalse(result["promotion_policy"]["external_submission_performed"])
         receipt = result["receipt_sha256"]
         unsigned = dict(result)
         del unsigned["receipt_sha256"]
         self.assertEqual(receipt, canonical_sha(unsigned))
+
+    def test_confirmed_review_binds_end_to_end_to_exact_live_field(self) -> None:
+        semantic = build_semantic_answer_source(
+            self.review_path,
+            self.confirmation_path,
+        )
+        semantic_path = self.root / "semantic.json"
+        semantic_path.write_text(json.dumps(semantic), encoding="utf-8")
+        field_bundle_path = self.root / "fields.json"
+        field_bundle_path.write_text(
+            json.dumps(
+                {
+                    "job_id": "4956028007",
+                    "fields": [
+                        {
+                            "field": {
+                                "name": "question_12196821007",
+                                "label": "What exceptional work have you done?",
+                                "field_type": "textarea",
+                                "required": True,
+                            }
+                        }
+                    ],
+                }
+            ),
+            encoding="utf-8",
+        )
+        compiled = compile_answer_source(field_bundle_path, semantic_path)
+        self.assertEqual(compiled["application_id"], "app-live-xai")
+        self.assertEqual(compiled["opening_id"], "4956028007")
+        self.assertEqual(
+            compiled["answers"],
+            [
+                {
+                    "field_name": "question_12196821007",
+                    "value": self.review["draft"],
+                    "provenance": semantic["answers"][0]["provenance"],
+                }
+            ],
+        )
+
+    def test_confirmed_review_refuses_rotated_provider_field(self) -> None:
+        semantic = build_semantic_answer_source(
+            self.review_path,
+            self.confirmation_path,
+        )
+        semantic_path = self.root / "semantic.json"
+        semantic_path.write_text(json.dumps(semantic), encoding="utf-8")
+        field_bundle_path = self.root / "fields.json"
+        field_bundle_path.write_text(
+            json.dumps(
+                {
+                    "job_id": "4956028007",
+                    "fields": [
+                        {
+                            "field": {
+                                "name": "question_rotated",
+                                "label": "What exceptional work have you done?",
+                                "field_type": "textarea",
+                                "required": True,
+                            }
+                        }
+                    ],
+                }
+            ),
+            encoding="utf-8",
+        )
+        with self.assertRaisesRegex(AnswerBridgeError, "matched 0 live fields"):
+            compile_answer_source(field_bundle_path, semantic_path)
 
     def test_rejects_unconfirmed_promotion(self) -> None:
         confirmation = dict(self.confirmation)
