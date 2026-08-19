@@ -11,4 +11,8 @@ class Claim:
 
 
 def publishable(claim: Claim) -> bool:
-    return bool(claim.text.strip()) and bool(claim.evidence_paths) and claim.status == "verified"
+    return (
+        bool(claim.text.strip())
+        and bool(claim.evidence_paths)
+        and claim.status == "verified"
+    )
