@@ -88,7 +88,8 @@ test('Vercel catch-all path semantics preserve topology selectors through the re
   }, res);
   assert.equal(res.statusCode, 200);
   const html = res.body.toString('utf8');
-  assert.match(html, /Architecture boundary → polyglot runtime → hiring-system integration/);
-  assert.doesNotMatch(html, /Intent → reversible execution/);
+  assert.match(html, /id="architecture-to-operational-runtime"/);
+  assert.doesNotMatch(html, /id="intent-to-reversible-execution"/);
+  assert.equal((html.match(/class="workflow-card"/g) || []).length, 1);
   assert.match(html, /name="robots" content="noindex,follow"/);
 });
