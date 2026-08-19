@@ -1,0 +1,30 @@
+name: Greenhouse Semantic Answer Bridge Proof
+
+on:
+  pull_request:
+    paths:
+      - "tools/greenhouse_semantic_answer_bridge.py"
+      - "tests/test_greenhouse_semantic_answer_bridge.py"
+      - ".github/workflows/greenhouse-semantic-answer-bridge-proof.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  proof:
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Compile runtime
+        run: python -m py_compile tools/greenhouse_semantic_answer_bridge.py
+      - name: Run adversarial bridge tests
+        run: python -m unittest tests.test_greenhouse_semantic_answer_bridge -v
+      - name: Prove CLI surface
+        run: python tools/greenhouse_semantic_answer_bridge.py --help
