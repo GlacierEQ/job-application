@@ -68,7 +68,9 @@ class ApplicantDecisionPacketTests(unittest.TestCase):
         )
         self.assertFalse(template["confirmed"])
         self.assertEqual(template["accepted_text"], decision["proposed_text"])
-        self.assertEqual(template["review_receipt_sha256"], decision["review_receipt_sha256"])
+        self.assertEqual(
+            template["review_receipt_sha256"], decision["review_receipt_sha256"]
+        )
         self.assertFalse(packet["authority"]["machine_may_infer_confirmation"])
         self.assertFalse(packet["authority"]["machine_may_submit_externally"])
 
@@ -93,10 +95,14 @@ class ApplicantDecisionPacketTests(unittest.TestCase):
             if row["evidence_class"] != "source_reviewed_portfolio_claim"
         ]
         self.preparation.write_text(json.dumps(payload), encoding="utf-8")
-        with self.assertRaisesRegex(ApplicantDecisionPacketError, "source-reviewed portfolio evidence"):
+        with self.assertRaisesRegex(
+            ApplicantDecisionPacketError, "source-reviewed portfolio evidence"
+        ):
             build_decision_packet(self.preparation)
 
-    def test_human_confirmation_template_composes_into_existing_live_answer_bridge(self) -> None:
+    def test_human_confirmation_template_composes_into_existing_live_answer_bridge(
+        self,
+    ) -> None:
         packet = build_decision_packet(self.preparation)
         review_path = self.root / "review.json"
         confirmation_path = self.root / "confirmation.json"
@@ -104,7 +110,9 @@ class ApplicantDecisionPacketTests(unittest.TestCase):
 
         confirmation = dict(packet["decision"]["confirmation_template"])
         confirmation["confirmed"] = True
-        confirmation_path.write_text(json.dumps(confirmation, indent=2), encoding="utf-8")
+        confirmation_path.write_text(
+            json.dumps(confirmation, indent=2), encoding="utf-8"
+        )
 
         promoted = build_semantic_answer_source(review_path, confirmation_path)
         answer = promoted["answers"][0]
