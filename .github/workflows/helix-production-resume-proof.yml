@@ -37,12 +37,12 @@ jobs:
 
       - name: Compile real recruiter resume through Helix
         run: |
-          mkdir -p .helix-proof
+          mkdir -p helix-proof
           job-app-helix-profile \
             --resume RESUME_ATS.md \
             --profile-id casey-production \
-            --output .helix-proof/CANDIDATE_PROFILE.json \
-            > .helix-proof/compiler-output.json
+            --output helix-proof/CANDIDATE_PROFILE.json \
+            > helix-proof/compiler-output.json
 
       - name: Verify production profile invariants
         run: |
@@ -52,7 +52,7 @@ jobs:
           from pathlib import Path
 
           resume = Path("RESUME_ATS.md")
-          profile_path = Path(".helix-proof/CANDIDATE_PROFILE.json")
+          profile_path = Path("helix-proof/CANDIDATE_PROFILE.json")
           profile = json.loads(profile_path.read_text(encoding="utf-8"))
           expected_hash = hashlib.sha256(resume.read_bytes()).hexdigest()
 
@@ -77,5 +77,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: helix-production-candidate-profile
-          path: .helix-proof/
+          path: helix-proof/
           if-no-files-found: error
