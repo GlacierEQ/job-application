@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Build a provenance-diverse review draft for a live application prompt.
 
 The Helix preparation artifact intentionally keeps generated prose review-only. This
@@ -7,7 +6,6 @@ instead of allowing a long CandidateProfile achievement list to starve source-re
 portfolio evidence. It never submits an application and never promotes a draft to an
 applicant-confirmed answer.
 """
-from __future__ import annotations
 
 import argparse
 import hashlib
@@ -16,7 +14,6 @@ import os
 import tempfile
 from collections.abc import Mapping, Sequence
 from pathlib import Path
-
 
 SCHEMA = "glaciereq.evidence-bound-application-review.v1"
 TARGET_STATUS = "DRAFT_REVIEW_REQUIRED"
@@ -108,7 +105,9 @@ def _dedupe(rows: Sequence[dict[str, object]]) -> list[dict[str, object]]:
     return result
 
 
-def select_diverse_evidence(rows: Sequence[dict[str, object]]) -> tuple[dict[str, object], ...]:
+def select_diverse_evidence(
+    rows: Sequence[dict[str, object]],
+) -> tuple[dict[str, object], ...]:
     """Select at most three claims while guaranteeing independent provenance when available."""
     deduped = _dedupe(rows)
     achievements = [r for r in deduped if r["evidence_class"] == "candidate_achievement"]
