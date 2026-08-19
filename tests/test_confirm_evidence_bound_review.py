@@ -75,9 +75,7 @@ class EvidenceReviewConfirmationTests(unittest.TestCase):
         self.temp.cleanup()
 
     def test_promotes_exact_confirmed_review_to_semantic_answer(self) -> None:
-        result = build_semantic_answer_source(
-            self.review_path, self.confirmation_path
-        )
+        result = build_semantic_answer_source(self.review_path, self.confirmation_path)
         self.assertEqual(result["application_id"], "app-live-xai")
         self.assertEqual(result["opening_id"], "4956028007")
         answers = result["answers"]
@@ -87,9 +85,7 @@ class EvidenceReviewConfirmationTests(unittest.TestCase):
             answers[0]["match"]["label_pattern"],
             r"^\s*What\ exceptional\ work\ have\ you\ done\?\s*$",
         )
-        self.assertIn(
-            self.review["receipt_sha256"], answers[0]["provenance"]
-        )
+        self.assertIn(self.review["receipt_sha256"], answers[0]["provenance"])
         self.assertFalse(result["promotion_policy"]["external_submission_performed"])
         receipt = result["receipt_sha256"]
         unsigned = dict(result)
@@ -110,18 +106,24 @@ class EvidenceReviewConfirmationTests(unittest.TestCase):
         with self.assertRaisesRegex(ReviewConfirmationError, "exactly equal"):
             build_semantic_answer_source(self.review_path, self.confirmation_path)
 
-    def test_rejects_tampered_review_even_when_confirmation_points_to_old_receipt(self) -> None:
+    def test_rejects_tampered_review_even_when_confirmation_points_to_old_receipt(
+        self,
+    ) -> None:
         review = dict(self.review)
         review["draft"] = "tampered"
         self.review_path.write_text(json.dumps(review), encoding="utf-8")
-        with self.assertRaisesRegex(ReviewConfirmationError, "does not match review content"):
+        with self.assertRaisesRegex(
+            ReviewConfirmationError, "does not match review content"
+        ):
             build_semantic_answer_source(self.review_path, self.confirmation_path)
 
     def test_rejects_field_identity_drift(self) -> None:
         confirmation = dict(self.confirmation)
         confirmation["field_name"] = "question_rotated"
         self.confirmation_path.write_text(json.dumps(confirmation), encoding="utf-8")
-        with self.assertRaisesRegex(ReviewConfirmationError, "field_name does not match"):
+        with self.assertRaisesRegex(
+            ReviewConfirmationError, "field_name does not match"
+        ):
             build_semantic_answer_source(self.review_path, self.confirmation_path)
 
 
