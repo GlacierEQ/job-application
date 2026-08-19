@@ -17,12 +17,17 @@ import argparse
 import hashlib
 import json
 import os
+import sys
 import tempfile
 from collections.abc import Mapping, Sequence
 from pathlib import Path
 from typing import Any
 
-from scripts.build_evidence_bound_application_review import build_review
+try:
+    from scripts.build_evidence_bound_application_review import build_review
+except ModuleNotFoundError:  # direct script execution from tools/
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+    from scripts.build_evidence_bound_application_review import build_review
 
 PACKET_SCHEMA = "glaciereq.applicant-decision-packet.v1"
 CONFIRMATION_SCHEMA = "glaciereq.evidence-review-confirmation.v1"
@@ -42,7 +47,9 @@ def _sha256_bytes(value: bytes) -> str:
 
 def _required_text(value: object, *, field: str) -> str:
     if not isinstance(value, str) or not value.strip():
-        raise ApplicantDecisionPacketError(f"required non-empty string missing: {field}")
+        raise ApplicantDecisionPacketError(
+            f"required non-empty string missing: {field}"
+        )
     return value.strip()
 
 
@@ -54,10 +61,14 @@ def _verified_evidence(review: Mapping[str, Any]) -> list[dict[str, str]]:
     evidence: list[dict[str, str]] = []
     for index, row in enumerate(rows):
         if not isinstance(row, Mapping):
-            raise ApplicantDecisionPacketError(f"review.evidence[{index}] must be an object")
+            raise ApplicantDecisionPacketError(
+                f"review.evidence[{index}] must be an object"
+            )
         evidence.append(
             {
-                "text": _required_text(row.get("text"), field=f"review.evidence[{index}].text"),
+                "text": _required_text(
+                    row.get("text"), field=f"review.evidence[{index}].text"
+                ),
                 "provenance": _required_text(
                     row.get("provenance"), field=f"review.evidence[{index}].provenance"
                 ),
@@ -72,12 +83,16 @@ def _verified_evidence(review: Mapping[str, Any]) -> list[dict[str, str]]:
 
 
 def _verify_review_receipt(review: Mapping[str, Any]) -> str:
-    receipt = _required_text(review.get("receipt_sha256"), field="review.receipt_sha256")
+    receipt = _required_text(
+        review.get("receipt_sha256"), field="review.receipt_sha256"
+    )
     unsigned = dict(review)
     unsigned.pop("receipt_sha256", None)
     expected = _sha256_bytes(_canonical_bytes(unsigned))
     if receipt != expected:
-        raise ApplicantDecisionPacketError("review receipt SHA-256 does not match review content")
+        raise ApplicantDecisionPacketError(
+            "review receipt SHA-256 does not match review content"
+        )
     return receipt
 
 
@@ -89,7 +104,9 @@ def build_decision_packet(preparation_path: Path) -> dict[str, Any]:
         raise ApplicantDecisionPacketError(str(exc)) from exc
 
     review_receipt = _verify_review_receipt(review)
-    application_id = _required_text(review.get("application_id"), field="review.application_id")
+    application_id = _required_text(
+        review.get("application_id"), field="review.application_id"
+    )
     opening_id = _required_text(review.get("opening_id"), field="review.opening_id")
     field_name = _required_text(review.get("field_name"), field="review.field_name")
     label = _required_text(review.get("label"), field="review.label")
@@ -163,7 +180,10 @@ def _atomic_write_json(path: Path, payload: Mapping[str, object]) -> None:
 
 def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
-        description="Build an applicant-controlled decision packet from a live evidence-bound preparation."
+        description=(
+            "Build an applicant-controlled decision packet from a live evidence-bound "
+            "preparation."
+        )
     )
     parser.add_argument("--preparation", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
