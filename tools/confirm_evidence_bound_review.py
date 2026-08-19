@@ -185,9 +185,13 @@ def build_semantic_answer_sources(
     seen_fields: set[str] = set()
 
     for review_path, confirmation_path in review_confirmation_pairs:
-        pair_application_id, pair_opening_id, field_name, answer, lineage = _verified_answer(
-            review_path, confirmation_path
-        )
+        (
+            pair_application_id,
+            pair_opening_id,
+            field_name,
+            answer,
+            lineage,
+        ) = _verified_answer(review_path, confirmation_path)
         if application_id is None:
             application_id = pair_application_id
             opening_id = pair_opening_id
@@ -238,9 +242,8 @@ def build_semantic_answer_source(
     """Backward-compatible single-review promotion into the live Greenhouse bridge."""
     result = build_semantic_answer_sources([(review_path, confirmation_path)])
     result["answers"][0]["key"] = "exceptional_work"
-    result["receipt_sha256"] = _sha256_bytes(
-        _canonical_bytes({key: value for key, value in result.items() if key != "receipt_sha256"})
-    )
+    unsigned = {key: value for key, value in result.items() if key != "receipt_sha256"}
+    result["receipt_sha256"] = _sha256_bytes(_canonical_bytes(unsigned))
     return result
 
 
