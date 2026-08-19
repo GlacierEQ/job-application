@@ -6,6 +6,8 @@ on:
       - "RESUME_ATS.md"
       - "site-v15/data/resume.json"
       - "scripts/export_helix_candidate_profile.py"
+      - "scripts/build_evidence_bound_application_review.py"
+      - "tests/test_evidence_bound_application_review.py"
       - "targets/spacexai/**"
       - ".github/workflows/helix-live-xai-evidence-review.yml"
   workflow_dispatch:
@@ -40,8 +42,17 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install exact Helix runtime
-        run: python -m pip install -e ./.helix-runtime
+      - name: Install exact Helix runtime and test dependencies
+        run: |
+          python -m pip install -e ./.helix-runtime
+          python -m pip install pytest ruff
+
+      - name: Prove evidence-review engine adversarially
+        run: |
+          ruff check scripts/build_evidence_bound_application_review.py tests/test_evidence_bound_application_review.py
+          ruff format --check scripts/build_evidence_bound_application_review.py tests/test_evidence_bound_application_review.py
+          pytest -q tests/test_evidence_bound_application_review.py
+          python scripts/build_evidence_bound_application_review.py --help
 
       - name: Export maintained production CandidateProfile
         run: |
@@ -81,52 +92,58 @@ jobs:
             --board-key xai \
             --job-id "$JOB_ID" \
             --evidence-source "$XAI_EVIDENCE" \
-            --output helix-live/greenhouse-evidence-review.json \
-            > helix-live/greenhouse-evidence-review-output.json
+            --output helix-live/greenhouse-evidence-preparation.json \
+            > helix-live/greenhouse-evidence-preparation-output.json
 
-      - name: Prove evidence-bound exceptional-work review draft
+      - name: Build provenance-diverse exceptional-work review
+        run: |
+          python scripts/build_evidence_bound_application_review.py \
+            --preparation helix-live/greenhouse-evidence-preparation.json \
+            --output helix-live/exceptional-work-review.json \
+            > helix-live/exceptional-work-review-output.json
+
+      - name: Prove live evidence-bound review integrity
         run: |
           python - <<'PY'
           import hashlib
           import json
           from pathlib import Path
 
-          preparation_path = Path("helix-live/greenhouse-evidence-review.json")
           evidence_path = Path(".helix-runtime/docs/evidence-constellations/xai-spacex-2026-08-18/constellations/xai.md")
+          preparation_path = Path("helix-live/greenhouse-evidence-preparation.json")
+          review_path = Path("helix-live/exceptional-work-review.json")
           preparation = json.loads(preparation_path.read_text(encoding="utf-8"))
-          prompts = preparation["prompts"]
+          review = json.loads(review_path.read_text(encoding="utf-8"))
 
-          exceptional = [
-              prompt for prompt in prompts
-              if "exceptional work" in f'{prompt["label"]} {prompt["field_name"]}'.casefold()
-          ]
-          assert len(exceptional) == 1, f"expected one exceptional-work field, found {len(exceptional)}"
-          draft = exceptional[0]
-          assert draft["status"] == "DRAFT_REVIEW_REQUIRED"
-          assert isinstance(draft["draft"], str) and draft["draft"].strip()
-          assert draft["provenance"], "draft must carry evidence provenance"
-          assert any("CandidateProfile." in item for item in draft["provenance"])
-          assert any("xai.md:L" in item for item in draft["provenance"])
-          assert "xAI affiliation" not in draft["draft"]
-          assert "deployed at xAI" not in draft["draft"]
+          assert review["schema"] == "glaciereq.evidence-bound-application-review.v1"
+          assert review["status"] == "DRAFT_REVIEW_REQUIRED"
+          assert review["application_id"] == preparation["application_id"]
+          assert review["opening_id"] == preparation["opening_id"]
+          assert review["preparation_sha256"] == hashlib.sha256(preparation_path.read_bytes()).hexdigest()
+          assert review["review_policy"]["applicant_confirmation_required"] is True
+          assert review["review_policy"]["external_submission_performed"] is False
 
-          reviewed = [
-              item for item in preparation["evidence"]
-              if item["evidence_class"] == "source_reviewed_portfolio_claim"
-          ]
-          assert len(reviewed) >= 5, f"expected reviewed xAI evidence cards, found {len(reviewed)}"
+          selected = review["evidence"]
+          classes = {item["evidence_class"] for item in selected}
+          assert "candidate_achievement" in classes or "candidate_experience" in classes
+          assert "source_reviewed_portfolio_claim" in classes
+          reviewed = [item for item in selected if item["evidence_class"] == "source_reviewed_portfolio_claim"]
+          assert len(reviewed) >= 1
           evidence_sha = hashlib.sha256(evidence_path.read_bytes()).hexdigest()
           assert all(item["source_sha256"] == evidence_sha for item in reviewed)
+          assert all("xai.md:L" in item["provenance"] for item in reviewed)
+          assert "xAI affiliation" not in review["draft"]
+          assert "deployed at xAI" not in review["draft"]
 
           print(json.dumps({
-              "application_id": preparation["application_id"],
-              "opening_id": preparation["opening_id"],
-              "drafted_count": preparation["drafted_count"],
-              "review_required_count": preparation["review_required_count"],
-              "exceptional_work_field": draft["field_name"],
-              "exceptional_work_provenance": draft["provenance"],
+              "application_id": review["application_id"],
+              "opening_id": review["opening_id"],
+              "field_name": review["field_name"],
+              "selected_evidence_classes": sorted(classes),
+              "selected_provenance": [item["provenance"] for item in selected],
               "evidence_source_sha256": evidence_sha,
-              "preparation_receipt_sha256": preparation["receipt_sha256"],
+              "preparation_sha256": review["preparation_sha256"],
+              "review_receipt_sha256": review["receipt_sha256"],
               "helix_sha": "725e785453ab01350d7b273c94ddb4dac70501af"
           }, indent=2, sort_keys=True))
           PY
@@ -139,6 +156,8 @@ jobs:
             helix-live/state/
             helix-live/packets/
             helix-live/target-application-output.json
-            helix-live/greenhouse-evidence-review.json
-            helix-live/greenhouse-evidence-review-output.json
+            helix-live/greenhouse-evidence-preparation.json
+            helix-live/greenhouse-evidence-preparation-output.json
+            helix-live/exceptional-work-review.json
+            helix-live/exceptional-work-review-output.json
           if-no-files-found: error
