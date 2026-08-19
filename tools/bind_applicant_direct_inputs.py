@@ -15,6 +15,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import tempfile
 from collections.abc import Mapping, Sequence
 from pathlib import Path
@@ -93,7 +94,9 @@ def bind_direct_inputs(inventory_path: Path, direct_input_path: Path) -> dict[st
     application_id = _required_text(
         inventory.get("application_id"), field="inventory.application_id"
     )
-    opening_id = _required_text(inventory.get("opening_id"), field="inventory.opening_id")
+    opening_id = _required_text(
+        inventory.get("opening_id"), field="inventory.opening_id"
+    )
     source_application_id = _required_text(
         source.get("application_id"), field="direct_inputs.application_id"
     )
@@ -107,13 +110,14 @@ def bind_direct_inputs(inventory_path: Path, direct_input_path: Path) -> dict[st
         )
     if source_opening_id != opening_id:
         raise ApplicantDirectInputError(
-            "direct input/opening identity drift: "
-            f"{source_opening_id} != {opening_id}"
+            f"direct input/opening identity drift: {source_opening_id} != {opening_id}"
         )
 
     decisions = inventory.get("decisions")
     if not isinstance(decisions, list) or not decisions:
-        raise ApplicantDirectInputError("decision inventory requires non-empty decisions")
+        raise ApplicantDirectInputError(
+            "decision inventory requires non-empty decisions"
+        )
 
     live: dict[str, dict[str, Any]] = {}
     for index, decision in enumerate(decisions):
@@ -129,21 +133,27 @@ def bind_direct_inputs(inventory_path: Path, direct_input_path: Path) -> dict[st
         live[field_name] = decision
 
     rows = _input_rows(source)
-    bound_answers: list[dict[str, str]] = []
+    bound_answers: list[dict[str, str | list[str] | dict[str, object]]] = []
     bindings: list[dict[str, str]] = []
+    bound_field_names = {row["field_name"] for row in rows}
     for row in rows:
         field_name = row["field_name"]
         decision = live.get(field_name)
         if decision is None:
-            raise ApplicantDirectInputError(f"unknown live field identity: {field_name}")
+            raise ApplicantDirectInputError(
+                f"unknown live field identity: {field_name}"
+            )
         state = _required_text(
-            decision.get("decision_state"), field=f"decision[{field_name}].decision_state"
+            decision.get("decision_state"),
+            field=f"decision[{field_name}].decision_state",
         )
         if state != "APPLICANT_INPUT_REQUIRED":
             raise ApplicantDirectInputError(
                 f"direct input cannot bind field {field_name} in state {state}"
             )
-        label = _required_text(decision.get("label"), field=f"decision[{field_name}].label")
+        label = _required_text(
+            decision.get("label"), field=f"decision[{field_name}].label"
+        )
         semantic_key = f"applicant-direct:{field_name}"
         provenance = f"{direct_input_path}#{field_name}"
         bound_answers.append(
@@ -152,7 +162,7 @@ def bind_direct_inputs(inventory_path: Path, direct_input_path: Path) -> dict[st
                 "value": row["value"],
                 "provenance": provenance,
                 "match": {
-                    "label_pattern": f"^{__import__('re').escape(label)}$",
+                    "label_pattern": f"^{re.escape(label)}$",
                     "field_types": [],
                     "field_name": field_name,
                 },
@@ -172,7 +182,7 @@ def bind_direct_inputs(inventory_path: Path, direct_input_path: Path) -> dict[st
         field_name
         for field_name, decision in live.items()
         if decision.get("decision_state") == "APPLICANT_INPUT_REQUIRED"
-        and field_name not in {row["field_name"] for row in rows}
+        and field_name not in bound_field_names
     ]
     generated_confirmation_fields = [
         field_name
