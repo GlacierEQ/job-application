@@ -5,90 +5,95 @@ verified_executable_capability_delta: YES
 
 ## Current source
 - owning_repo: GlacierEQ/job-application
-- executable_source_sha_before_handoff: 9c91b76ba90c033cdfffb609de191e972587b502
-- primary_runtime_blob: 1b80bc8d67ca43f2fe6d5a4c7627c94d4def0e04
-- source_file: tools/greenhouse_semantic_answer_bridge.py
-- tests_file: tests/test_greenhouse_semantic_answer_bridge.py
-- proof_workflow: .github/workflows/greenhouse-semantic-answer-bridge-proof.yml
-
-## Donor / continuation lineage
-- GlacierEQ/job-app-helix exact runtime: 725e785453ab01350d7b273c94ddb4dac70501af
-- Greenhouse preparation contract donor: src/job_app_helix/greenhouse_application_preparation.py
-- prior production xAI final-review head before this cycle: 0dd25b167f4196a8abe9fbd08e214caf961478f1
-- prior live application workflow merge: d09d5beb4d67ee4e3810c006e7bca5d1461b8fcc
+- source_sha_before_cycle: b5db99445748e44b9ae73a47c1adb014af494504
+- historical_donor_pr: #196
+- historical_donor_head: 0ba5a6f8f92d2806e77a14cf303090cc931e6b99
+- exact_proven_pr: #203
+- exact_proven_head: 94d7d779a425fa0d47335565b6ae1b72c02f5301
+- source_sha_after_merge: 9b078fb8c216f29b074feb63da9130805ced9908
+- production_runtime: scripts/export_helix_candidate_profile.py
+- production_runtime_blob: 89b7311b7b00621e1b85b4ad6d8cdf3202604e1d
+- post_merge_readback: PASS
 
 ## Selected priority
 - tier: P1
-- priority: Remove opaque Greenhouse field-ID brittleness from applicant-confirmed answers so one stable applicant answer source can survive provider question-ID changes while still binding only to the current live form.
+- priority: Restore the stranded maintained production-resume to Helix CandidateProfile bridge onto current main, preserving all later application/runtime gains.
 
-## Higher candidate blocked
-- A complete xAI `ready_for_human_submission=true` package remains higher-value, but nine live applicant-controlled values were not available as explicit confirmed source values in this execution context. They were not inferred or fabricated.
-
-## Displaced capability / bottleneck
-The existing Helix preparation runtime already accepts exact `field_name` applicant answers, but live Greenhouse custom-question names are opaque and can change between postings. Persisting raw provider field IDs therefore makes reusable applicant-confirmed answers brittle and risks binding a value to a stale form identity.
-
-## Implemented delta
-`greenhouse_semantic_answer_bridge.py` compiles stable semantic applicant intents into the exact current Greenhouse field names. It:
-- matches against current live label + field identity with regex and optional field-type constraints;
-- requires exactly one live match per semantic key and fails closed on zero/multiple matches;
-- refuses hidden and file-upload provider fields;
-- normalizes select answers against the current provider options;
-- preserves applicant provenance plus hashes of both the live field bundle and semantic source;
-- emits direct `--applicant-answer-source` input for `job-app-helix-greenhouse-prepare`;
-- emits deterministic bindings and a receipt hash.
+## Higher candidate / pivot state
+- P1 xAI ready_for_human_submission=true remains blocked on explicit applicant-controlled values; none were inferred.
+- GlacierEQ/job-app PR #8 private transactional integrity proof was retried; the private workflow returned to queued state after its prior runner-level failure, so this cycle pivoted instead of waiting.
+- Historical job-application PR #196 contained a direct job-winning production profile bridge, but had diverged from current main by 27 current-main commits and was not safe to merge wholesale.
 
 ## Mechanisms compared
-1. Persist raw Greenhouse field names: lowest implementation cost, rejected because opaque IDs drift.
-2. Hard-code xAI-specific question IDs/labels in the workflow: stronger short-term coupling, rejected because it creates employer-specific brittle logic.
-3. Nonlinear composition selected: stable semantic answer intents + current live form discovery + exact one-to-one runtime binding + provider option normalization. This preserves applicant intent while provider identity stays live-bound.
+1. Merge historical PR #196 wholesale: rejected because its branch diverged from current main and would risk later gains.
+2. Recreate a new unrelated candidate-profile implementation: rejected because the proven historical mechanism already existed.
+3. Selected nonlinear recovery: recover the donor bridge individually onto current main, harden required evidence validation, preserve current resume authority, add LinkedIn projection when source-backed, atomic persistence, strict repository quality, and target-native multi-version proof.
+
+## Implemented delta
+- Restored `scripts/export_helix_candidate_profile.py` on current main.
+- Projects current `site-v15/data/resume.json` into `glaciereq.job-app-helix.candidate-profile.v1`.
+- Carries identity, headline, summary, skills, work evidence, project achievements, and source-backed contact fields.
+- Preserves exact source SHA-256 provenance and an explicit projection evidence ceiling.
+- Stable case-insensitive de-duplication preserves source order.
+- Fails closed when identity or Helix-required evidence is absent.
+- Uses fsync + atomic replace for output persistence.
+- `--check` detects stale projections deterministically.
+- Added adversarial tests and a production-resume target-native workflow.
 
 ## Preserved gains
-- Existing xAI live target discovery, CandidateProfile compilation, Greenhouse preparation, resume attachment hashing, and finalization remain untouched.
-- Human submission/review gate remains intact.
-- No applicant value is inferred.
-- Provider hidden/file fields cannot be overridden by this bridge.
-- Exact Helix runtime remains pinned by the live production workflow.
+- Current live xAI/SpaceX application workflow remains untouched.
+- Current Greenhouse semantic-answer bridge remains untouched.
+- Current workflow-topology restoration and deployment surfaces remain untouched.
+- Current `site-v15/data/resume.json` remains the owning source; the bridge is a projection only.
+- No applicant-controlled value was inferred and no external application was submitted.
 
 ## Tests / runtime proof
-- PR #200 executable implementation merged: 6ef4d21a3ee1741f76daccbd6c1fc2cda8f7a375.
-- Initial dedicated proof run 32219125584: PASS on Python 3.11 / 3.12 / 3.13.
-- Repository-wide strict CI exposed two style defects after the first merge; refinement was isolated and fixed without weakening behavior.
-- PR #201 refinement exact head: 01e60ed6806150168112efe53b15ce879cfb3c25.
-- Dedicated proof run 32219368627: PASS on Python 3.11 / 3.12 / 3.13.
-- Repository-wide CI run 32219368871: PASS, including Ruff check, Ruff format check, compileall, and pytest.
-- Refinement merge: 9c91b76ba90c033cdfffb609de191e972587b502.
-- Post-merge readback confirmed runtime blob 1b80bc8d67ca43f2fe6d5a4c7627c94d4def0e04 on main.
+- PR #203 initial head c0348105bfa1067430cbc2af5b5319cbfe2f80eb proved the executable path on Python 3.11/3.12/3.13; strict repository CI then exposed executable-shebang/type-style defects.
+- Refinement removed the non-executable shebang and used TypeError for invalid input types.
+- Strict CI then exposed formatter drift; exact formatter output was applied without weakening behavior.
+- Exact proven head: 94d7d779a425fa0d47335565b6ae1b72c02f5301.
+- Helix Candidate Profile Bridge Proof run 32284298276: PASS.
+- Python 3.11 job 96170112770: PASS compile + adversarial tests + live production export + freshness/required-field proof.
+- Python 3.12 job 96170113161: PASS same full path.
+- Python 3.13 job 96170112970: PASS same full path.
+- Repository strict CI run 32284298867: PASS.
+- Portfolio truth gate run 32284298575: PASS.
+- APEX Estate Non-Regression run 32284299030 failed independently of the focused executable proof and strict repository CI; it was not promoted as a code failure.
+- Exact-head squash merge: 9b078fb8c216f29b074feb63da9130805ced9908.
+- Post-merge runtime readback: PASS, blob 89b7311b7b00621e1b85b4ad6d8cdf3202604e1d.
 
-## Exact target functions
-- `compile_answer_source`
-- `_live_fields`
-- `_semantic_answers`
-- `_matches`
-- `_normalize_option`
-
-## Next sequence
-1. Bind explicit confirmed applicant values to stable semantic keys for the nine unresolved xAI fields.
-2. Compile those semantic values against the current live `GREENHOUSE_APPLICATION_FIELDS.json`.
-3. Re-run `job-app-helix-greenhouse-prepare` using the compiled answer source.
-4. Re-run finalization and require `ready_for_human_submission=true` without external submission.
-5. Preserve resulting hashes and the final human-review package.
+## Exact continuation targets
+- scripts/export_helix_candidate_profile.py: build_helix_profile, _atomic_write, main
+- site-v15/data/resume.json: maintained production candidate source
+- targets/spacexai/target_manifest.json: current real target manifest
+- .github/workflows/helix-live-spacexai-application.yml: current target-native application execution surface
 
 ## Top 3 remaining priorities
-1. P1: produce the real xAI `ready_for_human_submission=true` package from explicit applicant-confirmed values using this bridge; do not submit externally.
-2. P2: execute the first real stranded repository-family restoration through the manifestless exact-SHA federated restoration stack and prove recovered native behavior.
-3. P2: generalize semantic applicant-answer binding across additional attributable ATS providers while preserving provider-native option and field identity checks.
+1. P1: compose the now-restored maintained CandidateProfile projection directly into the current live SpaceX/xAI application workflow so the production run consumes one source-bound profile without manual handoff; preserve the human submission gate.
+2. P1: if GlacierEQ/job-app PR #8 private Actions proof clears, exact-head verify/merge the transactional application-integrity companion and read it back; otherwise keep it isolated and do not stall.
+3. P2: execute the highest live-verified STILL_STRANDED/CURRENTLY_MISSING recovery candidate from the make-it-heavy corpus verifier in its owning repository native runtime.
+
+## Next sequence
+1. Inspect the current live SpaceX/xAI workflow profile construction path against this restored exporter contract.
+2. Replace only redundant/manual profile handoff where composition preserves stronger current behavior.
+3. Execute target-native live inventory/application preparation proof without external submission.
+4. Exact-head merge and post-merge readback.
+5. Re-check job-app PR #8 only if its private proof state changed.
 
 ## Merge / deploy gate
-- Executable gate passed: dedicated 3-version proof + repository-wide strict CI + exact-head PR merge + main readback.
-- No external job submission occurred.
+- Exact tested head only.
+- Focused executable production-resume proof must pass on Python 3.11/3.12/3.13.
+- Strict repository CI must pass.
+- Current resume remains owning source and projection may not exceed it.
+- No external submission without the existing human gate.
 
 ## Rollback
-Revert merge `9c91b76ba90c033cdfffb609de191e972587b502` and predecessor implementation merge `6ef4d21a3ee1741f76daccbd6c1fc2cda8f7a375` if the semantic bridge must be removed. Existing pinned Helix live xAI workflow remains independently operable.
+Revert merge `9b078fb8c216f29b074feb63da9130805ced9908` to remove only the restored CandidateProfile bridge while preserving all later pre-existing job-application runtime gains.
 
 ## No-loss invariants
-- Never infer applicant-controlled answers.
-- Never bind semantic answers when live matching is ambiguous.
-- Never override hidden or file-upload provider fields through semantic text answers.
-- Never bypass current live option validation.
-- Preserve provenance and source hashes for each compiled answer set.
-- Preserve current application-ready/final-review workflow and human submission gate.
+- Never merge the stale donor branch wholesale.
+- Never infer applicant-controlled values.
+- Never let CandidateProfile evidence exceed `site-v15/data/resume.json`.
+- Preserve current live application, semantic-answer, workflow-topology, and deployment mechanisms.
+- Preserve deterministic source hashing and atomic output replacement.
+- No completion claim without executable proof and post-merge readback.
