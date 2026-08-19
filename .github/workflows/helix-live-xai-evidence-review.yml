@@ -1,0 +1,144 @@
+name: Helix Live xAI Evidence Review
+
+on:
+  pull_request:
+    paths:
+      - "RESUME_ATS.md"
+      - "site-v15/data/resume.json"
+      - "scripts/export_helix_candidate_profile.py"
+      - "targets/spacexai/**"
+      - ".github/workflows/helix-live-xai-evidence-review.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  HELIX_SHA: 725e785453ab01350d7b273c94ddb4dac70501af
+  XAI_EVIDENCE: .helix-runtime/docs/evidence-constellations/xai-spacex-2026-08-18/constellations/xai.md
+
+jobs:
+  live-evidence-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out hiring repository
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Check out exact Helix runtime and reviewed evidence
+        uses: actions/checkout@v6
+        with:
+          repository: GlacierEQ/job-app-helix
+          ref: ${{ env.HELIX_SHA }}
+          path: .helix-runtime
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install exact Helix runtime
+        run: python -m pip install -e ./.helix-runtime
+
+      - name: Export maintained production CandidateProfile
+        run: |
+          mkdir -p helix-live/state helix-live/packets
+          python scripts/export_helix_candidate_profile.py \
+            --source site-v15/data/resume.json \
+            --output helix-live/state/COMPILED_CANDIDATE_PROFILE.json
+          python scripts/export_helix_candidate_profile.py \
+            --source site-v15/data/resume.json \
+            --output helix-live/state/COMPILED_CANDIDATE_PROFILE.json \
+            --check
+
+      - name: Execute maintained profile against live xAI inventory
+        run: |
+          job-app-helix-target-application \
+            --manifest targets/spacexai/target_manifest.json \
+            --profile helix-live/state/COMPILED_CANDIDATE_PROFILE.json \
+            --state-dir helix-live/state \
+            --output-dir helix-live/packets \
+            --database helix-live/applications.sqlite \
+            --limit 4 \
+            > helix-live/target-application-output.json
+
+      - name: Prepare live Greenhouse fields with source-reviewed portfolio evidence
+        run: |
+          test -f "$XAI_EVIDENCE"
+          JOB_ID="$(python - <<'PY'
+          import json
+          from pathlib import Path
+          release = json.loads(Path("helix-live/state/APPLICATION_READY_TARGET.json").read_text())
+          print(release["selected"]["opening_id"])
+          PY
+          )"
+          job-app-helix-greenhouse-prepare \
+            --release helix-live/state/APPLICATION_READY_TARGET.json \
+            --profile helix-live/state/COMPILED_CANDIDATE_PROFILE.json \
+            --board-key xai \
+            --job-id "$JOB_ID" \
+            --evidence-source "$XAI_EVIDENCE" \
+            --output helix-live/greenhouse-evidence-review.json \
+            > helix-live/greenhouse-evidence-review-output.json
+
+      - name: Prove evidence-bound exceptional-work review draft
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+
+          preparation_path = Path("helix-live/greenhouse-evidence-review.json")
+          evidence_path = Path(".helix-runtime/docs/evidence-constellations/xai-spacex-2026-08-18/constellations/xai.md")
+          preparation = json.loads(preparation_path.read_text(encoding="utf-8"))
+          prompts = preparation["prompts"]
+
+          exceptional = [
+              prompt for prompt in prompts
+              if "exceptional work" in f'{prompt["label"]} {prompt["field_name"]}'.casefold()
+          ]
+          assert len(exceptional) == 1, f"expected one exceptional-work field, found {len(exceptional)}"
+          draft = exceptional[0]
+          assert draft["status"] == "DRAFT_REVIEW_REQUIRED"
+          assert isinstance(draft["draft"], str) and draft["draft"].strip()
+          assert draft["provenance"], "draft must carry evidence provenance"
+          assert any("CandidateProfile." in item for item in draft["provenance"])
+          assert any("xai.md:L" in item for item in draft["provenance"])
+          assert "xAI affiliation" not in draft["draft"]
+          assert "deployed at xAI" not in draft["draft"]
+
+          reviewed = [
+              item for item in preparation["evidence"]
+              if item["evidence_class"] == "source_reviewed_portfolio_claim"
+          ]
+          assert len(reviewed) >= 5, f"expected reviewed xAI evidence cards, found {len(reviewed)}"
+          evidence_sha = hashlib.sha256(evidence_path.read_bytes()).hexdigest()
+          assert all(item["source_sha256"] == evidence_sha for item in reviewed)
+
+          print(json.dumps({
+              "application_id": preparation["application_id"],
+              "opening_id": preparation["opening_id"],
+              "drafted_count": preparation["drafted_count"],
+              "review_required_count": preparation["review_required_count"],
+              "exceptional_work_field": draft["field_name"],
+              "exceptional_work_provenance": draft["provenance"],
+              "evidence_source_sha256": evidence_sha,
+              "preparation_receipt_sha256": preparation["receipt_sha256"],
+              "helix_sha": "725e785453ab01350d7b273c94ddb4dac70501af"
+          }, indent=2, sort_keys=True))
+          PY
+
+      - name: Upload live evidence-review package
+        uses: actions/upload-artifact@v4
+        with:
+          name: helix-live-xai-evidence-review
+          path: |
+            helix-live/state/
+            helix-live/packets/
+            helix-live/target-application-output.json
+            helix-live/greenhouse-evidence-review.json
+            helix-live/greenhouse-evidence-review-output.json
+          if-no-files-found: error
