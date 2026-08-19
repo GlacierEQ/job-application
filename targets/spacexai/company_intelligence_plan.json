@@ -1,7 +1,7 @@
 {
   "schema": "glaciereq.company-intelligence-acquisition-plan.v1",
-  "company_id": "spacexai",
-  "company": "SpaceXAI",
+  "company_id": "xai",
+  "company": "xAI",
   "max_age_days": 30,
   "sources": [
     {
@@ -16,7 +16,7 @@
         "mission"
       ],
       "extractor": "html",
-      "source_title": "SpaceXAI Careers",
+      "source_title": "xAI Careers",
       "max_statements": 6
     }
   ]
