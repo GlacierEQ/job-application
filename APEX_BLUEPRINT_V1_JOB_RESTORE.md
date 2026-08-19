@@ -6,108 +6,102 @@ verified_executable_capability_delta: YES
 ## Current source
 - owning_repo: GlacierEQ/job-application
 - source_branch: main
-- source_sha_before_cycle: 7378faf0e202bea415ee9661ea89760cfa99c8e7
-- selected_pr: #208
-- exact_proven_head: 8381130d3fac0de4b8db475e389e7dd5cea607d2
-- exact_head_merge_sha: 8abc5819ed3ee1d1bd695a4ad3234d83cf28fd8d
-- production_runtime: tools/build_applicant_decision_packet.py
-- production_runtime_blob: f22258526c4b4f7a25c13a15753b829f5dec4910
-- production_test_blob: 1e949e8d79a45e21008551cf41eb771a8d62da2c
+- source_sha_before_cycle: db5d1d285a2d97e6f9bc8b0751232c838296d7f3
+- exact_proven_head: b984612e4022e982f49ece8713b8483bfad51a2e
+- exact_head_merge_sha: 1475a7527c1fd856f335c0523d90fbf76f89bfdf
+- selected_pr: #211
+- production_runtime: tools/compose_applicant_submission_package.py
+- production_runtime_blob: 347df6d2a84af427f8499e2fdfe719126ea9a61b
+- production_test_blob: e98b9e92f3d3647b4cc27e5b0ce079c182fddb1c
 - post_merge_readback: PASS
 
 ## Donor / composition lineage
 - maintained CandidateProfile/live xAI composition: PR #204
-- live evidence-bound review: PR #205
-- explicit evidence-review confirmation bridge: PR #206
-- exact live Greenhouse field/opening binding repair: PR #207
-- review builder source blob: 453da292a32566436d4956bba81f841eabcbec4e
-- confirmation runtime source blob: 6bbe35b020062d520a5c8afd2e16ecf59d0f8661
-- prior main source: 7378faf0e202bea415ee9661ea89760cfa99c8e7
+- evidence-bound live application review: PR #205
+- explicit evidence-review confirmation: PR #206
+- exact Greenhouse field/opening binding: PR #207
+- applicant decision packet: PR #208
+- complete live decision inventory: PR #209
+- direct applicant-input binding runtime on main before cycle: db5d1d285a2d97e6f9bc8b0751232c838296d7f3
 
 ## Selected priority
 - tier: P1
-- priority: turn the live evidence-bound xAI/Greenhouse preparation into one precise applicant-controlled decision packet so the operator can review the exact current field, evidence, proposed text, and confirmation identity without manual artifact shuffling.
-- operator_value: reduces the highest-value human/application bottleneck while preserving explicit applicant authority and the existing exact live-field/opening binding.
-
-## Higher candidates / pivots
-- P1 BLOCKED: final ready_for_human_submission=true still depends on explicit applicant-controlled decisions; no answer or confirmation was inferred.
-- PRIOR BLUEPRINT STALE: CandidateProfile composition, live xAI evidence review, explicit confirmation, and exact live-field binding were already merged through PRs #204-#207 and were not repeated.
-- PRIVATE job-app composition was not selected because its hosted execution surface has historically been unreliable; the public job-application lane exposed a higher-leverage executable P1 with working target-native proof.
+- priority: compose explicit applicant direct inputs and explicitly confirmed evidence-reviewed generated answers into one complete live-field semantic source that can truthfully become ready_for_human_submission=true without external submission.
 
 ## Mechanisms compared
-1. Keep the existing preparation -> review -> confirmation multi-file handoff: rejected because it leaves needless operator friction at the live application decision boundary.
-2. Auto-promote generated/reviewed prose: rejected because it would invert applicant authority and convert machine review into applicant intent.
-3. Selected nonlinear composition: reuse the existing live evidence review and exact confirmation bridge, then add one human-centered decision packet that preserves exact application/opening/field identity, reviewed evidence, a deterministic receipt, and an explicitly unconfirmed confirmation template.
+1. Keep direct-input and confirmed-review semantic sources separate: rejected because no artifact proves complete live-field resolution.
+2. Let either source fill missing fields heuristically: rejected because it could infer applicant intent or cross authority boundaries.
+3. Selected nonlinear composition: verify both source receipts and exact application/opening/provider identities, require complete state-specific coverage, preserve live field order, and emit one bridge-consumable package only after every live applicant field is explicitly resolved.
 
 ## Implemented executable delta
-- Added tools/build_applicant_decision_packet.py.
-- Composes the current live preparation contract through the existing provenance-diverse build_review runtime.
-- Re-verifies the embedded review receipt before exposing a decision.
-- Carries exact application_id, opening_id, provider field_name, label, proposed text, evidence rows, evidence classes, and source hashes into one decision surface.
-- Emits an exact glaciereq.evidence-review-confirmation.v1 template prefilled with the reviewed text but confirmed=false.
-- Explicitly records that applicant confirmation/text remain human-controlled, machine confirmation inference is forbidden, and no external submission is performed.
-- Edited or rejected prose requires a fresh evidence review rather than silently escaping the review boundary.
-- Produces deterministic packet SHA-256 receipts and fsync + atomic output replacement.
-- Supports direct CLI execution from tools/ as well as module import.
-- Existing tools/confirm_evidence_bound_review.py consumes the human-confirmed template without a new adapter, preserving exact live field/opening identity through the semantic Greenhouse bridge.
+- Added tools/compose_applicant_submission_package.py.
+- Verifies deterministic receipts for inventory, direct-input binding, and confirmed-review semantic source.
+- Requires exact application_id/opening_id identity across all three artifacts.
+- Requires direct binding to reference the exact decision-inventory receipt.
+- Requires exact set coverage for every APPLICANT_INPUT_REQUIRED and APPLICANT_CONFIRMATION_REQUIRED field; partial, duplicate, extra, stale, or unknown coverage fails closed.
+- Requires the confirmed evidence-review receipt and accepted generated text to match the reviewed decision exactly; edited text requires a new evidence review.
+- Preserves decision-inventory provider field order in the final semantic answers.
+- Emits READY_FOR_HUMAN_SUBMISSION and ready_for_human_submission=true only after complete explicit resolution.
+- Output is directly consumable by tools/greenhouse_semantic_answer_bridge.py.
+- No external submission is performed; the human submission gate remains explicit.
+- Added seven adversarial composition tests including direct Greenhouse bridge consumption.
+- Added Python 3.11/3.12/3.13 target-native proof workflow and widened it across the complete authority lineage.
+- Repaired formatter drift in the new runtime/tests and the immediately preceding direct-input test before final proof.
 
-## Preserved gains
-- Maintained production CandidateProfile from PR #204 remains the source-bound live profile path.
-- Evidence-bound live xAI review from PR #205 remains the drafting/evidence authority.
-- Explicit applicant confirmation from PR #206 remains mandatory.
-- Exact field_name/opening_id guards from PR #207 remain mandatory.
-- Existing Greenhouse semantic binding, ambiguity refusal, option normalization, provider field exclusions, receipt hashing, and external-submission gate remain intact.
-- No applicant-controlled answer was inferred, no confirmation was fabricated, and no external application/recruiter message was sent.
+## Preserved gains / no-loss invariants
+- CandidateProfile, live xAI review, confirmation, decision packet, inventory, direct-input binding, and Greenhouse bridge remain composed rather than replaced.
+- Applicant controls every direct value and every generated-answer confirmation.
+- No value or confirmation is inferred.
+- Edited evidence-reviewed prose cannot enter the package without a new review.
+- No opening_id or provider field_name drift is accepted.
+- No external submission occurs in this runtime.
 
 ## Tests / runtime proof
-- Initial head b197faf62b473e381b5d13d51d50c8d48f9e6297: committed 5-test adversarial suite passed on Python 3.11/3.12/3.13, but the direct CLI exposed a sibling-package import defect; strict CI independently exposed Ruff formatter drift.
-- Refinement added direct-script import recovery and applied the repository's exact strict formatting without weakening behavior.
-- exact_proven_head: 8381130d3fac0de4b8db475e389e7dd5cea607d2
-- Applicant Decision Packet Proof run 32304646625: PASS.
-- Python 3.11 job 96234648177: PASS compile + 5 adversarial composition tests + direct CLI decision-packet execution.
-- Python 3.12 job 96234648466: PASS same full path.
-- Python 3.13 job 96234648424: PASS same full path.
-- strict repository CI run 32304647098: PASS.
-- Portfolio Truth Gate run 32304646650: PASS.
-- APEX Estate Non-Regression run 32304647084: PASS.
-- exact-head squash merge: 8abc5819ed3ee1d1bd695a4ad3234d83cf28fd8d.
-- post-merge runtime readback: PASS, blob f22258526c4b4f7a25c13a15753b829f5dec4910.
-- post-merge test readback: PASS, blob 1e949e8d79a45e21008551cf41eb771a8d62da2c.
+- Initial proof head 5d67f73adcbaeebffd313728adf0f6a979c04dad: dedicated executable proof PASS and estate non-regression PASS; strict CI exposed formatter-only drift.
+- Formatter repair landed on main through commits 33526a928b205610d7b9fa152e92211fd7a1957f, 6b33eaf76b91a9790c1d45024b13d6feeec914e1, and 310d6a0279c5eff1d511b8b9e9a2231d7b35deff.
+- Final exact proof head: b984612e4022e982f49ece8713b8483bfad51a2e.
+- Applicant Submission Package Proof run 32310455363: PASS.
+- Python 3.11 job 96252188962: PASS compile + full authority-lineage adversarial tests + direct CLI.
+- Python 3.12 job 96252188992: PASS same path.
+- Python 3.13 job 96252188798: PASS same path.
+- strict CI run 32310455861: PASS.
+- APEX Estate Non-Regression run 32310455901: PASS.
+- exact-head squash merge: 1475a7527c1fd856f335c0523d90fbf76f89bfdf.
 
-## Exact continuation targets
-- tools/build_applicant_decision_packet.py: build_decision_packet, _verify_review_receipt, _verified_evidence, _atomic_write_json, main
-- scripts/build_evidence_bound_application_review.py: build_review, select_diverse_evidence
-- tools/confirm_evidence_bound_review.py: build_semantic_answer_source, _verify_review, _verify_confirmation
-- .github/workflows/helix-live-xai-evidence-review.yml: current real live-review execution surface
-- .github/workflows/applicant-decision-packet-proof.yml: focused target-native proof
+## Blocked higher candidates
+- none observed above this P1 in the live queue.
 
 ## Top 3 remaining priorities
-1. P1: feed the real current live xAI evidence-review preparation into the decision-packet runtime and, when the operator supplies explicit confirmations, produce the actual ready_for_human_submission=true review package without external submission.
-2. P1: generalize the decision packet beyond the exceptional-work singleton to every unresolved applicant-controlled live Greenhouse field, preserving per-field exact identity, explicit confirmation, and mandatory re-review for edited generated prose.
-3. P2: execute the highest live-verified STILL_STRANDED/CURRENTLY_MISSING job-ecosystem recovery candidate in its owning repository with exact donor lineage and target-native executable proof.
+1. P1: feed the real current live xAI preparation, direct applicant-input artifact, and explicit review confirmation through the complete composer and Greenhouse bridge to produce the current real human-submission package artifact.
+2. P1: generalize confirmed generated-answer coverage beyond the current evidence-reviewed singleton when additional fields have independently reviewed generated answers, preserving per-field review receipts and explicit applicant confirmation.
+3. P2: recover the highest live-verified STILL_STRANDED/CURRENTLY_MISSING job-ecosystem capability from Git history, stale PRs, or donor repositories with target-native executable proof.
+
+## Exact continuation targets
+- tools/compose_applicant_submission_package.py: compose_submission_package, _verify_receipt, _answer_map, _decision_inventory
+- tools/bind_applicant_direct_inputs.py: bind_direct_inputs
+- tools/confirm_evidence_bound_review.py: build_semantic_answer_source
+- tools/greenhouse_semantic_answer_bridge.py: compile_answer_source
+- tests/test_compose_applicant_submission_package.py
+- .github/workflows/applicant-submission-package-proof.yml
 
 ## Next sequence
-1. Obtain the current live xAI preparation artifact from the existing evidence-review workflow rather than recreating provider state manually.
-2. Run build_applicant_decision_packet.py against that exact preparation and surface only unresolved human decisions.
-3. Bind only explicit operator confirmations through confirm_evidence_bound_review.py; preserve exact field/opening identity and review receipt.
-4. Re-run the live semantic Greenhouse preparation and require ready_for_human_submission=true only when every applicant-controlled decision is explicitly bound.
-5. Keep external submission behind the existing human submission gate.
+1. Obtain the current live xAI preparation artifact from the existing live workflow surface.
+2. Build the current decision inventory and bind only explicit applicant direct inputs.
+3. Promote only an explicit applicant confirmation of the exact evidence-reviewed generated text.
+4. Compose the three exact-bound artifacts and require complete field coverage.
+5. Pass the resulting package through the Greenhouse semantic bridge and preserve the external human submission gate.
 
 ## Merge / deploy gate
-- PR #208 merged only at exact tested head 8381130d3fac0de4b8db475e389e7dd5cea607d2.
-- Focused runtime proof passed on Python 3.11/3.12/3.13 before merge.
-- Strict repository CI, portfolio truth, and estate non-regression passed on the exact head.
-- Post-merge runtime and tests were read back from main.
+- Exact proof head b984612e4022e982f49ece8713b8483bfad51a2e passed dedicated Python 3.11/3.12/3.13 proof, strict CI, and estate non-regression before merge.
+- PR #211 merged only with expected_head_sha pinned to b984612e4022e982f49ece8713b8483bfad51a2e.
 - No external job submission occurred.
 
 ## Rollback
-Revert merge 8abc5819ed3ee1d1bd695a4ad3234d83cf28fd8d to remove the applicant decision packet runtime/tests/workflow while preserving PRs #204-#207 and the prior live xAI/Greenhouse application path.
+Revert merge 1475a7527c1fd856f335c0523d90fbf76f89bfdf and the preceding composer/runtime commits if removal is required; preserve PRs #204-#210 and the prior application path.
 
 ## No-loss invariants
-- Operator/applicant intent remains authoritative for confirmation and accepted applicant-controlled text.
-- Never infer confirmed=true.
-- Never promote edited review prose without a new evidence-bound review.
-- Never allow opening_id or field_name drift between review, confirmation, semantic binding, and live provider state.
-- Never weaken CandidateProfile/evidence provenance to accelerate completion.
-- Preserve existing live xAI review, semantic-answer, exact-field binding, human submission gate, and external-receipt boundaries.
-- No completion claim without executable proof, exact-head merge, and post-merge readback.
+- Never infer applicant values or confirmation.
+- Never promote edited reviewed prose without a fresh evidence review.
+- Never accept stale inventory, opening_id, application_id, or field_name identity.
+- Never report ready_for_human_submission=true unless every live applicant-controlled field has an explicit authorized resolution.
+- Preserve the human-controlled external submission gate.
