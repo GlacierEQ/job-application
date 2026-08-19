@@ -1,0 +1,87 @@
+name: Applicant Decision Packet Proof
+
+on:
+  pull_request:
+    paths:
+      - "tools/build_applicant_decision_packet.py"
+      - "scripts/build_evidence_bound_application_review.py"
+      - "tools/confirm_evidence_bound_review.py"
+      - "tests/test_applicant_decision_packet.py"
+      - ".github/workflows/applicant-decision-packet-proof.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  prove:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Compile decision path
+        run: >-
+          python -m py_compile
+          tools/build_applicant_decision_packet.py
+          scripts/build_evidence_bound_application_review.py
+          tools/confirm_evidence_bound_review.py
+          tests/test_applicant_decision_packet.py
+      - name: Run adversarial composition tests
+        run: python -m unittest tests.test_applicant_decision_packet -v
+      - name: Exercise human-controlled decision packet CLI
+        shell: bash
+        run: |
+          set -euo pipefail
+          tmp="$(mktemp -d)"
+          cat > "$tmp/preparation.json" <<'JSON'
+          {
+            "application_id": "app-xai-proof",
+            "opening_id": "4956028007",
+            "prompts": [
+              {
+                "field_name": "job_application_answers_attributes_0_text_value",
+                "label": "Please describe some exceptional work you have done"
+              }
+            ],
+            "evidence": [
+              {
+                "text": "Built deterministic application execution machinery.",
+                "provenance": "candidate-profile:achievement:0",
+                "evidence_class": "candidate_achievement",
+                "source_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+              },
+              {
+                "text": "Designed source-reviewed multi-agent execution architecture.",
+                "provenance": "xai.md:L40-L55",
+                "evidence_class": "source_reviewed_portfolio_claim",
+                "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+              }
+            ]
+          }
+          JSON
+          python tools/build_applicant_decision_packet.py \
+            --preparation "$tmp/preparation.json" \
+            --output "$tmp/decision.json" > "$tmp/stdout.json"
+          python - "$tmp/decision.json" <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+
+          packet = json.loads(Path(sys.argv[1]).read_text())
+          decision = packet['decision']
+          template = decision['confirmation_template']
+          assert packet['decision_state'] == 'APPLICANT_DECISION_REQUIRED'
+          assert packet['opening_id'] == '4956028007'
+          assert template['confirmed'] is False
+          assert template['accepted_text'] == decision['proposed_text']
+          assert template['review_receipt_sha256'] == decision['review_receipt_sha256']
+          assert packet['authority']['machine_may_infer_confirmation'] is False
+          assert packet['authority']['machine_may_submit_externally'] is False
+          assert len(packet['receipt_sha256']) == 64
+          PY
