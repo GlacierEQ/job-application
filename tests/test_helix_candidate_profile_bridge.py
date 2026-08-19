@@ -28,7 +28,9 @@ class HelixCandidateProfileBridgeTests(unittest.TestCase):
         self.assertGreaterEqual(len(self.profile["skills"]), 2)
         self.assertGreaterEqual(len(self.profile["experience"]), 1)
         self.assertGreaterEqual(len(self.profile["achievements"]), 1)
-        self.assertEqual(self.profile["provenance"]["source"], "site-v15/data/resume.json")
+        self.assertEqual(
+            self.profile["provenance"]["source"], "site-v15/data/resume.json"
+        )
         self.assertEqual(len(self.profile["provenance"]["source_sha256"]), 64)
 
     def test_projection_is_deterministic(self) -> None:
@@ -37,7 +39,9 @@ class HelixCandidateProfileBridgeTests(unittest.TestCase):
 
     def test_duplicate_skill_evidence_collapses_without_reordering(self) -> None:
         resume = json.loads(json.dumps(self.resume))
-        resume.setdefault("skills", []).append({"name": "Python", "keywords": ["python", "New Signal"]})
+        resume.setdefault("skills", []).append(
+            {"name": "Python", "keywords": ["python", "New Signal"]}
+        )
         profile = MODULE.build_helix_profile(resume)
         folded = [item.casefold() for item in profile["skills"]]
         self.assertEqual(folded.count("python"), 1)
@@ -60,7 +64,10 @@ class HelixCandidateProfileBridgeTests(unittest.TestCase):
             output = Path(tempdir) / "candidate-profile.json"
             MODULE._atomic_write(output, MODULE.render(self.profile))
             loaded = json.loads(output.read_text(encoding="utf-8"))
-            self.assertEqual(loaded["provenance"]["source_sha256"], self.profile["provenance"]["source_sha256"])
+            self.assertEqual(
+                loaded["provenance"]["source_sha256"],
+                self.profile["provenance"]["source_sha256"],
+            )
 
 
 if __name__ == "__main__":
