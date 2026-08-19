@@ -1,0 +1,105 @@
+name: Helix Live SpaceXAI Application
+
+on:
+  pull_request:
+    paths:
+      - "RESUME_ATS.md"
+      - "targets/spacexai/**"
+      - ".github/workflows/helix-live-spacexai-application.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  live-target-application:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out hiring repository
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Check out exact Helix runtime
+        uses: actions/checkout@v6
+        with:
+          repository: GlacierEQ/job-app-helix
+          ref: 4fa39c0d3cfbf413b1cda69fe2dbbd63761d18d7
+          path: .helix-runtime
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install exact Helix runtime
+        run: python -m pip install -e ./.helix-runtime
+
+      - name: Execute production resume against live SpaceXAI inventory
+        run: |
+          mkdir -p helix-live/state helix-live/packets
+          job-app-helix-target-application \
+            --manifest targets/spacexai/target_manifest.json \
+            --resume RESUME_ATS.md \
+            --profile-id casey-production \
+            --state-dir helix-live/state \
+            --output-dir helix-live/packets \
+            --database helix-live/applications.sqlite \
+            --limit 4 \
+            > helix-live/target-application-output.json
+
+      - name: Verify live application-ready release
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+
+          root = Path("helix-live")
+          release_path = root / "state" / "APPLICATION_READY_TARGET.json"
+          cycle_path = root / "state" / "TARGET_APPLICATION_CYCLE_RECEIPT.json"
+          profile_path = root / "state" / "COMPILED_CANDIDATE_PROFILE.json"
+          for required in (release_path, cycle_path, profile_path):
+              assert required.is_file(), f"missing required runtime artifact: {required}"
+
+          release = json.loads(release_path.read_text(encoding="utf-8"))
+          cycle = json.loads(cycle_path.read_text(encoding="utf-8"))
+          profile = json.loads(profile_path.read_text(encoding="utf-8"))
+          selected = release["selected"]
+          discovered = cycle["target_cycle"]["discovery"]
+
+          assert discovered["successful_source_count"] == 1
+          assert discovered["opening_count"] >= 1
+          assert cycle["application_ready"] is not None
+          assert selected["company_id"]
+          assert selected["opening_id"]
+          assert selected["bundle_sha256"]
+          assert selected["artifact_sha256"]
+          assert profile["profile_id"] == "casey-production"
+          assert profile["provenance"]["policy"] == "source_text_only_no_claim_invention"
+
+          print(json.dumps({
+              "application_id": selected["application_id"],
+              "opening_id": selected["opening_id"],
+              "company_id": selected["company_id"],
+              "lane": selected["lane"],
+              "queue_rank": selected["queue_rank"],
+              "priority_score": selected["priority_score"],
+              "bundle_sha256": selected["bundle_sha256"],
+              "opening_count": discovered["opening_count"],
+              "release_sha256": hashlib.sha256(release_path.read_bytes()).hexdigest(),
+              "helix_sha": "4fa39c0d3cfbf413b1cda69fe2dbbd63761d18d7"
+          }, indent=2, sort_keys=True))
+          PY
+
+      - name: Upload live application-ready package
+        uses: actions/upload-artifact@v4
+        with:
+          name: helix-live-spacexai-application
+          path: |
+            helix-live/state/
+            helix-live/packets/
+            helix-live/target-application-output.json
+          if-no-files-found: error
