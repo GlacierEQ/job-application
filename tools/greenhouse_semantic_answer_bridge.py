@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Bind stable applicant-answer intents to exact live Greenhouse field identities.
 
 The live provider schema can rotate opaque field names between postings. This bridge keeps
@@ -6,6 +5,7 @@ applicant-confirmed values in a stable semantic source, then resolves each inten
 current field bundle with fail-closed ambiguity checks. The emitted JSON is directly accepted
 by job-app-helix-greenhouse-prepare --applicant-answer-source.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -73,13 +73,25 @@ def _live_fields(bundle: dict[str, Any]) -> tuple[LiveField, ...]:
             for option in raw_options:
                 if isinstance(option, (list, tuple)) and len(option) == 2:
                     options.append((str(option[0]), str(option[1])))
-        fields.append(LiveField(name, label, field_type, bool(field.get("required")), tuple(options)))
+        fields.append(
+            LiveField(
+                name,
+                label,
+                field_type,
+                bool(field.get("required")),
+                tuple(options),
+            )
+        )
     if not fields:
-        raise AnswerBridgeError("Greenhouse field bundle contains no usable live fields")
+        raise AnswerBridgeError(
+            "Greenhouse field bundle contains no usable live fields"
+        )
     return tuple(fields)
 
 
-def _semantic_answers(source: dict[str, Any], source_path: Path) -> tuple[SemanticAnswer, ...]:
+def _semantic_answers(
+    source: dict[str, Any], source_path: Path
+) -> tuple[SemanticAnswer, ...]:
     rows = source.get("answers")
     if not isinstance(rows, list) or not rows:
         raise AnswerBridgeError("semantic answer source requires non-empty answers")
@@ -92,22 +104,40 @@ def _semantic_answers(source: dict[str, Any], source_path: Path) -> tuple[Semant
         value = str(row.get("value") or "").strip()
         match = row.get("match")
         if not key or not value or not isinstance(match, dict):
-            raise AnswerBridgeError(f"semantic answer #{index} requires key, value, and match")
+            raise AnswerBridgeError(
+                f"semantic answer #{index} requires key, value, and match"
+            )
         if key in seen:
             raise AnswerBridgeError(f"duplicate semantic answer key: {key}")
         seen.add(key)
         pattern = str(match.get("label_pattern") or "").strip()
         if not pattern:
-            raise AnswerBridgeError(f"semantic answer {key} requires match.label_pattern")
+            raise AnswerBridgeError(
+                f"semantic answer {key} requires match.label_pattern"
+            )
         try:
             re.compile(pattern, flags=re.IGNORECASE)
         except re.error as exc:
             raise AnswerBridgeError(f"invalid label_pattern for {key}: {exc}") from exc
         raw_types = match.get("field_types") or []
-        if not isinstance(raw_types, list) or not all(isinstance(item, str) and item.strip() for item in raw_types):
-            raise AnswerBridgeError(f"semantic answer {key} match.field_types must be a string list")
-        provenance = str(row.get("provenance") or f"{source_path}#answers[{index}]").strip()
-        answers.append(SemanticAnswer(key, value, pattern, tuple(item.strip() for item in raw_types), provenance))
+        if not isinstance(raw_types, list) or not all(
+            isinstance(item, str) and item.strip() for item in raw_types
+        ):
+            raise AnswerBridgeError(
+                f"semantic answer {key} match.field_types must be a string list"
+            )
+        provenance = str(
+            row.get("provenance") or f"{source_path}#answers[{index}]"
+        ).strip()
+        answers.append(
+            SemanticAnswer(
+                key,
+                value,
+                pattern,
+                tuple(item.strip() for item in raw_types),
+                provenance,
+            )
+        )
     return tuple(answers)
 
 
@@ -116,21 +146,30 @@ def _matches(answer: SemanticAnswer, field: LiveField) -> bool:
         return False
     if answer.field_types and field.field_type not in answer.field_types:
         return False
-    return re.search(answer.label_pattern, f"{field.label} {field.name}", flags=re.IGNORECASE) is not None
+    haystack = f"{field.label} {field.name}"
+    return re.search(answer.label_pattern, haystack, flags=re.IGNORECASE) is not None
 
 
 def _normalize_option(field: LiveField, value: str) -> str:
     if not field.options:
         return value
     folded = value.casefold().strip()
-    matches = [raw for raw, label in field.options if folded in {raw.casefold().strip(), label.casefold().strip()}]
+    matches = [
+        raw
+        for raw, label in field.options
+        if folded in {raw.casefold().strip(), label.casefold().strip()}
+    ]
     if len(matches) != 1:
         labels = ", ".join(label for _, label in field.options)
-        raise AnswerBridgeError(f"value for {field.label!r} must match exactly one live option: {labels}")
+        raise AnswerBridgeError(
+            f"value for {field.label!r} must match exactly one live option: {labels}"
+        )
     return matches[0]
 
 
-def compile_answer_source(field_bundle_path: Path, semantic_source_path: Path) -> dict[str, Any]:
+def compile_answer_source(
+    field_bundle_path: Path, semantic_source_path: Path
+) -> dict[str, Any]:
     bundle = _read_json(field_bundle_path)
     source = _read_json(semantic_source_path)
     fields = _live_fields(bundle)
@@ -140,20 +179,36 @@ def compile_answer_source(field_bundle_path: Path, semantic_source_path: Path) -
     for answer in semantic:
         candidates = [field for field in fields if _matches(answer, field)]
         if len(candidates) != 1:
-            details = [{"name": f.name, "label": f.label, "field_type": f.field_type} for f in candidates]
+            details = [
+                {
+                    "name": field.name,
+                    "label": field.label,
+                    "field_type": field.field_type,
+                }
+                for field in candidates
+            ]
             raise AnswerBridgeError(
-                f"semantic answer {answer.key!r} matched {len(candidates)} live fields; expected exactly one: {details}"
+                f"semantic answer {answer.key!r} matched {len(candidates)} live "
+                f"fields; expected exactly one: {details}"
             )
         field = candidates[0]
         normalized = _normalize_option(field, answer.value)
-        compiled.append({"field_name": field.name, "value": normalized, "provenance": answer.provenance})
-        bindings.append({
-            "semantic_key": answer.key,
-            "field_name": field.name,
-            "label": field.label,
-            "field_type": field.field_type,
-            "required": field.required,
-        })
+        compiled.append(
+            {
+                "field_name": field.name,
+                "value": normalized,
+                "provenance": answer.provenance,
+            }
+        )
+        bindings.append(
+            {
+                "semantic_key": answer.key,
+                "field_name": field.name,
+                "label": field.label,
+                "field_type": field.field_type,
+                "required": field.required,
+            }
+        )
     base = {
         "schema": "glaciereq.greenhouse-semantic-answer-bridge.v1",
         "field_bundle_sha256": _sha256(field_bundle_path),
@@ -175,7 +230,9 @@ def main() -> int:
     args = parser.parse_args()
     result = compile_answer_source(args.field_bundle, args.semantic_source)
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    args.output.write_text(
+        json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
     print(json.dumps(result, indent=2, sort_keys=True))
     return 0
 
