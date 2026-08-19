@@ -243,7 +243,9 @@ class ApplicantSubmissionPackageTests(unittest.TestCase):
         payload = json.loads(self.direct_path.read_text(encoding="utf-8"))
         payload["answers"][0]["value"] = "Tampered without resealing."
         self.direct_path.write_text(json.dumps(payload), encoding="utf-8")
-        with self.assertRaisesRegex(ApplicantSubmissionPackageError, "receipt mismatch"):
+        with self.assertRaisesRegex(
+            ApplicantSubmissionPackageError, "receipt mismatch"
+        ):
             compose_submission_package(
                 self.inventory_path, self.direct_path, self.confirmed_path
             )
