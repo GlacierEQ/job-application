@@ -22,7 +22,9 @@ SCHEMA = "glaciereq.job-app-helix.candidate-profile.v1"
 
 
 def _canonical_bytes(value: object) -> bytes:
-    return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return json.dumps(
+        value, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+    ).encode("utf-8")
 
 
 def _digest(value: object) -> str:
@@ -63,7 +65,9 @@ def _experience_entry(entry: dict[str, Any]) -> str:
         if part
     )
     evidence = [_clean(entry.get("summary"))]
-    highlights = entry.get("highlights") if isinstance(entry.get("highlights"), list) else []
+    highlights = (
+        entry.get("highlights") if isinstance(entry.get("highlights"), list) else []
+    )
     evidence.extend(_clean(item) for item in highlights if item)
     body = " ".join(item for item in evidence if item)
     return f"{heading}: {body}" if heading and body else heading or body
@@ -72,7 +76,9 @@ def _experience_entry(entry: dict[str, Any]) -> str:
 def _project_achievement(project: dict[str, Any]) -> str:
     name = _clean(project.get("name"))
     description = _clean(project.get("description"))
-    raw_keywords = project.get("keywords") if isinstance(project.get("keywords"), list) else []
+    raw_keywords = (
+        project.get("keywords") if isinstance(project.get("keywords"), list) else []
+    )
     keywords = _unique([_clean(item) for item in raw_keywords])
     parts = [description]
     if keywords:
@@ -95,15 +101,27 @@ def build_helix_profile(resume: dict[str, Any]) -> dict[str, Any]:
         if not isinstance(skill, dict):
             continue
         skills.append(_clean(skill.get("name")))
-        keywords = skill.get("keywords") if isinstance(skill.get("keywords"), list) else []
+        keywords = (
+            skill.get("keywords") if isinstance(skill.get("keywords"), list) else []
+        )
         skills.extend(_clean(item) for item in keywords if item)
 
     raw_work = resume.get("work") if isinstance(resume.get("work"), list) else []
-    experience = [_experience_entry(entry) for entry in raw_work if isinstance(entry, dict)]
-    raw_projects = resume.get("projects") if isinstance(resume.get("projects"), list) else []
-    achievements = [_project_achievement(project) for project in raw_projects if isinstance(project, dict)]
+    experience = [
+        _experience_entry(entry) for entry in raw_work if isinstance(entry, dict)
+    ]
+    raw_projects = (
+        resume.get("projects") if isinstance(resume.get("projects"), list) else []
+    )
+    achievements = [
+        _project_achievement(project)
+        for project in raw_projects
+        if isinstance(project, dict)
+    ]
 
-    profiles = basics.get("profiles") if isinstance(basics.get("profiles"), list) else []
+    profiles = (
+        basics.get("profiles") if isinstance(basics.get("profiles"), list) else []
+    )
     github = ""
     linkedin = ""
     for profile in profiles:
@@ -116,7 +134,9 @@ def build_helix_profile(resume: dict[str, Any]) -> dict[str, Any]:
         elif network == "linkedin" and not linkedin:
             linkedin = url
 
-    location = basics.get("location") if isinstance(basics.get("location"), dict) else {}
+    location = (
+        basics.get("location") if isinstance(basics.get("location"), dict) else {}
+    )
     location_text = ", ".join(
         value
         for value in (
@@ -176,7 +196,9 @@ def render(profile: dict[str, Any]) -> str:
 
 def _atomic_write(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    fd, temporary = tempfile.mkstemp(prefix=f".{path.name}.", dir=path.parent, text=True)
+    fd, temporary = tempfile.mkstemp(
+        prefix=f".{path.name}.", dir=path.parent, text=True
+    )
     try:
         with os.fdopen(fd, "w", encoding="utf-8") as handle:
             handle.write(content)
@@ -203,7 +225,9 @@ def main() -> int:
         if not args.output.is_file():
             raise SystemExit(f"candidate profile missing: {args.output}")
         if args.output.read_text(encoding="utf-8") != expected:
-            raise SystemExit("candidate profile is stale; run scripts/export_helix_candidate_profile.py")
+            raise SystemExit(
+                "candidate profile is stale; run scripts/export_helix_candidate_profile.py"
+            )
         print(f"verified {args.output}")
         return 0
 
