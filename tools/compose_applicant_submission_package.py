@@ -55,7 +55,9 @@ def _read_object(path: Path, *, kind: str) -> dict[str, Any]:
 
 
 def _verify_receipt(payload: Mapping[str, Any], *, kind: str) -> str:
-    receipt = _required_text(payload.get("receipt_sha256"), field=f"{kind}.receipt_sha256")
+    receipt = _required_text(
+        payload.get("receipt_sha256"), field=f"{kind}.receipt_sha256"
+    )
     unsigned = dict(payload)
     unsigned.pop("receipt_sha256", None)
     actual = hashlib.sha256(_canonical_bytes(unsigned)).hexdigest()
@@ -90,7 +92,9 @@ def _answer_map(source: Mapping[str, Any], *, kind: str) -> dict[str, dict[str, 
     result: dict[str, dict[str, Any]] = {}
     for index, row in enumerate(rows):
         if not isinstance(row, dict):
-            raise ApplicantSubmissionPackageError(f"{kind}.answers[{index}] must be an object")
+            raise ApplicantSubmissionPackageError(
+                f"{kind}.answers[{index}] must be an object"
+            )
         match = row.get("match")
         if not isinstance(match, Mapping):
             raise ApplicantSubmissionPackageError(
@@ -101,7 +105,9 @@ def _answer_map(source: Mapping[str, Any], *, kind: str) -> dict[str, dict[str, 
         )
         _required_text(row.get("key"), field=f"{kind}.answers[{index}].key")
         _required_text(row.get("value"), field=f"{kind}.answers[{index}].value")
-        _required_text(row.get("provenance"), field=f"{kind}.answers[{index}].provenance")
+        _required_text(
+            row.get("provenance"), field=f"{kind}.answers[{index}].provenance"
+        )
         if field_name in result:
             raise ApplicantSubmissionPackageError(
                 f"duplicate {kind} answer field identity: {field_name}"
@@ -115,7 +121,9 @@ def _decision_inventory(
 ) -> tuple[list[dict[str, Any]], set[str], set[str]]:
     rows = inventory.get("decisions")
     if not isinstance(rows, list) or not rows:
-        raise ApplicantSubmissionPackageError("decision inventory requires non-empty decisions")
+        raise ApplicantSubmissionPackageError(
+            "decision inventory requires non-empty decisions"
+        )
 
     decisions: list[dict[str, Any]] = []
     direct_required: set[str] = set()
@@ -123,13 +131,16 @@ def _decision_inventory(
     seen: set[str] = set()
     for index, row in enumerate(rows):
         if not isinstance(row, dict):
-            raise ApplicantSubmissionPackageError(f"inventory.decisions[{index}] must be an object")
+            raise ApplicantSubmissionPackageError(
+                f"inventory.decisions[{index}] must be an object"
+            )
         field_name = _required_text(
             row.get("field_name"), field=f"inventory.decisions[{index}].field_name"
         )
         _required_text(row.get("label"), field=f"inventory.decisions[{index}].label")
         state = _required_text(
-            row.get("decision_state"), field=f"inventory.decisions[{index}].decision_state"
+            row.get("decision_state"),
+            field=f"inventory.decisions[{index}].decision_state",
         )
         if field_name in seen:
             raise ApplicantSubmissionPackageError(
@@ -156,7 +167,9 @@ def compose_submission_package(
     """Return one complete human-submission-ready semantic source, or fail closed."""
     inventory = _read_object(inventory_path, kind="decision inventory")
     direct = _read_object(direct_binding_path, kind="direct input binding")
-    confirmed = _read_object(confirmed_review_source_path, kind="confirmed review source")
+    confirmed = _read_object(
+        confirmed_review_source_path, kind="confirmed review source"
+    )
 
     inventory_receipt = _verify_receipt(inventory, kind="decision inventory")
     direct_receipt = _verify_receipt(direct, kind="direct input binding")
@@ -213,9 +226,15 @@ def compose_submission_package(
                     f"confirmed review receipt drift for {field_name}"
                 )
             proposed = _required_text(
-                decision.get("proposed_text"), field=f"decision[{field_name}].proposed_text"
+                decision.get("proposed_text"),
+                field=f"decision[{field_name}].proposed_text",
             )
-            if _required_text(answer.get("value"), field=f"confirmed[{field_name}].value") != proposed:
+            if (
+                _required_text(
+                    answer.get("value"), field=f"confirmed[{field_name}].value"
+                )
+                != proposed
+            ):
                 raise ApplicantSubmissionPackageError(
                     f"confirmed review text drift for {field_name}; edited text requires a new review"
                 )
