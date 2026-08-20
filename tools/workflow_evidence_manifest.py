@@ -131,8 +131,7 @@ def _qualifying_run(
         else:
             assert workflow_re is not None
             searchable = " ".join(
-                str(run.get(field) or "")
-                for field in ("name", "display_title", "path")
+                str(run.get(field) or "") for field in ("name", "display_title", "path")
             )
             if not workflow_re.search(searchable):
                 continue
@@ -327,7 +326,9 @@ def _load_registry(path: Path | None) -> dict[str, Any] | None:
             f"invalid verification source registry at {path}: {exc}"
         ) from exc
     if not isinstance(payload, dict):
-        raise EvidenceManifestError("verification source registry must be a JSON object")
+        raise EvidenceManifestError(
+            "verification source registry must be a JSON object"
+        )
     return payload
 
 
