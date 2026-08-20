@@ -138,6 +138,51 @@ test('sealed catch-all router serves the public role matrix from one shared fres
   assert.deepEqual(matrix, matrixRuntime.buildRoleMatrix(topology(), freshness()));
 });
 
+test('sealed catch-all router renders the role matrix as a recruiter-facing HTML comparison', async (t) => {
+  const originalLoadTopology = workflowTopologyProxy.loadTopology;
+  const originalLoadFreshness = recruiterProxy.loadLiveFreshness;
+  let topologyLoads = 0;
+  let freshnessLoads = 0;
+  workflowTopologyProxy.loadTopology = async () => {
+    topologyLoads += 1;
+    return topology();
+  };
+  recruiterProxy.loadLiveFreshness = async () => {
+    freshnessLoads += 1;
+    return freshness();
+  };
+  t.after(() => {
+    workflowTopologyProxy.loadTopology = originalLoadTopology;
+    recruiterProxy.loadLiveFreshness = originalLoadFreshness;
+  });
+
+  const res = response();
+  await releaseRouter({ url: '/api/index?path=recruiter-role-matrix' }, res);
+  assert.equal(res.statusCode, 200);
+  assert.match(res.getHeader('content-type'), /text\/html/);
+  assert.match(res.getHeader('content-security-policy'), /script-src 'none'/);
+  const html = res.body.toString('utf8');
+  assert.match(html, /ONE VERIFIED GRAPH · THREE HIRING LENSES/);
+  assert.match(html, /data-role="recruiter"/);
+  assert.match(html, /data-role="engineering-lead"/);
+  assert.match(html, /data-role="systems-architect"/);
+  assert.match(html, /\/data\/recruiter-role-matrix\.json/);
+  assert.match(html, /\/recruiter-proof\/\?role=recruiter/);
+  assert.doesNotMatch(html, /<script\b/i);
+  assert.equal(topologyLoads, 1);
+  assert.equal(freshnessLoads, 1);
+});
+
+test('role-matrix HTML escapes proof text and keeps roles distinct', () => {
+  const topo = topology();
+  topo.flows[0].name = '<img src=x onerror=alert(1)>';
+  const matrix = releaseRouter.buildRoleMatrix(topo, freshness());
+  const html = releaseRouter.renderRoleMatrixHtml(matrix);
+  assert.doesNotMatch(html, /<img src=x onerror=/);
+  assert.match(html, /&lt;img src=x onerror=alert\(1\)&gt;/);
+  assert.equal((html.match(/class="matrix-role"/g) || []).length, 3);
+});
+
 test('sealed role-matrix route fails closed when freshness identity is invalid', async (t) => {
   const originalLoadTopology = workflowTopologyProxy.loadTopology;
   const originalLoadFreshness = recruiterProxy.loadLiveFreshness;
@@ -159,6 +204,28 @@ test('sealed role-matrix route fails closed when freshness identity is invalid',
   const payload = JSON.parse(res.body.toString('utf8'));
   assert.equal(payload.status, 'FAIL_CLOSED');
   assert.equal(payload.error, 'role_matrix_topology_receipt_mismatch');
+});
+
+test('sealed HTML matrix route fails closed without caching invalid evidence', async (t) => {
+  const originalLoadTopology = workflowTopologyProxy.loadTopology;
+  const originalLoadFreshness = recruiterProxy.loadLiveFreshness;
+  workflowTopologyProxy.loadTopology = async () => topology();
+  recruiterProxy.loadLiveFreshness = async () => {
+    throw new Error('<unsafe freshness failure>');
+  };
+  t.after(() => {
+    workflowTopologyProxy.loadTopology = originalLoadTopology;
+    recruiterProxy.loadLiveFreshness = originalLoadFreshness;
+  });
+
+  const res = response();
+  await releaseRouter({ url: '/api/index?path=recruiter-role-matrix' }, res);
+  assert.equal(res.statusCode, 503);
+  assert.equal(res.getHeader('cache-control'), 'no-store');
+  const html = res.body.toString('utf8');
+  assert.match(html, /Recruiter role matrix unavailable/);
+  assert.match(html, /&lt;unsafe freshness failure&gt;/);
+  assert.doesNotMatch(html, /<unsafe freshness failure>/);
 });
 
 test('matrix rejects freshness from a different topology', () => {
