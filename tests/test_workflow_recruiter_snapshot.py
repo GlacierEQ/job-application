@@ -12,7 +12,7 @@ from tools.workflow_recruiter_snapshot import (
 )
 from tools.workflow_verification_identity import VerificationIdentityError
 
-AS_OF = datetime(2026, 8, 20, 12, 0, tzinfo=UTC)
+AS_OF = datetime(2026, 8, 22, 12, 0, tzinfo=UTC)
 
 REPOSITORIES = {
     "helix": "GlacierEQ/job-app-helix",
