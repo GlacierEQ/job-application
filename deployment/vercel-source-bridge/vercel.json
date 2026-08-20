@@ -6,6 +6,10 @@
       "dest": "/api/recruiter-role-matrix"
     },
     {
+      "src": "/data/recruiter-gap-analysis.json",
+      "dest": "/api/recruiter-gap-analysis"
+    },
+    {
       "src": "/(.*)",
       "dest": "/api/release-router?path=$1"
     }
