@@ -42,7 +42,9 @@ def _compile_flow(flow: dict[str, Any]) -> dict[str, Any]:
         evidence = _require_text(system.get("evidence"), "system.evidence", flow_id)
         repo = _require_text(system.get("repo"), "system.repo", flow_id)
         if not repo.startswith("https://github.com/GlacierEQ/"):
-            raise RoleLensError(f"flow {flow_id} repo outside GlacierEQ boundary: {repo}")
+            raise RoleLensError(
+                f"flow {flow_id} repo outside GlacierEQ boundary: {repo}"
+            )
         proof_points.append(
             {
                 "system_id": system_id,
@@ -70,7 +72,9 @@ def _compile_flow(flow: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def build_recruiter_brief(topology: dict[str, Any], role: str, top_k: int = 3) -> dict[str, Any]:
+def build_recruiter_brief(
+    topology: dict[str, Any], role: str, top_k: int = 3
+) -> dict[str, Any]:
     if not isinstance(top_k, int) or top_k < 1 or top_k > 10:
         raise RoleLensError("top_k must be an integer from 1 through 10")
 
