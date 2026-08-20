@@ -171,7 +171,9 @@ class RecruiterSnapshotTests(unittest.TestCase):
         self.assertEqual(first, second)
         self.assertEqual(first["schema"], "glaciereq.recruiter-proof-snapshot.v1")
         self.assertEqual(len(first["receipt_sha256"]), 64)
-        self.assertTrue(first["policy"]["topology_receipt_verified_before_evidence_fetch"])
+        self.assertTrue(
+            first["policy"]["topology_receipt_verified_before_evidence_fetch"]
+        )
         self.assertEqual(first["coverage"]["manifest_entries"], 3)
         self.assertEqual(first["coverage"]["identity_verified_entries"], 3)
         self.assertEqual(first["coverage"]["exact_path_bound_entries"], 3)
@@ -188,7 +190,9 @@ class RecruiterSnapshotTests(unittest.TestCase):
             )
             self.assertEqual(len(brief["briefs"]), 1)
 
-    def test_exact_identity_failure_blocks_snapshot_before_freshness_output(self) -> None:
+    def test_exact_identity_failure_blocks_snapshot_before_freshness_output(
+        self,
+    ) -> None:
         with self.assertRaisesRegex(
             VerificationIdentityError,
             "workflow path is not registered",
@@ -255,7 +259,9 @@ class RecruiterSnapshotTests(unittest.TestCase):
             )
 
     def test_explicit_empty_role_selection_fails_closed(self) -> None:
-        with self.assertRaisesRegex(RecruiterSnapshotError, "at least one recruiter role"):
+        with self.assertRaisesRegex(
+            RecruiterSnapshotError, "at least one recruiter role"
+        ):
             build_recruiter_snapshot(
                 _topology(),
                 _registry(),
