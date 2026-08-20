@@ -102,7 +102,10 @@ function liveRuns() {
 }
 
 test('registered verification source cannot be displaced by newer unapproved proof run', () => {
-  const selected = recruiterProxy.selectVerificationRun(liveRuns()['GlacierEQ/job-app-helix'], 'GlacierEQ/job-app-helix');
+  const selected = recruiterProxy.selectVerificationRun(
+    { workflow_runs: liveRuns()['GlacierEQ/job-app-helix'] },
+    'GlacierEQ/job-app-helix',
+  );
   assert.equal(selected.id, 11);
   assert.equal(selected.name, 'Helix Candidate Profile Proof');
 });
