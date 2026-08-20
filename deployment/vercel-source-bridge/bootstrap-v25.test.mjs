@@ -9,7 +9,7 @@ import test from 'node:test';
 const ROOT = path.resolve(import.meta.dirname, '..', '..');
 const BUILDER = path.join(ROOT, 'scripts', 'build-v25-deployment-bundle.mjs');
 const SOURCE_COMMIT = 'a'.repeat(40);
-const EXPECTED_MODULE_COUNT = 16;
+const EXPECTED_MODULE_COUNT = 17;
 const require = createRequire(import.meta.url);
 
 function runBuilder(args) {
@@ -52,6 +52,7 @@ test('V25 bundle is deterministic for identical source authority', () => {
   assert.ok(Object.hasOwn(first.module_sha256, 'api/workflow-topology-proxy.js'));
   assert.ok(Object.hasOwn(first.module_sha256, 'api/workflow-recruiter-proxy.js'));
   assert.ok(Object.hasOwn(first.module_sha256, 'api/workflow-topology-loader-patch.js'));
+  assert.ok(Object.hasOwn(first.module_sha256, 'api/workflow-verification-sources.generated.js'));
 });
 
 test('generated bootstrap verifies precompiled factories without runtime string evaluation', () => {
@@ -86,6 +87,8 @@ test('generated bootstrap verifies precompiled factories without runtime string 
   assert.ok(source.includes('api/workflow-topology-proxy.js'));
   assert.ok(source.includes('api/workflow-recruiter-proxy.js'));
   assert.ok(source.includes('api/workflow-topology-loader-patch.js'));
+  assert.ok(source.includes('api/workflow-verification-sources.generated.js'));
+  assert.ok(source.includes('GENERATED from config/workflow-verification-sources.json'));
 });
 
 test('generated two-file routing targets the bundled Lambda catch-all', () => {
