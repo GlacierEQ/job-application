@@ -117,7 +117,13 @@ function main() {
     writeAtomic(args.output, source);
   }
 
-  process.stdout.write(`${JSON.stringify({\n    schema: 'glaciereq.verification-registry-generation.v1',\n    status: 'PASS',\n    repository_count: Object.keys(repositories).length,\n    output: path.relative(ROOT, args.output),\n    mode: args.check ? 'check' : 'write',\n  })}\n`);
+  process.stdout.write(JSON.stringify({
+    schema: 'glaciereq.verification-registry-generation.v1',
+    status: 'PASS',
+    repository_count: Object.keys(repositories).length,
+    output: path.relative(ROOT, args.output),
+    mode: args.check ? 'check' : 'write',
+  }) + '\n');
 }
 
 try {
