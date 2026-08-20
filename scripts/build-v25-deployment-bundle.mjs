@@ -21,6 +21,7 @@ const MODULES = [
   'deployment/vercel-source-bridge/api/starmap-proxy.js',
   'deployment/vercel-source-bridge/api/workflow-topology-proxy.js',
   'deployment/vercel-source-bridge/api/workflow-topology-loader-patch.js',
+  'deployment/vercel-source-bridge/api/workflow-verification-sources.generated.js',
   'deployment/vercel-source-bridge/api/workflow-recruiter-proxy.js',
   'deployment/vercel-source-bridge/api/release-router.js',
 ];
@@ -107,6 +108,9 @@ function readModules() {
   }
   if (!modules['api/workflow-recruiter-proxy.js'].includes('V30-RECRUITER-PROOF-RUNTIME')) {
     throw new Error('recruiter_proof_runtime_release_marker_missing');
+  }
+  if (!modules['api/workflow-verification-sources.generated.js'].includes('GENERATED from config/workflow-verification-sources.json')) {
+    throw new Error('generated_verification_registry_marker_missing');
   }
   return { modules, moduleHashes, factories, factoryHashes };
 }
