@@ -1,9 +1,10 @@
 const { URL } = require('node:url');
 const gapRuntime = require('./recruiter-gap-analysis.js');
 
-const RELEASE = 'V34-ROLE-TARGETED-RECRUITER-RECOVERY';
+const RELEASE = 'V35-RECOVERY-TO-ACTION-NAV';
 const PUBLIC_ORIGIN = 'https://casey-barton-glaciereq.vercel.app';
 const ROLES = Object.freeze(['recruiter', 'engineering-lead', 'systems-architect']);
+const DEFAULT_ACTION_COUNT = 3;
 
 class RecruiterGapPageError extends Error {
   constructor(message, statusCode = 400) {
@@ -21,6 +22,16 @@ function esc(value) {
     .replaceAll("'", '&#39;');
 }
 
+function actionPacketHref(role, maxActions = DEFAULT_ACTION_COUNT) {
+  if (!ROLES.includes(role)) {
+    throw new RecruiterGapPageError(`recruiter_gap_unknown_role:${role}`);
+  }
+  if (!Number.isInteger(maxActions) || maxActions < 1 || maxActions > 10) {
+    throw new RecruiterGapPageError(`recruiter_gap_invalid_action_count:${maxActions}`);
+  }
+  return `/recruiter-action/?role=${encodeURIComponent(role)}&max_actions=${maxActions}`;
+}
+
 function requestRole(req) {
   const parsed = new URL(String(req?.url || '/'), 'https://glaciereq.invalid');
   const roles = parsed.searchParams.getAll('role').filter(Boolean);
@@ -33,6 +44,7 @@ function requestRole(req) {
 }
 
 function renderOpportunity(entry, index) {
+  const actionHref = actionPacketHref(entry.role);
   return `<article class="workflow-node recruiter-gap-opportunity">
     <p class="eyebrow">PRIORITY ${index + 1} · ${esc(entry.role)}</p>
     <h3>${esc(entry.system_id)}</h3>
@@ -44,6 +56,7 @@ function renderOpportunity(entry, index) {
       <span><b>Verified:</b> ${esc(entry.verified_at || 'not established')}</span>
       <span><b>Current commit:</b> ${esc(entry.current_commit_sha || 'unverified')}</span>
     </div>
+    <p><a href="${actionHref}">Open role action packet →</a></p>
   </article>`;
 }
 
@@ -52,12 +65,13 @@ function renderRoleSummary(role, summary, selectedRole) {
   const recoveryLink = selectedRole === role
     ? '<a href="/recruiter-gap-analysis/">Compare all recovery priorities</a>'
     : `<a href="/recruiter-gap-analysis/?role=${encodeURIComponent(role)}">Prioritize evidence recovery for this role</a>`;
+  const actionLink = `<a href="${actionPacketHref(role)}">Open role action packet</a>`;
   return `<section class="workflow-card recruiter-gap-role" data-role="${esc(role)}">
     <p class="eyebrow">${esc(role.replaceAll('-', ' '))}</p>
     <h2>${esc(summary.current_top_flow)}</h2>
     <p><strong>Current top score:</strong> ${esc(summary.current_top_score)} · <strong>Recoverable:</strong> ${esc(summary.total_recoverable_score)}</p>
     <p>${top ? `Highest-value recovery: <b>${esc(top.system_id)}</b> (+${esc(top.recoverable_score)})` : 'All ranked proof is fully fresh for this role.'}</p>
-    <p><a href="/recruiter-proof/?role=${encodeURIComponent(role)}">Inspect full proof for this role</a> · ${recoveryLink}</p>
+    <p><a href="/recruiter-proof/?role=${encodeURIComponent(role)}">Inspect full proof for this role</a> · ${recoveryLink} · ${actionLink}</p>
   </section>`;
 }
 
@@ -102,6 +116,9 @@ function renderGapAnalysisHtml(analysis, { role = null } = {}) {
   const lead = role
     ? 'The verified role matrix is narrowed to one hiring lens, so every recovery action below directly restores score for that role.'
     : 'The same one-pass recruiter matrix now turns stale or missing proof into ordered evidence-recovery work. Fresh proof creates no work.';
+  const selectedActionLink = role
+    ? ` · <a href="${actionPacketHref(role)}">Open ${esc(role.replaceAll('-', ' '))} action packet</a>`
+    : '';
 
   return `<!doctype html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -110,7 +127,7 @@ function renderGapAnalysisHtml(analysis, { role = null } = {}) {
 <title>Casey Barton · Recruiter Evidence Recovery</title>
 <link rel="stylesheet" href="/assets/site.css"><link rel="stylesheet" href="/assets/site.systems.css"><link rel="stylesheet" href="/assets/site.complete.css"><link rel="stylesheet" href="/assets/site.workflows.css">
 <link rel="alternate" type="application/json" href="/data/recruiter-gap-analysis.json" title="Machine-readable recruiter evidence recovery priorities">
-</head><body><main class="workflow-main"><header class="workflow-hero"><div class="shell"><p class="eyebrow">${esc(eyebrow)}</p><h1>${esc(heading)}</h1><p class="lead">${esc(lead)}</p><p><a href="/recruiter-role-matrix/">Compare role fit</a> · <a href="/data/recruiter-gap-analysis.json">Machine priorities</a>${role ? ' · <a href="/recruiter-gap-analysis/">All recovery priorities</a>' : ''}</p></div></header><div class="shell workflow-grid">${roleCards}<section class="workflow-receipt"><p class="eyebrow">${role ? `${esc(role.replaceAll('-', ' ').toUpperCase())} RECOVERY QUEUE` : 'GLOBAL RECOVERY QUEUE'}</p>${opportunities || empty}<p><strong>As of:</strong> ${esc(analysis.as_of)}</p><p><strong>Analysis receipt:</strong> <code>${esc(analysis.receipt_sha256)}</code></p><p><strong>Matrix receipt:</strong> <code>${esc(analysis.matrix_receipt_sha256)}</code></p></section></div></main></body></html>`;
+</head><body><main class="workflow-main"><header class="workflow-hero"><div class="shell"><p class="eyebrow">${esc(eyebrow)}</p><h1>${esc(heading)}</h1><p class="lead">${esc(lead)}</p><p><a href="/recruiter-role-matrix/">Compare role fit</a> · <a href="/data/recruiter-gap-analysis.json">Machine priorities</a>${selectedActionLink}${role ? ' · <a href="/recruiter-gap-analysis/">All recovery priorities</a>' : ''}</p></div></header><div class="shell workflow-grid">${roleCards}<section class="workflow-receipt"><p class="eyebrow">${role ? `${esc(role.replaceAll('-', ' ').toUpperCase())} RECOVERY QUEUE` : 'GLOBAL RECOVERY QUEUE'}</p>${opportunities || empty}<p><strong>As of:</strong> ${esc(analysis.as_of)}</p><p><strong>Analysis receipt:</strong> <code>${esc(analysis.receipt_sha256)}</code></p><p><strong>Matrix receipt:</strong> <code>${esc(analysis.matrix_receipt_sha256)}</code></p></section></div></main></body></html>`;
 }
 
 function sendHtml(res, status, html, cacheControl) {
@@ -152,7 +169,9 @@ async function serveGapAnalysisPage(req, res) {
 module.exports = serveGapAnalysisPage;
 module.exports.RELEASE = RELEASE;
 module.exports.ROLES = ROLES;
+module.exports.DEFAULT_ACTION_COUNT = DEFAULT_ACTION_COUNT;
 module.exports.RecruiterGapPageError = RecruiterGapPageError;
+module.exports.actionPacketHref = actionPacketHref;
 module.exports.requestRole = requestRole;
 module.exports.selectRoleAnalysis = selectRoleAnalysis;
 module.exports.renderGapAnalysisHtml = renderGapAnalysisHtml;
