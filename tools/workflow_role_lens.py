@@ -80,11 +80,15 @@ def _validate_topology(topology: dict[str, Any]) -> None:
 
 def _verify_freshness_receipt(freshness: dict[str, Any]) -> None:
     receipt = freshness.get("receipt_sha256")
-    if not isinstance(receipt, str) or len(receipt) != 64 or any(
-        char not in "0123456789abcdef" for char in receipt
+    if (
+        not isinstance(receipt, str)
+        or len(receipt) != 64
+        or any(char not in "0123456789abcdef" for char in receipt)
     ):
         raise RoleLensError("freshness receipt_sha256 must be exact lowercase SHA-256")
-    unsigned = {key: value for key, value in freshness.items() if key != "receipt_sha256"}
+    unsigned = {
+        key: value for key, value in freshness.items() if key != "receipt_sha256"
+    }
     expected = _receipt(unsigned)
     if receipt != expected:
         raise RoleLensError("freshness receipt_sha256 does not match freshness content")
