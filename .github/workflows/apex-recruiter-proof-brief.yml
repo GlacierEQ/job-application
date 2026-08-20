@@ -7,6 +7,7 @@ on:
       - 'tools/workflow_recruiter_brief.py'
       - 'tests/test_workflow_role_lens.py'
       - 'tests/test_workflow_recruiter_brief.py'
+      - 'deployment/vercel-source-bridge/api/workflow-topology-proxy.js'
       - '.github/workflows/apex-recruiter-proof-brief.yml'
 
 permissions:
@@ -34,31 +35,29 @@ jobs:
       - name: Run adversarial role lens and recruiter brief tests
         run: |
           python -m unittest tests.test_workflow_role_lens tests.test_workflow_recruiter_brief -v
-      - name: Execute recruiter brief against production topology fixture
+      - name: Materialize topology through the real source runtime
         run: |
-          python - <<'PY'
-          import json
-          import urllib.request
-          from pathlib import Path
-
-          url = 'https://casey-barton-glaciereq.vercel.app/data/workflow-topology.json'
-          try:
-              with urllib.request.urlopen(url, timeout=12) as response:
-                  body = response.read(1024 * 1024 + 1)
-              if len(body) > 1024 * 1024:
-                  raise RuntimeError('topology_too_large')
-              topology = json.loads(body)
-          except Exception:
-              # Production promotion can lag source. Use current source verifier endpoint before failing over.
-              with urllib.request.urlopen('https://casey-barton-glaciereq.vercel.app/__workflow_topology_verify', timeout=12) as response:
-                  receipt = json.loads(response.read())
-              if receipt.get('status') != 'PASS':
-                  raise
-              raise RuntimeError('production topology JSON unavailable despite verifier PASS')
-
-          path = Path('/tmp/workflow-topology.json')
-          path.write_text(json.dumps(topology), encoding='utf-8')
-          PY
+          node <<'NODE'
+          const fs = require('node:fs');
+          const handler = require('./deployment/vercel-source-bridge/api/workflow-topology-proxy.js');
+          const headers = new Map();
+          const res = {
+            statusCode: 200,
+            setHeader(name, value) { headers.set(String(name).toLowerCase(), value); },
+            getHeader(name) { return headers.get(String(name).toLowerCase()); },
+            end(chunk = '') { this.body = Buffer.isBuffer(chunk) ? chunk : Buffer.from(String(chunk)); },
+          };
+          Promise.resolve(handler({ url: '/data/workflow-topology.json' }, res)).then(() => {
+            if (res.statusCode !== 200) throw new Error(`topology_http_${res.statusCode}`);
+            const topology = JSON.parse(res.body.toString('utf8'));
+            if (topology.schema !== 'glaciereq.workflow-topology.v1') throw new Error('topology_schema');
+            if (!/^[a-f0-9]{64}$/.test(topology.receipt_sha256 || '')) throw new Error('topology_receipt');
+            fs.writeFileSync('/tmp/workflow-topology.json', JSON.stringify(topology));
+            console.log(JSON.stringify({status: 'PASS', topology_receipt_sha256: topology.receipt_sha256, flows: topology.flows.length}, null, 2));
+          }).catch((error) => { console.error(error); process.exit(1); });
+          NODE
+      - name: Execute recruiter proof compiler against source-native topology
+        run: |
           python tools/workflow_recruiter_brief.py --topology /tmp/workflow-topology.json --role recruiter --top-k 2 --output /tmp/recruiter-brief.json
           python - <<'PY'
           import json
