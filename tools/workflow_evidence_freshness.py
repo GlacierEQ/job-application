@@ -46,7 +46,9 @@ def freshness_weight(age_days: int) -> float:
     return 0.2
 
 
-def build_evidence_freshness(manifest: dict[str, Any], *, as_of: datetime) -> dict[str, Any]:
+def build_evidence_freshness(
+    manifest: dict[str, Any], *, as_of: datetime
+) -> dict[str, Any]:
     if manifest.get("schema") != "glaciereq.evidence-manifest.v1":
         raise EvidenceFreshnessError("unsupported evidence manifest schema")
     if as_of.tzinfo is None:
@@ -66,26 +68,42 @@ def build_evidence_freshness(manifest: dict[str, Any], *, as_of: datetime) -> di
         commit_sha = str(entry.get("commit_sha") or "").strip().lower()
         verified_at = str(entry.get("verified_at") or "").strip()
         if not evidence_id or evidence_id in seen:
-            raise EvidenceFreshnessError(f"invalid or duplicate evidence id: {evidence_id!r}")
+            raise EvidenceFreshnessError(
+                f"invalid or duplicate evidence id: {evidence_id!r}"
+            )
         seen.add(evidence_id)
         if not repository.startswith("GlacierEQ/"):
-            raise EvidenceFreshnessError(f"evidence {evidence_id} repository outside GlacierEQ")
-        if len(commit_sha) != 40 or any(c not in "0123456789abcdef" for c in commit_sha):
-            raise EvidenceFreshnessError(f"evidence {evidence_id} requires exact 40-char commit SHA")
+            raise EvidenceFreshnessError(
+                f"evidence {evidence_id} repository outside GlacierEQ"
+            )
+        if len(commit_sha) != 40 or any(
+            c not in "0123456789abcdef" for c in commit_sha
+        ):
+            raise EvidenceFreshnessError(
+                f"evidence {evidence_id} requires exact 40-char commit SHA"
+            )
         verified = _parse_time(verified_at)
         age_days = (normalized_as_of - verified).days
         weight = freshness_weight(age_days)
-        scored.append({
-            "id": evidence_id,
-            "repository": repository,
-            "commit_sha": commit_sha,
-            "verified_at": verified.isoformat().replace("+00:00", "Z"),
-            "age_days": age_days,
-            "freshness_weight": weight,
-            "state": "fresh" if weight == 1.0 else "aging" if weight >= 0.65 else "stale",
-        })
+        scored.append(
+            {
+                "id": evidence_id,
+                "repository": repository,
+                "commit_sha": commit_sha,
+                "verified_at": verified.isoformat().replace("+00:00", "Z"),
+                "age_days": age_days,
+                "freshness_weight": weight,
+                "state": "fresh"
+                if weight == 1.0
+                else "aging"
+                if weight >= 0.65
+                else "stale",
+            }
+        )
 
-    scored.sort(key=lambda item: (-item["freshness_weight"], item["age_days"], item["id"]))
+    scored.sort(
+        key=lambda item: (-item["freshness_weight"], item["age_days"], item["id"])
+    )
     core = {
         "schema": SCHEMA,
         "as_of": normalized_as_of.isoformat().replace("+00:00", "Z"),
@@ -96,7 +114,9 @@ def build_evidence_freshness(manifest: dict[str, Any], *, as_of: datetime) -> di
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Score immutable GlacierEQ evidence by verification freshness.")
+    parser = argparse.ArgumentParser(
+        description="Score immutable GlacierEQ evidence by verification freshness."
+    )
     parser.add_argument("--manifest", required=True, type=Path)
     parser.add_argument("--as-of", required=True)
     parser.add_argument("--output", type=Path)
