@@ -13,7 +13,9 @@ from typing import Any
 
 TOPOLOGY_SCHEMA = "glaciereq.workflow-topology.v1"
 OUTPUT_SCHEMA = "glaciereq.evidence-manifest.v1"
-DEFAULT_WORKFLOW_PATTERN = r"(?:proof|verify|verification|validation|test|\bci\b|non-regression)"
+DEFAULT_WORKFLOW_PATTERN = (
+    r"(?:proof|verify|verification|validation|test|\bci\b|non-regression)"
+)
 SHA_RE = re.compile(r"^[0-9a-f]{40}$")
 REPO_URL_RE = re.compile(r"^https://github\.com/(GlacierEQ)/([A-Za-z0-9_.-]+?)/?$")
 
@@ -125,7 +127,9 @@ def build_evidence_manifest(
             owner, name = repository.split("/", 1)
             repo_url = f"https://api.github.com/repos/{owner}/{name}"
             metadata = fetch_json(repo_url)
-            default_branch = _require_text(metadata.get("default_branch"), "default_branch")
+            default_branch = _require_text(
+                metadata.get("default_branch"), "default_branch"
+            )
             payload = fetch_json(f"{repo_url}/actions/runs?status=success&per_page=100")
             runs = payload.get("workflow_runs")
             if not isinstance(runs, list):
@@ -135,7 +139,9 @@ def build_evidence_manifest(
             repo_cache[repository] = (default_branch, runs)
 
         default_branch, runs = repo_cache[repository]
-        run = _qualifying_run(runs, default_branch=default_branch, workflow_re=workflow_re)
+        run = _qualifying_run(
+            runs, default_branch=default_branch, workflow_re=workflow_re
+        )
         if run is None:
             missing.append({"id": system_id, "repository": repository})
             continue
@@ -154,7 +160,9 @@ def build_evidence_manifest(
 
     if missing and not allow_missing:
         summary = ", ".join(f"{item['id']}@{item['repository']}" for item in missing)
-        raise EvidenceManifestError(f"no qualifying successful verification run: {summary}")
+        raise EvidenceManifestError(
+            f"no qualifying successful verification run: {summary}"
+        )
     if not entries:
         raise EvidenceManifestError("no qualifying successful verification runs found")
 
@@ -186,7 +194,9 @@ def _github_fetcher(token: str | None) -> Callable[[str], dict[str, Any]]:
             with urllib.request.urlopen(request, timeout=15) as response:
                 payload = json.load(response)
         except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as exc:
-            raise EvidenceManifestError(f"GitHub request failed for {url}: {exc}") from exc
+            raise EvidenceManifestError(
+                f"GitHub request failed for {url}: {exc}"
+            ) from exc
         if not isinstance(payload, dict):
             raise EvidenceManifestError(f"GitHub response for {url} must be an object")
         return payload
