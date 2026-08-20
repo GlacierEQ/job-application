@@ -62,9 +62,15 @@ jobs:
           python - <<'PY'
           import json
           data = json.load(open('/tmp/recruiter-brief.json', encoding='utf-8'))
-          assert data['schema'] == 'glaciereq.recruiter-proof-brief.v1'
+          assert data['schema'] == 'glaciereq.recruiter-proof-brief.v2'
           assert len(data['briefs']) == 2
           assert all(brief['proof_points'] for brief in data['briefs'])
+          assert all('freshness_adjusted_role_score' in brief for brief in data['briefs'])
+          assert all(
+              'freshness_weight' in point
+              for brief in data['briefs']
+              for point in brief['proof_points']
+          )
           assert len(data['receipt_sha256']) == 64
           print(json.dumps({'status': 'PASS', 'receipt_sha256': data['receipt_sha256'], 'top_flow': data['briefs'][0]['flow_id']}, indent=2))
           PY
