@@ -56,22 +56,27 @@ jobs:
           node - <<'NODE'
           const fs = require('node:fs');
           const proxy = require('./deployment/vercel-source-bridge/api/workflow-topology-proxy.js');
-          const commit = proxy.constants.PORTFOLIO_COMMIT;
-          const url = `https://raw.githubusercontent.com/GlacierEQ/job-application/${commit}/site-v15/data/portfolio.json`;
-          const response = await fetch(url, { redirect: 'error' });
-          if (!response.ok) throw new Error(`live_topology_portfolio_http_${response.status}`);
-          const portfolio = await response.json();
-          const topology = proxy.buildTopology(portfolio);
-          fs.writeFileSync(
-            'artifacts/live-recruiter-proof/topology.json',
-            `${JSON.stringify(topology, null, 2)}\n`,
-          );
-          console.log(JSON.stringify({
-            schema: topology.schema,
-            flow_count: topology.flows.length,
-            receipt_sha256: topology.receipt_sha256,
-            portfolio_commit: commit,
-          }, null, 2));
+          (async () => {
+            const commit = proxy.constants.PORTFOLIO_COMMIT;
+            const url = `https://raw.githubusercontent.com/GlacierEQ/job-application/${commit}/site-v15/data/portfolio.json`;
+            const response = await fetch(url, { redirect: 'error' });
+            if (!response.ok) throw new Error(`live_topology_portfolio_http_${response.status}`);
+            const portfolio = await response.json();
+            const topology = proxy.buildTopology(portfolio);
+            fs.writeFileSync(
+              'artifacts/live-recruiter-proof/topology.json',
+              `${JSON.stringify(topology, null, 2)}\n`,
+            );
+            console.log(JSON.stringify({
+              schema: topology.schema,
+              flow_count: topology.flows.length,
+              receipt_sha256: topology.receipt_sha256,
+              portfolio_commit: commit,
+            }, null, 2));
+          })().catch((error) => {
+            console.error(error instanceof Error ? error.stack || error.message : String(error));
+            process.exitCode = 1;
+          });
           NODE
       - name: Execute live recruiter proof against current GlacierEQ verification runs
         env:
