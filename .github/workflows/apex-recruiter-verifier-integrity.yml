@@ -1,0 +1,32 @@
+name: APEX Recruiter Verifier Integrity
+
+on:
+  pull_request:
+    paths:
+      - deployment/vercel-source-bridge/api/workflow-recruiter-proxy.js
+      - deployment/vercel-source-bridge/workflow-recruiter-verifier-integrity.test.js
+      - .github/workflows/apex-recruiter-verifier-integrity.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verifier-integrity:
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [20, 22, 24]
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Syntax check recruiter runtime
+        run: node --check deployment/vercel-source-bridge/api/workflow-recruiter-proxy.js
+      - name: Execute adversarial verifier identity proof
+        run: node --test deployment/vercel-source-bridge/workflow-recruiter-verifier-integrity.test.js
+      - name: Execute existing recruiter identity proof
+        run: node --test deployment/vercel-source-bridge/workflow-recruiter-identity.test.js
