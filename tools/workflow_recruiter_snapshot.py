@@ -62,7 +62,7 @@ def _normalize_as_of(value: datetime) -> datetime:
 
 
 def _normalize_roles(roles: Sequence[str] | None) -> tuple[str, ...]:
-    requested = tuple(roles or ROLE_WEIGHTS.keys())
+    requested = tuple(ROLE_WEIGHTS) if roles is None else tuple(roles)
     if not requested:
         raise RecruiterSnapshotError("at least one recruiter role is required")
     normalized: list[str] = []
@@ -73,7 +73,8 @@ def _normalize_roles(roles: Sequence[str] | None) -> tuple[str, ...]:
         role = raw.strip()
         if role not in ROLE_WEIGHTS:
             raise RecruiterSnapshotError(
-                f"unsupported role {role!r}; expected one of {', '.join(sorted(ROLE_WEIGHTS))}"
+                f"unsupported role {role!r}; expected one of "
+                f"{', '.join(sorted(ROLE_WEIGHTS))}"
             )
         if role not in seen:
             normalized.append(role)
@@ -87,6 +88,22 @@ def _require_mapping(value: object, field: str) -> Mapping[str, Any]:
     return value
 
 
+def _verify_topology_receipt(topology: Mapping[str, Any]) -> str:
+    receipt = topology.get("receipt_sha256")
+    if not isinstance(receipt, str) or len(receipt) != 64:
+        raise RecruiterSnapshotError(
+            "topology requires a 64-character receipt_sha256"
+        )
+    if any(character not in "0123456789abcdef" for character in receipt):
+        raise RecruiterSnapshotError("topology receipt_sha256 must be lowercase hex")
+    unsigned = dict(topology)
+    unsigned.pop("receipt_sha256", None)
+    expected = _receipt(unsigned)
+    if receipt != expected:
+        raise RecruiterSnapshotError("topology receipt_sha256 does not match topology")
+    return receipt
+
+
 def _verify_identity_covers_manifest(
     manifest: Mapping[str, Any], identity: Mapping[str, Any]
 ) -> None:
@@ -97,15 +114,26 @@ def _verify_identity_covers_manifest(
     if not isinstance(verified_entries, list):
         raise RecruiterSnapshotError("identity proof lacks verified_entries")
 
-    manifest_ids = {str(entry.get("id") or "") for entry in manifest_entries if isinstance(entry, Mapping)}
-    identity_ids = {str(entry.get("id") or "") for entry in verified_entries if isinstance(entry, Mapping)}
+    manifest_ids = {
+        str(entry.get("id") or "")
+        for entry in manifest_entries
+        if isinstance(entry, Mapping)
+    }
+    identity_ids = {
+        str(entry.get("id") or "")
+        for entry in verified_entries
+        if isinstance(entry, Mapping)
+    }
     if "" in manifest_ids or "" in identity_ids:
-        raise RecruiterSnapshotError("manifest or identity proof contains an empty system id")
+        raise RecruiterSnapshotError(
+            "manifest or identity proof contains an empty system id"
+        )
     if identity_ids != manifest_ids:
         missing = sorted(manifest_ids - identity_ids)
         extra = sorted(identity_ids - manifest_ids)
         raise RecruiterSnapshotError(
-            f"identity proof does not exactly cover manifest entries; missing={missing}, extra={extra}"
+            "identity proof does not exactly cover manifest entries; "
+            f"missing={missing}, extra={extra}"
         )
 
 
@@ -124,6 +152,7 @@ def build_recruiter_snapshot(
     verification_sources = dict(
         _require_mapping(verification_sources, "verification_sources")
     )
+    topology_receipt = _verify_topology_receipt(topology)
     normalized_as_of = _normalize_as_of(as_of)
     normalized_roles = _normalize_roles(roles)
     if not isinstance(top_k, int) or isinstance(top_k, bool) or not 1 <= top_k <= 10:
@@ -167,7 +196,7 @@ def build_recruiter_snapshot(
     core = {
         "schema": OUTPUT_SCHEMA,
         "as_of": normalized_as_of.isoformat().replace("+00:00", "Z"),
-        "topology_receipt_sha256": topology.get("receipt_sha256"),
+        "topology_receipt_sha256": topology_receipt,
         "pipeline": [
             "registered_live_evidence_manifest",
             "exact_workflow_identity_gate",
@@ -177,6 +206,7 @@ def build_recruiter_snapshot(
         ],
         "policy": {
             "identity_gate_required_before_freshness": True,
+            "topology_receipt_verified_before_evidence_fetch": True,
             "missing_proof_receives_zero_freshness_credit": True,
             "applicant_values_inferred": False,
         },
@@ -227,7 +257,10 @@ def _atomic_write_json(path: Path, payload: Mapping[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     rendered = json.dumps(payload, indent=2, sort_keys=True, allow_nan=False) + "\n"
     fd, temporary_name = tempfile.mkstemp(
-        dir=path.parent, prefix=f".{path.name}.", suffix=".tmp", text=True
+        dir=path.parent,
+        prefix=f".{path.name}.",
+        suffix=".tmp",
+        text=True,
     )
     temporary = Path(temporary_name)
     try:
@@ -260,7 +293,10 @@ def main(argv: Sequence[str] | None = None) -> int:
     try:
         snapshot = build_recruiter_snapshot(
             _load_json_object(args.topology, "topology"),
-            _load_json_object(args.verification_sources, "verification source registry"),
+            _load_json_object(
+                args.verification_sources,
+                "verification source registry",
+            ),
             _github_fetcher(os.environ.get(args.github_token_env)),
             as_of=_parse_as_of(args.as_of),
             roles=args.roles,
