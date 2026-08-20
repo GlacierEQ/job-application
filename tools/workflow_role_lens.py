@@ -61,13 +61,17 @@ def _validate_topology(topology: dict[str, Any]) -> None:
         for step in steps:
             system = step.get("system") if isinstance(step, dict) else None
             if not isinstance(system, dict) or not system.get("id"):
-                raise RoleLensError(f"flow {flow.get('id')} contains a step without system.id")
+                raise RoleLensError(
+                    f"flow {flow.get('id')} contains a step without system.id"
+                )
 
 
 def build_role_lens(topology: dict[str, Any], role: str) -> dict[str, Any]:
     _validate_topology(topology)
     if role not in ROLE_WEIGHTS:
-        raise RoleLensError(f"unknown role: {role}; expected one of {', '.join(sorted(ROLE_WEIGHTS))}")
+        raise RoleLensError(
+            f"unknown role: {role}; expected one of {', '.join(sorted(ROLE_WEIGHTS))}"
+        )
 
     weights = ROLE_WEIGHTS[role]
     ranked = []

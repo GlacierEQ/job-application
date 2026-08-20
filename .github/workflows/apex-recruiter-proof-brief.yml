@@ -1,0 +1,70 @@
+name: APEX Recruiter Proof Brief
+
+on:
+  pull_request:
+    paths:
+      - 'tools/workflow_role_lens.py'
+      - 'tools/workflow_recruiter_brief.py'
+      - 'tests/test_workflow_role_lens.py'
+      - 'tests/test_workflow_recruiter_brief.py'
+      - 'deployment/vercel-source-bridge/api/workflow-topology-proxy.js'
+      - '.github/workflows/apex-recruiter-proof-brief.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  prove:
+    strategy:
+      matrix:
+        python-version: ['3.11', '3.12', '3.13']
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Compile recruiter intelligence runtime
+        run: |
+          python -m py_compile tools/workflow_role_lens.py tools/workflow_recruiter_brief.py
+      - name: Run adversarial role lens and recruiter brief tests
+        run: |
+          python -m unittest tests.test_workflow_role_lens tests.test_workflow_recruiter_brief -v
+      - name: Materialize topology through the real source runtime
+        run: |
+          node <<'NODE'
+          const fs = require('node:fs');
+          const handler = require('./deployment/vercel-source-bridge/api/workflow-topology-proxy.js');
+          const headers = new Map();
+          const res = {
+            statusCode: 200,
+            setHeader(name, value) { headers.set(String(name).toLowerCase(), value); },
+            getHeader(name) { return headers.get(String(name).toLowerCase()); },
+            end(chunk = '') { this.body = Buffer.isBuffer(chunk) ? chunk : Buffer.from(String(chunk)); },
+          };
+          Promise.resolve(handler({ url: '/data/workflow-topology.json' }, res)).then(() => {
+            if (res.statusCode !== 200) throw new Error(`topology_http_${res.statusCode}`);
+            const topology = JSON.parse(res.body.toString('utf8'));
+            if (topology.schema !== 'glaciereq.workflow-topology.v1') throw new Error('topology_schema');
+            if (!/^[a-f0-9]{64}$/.test(topology.receipt_sha256 || '')) throw new Error('topology_receipt');
+            fs.writeFileSync('/tmp/workflow-topology.json', JSON.stringify(topology));
+            console.log(JSON.stringify({status: 'PASS', topology_receipt_sha256: topology.receipt_sha256, flows: topology.flows.length}, null, 2));
+          }).catch((error) => { console.error(error); process.exit(1); });
+          NODE
+      - name: Execute recruiter proof compiler against source-native topology
+        run: |
+          python tools/workflow_recruiter_brief.py --topology /tmp/workflow-topology.json --role recruiter --top-k 2 --output /tmp/recruiter-brief.json
+          python - <<'PY'
+          import json
+          data = json.load(open('/tmp/recruiter-brief.json', encoding='utf-8'))
+          assert data['schema'] == 'glaciereq.recruiter-proof-brief.v1'
+          assert len(data['briefs']) == 2
+          assert all(brief['proof_points'] for brief in data['briefs'])
+          assert len(data['receipt_sha256']) == 64
+          print(json.dumps({'status': 'PASS', 'receipt_sha256': data['receipt_sha256'], 'top_flow': data['briefs'][0]['flow_id']}, indent=2))
+          PY
