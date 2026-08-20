@@ -3,15 +3,20 @@ name: APEX Recruiter Proof Brief
 on:
   pull_request:
     paths:
+      - 'tools/workflow_evidence_freshness.py'
       - 'tools/workflow_role_lens.py'
       - 'tools/workflow_recruiter_brief.py'
+      - 'tools/workflow_recruiter_live_pipeline.py'
+      - 'tests/test_workflow_evidence_freshness.py'
       - 'tests/test_workflow_role_lens.py'
       - 'tests/test_workflow_recruiter_brief.py'
+      - 'tests/test_workflow_recruiter_live_pipeline.py'
       - 'deployment/vercel-source-bridge/api/workflow-topology-proxy.js'
       - '.github/workflows/apex-recruiter-proof-brief.yml'
 
 permissions:
   contents: read
+  actions: read
 
 jobs:
   prove:
@@ -31,10 +36,18 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Compile recruiter intelligence runtime
         run: |
-          python -m py_compile tools/workflow_role_lens.py tools/workflow_recruiter_brief.py
-      - name: Run adversarial role lens and recruiter brief tests
+          python -m py_compile \
+            tools/workflow_evidence_freshness.py \
+            tools/workflow_role_lens.py \
+            tools/workflow_recruiter_brief.py \
+            tools/workflow_recruiter_live_pipeline.py
+      - name: Run adversarial recruiter intelligence tests
         run: |
-          python -m unittest tests.test_workflow_role_lens tests.test_workflow_recruiter_brief -v
+          python -m unittest \
+            tests.test_workflow_evidence_freshness \
+            tests.test_workflow_role_lens \
+            tests.test_workflow_recruiter_brief \
+            tests.test_workflow_recruiter_live_pipeline -v
       - name: Materialize topology through the real source runtime
         run: |
           node <<'NODE'
@@ -73,4 +86,37 @@ jobs:
           )
           assert len(data['receipt_sha256']) == 64
           print(json.dumps({'status': 'PASS', 'receipt_sha256': data['receipt_sha256'], 'top_flow': data['briefs'][0]['flow_id']}, indent=2))
+          PY
+      - name: Execute live repository-verification recruiter pipeline
+        if: matrix.python-version == '3.12'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python tools/workflow_recruiter_live_pipeline.py \
+            --topology /tmp/workflow-topology.json \
+            --role recruiter \
+            --top-k 2 \
+            --output /tmp/live-recruiter-proof.json
+          python - <<'PY'
+          import json
+          data = json.load(open('/tmp/live-recruiter-proof.json', encoding='utf-8'))
+          assert data['schema'] == 'glaciereq.live-recruiter-proof.v1'
+          assert data['verification_source'] == 'github_actions_success'
+          assert data['coverage']['verified_system_count'] > 0
+          assert data['freshness']['schema'] == 'glaciereq.evidence-freshness.v1'
+          assert data['recruiter_brief']['schema'] == 'glaciereq.recruiter-proof-brief.v2'
+          assert data['recruiter_brief']['freshness_receipt_sha256'] == data['freshness']['receipt_sha256']
+          assert all(
+              len(entry['commit_sha']) == 40
+              and entry['verification_kind'] == 'github_actions_success'
+              for entry in data['evidence_manifest']['entries']
+          )
+          print(json.dumps({
+              'status': 'PASS',
+              'verified_systems': data['coverage']['verified_system_count'],
+              'unverified_systems': data['coverage']['unverified_system_count'],
+              'freshness_receipt_sha256': data['freshness']['receipt_sha256'],
+              'recruiter_brief_receipt_sha256': data['recruiter_brief']['receipt_sha256'],
+              'top_flow': data['recruiter_brief']['briefs'][0]['flow_id'],
+          }, indent=2))
           PY
