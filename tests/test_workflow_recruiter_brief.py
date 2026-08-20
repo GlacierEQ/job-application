@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import hashlib
+import json
 import unittest
 
 from tools.workflow_recruiter_brief import build_recruiter_brief
@@ -67,9 +69,10 @@ def _topology() -> dict:
 
 
 def _freshness() -> dict:
-    return {
+    core = {
         "schema": "glaciereq.evidence-freshness.v1",
-        "receipt_sha256": "freshness-receipt",
+        "as_of": "2026-08-20T00:00:00Z",
+        "policy": "test fixture",
         "entries": [
             {
                 "id": "helix",
@@ -101,7 +104,30 @@ def _freshness() -> dict:
                 "state": "fresh",
                 "age_days": 3,
             },
+            {
+                "id": "akos",
+                "freshness_weight": 0.85,
+                "state": "aging",
+                "age_days": 60,
+            },
+            {
+                "id": "sigma-glue",
+                "freshness_weight": 0.65,
+                "state": "aging",
+                "age_days": 120,
+            },
+            {
+                "id": "doctor-strange",
+                "freshness_weight": 1.0,
+                "state": "fresh",
+                "age_days": 5,
+            },
         ],
+    }
+    stable = json.dumps(core, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+    return {
+        **core,
+        "receipt_sha256": hashlib.sha256(stable.encode("utf-8")).hexdigest(),
     }
 
 
@@ -113,9 +139,12 @@ class WorkflowRecruiterBriefTests(unittest.TestCase):
         self.assertEqual(len(result["briefs"][0]["current_ceilings"]), 3)
 
     def test_freshness_can_change_selected_recruiter_brief(self) -> None:
-        result = build_recruiter_brief(_topology(), "recruiter", 1, _freshness())
+        freshness = _freshness()
+        result = build_recruiter_brief(_topology(), "recruiter", 1, freshness)
         self.assertEqual(result["briefs"][0]["flow_id"], "architecture")
-        self.assertEqual(result["freshness_receipt_sha256"], "freshness-receipt")
+        self.assertEqual(
+            result["freshness_receipt_sha256"], freshness["receipt_sha256"]
+        )
         helix = next(
             point
             for point in result["briefs"][0]["proof_points"]
@@ -123,6 +152,20 @@ class WorkflowRecruiterBriefTests(unittest.TestCase):
         )
         self.assertEqual(helix["freshness_state"], "fresh")
         self.assertEqual(helix["freshness_weight"], 1.0)
+
+    def test_zero_role_weight_proof_keeps_freshness_in_brief(self) -> None:
+        result = build_recruiter_brief(_topology(), "recruiter", 3, _freshness())
+        operations = next(
+            brief for brief in result["briefs"] if brief["flow_id"] == "operations"
+        )
+        akos = next(
+            point
+            for point in operations["proof_points"]
+            if point["system_id"] == "akos"
+        )
+        self.assertEqual(akos["role_weight"], 0)
+        self.assertEqual(akos["freshness_weight"], 0.85)
+        self.assertEqual(akos["freshness_state"], "aging")
 
     def test_architect_brief_reuses_same_evidence_graph_with_different_ranking(
         self,
