@@ -290,7 +290,7 @@ class RecruiterSnapshotTests(unittest.TestCase):
                 _topology(),
                 _registry(),
                 _fetcher(),
-                as_of=datetime(2026, 8, 20, 12, 0, tzinfo=None),
+                as_of=datetime(2026, 8, 20, 12, 0),  # noqa: DTZ001
             )
         with self.assertRaisesRegex(RecruiterSnapshotError, "top_k"):
             build_recruiter_snapshot(
