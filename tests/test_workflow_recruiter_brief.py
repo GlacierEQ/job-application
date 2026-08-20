@@ -66,12 +66,63 @@ def _topology() -> dict:
     }
 
 
+def _freshness() -> dict:
+    return {
+        "schema": "glaciereq.evidence-freshness.v1",
+        "receipt_sha256": "freshness-receipt",
+        "entries": [
+            {
+                "id": "helix",
+                "freshness_weight": 1.0,
+                "state": "fresh",
+                "age_days": 2,
+            },
+            {
+                "id": "receipt-router",
+                "freshness_weight": 0.2,
+                "state": "stale",
+                "age_days": 500,
+            },
+            {
+                "id": "job-application",
+                "freshness_weight": 0.2,
+                "state": "stale",
+                "age_days": 500,
+            },
+            {
+                "id": "pro-code-runtime",
+                "freshness_weight": 1.0,
+                "state": "fresh",
+                "age_days": 3,
+            },
+            {
+                "id": "tower-of-babel",
+                "freshness_weight": 1.0,
+                "state": "fresh",
+                "age_days": 3,
+            },
+        ],
+    }
+
+
 class WorkflowRecruiterBriefTests(unittest.TestCase):
     def test_recruiter_brief_selects_highest_value_application_path(self) -> None:
         result = build_recruiter_brief(_topology(), "recruiter", 1)
         self.assertEqual(result["briefs"][0]["flow_id"], "application")
         self.assertEqual(len(result["briefs"][0]["proof_points"]), 3)
         self.assertEqual(len(result["briefs"][0]["current_ceilings"]), 3)
+
+    def test_freshness_can_change_selected_recruiter_brief(self) -> None:
+        result = build_recruiter_brief(_topology(), "recruiter", 1, _freshness())
+        self.assertEqual(result["briefs"][0]["flow_id"], "architecture")
+        self.assertEqual(result["freshness_receipt_sha256"], "freshness-receipt")
+        helix = next(
+            point
+            for point in result["briefs"][0]["proof_points"]
+            if point["system_id"] == "helix"
+        )
+        self.assertEqual(helix["freshness_state"], "fresh")
+        self.assertEqual(helix["freshness_weight"], 1.0)
 
     def test_architect_brief_reuses_same_evidence_graph_with_different_ranking(
         self,
@@ -80,8 +131,9 @@ class WorkflowRecruiterBriefTests(unittest.TestCase):
         self.assertEqual(result["briefs"][0]["flow_id"], "operations")
 
     def test_receipt_is_deterministic(self) -> None:
-        first = build_recruiter_brief(_topology(), "engineering-lead", 2)
-        second = build_recruiter_brief(_topology(), "engineering-lead", 2)
+        freshness = _freshness()
+        first = build_recruiter_brief(_topology(), "engineering-lead", 2, freshness)
+        second = build_recruiter_brief(_topology(), "engineering-lead", 2, freshness)
         self.assertEqual(first, second)
         self.assertRegex(first["receipt_sha256"], r"^[a-f0-9]{64}$")
 

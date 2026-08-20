@@ -11,7 +11,7 @@ try:
 except ModuleNotFoundError:
     from workflow_role_lens import RoleLensError, build_role_lens
 
-OUTPUT_SCHEMA = "glaciereq.recruiter-proof-brief.v1"
+OUTPUT_SCHEMA = "glaciereq.recruiter-proof-brief.v2"
 
 
 def _stable(value: Any) -> str:
@@ -28,11 +28,23 @@ def _require_text(value: Any, field: str, flow_id: str) -> str:
     return value.strip()
 
 
+def _freshness_by_system(flow: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    result = {}
+    for item in flow.get("matched_systems", []):
+        if not isinstance(item, dict):
+            continue
+        system_id = str(item.get("system_id") or "").strip()
+        if system_id:
+            result[system_id] = item
+    return result
+
+
 def _compile_flow(flow: dict[str, Any]) -> dict[str, Any]:
     flow_id = _require_text(flow.get("flow_id"), "flow_id", "unknown")
-    proof_points: list[dict[str, str]] = []
+    proof_points: list[dict[str, Any]] = []
     ceilings: list[dict[str, str]] = []
     repositories: list[str] = []
+    freshness = _freshness_by_system(flow)
 
     for step in flow.get("steps", []):
         if not isinstance(step, dict) or not isinstance(step.get("system"), dict):
@@ -45,11 +57,17 @@ def _compile_flow(flow: dict[str, Any]) -> dict[str, Any]:
             raise RoleLensError(
                 f"flow {flow_id} repo outside GlacierEQ boundary: {repo}"
             )
+        rank_signal = freshness.get(system_id, {})
         proof_points.append(
             {
                 "system_id": system_id,
                 "evidence": evidence,
                 "contribution": str(step.get("transition") or "").strip(),
+                "role_weight": rank_signal.get("role_weight"),
+                "freshness_weight": rank_signal.get("freshness_weight"),
+                "freshness_state": rank_signal.get("freshness_state"),
+                "age_days": rank_signal.get("age_days"),
+                "weighted_contribution": rank_signal.get("weighted_contribution"),
             }
         )
         limit = str(system.get("limit") or "").strip()
@@ -66,6 +84,11 @@ def _compile_flow(flow: dict[str, Any]) -> dict[str, Any]:
         "name": _require_text(flow.get("name"), "name", flow_id),
         "intent": str(flow.get("intent") or "").strip(),
         "score": flow.get("score"),
+        "static_role_score": flow.get("static_role_score"),
+        "freshness_adjusted_role_score": flow.get("freshness_adjusted_role_score"),
+        "freshness_adjusted_breadth_bonus": flow.get(
+            "freshness_adjusted_breadth_bonus"
+        ),
         "proof_points": proof_points,
         "current_ceilings": ceilings,
         "repositories": repositories,
@@ -73,23 +96,27 @@ def _compile_flow(flow: dict[str, Any]) -> dict[str, Any]:
 
 
 def build_recruiter_brief(
-    topology: dict[str, Any], role: str, top_k: int = 3
+    topology: dict[str, Any],
+    role: str,
+    top_k: int = 3,
+    freshness: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     if not isinstance(top_k, int) or top_k < 1 or top_k > 10:
         raise RoleLensError("top_k must be an integer from 1 through 10")
 
-    lens = build_role_lens(topology, role)
+    lens = build_role_lens(topology, role, freshness)
     selected = lens["ranked_flows"][:top_k]
     compiled = [_compile_flow(flow) for flow in selected]
     core = {
         "schema": OUTPUT_SCHEMA,
         "role": role,
         "topology_receipt_sha256": lens.get("topology_receipt_sha256"),
+        "freshness_receipt_sha256": lens.get("freshness_receipt_sha256"),
         "role_lens_receipt_sha256": lens["receipt_sha256"],
         "selection_policy": {
             "top_k": top_k,
-            "ordering": "workflow_role_lens score descending then flow_id ascending",
-            "evidence_policy": "surface source evidence and current ceilings without inventing claims",
+            "ordering": "freshness-adjusted workflow role score descending then flow_id ascending",
+            "evidence_policy": "surface source evidence, freshness, and current ceilings without inventing claims",
         },
         "briefs": compiled,
     }
@@ -103,11 +130,17 @@ def main() -> int:
     parser.add_argument("--topology", required=True, type=Path)
     parser.add_argument("--role", required=True)
     parser.add_argument("--top-k", type=int, default=3)
+    parser.add_argument("--freshness", type=Path)
     parser.add_argument("--output", type=Path)
     args = parser.parse_args()
 
     topology = json.loads(args.topology.read_text(encoding="utf-8"))
-    result = build_recruiter_brief(topology, args.role, args.top_k)
+    freshness = (
+        json.loads(args.freshness.read_text(encoding="utf-8"))
+        if args.freshness
+        else None
+    )
+    result = build_recruiter_brief(topology, args.role, args.top_k, freshness)
     rendered = json.dumps(result, indent=2, ensure_ascii=False) + "\n"
     if args.output:
         args.output.parent.mkdir(parents=True, exist_ok=True)
