@@ -161,6 +161,7 @@ test('sealed catch-all router renders the role matrix as a recruiter-facing HTML
   assert.equal(res.statusCode, 200);
   assert.match(res.getHeader('content-type'), /text\/html/);
   assert.match(res.getHeader('content-security-policy'), /script-src 'none'/);
+  assert.match(res.getHeader('content-security-policy'), /style-src 'self'/);
   const html = res.body.toString('utf8');
   assert.match(html, /ONE VERIFIED GRAPH · THREE HIRING LENSES/);
   assert.match(html, /data-role="recruiter"/);
@@ -168,7 +169,10 @@ test('sealed catch-all router renders the role matrix as a recruiter-facing HTML
   assert.match(html, /data-role="systems-architect"/);
   assert.match(html, /\/data\/recruiter-role-matrix\.json/);
   assert.match(html, /\/recruiter-proof\/\?role=recruiter/);
+  assert.match(html, /\/assets\/site\.workflows\.css/);
   assert.doesNotMatch(html, /<script\b/i);
+  assert.doesNotMatch(html, /<style\b/i);
+  assert.doesNotMatch(html, /\sstyle\s*=/i);
   assert.equal(topologyLoads, 1);
   assert.equal(freshnessLoads, 1);
 });
@@ -180,7 +184,7 @@ test('role-matrix HTML escapes proof text and keeps roles distinct', () => {
   const html = releaseRouter.renderRoleMatrixHtml(matrix);
   assert.doesNotMatch(html, /<img src=x onerror=/);
   assert.match(html, /&lt;img src=x onerror=alert\(1\)&gt;/);
-  assert.equal((html.match(/class="matrix-role"/g) || []).length, 3);
+  assert.equal((html.match(/matrix-role/g) || []).length, 3);
 });
 
 test('sealed role-matrix route fails closed when freshness identity is invalid', async (t) => {
