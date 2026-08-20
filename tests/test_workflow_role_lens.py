@@ -95,6 +95,7 @@ class WorkflowRoleLensTests(unittest.TestCase):
                 "receipt-router": (0.2, "stale"),
                 "helix": (1.0, "fresh"),
                 "pro-code-runtime": (1.0, "fresh"),
+                "tower-of-babel": (1.0, "fresh"),
                 "doctor-strange": (1.0, "fresh"),
             }
         )
