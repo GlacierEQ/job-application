@@ -195,19 +195,15 @@ class RecruiterSnapshotTests(unittest.TestCase):
             ]
         }
         runner_clock = datetime(2026, 8, 20, 10, 0, 0, tzinfo=UTC)
-        resolved = _resolve_snapshot_as_of(
-            None, manifest, clock=lambda: runner_clock
-        )
-        self.assertEqual(
-            resolved, datetime(2026, 8, 20, 10, 0, 3, tzinfo=UTC)
-        )
+        resolved = _resolve_snapshot_as_of(None, manifest, clock=lambda: runner_clock)
+        self.assertEqual(resolved, datetime(2026, 8, 20, 10, 0, 3, tzinfo=UTC))
 
-    def test_explicit_as_of_is_never_moved_forward_to_hide_future_evidence(self) -> None:
+    def test_explicit_as_of_is_never_moved_forward_to_hide_future_evidence(
+        self,
+    ) -> None:
         explicit = datetime(2026, 8, 20, 10, 0, 0, tzinfo=UTC)
         manifest = {
-            "entries": [
-                {"id": "future", "verified_at": "2026-08-20T10:00:03Z"}
-            ]
+            "entries": [{"id": "future", "verified_at": "2026-08-20T10:00:03Z"}]
         }
         resolved = _resolve_snapshot_as_of(
             explicit,
@@ -323,9 +319,7 @@ class RecruiterSnapshotTests(unittest.TestCase):
             raise AssertionError("evidence fetch must not run for tampered topology")
 
         with self.assertRaisesRegex(RecruiterSnapshotError, "does not match topology"):
-            build_recruiter_snapshot(
-                topology, _registry(), fail_if_called, as_of=AS_OF
-            )
+            build_recruiter_snapshot(topology, _registry(), fail_if_called, as_of=AS_OF)
         self.assertFalse(called)
 
     def test_naive_as_of_and_boolean_top_k_fail_closed(self) -> None:
