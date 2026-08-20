@@ -10,8 +10,16 @@
       "dest": "/api/recruiter-gap-analysis"
     },
     {
+      "src": "/data/recruiter-action-packet.json",
+      "dest": "/api/recruiter-action-page"
+    },
+    {
       "src": "/recruiter-gap-analysis/?",
       "dest": "/api/recruiter-gap-page"
+    },
+    {
+      "src": "/recruiter-action/?",
+      "dest": "/api/recruiter-action-page"
     },
     {
       "src": "/(.*)",
