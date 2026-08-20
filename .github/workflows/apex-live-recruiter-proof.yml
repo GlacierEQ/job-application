@@ -1,0 +1,84 @@
+name: APEX Live Recruiter Proof
+
+on:
+  pull_request:
+    paths:
+      - tools/live-recruiter-proof.mjs
+      - tests/live-recruiter-proof.test.mjs
+      - config/workflow-verification-sources.json
+      - deployment/vercel-source-bridge/api/workflow-verification-sources.generated.js
+      - deployment/vercel-source-bridge/api/workflow-recruiter-proxy.js
+      - deployment/vercel-source-bridge/api/workflow-topology-proxy.js
+      - .github/workflows/apex-live-recruiter-proof.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+env:
+  CI: "true"
+
+jobs:
+  adversarial-proof:
+    name: Node ${{ matrix.node }} live recruiter proof
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [20, 22, 24]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Syntax check live proof compiler
+        run: node --check tools/live-recruiter-proof.mjs
+      - name: Run generated-registry adversarial proof
+        run: node --test tests/live-recruiter-proof.test.mjs
+      - name: Verify generated registry is current
+        run: node scripts/generate-workflow-verification-registry.mjs --check
+
+  live-source-observation:
+    name: Real GlacierEQ recruiter proof observation
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: adversarial-proof
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Execute live recruiter proof against current GlacierEQ verification runs
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          node tools/live-recruiter-proof.mjs \
+            --role recruiter \
+            --output artifacts/live-recruiter-proof/recruiter.json
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const proof = JSON.parse(fs.readFileSync('artifacts/live-recruiter-proof/recruiter.json', 'utf8'));
+          if (proof.schema !== 'glaciereq.live-recruiter-proof-snapshot.v1') throw new Error('live_proof_schema');
+          if (proof.generated_registry !== true) throw new Error('live_proof_generated_registry');
+          if (!(proof.coverage.verified_systems > 0)) throw new Error('live_proof_zero_verified_systems');
+          if (!Array.isArray(proof.briefs) || proof.briefs.length === 0) throw new Error('live_proof_no_briefs');
+          if (!/^[a-f0-9]{64}$/.test(proof.receipt_sha256)) throw new Error('live_proof_receipt');
+          console.log(JSON.stringify({
+            schema: proof.schema,
+            role: proof.role,
+            generated_registry: proof.generated_registry,
+            verified_systems: proof.coverage.verified_systems,
+            unverified_systems: proof.coverage.unverified_systems,
+            top_flow: proof.briefs[0].flow_id,
+            top_score: proof.briefs[0].score,
+            registry_receipt_sha256: proof.registry_receipt_sha256,
+            proof_receipt_sha256: proof.receipt_sha256,
+          }, null, 2));
+          NODE
+      - uses: actions/upload-artifact@v4
+        with:
+          name: live-recruiter-proof
+          path: artifacts/live-recruiter-proof/recruiter.json
+          if-no-files-found: error
