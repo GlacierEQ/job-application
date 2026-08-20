@@ -50,11 +50,35 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
+      - name: Materialize current source-native workflow topology
+        run: |
+          mkdir -p artifacts/live-recruiter-proof
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const proxy = require('./deployment/vercel-source-bridge/api/workflow-topology-proxy.js');
+          const commit = proxy.constants.PORTFOLIO_COMMIT;
+          const url = `https://raw.githubusercontent.com/GlacierEQ/job-application/${commit}/site-v15/data/portfolio.json`;
+          const response = await fetch(url, { redirect: 'error' });
+          if (!response.ok) throw new Error(`live_topology_portfolio_http_${response.status}`);
+          const portfolio = await response.json();
+          const topology = proxy.buildTopology(portfolio);
+          fs.writeFileSync(
+            'artifacts/live-recruiter-proof/topology.json',
+            `${JSON.stringify(topology, null, 2)}\n`,
+          );
+          console.log(JSON.stringify({
+            schema: topology.schema,
+            flow_count: topology.flows.length,
+            receipt_sha256: topology.receipt_sha256,
+            portfolio_commit: commit,
+          }, null, 2));
+          NODE
       - name: Execute live recruiter proof against current GlacierEQ verification runs
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
           node tools/live-recruiter-proof.mjs \
+            --topology artifacts/live-recruiter-proof/topology.json \
             --role recruiter \
             --output artifacts/live-recruiter-proof/recruiter.json
           node - <<'NODE'
@@ -80,5 +104,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: live-recruiter-proof
-          path: artifacts/live-recruiter-proof/recruiter.json
+          path: |
+            artifacts/live-recruiter-proof/topology.json
+            artifacts/live-recruiter-proof/recruiter.json
           if-no-files-found: error
