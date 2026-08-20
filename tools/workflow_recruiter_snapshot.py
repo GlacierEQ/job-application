@@ -94,9 +94,7 @@ def _require_mapping(value: object, field: str) -> Mapping[str, Any]:
 def _verify_topology_receipt(topology: Mapping[str, Any]) -> str:
     receipt = topology.get("receipt_sha256")
     if not isinstance(receipt, str) or len(receipt) != 64:
-        raise RecruiterSnapshotError(
-            "topology requires a 64-character receipt_sha256"
-        )
+        raise RecruiterSnapshotError("topology requires a 64-character receipt_sha256")
     if any(character not in "0123456789abcdef" for character in receipt):
         raise RecruiterSnapshotError("topology receipt_sha256 must be lowercase hex")
     unsigned = dict(topology)
