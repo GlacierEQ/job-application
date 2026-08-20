@@ -44,7 +44,9 @@ def _stable(value: Any) -> str:
             allow_nan=False,
         )
     except (TypeError, ValueError) as exc:
-        raise VerificationIdentityError(f"identity proof is not strict JSON: {exc}") from exc
+        raise VerificationIdentityError(
+            f"identity proof is not strict JSON: {exc}"
+        ) from exc
 
 
 def _receipt(value: Any) -> str:
@@ -75,7 +77,9 @@ def _registry_sources(registry: Mapping[str, Any]) -> dict[str, dict[str, Any]]:
         )
     repositories = registry.get("repositories")
     if not isinstance(repositories, dict) or not repositories:
-        raise VerificationIdentityError("verification source registry requires repositories")
+        raise VerificationIdentityError(
+            "verification source registry requires repositories"
+        )
 
     normalized: dict[str, dict[str, Any]] = {}
     for repository, raw in repositories.items():
@@ -86,7 +90,9 @@ def _registry_sources(registry: Mapping[str, Any]) -> dict[str, dict[str, Any]]:
                 f"invalid GlacierEQ repository in verification registry: {repository!r}"
             )
         if not isinstance(raw, dict):
-            raise VerificationIdentityError(f"registry entry must be object: {repository}")
+            raise VerificationIdentityError(
+                f"registry entry must be object: {repository}"
+            )
 
         names = _normalize_string_list(
             raw.get("workflow_names"), f"repositories.{repository}.workflow_names"
@@ -133,7 +139,9 @@ def _manifest_entries(manifest: Mapping[str, Any]) -> list[dict[str, Any]]:
             raise VerificationIdentityError("evidence manifest entry must be an object")
         system_id = _require_text(raw.get("id"), "entry.id")
         if system_id in seen:
-            raise VerificationIdentityError(f"duplicate evidence system id: {system_id}")
+            raise VerificationIdentityError(
+                f"duplicate evidence system id: {system_id}"
+            )
         seen.add(system_id)
         normalized.append(raw)
     return normalized
@@ -177,10 +185,16 @@ def build_verification_identity_proof(
             )
         run_id = entry.get("verification_run_id")
         if isinstance(run_id, bool) or not isinstance(run_id, int) or run_id <= 0:
-            raise VerificationIdentityError(f"{system_id} verification_run_id must be positive")
-        manifest_sha = _require_text(entry.get("commit_sha"), f"{system_id}.commit_sha").lower()
+            raise VerificationIdentityError(
+                f"{system_id} verification_run_id must be positive"
+            )
+        manifest_sha = _require_text(
+            entry.get("commit_sha"), f"{system_id}.commit_sha"
+        ).lower()
         if not SHA_RE.fullmatch(manifest_sha):
-            raise VerificationIdentityError(f"{system_id} commit_sha must be exact 40-char SHA")
+            raise VerificationIdentityError(
+                f"{system_id} commit_sha must be exact 40-char SHA"
+            )
         manifest_name = _require_text(
             entry.get("verification_workflow"), f"{system_id}.verification_workflow"
         )
@@ -190,21 +204,33 @@ def build_verification_identity_proof(
             )
 
         if repository not in repo_metadata:
-            repo_metadata[repository] = fetch_json(f"https://api.github.com/repos/{repository}")
+            repo_metadata[repository] = fetch_json(
+                f"https://api.github.com/repos/{repository}"
+            )
         default_branch = _require_text(
             repo_metadata[repository].get("default_branch"),
             f"{repository}.default_branch",
         )
-        run = fetch_json(f"https://api.github.com/repos/{repository}/actions/runs/{run_id}")
+        run = fetch_json(
+            f"https://api.github.com/repos/{repository}/actions/runs/{run_id}"
+        )
         if int(run.get("id") or 0) != run_id:
-            raise VerificationIdentityError(f"{system_id} exact run id does not match manifest")
+            raise VerificationIdentityError(
+                f"{system_id} exact run id does not match manifest"
+            )
         if run.get("status") != "completed" or run.get("conclusion") != "success":
-            raise VerificationIdentityError(f"{system_id} exact run is not completed success")
+            raise VerificationIdentityError(
+                f"{system_id} exact run is not completed success"
+            )
 
         run_name = _require_text(run.get("name"), f"{system_id}.run.name")
         if run_name != manifest_name or run_name not in source["workflow_names"]:
-            raise VerificationIdentityError(f"{system_id} exact run workflow name mismatch")
-        run_sha = _require_text(run.get("head_sha"), f"{system_id}.run.head_sha").lower()
+            raise VerificationIdentityError(
+                f"{system_id} exact run workflow name mismatch"
+            )
+        run_sha = _require_text(
+            run.get("head_sha"), f"{system_id}.run.head_sha"
+        ).lower()
         if run_sha != manifest_sha or not SHA_RE.fullmatch(run_sha):
             raise VerificationIdentityError(f"{system_id} exact run SHA mismatch")
 
@@ -215,7 +241,9 @@ def build_verification_identity_proof(
                 f"{system_id} workflow path is not registered: {run_path!r}"
             )
         event = _require_text(run.get("event"), f"{system_id}.run.event")
-        head_branch = _require_text(run.get("head_branch"), f"{system_id}.run.head_branch")
+        head_branch = _require_text(
+            run.get("head_branch"), f"{system_id}.run.head_branch"
+        )
         _verify_branch_policy(
             policy=source["branch_policy"],
             default_branch=default_branch,
@@ -232,7 +260,9 @@ def build_verification_identity_proof(
             f"{system_id}.run.updated_at",
         )
         if run_verified_at != manifest_verified_at:
-            raise VerificationIdentityError(f"{system_id} verification timestamp mismatch")
+            raise VerificationIdentityError(
+                f"{system_id} verification timestamp mismatch"
+            )
         manifest_url = _require_text(
             entry.get("verification_url"), f"{system_id}.verification_url"
         )
@@ -294,7 +324,9 @@ def _github_fetcher(token: str | None) -> Callable[[str], dict[str, Any]]:
                 f"GitHub identity request failed for {url}: {exc}"
             ) from exc
         if not isinstance(payload, dict):
-            raise VerificationIdentityError(f"GitHub response for {url} must be an object")
+            raise VerificationIdentityError(
+                f"GitHub response for {url} must be an object"
+            )
         return payload
 
     return fetch
