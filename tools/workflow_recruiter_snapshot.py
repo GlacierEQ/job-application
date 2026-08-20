@@ -106,7 +106,9 @@ def _resolve_snapshot_as_of(
     latest_verified = max(
         _parse_verified_at(
             entry.get("verified_at") if isinstance(entry, Mapping) else None,
-            str(entry.get("id") or "unknown") if isinstance(entry, Mapping) else "unknown",
+            str(entry.get("id") or "unknown")
+            if isinstance(entry, Mapping)
+            else "unknown",
         )
         for entry in entries
     )
@@ -206,7 +208,9 @@ def build_recruiter_snapshot(
     )
     topology_receipt = _verify_topology_receipt(topology)
     if as_of is not None:
-        _normalize_as_of(as_of)  # reject invalid explicit replay time before network work
+        _normalize_as_of(
+            as_of
+        )  # reject invalid explicit replay time before network work
     normalized_roles = _normalize_roles(roles)
     if not isinstance(top_k, int) or isinstance(top_k, bool) or not 1 <= top_k <= 10:
         raise RecruiterSnapshotError("top_k must be an integer from 1 through 10")
