@@ -214,11 +214,51 @@ class EvidenceManifestTests(unittest.TestCase):
         result = build_evidence_manifest(_topology(), fetch, allow_missing=True)
         self.assertEqual(
             result["missing_systems"],
-            [{"id": "helix", "repository": "GlacierEQ/job-app-helix"}],
+            [
+                {
+                    "id": "helix",
+                    "repository": "GlacierEQ/job-app-helix",
+                    "reason": "no_qualifying_successful_verification_run",
+                }
+            ],
         )
         self.assertEqual(
             [entry["id"] for entry in result["entries"]], ["job-application"]
         )
+
+    def test_allow_missing_isolates_unavailable_repository(self) -> None:
+        fallback = FakeGitHub(
+            {
+                "job-application": [
+                    _run(
+                        12,
+                        name="Strict CI",
+                        sha="f" * 40,
+                        updated_at="2026-08-20T12:00:00Z",
+                    )
+                ]
+            }
+        )
+
+        def fetch(url: str) -> dict:
+            if "/job-app-helix" in url:
+                raise EvidenceManifestError("GitHub request failed: HTTP Error 404")
+            return fallback(url)
+
+        result = build_evidence_manifest(_topology(), fetch, allow_missing=True)
+        self.assertEqual([entry["id"] for entry in result["entries"]], ["job-application"])
+        self.assertEqual(result["missing_systems"][0]["id"], "helix")
+        self.assertIn(
+            "repository_verification_unavailable",
+            result["missing_systems"][0]["reason"],
+        )
+
+    def test_unavailable_repository_fails_closed_without_allow_missing(self) -> None:
+        def fetch(url: str) -> dict:
+            raise EvidenceManifestError(f"GitHub request failed for {url}: HTTP 404")
+
+        with self.assertRaisesRegex(EvidenceManifestError, "HTTP 404"):
+            build_evidence_manifest(_topology(), fetch)
 
     def test_rejects_repo_outside_glaciereq(self) -> None:
         topology = _topology()
