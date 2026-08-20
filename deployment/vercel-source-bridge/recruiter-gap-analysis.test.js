@@ -158,12 +158,24 @@ test('shared analyzer is deterministic and rejects tampered matrix receipts', ()
 
 test('fresh proof produces no decorative refresh work', () => {
   const proof = freshness();
-  proof.entries = proof.entries.map((entry) => ({
-    ...entry,
-    freshness_weight: 1,
-    state: 'fresh',
-    age_days: 1,
-  }));
+  proof.entries = [
+    ...proof.entries.map((entry) => ({
+      ...entry,
+      freshness_weight: 1,
+      state: 'fresh',
+      age_days: 1,
+    })),
+    {
+      id: 'pro-code-runtime',
+      freshness_weight: 1,
+      state: 'fresh',
+      age_days: 1,
+      commit_sha: '4'.repeat(40),
+      verified_at: '2026-08-19T20:00:00.000Z',
+      verification_workflow: 'Pro Code Proof',
+      verification_run_id: 104,
+    },
+  ];
   proof.missing_systems = [];
   const matrix = matrixRuntime.buildRoleMatrix(topology(), proof);
   const analysis = gapRuntime.analyzeRecruiterGaps(matrix);
