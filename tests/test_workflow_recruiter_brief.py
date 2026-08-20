@@ -26,8 +26,14 @@ def _topology() -> dict:
                 "intent": "compile evidence for recruiter review",
                 "steps": [
                     {"transition": "rank evidence", "system": _system("helix")},
-                    {"transition": "bind receipts", "system": _system("receipt-router")},
-                    {"transition": "compile application", "system": _system("job-application")},
+                    {
+                        "transition": "bind receipts",
+                        "system": _system("receipt-router"),
+                    },
+                    {
+                        "transition": "compile application",
+                        "system": _system("job-application"),
+                    },
                 ],
             },
             {
@@ -35,8 +41,14 @@ def _topology() -> dict:
                 "name": "Architecture proof path",
                 "intent": "show production architecture depth",
                 "steps": [
-                    {"transition": "define boundaries", "system": _system("tower-of-babel")},
-                    {"transition": "run runtime", "system": _system("pro-code-runtime")},
+                    {
+                        "transition": "define boundaries",
+                        "system": _system("tower-of-babel"),
+                    },
+                    {
+                        "transition": "run runtime",
+                        "system": _system("pro-code-runtime"),
+                    },
                     {"transition": "compose", "system": _system("helix")},
                 ],
             },
@@ -61,7 +73,9 @@ class WorkflowRecruiterBriefTests(unittest.TestCase):
         self.assertEqual(len(result["briefs"][0]["proof_points"]), 3)
         self.assertEqual(len(result["briefs"][0]["current_ceilings"]), 3)
 
-    def test_architect_brief_reuses_same_evidence_graph_with_different_ranking(self) -> None:
+    def test_architect_brief_reuses_same_evidence_graph_with_different_ranking(
+        self,
+    ) -> None:
         result = build_recruiter_brief(_topology(), "systems-architect", 1)
         self.assertEqual(result["briefs"][0]["flow_id"], "operations")
 
@@ -85,7 +99,9 @@ class WorkflowRecruiterBriefTests(unittest.TestCase):
 
     def test_rejects_repository_outside_glaciereq_boundary(self) -> None:
         topology = _topology()
-        topology["flows"][0]["steps"][0]["system"]["repo"] = "https://example.com/fake"
+        topology["flows"][0]["steps"][0]["system"]["repo"] = (
+            "https://example.com/fake"
+        )
         with self.assertRaises(RoleLensError):
             build_recruiter_brief(topology, "recruiter", 1)
 
