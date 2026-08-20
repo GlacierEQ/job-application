@@ -9,8 +9,10 @@ on:
       - 'tools/workflow_verification_identity.py'
       - 'tools/workflow_evidence_freshness.py'
       - 'tools/workflow_recruiter_brief.py'
+      - 'tools/workflow_recruiter_snapshot.py'
       - 'tests/test_workflow_verification_source_registry.py'
       - 'tests/test_workflow_verification_identity.py'
+      - 'tests/test_workflow_recruiter_snapshot.py'
       - 'deployment/vercel-source-bridge/api/workflow-topology-proxy.js'
       - '.github/workflows/apex-verification-identity-proof.yml'
 
@@ -47,16 +49,18 @@ jobs:
             tools/workflow_verification_identity.py \
             tools/workflow_evidence_freshness.py \
             tools/workflow_role_lens.py \
-            tools/workflow_recruiter_brief.py
+            tools/workflow_recruiter_brief.py \
+            tools/workflow_recruiter_snapshot.py
 
-      - name: Run adversarial verification identity tests
+      - name: Run adversarial verification identity and snapshot tests
         run: |
           python -m unittest \
             tests.test_workflow_verification_source_registry \
             tests.test_workflow_verification_identity \
             tests.test_workflow_evidence_freshness \
             tests.test_workflow_role_lens \
-            tests.test_workflow_recruiter_brief -v
+            tests.test_workflow_recruiter_brief \
+            tests.test_workflow_recruiter_snapshot -v
 
       - name: Materialize source-native workflow topology
         run: |
@@ -145,5 +149,40 @@ jobs:
               'freshness_receipt_sha256': freshness['receipt_sha256'],
               'recruiter_brief_receipt_sha256': brief['receipt_sha256'],
               'top_flow': brief['briefs'][0]['flow_id'],
+          }, indent=2))
+          PY
+
+      - name: Execute one-command exact-identity recruiter snapshot
+        run: |
+          AS_OF="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          python tools/workflow_recruiter_snapshot.py \
+            --topology /tmp/workflow-topology.json \
+            --verification-sources config/workflow-verification-sources.json \
+            --output /tmp/recruiter-snapshot.json \
+            --top-k 2 \
+            --as-of "$AS_OF" \
+            --github-token-env GLACIEREQ_PUBLIC_GITHUB_TOKEN
+          python - <<'PY'
+          import json
+
+          snapshot = json.load(open('/tmp/recruiter-snapshot.json', encoding='utf-8'))
+          assert snapshot['schema'] == 'glaciereq.recruiter-proof-snapshot.v1'
+          assert len(snapshot['receipt_sha256']) == 64
+          assert snapshot['policy']['identity_gate_required_before_freshness'] is True
+          assert snapshot['policy']['topology_receipt_verified_before_evidence_fetch'] is True
+          assert snapshot['policy']['missing_proof_receives_zero_freshness_credit'] is True
+          assert snapshot['coverage']['identity_verified_entries'] == snapshot['coverage']['manifest_entries']
+          assert snapshot['coverage']['exact_path_bound_entries'] == snapshot['coverage']['manifest_entries']
+          assert set(snapshot['recruiter_briefs']) == {'recruiter', 'engineering-lead', 'systems-architect'}
+          assert snapshot['receipts']['freshness_sha256'] == snapshot['freshness']['receipt_sha256']
+          print(json.dumps({
+              'status': 'PASS',
+              'snapshot_receipt_sha256': snapshot['receipt_sha256'],
+              'topology_receipt_sha256': snapshot['topology_receipt_sha256'],
+              'identity_receipt_sha256': snapshot['receipts']['identity_sha256'],
+              'freshness_receipt_sha256': snapshot['receipts']['freshness_sha256'],
+              'verified_entries': snapshot['coverage']['identity_verified_entries'],
+              'missing_systems': snapshot['coverage']['missing_systems'],
+              'roles': snapshot['coverage']['roles'],
           }, indent=2))
           PY
