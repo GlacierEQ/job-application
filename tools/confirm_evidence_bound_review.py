@@ -1,9 +1,9 @@
-"""Promote an evidence-bound application review into a semantic answer only after explicit confirmation.
+"""Promote evidence-bound application reviews into semantic answers after explicit confirmation.
 
-This tool closes the gap between a provenance-bound DRAFT_REVIEW_REQUIRED artifact and the
-existing live Greenhouse semantic-answer bridge. It never infers applicant intent: promotion
-requires a separate confirmation artifact that names the exact review receipt, application,
-opening, field, and exact accepted draft text.
+The promotion path never infers applicant intent. Every answer must have its own exact review
+receipt and explicit confirmation artifact. Single-review callers remain supported, while the
+batch path composes multiple independently reviewed fields only when they share one application
+and opening identity and no provider field is duplicated.
 """
 
 from __future__ import annotations
@@ -131,10 +131,9 @@ def _verify_confirmation(
     return accepted_text
 
 
-def build_semantic_answer_source(
+def _verified_answer(
     review_path: Path, confirmation_path: Path
-) -> dict[str, Any]:
-    """Return a semantic answer source consumable by the live Greenhouse bridge."""
+) -> tuple[str, str, str, dict[str, Any], dict[str, str]]:
     review = _load_object(review_path)
     confirmation = _load_object(confirmation_path)
     review_receipt = _verify_review(review)
@@ -149,37 +148,105 @@ def build_semantic_answer_source(
     confirmation_sha256 = _sha256_file(confirmation_path)
     review_sha256 = _sha256_file(review_path)
 
+    answer = {
+        "key": field_name,
+        "value": accepted_text,
+        "match": {
+            "label_pattern": rf"^\s*{re.escape(label)}\s*$",
+            "field_name": field_name,
+            "field_types": [],
+        },
+        "provenance": (
+            "applicant_confirmed_evidence_review:"
+            f"review={review_receipt};confirmation={confirmation_sha256};"
+            f"field={field_name}"
+        ),
+    }
+    lineage = {
+        "field_name": field_name,
+        "review_receipt_sha256": review_receipt,
+        "source_review_sha256": review_sha256,
+        "confirmation_sha256": confirmation_sha256,
+    }
+    return application_id, opening_id, field_name, answer, lineage
+
+
+def build_semantic_answer_sources(
+    review_confirmation_pairs: Sequence[tuple[Path, Path]],
+) -> dict[str, Any]:
+    """Promote one or more independently confirmed reviews into one semantic source."""
+    if not review_confirmation_pairs:
+        raise ReviewConfirmationError(
+            "at least one review/confirmation pair is required"
+        )
+
+    application_id: str | None = None
+    opening_id: str | None = None
+    answers: list[dict[str, Any]] = []
+    source_lineage: list[dict[str, str]] = []
+    seen_fields: set[str] = set()
+
+    for review_path, confirmation_path in review_confirmation_pairs:
+        (
+            pair_application_id,
+            pair_opening_id,
+            field_name,
+            answer,
+            lineage,
+        ) = _verified_answer(review_path, confirmation_path)
+        if application_id is None:
+            application_id = pair_application_id
+            opening_id = pair_opening_id
+        elif pair_application_id != application_id or pair_opening_id != opening_id:
+            raise ReviewConfirmationError(
+                "all confirmed reviews must share the same application_id and opening_id"
+            )
+        if field_name in seen_fields:
+            raise ReviewConfirmationError(
+                f"duplicate confirmed provider field is not allowed: {field_name}"
+            )
+        seen_fields.add(field_name)
+        answers.append(answer)
+        source_lineage.append(lineage)
+
+    assert application_id is not None and opening_id is not None
     base: dict[str, Any] = {
         "schema": OUTPUT_SCHEMA,
         "application_id": application_id,
         "opening_id": opening_id,
-        "source_review_receipt_sha256": review_receipt,
-        "source_review_sha256": review_sha256,
-        "confirmation_sha256": confirmation_sha256,
-        "answers": [
-            {
-                "key": "exceptional_work",
-                "value": accepted_text,
-                "match": {
-                    "label_pattern": rf"^\s*{re.escape(label)}\s*$",
-                    "field_name": field_name,
-                    "field_types": [],
-                },
-                "provenance": (
-                    "applicant_confirmed_evidence_review:"
-                    f"review={review_receipt};confirmation={confirmation_sha256};"
-                    f"field={field_name}"
-                ),
-            }
-        ],
+        "answers": answers,
+        "source_lineage": source_lineage,
         "promotion_policy": {
             "explicit_applicant_confirmation_required": True,
             "exact_review_text_required": True,
+            "per_field_review_receipt_required": True,
+            "cross_application_composition_allowed": False,
+            "duplicate_provider_fields_allowed": False,
             "external_submission_performed": False,
         },
     }
+    if len(source_lineage) == 1:
+        lineage = source_lineage[0]
+        base.update(
+            {
+                "source_review_receipt_sha256": lineage["review_receipt_sha256"],
+                "source_review_sha256": lineage["source_review_sha256"],
+                "confirmation_sha256": lineage["confirmation_sha256"],
+            }
+        )
     base["receipt_sha256"] = _sha256_bytes(_canonical_bytes(base))
     return base
+
+
+def build_semantic_answer_source(
+    review_path: Path, confirmation_path: Path
+) -> dict[str, Any]:
+    """Backward-compatible single-review promotion into the live Greenhouse bridge."""
+    result = build_semantic_answer_sources([(review_path, confirmation_path)])
+    result["answers"][0]["key"] = "exceptional_work"
+    unsigned = {key: value for key, value in result.items() if key != "receipt_sha256"}
+    result["receipt_sha256"] = _sha256_bytes(_canonical_bytes(unsigned))
+    return result
 
 
 def _atomic_write_json(path: Path, payload: Mapping[str, object]) -> None:
@@ -202,16 +269,22 @@ def _atomic_write_json(path: Path, payload: Mapping[str, object]) -> None:
 def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description=(
-            "Promote an explicitly confirmed evidence-bound review into a semantic "
-            "answer source for live provider binding."
+            "Promote explicitly confirmed evidence-bound reviews into one semantic "
+            "answer source for live provider binding. Repeat --review and --confirmation "
+            "in matching order to promote multiple fields atomically."
         )
     )
-    parser.add_argument("--review", type=Path, required=True)
-    parser.add_argument("--confirmation", type=Path, required=True)
+    parser.add_argument("--review", type=Path, action="append", required=True)
+    parser.add_argument("--confirmation", type=Path, action="append", required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args(argv)
+    if len(args.review) != len(args.confirmation):
+        parser.error(
+            "--review and --confirmation must be supplied the same number of times"
+        )
     try:
-        result = build_semantic_answer_source(args.review, args.confirmation)
+        pairs = list(zip(args.review, args.confirmation, strict=True))
+        result = build_semantic_answer_sources(pairs)
         _atomic_write_json(args.output, result)
     except (ReviewConfirmationError, OSError) as exc:
         parser.error(str(exc))
