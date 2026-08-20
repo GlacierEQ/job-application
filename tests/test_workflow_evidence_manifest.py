@@ -246,7 +246,9 @@ class EvidenceManifestTests(unittest.TestCase):
             return fallback(url)
 
         result = build_evidence_manifest(_topology(), fetch, allow_missing=True)
-        self.assertEqual([entry["id"] for entry in result["entries"]], ["job-application"])
+        self.assertEqual(
+            [entry["id"] for entry in result["entries"]], ["job-application"]
+        )
         self.assertEqual(result["missing_systems"][0]["id"], "helix")
         self.assertIn(
             "repository_verification_unavailable",
