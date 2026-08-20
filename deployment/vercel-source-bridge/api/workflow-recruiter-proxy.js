@@ -2,28 +2,69 @@ const crypto = require('node:crypto');
 const { URL } = require('node:url');
 const workflowTopologyProxy = require('./workflow-topology-proxy.js');
 
-const RELEASE = 'V30-RECRUITER-PROOF-RUNTIME';
-const SCHEMA = 'glaciereq.public-recruiter-proof.v1';
-const VERIFY_SCHEMA = 'glaciereq.v30-recruiter-proof-runtime-verification.v1';
+const RELEASE = 'V31-RECRUITER-IDENTITY-BOUND-RUNTIME';
+const SCHEMA = 'glaciereq.public-recruiter-proof.v2';
+const VERIFY_SCHEMA = 'glaciereq.v31-recruiter-proof-runtime-verification.v1';
 const GITHUB_API = 'https://api.github.com';
 const FETCH_TIMEOUT_MS = 10_000;
 const MAX_BYTES = 2 * 1024 * 1024;
 const FETCH_CONCURRENCY = 4;
 const FRESHNESS_CACHE_MS = 5 * 60 * 1000;
+
 const ROLE_WEIGHTS = Object.freeze({
   recruiter: Object.freeze({ 'job-application': 8, helix: 7, 'receipt-router': 5, 'doctor-strange': 2, 'pro-code-runtime': 2 }),
   'engineering-lead': Object.freeze({ 'pro-code-runtime': 8, 'tower-of-babel': 7, helix: 5, akos: 4, 'doctor-strange': 3 }),
   'systems-architect': Object.freeze({ akos: 8, 'sigma-glue': 8, 'doctor-strange': 7, 'tower-of-babel': 6, 'pro-code-runtime': 5, 'receipt-router': 4 }),
 });
+
+// This is the runtime projection of config/workflow-verification-sources.json.
+// The parity test fails whenever the source registry changes without this runtime changing too.
 const VERIFICATION_SOURCES = Object.freeze({
-  'GlacierEQ/AKOS': Object.freeze(['APEX Estate Non-Regression']),
-  'GlacierEQ/Pro-DOCTOR-STRANGE': Object.freeze(['verify', 'Verification', 'CI']),
-  'GlacierEQ/job-app-helix': Object.freeze(['CI', 'Helix Candidate Profile Proof']),
-  'GlacierEQ/job-application': Object.freeze(['CI', 'APEX Recruiter Proof Brief', 'APEX Estate Non-Regression', 'Portfolio truth gate']),
-  'GlacierEQ/pro-code': Object.freeze(['Pro-Code native verification']),
-  'GlacierEQ/sigma-glue': Object.freeze(['verify']),
-  'GlacierEQ/the-tower-of-babel': Object.freeze(['Tower Verification']),
-  'GlacierEQ/xai-colossus-2': Object.freeze(['CI']),
+  'GlacierEQ/AKOS': Object.freeze({
+    workflow_names: Object.freeze(['APEX Estate Non-Regression']),
+    workflow_paths: Object.freeze(['.github/workflows/apex-estate-non-regression.yml']),
+    branch_policy: 'default_or_pull_request',
+  }),
+  'GlacierEQ/Pro-DOCTOR-STRANGE': Object.freeze({
+    workflow_names: Object.freeze(['verify', 'Verification', 'CI']),
+    workflow_paths: null,
+    branch_policy: 'default_or_pull_request',
+  }),
+  'GlacierEQ/job-app-helix': Object.freeze({
+    workflow_names: Object.freeze(['CI', 'Helix Candidate Profile Proof']),
+    workflow_paths: Object.freeze(['.github/workflows/ci.yml', '.github/workflows/candidate-profile-compiler-proof.yml']),
+    branch_policy: 'default_or_pull_request',
+  }),
+  'GlacierEQ/job-application': Object.freeze({
+    workflow_names: Object.freeze(['CI', 'APEX Recruiter Proof Brief', 'APEX Estate Non-Regression', 'Portfolio truth gate']),
+    workflow_paths: Object.freeze([
+      '.github/workflows/ci.yml',
+      '.github/workflows/apex-recruiter-proof-brief.yml',
+      '.github/workflows/apex-estate-non-regression.yml',
+      '.github/workflows/portfolio-verify.yml',
+    ]),
+    branch_policy: 'default_or_pull_request',
+  }),
+  'GlacierEQ/pro-code': Object.freeze({
+    workflow_names: Object.freeze(['Pro-Code native verification']),
+    workflow_paths: Object.freeze(['.github/workflows/ci.yml']),
+    branch_policy: 'default_or_pull_request',
+  }),
+  'GlacierEQ/sigma-glue': Object.freeze({
+    workflow_names: Object.freeze(['verify']),
+    workflow_paths: Object.freeze(['.github/workflows/ci.yml']),
+    branch_policy: 'default_or_pull_request',
+  }),
+  'GlacierEQ/the-tower-of-babel': Object.freeze({
+    workflow_names: Object.freeze(['Tower Verification']),
+    workflow_paths: Object.freeze(['.github/workflows/tower.yml']),
+    branch_policy: 'default_or_pull_request',
+  }),
+  'GlacierEQ/xai-colossus-2': Object.freeze({
+    workflow_names: Object.freeze(['CI']),
+    workflow_paths: Object.freeze(['.github/workflows/ci.yml']),
+    branch_policy: 'default_or_pull_request',
+  }),
 });
 
 let liveFreshnessCache = null;
@@ -36,20 +77,31 @@ function stableStringify(value) {
   }
   return JSON.stringify(value);
 }
+
 function sha256(value) { return crypto.createHash('sha256').update(value).digest('hex'); }
 function receipt(value) { return sha256(stableStringify(value)); }
 function esc(value) {
-  return String(value ?? '').replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;');
+  return String(value ?? '')
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
 }
 function requireValue(condition, message) { if (!condition) throw new Error(message); }
 function requestUrl(req) { return new URL(String(req?.url || '/'), 'https://glaciereq.invalid'); }
 function requestPath(req) {
-  const parsed = requestUrl(req); const values = parsed.searchParams.getAll('path'); const raw = values.length ? values.join('/') : parsed.pathname;
+  const parsed = requestUrl(req);
+  const values = parsed.searchParams.getAll('path');
+  const raw = values.length ? values.join('/') : parsed.pathname;
   return String(raw).replace(/^\/+|\/+$/g, '');
 }
 function handles(rawPath) {
   const path = String(rawPath || '').replace(/^\/+|\/+$/g, '');
-  return path === 'recruiter-proof' || path === 'recruiter-proof/index.html' || path === 'data/recruiter-proof.json' || path === '__recruiter_proof_verify';
+  return path === 'recruiter-proof'
+    || path === 'recruiter-proof/index.html'
+    || path === 'data/recruiter-proof.json'
+    || path === '__recruiter_proof_verify';
 }
 function repositoryName(repoUrl) {
   const prefix = 'https://github.com/';
@@ -73,7 +125,11 @@ async function fetchJson(url, fetchImpl = fetch) {
   const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
   try {
     const response = await fetchImpl(url, {
-      headers: { accept: 'application/vnd.github+json', 'user-agent': `GlacierEQ-${RELEASE}/1.0`, 'x-github-api-version': '2022-11-28' },
+      headers: {
+        accept: 'application/vnd.github+json',
+        'user-agent': `GlacierEQ-${RELEASE}/1.0`,
+        'x-github-api-version': '2022-11-28',
+      },
       signal: controller.signal,
       redirect: 'error',
     });
@@ -86,7 +142,9 @@ async function fetchJson(url, fetchImpl = fetch) {
   } catch (error) {
     if (error?.name === 'AbortError') throw new Error('recruiter_github_fetch_timeout');
     throw error;
-  } finally { clearTimeout(timer); }
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 async function mapConcurrent(items, limit, mapper) {
@@ -105,21 +163,59 @@ async function mapConcurrent(items, limit, mapper) {
   return results;
 }
 
-function selectVerificationRun(payload, repository) {
-  const allowed = VERIFICATION_SOURCES[repository];
-  if (!allowed) return null;
+function runMatchesBranchPolicy(run, source, defaultBranch) {
+  const branch = typeof run?.head_branch === 'string' ? run.head_branch : '';
+  const event = typeof run?.event === 'string' ? run.event : '';
+  if (!branch || !defaultBranch) return false;
+  if (source.branch_policy === 'default_only') return branch === defaultBranch;
+  return branch === defaultBranch || event === 'pull_request';
+}
+
+function selectVerificationRun(payload, repository, defaultBranch) {
+  const source = VERIFICATION_SOURCES[repository];
+  if (!source) return null;
   const runs = Array.isArray(payload?.workflow_runs) ? payload.workflow_runs : [];
-  const candidates = runs.filter((run) => (
-    run?.status === 'completed'
-    && run?.conclusion === 'success'
-    && allowed.includes(run?.name)
-    && typeof run?.head_sha === 'string'
-    && /^[a-f0-9]{40}$/.test(run.head_sha)
-    && typeof run?.updated_at === 'string'
-    && !Number.isNaN(Date.parse(run.updated_at))
-  ));
+  const candidates = runs.filter((run) => {
+    const pathBound = source.workflow_paths === null
+      || (typeof run?.path === 'string' && source.workflow_paths.includes(run.path));
+    return run?.status === 'completed'
+      && run?.conclusion === 'success'
+      && source.workflow_names.includes(run?.name)
+      && pathBound
+      && runMatchesBranchPolicy(run, source, defaultBranch)
+      && Number.isInteger(run?.id)
+      && run.id > 0
+      && typeof run?.head_sha === 'string'
+      && /^[a-f0-9]{40}$/.test(run.head_sha)
+      && typeof run?.updated_at === 'string'
+      && !Number.isNaN(Date.parse(run.updated_at));
+  });
   candidates.sort((a, b) => Date.parse(b.updated_at) - Date.parse(a.updated_at) || Number(b.id || 0) - Number(a.id || 0));
   return candidates[0] || null;
+}
+
+function verifyExactRunIdentity(run, selected, repository, defaultBranch) {
+  const source = VERIFICATION_SOURCES[repository];
+  requireValue(source, `verification_source_not_registered:${repository}`);
+  requireValue(Number(run?.id) === Number(selected.id), 'recruiter_exact_run_id_mismatch');
+  requireValue(run?.status === 'completed' && run?.conclusion === 'success', 'recruiter_exact_run_not_success');
+  requireValue(run?.name === selected.name && source.workflow_names.includes(run.name), 'recruiter_exact_run_name_mismatch');
+  requireValue(run?.head_sha === selected.head_sha && /^[a-f0-9]{40}$/.test(run.head_sha), 'recruiter_exact_run_sha_mismatch');
+  requireValue(run?.updated_at === selected.updated_at && !Number.isNaN(Date.parse(run.updated_at)), 'recruiter_exact_run_timestamp_mismatch');
+  requireValue(runMatchesBranchPolicy(run, source, defaultBranch), 'recruiter_exact_run_branch_policy');
+  if (source.workflow_paths !== null) {
+    requireValue(typeof run?.path === 'string' && source.workflow_paths.includes(run.path), 'recruiter_exact_run_path_mismatch');
+  }
+  return {
+    id: run.id,
+    name: run.name,
+    path: run.path || null,
+    head_branch: run.head_branch,
+    event: run.event,
+    head_sha: run.head_sha,
+    updated_at: run.updated_at,
+    html_url: run.html_url,
+  };
 }
 
 async function deriveFreshness(topology, { asOf = new Date(), fetchImpl = fetch } = {}) {
@@ -133,19 +229,32 @@ async function deriveFreshness(topology, { asOf = new Date(), fetchImpl = fetch 
 
   const orderedSystems = [...systems.entries()].sort(([a], [b]) => a.localeCompare(b));
   const repositories = [...new Set(orderedSystems.map(([, system]) => repositoryName(system.repo)))].sort();
-  const repositoryPayloads = new Map();
-  const repositoryFailures = new Map();
+  const repositoryState = new Map();
 
   await mapConcurrent(repositories, FETCH_CONCURRENCY, async (repository) => {
     if (!VERIFICATION_SOURCES[repository]) {
-      repositoryFailures.set(repository, 'verification_source_not_registered');
+      repositoryState.set(repository, { error: 'verification_source_not_registered' });
       return;
     }
     try {
-      const payload = await fetchJson(`${GITHUB_API}/repos/${repository}/actions/runs?per_page=50`, fetchImpl);
-      repositoryPayloads.set(repository, payload);
+      const [metadata, payload] = await Promise.all([
+        fetchJson(`${GITHUB_API}/repos/${repository}`, fetchImpl),
+        fetchJson(`${GITHUB_API}/repos/${repository}/actions/runs?per_page=50`, fetchImpl),
+      ]);
+      const defaultBranch = typeof metadata?.default_branch === 'string' ? metadata.default_branch : '';
+      requireValue(defaultBranch, `recruiter_default_branch_missing:${repository}`);
+      const selected = selectVerificationRun(payload, repository, defaultBranch);
+      if (!selected) {
+        repositoryState.set(repository, { error: 'registered_verification_run_not_found' });
+        return;
+      }
+      const exact = await fetchJson(`${GITHUB_API}/repos/${repository}/actions/runs/${selected.id}`, fetchImpl);
+      const verifiedRun = verifyExactRunIdentity(exact, selected, repository, defaultBranch);
+      repositoryState.set(repository, { defaultBranch, run: verifiedRun });
     } catch (error) {
-      repositoryFailures.set(repository, `repository_verification_unavailable:${error instanceof Error ? error.message : String(error)}`);
+      repositoryState.set(repository, {
+        error: `repository_verification_unavailable:${error instanceof Error ? error.message : String(error)}`,
+      });
     }
   });
 
@@ -153,16 +262,12 @@ async function deriveFreshness(topology, { asOf = new Date(), fetchImpl = fetch 
   const missing = [];
   for (const [systemId, system] of orderedSystems) {
     const repository = repositoryName(system.repo);
-    const failure = repositoryFailures.get(repository);
-    if (failure) {
-      missing.push({ id: systemId, repository, reason: failure });
+    const state = repositoryState.get(repository);
+    if (!state || state.error) {
+      missing.push({ id: systemId, repository, reason: state?.error || 'repository_verification_state_missing' });
       continue;
     }
-    const run = selectVerificationRun(repositoryPayloads.get(repository), repository);
-    if (!run) {
-      missing.push({ id: systemId, repository, reason: 'registered_verification_run_not_found' });
-      continue;
-    }
+    const run = state.run;
     const verifiedAt = new Date(run.updated_at);
     const ageDays = Math.floor((asOf.getTime() - verifiedAt.getTime()) / 86400000);
     if (ageDays < 0) {
@@ -179,15 +284,20 @@ async function deriveFreshness(topology, { asOf = new Date(), fetchImpl = fetch 
       freshness_weight: weight,
       state: freshnessState(weight),
       verification_workflow: run.name,
+      verification_workflow_path: run.path,
+      verification_branch: run.head_branch,
+      verification_event: run.event,
       verification_run_id: run.id,
       verification_url: run.html_url,
+      default_branch: state.defaultBranch,
     });
   }
+
   const core = {
-    schema: 'glaciereq.public-evidence-freshness.v1',
+    schema: 'glaciereq.public-evidence-freshness.v2',
     as_of: asOf.toISOString(),
     topology_receipt_sha256: topology.receipt_sha256,
-    verification_source_policy: 'explicit registered workflow names only; missing or unavailable proof receives zero ranking credit',
+    verification_source_policy: 'registered workflow name + exact workflow path when declared + branch/event policy + exact run readback; missing or unverifiable proof receives zero ranking credit',
     fetch_policy: { concurrency: FETCH_CONCURRENCY, timeout_ms: FETCH_TIMEOUT_MS },
     entries,
     missing_systems: missing,
@@ -197,9 +307,9 @@ async function deriveFreshness(topology, { asOf = new Date(), fetchImpl = fetch 
 
 async function loadLiveFreshness(topology) {
   const now = Date.now();
-  if (liveFreshnessCache && liveFreshnessCache.topologyReceipt === topology.receipt_sha256 && liveFreshnessCache.expiresAt > now) {
-    return liveFreshnessCache.value;
-  }
+  if (liveFreshnessCache
+    && liveFreshnessCache.topologyReceipt === topology.receipt_sha256
+    && liveFreshnessCache.expiresAt > now) return liveFreshnessCache.value;
   if (liveFreshnessPromise && liveFreshnessPromise.topologyReceipt === topology.receipt_sha256) return liveFreshnessPromise.promise;
   const promise = deriveFreshness(topology, { asOf: new Date(now) })
     .then((value) => {
@@ -241,12 +351,18 @@ function rankFlows(topology, role, freshness) {
         commit_sha: evidence?.commit_sha ?? null,
         verified_at: evidence?.verified_at ?? null,
         verification_workflow: evidence?.verification_workflow ?? null,
+        verification_workflow_path: evidence?.verification_workflow_path ?? null,
+        verification_branch: evidence?.verification_branch ?? null,
+        verification_event: evidence?.verification_event ?? null,
+        verification_run_id: evidence?.verification_run_id ?? null,
         verification_url: evidence?.verification_url ?? null,
         weighted_contribution: weightedContribution,
       };
     });
     const breadthBonus = Math.min(new Set(flow.steps.map((step) => step.system.id)).size, 4);
-    const breadthFactor = proofWeights.length ? proofWeights.reduce((sum, value) => sum + value, 0) / proofWeights.length : 0;
+    const breadthFactor = proofWeights.length
+      ? proofWeights.reduce((sum, value) => sum + value, 0) / proofWeights.length
+      : 0;
     const adjustedBreadth = Math.round(breadthBonus * breadthFactor * 1e6) / 1e6;
     const score = Math.round((freshnessAdjustedRoleScore + adjustedBreadth) * 1e6) / 1e6;
     return {
@@ -277,11 +393,15 @@ async function buildPublicRecruiterProof(topology, role, options = null) {
     freshness_receipt_sha256: freshness.receipt_sha256,
     ranking_policy: {
       role_weights: ROLE_WEIGHTS[role],
-      freshness: 'role contribution multiplied by registered live verification freshness; missing proof scores zero',
+      freshness: 'role contribution multiplied only by exact identity-bound verification freshness; missing proof scores zero',
+      verification_identity: 'registered workflow name, registered workflow path when declared, branch/event policy, exact run ID/SHA/timestamp readback',
       breadth_bonus: 'min(unique_system_count, 4) scaled by mean freshness across the full proof chain',
       tie_breaker: 'flow_id ascending',
     },
-    coverage: { verified_systems: freshness.entries.length, unverified_systems: freshness.missing_systems.length },
+    coverage: {
+      verified_systems: freshness.entries.length,
+      unverified_systems: freshness.missing_systems.length,
+    },
     missing_systems: freshness.missing_systems,
     briefs: ranked,
   };
@@ -292,15 +412,26 @@ function securityHeaders(res) {
   res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'none'; style-src 'self'; img-src 'self' data:; connect-src 'none'; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self' mailto:; upgrade-insecure-requests");
   res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
   res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), payment=()');
-  res.setHeader('X-Content-Type-Options', 'nosniff'); res.setHeader('X-Frame-Options', 'DENY'); res.setHeader('Cross-Origin-Opener-Policy', 'same-origin'); res.setHeader('X-PSYSOCX-Release', RELEASE);
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+  res.setHeader('X-PSYSOCX-Release', RELEASE);
 }
 function send(res, status, type, body, cache = 'public, max-age=0, s-maxage=300, must-revalidate') {
-  const bytes = Buffer.from(String(body)); securityHeaders(res); res.statusCode = status; res.setHeader('Content-Type', type); res.setHeader('Cache-Control', cache); res.setHeader('Content-Length', String(bytes.length)); res.end(bytes);
+  const bytes = Buffer.from(String(body));
+  securityHeaders(res);
+  res.statusCode = status;
+  res.setHeader('Content-Type', type);
+  res.setHeader('Cache-Control', cache);
+  res.setHeader('Content-Length', String(bytes.length));
+  res.end(bytes);
 }
 function renderHtml(proof) {
-  const roleLinks = Object.keys(ROLE_WEIGHTS).map((role) => `<a href="/recruiter-proof/?role=${encodeURIComponent(role)}">${esc(role)}</a>`).join(' · ');
-  const cards = proof.briefs.map((brief, index) => `<section class="workflow-card"><p class="eyebrow">#${index + 1} · ${esc(proof.role)}</p><h2>${esc(brief.name)}</h2><p>${esc(brief.intent)}</p><p><b>Freshness-adjusted score:</b> ${esc(brief.score)} <span>· static ${esc(brief.static_role_score)}</span></p><div class="workflow-chain">${brief.proof_points.map((point) => `<article class="workflow-node"><h3>${esc(point.system_id)}</h3><p><b>Contribution:</b> ${esc(point.contribution)}</p><p><b>Evidence:</b> ${esc(point.evidence)}</p><p><b>Freshness:</b> ${esc(point.freshness_state)}${point.age_days === null ? '' : ` · ${esc(point.age_days)} days`}</p><p><b>Current ceiling:</b> ${esc(point.current_ceiling)}</p><a href="${esc(point.repository)}" target="_blank" rel="noopener">Inspect source →</a></article>`).join('')}</div></section>`).join('');
-  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,follow"><link rel="canonical" href="https://casey-barton-glaciereq.vercel.app/recruiter-proof/"><title>Casey Barton · Recruiter Proof</title><link rel="stylesheet" href="/assets/site.css"><link rel="stylesheet" href="/assets/site.systems.css"><link rel="stylesheet" href="/assets/site.workflows.css"></head><body><main class="workflow-main"><section class="workflow-hero"><div class="shell"><p class="eyebrow">LIVE REGISTERED VERIFICATION · ROLE-SELECTED PROOF</p><h1>Recruiter proof, ranked by relevance and verification freshness.</h1><p>${roleLinks}</p><p>Verified systems: ${esc(proof.coverage.verified_systems)} · Unverified systems: ${esc(proof.coverage.unverified_systems)}</p></div></section><div class="shell workflow-grid">${cards}<section class="workflow-receipt"><p>Recruiter proof receipt <code>${esc(proof.receipt_sha256)}</code></p><p><a href="/data/recruiter-proof.json?role=${encodeURIComponent(proof.role)}">Machine-readable recruiter proof →</a></p></section></div></main></body></html>`;
+  const roleLinks = Object.keys(ROLE_WEIGHTS)
+    .map((role) => `<a href="/recruiter-proof/?role=${encodeURIComponent(role)}">${esc(role)}</a>`)
+    .join(' · ');
+  const cards = proof.briefs.map((brief, index) => `<section class="workflow-card"><p class="eyebrow">#${index + 1} · ${esc(proof.role)}</p><h2>${esc(brief.name)}</h2><p>${esc(brief.intent)}</p><p><b>Freshness-adjusted score:</b> ${esc(brief.score)} <span>· static ${esc(brief.static_role_score)}</span></p><div class="workflow-chain">${brief.proof_points.map((point) => `<article class="workflow-node"><h3>${esc(point.system_id)}</h3><p><b>Contribution:</b> ${esc(point.contribution)}</p><p><b>Evidence:</b> ${esc(point.evidence)}</p><p><b>Freshness:</b> ${esc(point.freshness_state)}${point.age_days === null ? '' : ` · ${esc(point.age_days)} days`}</p><p><b>Verification identity:</b> ${esc(point.verification_workflow || 'unverified')}${point.verification_workflow_path ? ` · ${esc(point.verification_workflow_path)}` : ''}${point.verification_branch ? ` · ${esc(point.verification_branch)}` : ''}</p><p><b>Current ceiling:</b> ${esc(point.current_ceiling)}</p><a href="${esc(point.repository)}" target="_blank" rel="noopener">Inspect source →</a></article>`).join('')}</div></section>`).join('');
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,follow"><link rel="canonical" href="https://casey-barton-glaciereq.vercel.app/recruiter-proof/"><title>Casey Barton · Recruiter Proof</title><link rel="stylesheet" href="/assets/site.css"><link rel="stylesheet" href="/assets/site.systems.css"><link rel="stylesheet" href="/assets/site.workflows.css"></head><body><main class="workflow-main"><section class="workflow-hero"><div class="shell"><p class="eyebrow">EXACT WORKFLOW IDENTITY · ROLE-SELECTED PROOF</p><h1>Recruiter proof, ranked by relevance and exact verification freshness.</h1><p>${roleLinks}</p><p>Verified systems: ${esc(proof.coverage.verified_systems)} · Unverified systems: ${esc(proof.coverage.unverified_systems)}</p></div></section><div class="shell workflow-grid">${cards}<section class="workflow-receipt"><p>Recruiter proof receipt <code>${esc(proof.receipt_sha256)}</code></p><p><a href="/data/recruiter-proof.json?role=${encodeURIComponent(proof.role)}">Machine-readable recruiter proof →</a></p></section></div></main></body></html>`;
 }
 
 async function verify(res) {
@@ -310,31 +441,81 @@ async function verify(res) {
     requireValue(proof.briefs.length > 0, 'recruiter_verify_briefs');
     requireValue(proof.coverage.verified_systems > 0, 'recruiter_verify_coverage');
     requireValue(/^[a-f0-9]{64}$/.test(proof.receipt_sha256), 'recruiter_verify_receipt');
-    send(res, 200, 'application/json; charset=utf-8', JSON.stringify({ schema: VERIFY_SCHEMA, status: 'PASS', release: RELEASE, role: proof.role, verified_systems: proof.coverage.verified_systems, unverified_systems: proof.coverage.unverified_systems, top_flow: proof.briefs[0].flow_id, top_score: proof.briefs[0].score, topology_receipt_sha256: proof.topology_receipt_sha256, freshness_receipt_sha256: proof.freshness_receipt_sha256, recruiter_proof_receipt_sha256: proof.receipt_sha256 }, null, 2), 'no-store');
+    const identityBound = proof.briefs
+      .flatMap((brief) => brief.proof_points)
+      .filter((point) => point.freshness_weight > 0)
+      .every((point) => point.verification_run_id && point.verification_branch && point.verification_workflow);
+    requireValue(identityBound, 'recruiter_verify_identity_binding');
+    send(res, 200, 'application/json; charset=utf-8', JSON.stringify({
+      schema: VERIFY_SCHEMA,
+      status: 'PASS',
+      release: RELEASE,
+      role: proof.role,
+      verified_systems: proof.coverage.verified_systems,
+      unverified_systems: proof.coverage.unverified_systems,
+      identity_bound: true,
+      top_flow: proof.briefs[0].flow_id,
+      top_score: proof.briefs[0].score,
+      topology_receipt_sha256: proof.topology_receipt_sha256,
+      freshness_receipt_sha256: proof.freshness_receipt_sha256,
+      recruiter_proof_receipt_sha256: proof.receipt_sha256,
+    }, null, 2), 'no-store');
   } catch (error) {
-    send(res, 503, 'application/json; charset=utf-8', JSON.stringify({ schema: VERIFY_SCHEMA, status: 'FAIL', release: RELEASE, error: error instanceof Error ? error.message : String(error) }, null, 2), 'no-store');
+    send(res, 503, 'application/json; charset=utf-8', JSON.stringify({
+      schema: VERIFY_SCHEMA,
+      status: 'FAIL',
+      release: RELEASE,
+      error: error instanceof Error ? error.message : String(error),
+    }, null, 2), 'no-store');
   }
 }
 
 module.exports = async function workflowRecruiterProxy(req, res) {
   const path = requestPath(req);
   if (path === '__recruiter_proof_verify') return verify(res);
-  if (!handles(path)) { res.statusCode = 404; return res.end('Not found'); }
+  if (!handles(path)) {
+    res.statusCode = 404;
+    return res.end('Not found');
+  }
   const role = requestUrl(req).searchParams.get('role') || 'recruiter';
-  if (!ROLE_WEIGHTS[role]) return send(res, 400, 'application/json; charset=utf-8', JSON.stringify({ schema: SCHEMA, status: 'INVALID_ROLE', role, allowed_roles: Object.keys(ROLE_WEIGHTS) }), 'no-store');
+  if (!ROLE_WEIGHTS[role]) {
+    return send(res, 400, 'application/json; charset=utf-8', JSON.stringify({
+      schema: SCHEMA,
+      status: 'INVALID_ROLE',
+      role,
+      allowed_roles: Object.keys(ROLE_WEIGHTS),
+    }), 'no-store');
+  }
   try {
     const topology = await workflowTopologyProxy.loadTopology();
     const proof = await buildPublicRecruiterProof(topology, role);
-    if (path === 'data/recruiter-proof.json') return send(res, 200, 'application/json; charset=utf-8', JSON.stringify(proof, null, 2));
+    if (path === 'data/recruiter-proof.json') {
+      return send(res, 200, 'application/json; charset=utf-8', JSON.stringify(proof, null, 2));
+    }
     return send(res, 200, 'text/html; charset=utf-8', renderHtml(proof));
   } catch (error) {
-    return send(res, 503, 'application/json; charset=utf-8', JSON.stringify({ schema: SCHEMA, status: 'FAIL_CLOSED', role, error: error instanceof Error ? error.message : String(error) }, null, 2), 'no-store');
+    return send(res, 503, 'application/json; charset=utf-8', JSON.stringify({
+      schema: SCHEMA,
+      status: 'FAIL_CLOSED',
+      role,
+      error: error instanceof Error ? error.message : String(error),
+    }, null, 2), 'no-store');
   }
 };
+
 module.exports.handles = handles;
-module.exports.constants = { RELEASE, SCHEMA, VERIFY_SCHEMA, ROLE_WEIGHTS, VERIFICATION_SOURCES, FETCH_CONCURRENCY, FRESHNESS_CACHE_MS };
+module.exports.constants = {
+  RELEASE,
+  SCHEMA,
+  VERIFY_SCHEMA,
+  ROLE_WEIGHTS,
+  VERIFICATION_SOURCES,
+  FETCH_CONCURRENCY,
+  FRESHNESS_CACHE_MS,
+};
 module.exports.freshnessWeight = freshnessWeight;
 module.exports.selectVerificationRun = selectVerificationRun;
+module.exports.verifyExactRunIdentity = verifyExactRunIdentity;
 module.exports.deriveFreshness = deriveFreshness;
 module.exports.loadLiveFreshness = loadLiveFreshness;
 module.exports.rankFlows = rankFlows;
