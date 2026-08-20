@@ -20,10 +20,7 @@ from typing import Any
 
 try:
     from tools.workflow_evidence_freshness import build_evidence_freshness
-    from tools.workflow_evidence_manifest import (
-        _github_fetcher,
-        build_evidence_manifest,
-    )
+    from tools.workflow_evidence_manifest import _github_fetcher, build_evidence_manifest
     from tools.workflow_recruiter_brief import build_recruiter_brief
     from tools.workflow_role_lens import ROLE_WEIGHTS
     from tools.workflow_verification_identity import build_verification_identity_proof
@@ -35,6 +32,7 @@ except ModuleNotFoundError:
     from workflow_verification_identity import build_verification_identity_proof
 
 OUTPUT_SCHEMA = "glaciereq.recruiter-proof-snapshot.v1"
+Clock = Callable[[], datetime]
 
 
 class RecruiterSnapshotError(RuntimeError):
@@ -62,6 +60,55 @@ def _normalize_as_of(value: datetime) -> datetime:
     if not isinstance(value, datetime) or value.tzinfo is None:
         raise RecruiterSnapshotError("as_of must be a timezone-aware datetime")
     return value.astimezone(UTC)
+
+
+def _parse_verified_at(value: object, evidence_id: str) -> datetime:
+    if not isinstance(value, str) or not value.strip():
+        raise RecruiterSnapshotError(
+            f"evidence {evidence_id!r} requires a non-empty verified_at"
+        )
+    try:
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError as exc:
+        raise RecruiterSnapshotError(
+            f"evidence {evidence_id!r} has invalid verified_at: {value!r}"
+        ) from exc
+    if parsed.tzinfo is None:
+        raise RecruiterSnapshotError(
+            f"evidence {evidence_id!r} verified_at must include timezone"
+        )
+    return parsed.astimezone(UTC)
+
+
+def _resolve_snapshot_as_of(
+    requested: datetime | None,
+    manifest: Mapping[str, Any],
+    *,
+    clock: Clock | None = None,
+) -> datetime:
+    """Resolve live snapshot time after observation while keeping explicit replay strict.
+
+    GitHub may finish a verification run between process start and evidence selection. Capturing
+    ``now`` before those network reads creates a race where newly observed evidence appears to be
+    from the future. For live snapshots we therefore resolve time after observation and floor it
+    at the newest verified timestamp. An explicitly supplied ``as_of`` is never adjusted because
+    replay callers need strict temporal semantics and should fail on genuinely future evidence.
+    """
+    if requested is not None:
+        return _normalize_as_of(requested)
+
+    entries = manifest.get("entries")
+    if not isinstance(entries, list) or not entries:
+        raise RecruiterSnapshotError("evidence manifest has no verified entries")
+    latest_verified = max(
+        _parse_verified_at(
+            entry.get("verified_at") if isinstance(entry, Mapping) else None,
+            str(entry.get("id") or "unknown") if isinstance(entry, Mapping) else "unknown",
+        )
+        for entry in entries
+    )
+    observed_now = _normalize_as_of((clock or (lambda: datetime.now(UTC)))())
+    return max(observed_now, latest_verified)
 
 
 def _normalize_roles(roles: Sequence[str] | None) -> tuple[str, ...]:
@@ -143,10 +190,11 @@ def build_recruiter_snapshot(
     verification_sources: Mapping[str, Any],
     fetch_json: Callable[[str], dict[str, Any]],
     *,
-    as_of: datetime,
+    as_of: datetime | None = None,
     roles: Sequence[str] | None = None,
     top_k: int = 3,
     allow_missing: bool = True,
+    clock: Clock | None = None,
 ) -> dict[str, Any]:
     """Build one identity-gated, freshness-ranked snapshot for one or more hiring roles."""
     topology = dict(_require_mapping(topology, "topology"))
@@ -154,7 +202,8 @@ def build_recruiter_snapshot(
         _require_mapping(verification_sources, "verification_sources")
     )
     topology_receipt = _verify_topology_receipt(topology)
-    normalized_as_of = _normalize_as_of(as_of)
+    if as_of is not None:
+        _normalize_as_of(as_of)  # reject invalid explicit replay time before network work
     normalized_roles = _normalize_roles(roles)
     if not isinstance(top_k, int) or isinstance(top_k, bool) or not 1 <= top_k <= 10:
         raise RecruiterSnapshotError("top_k must be an integer from 1 through 10")
@@ -171,6 +220,7 @@ def build_recruiter_snapshot(
         fetch_json,
     )
     _verify_identity_covers_manifest(manifest, identity)
+    normalized_as_of = _resolve_snapshot_as_of(as_of, manifest, clock=clock)
 
     freshness = build_evidence_freshness(manifest, as_of=normalized_as_of)
     briefs = {
@@ -209,6 +259,9 @@ def build_recruiter_snapshot(
             "identity_gate_required_before_freshness": True,
             "topology_receipt_verified_before_evidence_fetch": True,
             "missing_proof_receives_zero_freshness_credit": True,
+            "dynamic_as_of_resolved_after_evidence_observation": as_of is None,
+            "dynamic_as_of_floored_at_latest_verification": as_of is None,
+            "explicit_as_of_is_strict_replay_boundary": as_of is not None,
             "applicant_values_inferred": False,
         },
         "coverage": {
@@ -244,9 +297,9 @@ def _load_json_object(path: Path, field: str) -> dict[str, Any]:
     return value
 
 
-def _parse_as_of(value: str | None) -> datetime:
+def _parse_as_of(value: str | None) -> datetime | None:
     if value is None:
-        return datetime.now(UTC)
+        return None
     try:
         parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
     except ValueError as exc:
