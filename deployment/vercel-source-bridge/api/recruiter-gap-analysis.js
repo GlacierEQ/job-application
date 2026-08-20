@@ -56,7 +56,7 @@ function normalizeMatrix(matrix) {
   validateTimestamp(matrix.as_of, 'gap_matrix_as_of');
   requireValue(SHA256.test(matrix.freshness_receipt_sha256 || ''), 'gap_freshness_receipt');
   requireValue(matrix.verification_passes === 1, 'gap_matrix_verification_passes');
-  verifyReceipt(matrix, 'gap_matrix_receipt');
+  requireValue(SHA256.test(matrix.receipt_sha256 || ''), 'gap_matrix_receipt');
 
   if (matrix.schema === LIVE_MATRIX_SCHEMA) {
     requireValue(matrix.roles && typeof matrix.roles === 'object' && !Array.isArray(matrix.roles), 'gap_matrix_roles');
@@ -66,6 +66,9 @@ function normalizeMatrix(matrix) {
     };
   }
 
+  // Public traffic is under our runtime control, so require the matrix content to match
+  // its deterministic receipt before publishing optimization priorities from it.
+  verifyReceipt(matrix, 'gap_matrix_receipt');
   requireValue(Array.isArray(matrix.roles) && matrix.roles.length > 0, 'gap_matrix_roles');
   requireValue(matrix.rankings && typeof matrix.rankings === 'object' && !Array.isArray(matrix.rankings), 'gap_matrix_rankings');
   const rows = matrix.roles.map((role) => {
