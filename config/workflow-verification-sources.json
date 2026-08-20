@@ -7,7 +7,8 @@
       "branch_policy": "default_or_pull_request"
     },
     "GlacierEQ/Pro-DOCTOR-STRANGE": {
-      "workflow_names": ["verify", "Verification", "CI"]
+      "workflow_names": ["verify", "Verification", "CI"],
+      "branch_policy": "default_or_pull_request"
     },
     "GlacierEQ/job-app-helix": {
       "workflow_names": ["CI", "Helix Candidate Profile Proof"],
