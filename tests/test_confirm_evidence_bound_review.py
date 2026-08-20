@@ -147,9 +147,7 @@ class EvidenceReviewConfirmationTests(unittest.TestCase):
             ["question_12196821007", "question_12196822007"],
         )
         self.assertEqual(len(result["source_lineage"]), 2)
-        self.assertTrue(
-            result["promotion_policy"]["per_field_review_receipt_required"]
-        )
+        self.assertTrue(result["promotion_policy"]["per_field_review_receipt_required"])
         receipt = result["receipt_sha256"]
         unsigned = dict(result)
         del unsigned["receipt_sha256"]
