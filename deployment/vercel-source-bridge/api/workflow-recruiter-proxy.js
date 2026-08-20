@@ -1,6 +1,7 @@
 const crypto = require('node:crypto');
 const { URL } = require('node:url');
 const workflowTopologyProxy = require('./workflow-topology-proxy.js');
+const VERIFICATION_SOURCES = require('./workflow-verification-sources.generated.js');
 
 // Preserve the sealed-bundle lineage marker while advancing the runtime contract.
 const LEGACY_RELEASE_MARKER = 'V30-RECRUITER-PROOF-RUNTIME';
@@ -16,18 +17,6 @@ const ROLE_WEIGHTS = Object.freeze({
   recruiter: Object.freeze({ 'job-application': 8, helix: 7, 'receipt-router': 5, 'doctor-strange': 2, 'pro-code-runtime': 2 }),
   'engineering-lead': Object.freeze({ 'pro-code-runtime': 8, 'tower-of-babel': 7, helix: 5, akos: 4, 'doctor-strange': 3 }),
   'systems-architect': Object.freeze({ akos: 8, 'sigma-glue': 8, 'doctor-strange': 7, 'tower-of-babel': 6, 'pro-code-runtime': 5, 'receipt-router': 4 }),
-});
-
-// Runtime projection of config/workflow-verification-sources.json. A parity test prevents drift.
-const VERIFICATION_SOURCES = Object.freeze({
-  'GlacierEQ/AKOS': Object.freeze({ workflow_names: Object.freeze(['APEX Estate Non-Regression']), workflow_paths: Object.freeze(['.github/workflows/apex-estate-non-regression.yml']), branch_policy: 'default_or_pull_request' }),
-  'GlacierEQ/Pro-DOCTOR-STRANGE': Object.freeze({ workflow_names: Object.freeze(['verify', 'Verification', 'CI']), workflow_paths: null, branch_policy: 'default_or_pull_request' }),
-  'GlacierEQ/job-app-helix': Object.freeze({ workflow_names: Object.freeze(['CI', 'Helix Candidate Profile Proof']), workflow_paths: Object.freeze(['.github/workflows/ci.yml', '.github/workflows/candidate-profile-compiler-proof.yml']), branch_policy: 'default_or_pull_request' }),
-  'GlacierEQ/job-application': Object.freeze({ workflow_names: Object.freeze(['CI', 'APEX Recruiter Proof Brief', 'APEX Estate Non-Regression', 'Portfolio truth gate']), workflow_paths: Object.freeze(['.github/workflows/ci.yml', '.github/workflows/apex-recruiter-proof-brief.yml', '.github/workflows/apex-estate-non-regression.yml', '.github/workflows/portfolio-verify.yml']), branch_policy: 'default_or_pull_request' }),
-  'GlacierEQ/pro-code': Object.freeze({ workflow_names: Object.freeze(['Pro-Code native verification']), workflow_paths: Object.freeze(['.github/workflows/ci.yml']), branch_policy: 'default_or_pull_request' }),
-  'GlacierEQ/sigma-glue': Object.freeze({ workflow_names: Object.freeze(['verify']), workflow_paths: Object.freeze(['.github/workflows/ci.yml']), branch_policy: 'default_or_pull_request' }),
-  'GlacierEQ/the-tower-of-babel': Object.freeze({ workflow_names: Object.freeze(['Tower Verification']), workflow_paths: Object.freeze(['.github/workflows/tower.yml']), branch_policy: 'default_or_pull_request' }),
-  'GlacierEQ/xai-colossus-2': Object.freeze({ workflow_names: Object.freeze(['CI']), workflow_paths: Object.freeze(['.github/workflows/ci.yml']), branch_policy: 'default_or_pull_request' }),
 });
 
 let liveFreshnessCache = null;
@@ -180,7 +169,7 @@ function rankFlows(topology, role, freshness) {
 
 async function buildPublicRecruiterProof(topology, role, options = null) {
   requireValue(ROLE_WEIGHTS[role], `recruiter_unknown_role:${role}`); const freshness = options ? await deriveFreshness(topology, options) : await loadLiveFreshness(topology); const ranked = rankFlows(topology, role, freshness);
-  const core = { schema: SCHEMA, release: RELEASE, role, topology_receipt_sha256: topology.receipt_sha256, freshness_receipt_sha256: freshness.receipt_sha256, ranking_policy: { role_weights: ROLE_WEIGHTS[role], freshness: 'role contribution multiplied only by exact identity-bound verification freshness; missing proof scores zero', verification_identity: 'registered workflow name, registered workflow path when declared, branch/event policy, exact run ID/SHA/timestamp readback', breadth_bonus: 'min(unique_system_count, 4) scaled by mean freshness across the full proof chain', tie_breaker: 'flow_id ascending' }, coverage: { verified_systems: freshness.entries.length, unverified_systems: freshness.missing_systems.length }, missing_systems: freshness.missing_systems, briefs: ranked };
+  const core = { schema: SCHEMA, release: RELEASE, role, topology_receipt_sha256: topology.receipt_sha256, freshness_receipt_sha256: freshness.receipt_sha256, ranking_policy: { role_weights: ROLE_WEIGHTS[role], freshness: 'role contribution multiplied only by exact identity-bound verification freshness; missing proof scores zero', verification_identity: 'generated verification registry + registered workflow name + registered workflow path when declared + branch/event policy + exact run ID/SHA/timestamp readback', breadth_bonus: 'min(unique_system_count, 4) scaled by mean freshness across the full proof chain', tie_breaker: 'flow_id ascending' }, coverage: { verified_systems: freshness.entries.length, unverified_systems: freshness.missing_systems.length }, missing_systems: freshness.missing_systems, briefs: ranked };
   return { ...core, receipt_sha256: receipt(core) };
 }
 
@@ -218,7 +207,7 @@ async function verify(res) {
   try {
     const topology = await workflowTopologyProxy.loadTopology(); const proof = await buildPublicRecruiterProof(topology, 'recruiter'); requireValue(proof.briefs.length > 0, 'recruiter_verify_briefs'); requireValue(proof.coverage.verified_systems > 0, 'recruiter_verify_coverage'); requireValue(/^[a-f0-9]{64}$/.test(proof.receipt_sha256), 'recruiter_verify_receipt');
     requireValue(proofHasExactIdentity(proof), 'recruiter_verify_identity_binding');
-    send(res, 200, 'application/json; charset=utf-8', JSON.stringify({ schema: VERIFY_SCHEMA, status: 'PASS', release: RELEASE, role: proof.role, verified_systems: proof.coverage.verified_systems, unverified_systems: proof.coverage.unverified_systems, identity_bound: true, top_flow: proof.briefs[0].flow_id, top_score: proof.briefs[0].score, topology_receipt_sha256: proof.topology_receipt_sha256, freshness_receipt_sha256: proof.freshness_receipt_sha256, recruiter_proof_receipt_sha256: proof.receipt_sha256 }, null, 2), 'no-store');
+    send(res, 200, 'application/json; charset=utf-8', JSON.stringify({ schema: VERIFY_SCHEMA, status: 'PASS', release: RELEASE, role: proof.role, verified_systems: proof.coverage.verified_systems, unverified_systems: proof.coverage.unverified_systems, identity_bound: true, generated_registry_bound: true, top_flow: proof.briefs[0].flow_id, top_score: proof.briefs[0].score, topology_receipt_sha256: proof.topology_receipt_sha256, freshness_receipt_sha256: proof.freshness_receipt_sha256, recruiter_proof_receipt_sha256: proof.receipt_sha256 }, null, 2), 'no-store');
   } catch (error) { send(res, 503, 'application/json; charset=utf-8', JSON.stringify({ schema: VERIFY_SCHEMA, status: 'FAIL', release: RELEASE, error: error instanceof Error ? error.message : String(error) }, null, 2), 'no-store'); }
 }
 
