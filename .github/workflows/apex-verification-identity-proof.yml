@@ -9,8 +9,10 @@ on:
       - 'tools/workflow_verification_identity.py'
       - 'tools/workflow_evidence_freshness.py'
       - 'tools/workflow_recruiter_brief.py'
+      - 'tools/workflow_recruiter_snapshot.py'
       - 'tests/test_workflow_verification_source_registry.py'
       - 'tests/test_workflow_verification_identity.py'
+      - 'tests/test_workflow_recruiter_snapshot.py'
       - 'deployment/vercel-source-bridge/api/workflow-topology-proxy.js'
       - '.github/workflows/apex-verification-identity-proof.yml'
 
@@ -47,18 +49,21 @@ jobs:
             tools/workflow_verification_identity.py \
             tools/workflow_evidence_freshness.py \
             tools/workflow_role_lens.py \
-            tools/workflow_recruiter_brief.py
+            tools/workflow_recruiter_brief.py \
+            tools/workflow_recruiter_snapshot.py
 
-      - name: Run adversarial verification identity tests
+      - name: Run adversarial verification identity and snapshot tests
         run: |
           python -m unittest \
             tests.test_workflow_verification_source_registry \
             tests.test_workflow_verification_identity \
             tests.test_workflow_evidence_freshness \
             tests.test_workflow_role_lens \
-            tests.test_workflow_recruiter_brief -v
+            tests.test_workflow_recruiter_brief \
+            tests.test_workflow_recruiter_snapshot -v
 
       - name: Materialize source-native workflow topology
+        if: matrix.python-version == '3.11'
         run: |
           node <<'NODE'
           const fs = require('node:fs');
@@ -79,71 +84,70 @@ jobs:
           }).catch((error) => { console.error(error); process.exit(1); });
           NODE
 
-      - name: Derive registered live evidence manifest
+      - name: Execute one-pass exact-identity recruiter snapshot
+        if: matrix.python-version == '3.11'
         run: |
-          python tools/workflow_evidence_manifest.py \
+          python tools/workflow_recruiter_snapshot.py \
             --topology /tmp/workflow-topology.json \
             --verification-sources config/workflow-verification-sources.json \
-            --output /tmp/evidence-manifest.json \
-            --allow-missing \
+            --output /tmp/recruiter-snapshot.json \
+            --top-k 2 \
             --github-token-env GLACIEREQ_PUBLIC_GITHUB_TOKEN
 
-      - name: Prove exact workflow identity before freshness trust
+      - name: Prove composed identity freshness and recruiter briefs
+        if: matrix.python-version == '3.11'
         run: |
-          python tools/workflow_verification_identity.py \
-            --manifest /tmp/evidence-manifest.json \
-            --verification-sources config/workflow-verification-sources.json \
-            --output /tmp/verification-identity.json \
-            --github-token-env GLACIEREQ_PUBLIC_GITHUB_TOKEN
           python - <<'PY'
           import json
+          from datetime import datetime
 
-          manifest = json.load(open('/tmp/evidence-manifest.json', encoding='utf-8'))
-          identity = json.load(open('/tmp/verification-identity.json', encoding='utf-8'))
+          snapshot = json.load(open('/tmp/recruiter-snapshot.json', encoding='utf-8'))
+          manifest = snapshot['evidence_manifest']
+          identity = snapshot['identity_proof']
+          freshness = snapshot['freshness']
+          briefs = snapshot['recruiter_briefs']
+
+          assert snapshot['schema'] == 'glaciereq.recruiter-proof-snapshot.v1'
+          assert len(snapshot['receipt_sha256']) == 64
+          assert snapshot['policy']['identity_gate_required_before_freshness'] is True
+          assert snapshot['policy']['topology_receipt_verified_before_evidence_fetch'] is True
+          assert snapshot['policy']['missing_proof_receives_zero_freshness_credit'] is True
+          assert snapshot['policy']['dynamic_as_of_resolved_after_evidence_observation'] is True
+          assert snapshot['policy']['dynamic_as_of_floored_at_latest_verification'] is True
+
           assert identity['schema'] == 'glaciereq.verification-identity-proof.v1'
-          assert len(identity['receipt_sha256']) == 64
           assert len(identity['verified_entries']) == len(manifest['entries'])
           assert identity['exact_path_bound_entries'] == len(identity['verified_entries'])
           assert all(entry['workflow_path_bound'] is True for entry in identity['verified_entries'])
           assert all(entry['workflow_path'].startswith('.github/workflows/') for entry in identity['verified_entries'])
-          print(json.dumps({
-              'status': 'PASS',
-              'identity_receipt_sha256': identity['receipt_sha256'],
-              'verified_entries': len(identity['verified_entries']),
-              'workflow_paths': {entry['id']: entry['workflow_path'] for entry in identity['verified_entries']},
-              'branches': {entry['id']: entry['verification_branch'] for entry in identity['verified_entries']},
-          }, indent=2))
-          PY
 
-      - name: Execute freshness-ranked recruiter proof after identity gate
-        run: |
-          AS_OF="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-          python tools/workflow_evidence_freshness.py \
-            --manifest /tmp/evidence-manifest.json \
-            --as-of "$AS_OF" \
-            --output /tmp/evidence-freshness.json
-          python tools/workflow_recruiter_brief.py \
-            --topology /tmp/workflow-topology.json \
-            --freshness /tmp/evidence-freshness.json \
-            --role recruiter \
-            --top-k 2 \
-            --output /tmp/recruiter-brief.json
-          python - <<'PY'
-          import json
+          as_of = datetime.fromisoformat(snapshot['as_of'].replace('Z', '+00:00'))
+          newest = max(
+              datetime.fromisoformat(entry['verified_at'].replace('Z', '+00:00'))
+              for entry in manifest['entries']
+          )
+          assert as_of >= newest
 
-          identity = json.load(open('/tmp/verification-identity.json', encoding='utf-8'))
-          freshness = json.load(open('/tmp/evidence-freshness.json', encoding='utf-8'))
-          brief = json.load(open('/tmp/recruiter-brief.json', encoding='utf-8'))
           assert freshness['schema'] == 'glaciereq.evidence-freshness.v1'
-          assert brief['schema'] == 'glaciereq.recruiter-proof-brief.v2'
-          assert brief['freshness_receipt_sha256'] == freshness['receipt_sha256']
-          assert identity['verified_entries']
-          assert brief['briefs']
+          assert snapshot['receipts']['freshness_sha256'] == freshness['receipt_sha256']
+          assert snapshot['coverage']['identity_verified_entries'] == snapshot['coverage']['manifest_entries']
+          assert snapshot['coverage']['exact_path_bound_entries'] == snapshot['coverage']['manifest_entries']
+          assert set(briefs) == {'recruiter', 'engineering-lead', 'systems-architect'}
+          assert all(brief['schema'] == 'glaciereq.recruiter-proof-brief.v2' for brief in briefs.values())
+          assert all(brief['freshness_receipt_sha256'] == freshness['receipt_sha256'] for brief in briefs.values())
+          assert all(brief['briefs'] for brief in briefs.values())
+
           print(json.dumps({
               'status': 'PASS',
-              'identity_receipt_sha256': identity['receipt_sha256'],
-              'freshness_receipt_sha256': freshness['receipt_sha256'],
-              'recruiter_brief_receipt_sha256': brief['receipt_sha256'],
-              'top_flow': brief['briefs'][0]['flow_id'],
+              'snapshot_receipt_sha256': snapshot['receipt_sha256'],
+              'topology_receipt_sha256': snapshot['topology_receipt_sha256'],
+              'identity_receipt_sha256': snapshot['receipts']['identity_sha256'],
+              'freshness_receipt_sha256': snapshot['receipts']['freshness_sha256'],
+              'snapshot_as_of': snapshot['as_of'],
+              'latest_verified_at': newest.isoformat(),
+              'verified_entries': snapshot['coverage']['identity_verified_entries'],
+              'missing_systems': snapshot['coverage']['missing_systems'],
+              'roles': snapshot['coverage']['roles'],
+              'top_flows': {role: brief['briefs'][0]['flow_id'] for role, brief in briefs.items()},
           }, indent=2))
           PY
