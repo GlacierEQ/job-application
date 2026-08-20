@@ -136,9 +136,7 @@ def build_evidence_manifest(
 
     entries: list[dict[str, Any]] = []
     missing: list[dict[str, str]] = []
-    repo_cache: dict[
-        str, tuple[str, list[dict[str, Any]]] | EvidenceManifestError
-    ] = {}
+    repo_cache: dict[str, tuple[str, list[dict[str, Any]]] | EvidenceManifestError] = {}
 
     for system_id, repository in sorted(systems.items()):
         if repository not in repo_cache:
