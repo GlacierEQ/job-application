@@ -1,0 +1,47 @@
+name: APEX Public Recruiter Identity Proof
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "deployment/vercel-source-bridge/api/workflow-recruiter-proxy.js"
+      - "deployment/vercel-source-bridge/workflow-recruiter-identity.test.js"
+      - "config/workflow-verification-sources.json"
+      - ".github/workflows/apex-public-recruiter-identity-proof.yml"
+  push:
+    branches: [main]
+    paths:
+      - "deployment/vercel-source-bridge/api/workflow-recruiter-proxy.js"
+      - "deployment/vercel-source-bridge/workflow-recruiter-identity.test.js"
+      - "config/workflow-verification-sources.json"
+      - ".github/workflows/apex-public-recruiter-identity-proof.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  prove:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [20, 22, 24]
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Compile public recruiter runtime
+        run: node --check deployment/vercel-source-bridge/api/workflow-recruiter-proxy.js
+
+      - name: Execute adversarial identity proof
+        run: node --test deployment/vercel-source-bridge/workflow-recruiter-identity.test.js
