@@ -119,6 +119,20 @@ test('public handler serves synchronized HTML and machine JSON from one packet b
   }
 });
 
+test('HTML format cannot be switched to JSON by placing the machine path in query data', async () => {
+  const original = actionRuntime.buildPublicRecruiterActionPacket;
+  actionRuntime.buildPublicRecruiterActionPacket = async (role) => packet(role);
+  try {
+    const res = capture();
+    await page({ url: '/recruiter-action/?role=recruiter&note=%2Fdata%2Frecruiter-action-packet.json' }, res);
+    assert.equal(res.statusCode, 200);
+    assert.match(res.getHeader('content-type'), /^text\/html/);
+    assert.match(res.body, /recruiter reviewer action packet/i);
+  } finally {
+    actionRuntime.buildPublicRecruiterActionPacket = original;
+  }
+});
+
 test('public handler returns no-store fail-closed response for invalid role', async () => {
   const res = capture();
   await page({ url: '/data/recruiter-action-packet.json?role=wizard' }, res);
