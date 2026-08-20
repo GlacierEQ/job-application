@@ -8,6 +8,7 @@ from typing import Any
 
 from tools.workflow_recruiter_snapshot import (
     RecruiterSnapshotError,
+    _resolve_snapshot_as_of,
     build_recruiter_snapshot,
 )
 from tools.workflow_verification_identity import VerificationIdentityError
@@ -154,18 +155,10 @@ class RecruiterSnapshotTests(unittest.TestCase):
         self,
     ) -> None:
         first = build_recruiter_snapshot(
-            _topology(),
-            _registry(),
-            _fetcher(),
-            as_of=AS_OF,
-            top_k=1,
+            _topology(), _registry(), _fetcher(), as_of=AS_OF, top_k=1
         )
         second = build_recruiter_snapshot(
-            _topology(),
-            _registry(),
-            _fetcher(),
-            as_of=AS_OF,
-            top_k=1,
+            _topology(), _registry(), _fetcher(), as_of=AS_OF, top_k=1
         )
 
         self.assertEqual(first, second)
@@ -173,6 +166,10 @@ class RecruiterSnapshotTests(unittest.TestCase):
         self.assertEqual(len(first["receipt_sha256"]), 64)
         self.assertTrue(
             first["policy"]["topology_receipt_verified_before_evidence_fetch"]
+        )
+        self.assertTrue(first["policy"]["explicit_as_of_is_strict_replay_boundary"])
+        self.assertFalse(
+            first["policy"]["dynamic_as_of_resolved_after_evidence_observation"]
         )
         self.assertEqual(first["coverage"]["manifest_entries"], 3)
         self.assertEqual(first["coverage"]["identity_verified_entries"], 3)
@@ -190,12 +187,62 @@ class RecruiterSnapshotTests(unittest.TestCase):
             )
             self.assertEqual(len(brief["briefs"]), 1)
 
+    def test_dynamic_as_of_floors_at_newest_observed_verification(self) -> None:
+        manifest = {
+            "entries": [
+                {"id": "old", "verified_at": "2026-08-20T10:00:00Z"},
+                {"id": "new", "verified_at": "2026-08-20T10:00:03Z"},
+            ]
+        }
+        runner_clock = datetime(2026, 8, 20, 10, 0, 0, tzinfo=UTC)
+        resolved = _resolve_snapshot_as_of(
+            None, manifest, clock=lambda: runner_clock
+        )
+        self.assertEqual(
+            resolved, datetime(2026, 8, 20, 10, 0, 3, tzinfo=UTC)
+        )
+
+    def test_explicit_as_of_is_never_moved_forward_to_hide_future_evidence(self) -> None:
+        explicit = datetime(2026, 8, 20, 10, 0, 0, tzinfo=UTC)
+        manifest = {
+            "entries": [
+                {"id": "future", "verified_at": "2026-08-20T10:00:03Z"}
+            ]
+        }
+        resolved = _resolve_snapshot_as_of(
+            explicit,
+            manifest,
+            clock=lambda: datetime(2026, 8, 20, 11, 0, tzinfo=UTC),
+        )
+        self.assertEqual(resolved, explicit)
+
+    def test_live_snapshot_resolves_time_after_evidence_observation(self) -> None:
+        snapshot = build_recruiter_snapshot(
+            _topology(),
+            _registry(),
+            _fetcher(),
+            as_of=None,
+            top_k=1,
+            clock=lambda: datetime(2026, 8, 20, 9, 59, 59, tzinfo=UTC),
+        )
+        newest = max(
+            datetime.fromisoformat(entry["verified_at"].replace("Z", "+00:00"))
+            for entry in snapshot["evidence_manifest"]["entries"]
+        )
+        resolved = datetime.fromisoformat(snapshot["as_of"].replace("Z", "+00:00"))
+        self.assertGreaterEqual(resolved, newest)
+        self.assertTrue(
+            snapshot["policy"]["dynamic_as_of_resolved_after_evidence_observation"]
+        )
+        self.assertTrue(
+            snapshot["policy"]["dynamic_as_of_floored_at_latest_verification"]
+        )
+
     def test_exact_identity_failure_blocks_snapshot_before_freshness_output(
         self,
     ) -> None:
         with self.assertRaisesRegex(
-            VerificationIdentityError,
-            "workflow path is not registered",
+            VerificationIdentityError, "workflow path is not registered"
         ):
             build_recruiter_snapshot(
                 _topology(),
@@ -246,8 +293,7 @@ class RecruiterSnapshotTests(unittest.TestCase):
             roles=["recruiter", "recruiter", "systems-architect"],
         )
         self.assertEqual(
-            snapshot["coverage"]["roles"],
-            ["recruiter", "systems-architect"],
+            snapshot["coverage"]["roles"], ["recruiter", "systems-architect"]
         )
         with self.assertRaisesRegex(RecruiterSnapshotError, "unsupported role"):
             build_recruiter_snapshot(
@@ -263,17 +309,12 @@ class RecruiterSnapshotTests(unittest.TestCase):
             RecruiterSnapshotError, "at least one recruiter role"
         ):
             build_recruiter_snapshot(
-                _topology(),
-                _registry(),
-                _fetcher(),
-                as_of=AS_OF,
-                roles=[],
+                _topology(), _registry(), _fetcher(), as_of=AS_OF, roles=[]
             )
 
     def test_tampered_topology_receipt_fails_before_evidence_fetch(self) -> None:
         topology = _topology()
         topology["flows"][0]["intent"] = "tampered after receipt"
-
         called = False
 
         def fail_if_called(_: str) -> dict[str, Any]:
@@ -283,10 +324,7 @@ class RecruiterSnapshotTests(unittest.TestCase):
 
         with self.assertRaisesRegex(RecruiterSnapshotError, "does not match topology"):
             build_recruiter_snapshot(
-                topology,
-                _registry(),
-                fail_if_called,
-                as_of=AS_OF,
+                topology, _registry(), fail_if_called, as_of=AS_OF
             )
         self.assertFalse(called)
 
@@ -300,11 +338,7 @@ class RecruiterSnapshotTests(unittest.TestCase):
             )
         with self.assertRaisesRegex(RecruiterSnapshotError, "top_k"):
             build_recruiter_snapshot(
-                _topology(),
-                _registry(),
-                _fetcher(),
-                as_of=AS_OF,
-                top_k=True,
+                _topology(), _registry(), _fetcher(), as_of=AS_OF, top_k=True
             )
 
 
