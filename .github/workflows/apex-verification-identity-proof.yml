@@ -87,13 +87,11 @@ jobs:
       - name: Execute one-pass exact-identity recruiter snapshot
         if: matrix.python-version == '3.11'
         run: |
-          AS_OF="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
           python tools/workflow_recruiter_snapshot.py \
             --topology /tmp/workflow-topology.json \
             --verification-sources config/workflow-verification-sources.json \
             --output /tmp/recruiter-snapshot.json \
             --top-k 2 \
-            --as-of "$AS_OF" \
             --github-token-env GLACIEREQ_PUBLIC_GITHUB_TOKEN
 
       - name: Prove composed identity freshness and recruiter briefs
@@ -101,6 +99,7 @@ jobs:
         run: |
           python - <<'PY'
           import json
+          from datetime import datetime
 
           snapshot = json.load(open('/tmp/recruiter-snapshot.json', encoding='utf-8'))
           manifest = snapshot['evidence_manifest']
@@ -113,12 +112,21 @@ jobs:
           assert snapshot['policy']['identity_gate_required_before_freshness'] is True
           assert snapshot['policy']['topology_receipt_verified_before_evidence_fetch'] is True
           assert snapshot['policy']['missing_proof_receives_zero_freshness_credit'] is True
+          assert snapshot['policy']['dynamic_as_of_resolved_after_evidence_observation'] is True
+          assert snapshot['policy']['dynamic_as_of_floored_at_latest_verification'] is True
 
           assert identity['schema'] == 'glaciereq.verification-identity-proof.v1'
           assert len(identity['verified_entries']) == len(manifest['entries'])
           assert identity['exact_path_bound_entries'] == len(identity['verified_entries'])
           assert all(entry['workflow_path_bound'] is True for entry in identity['verified_entries'])
           assert all(entry['workflow_path'].startswith('.github/workflows/') for entry in identity['verified_entries'])
+
+          as_of = datetime.fromisoformat(snapshot['as_of'].replace('Z', '+00:00'))
+          newest = max(
+              datetime.fromisoformat(entry['verified_at'].replace('Z', '+00:00'))
+              for entry in manifest['entries']
+          )
+          assert as_of >= newest
 
           assert freshness['schema'] == 'glaciereq.evidence-freshness.v1'
           assert snapshot['receipts']['freshness_sha256'] == freshness['receipt_sha256']
@@ -135,6 +143,8 @@ jobs:
               'topology_receipt_sha256': snapshot['topology_receipt_sha256'],
               'identity_receipt_sha256': snapshot['receipts']['identity_sha256'],
               'freshness_receipt_sha256': snapshot['receipts']['freshness_sha256'],
+              'snapshot_as_of': snapshot['as_of'],
+              'latest_verified_at': newest.isoformat(),
               'verified_entries': snapshot['coverage']['identity_verified_entries'],
               'missing_systems': snapshot['coverage']['missing_systems'],
               'roles': snapshot['coverage']['roles'],
