@@ -129,8 +129,8 @@ test('human gap page renders role leverage, ordered recovery, and direct action 
   assert.match(html, /\/data\/recruiter-gap-analysis\.json/);
   assert.match(html, /\/recruiter-role-matrix\//);
   assert.match(html, /recruiter-gap-analysis\/\?role=recruiter/);
-  assert.match(html, /recruiter-action\/\?role=recruiter&amp;max_actions=3/);
-  assert.match(html, /recruiter-action\/\?role=engineering-lead&amp;max_actions=3/);
+  assert.match(html, /recruiter-action\/\?role=recruiter&max_actions=3/);
+  assert.match(html, /recruiter-action\/\?role=engineering-lead&max_actions=3/);
   assert.doesNotMatch(html, /<script\b/i);
   assert.doesNotMatch(html, /<unsafe architecture>/);
   assert.match(html, /&lt;unsafe architecture&gt;/);
@@ -147,7 +147,7 @@ test('role-targeted drilldown moves directly from recovery priority to the match
   assert.doesNotMatch(html, /pro-code-runtime/);
   assert.match(html, /name="robots" content="noindex,follow"/);
   assert.match(html, /recruiter-gap-analysis\/\?role=recruiter/);
-  assert.match(html, /recruiter-action\/\?role=recruiter&amp;max_actions=3/);
+  assert.match(html, /recruiter-action\/\?role=recruiter&max_actions=3/);
   assert.match(html, /Open recruiter action packet/);
   assert.match(html, /Open role action packet/);
   assert.match(html, /All recovery priorities/);
@@ -218,7 +218,7 @@ test('role-targeted HTTP surface preserves one analysis pass and returns only se
   assert.match(html, /akos/);
   assert.doesNotMatch(html, /job-application/);
   assert.doesNotMatch(html, /pro-code-runtime/);
-  assert.match(html, /recruiter-action\/\?role=systems-architect&amp;max_actions=3/);
+  assert.match(html, /recruiter-action\/\?role=systems-architect&max_actions=3/);
   assert.match(html, /noindex,follow/);
 });
 
