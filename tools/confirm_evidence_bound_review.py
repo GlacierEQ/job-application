@@ -176,7 +176,9 @@ def build_semantic_answer_sources(
 ) -> dict[str, Any]:
     """Promote one or more independently confirmed reviews into one semantic source."""
     if not review_confirmation_pairs:
-        raise ReviewConfirmationError("at least one review/confirmation pair is required")
+        raise ReviewConfirmationError(
+            "at least one review/confirmation pair is required"
+        )
 
     application_id: str | None = None
     opening_id: str | None = None
@@ -277,7 +279,9 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args(argv)
     if len(args.review) != len(args.confirmation):
-        parser.error("--review and --confirmation must be supplied the same number of times")
+        parser.error(
+            "--review and --confirmation must be supplied the same number of times"
+        )
     try:
         pairs = list(zip(args.review, args.confirmation, strict=True))
         result = build_semantic_answer_sources(pairs)
