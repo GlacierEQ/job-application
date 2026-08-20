@@ -54,12 +54,13 @@ def _run(
     branch: str = "main",
     status: str = "completed",
     conclusion: str = "success",
+    path: str = ".github/workflows/proof.yml",
 ) -> dict:
     return {
         "id": run_id,
         "name": name,
         "display_title": name,
-        "path": ".github/workflows/proof.yml",
+        "path": path,
         "head_branch": branch,
         "head_sha": sha,
         "updated_at": updated_at,
@@ -126,7 +127,9 @@ class EvidenceManifestTests(unittest.TestCase):
         self.assertEqual(entries["job-application"]["commit_sha"], "d" * 40)
         self.assertEqual(len(fetch.calls), 4)
 
-    def test_ignores_failed_and_non_verification_runs_but_accepts_pr_proof(self) -> None:
+    def test_ignores_failed_and_non_verification_runs_but_accepts_pr_proof(
+        self,
+    ) -> None:
         fetch = FakeGitHub(
             {
                 "job-app-helix": [
@@ -135,6 +138,7 @@ class EvidenceManifestTests(unittest.TestCase):
                         name="Deploy Website",
                         sha="a" * 40,
                         updated_at="2026-08-20T14:00:00Z",
+                        path=".github/workflows/deploy.yml",
                     ),
                     _run(
                         2,
@@ -186,10 +190,14 @@ class EvidenceManifestTests(unittest.TestCase):
                 ],
             }
         )
-        with self.assertRaisesRegex(EvidenceManifestError, "helix@GlacierEQ/job-app-helix"):
+        with self.assertRaisesRegex(
+            EvidenceManifestError, "helix@GlacierEQ/job-app-helix"
+        ):
             build_evidence_manifest(_topology(), fetch)
 
-    def test_allow_missing_preserves_unverified_system_for_fail_closed_ranking(self) -> None:
+    def test_allow_missing_preserves_unverified_system_for_fail_closed_ranking(
+        self,
+    ) -> None:
         fetch = FakeGitHub(
             {
                 "job-app-helix": [],
@@ -208,7 +216,9 @@ class EvidenceManifestTests(unittest.TestCase):
             result["missing_systems"],
             [{"id": "helix", "repository": "GlacierEQ/job-app-helix"}],
         )
-        self.assertEqual([entry["id"] for entry in result["entries"]], ["job-application"])
+        self.assertEqual(
+            [entry["id"] for entry in result["entries"]], ["job-application"]
+        )
 
     def test_rejects_repo_outside_glaciereq(self) -> None:
         topology = _topology()
