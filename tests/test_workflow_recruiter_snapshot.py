@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import hashlib
+import json
 import unittest
 from datetime import UTC, datetime
 from typing import Any
@@ -19,10 +21,27 @@ REPOSITORIES = {
 }
 
 WORKFLOWS = {
-    "GlacierEQ/job-app-helix": ("Helix Candidate Profile Proof", ".github/workflows/candidate-profile-compiler-proof.yml"),
+    "GlacierEQ/job-app-helix": (
+        "Helix Candidate Profile Proof",
+        ".github/workflows/candidate-profile-compiler-proof.yml",
+    ),
     "GlacierEQ/xai-colossus-2": ("CI", ".github/workflows/ci.yml"),
-    "GlacierEQ/job-application": ("APEX Recruiter Proof Brief", ".github/workflows/apex-recruiter-proof-brief.yml"),
+    "GlacierEQ/job-application": (
+        "APEX Recruiter Proof Brief",
+        ".github/workflows/apex-recruiter-proof-brief.yml",
+    ),
 }
+
+
+def _receipt(value: Any) -> str:
+    stable = json.dumps(
+        value,
+        sort_keys=True,
+        separators=(",", ":"),
+        ensure_ascii=False,
+        allow_nan=False,
+    )
+    return hashlib.sha256(stable.encode("utf-8")).hexdigest()
 
 
 def _topology() -> dict[str, Any]:
@@ -47,9 +66,8 @@ def _topology() -> dict[str, Any]:
                 },
             }
         )
-    return {
+    topology = {
         "schema": "glaciereq.workflow-topology.v1",
-        "receipt_sha256": "f" * 64,
         "flows": [
             {
                 "id": "opportunity-to-evidence-package",
@@ -59,6 +77,8 @@ def _topology() -> dict[str, Any]:
             }
         ],
     }
+    topology["receipt_sha256"] = _receipt(topology)
+    return topology
 
 
 def _registry() -> dict[str, Any]:
@@ -130,7 +150,9 @@ def _fetcher(
 
 
 class RecruiterSnapshotTests(unittest.TestCase):
-    def test_composes_identity_freshness_and_all_role_briefs_deterministically(self) -> None:
+    def test_composes_identity_freshness_and_all_role_briefs_deterministically(
+        self,
+    ) -> None:
         first = build_recruiter_snapshot(
             _topology(),
             _registry(),
@@ -149,6 +171,7 @@ class RecruiterSnapshotTests(unittest.TestCase):
         self.assertEqual(first, second)
         self.assertEqual(first["schema"], "glaciereq.recruiter-proof-snapshot.v1")
         self.assertEqual(len(first["receipt_sha256"]), 64)
+        self.assertTrue(first["policy"]["topology_receipt_verified_before_evidence_fetch"])
         self.assertEqual(first["coverage"]["manifest_entries"], 3)
         self.assertEqual(first["coverage"]["identity_verified_entries"], 3)
         self.assertEqual(first["coverage"]["exact_path_bound_entries"], 3)
@@ -159,11 +182,17 @@ class RecruiterSnapshotTests(unittest.TestCase):
         )
         for role, brief in first["recruiter_briefs"].items():
             self.assertEqual(brief["role"], role)
-            self.assertEqual(brief["freshness_receipt_sha256"], first["receipts"]["freshness_sha256"])
+            self.assertEqual(
+                brief["freshness_receipt_sha256"],
+                first["receipts"]["freshness_sha256"],
+            )
             self.assertEqual(len(brief["briefs"]), 1)
 
     def test_exact_identity_failure_blocks_snapshot_before_freshness_output(self) -> None:
-        with self.assertRaisesRegex(VerificationIdentityError, "workflow path is not registered"):
+        with self.assertRaisesRegex(
+            VerificationIdentityError,
+            "workflow path is not registered",
+        ):
             build_recruiter_snapshot(
                 _topology(),
                 _registry(),
@@ -171,7 +200,9 @@ class RecruiterSnapshotTests(unittest.TestCase):
                 as_of=AS_OF,
             )
 
-    def test_missing_registered_proof_remains_explicit_and_receives_no_snapshot_credit(self) -> None:
+    def test_missing_registered_proof_remains_explicit_and_receives_no_snapshot_credit(
+        self,
+    ) -> None:
         snapshot = build_recruiter_snapshot(
             _topology(),
             _registry(),
@@ -211,7 +242,8 @@ class RecruiterSnapshotTests(unittest.TestCase):
             roles=["recruiter", "recruiter", "systems-architect"],
         )
         self.assertEqual(
-            snapshot["coverage"]["roles"], ["recruiter", "systems-architect"]
+            snapshot["coverage"]["roles"],
+            ["recruiter", "systems-architect"],
         )
         with self.assertRaisesRegex(RecruiterSnapshotError, "unsupported role"):
             build_recruiter_snapshot(
@@ -221,6 +253,36 @@ class RecruiterSnapshotTests(unittest.TestCase):
                 as_of=AS_OF,
                 roles=["chief-wizard"],
             )
+
+    def test_explicit_empty_role_selection_fails_closed(self) -> None:
+        with self.assertRaisesRegex(RecruiterSnapshotError, "at least one recruiter role"):
+            build_recruiter_snapshot(
+                _topology(),
+                _registry(),
+                _fetcher(),
+                as_of=AS_OF,
+                roles=[],
+            )
+
+    def test_tampered_topology_receipt_fails_before_evidence_fetch(self) -> None:
+        topology = _topology()
+        topology["flows"][0]["intent"] = "tampered after receipt"
+
+        called = False
+
+        def fail_if_called(_: str) -> dict[str, Any]:
+            nonlocal called
+            called = True
+            raise AssertionError("evidence fetch must not run for tampered topology")
+
+        with self.assertRaisesRegex(RecruiterSnapshotError, "does not match topology"):
+            build_recruiter_snapshot(
+                topology,
+                _registry(),
+                fail_if_called,
+                as_of=AS_OF,
+            )
+        self.assertFalse(called)
 
     def test_naive_as_of_and_boolean_top_k_fail_closed(self) -> None:
         with self.assertRaisesRegex(RecruiterSnapshotError, "timezone-aware"):
