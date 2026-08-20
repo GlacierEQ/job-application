@@ -1,0 +1,71 @@
+name: APEX Recruiter Proof Brief
+
+on:
+  pull_request:
+    paths:
+      - 'tools/workflow_role_lens.py'
+      - 'tools/workflow_recruiter_brief.py'
+      - 'tests/test_workflow_role_lens.py'
+      - 'tests/test_workflow_recruiter_brief.py'
+      - '.github/workflows/apex-recruiter-proof-brief.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  prove:
+    strategy:
+      matrix:
+        python-version: ['3.11', '3.12', '3.13']
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Compile recruiter intelligence runtime
+        run: |
+          python -m py_compile tools/workflow_role_lens.py tools/workflow_recruiter_brief.py
+      - name: Run adversarial role lens and recruiter brief tests
+        run: |
+          python -m unittest tests.test_workflow_role_lens tests.test_workflow_recruiter_brief -v
+      - name: Execute recruiter brief against production topology fixture
+        run: |
+          python - <<'PY'
+          import json
+          import urllib.request
+          from pathlib import Path
+
+          url = 'https://casey-barton-glaciereq.vercel.app/data/workflow-topology.json'
+          try:
+              with urllib.request.urlopen(url, timeout=12) as response:
+                  body = response.read(1024 * 1024 + 1)
+              if len(body) > 1024 * 1024:
+                  raise RuntimeError('topology_too_large')
+              topology = json.loads(body)
+          except Exception:
+              # Production promotion can lag source. Use current source verifier endpoint before failing over.
+              with urllib.request.urlopen('https://casey-barton-glaciereq.vercel.app/__workflow_topology_verify', timeout=12) as response:
+                  receipt = json.loads(response.read())
+              if receipt.get('status') != 'PASS':
+                  raise
+              raise RuntimeError('production topology JSON unavailable despite verifier PASS')
+
+          path = Path('/tmp/workflow-topology.json')
+          path.write_text(json.dumps(topology), encoding='utf-8')
+          PY
+          python tools/workflow_recruiter_brief.py --topology /tmp/workflow-topology.json --role recruiter --top-k 2 --output /tmp/recruiter-brief.json
+          python - <<'PY'
+          import json
+          data = json.load(open('/tmp/recruiter-brief.json', encoding='utf-8'))
+          assert data['schema'] == 'glaciereq.recruiter-proof-brief.v1'
+          assert len(data['briefs']) == 2
+          assert all(brief['proof_points'] for brief in data['briefs'])
+          assert len(data['receipt_sha256']) == 64
+          print(json.dumps({'status': 'PASS', 'receipt_sha256': data['receipt_sha256'], 'top_flow': data['briefs'][0]['flow_id']}, indent=2))
+          PY
