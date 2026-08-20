@@ -100,7 +100,9 @@ class WorkflowRoleLensTests(unittest.TestCase):
         )
         app = next(flow for flow in result["ranked_flows"] if flow["flow_id"] == "app")
         job = next(
-            item for item in app["matched_systems"] if item["system_id"] == "job-application"
+            item
+            for item in app["matched_systems"]
+            if item["system_id"] == "job-application"
         )
         self.assertEqual(job["freshness_weight"], 0.0)
         self.assertEqual(job["freshness_state"], "unverified")
