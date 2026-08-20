@@ -184,6 +184,28 @@ async function buildPublicRecruiterProof(topology, role, options = null) {
   return { ...core, receipt_sha256: receipt(core) };
 }
 
+function proofPointHasExactIdentity(point) {
+  if (!point || typeof point !== 'object' || !(point.freshness_weight > 0)) return true;
+  return Number.isInteger(point.verification_run_id)
+    && point.verification_run_id > 0
+    && typeof point.verification_workflow === 'string'
+    && point.verification_workflow.length > 0
+    && typeof point.verification_workflow_path === 'string'
+    && point.verification_workflow_path.length > 0
+    && typeof point.verification_branch === 'string'
+    && point.verification_branch.length > 0
+    && typeof point.verification_event === 'string'
+    && point.verification_event.length > 0;
+}
+
+function proofHasExactIdentity(proof) {
+  if (!proof || !Array.isArray(proof.briefs) || proof.briefs.length === 0) return false;
+  const credited = proof.briefs
+    .flatMap((brief) => Array.isArray(brief?.proof_points) ? brief.proof_points : [])
+    .filter((point) => point?.freshness_weight > 0);
+  return credited.length > 0 && credited.every(proofPointHasExactIdentity);
+}
+
 function securityHeaders(res) { res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'none'; style-src 'self'; img-src 'self' data:; connect-src 'none'; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self' mailto:; upgrade-insecure-requests"); res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin'); res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), payment=()'); res.setHeader('X-Content-Type-Options', 'nosniff'); res.setHeader('X-Frame-Options', 'DENY'); res.setHeader('Cross-Origin-Opener-Policy', 'same-origin'); res.setHeader('X-PSYSOCX-Release', RELEASE); }
 function send(res, status, type, body, cache = 'public, max-age=0, s-maxage=300, must-revalidate') { const bytes = Buffer.from(String(body)); securityHeaders(res); res.statusCode = status; res.setHeader('Content-Type', type); res.setHeader('Cache-Control', cache); res.setHeader('Content-Length', String(bytes.length)); res.end(bytes); }
 function renderHtml(proof) {
@@ -195,7 +217,7 @@ function renderHtml(proof) {
 async function verify(res) {
   try {
     const topology = await workflowTopologyProxy.loadTopology(); const proof = await buildPublicRecruiterProof(topology, 'recruiter'); requireValue(proof.briefs.length > 0, 'recruiter_verify_briefs'); requireValue(proof.coverage.verified_systems > 0, 'recruiter_verify_coverage'); requireValue(/^[a-f0-9]{64}$/.test(proof.receipt_sha256), 'recruiter_verify_receipt');
-    const identityBound = proof.briefs.flatMap((brief) => brief.proof_points).filter((point) => point.freshness_weight > 0).every((point) => point.verification_run_id && point.verification_branch && point.verification_workflow); requireValue(identityBound, 'recruiter_verify_identity_binding');
+    requireValue(proofHasExactIdentity(proof), 'recruiter_verify_identity_binding');
     send(res, 200, 'application/json; charset=utf-8', JSON.stringify({ schema: VERIFY_SCHEMA, status: 'PASS', release: RELEASE, role: proof.role, verified_systems: proof.coverage.verified_systems, unverified_systems: proof.coverage.unverified_systems, identity_bound: true, top_flow: proof.briefs[0].flow_id, top_score: proof.briefs[0].score, topology_receipt_sha256: proof.topology_receipt_sha256, freshness_receipt_sha256: proof.freshness_receipt_sha256, recruiter_proof_receipt_sha256: proof.receipt_sha256 }, null, 2), 'no-store');
   } catch (error) { send(res, 503, 'application/json; charset=utf-8', JSON.stringify({ schema: VERIFY_SCHEMA, status: 'FAIL', release: RELEASE, error: error instanceof Error ? error.message : String(error) }, null, 2), 'no-store'); }
 }
@@ -215,4 +237,6 @@ module.exports.deriveFreshness = deriveFreshness;
 module.exports.loadLiveFreshness = loadLiveFreshness;
 module.exports.rankFlows = rankFlows;
 module.exports.buildPublicRecruiterProof = buildPublicRecruiterProof;
+module.exports.proofPointHasExactIdentity = proofPointHasExactIdentity;
+module.exports.proofHasExactIdentity = proofHasExactIdentity;
 module.exports.renderHtml = renderHtml;
