@@ -2,6 +2,10 @@
   "version": 2,
   "routes": [
     {
+      "src": "/data/recruiter-role-matrix.json",
+      "dest": "/api/recruiter-role-matrix"
+    },
+    {
       "src": "/(.*)",
       "dest": "/api/release-router?path=$1"
     }
