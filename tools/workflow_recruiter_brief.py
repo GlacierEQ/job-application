@@ -6,7 +6,10 @@ import json
 from pathlib import Path
 from typing import Any
 
-from tools.workflow_role_lens import RoleLensError, build_role_lens
+try:
+    from tools.workflow_role_lens import RoleLensError, build_role_lens
+except ModuleNotFoundError:
+    from workflow_role_lens import RoleLensError, build_role_lens
 
 OUTPUT_SCHEMA = "glaciereq.recruiter-proof-brief.v1"
 
@@ -40,11 +43,13 @@ def _compile_flow(flow: dict[str, Any]) -> dict[str, Any]:
         repo = _require_text(system.get("repo"), "system.repo", flow_id)
         if not repo.startswith("https://github.com/GlacierEQ/"):
             raise RoleLensError(f"flow {flow_id} repo outside GlacierEQ boundary: {repo}")
-        proof_points.append({
-            "system_id": system_id,
-            "evidence": evidence,
-            "contribution": str(step.get("transition") or "").strip(),
-        })
+        proof_points.append(
+            {
+                "system_id": system_id,
+                "evidence": evidence,
+                "contribution": str(step.get("transition") or "").strip(),
+            }
+        )
         limit = str(system.get("limit") or "").strip()
         if limit:
             ceilings.append({"system_id": system_id, "limit": limit})
