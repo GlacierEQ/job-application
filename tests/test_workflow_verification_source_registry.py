@@ -162,9 +162,7 @@ class VerificationSourceRegistryTests(unittest.TestCase):
         with self.assertRaisesRegex(
             EvidenceManifestError, "helix@GlacierEQ/job-app-helix"
         ):
-            build_evidence_manifest(
-                _topology(), fetch, verification_sources=registry
-            )
+            build_evidence_manifest(_topology(), fetch, verification_sources=registry)
 
     def test_allow_missing_records_unregistered_repository(self) -> None:
         registry = _registry()
