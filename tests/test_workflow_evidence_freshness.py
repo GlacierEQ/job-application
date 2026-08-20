@@ -3,8 +3,10 @@ from __future__ import annotations
 import unittest
 from datetime import UTC, datetime
 
-from tools.workflow_evidence_freshness import EvidenceFreshnessError, build_evidence_freshness
-
+from tools.workflow_evidence_freshness import (
+    EvidenceFreshnessError,
+    build_evidence_freshness,
+)
 
 AS_OF = datetime(2026, 8, 20, tzinfo=UTC)
 
@@ -31,23 +33,37 @@ class EvidenceFreshnessTests(unittest.TestCase):
         first = build_evidence_freshness(manifest, as_of=AS_OF)
         second = build_evidence_freshness(manifest, as_of=AS_OF)
         self.assertEqual(first, second)
-        self.assertEqual([e["id"] for e in first["entries"]], ["fresh", "aging", "old"])
+        self.assertEqual(
+            [e["id"] for e in first["entries"]], ["fresh", "aging", "old"]
+        )
         self.assertEqual(first["entries"][0]["freshness_weight"], 1.0)
         self.assertEqual(first["entries"][-1]["state"], "stale")
         self.assertEqual(len(first["receipt_sha256"]), 64)
 
     def test_rejects_duplicate_evidence_ids(self) -> None:
-        manifest = {"schema": "glaciereq.evidence-manifest.v1", "entries": [_entry("same", "2026-08-19T00:00:00Z"), _entry("same", "2026-08-18T00:00:00Z", "b" * 40)]}
+        manifest = {
+            "schema": "glaciereq.evidence-manifest.v1",
+            "entries": [
+                _entry("same", "2026-08-19T00:00:00Z"),
+                _entry("same", "2026-08-18T00:00:00Z", "b" * 40),
+            ],
+        }
         with self.assertRaisesRegex(EvidenceFreshnessError, "duplicate"):
             build_evidence_freshness(manifest, as_of=AS_OF)
 
     def test_rejects_non_exact_sha(self) -> None:
-        manifest = {"schema": "glaciereq.evidence-manifest.v1", "entries": [_entry("bad", "2026-08-19T00:00:00Z", "abc123")]}
+        manifest = {
+            "schema": "glaciereq.evidence-manifest.v1",
+            "entries": [_entry("bad", "2026-08-19T00:00:00Z", "abc123")],
+        }
         with self.assertRaisesRegex(EvidenceFreshnessError, "40-char"):
             build_evidence_freshness(manifest, as_of=AS_OF)
 
     def test_rejects_future_evidence(self) -> None:
-        manifest = {"schema": "glaciereq.evidence-manifest.v1", "entries": [_entry("future", "2026-08-22T00:00:00Z")]}
+        manifest = {
+            "schema": "glaciereq.evidence-manifest.v1",
+            "entries": [_entry("future", "2026-08-22T00:00:00Z")],
+        }
         with self.assertRaisesRegex(EvidenceFreshnessError, "future"):
             build_evidence_freshness(manifest, as_of=AS_OF)
 
