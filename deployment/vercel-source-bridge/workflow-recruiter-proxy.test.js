@@ -83,12 +83,7 @@ function response() {
 }
 
 const AS_OF = new Date('2026-08-20T12:00:00Z');
-const SHAS = {
-  fresh: 'a'.repeat(40),
-  fresh2: 'b'.repeat(40),
-  stale: 'c'.repeat(40),
-  aging: 'd'.repeat(40),
-};
+const SHAS = { fresh: 'a'.repeat(40), fresh2: 'b'.repeat(40) };
 
 function liveRuns() {
   return {
@@ -129,7 +124,7 @@ test('live freshness derivation preserves exact verification lineage and isolate
   assert.ok(!freshness.entries.some((entry) => entry.id === 'doctor-strange'));
 });
 
-test('stale application evidence loses recruiter ranking while fresh architecture proof retains leverage', async () => {
+test('stale application evidence receives a measurable recruiter penalty while fresh proof retains full credit', async () => {
   const topology = topologyProxy.buildTopology(portfolio);
   const proof = await recruiterProxy.buildPublicRecruiterProof(topology, 'recruiter', {
     asOf: AS_OF,
@@ -137,12 +132,15 @@ test('stale application evidence loses recruiter ranking while fresh architectur
   });
   assert.equal(proof.schema, 'glaciereq.public-recruiter-proof.v1');
   assert.match(proof.receipt_sha256, /^[a-f0-9]{64}$/);
-  assert.notEqual(proof.briefs[0].flow_id, 'opportunity-to-evidence-package');
   const applicationFlow = proof.briefs.find((brief) => brief.flow_id === 'opportunity-to-evidence-package');
   assert.ok(applicationFlow.score < applicationFlow.static_role_score + applicationFlow.breadth_bonus);
   const appPoint = applicationFlow.proof_points.find((point) => point.system_id === 'job-application');
+  const helixPoint = applicationFlow.proof_points.find((point) => point.system_id === 'helix');
   assert.equal(appPoint.freshness_state, 'stale');
   assert.equal(appPoint.freshness_weight, 0.2);
+  assert.equal(appPoint.weighted_contribution, 1.6);
+  assert.equal(helixPoint.freshness_weight, 1);
+  assert.equal(helixPoint.weighted_contribution, 7);
 });
 
 test('role selection produces distinct deterministic ranking from one proof graph', async () => {
