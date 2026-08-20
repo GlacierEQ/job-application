@@ -104,6 +104,22 @@ def _qualifying_run(
     return candidates[0]
 
 
+def _load_repository_runs(
+    repository: str, fetch_json: Callable[[str], dict[str, Any]]
+) -> tuple[str, list[dict[str, Any]]]:
+    owner, name = repository.split("/", 1)
+    repo_url = f"https://api.github.com/repos/{owner}/{name}"
+    metadata = fetch_json(repo_url)
+    default_branch = _require_text(metadata.get("default_branch"), "default_branch")
+    payload = fetch_json(f"{repo_url}/actions/runs?status=success&per_page=100")
+    runs = payload.get("workflow_runs")
+    if not isinstance(runs, list):
+        raise EvidenceManifestError(
+            f"GitHub Actions response for {repository} lacks workflow_runs"
+        )
+    return default_branch, runs
+
+
 def build_evidence_manifest(
     topology: dict[str, Any],
     fetch_json: Callable[[str], dict[str, Any]],
@@ -120,30 +136,42 @@ def build_evidence_manifest(
 
     entries: list[dict[str, Any]] = []
     missing: list[dict[str, str]] = []
-    repo_cache: dict[str, tuple[str, list[dict[str, Any]]]] = {}
+    repo_cache: dict[
+        str, tuple[str, list[dict[str, Any]]] | EvidenceManifestError
+    ] = {}
 
     for system_id, repository in sorted(systems.items()):
         if repository not in repo_cache:
-            owner, name = repository.split("/", 1)
-            repo_url = f"https://api.github.com/repos/{owner}/{name}"
-            metadata = fetch_json(repo_url)
-            default_branch = _require_text(
-                metadata.get("default_branch"), "default_branch"
-            )
-            payload = fetch_json(f"{repo_url}/actions/runs?status=success&per_page=100")
-            runs = payload.get("workflow_runs")
-            if not isinstance(runs, list):
-                raise EvidenceManifestError(
-                    f"GitHub Actions response for {repository} lacks workflow_runs"
-                )
-            repo_cache[repository] = (default_branch, runs)
+            try:
+                repo_cache[repository] = _load_repository_runs(repository, fetch_json)
+            except EvidenceManifestError as exc:
+                repo_cache[repository] = exc
 
-        default_branch, runs = repo_cache[repository]
+        cached = repo_cache[repository]
+        if isinstance(cached, EvidenceManifestError):
+            if not allow_missing:
+                raise cached
+            missing.append(
+                {
+                    "id": system_id,
+                    "repository": repository,
+                    "reason": f"repository_verification_unavailable: {cached}",
+                }
+            )
+            continue
+
+        default_branch, runs = cached
         run = _qualifying_run(
             runs, default_branch=default_branch, workflow_re=workflow_re
         )
         if run is None:
-            missing.append({"id": system_id, "repository": repository})
+            missing.append(
+                {
+                    "id": system_id,
+                    "repository": repository,
+                    "reason": "no_qualifying_successful_verification_run",
+                }
+            )
             continue
         entries.append(
             {
@@ -170,8 +198,9 @@ def build_evidence_manifest(
         "schema": OUTPUT_SCHEMA,
         "derivation_policy": (
             "latest completed successful owning-repository GitHub Actions run whose workflow "
-            "name/title/path matches the configured verification pattern; exact run head SHA "
-            "and completion timestamp are preserved"
+            "name/title/path matches the configured verification pattern; inaccessible or "
+            "unverified repositories remain explicit missing systems and receive no freshness "
+            "credit downstream"
         ),
         "workflow_pattern": workflow_pattern,
         "topology_receipt_sha256": topology.get("receipt_sha256"),
