@@ -138,8 +138,7 @@ test('single-pass matrix cuts three-role verification traffic by two thirds with
 
   assert.equal(matrixFixture.calls.length, 6);
   assert.equal(baselineFixture.calls.length, 18);
-  const reduction = 1 - matrixFixture.calls.length / baselineFixture.calls.length;
-  assert.equal(reduction, 2 / 3);
+  assert.equal(matrixFixture.calls.length * 3, baselineFixture.calls.length);
 });
 
 test('shared freshness extraction rejects conflicting verification identity for one system', () => {
