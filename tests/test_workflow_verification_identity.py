@@ -75,7 +75,10 @@ class FakeGitHub:
         self.calls.append(url)
         if url == "https://api.github.com/repos/GlacierEQ/job-app-helix":
             return {"default_branch": self.default_branch}
-        if url == "https://api.github.com/repos/GlacierEQ/job-app-helix/actions/runs/42":
+        if (
+            url
+            == "https://api.github.com/repos/GlacierEQ/job-app-helix/actions/runs/42"
+        ):
             return self.run
         raise AssertionError(url)
 
@@ -98,7 +101,9 @@ class VerificationIdentityTests(unittest.TestCase):
 
     def test_same_display_name_wrong_workflow_path_is_rejected(self) -> None:
         fetch = FakeGitHub(_run(path=".github/workflows/experimental-proof.yml"))
-        with self.assertRaisesRegex(VerificationIdentityError, "workflow path is not registered"):
+        with self.assertRaisesRegex(
+            VerificationIdentityError, "workflow path is not registered"
+        ):
             build_verification_identity_proof(_manifest(), _registry(), fetch)
 
     def test_pull_request_feature_branch_is_allowed_by_policy(self) -> None:
@@ -106,15 +111,17 @@ class VerificationIdentityTests(unittest.TestCase):
         proof = build_verification_identity_proof(
             _manifest(), _registry(), FakeGitHub(run)
         )
-        self.assertEqual(proof["verified_entries"][0]["verification_event"], "pull_request")
-        self.assertEqual(proof["verified_entries"][0]["verification_branch"], "feature/proof")
+        self.assertEqual(
+            proof["verified_entries"][0]["verification_event"], "pull_request"
+        )
+        self.assertEqual(
+            proof["verified_entries"][0]["verification_branch"], "feature/proof"
+        )
 
     def test_feature_branch_push_is_rejected(self) -> None:
         run = _run(branch="feature/proof", event="push")
         with self.assertRaisesRegex(VerificationIdentityError, "is not default branch"):
-            build_verification_identity_proof(
-                _manifest(), _registry(), FakeGitHub(run)
-            )
+            build_verification_identity_proof(_manifest(), _registry(), FakeGitHub(run))
 
     def test_default_only_rejects_pull_request_branch(self) -> None:
         run = _run(branch="feature/proof", event="pull_request")
@@ -124,7 +131,9 @@ class VerificationIdentityTests(unittest.TestCase):
             )
 
     def test_exact_run_sha_tamper_is_rejected(self) -> None:
-        with self.assertRaisesRegex(VerificationIdentityError, "exact run SHA mismatch"):
+        with self.assertRaisesRegex(
+            VerificationIdentityError, "exact run SHA mismatch"
+        ):
             build_verification_identity_proof(
                 _manifest(), _registry(), FakeGitHub(_run(sha="c" * 40))
             )
@@ -133,17 +142,15 @@ class VerificationIdentityTests(unittest.TestCase):
         run = _run()
         run["updated_at"] = "2026-08-20T12:01:00Z"
         with self.assertRaisesRegex(VerificationIdentityError, "timestamp mismatch"):
-            build_verification_identity_proof(
-                _manifest(), _registry(), FakeGitHub(run)
-            )
+            build_verification_identity_proof(_manifest(), _registry(), FakeGitHub(run))
 
     def test_manifest_name_must_be_registered(self) -> None:
         manifest = _manifest()
         manifest["entries"][0]["verification_workflow"] = "Experimental Proof"
-        with self.assertRaisesRegex(VerificationIdentityError, "manifest workflow is not registered"):
-            build_verification_identity_proof(
-                manifest, _registry(), FakeGitHub(_run())
-            )
+        with self.assertRaisesRegex(
+            VerificationIdentityError, "manifest workflow is not registered"
+        ):
+            build_verification_identity_proof(manifest, _registry(), FakeGitHub(_run()))
 
 
 if __name__ == "__main__":
