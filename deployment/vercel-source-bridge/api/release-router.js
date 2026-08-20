@@ -13,6 +13,7 @@ const starmapProxy = require('./starmap-proxy.js');
 const workflowTopologyProxy = require('./workflow-topology-proxy.js');
 require('./workflow-topology-loader-patch.js');
 const workflowRecruiterProxy = require('./workflow-recruiter-proxy.js');
+const recruiterRoleMatrix = require('./recruiter-role-matrix.js');
 
 const PUBLIC_ORIGIN = 'https://casey-barton-glaciereq.vercel.app';
 const V26_ASSETS = new Set([
@@ -197,6 +198,9 @@ module.exports = async function releaseRouter(req, res) {
   }
   if (rawPath === '__recruiter_proof_verify' || workflowRecruiterProxy.handles(rawPath)) {
     return workflowRecruiterProxy(req, res);
+  }
+  if (rawPath === 'data/recruiter-role-matrix.json') {
+    return recruiterRoleMatrix(req, res);
   }
   if (rawPath === '__v21_verify') return proxy(req, res);
   if (rawPath === '__design_verify') return designProxy(req, res);
