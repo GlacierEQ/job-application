@@ -117,7 +117,18 @@ def build_evidence_manifest(
         owner, name = repository.split("/", 1)
         query = urllib.parse.urlencode({"status": "success", "per_page": 10})
         url = f"{GITHUB_API}/repos/{owner}/{name}/actions/runs?{query}"
-        event = _verification_event(fetch_json(url), repository)
+        try:
+            payload = fetch_json(url)
+            event = _verification_event(payload, repository)
+        except LiveRecruiterProofError:
+            unverified_systems.append(
+                {
+                    "id": system_id,
+                    "repository": repository,
+                    "reason": "github_actions_verification_surface_unavailable",
+                }
+            )
+            continue
         if event is None:
             unverified_systems.append(
                 {
@@ -148,7 +159,7 @@ def build_evidence_manifest(
         "unverified_systems": unverified_systems,
         "derivation_policy": (
             "newest successful GitHub Actions run per topology system; "
-            "systems without a successful run remain explicitly unverified"
+            "missing or unavailable verification surfaces remain explicitly unverified"
         ),
     }
 
