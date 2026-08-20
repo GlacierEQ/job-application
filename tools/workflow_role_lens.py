@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 from pathlib import Path
 from typing import Any
 
@@ -40,11 +41,21 @@ class RoleLensError(ValueError):
 
 
 def _stable(value: Any) -> str:
-    return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+    return json.dumps(
+        value,
+        sort_keys=True,
+        separators=(",", ":"),
+        ensure_ascii=False,
+        allow_nan=False,
+    )
 
 
 def _receipt(value: Any) -> str:
-    return hashlib.sha256(_stable(value).encode("utf-8")).hexdigest()
+    try:
+        rendered = _stable(value)
+    except (TypeError, ValueError) as exc:
+        raise RoleLensError(f"role-lens payload is not strict JSON: {exc}") from exc
+    return hashlib.sha256(rendered.encode("utf-8")).hexdigest()
 
 
 def _validate_topology(topology: dict[str, Any]) -> None:
@@ -67,6 +78,18 @@ def _validate_topology(topology: dict[str, Any]) -> None:
                 )
 
 
+def _verify_freshness_receipt(freshness: dict[str, Any]) -> None:
+    receipt = freshness.get("receipt_sha256")
+    if not isinstance(receipt, str) or len(receipt) != 64 or any(
+        char not in "0123456789abcdef" for char in receipt
+    ):
+        raise RoleLensError("freshness receipt_sha256 must be exact lowercase SHA-256")
+    unsigned = {key: value for key, value in freshness.items() if key != "receipt_sha256"}
+    expected = _receipt(unsigned)
+    if receipt != expected:
+        raise RoleLensError("freshness receipt_sha256 does not match freshness content")
+
+
 def _freshness_by_system(freshness: dict[str, Any] | None) -> dict[str, dict[str, Any]]:
     if freshness is None:
         return {}
@@ -74,6 +97,7 @@ def _freshness_by_system(freshness: dict[str, Any] | None) -> dict[str, dict[str
         raise RoleLensError(
             f"unsupported freshness schema: {freshness.get('schema')!r}"
         )
+    _verify_freshness_receipt(freshness)
     entries = freshness.get("entries")
     if not isinstance(entries, list) or not entries:
         raise RoleLensError("freshness.entries must be a non-empty list")
@@ -84,14 +108,21 @@ def _freshness_by_system(freshness: dict[str, Any] | None) -> dict[str, dict[str
         system_id = str(entry.get("id") or "").strip()
         weight = entry.get("freshness_weight")
         state = str(entry.get("state") or "").strip()
+        age_days = entry.get("age_days")
         if not system_id or system_id in indexed:
             raise RoleLensError(f"invalid or duplicate freshness id: {system_id!r}")
         if not isinstance(weight, (int, float)) or isinstance(weight, bool):
             raise RoleLensError(f"freshness {system_id} requires numeric weight")
-        if weight < 0 or weight > 1:
-            raise RoleLensError(f"freshness {system_id} weight must be within 0..1")
+        if not math.isfinite(float(weight)) or weight < 0 or weight > 1:
+            raise RoleLensError(
+                f"freshness {system_id} weight must be finite and within 0..1"
+            )
         if state not in {"fresh", "aging", "stale"}:
             raise RoleLensError(f"freshness {system_id} has invalid state: {state!r}")
+        if not isinstance(age_days, int) or isinstance(age_days, bool) or age_days < 0:
+            raise RoleLensError(
+                f"freshness {system_id} age_days must be a non-negative integer"
+            )
         indexed[system_id] = entry
     return indexed
 
@@ -116,11 +147,9 @@ def build_role_lens(
         contributions = []
         static_role_score = 0
         freshness_adjusted_score = 0.0
-        freshness_weights = []
+        proof_freshness_weights = []
         for system_id in systems:
             role_weight = weights.get(system_id, 0)
-            if not role_weight:
-                continue
             static_role_score += role_weight
             evidence_freshness = freshness_index.get(system_id)
             if freshness_enabled and evidence_freshness is None:
@@ -134,10 +163,10 @@ def build_role_lens(
             else:
                 freshness_weight = float(evidence_freshness["freshness_weight"])
                 freshness_state = evidence_freshness["state"]
-                age_days = evidence_freshness.get("age_days")
+                age_days = evidence_freshness["age_days"]
             weighted = round(role_weight * freshness_weight, 6)
             freshness_adjusted_score += weighted
-            freshness_weights.append(freshness_weight)
+            proof_freshness_weights.append(freshness_weight)
             contributions.append(
                 {
                     "system_id": system_id,
@@ -149,10 +178,13 @@ def build_role_lens(
                 }
             )
 
-        # WHY: breadth remains useful, but stale proof must not receive full breadth credit.
+        # WHY: breadth represents the whole proof chain, so every proof node must carry
+        # freshness. A zero-role-weight node can still weaken confidence in the flow.
         breadth_bonus = min(len(set(systems)), 4)
-        if freshness_enabled and freshness_weights:
-            freshness_breadth_factor = sum(freshness_weights) / len(freshness_weights)
+        if freshness_enabled and proof_freshness_weights:
+            freshness_breadth_factor = sum(proof_freshness_weights) / len(
+                proof_freshness_weights
+            )
         elif freshness_enabled:
             freshness_breadth_factor = 0.0
         else:
@@ -186,11 +218,11 @@ def build_role_lens(
         "ranking_policy": {
             "role_weights": weights,
             "freshness": (
-                "role contribution multiplied by evidence freshness; missing proof scores zero"
+                "role contribution multiplied by verified evidence freshness; missing proof scores zero"
                 if freshness_enabled
                 else "not applied; backward-compatible unit weight"
             ),
-            "breadth_bonus": "min(unique_system_count, 4) scaled by mean matched freshness",
+            "breadth_bonus": "min(unique_system_count, 4) scaled by mean freshness across the full proof chain",
             "tie_breaker": "flow_id ascending",
         },
         "ranked_flows": ranked,
@@ -215,7 +247,7 @@ def main() -> int:
         else None
     )
     result = build_role_lens(topology, args.role, freshness)
-    rendered = json.dumps(result, indent=2, ensure_ascii=False) + "\n"
+    rendered = json.dumps(result, indent=2, ensure_ascii=False, allow_nan=False) + "\n"
     if args.output:
         args.output.parent.mkdir(parents=True, exist_ok=True)
         tmp = args.output.with_suffix(args.output.suffix + ".tmp")
