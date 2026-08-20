@@ -8,6 +8,8 @@ const VERIFY_SCHEMA = 'glaciereq.v30-recruiter-proof-runtime-verification.v1';
 const GITHUB_API = 'https://api.github.com';
 const FETCH_TIMEOUT_MS = 10_000;
 const MAX_BYTES = 2 * 1024 * 1024;
+const FETCH_CONCURRENCY = 4;
+const FRESHNESS_CACHE_MS = 5 * 60 * 1000;
 const ROLE_WEIGHTS = Object.freeze({
   recruiter: Object.freeze({ 'job-application': 8, helix: 7, 'receipt-router': 5, 'doctor-strange': 2, 'pro-code-runtime': 2 }),
   'engineering-lead': Object.freeze({ 'pro-code-runtime': 8, 'tower-of-babel': 7, helix: 5, akos: 4, 'doctor-strange': 3 }),
@@ -23,6 +25,9 @@ const VERIFICATION_SOURCES = Object.freeze({
   'GlacierEQ/the-tower-of-babel': Object.freeze(['Tower Verification']),
   'GlacierEQ/xai-colossus-2': Object.freeze(['CI']),
 });
+
+let liveFreshnessCache = null;
+let liveFreshnessPromise = null;
 
 function stableStringify(value) {
   if (Array.isArray(value)) return `[${value.map(stableStringify).join(',')}]`;
@@ -84,6 +89,22 @@ async function fetchJson(url, fetchImpl = fetch) {
   } finally { clearTimeout(timer); }
 }
 
+async function mapConcurrent(items, limit, mapper) {
+  requireValue(Number.isInteger(limit) && limit > 0, 'recruiter_invalid_concurrency');
+  const results = new Array(items.length);
+  let cursor = 0;
+  async function worker() {
+    while (true) {
+      const index = cursor;
+      cursor += 1;
+      if (index >= items.length) return;
+      results[index] = await mapper(items[index], index);
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(limit, items.length) }, () => worker()));
+  return results;
+}
+
 function selectVerificationRun(payload, repository) {
   const allowed = VERIFICATION_SOURCES[repository];
   if (!allowed) return null;
@@ -109,26 +130,35 @@ async function deriveFreshness(topology, { asOf = new Date(), fetchImpl = fetch 
     for (const step of flow.steps || []) systems.set(step.system.id, step.system);
   }
   requireValue(systems.size > 0, 'recruiter_topology_systems_missing');
+
+  const orderedSystems = [...systems.entries()].sort(([a], [b]) => a.localeCompare(b));
+  const repositories = [...new Set(orderedSystems.map(([, system]) => repositoryName(system.repo)))].sort();
+  const repositoryPayloads = new Map();
+  const repositoryFailures = new Map();
+
+  await mapConcurrent(repositories, FETCH_CONCURRENCY, async (repository) => {
+    if (!VERIFICATION_SOURCES[repository]) {
+      repositoryFailures.set(repository, 'verification_source_not_registered');
+      return;
+    }
+    try {
+      const payload = await fetchJson(`${GITHUB_API}/repos/${repository}/actions/runs?per_page=50`, fetchImpl);
+      repositoryPayloads.set(repository, payload);
+    } catch (error) {
+      repositoryFailures.set(repository, `repository_verification_unavailable:${error instanceof Error ? error.message : String(error)}`);
+    }
+  });
+
   const entries = [];
   const missing = [];
-  const cache = new Map();
-  for (const [systemId, system] of [...systems.entries()].sort(([a], [b]) => a.localeCompare(b))) {
+  for (const [systemId, system] of orderedSystems) {
     const repository = repositoryName(system.repo);
-    if (!VERIFICATION_SOURCES[repository]) {
-      missing.push({ id: systemId, repository, reason: 'verification_source_not_registered' });
+    const failure = repositoryFailures.get(repository);
+    if (failure) {
+      missing.push({ id: systemId, repository, reason: failure });
       continue;
     }
-    let payload = cache.get(repository);
-    if (!payload) {
-      try {
-        payload = await fetchJson(`${GITHUB_API}/repos/${repository}/actions/runs?per_page=50`, fetchImpl);
-        cache.set(repository, payload);
-      } catch (error) {
-        missing.push({ id: systemId, repository, reason: `repository_verification_unavailable:${error instanceof Error ? error.message : String(error)}` });
-        continue;
-      }
-    }
-    const run = selectVerificationRun(payload, repository);
+    const run = selectVerificationRun(repositoryPayloads.get(repository), repository);
     if (!run) {
       missing.push({ id: systemId, repository, reason: 'registered_verification_run_not_found' });
       continue;
@@ -158,10 +188,27 @@ async function deriveFreshness(topology, { asOf = new Date(), fetchImpl = fetch 
     as_of: asOf.toISOString(),
     topology_receipt_sha256: topology.receipt_sha256,
     verification_source_policy: 'explicit registered workflow names only; missing or unavailable proof receives zero ranking credit',
+    fetch_policy: { concurrency: FETCH_CONCURRENCY, timeout_ms: FETCH_TIMEOUT_MS },
     entries,
     missing_systems: missing,
   };
   return { ...core, receipt_sha256: receipt(core) };
+}
+
+async function loadLiveFreshness(topology) {
+  const now = Date.now();
+  if (liveFreshnessCache && liveFreshnessCache.topologyReceipt === topology.receipt_sha256 && liveFreshnessCache.expiresAt > now) {
+    return liveFreshnessCache.value;
+  }
+  if (liveFreshnessPromise && liveFreshnessPromise.topologyReceipt === topology.receipt_sha256) return liveFreshnessPromise.promise;
+  const promise = deriveFreshness(topology, { asOf: new Date(now) })
+    .then((value) => {
+      liveFreshnessCache = { topologyReceipt: topology.receipt_sha256, expiresAt: now + FRESHNESS_CACHE_MS, value };
+      return value;
+    })
+    .finally(() => { liveFreshnessPromise = null; });
+  liveFreshnessPromise = { topologyReceipt: topology.receipt_sha256, promise };
+  return promise;
 }
 
 function rankFlows(topology, role, freshness) {
@@ -218,9 +265,9 @@ function rankFlows(topology, role, freshness) {
   return ranked;
 }
 
-async function buildPublicRecruiterProof(topology, role, options = {}) {
+async function buildPublicRecruiterProof(topology, role, options = null) {
   requireValue(ROLE_WEIGHTS[role], `recruiter_unknown_role:${role}`);
-  const freshness = await deriveFreshness(topology, options);
+  const freshness = options ? await deriveFreshness(topology, options) : await loadLiveFreshness(topology);
   const ranked = rankFlows(topology, role, freshness);
   const core = {
     schema: SCHEMA,
@@ -285,10 +332,11 @@ module.exports = async function workflowRecruiterProxy(req, res) {
   }
 };
 module.exports.handles = handles;
-module.exports.constants = { RELEASE, SCHEMA, VERIFY_SCHEMA, ROLE_WEIGHTS, VERIFICATION_SOURCES };
+module.exports.constants = { RELEASE, SCHEMA, VERIFY_SCHEMA, ROLE_WEIGHTS, VERIFICATION_SOURCES, FETCH_CONCURRENCY, FRESHNESS_CACHE_MS };
 module.exports.freshnessWeight = freshnessWeight;
 module.exports.selectVerificationRun = selectVerificationRun;
 module.exports.deriveFreshness = deriveFreshness;
+module.exports.loadLiveFreshness = loadLiveFreshness;
 module.exports.rankFlows = rankFlows;
 module.exports.buildPublicRecruiterProof = buildPublicRecruiterProof;
 module.exports.renderHtml = renderHtml;
