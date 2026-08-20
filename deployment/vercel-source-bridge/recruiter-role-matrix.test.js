@@ -2,7 +2,9 @@ const assert = require('node:assert/strict');
 const test = require('node:test');
 
 const recruiterProxy = require('./api/workflow-recruiter-proxy.js');
+const workflowTopologyProxy = require('./api/workflow-topology-proxy.js');
 const matrixRuntime = require('./api/recruiter-role-matrix.js');
+const releaseRouter = require('./api/release-router.js');
 
 function topology() {
   const systems = {
@@ -53,6 +55,17 @@ function freshness() {
   };
 }
 
+function response() {
+  const headers = new Map();
+  return {
+    statusCode: 200,
+    body: Buffer.alloc(0),
+    setHeader(name, value) { headers.set(String(name).toLowerCase(), value); },
+    getHeader(name) { return headers.get(String(name).toLowerCase()); },
+    end(chunk = '') { this.body = Buffer.isBuffer(chunk) ? chunk : Buffer.from(String(chunk)); },
+  };
+}
+
 test('one shared freshness graph produces all public role rankings', () => {
   const topo = topology();
   const proof = freshness();
@@ -74,10 +87,78 @@ test('one shared freshness graph produces all public role rankings', () => {
   assert.equal(matrix.rankings['systems-architect'].top_flow, 'architecture-flow');
 });
 
+test('sealed release-router matrix stays byte-for-byte semantic parity with standalone runtime', () => {
+  const topo = topology();
+  const proof = freshness();
+  assert.deepEqual(
+    releaseRouter.buildRoleMatrix(topo, proof),
+    matrixRuntime.buildRoleMatrix(topo, proof),
+  );
+});
+
 test('matrix output is deterministic for one exact verification graph', () => {
   const first = matrixRuntime.buildRoleMatrix(topology(), freshness());
   const second = matrixRuntime.buildRoleMatrix(topology(), freshness());
   assert.deepEqual(first, second);
+  assert.deepEqual(
+    releaseRouter.buildRoleMatrix(topology(), freshness()),
+    releaseRouter.buildRoleMatrix(topology(), freshness()),
+  );
+});
+
+test('sealed catch-all router serves the public role matrix from one shared freshness pass', async (t) => {
+  const originalLoadTopology = workflowTopologyProxy.loadTopology;
+  const originalLoadFreshness = recruiterProxy.loadLiveFreshness;
+  let topologyLoads = 0;
+  let freshnessLoads = 0;
+  workflowTopologyProxy.loadTopology = async () => {
+    topologyLoads += 1;
+    return topology();
+  };
+  recruiterProxy.loadLiveFreshness = async (topo) => {
+    freshnessLoads += 1;
+    assert.equal(topo.receipt_sha256, 'a'.repeat(64));
+    return freshness();
+  };
+  t.after(() => {
+    workflowTopologyProxy.loadTopology = originalLoadTopology;
+    recruiterProxy.loadLiveFreshness = originalLoadFreshness;
+  });
+
+  const res = response();
+  await releaseRouter({ url: '/api/index?path=data/recruiter-role-matrix.json' }, res);
+  assert.equal(res.statusCode, 200);
+  assert.match(res.getHeader('content-type'), /application\/json/);
+  assert.equal(res.getHeader('cache-control'), 'public, max-age=0, s-maxage=300, must-revalidate');
+  const matrix = JSON.parse(res.body.toString('utf8'));
+  assert.equal(matrix.schema, 'glaciereq.public-recruiter-role-matrix.v1');
+  assert.equal(matrix.verification_passes, 1);
+  assert.equal(topologyLoads, 1);
+  assert.equal(freshnessLoads, 1);
+  assert.deepEqual(matrix, matrixRuntime.buildRoleMatrix(topology(), freshness()));
+});
+
+test('sealed role-matrix route fails closed when freshness identity is invalid', async (t) => {
+  const originalLoadTopology = workflowTopologyProxy.loadTopology;
+  const originalLoadFreshness = recruiterProxy.loadLiveFreshness;
+  workflowTopologyProxy.loadTopology = async () => topology();
+  recruiterProxy.loadLiveFreshness = async () => {
+    const proof = freshness();
+    proof.topology_receipt_sha256 = 'c'.repeat(64);
+    return proof;
+  };
+  t.after(() => {
+    workflowTopologyProxy.loadTopology = originalLoadTopology;
+    recruiterProxy.loadLiveFreshness = originalLoadFreshness;
+  });
+
+  const res = response();
+  await releaseRouter({ url: '/api/index?path=data/recruiter-role-matrix.json' }, res);
+  assert.equal(res.statusCode, 503);
+  assert.equal(res.getHeader('cache-control'), 'no-store');
+  const payload = JSON.parse(res.body.toString('utf8'));
+  assert.equal(payload.status, 'FAIL_CLOSED');
+  assert.equal(payload.error, 'role_matrix_topology_receipt_mismatch');
 });
 
 test('matrix rejects freshness from a different topology', () => {
@@ -87,6 +168,10 @@ test('matrix rejects freshness from a different topology', () => {
     () => matrixRuntime.buildRoleMatrix(topology(), proof),
     /role_matrix_topology_receipt_mismatch/,
   );
+  assert.throws(
+    () => releaseRouter.buildRoleMatrix(topology(), proof),
+    /role_matrix_topology_receipt_mismatch/,
+  );
 });
 
 test('matrix rejects malformed freshness receipts before ranking', () => {
@@ -94,6 +179,10 @@ test('matrix rejects malformed freshness receipts before ranking', () => {
   proof.receipt_sha256 = 'not-a-receipt';
   assert.throws(
     () => matrixRuntime.buildRoleMatrix(topology(), proof),
+    /role_matrix_freshness_receipt/,
+  );
+  assert.throws(
+    () => releaseRouter.buildRoleMatrix(topology(), proof),
     /role_matrix_freshness_receipt/,
   );
 });
