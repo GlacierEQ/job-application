@@ -3,11 +3,13 @@ name: APEX Recruiter Proof Brief
 on:
   pull_request:
     paths:
+      - 'config/workflow-verification-sources.json'
       - 'tools/workflow_evidence_manifest.py'
       - 'tools/workflow_evidence_freshness.py'
       - 'tools/workflow_role_lens.py'
       - 'tools/workflow_recruiter_brief.py'
       - 'tests/test_workflow_evidence_manifest.py'
+      - 'tests/test_workflow_verification_source_registry.py'
       - 'tests/test_workflow_evidence_freshness.py'
       - 'tests/test_workflow_role_lens.py'
       - 'tests/test_workflow_recruiter_brief.py'
@@ -47,6 +49,7 @@ jobs:
         run: |
           python -m unittest \
             tests.test_workflow_evidence_manifest \
+            tests.test_workflow_verification_source_registry \
             tests.test_workflow_evidence_freshness \
             tests.test_workflow_role_lens \
             tests.test_workflow_recruiter_brief -v
@@ -71,10 +74,11 @@ jobs:
             console.log(JSON.stringify({status: 'PASS', topology_receipt_sha256: topology.receipt_sha256, flows: topology.flows.length}, null, 2));
           }).catch((error) => { console.error(error); process.exit(1); });
           NODE
-      - name: Derive live evidence manifest from owning-repository verification runs
+      - name: Derive live evidence manifest from registered owning-repository verification sources
         run: |
           python tools/workflow_evidence_manifest.py \
             --topology /tmp/workflow-topology.json \
+            --verification-sources config/workflow-verification-sources.json \
             --output /tmp/evidence-manifest.json \
             --allow-missing \
             --github-token-env GLACIEREQ_PUBLIC_GITHUB_TOKEN
@@ -82,7 +86,9 @@ jobs:
           import json
           data = json.load(open('/tmp/evidence-manifest.json', encoding='utf-8'))
           assert data['schema'] == 'glaciereq.evidence-manifest.v1'
-          assert data['entries'], 'no live verification evidence was derived'
+          assert data['verification_source_registry'] is True
+          assert data['workflow_pattern'] is None
+          assert data['entries'], 'no registered live verification evidence was derived'
           assert all(len(entry['commit_sha']) == 40 for entry in data['entries'])
           assert all(entry['verification_run_id'] > 0 for entry in data['entries'])
           assert all(entry['verification_url'].startswith('https://github.com/GlacierEQ/') for entry in data['entries'])
@@ -90,6 +96,7 @@ jobs:
               'status': 'PASS',
               'verified_systems': [entry['id'] for entry in data['entries']],
               'missing_systems': data['missing_systems'],
+              'verification_workflows': {entry['id']: entry['verification_workflow'] for entry in data['entries']},
               'verification_run_ids': {entry['id']: entry['verification_run_id'] for entry in data['entries']},
           }, indent=2))
           PY
@@ -113,7 +120,7 @@ jobs:
               'states': {entry['id']: entry['state'] for entry in data['entries']},
           }, indent=2))
           PY
-      - name: Execute recruiter proof compiler against live-derived freshness
+      - name: Execute recruiter proof compiler against registered live-derived freshness
         run: |
           python tools/workflow_recruiter_brief.py \
             --topology /tmp/workflow-topology.json \
