@@ -115,9 +115,7 @@ def build_evidence_manifest(
     unverified_systems: list[dict[str, str]] = []
     for system_id, repository in sorted(_systems(topology).items()):
         owner, name = repository.split("/", 1)
-        query = urllib.parse.urlencode(
-            {"status": "completed", "conclusion": "success", "per_page": 10}
-        )
+        query = urllib.parse.urlencode({"status": "success", "per_page": 10})
         url = f"{GITHUB_API}/repos/{owner}/{name}/actions/runs?{query}"
         event = _verification_event(fetch_json(url), repository)
         if event is None:
