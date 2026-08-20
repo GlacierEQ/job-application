@@ -6,7 +6,6 @@ import os
 import re
 import tempfile
 import urllib.error
-import urllib.parse
 import urllib.request
 from collections.abc import Callable
 from pathlib import Path
@@ -78,8 +77,6 @@ def _qualifying_run(
             continue
         if run.get("status") != "completed" or run.get("conclusion") != "success":
             continue
-        if run.get("head_branch") != default_branch:
-            continue
         head_sha = str(run.get("head_sha") or "").lower()
         if not SHA_RE.fullmatch(head_sha):
             continue
@@ -95,7 +92,11 @@ def _qualifying_run(
     if not candidates:
         return None
     candidates.sort(
-        key=lambda run: (str(run.get("updated_at") or ""), int(run.get("id") or 0)),
+        key=lambda run: (
+            str(run.get("updated_at") or ""),
+            run.get("head_branch") == default_branch,
+            int(run.get("id") or 0),
+        ),
         reverse=True,
     )
     return candidates[0]
@@ -125,11 +126,7 @@ def build_evidence_manifest(
             repo_url = f"https://api.github.com/repos/{owner}/{name}"
             metadata = fetch_json(repo_url)
             default_branch = _require_text(metadata.get("default_branch"), "default_branch")
-            encoded_branch = urllib.parse.quote(default_branch, safe="")
-            runs_url = (
-                f"{repo_url}/actions/runs?status=success&branch={encoded_branch}&per_page=100"
-            )
-            payload = fetch_json(runs_url)
+            payload = fetch_json(f"{repo_url}/actions/runs?status=success&per_page=100")
             runs = payload.get("workflow_runs")
             if not isinstance(runs, list):
                 raise EvidenceManifestError(
@@ -151,6 +148,7 @@ def build_evidence_manifest(
                 "verification_run_id": int(run["id"]),
                 "verification_workflow": _require_text(run.get("name"), "run.name"),
                 "verification_url": _require_text(run.get("html_url"), "run.html_url"),
+                "verification_branch": str(run.get("head_branch") or ""),
             }
         )
 
@@ -163,8 +161,9 @@ def build_evidence_manifest(
     return {
         "schema": OUTPUT_SCHEMA,
         "derivation_policy": (
-            "latest completed successful default-branch GitHub Actions run whose workflow "
-            "name/title/path matches the configured verification pattern"
+            "latest completed successful owning-repository GitHub Actions run whose workflow "
+            "name/title/path matches the configured verification pattern; exact run head SHA "
+            "and completion timestamp are preserved"
         ),
         "workflow_pattern": workflow_pattern,
         "topology_receipt_sha256": topology.get("receipt_sha256"),
