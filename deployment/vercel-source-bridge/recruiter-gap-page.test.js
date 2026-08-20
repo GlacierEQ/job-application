@@ -119,7 +119,7 @@ function response() {
   };
 }
 
-test('human gap page renders role leverage and ordered evidence recovery without scripts', () => {
+test('human gap page renders role leverage, ordered recovery, and direct action packets without scripts', () => {
   const html = gapPage.renderGapAnalysisHtml(analysis());
   assert.match(html, /Refresh the proof that changes hiring signal most/);
   assert.match(html, /data-role="recruiter"/);
@@ -129,12 +129,14 @@ test('human gap page renders role leverage and ordered evidence recovery without
   assert.match(html, /\/data\/recruiter-gap-analysis\.json/);
   assert.match(html, /\/recruiter-role-matrix\//);
   assert.match(html, /recruiter-gap-analysis\/\?role=recruiter/);
+  assert.match(html, /recruiter-action\/\?role=recruiter&amp;max_actions=3/);
+  assert.match(html, /recruiter-action\/\?role=engineering-lead&amp;max_actions=3/);
   assert.doesNotMatch(html, /<script\b/i);
   assert.doesNotMatch(html, /<unsafe architecture>/);
   assert.match(html, /&lt;unsafe architecture&gt;/);
 });
 
-test('role-targeted drilldown shows only recovery work that changes the selected hiring lens', () => {
+test('role-targeted drilldown moves directly from recovery priority to the matching action packet', () => {
   const html = gapPage.renderGapAnalysisHtml(analysis(), { role: 'recruiter' });
   assert.match(html, /ROLE-TARGETED RECOVERY · RECRUITER/);
   assert.match(html, /Refresh the proof that changes recruiter signal most/);
@@ -145,7 +147,26 @@ test('role-targeted drilldown shows only recovery work that changes the selected
   assert.doesNotMatch(html, /pro-code-runtime/);
   assert.match(html, /name="robots" content="noindex,follow"/);
   assert.match(html, /recruiter-gap-analysis\/\?role=recruiter/);
+  assert.match(html, /recruiter-action\/\?role=recruiter&amp;max_actions=3/);
+  assert.match(html, /Open recruiter action packet/);
+  assert.match(html, /Open role action packet/);
   assert.match(html, /All recovery priorities/);
+});
+
+test('action packet links are fail-closed to supported roles and bounded action counts', () => {
+  assert.equal(
+    gapPage.actionPacketHref('systems-architect'),
+    '/recruiter-action/?role=systems-architect&max_actions=3',
+  );
+  assert.equal(
+    gapPage.actionPacketHref('engineering-lead', 5),
+    '/recruiter-action/?role=engineering-lead&max_actions=5',
+  );
+  assert.throws(() => gapPage.actionPacketHref('ceo'), /recruiter_gap_unknown_role:ceo/);
+  assert.throws(
+    () => gapPage.actionPacketHref('recruiter', 11),
+    /recruiter_gap_invalid_action_count:11/,
+  );
 });
 
 test('role selector rejects unknown or ambiguous hiring lenses', () => {
@@ -176,6 +197,7 @@ test('human gap page reuses the shared one-pass public analyzer and returns hard
   assert.equal(res.getHeader('cache-control'), 'public, max-age=0, s-maxage=300, must-revalidate');
   assert.match(res.getHeader('content-security-policy'), /script-src 'none'/);
   assert.match(res.getHeader('content-security-policy'), /style-src 'self'/);
+  assert.equal(res.getHeader('x-psysocx-release'), 'V35-RECOVERY-TO-ACTION-NAV');
 });
 
 test('role-targeted HTTP surface preserves one analysis pass and returns only selected recovery work', async (t) => {
@@ -196,6 +218,7 @@ test('role-targeted HTTP surface preserves one analysis pass and returns only se
   assert.match(html, /akos/);
   assert.doesNotMatch(html, /job-application/);
   assert.doesNotMatch(html, /pro-code-runtime/);
+  assert.match(html, /recruiter-action\/\?role=systems-architect&amp;max_actions=3/);
   assert.match(html, /noindex,follow/);
 });
 
