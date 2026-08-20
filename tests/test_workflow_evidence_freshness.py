@@ -33,9 +33,7 @@ class EvidenceFreshnessTests(unittest.TestCase):
         first = build_evidence_freshness(manifest, as_of=AS_OF)
         second = build_evidence_freshness(manifest, as_of=AS_OF)
         self.assertEqual(first, second)
-        self.assertEqual(
-            [e["id"] for e in first["entries"]], ["fresh", "aging", "old"]
-        )
+        self.assertEqual([e["id"] for e in first["entries"]], ["fresh", "aging", "old"])
         self.assertEqual(first["entries"][0]["freshness_weight"], 1.0)
         self.assertEqual(first["entries"][-1]["state"], "stale")
         self.assertEqual(len(first["receipt_sha256"]), 64)
