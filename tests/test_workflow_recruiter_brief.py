@@ -99,9 +99,7 @@ class WorkflowRecruiterBriefTests(unittest.TestCase):
 
     def test_rejects_repository_outside_glaciereq_boundary(self) -> None:
         topology = _topology()
-        topology["flows"][0]["steps"][0]["system"]["repo"] = (
-            "https://example.com/fake"
-        )
+        topology["flows"][0]["steps"][0]["system"]["repo"] = "https://example.com/fake"
         with self.assertRaises(RoleLensError):
             build_recruiter_brief(topology, "recruiter", 1)
 
