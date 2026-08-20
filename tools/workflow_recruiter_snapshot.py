@@ -20,7 +20,10 @@ from typing import Any
 
 try:
     from tools.workflow_evidence_freshness import build_evidence_freshness
-    from tools.workflow_evidence_manifest import _github_fetcher, build_evidence_manifest
+    from tools.workflow_evidence_manifest import (
+        _github_fetcher,
+        build_evidence_manifest,
+    )
     from tools.workflow_recruiter_brief import build_recruiter_brief
     from tools.workflow_role_lens import ROLE_WEIGHTS
     from tools.workflow_verification_identity import build_verification_identity_proof
