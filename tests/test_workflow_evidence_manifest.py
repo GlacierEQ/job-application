@@ -88,7 +88,7 @@ class FakeGitHub:
 
 
 class EvidenceManifestTests(unittest.TestCase):
-    def test_derives_latest_successful_default_branch_verification_per_system(self) -> None:
+    def test_derives_latest_successful_verification_per_system(self) -> None:
         fetch = FakeGitHub(
             {
                 "job-app-helix": [
@@ -103,6 +103,7 @@ class EvidenceManifestTests(unittest.TestCase):
                         name="Helix Candidate Profile Proof",
                         sha="c" * 40,
                         updated_at="2026-08-20T10:00:00Z",
+                        branch="apex/proof-head",
                     ),
                 ],
                 "job-application": [
@@ -121,10 +122,11 @@ class EvidenceManifestTests(unittest.TestCase):
         entries = {entry["id"]: entry for entry in result["entries"]}
         self.assertEqual(entries["helix"]["commit_sha"], "c" * 40)
         self.assertEqual(entries["helix"]["verification_run_id"], 8)
+        self.assertEqual(entries["helix"]["verification_branch"], "apex/proof-head")
         self.assertEqual(entries["job-application"]["commit_sha"], "d" * 40)
         self.assertEqual(len(fetch.calls), 4)
 
-    def test_ignores_failed_wrong_branch_and_non_verification_runs(self) -> None:
+    def test_ignores_failed_and_non_verification_runs_but_accepts_pr_proof(self) -> None:
         fetch = FakeGitHub(
             {
                 "job-app-helix": [
@@ -145,7 +147,7 @@ class EvidenceManifestTests(unittest.TestCase):
                         3,
                         name="Helix Proof",
                         sha="c" * 40,
-                        updated_at="2026-08-20T12:00:00Z",
+                        updated_at="2026-08-20T15:00:00Z",
                         conclusion="failure",
                     ),
                     _run(
@@ -167,7 +169,8 @@ class EvidenceManifestTests(unittest.TestCase):
         )
         result = build_evidence_manifest(_topology(), fetch)
         entries = {entry["id"]: entry for entry in result["entries"]}
-        self.assertEqual(entries["helix"]["verification_run_id"], 4)
+        self.assertEqual(entries["helix"]["verification_run_id"], 2)
+        self.assertEqual(entries["helix"]["verification_branch"], "feature")
 
     def test_rejects_missing_verification_by_default(self) -> None:
         fetch = FakeGitHub(
