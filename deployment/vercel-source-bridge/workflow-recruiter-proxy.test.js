@@ -49,10 +49,13 @@ function apiResponse(payload, status = 200) {
   };
 }
 
-function run({ id, name, sha, updatedAt, conclusion = 'success', status = 'completed' }) {
+function run({ id, name, path, sha, updatedAt, conclusion = 'success', status = 'completed' }) {
   return {
     id,
     name,
+    path,
+    head_branch: 'main',
+    event: 'push',
     head_sha: sha,
     updated_at: updatedAt,
     conclusion,
@@ -63,11 +66,25 @@ function run({ id, name, sha, updatedAt, conclusion = 'success', status = 'compl
 
 function fetcherByRepository(runMap, failures = new Set()) {
   return async (url) => {
-    const match = /\/repos\/(GlacierEQ\/[^/]+)\/actions\/runs/.exec(String(url));
+    const text = String(url);
+    const match = /\/repos\/(GlacierEQ\/[^/]+)(?:\/|$)/.exec(text);
     assert.ok(match, `unexpected GitHub URL: ${url}`);
     const repository = match[1];
     if (failures.has(repository)) return apiResponse({ message: 'Not Found' }, 404);
-    return apiResponse({ workflow_runs: runMap[repository] || [] });
+
+    const exactMatch = /\/actions\/runs\/(\d+)$/.exec(text);
+    if (exactMatch) {
+      const id = Number(exactMatch[1]);
+      const selected = (runMap[repository] || []).find((candidate) => candidate.id === id);
+      return selected ? apiResponse(selected) : apiResponse({ message: 'Not Found' }, 404);
+    }
+    if (/\/actions\/runs\?/.test(text)) {
+      return apiResponse({ workflow_runs: runMap[repository] || [] });
+    }
+    if (text.endsWith(`/repos/${repository}`)) {
+      return apiResponse({ default_branch: 'main' });
+    }
+    assert.fail(`unexpected GitHub URL: ${url}`);
   };
 }
 
@@ -88,16 +105,16 @@ const SHAS = { fresh: 'a'.repeat(40), fresh2: 'b'.repeat(40) };
 function liveRuns() {
   return {
     'GlacierEQ/job-app-helix': [
-      run({ id: 12, name: 'Experimental Proof', sha: SHAS.fresh2, updatedAt: '2026-08-20T11:50:00Z' }),
-      run({ id: 11, name: 'Helix Candidate Profile Proof', sha: SHAS.fresh, updatedAt: '2026-08-19T11:00:00Z' }),
+      run({ id: 12, name: 'Experimental Proof', path: '.github/workflows/experimental.yml', sha: SHAS.fresh2, updatedAt: '2026-08-20T11:50:00Z' }),
+      run({ id: 11, name: 'Helix Candidate Profile Proof', path: '.github/workflows/candidate-profile-compiler-proof.yml', sha: SHAS.fresh, updatedAt: '2026-08-19T11:00:00Z' }),
     ],
-    'GlacierEQ/xai-colossus-2': [run({ id: 21, name: 'CI', sha: SHAS.fresh2, updatedAt: '2026-08-19T10:00:00Z' })],
-    'GlacierEQ/job-application': [run({ id: 31, name: 'APEX Recruiter Proof Brief', sha: SHAS.fresh, updatedAt: '2025-07-01T10:00:00Z' })],
-    'GlacierEQ/AKOS': [run({ id: 41, name: 'APEX Estate Non-Regression', sha: SHAS.fresh2, updatedAt: '2026-08-19T09:00:00Z' })],
-    'GlacierEQ/sigma-glue': [run({ id: 51, name: 'verify', sha: SHAS.fresh, updatedAt: '2026-08-19T08:00:00Z' })],
-    'GlacierEQ/Pro-DOCTOR-STRANGE': [run({ id: 61, name: 'CI', sha: SHAS.fresh2, updatedAt: '2026-08-19T07:00:00Z' })],
-    'GlacierEQ/the-tower-of-babel': [run({ id: 71, name: 'Tower Verification', sha: SHAS.fresh, updatedAt: '2026-08-19T06:00:00Z' })],
-    'GlacierEQ/pro-code': [run({ id: 81, name: 'Pro-Code native verification', sha: SHAS.fresh2, updatedAt: '2026-08-19T05:00:00Z' })],
+    'GlacierEQ/xai-colossus-2': [run({ id: 21, name: 'CI', path: '.github/workflows/ci.yml', sha: SHAS.fresh2, updatedAt: '2026-08-19T10:00:00Z' })],
+    'GlacierEQ/job-application': [run({ id: 31, name: 'APEX Recruiter Proof Brief', path: '.github/workflows/apex-recruiter-proof-brief.yml', sha: SHAS.fresh, updatedAt: '2025-07-01T10:00:00Z' })],
+    'GlacierEQ/AKOS': [run({ id: 41, name: 'APEX Estate Non-Regression', path: '.github/workflows/apex-estate-non-regression.yml', sha: SHAS.fresh2, updatedAt: '2026-08-19T09:00:00Z' })],
+    'GlacierEQ/sigma-glue': [run({ id: 51, name: 'verify', path: '.github/workflows/ci.yml', sha: SHAS.fresh, updatedAt: '2026-08-19T08:00:00Z' })],
+    'GlacierEQ/Pro-DOCTOR-STRANGE': [run({ id: 61, name: 'CI', path: '.github/workflows/verify.yml', sha: SHAS.fresh2, updatedAt: '2026-08-19T07:00:00Z' })],
+    'GlacierEQ/the-tower-of-babel': [run({ id: 71, name: 'Tower Verification', path: '.github/workflows/tower.yml', sha: SHAS.fresh, updatedAt: '2026-08-19T06:00:00Z' })],
+    'GlacierEQ/pro-code': [run({ id: 81, name: 'Pro-Code native verification', path: '.github/workflows/ci.yml', sha: SHAS.fresh2, updatedAt: '2026-08-19T05:00:00Z' })],
   };
 }
 
@@ -116,10 +133,13 @@ test('live freshness derivation preserves exact verification lineage and isolate
     asOf: AS_OF,
     fetchImpl: fetcherByRepository(liveRuns(), new Set(['GlacierEQ/Pro-DOCTOR-STRANGE'])),
   });
-  assert.equal(freshness.schema, 'glaciereq.public-evidence-freshness.v1');
+  assert.equal(freshness.schema, 'glaciereq.public-evidence-freshness.v2');
   assert.match(freshness.receipt_sha256, /^[a-f0-9]{64}$/);
   const helix = freshness.entries.find((entry) => entry.id === 'helix');
   assert.equal(helix.verification_workflow, 'Helix Candidate Profile Proof');
+  assert.equal(helix.verification_workflow_path, '.github/workflows/candidate-profile-compiler-proof.yml');
+  assert.equal(helix.verification_branch, 'main');
+  assert.equal(helix.verification_run_id, 11);
   assert.equal(helix.commit_sha, SHAS.fresh);
   assert.equal(helix.freshness_weight, 1);
   const doctor = freshness.missing_systems.find((entry) => entry.id === 'doctor-strange');
@@ -133,7 +153,7 @@ test('stale application evidence receives a measurable recruiter penalty while f
     asOf: AS_OF,
     fetchImpl: fetcherByRepository(liveRuns()),
   });
-  assert.equal(proof.schema, 'glaciereq.public-recruiter-proof.v1');
+  assert.equal(proof.schema, 'glaciereq.public-recruiter-proof.v2');
   assert.match(proof.receipt_sha256, /^[a-f0-9]{64}$/);
   const applicationFlow = proof.briefs.find((brief) => brief.flow_id === 'opportunity-to-evidence-package');
   assert.ok(applicationFlow.score < applicationFlow.static_role_score + applicationFlow.breadth_bonus);
@@ -152,7 +172,10 @@ test('role selection produces distinct deterministic ranking from one proof grap
   const recruiter = await recruiterProxy.buildPublicRecruiterProof(topology, 'recruiter', options);
   const architect = await recruiterProxy.buildPublicRecruiterProof(topology, 'systems-architect', options);
   const recruiterAgain = await recruiterProxy.buildPublicRecruiterProof(topology, 'recruiter', options);
-  assert.notEqual(recruiter.briefs[0].flow_id, architect.briefs[0].flow_id);
+  const recruiterVector = recruiter.briefs.map((brief) => [brief.flow_id, brief.score]);
+  const architectVector = architect.briefs.map((brief) => [brief.flow_id, brief.score]);
+  assert.notDeepEqual(recruiterVector, architectVector);
+  assert.notEqual(recruiter.receipt_sha256, architect.receipt_sha256);
   assert.equal(recruiter.receipt_sha256, recruiterAgain.receipt_sha256);
   assert.equal(recruiter.freshness_receipt_sha256, recruiterAgain.freshness_receipt_sha256);
 });
