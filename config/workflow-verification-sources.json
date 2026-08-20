@@ -1,0 +1,29 @@
+{
+  "schema": "glaciereq.verification-source-registry.v1",
+  "repositories": {
+    "GlacierEQ/AKOS": {
+      "workflow_names": ["APEX Estate Non-Regression"]
+    },
+    "GlacierEQ/Pro-DOCTOR-STRANGE": {
+      "workflow_names": ["verify", "Verification", "CI"]
+    },
+    "GlacierEQ/job-app-helix": {
+      "workflow_names": ["CI", "Helix Candidate Profile Proof"]
+    },
+    "GlacierEQ/job-application": {
+      "workflow_names": ["CI", "APEX Recruiter Proof Brief", "APEX Estate Non-Regression", "Portfolio truth gate"]
+    },
+    "GlacierEQ/pro-code": {
+      "workflow_names": ["Pro-Code native verification"]
+    },
+    "GlacierEQ/sigma-glue": {
+      "workflow_names": ["verify"]
+    },
+    "GlacierEQ/the-tower-of-babel": {
+      "workflow_names": ["Tower Verification"]
+    },
+    "GlacierEQ/xai-colossus-2": {
+      "workflow_names": ["CI"]
+    }
+  }
+}
