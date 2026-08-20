@@ -7,12 +7,13 @@ import re
 import tempfile
 import urllib.error
 import urllib.request
-from collections.abc import Callable
+from collections.abc import Callable, Mapping, Sequence
 from pathlib import Path
 from typing import Any
 
 TOPOLOGY_SCHEMA = "glaciereq.workflow-topology.v1"
 OUTPUT_SCHEMA = "glaciereq.evidence-manifest.v1"
+SOURCE_REGISTRY_SCHEMA = "glaciereq.verification-source-registry.v1"
 DEFAULT_WORKFLOW_PATTERN = (
     r"(?:proof|verify|verification|validation|test|\bci\b|non-regression)"
 )
@@ -70,8 +71,50 @@ def _systems_from_topology(topology: dict[str, Any]) -> dict[str, str]:
     return systems
 
 
+def _normalize_source_registry(
+    registry: Mapping[str, Any] | None,
+) -> dict[str, frozenset[str]] | None:
+    if registry is None:
+        return None
+    if registry.get("schema") != SOURCE_REGISTRY_SCHEMA:
+        raise EvidenceManifestError(
+            f"unsupported verification source registry schema: {registry.get('schema')!r}"
+        )
+    repositories = registry.get("repositories")
+    if not isinstance(repositories, dict) or not repositories:
+        raise EvidenceManifestError(
+            "verification source registry requires non-empty repositories object"
+        )
+    normalized: dict[str, frozenset[str]] = {}
+    for repository, source in repositories.items():
+        if not isinstance(repository, str) or not repository.startswith("GlacierEQ/"):
+            raise EvidenceManifestError(
+                f"verification source registry repository outside GlacierEQ: {repository!r}"
+            )
+        if not isinstance(source, dict):
+            raise EvidenceManifestError(
+                f"verification source registry entry must be an object: {repository}"
+            )
+        names = source.get("workflow_names")
+        if (
+            isinstance(names, (str, bytes))
+            or not isinstance(names, Sequence)
+            or not names
+            or any(not isinstance(name, str) or not name.strip() for name in names)
+        ):
+            raise EvidenceManifestError(
+                f"repositories.{repository}.workflow_names must be a non-empty list of names"
+            )
+        normalized[repository] = frozenset(name.strip() for name in names)
+    return normalized
+
+
 def _qualifying_run(
-    runs: list[dict[str, Any]], *, default_branch: str, workflow_re: re.Pattern[str]
+    runs: list[dict[str, Any]],
+    *,
+    default_branch: str,
+    workflow_re: re.Pattern[str] | None = None,
+    workflow_names: frozenset[str] | None = None,
 ) -> dict[str, Any] | None:
     candidates: list[dict[str, Any]] = []
     for run in runs:
@@ -82,11 +125,17 @@ def _qualifying_run(
         head_sha = str(run.get("head_sha") or "").lower()
         if not SHA_RE.fullmatch(head_sha):
             continue
-        searchable = " ".join(
-            str(run.get(field) or "") for field in ("name", "display_title", "path")
-        )
-        if not workflow_re.search(searchable):
-            continue
+        if workflow_names is not None:
+            if str(run.get("name") or "").strip() not in workflow_names:
+                continue
+        else:
+            assert workflow_re is not None
+            searchable = " ".join(
+                str(run.get(field) or "")
+                for field in ("name", "display_title", "path")
+            )
+            if not workflow_re.search(searchable):
+                continue
         verified_at = str(run.get("updated_at") or run.get("run_started_at") or "")
         if not verified_at.endswith("Z"):
             continue
@@ -125,12 +174,14 @@ def build_evidence_manifest(
     fetch_json: Callable[[str], dict[str, Any]],
     *,
     workflow_pattern: str = DEFAULT_WORKFLOW_PATTERN,
+    verification_sources: Mapping[str, Any] | None = None,
     allow_missing: bool = False,
 ) -> dict[str, Any]:
     """Derive one current successful verification run for each topology system."""
     systems = _systems_from_topology(topology)
+    registry = _normalize_source_registry(verification_sources)
     try:
-        workflow_re = re.compile(workflow_pattern, re.IGNORECASE)
+        fallback_re = re.compile(workflow_pattern, re.IGNORECASE)
     except re.error as exc:
         raise EvidenceManifestError(f"invalid workflow pattern: {exc}") from exc
 
@@ -158,9 +209,26 @@ def build_evidence_manifest(
             )
             continue
 
+        if registry is not None:
+            workflow_names = registry.get(repository)
+            if workflow_names is None:
+                missing.append(
+                    {
+                        "id": system_id,
+                        "repository": repository,
+                        "reason": "verification_source_not_registered",
+                    }
+                )
+                continue
+        else:
+            workflow_names = None
+
         default_branch, runs = cached
         run = _qualifying_run(
-            runs, default_branch=default_branch, workflow_re=workflow_re
+            runs,
+            default_branch=default_branch,
+            workflow_re=fallback_re if registry is None else None,
+            workflow_names=workflow_names,
         )
         if run is None:
             missing.append(
@@ -195,12 +263,13 @@ def build_evidence_manifest(
     return {
         "schema": OUTPUT_SCHEMA,
         "derivation_policy": (
-            "latest completed successful owning-repository GitHub Actions run whose workflow "
-            "name/title/path matches the configured verification pattern; inaccessible or "
-            "unverified repositories remain explicit missing systems and receive no freshness "
-            "credit downstream"
+            "latest completed successful owning-repository GitHub Actions run selected "
+            "from explicit per-repository verification sources when a registry is supplied; "
+            "otherwise the backward-compatible configured verification pattern is used; "
+            "unavailable or unverified systems remain explicit and receive no freshness credit"
         ),
-        "workflow_pattern": workflow_pattern,
+        "workflow_pattern": workflow_pattern if registry is None else None,
+        "verification_source_registry": registry is not None,
         "topology_receipt_sha256": topology.get("receipt_sha256"),
         "entries": entries,
         "missing_systems": missing,
@@ -248,6 +317,20 @@ def _atomic_write_json(path: Path, payload: dict[str, Any]) -> None:
         temporary.unlink(missing_ok=True)
 
 
+def _load_registry(path: Path | None) -> dict[str, Any] | None:
+    if path is None:
+        return None
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise EvidenceManifestError(
+            f"invalid verification source registry at {path}: {exc}"
+        ) from exc
+    if not isinstance(payload, dict):
+        raise EvidenceManifestError("verification source registry must be a JSON object")
+    return payload
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description=(
@@ -258,6 +341,7 @@ def main() -> int:
     parser.add_argument("--topology", required=True, type=Path)
     parser.add_argument("--output", required=True, type=Path)
     parser.add_argument("--workflow-pattern", default=DEFAULT_WORKFLOW_PATTERN)
+    parser.add_argument("--verification-sources", type=Path)
     parser.add_argument("--allow-missing", action="store_true")
     parser.add_argument("--github-token-env", default="GITHUB_TOKEN")
     args = parser.parse_args()
@@ -271,6 +355,7 @@ def main() -> int:
             topology,
             _github_fetcher(token),
             workflow_pattern=args.workflow_pattern,
+            verification_sources=_load_registry(args.verification_sources),
             allow_missing=args.allow_missing,
         )
         _atomic_write_json(args.output, result)
