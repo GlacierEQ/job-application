@@ -20,6 +20,8 @@ const MODULES = [
   'deployment/vercel-source-bridge/api/inventions-proxy.js',
   'deployment/vercel-source-bridge/api/starmap-proxy.js',
   'deployment/vercel-source-bridge/api/workflow-topology-proxy.js',
+  'deployment/vercel-source-bridge/api/workflow-topology-loader-patch.js',
+  'deployment/vercel-source-bridge/api/workflow-recruiter-proxy.js',
   'deployment/vercel-source-bridge/api/release-router.js',
 ];
 const ENTRY = 'deployment/vercel-source-bridge/api/release-router.js';
@@ -102,6 +104,9 @@ function readModules() {
   }
   if (!modules['api/workflow-topology-proxy.js'].includes('V29-WORKFLOW-TOPOLOGY-RUNTIME')) {
     throw new Error('workflow_topology_runtime_release_marker_missing');
+  }
+  if (!modules['api/workflow-recruiter-proxy.js'].includes('V30-RECRUITER-PROOF-RUNTIME')) {
+    throw new Error('recruiter_proof_runtime_release_marker_missing');
   }
   return { modules, moduleHashes, factories, factoryHashes };
 }
