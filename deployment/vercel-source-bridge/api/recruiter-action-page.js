@@ -111,7 +111,8 @@ function sendHtml(res, status, html, cacheControl) {
 }
 
 async function recruiterActionPage(req, res) {
-  const machine = String(req?.url || '').includes('/data/recruiter-action-packet.json');
+  const pathName = new URL(String(req?.url || '/'), 'https://glaciereq.invalid').pathname;
+  const machine = pathName === '/data/recruiter-action-packet.json';
   try {
     const role = requestRole(req);
     const maxActions = requestMaxActions(req);
