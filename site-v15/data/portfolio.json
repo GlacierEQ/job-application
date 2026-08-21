@@ -236,7 +236,7 @@
       "id": "microcode",
       "rank": 10,
       "name": "Microcode Governance",
-      "repo": "https://github.com/GlacierEQ/xai-colossus-microcode",
+      "repo": "PRIVATE_REPOSITORY_IDENTITY_WITHHELD",
       "state": "REVIEWED_EXECUTION_BLOCKED",
       "label": "Recovered infrastructure flagship",
       "summary": "Offline firmware-manifest, inventory-drift, compatibility-policy, SBOM, provenance, and approval-gated rollout planning.",

@@ -1,0 +1,40 @@
+name: APEX Verification Registry Generation
+
+on:
+  pull_request:
+    paths:
+      - config/workflow-verification-sources.json
+      - scripts/generate-workflow-verification-registry.mjs
+      - deployment/vercel-source-bridge/api/workflow-verification-sources.generated.js
+      - deployment/vercel-source-bridge/workflow-verification-registry-generation.test.mjs
+      - .github/workflows/apex-verification-registry-generation.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  CI: "true"
+
+jobs:
+  generated-registry-proof:
+    name: Node ${{ matrix.node }} generated registry proof
+    timeout-minutes: 8
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [20, 22, 24]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Syntax check compiler and deployable module
+        run: |
+          node --check scripts/generate-workflow-verification-registry.mjs
+          node --check deployment/vercel-source-bridge/api/workflow-verification-sources.generated.js
+      - name: Prove generated registry is exact, immutable, deterministic, and fail-closed
+        run: node --test deployment/vercel-source-bridge/workflow-verification-registry-generation.test.mjs
+      - name: Execute source-to-runtime generation check
+        run: node scripts/generate-workflow-verification-registry.mjs --check

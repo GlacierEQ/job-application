@@ -73,6 +73,7 @@ body:after{opacity:.48;background-size:72px 72px}
   font-size:.76rem;
 }
 .links a{padding:8px 11px;border:0;border-radius:999px;color:#bdccca}
+.links .visualizer-link{color:#00f0ff}
 .links a:hover,.links a[aria-current="page"]{background:rgba(156,246,216,.075);color:#f7fffd;border:0}
 .nav-cta,.button{
   min-height:43px;

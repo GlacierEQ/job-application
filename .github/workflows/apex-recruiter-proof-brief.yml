@@ -1,0 +1,153 @@
+name: APEX Recruiter Proof Brief
+
+on:
+  pull_request:
+    paths:
+      - 'config/workflow-verification-sources.json'
+      - 'tools/workflow_evidence_manifest.py'
+      - 'tools/workflow_evidence_freshness.py'
+      - 'tools/workflow_role_lens.py'
+      - 'tools/workflow_recruiter_brief.py'
+      - 'tests/test_workflow_evidence_manifest.py'
+      - 'tests/test_workflow_verification_source_registry.py'
+      - 'tests/test_workflow_evidence_freshness.py'
+      - 'tests/test_workflow_role_lens.py'
+      - 'tests/test_workflow_recruiter_brief.py'
+      - 'deployment/vercel-source-bridge/api/workflow-topology-proxy.js'
+      - '.github/workflows/apex-recruiter-proof-brief.yml'
+
+permissions:
+  contents: read
+
+env:
+  PYTHONUNBUFFERED: '1'
+
+jobs:
+  prove:
+    strategy:
+      matrix:
+        python-version: ['3.11', '3.12', '3.13']
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Compile recruiter intelligence runtime
+        run: |
+          python -m py_compile \
+            tools/workflow_evidence_manifest.py \
+            tools/workflow_evidence_freshness.py \
+            tools/workflow_role_lens.py \
+            tools/workflow_recruiter_brief.py
+      - name: Run adversarial recruiter intelligence tests
+        run: |
+          python -m unittest \
+            tests.test_workflow_evidence_manifest \
+            tests.test_workflow_verification_source_registry \
+            tests.test_workflow_evidence_freshness \
+            tests.test_workflow_role_lens \
+            tests.test_workflow_recruiter_brief -v
+      - name: Materialize topology through the real source runtime
+        run: |
+          node <<'NODE'
+          const fs = require('node:fs');
+          const handler = require('./deployment/vercel-source-bridge/api/workflow-topology-proxy.js');
+          const headers = new Map();
+          const res = {
+            statusCode: 200,
+            setHeader(name, value) { headers.set(String(name).toLowerCase(), value); },
+            getHeader(name) { return headers.get(String(name).toLowerCase()); },
+            end(chunk = '') { this.body = Buffer.isBuffer(chunk) ? chunk : Buffer.from(String(chunk)); },
+          };
+          Promise.resolve(handler({ url: '/data/workflow-topology.json' }, res)).then(() => {
+            if (res.statusCode !== 200) throw new Error(`topology_http_${res.statusCode}`);
+            const topology = JSON.parse(res.body.toString('utf8'));
+            if (topology.schema !== 'glaciereq.workflow-topology.v1') throw new Error('topology_schema');
+            if (!/^[a-f0-9]{64}$/.test(topology.receipt_sha256 || '')) throw new Error('topology_receipt');
+            fs.writeFileSync('/tmp/workflow-topology.json', JSON.stringify(topology));
+            console.log(JSON.stringify({status: 'PASS', topology_receipt_sha256: topology.receipt_sha256, flows: topology.flows.length}, null, 2));
+          }).catch((error) => { console.error(error); process.exit(1); });
+          NODE
+      - name: Derive live evidence manifest from registered owning-repository verification sources
+        run: |
+          python tools/workflow_evidence_manifest.py \
+            --topology /tmp/workflow-topology.json \
+            --verification-sources config/workflow-verification-sources.json \
+            --output /tmp/evidence-manifest.json \
+            --allow-missing \
+            --github-token-env GLACIEREQ_PUBLIC_GITHUB_TOKEN
+          python - <<'PY'
+          import json
+          data = json.load(open('/tmp/evidence-manifest.json', encoding='utf-8'))
+          assert data['schema'] == 'glaciereq.evidence-manifest.v1'
+          assert data['verification_source_registry'] is True
+          assert data['workflow_pattern'] is None
+          assert data['entries'], 'no registered live verification evidence was derived'
+          assert all(len(entry['commit_sha']) == 40 for entry in data['entries'])
+          assert all(entry['verification_run_id'] > 0 for entry in data['entries'])
+          assert all(entry['verification_url'].startswith('https://github.com/GlacierEQ/') for entry in data['entries'])
+          print(json.dumps({
+              'status': 'PASS',
+              'verified_systems': [entry['id'] for entry in data['entries']],
+              'missing_systems': data['missing_systems'],
+              'verification_workflows': {entry['id']: entry['verification_workflow'] for entry in data['entries']},
+              'verification_run_ids': {entry['id']: entry['verification_run_id'] for entry in data['entries']},
+          }, indent=2))
+          PY
+      - name: Score live verification evidence by freshness
+        run: |
+          AS_OF="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          python tools/workflow_evidence_freshness.py \
+            --manifest /tmp/evidence-manifest.json \
+            --as-of "$AS_OF" \
+            --output /tmp/evidence-freshness.json
+          python - <<'PY'
+          import json
+          data = json.load(open('/tmp/evidence-freshness.json', encoding='utf-8'))
+          assert data['schema'] == 'glaciereq.evidence-freshness.v1'
+          assert data['entries']
+          assert all(0 <= entry['freshness_weight'] <= 1 for entry in data['entries'])
+          assert len(data['receipt_sha256']) == 64
+          print(json.dumps({
+              'status': 'PASS',
+              'freshness_receipt_sha256': data['receipt_sha256'],
+              'states': {entry['id']: entry['state'] for entry in data['entries']},
+          }, indent=2))
+          PY
+      - name: Execute recruiter proof compiler against registered live-derived freshness
+        run: |
+          python tools/workflow_recruiter_brief.py \
+            --topology /tmp/workflow-topology.json \
+            --freshness /tmp/evidence-freshness.json \
+            --role recruiter \
+            --top-k 2 \
+            --output /tmp/recruiter-brief.json
+          python - <<'PY'
+          import json
+          brief = json.load(open('/tmp/recruiter-brief.json', encoding='utf-8'))
+          freshness = json.load(open('/tmp/evidence-freshness.json', encoding='utf-8'))
+          assert brief['schema'] == 'glaciereq.recruiter-proof-brief.v2'
+          assert len(brief['briefs']) == 2
+          assert brief['freshness_receipt_sha256'] == freshness['receipt_sha256']
+          assert all(item['proof_points'] for item in brief['briefs'])
+          assert all('freshness_adjusted_role_score' in item for item in brief['briefs'])
+          assert all(
+              'freshness_weight' in point
+              for item in brief['briefs']
+              for point in item['proof_points']
+          )
+          assert len(brief['receipt_sha256']) == 64
+          print(json.dumps({
+              'status': 'PASS',
+              'receipt_sha256': brief['receipt_sha256'],
+              'freshness_receipt_sha256': brief['freshness_receipt_sha256'],
+              'top_flow': brief['briefs'][0]['flow_id'],
+              'top_score': brief['briefs'][0]['freshness_adjusted_role_score'],
+          }, indent=2))
+          PY

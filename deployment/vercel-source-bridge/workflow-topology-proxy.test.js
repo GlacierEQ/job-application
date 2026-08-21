@@ -59,7 +59,7 @@ test('unknown selectors are explicit and never silently broaden the result set',
   assert.deepEqual(selected.invalid, ['system:made-up-system']);
 });
 
-test('rendered public topology is script-free and escapes proof content', () => {
+test('rendered public topology is script-free, escapes proof content, and exposes recruiter role comparison', () => {
   const hostile = structuredClone(portfolio);
   hostile.flagships[0].summary = '<script>alert(1)</script> & evidence';
   const topology = proxy.buildTopology(hostile);
@@ -68,6 +68,10 @@ test('rendered public topology is script-free and escapes proof content', () => 
   assert.match(html, /&lt;script&gt;alert\(1\)&lt;\/script&gt; &amp; evidence/);
   assert.match(html, /RESTORATION RECEIPT/);
   assert.match(html, /workflow-topology\.json/);
+  assert.match(html, /href="\/recruiter-role-matrix\/"/);
+  assert.match(html, /Compare role fit/);
+  assert.match(html, /href="\/recruiter-proof\/\?role=recruiter"/);
+  assert.match(html, /href="\/inventions\/"/);
 });
 
 test('handler serves machine topology and verification from bounded current source', async (t) => {
@@ -85,4 +89,5 @@ test('handler serves machine topology and verification from bounded current sour
   assert.equal(receipt.status, 'PASS');
   assert.equal(receipt.public_contract.scripts, 0);
   assert.equal(receipt.public_contract.machine_json, true);
+  assert.equal(receipt.public_contract.recruiter_role_matrix_entry, true);
 });
