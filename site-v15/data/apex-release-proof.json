@@ -1,0 +1,18 @@
+{
+  "schema": "glaciereq.apex-release-proof.v1",
+  "release": "V31-CURRENT-SOURCE-PROOF",
+  "source_repository": "GlacierEQ/job-application",
+  "base_source_commit": "bd1a202db643c4343a4d6079efc3c67e85eace52",
+  "objective": "prove the strongest current recruiter surface as an exact-source V31 deployable artifact",
+  "required_gates": [
+    "public privacy and presentation validation",
+    "effective Helix projection sync",
+    "full-estate explorer validation",
+    "V25 inner runtime proof",
+    "V31 self-contained bundle proof",
+    "exact source identity binding",
+    "two-file deployment contract",
+    "production live route readback"
+  ],
+  "production_claim": "PENDING_PROOF_AND_LIVE_READBACK"
+}
