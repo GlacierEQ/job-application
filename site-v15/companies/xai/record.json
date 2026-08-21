@@ -1,7 +1,7 @@
 {
   "boundary": "Independent GlacierEQ work; no xAI affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
   "flagships": [],
-  "gate": "Collapse variants into one suite, one bounded flagship, supporting systems, experiments, public references, private references, and quarantined exclusions; xai-colossal-cooling is public but remains outside admission until successor/unique-value analysis is complete.",
+  "gate": "Current public role verification and one bounded capability-to-role projection now exist. Keep the Colossus repository family outside recruiter admission until successor/unique-value analysis and reproducible proof are complete; next company-fit promotion requires directly addressable role-responsibility text and exact responsibility-to-proof binding.",
   "id": "xai",
   "repos": [
     {
@@ -50,31 +50,53 @@
   "roles": [
     "Infrastructure Engineer",
     "Forward-Deployed Engineer",
-    "Applied AI Systems Engineer"
+    "Applied AI Systems Engineer",
+    "Software Engineer, Observability"
   ],
   "route": "/companies/xai/",
   "schema": "glaciereq.company-intelligence.v1",
   "second_depth": {
     "blockers": [
-      "current_role_not_verified",
-      "company_problem_not_bounded",
-      "repository_code_not_inspected",
-      "proof_not_reproduced"
+      "role_responsibility_text_not_directly_bound",
+      "colossus_successor_unique_value_not_reconciled",
+      "colossus_repository_proof_not_reproduced"
     ],
-    "claim_ceiling": "company_alignment_only",
+    "claim_ceiling": "verified_capability_to_current_role_alignment",
     "evidence": {
-      "claim_receipts": [],
-      "gap_queue": [],
+      "claim_receipts": [
+        "portfolio-proof/receipts/COMPANY_FIT__XAI_OBSERVABILITY__REVISION_BOUND_PROOF__2026-08-10.json"
+      ],
+      "gap_queue": [
+        "Obtain directly addressable public responsibility text for Software Engineer, Observability.",
+        "Reconcile successor/unique-value status across the xAI Colossus repository family before recruiter admission.",
+        "Reproduce proof for any Colossus implementation before making system-performance or deployment claims."
+      ],
       "implementation_receipts": [],
       "inspected_repositories": [],
-      "problem_evidence": [],
-      "proof_artifacts": [],
-      "role_evidence": []
+      "problem_evidence": [
+        {
+          "problem": "stale_observability_or_verification_authority",
+          "status": "INFERRED_ROLE_PRESSURE",
+          "asserted_as_xai_internal_fact": false
+        }
+      ],
+      "proof_artifacts": [
+        "portfolio-proof/CAPABILITY_CLUSTER__REVISION_BOUND_PROOF_PROMOTION__2026-08-10.md",
+        "portfolio-proof/COMPANY_FIT__XAI_OBSERVABILITY__REVISION_BOUND_PROOF__2026-08-10.md"
+      ],
+      "role_evidence": [
+        {
+          "title": "Software Engineer, Observability",
+          "location": "Palo Alto, California, United States",
+          "verified_date": "2026-08-10",
+          "source": "https://x.ai/careers/open-roles"
+        }
+      ]
     },
-    "next_gate": "Verify a current public xAI role/team, select one bounded infrastructure problem, then reconcile successor/unique-value status across the Colossus repository family before any company-specific claim.",
-    "ordinal": 0,
-    "stage": "MAPPED_ONLY"
+    "next_gate": "Bind directly addressable public Software Engineer, Observability responsibility text to the canonical revision-bound proof capability; keep Colossus repositories reference-only until successor/unique-value reconciliation and reproducible proof complete.",
+    "ordinal": 1,
+    "stage": "ROLE_VERIFIED_CAPABILITY_MAPPED"
   },
   "state": "repository-rich",
-  "track": "MAPPED_NOT_RECRUITER_READY"
+  "track": "BOUNDED_COMPANY_FIT_PROJECTION"
 }
