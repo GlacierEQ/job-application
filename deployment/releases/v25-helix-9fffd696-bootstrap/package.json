@@ -1,0 +1,1 @@
+{"private":true,"scripts":{"vercel-build":"node build.js"}}
