@@ -1,0 +1,55 @@
+{
+  "schema": "glaciereq.company-fit-receipt.v1",
+  "company": "OpenAI",
+  "role": "Software Engineer, Core Services",
+  "observed_at": "2026-08-09",
+  "role_source": "https://openai.com/careers/software-engineer-core-services-san-francisco/",
+  "job_application_base": "c66dfff509f659ff92c77c3fcc420d6fa17d343b",
+  "helix_authority": "7882b3b76f60eece6a48a49d194df337c65ab5bb",
+  "delta_type": "NEW_COMPANY_FIT_PROJECTION",
+  "role_problem": [
+    "caching systems",
+    "workflow orchestration",
+    "metadata stores",
+    "file services",
+    "reliability",
+    "scalability",
+    "performance",
+    "API abstractions"
+  ],
+  "primary_donor": {
+    "repository": "GlacierEQ/openai-reasoning-kv-sentinel",
+    "head": "9cd23baaaf00c02cfaca156899257a9264797fa2",
+    "path": "src/reasoning_kv_sentinel.py",
+    "blob": "e4c9a2c4c98d10ebcbeaaa90a523a88fc8d89c71",
+    "verified_capability": "local reasoning-record retention policy under a count-bounded budget with explicit policy metrics and local schema validation",
+    "claim_boundary": "not a transformer KV-tensor mutation system, model-server integration, distributed cache, or production OpenAI deployment"
+  },
+  "supporting_proofs": [
+    {
+      "path": "portfolio-proof/CAPABILITY_CLUSTER__BOUNDED_STATE_TRANSITIONS__2026-08-10.md",
+      "purpose": "deterministic admission and named failure/deferral semantics"
+    },
+    {
+      "path": "portfolio-proof/HELIX_REPOSITORY_EXCELLENCE_COMPILER_PROOF_SURFACES_2026-08-09.md",
+      "purpose": "evidence-gated lifecycle progression with explicit prerequisites"
+    }
+  ],
+  "claim_ceiling": "BOUNDED_CORE_SERVICES_CONTROL_ALIGNMENT",
+  "supersession": {
+    "retire": "Any wording that presents openai-reasoning-kv-sentinel as a production KV cache, distributed cache, OpenAI runtime component, or model-server optimization.",
+    "replace_with": "A bounded local reasoning-record retention policy with explicit pressure metrics, supported by a broader verified portfolio pattern of deterministic state admission and evidence-gated progression."
+  },
+  "nonclaims": [
+    "OpenAI affiliation, endorsement, employment, proprietary access, or internal-system access",
+    "OpenAI adoption or deployment",
+    "production distributed-cache implementation",
+    "production metadata-store implementation",
+    "production workflow-engine implementation",
+    "model-server KV-tensor mutation",
+    "reasoning-quality preservation",
+    "production SLO ownership",
+    "OpenAI-scale operation"
+  ],
+  "next_cursor": "Persist immutable OpenAI role/problem evidence into Helix and reproduce the KV Sentinel native verification path at the exact current head before any stronger second-depth promotion."
+}
