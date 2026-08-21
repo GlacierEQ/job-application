@@ -1,0 +1,41 @@
+{
+  "schema": "glaciereq.resume-claim-audit.v2",
+  "cycle_date": "2026-08-11",
+  "lane": 3,
+  "delta_type": "CLAIM_NARROWED_CURRENT_HEAD_DRIFT",
+  "claim_surface": "RESUME.md#Selected-Proof + RESUME.md#Agent-Coordinator",
+  "system": "GlacierEQ/anthropic-agent-coordinator",
+  "historical_verified_evidence": {
+    "executable_commit": "87438f57bdfd2cb380730cf51140611963d7c95b",
+    "tests_executed": 62,
+    "tests_passed": 62,
+    "evidence_level": "TEST"
+  },
+  "previous_resume_current_head": "0f2ca5199e67664a87ffef3f874d5836984dbbdb",
+  "observed_current_canonical_head": {
+    "branch": "master",
+    "head": "7d15bfaec0040e7a55d4b435abcf0fe9e7b19cb1",
+    "change": "ci: pin reusable verification workflow",
+    "parent": "0f2ca5199e67664a87ffef3f874d5836984dbbdb",
+    "workflow_pin": "GlacierEQ/public-actions-runner-host/.github/workflows/reusable-quick-ci.yml@a6085dae73bb80e91b845fd4a0d2f73a9c6b985a"
+  },
+  "current_gap_receipt": {
+    "path": "machine/gap-receipt.json",
+    "blob": "754a79800a7444a643372461fd2988a60bdb0c61",
+    "blocker": "TESTS_FAIL",
+    "not_promoted_reason": "pr_ok=False ran=9 op_ok=True primary_ok=True"
+  },
+  "audit_result": "HISTORICAL_62_TEST_PROOF_VALID__CURRENT_HEAD_CHANGED_AND_UNVERIFIED",
+  "retired_interpretation": "Resume wording that names 0f2ca5199e67664a87ffef3f874d5836984dbbdb as the current default-branch head.",
+  "replacement_rule": "The 62/62 result may be cited only as historical exact-revision proof at 87438f57bdfd2cb380730cf51140611963d7c95b. Current canonical master is 7d15bfaec0040e7a55d4b435abcf0fe9e7b19cb1 and does not inherit that proof. The current gap receipt still records TESTS_FAIL; no current-head test, deployment, runtime, scale, or reliability claim is authorized.",
+  "nonclaims": [
+    "current-head test verification",
+    "current-head promotion",
+    "deployment",
+    "provider execution",
+    "distributed runtime",
+    "production scale",
+    "production reliability"
+  ],
+  "next_cursor": "Update recruiter and ATS Agent Coordinator wording from stale head 0f2ca519... to current canonical 7d15bfae..., preserve historical 87438f57... 62/62 proof only, and re-promote current-head verification only after an executed exact-SHA receipt clears the TESTS_FAIL gap."
+}
