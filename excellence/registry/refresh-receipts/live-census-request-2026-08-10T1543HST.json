@@ -1,0 +1,15 @@
+{
+  "schema": "glaciereq.excellence-live-census-request.v1",
+  "requested_at": "2026-08-11T01:43:00Z",
+  "job_application_base": "0d75a7ae6c31570eeb57e061f5e96c78d87c0a86",
+  "purpose": "Recompute the governed 37-repository excellence registry and priority queue from live canonical heads after subsequent family canonicalizations and blockers changed the estate beyond the earlier 15/22 checkpoint.",
+  "mode": "READ_ONLY_CENSUS",
+  "required_scope": 37,
+  "invariants": [
+    "inspect live default-branch heads",
+    "preserve exact proof and blocker state",
+    "do not inherit stale branch state",
+    "derive next failing gate from current machine state",
+    "do not mutate company repositories during census"
+  ]
+}
