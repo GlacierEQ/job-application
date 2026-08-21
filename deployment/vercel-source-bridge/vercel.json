@@ -14,6 +14,10 @@
       "dest": "/api/recruiter-action-page"
     },
     {
+      "src": "/recruiter-review/?",
+      "dest": "/api/recruiter-review-page"
+    },
+    {
       "src": "/recruiter-gap-analysis/?",
       "dest": "/api/recruiter-gap-page"
     },
