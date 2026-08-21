@@ -44,3 +44,6 @@ jobs:
             tests.test_applicant_decision_packet
       - name: Exercise direct CLI
         run: python tools/bind_applicant_direct_inputs.py --help >/dev/null
+
+# Exact-head PR execution is intentional: this workflow proves the live binding runtime,
+# its adversarial composition tests, and direct CLI on every supported Python runtime.
