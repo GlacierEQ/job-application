@@ -5,6 +5,7 @@ const roleMatrixRuntime = require('./recruiter-role-matrix.js');
 const gapRuntime = require('./recruiter-gap-analysis.js');
 
 const SCHEMA = 'glaciereq.recruiter-action-packet.v1';
+const ACTION_MATRIX_SCHEMA = 'glaciereq.recruiter-action-matrix.v1';
 const LIVE_MATRIX_SCHEMA = 'glaciereq.live-recruiter-role-matrix.v1';
 const PUBLIC_MATRIX_SCHEMA = 'glaciereq.public-recruiter-role-matrix.v1';
 const SUPPORTED_ROLES = Object.freeze(['recruiter', 'engineering-lead', 'systems-architect']);
@@ -114,25 +115,60 @@ function buildRecruiterActionPacket(matrix, role, { maxActions = 3 } = {}) {
       action_packet: `/recruiter-action/?role=${encodeURIComponent(role)}`,
       machine_action_packet: `/data/recruiter-action-packet.json?role=${encodeURIComponent(role)}`,
       machine_recovery: '/data/recruiter-gap-analysis.json',
+      review_hub: '/recruiter-review/',
     },
     policy: 'bind current role fit and exact recoverable evidence work into one deterministic reviewer action packet without inventing applicant or proof state',
   };
   return { ...core, receipt_sha256: receipt(core) };
 }
 
-async function buildPublicRecruiterActionPacket(role, options = {}) {
-  requireValue(SUPPORTED_ROLES.includes(role), `action_packet_role:${role}`);
+function buildRecruiterActionMatrix(matrix, { maxActions = 3 } = {}) {
+  requireValue(matrix && typeof matrix === 'object' && !Array.isArray(matrix), 'action_matrix_matrix_object');
+  requireValue(Number.isInteger(maxActions) && maxActions >= 1 && maxActions <= 10, 'action_matrix_max_actions');
+  requireValue(SHA256.test(matrix.receipt_sha256 || ''), 'action_matrix_matrix_receipt');
+  requireValue(SHA256.test(matrix.freshness_receipt_sha256 || ''), 'action_matrix_freshness_receipt');
+
+  const packets = Object.fromEntries(
+    SUPPORTED_ROLES.map((role) => [role, buildRecruiterActionPacket(matrix, role, { maxActions })]),
+  );
+  const core = {
+    schema: ACTION_MATRIX_SCHEMA,
+    as_of: matrix.as_of,
+    source_matrix_schema: matrix.schema,
+    matrix_receipt_sha256: matrix.receipt_sha256,
+    freshness_receipt_sha256: matrix.freshness_receipt_sha256,
+    roles: SUPPORTED_ROLES,
+    verification_passes: 1,
+    max_actions_per_role: maxActions,
+    packets,
+    policy: 'compare all supported hiring lenses from one exact role matrix and one freshness snapshot',
+  };
+  return { ...core, receipt_sha256: receipt(core) };
+}
+
+async function loadPublicRoleMatrix() {
   const topology = await workflowTopologyProxy.loadTopology();
   const freshness = await recruiterProxy.loadLiveFreshness(topology);
-  const matrix = roleMatrixRuntime.buildRoleMatrix(topology, freshness);
-  return buildRecruiterActionPacket(matrix, role, options);
+  return roleMatrixRuntime.buildRoleMatrix(topology, freshness);
+}
+
+async function buildPublicRecruiterActionPacket(role, options = {}) {
+  requireValue(SUPPORTED_ROLES.includes(role), `action_packet_role:${role}`);
+  return buildRecruiterActionPacket(await loadPublicRoleMatrix(), role, options);
+}
+
+async function buildPublicRecruiterActionMatrix(options = {}) {
+  return buildRecruiterActionMatrix(await loadPublicRoleMatrix(), options);
 }
 
 module.exports = {
   SCHEMA,
+  ACTION_MATRIX_SCHEMA,
   SUPPORTED_ROLES,
   RecruiterActionPacketError,
   buildRecruiterActionPacket,
+  buildRecruiterActionMatrix,
   buildPublicRecruiterActionPacket,
+  buildPublicRecruiterActionMatrix,
   stableStringify,
 };
