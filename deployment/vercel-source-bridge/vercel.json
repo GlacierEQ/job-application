@@ -6,26 +6,6 @@
       "dest": "/api/recruiter-role-matrix"
     },
     {
-      "src": "/data/recruiter-gap-analysis.json",
-      "dest": "/api/recruiter-gap-analysis"
-    },
-    {
-      "src": "/data/recruiter-action-packet.json",
-      "dest": "/api/recruiter-action-page"
-    },
-    {
-      "src": "/recruiter-review/?",
-      "dest": "/api/recruiter-review-page"
-    },
-    {
-      "src": "/recruiter-gap-analysis/?",
-      "dest": "/api/recruiter-gap-page"
-    },
-    {
-      "src": "/recruiter-action/?",
-      "dest": "/api/recruiter-action-page"
-    },
-    {
       "src": "/(.*)",
       "dest": "/api/release-router?path=$1"
     }

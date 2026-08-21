@@ -36,15 +36,6 @@ function sha256(value) {
   return crypto.createHash('sha256').update(stableStringify(value)).digest('hex');
 }
 
-function esc(value) {
-  return String(value ?? '')
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
-    .replaceAll("'", '&#39;');
-}
-
 function requestUrl(req) {
   return new URL(String(req?.url || '/'), 'https://glaciereq.invalid');
 }
@@ -248,29 +239,6 @@ function buildRoleMatrix(topology, freshness) {
   return { ...core, receipt_sha256: sha256(core) };
 }
 
-function renderRoleMatrixHtml(matrix) {
-  const roleCards = matrix.roles.map((role) => {
-    const ranking = matrix.rankings[role];
-    const proof = ranking.briefs.slice(0, 3).map((brief, index) => `<span><b>${index + 1}. ${esc(brief.name)}</b> · ${esc(brief.score)} · ${esc(brief.intent)}</span>`).join('');
-    return `<section class="workflow-card matrix-role" data-role="${esc(role)}">
-      <p class="eyebrow">${esc(role.replaceAll('-', ' '))}</p>
-      <h2>${esc(ranking.top_flow)}</h2>
-      <p><strong>Top score:</strong> ${esc(ranking.top_score)}</p>
-      <div class="workflow-proof">${proof}</div>
-      <p><a href="/recruiter-proof/?role=${encodeURIComponent(role)}">Inspect full proof for this role</a></p>
-    </section>`;
-  }).join('');
-
-  return `<!doctype html><html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="One verified evidence graph ranked across recruiter, engineering lead, and systems architect hiring lenses.">
-<meta name="robots" content="index,follow"><link rel="canonical" href="${PUBLIC_ORIGIN}/recruiter-role-matrix/">
-<title>Casey Barton · Recruiter Role Matrix</title>
-<link rel="stylesheet" href="/assets/site.css"><link rel="stylesheet" href="/assets/site.systems.css"><link rel="stylesheet" href="/assets/site.complete.css"><link rel="stylesheet" href="/assets/site.workflows.css">
-<link rel="alternate" type="application/json" href="/data/recruiter-role-matrix.json" title="Machine-readable recruiter role matrix">
-</head><body><main class="workflow-main"><header class="workflow-hero"><div class="shell"><p class="eyebrow">ONE VERIFIED GRAPH · THREE HIRING LENSES</p><h1>See which proof leads for each hiring lens.</h1><p class="lead">One exact topology and one verified freshness pass drive recruiter, engineering lead, and systems architect rankings without changing the underlying evidence.</p></div></header><div class="shell workflow-grid">${roleCards}<section class="workflow-receipt"><p><strong>Coverage:</strong> ${esc(matrix.coverage.verified_systems)} verified systems · ${esc(matrix.coverage.unverified_systems)} unverified systems</p><p><strong>As of:</strong> ${esc(matrix.as_of)}</p><p><strong>Matrix receipt:</strong> <code>${esc(matrix.receipt_sha256)}</code></p><p><a href="/data/recruiter-role-matrix.json">Inspect machine-readable matrix</a></p></section></div></main></body></html>`;
-}
-
 function sendRoleMatrixJson(res, status, payload, cacheControl) {
   const body = Buffer.from(`${JSON.stringify(payload, null, 2)}\n`);
   res.statusCode = status;
@@ -284,32 +252,14 @@ function sendRoleMatrixJson(res, status, payload, cacheControl) {
   res.end(body);
 }
 
-function sendRoleMatrixHtml(res, status, html, cacheControl) {
-  const body = Buffer.from(html);
-  res.statusCode = status;
-  res.setHeader('Content-Type', 'text/html; charset=utf-8');
-  res.setHeader('Cache-Control', cacheControl);
-  res.setHeader('Content-Length', String(body.length));
-  res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'none'; style-src 'self'; img-src 'self' data:; connect-src 'none'; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self' mailto:; upgrade-insecure-requests");
-  res.setHeader('X-Content-Type-Options', 'nosniff');
-  res.setHeader('X-Frame-Options', 'DENY');
-  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
-  res.setHeader('X-PSYSOCX-Release', workflowRecruiterProxy.constants.RELEASE);
-  res.end(body);
-}
-
-async function loadRoleMatrix() {
-  const topology = await workflowTopologyProxy.loadTopology();
-  const freshness = await workflowRecruiterProxy.loadLiveFreshness(topology);
-  return buildRoleMatrix(topology, freshness);
-}
-
 async function serveRoleMatrix(res) {
   try {
+    const topology = await workflowTopologyProxy.loadTopology();
+    const freshness = await workflowRecruiterProxy.loadLiveFreshness(topology);
     return sendRoleMatrixJson(
       res,
       200,
-      await loadRoleMatrix(),
+      buildRoleMatrix(topology, freshness),
       'public, max-age=0, s-maxage=300, must-revalidate',
     );
   } catch (error) {
@@ -321,25 +271,6 @@ async function serveRoleMatrix(res) {
         status: 'FAIL_CLOSED',
         error: error instanceof Error ? error.message : String(error),
       },
-      'no-store',
-    );
-  }
-}
-
-async function serveRoleMatrixPage(res) {
-  try {
-    return sendRoleMatrixHtml(
-      res,
-      200,
-      renderRoleMatrixHtml(await loadRoleMatrix()),
-      'public, max-age=0, s-maxage=300, must-revalidate',
-    );
-  } catch (error) {
-    const message = error instanceof Error ? error.message : String(error);
-    return sendRoleMatrixHtml(
-      res,
-      503,
-      `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><title>Recruiter role matrix unavailable</title></head><body><main><h1>Recruiter role matrix unavailable</h1><p>${esc(message)}</p></main></body></html>`,
       'no-store',
     );
   }
@@ -365,9 +296,6 @@ module.exports = async function releaseRouter(req, res) {
   if (rawPath === 'data/recruiter-role-matrix.json') {
     return serveRoleMatrix(res);
   }
-  if (rawPath === 'recruiter-role-matrix' || rawPath === 'recruiter-role-matrix/index.html') {
-    return serveRoleMatrixPage(res);
-  }
   if (rawPath === '__v21_verify') return proxy(req, res);
   if (rawPath === '__design_verify') return designProxy(req, res);
   if (rawPath === '__v22_verify') return estateProxy(req, res);
@@ -387,11 +315,9 @@ module.exports.PUBLIC_ORIGIN = PUBLIC_ORIGIN;
 module.exports.ROLE_MATRIX_SCHEMA = ROLE_MATRIX_SCHEMA;
 module.exports.ROLE_MATRIX_ROLES = ROLE_MATRIX_ROLES;
 module.exports.buildRoleMatrix = buildRoleMatrix;
-module.exports.renderRoleMatrixHtml = renderRoleMatrixHtml;
 module.exports.hasRouteSelectors = hasRouteSelectors;
 module.exports.seoPolicy = seoPolicy;
 module.exports.rewriteHtmlSeo = rewriteHtmlSeo;
 module.exports.rewriteSitemapSeo = rewriteSitemapSeo;
 module.exports.serveRedirect = serveRedirect;
 module.exports.serveRoleMatrix = serveRoleMatrix;
-module.exports.serveRoleMatrixPage = serveRoleMatrixPage;
