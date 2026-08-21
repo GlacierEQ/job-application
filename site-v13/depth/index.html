@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#071115">
+  <meta name="description" content="Casey Barton's full evidence-backed portfolio depth: Crown Jewels, company suites, promotion states, and governed repository inventory.">
+  <title>Casey Barton · Portfolio Depth</title>
+  <link rel="stylesheet" href="/assets/site.css">
+  <style>
+    .depth-page{min-height:100vh;padding:clamp(5rem,10vw,9rem) 0;background:radial-gradient(circle at 80% 0,rgba(84,211,170,.11),transparent 34%),radial-gradient(circle at 0 35%,rgba(91,135,255,.1),transparent 32%)}
+    .depth-hero{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(280px,.65fr);gap:2rem;align-items:end;padding-bottom:3rem;border-bottom:1px solid var(--line)}
+    .depth-hero h1{max-width:16ch;font-size:clamp(3rem,7vw,7.5rem);line-height:.93;margin:.4rem 0 1rem}.depth-hero p{max-width:72ch}.depth-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem}.depth-stat{padding:1rem;border:1px solid var(--line);border-radius:18px;background:var(--panel)}.depth-stat b{display:block;font-size:2rem}.depth-section{padding:clamp(3rem,7vw,7rem) 0;border-bottom:1px solid var(--line)}
+    .depth-heading{display:flex;justify-content:space-between;gap:2rem;align-items:end}.depth-heading p{max-width:60ch}.depth-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1rem;margin-top:2rem}.suite-grid{grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}.depth-card{min-width:0;padding:1.25rem;border:1px solid var(--line);border-radius:20px;background:linear-gradient(145deg,var(--panel),transparent);box-shadow:0 24px 80px rgba(0,0,0,.13)}.depth-card h3{text-transform:none;margin:.8rem 0 .5rem}.depth-card p{overflow-wrap:anywhere}.chips{display:flex;flex-wrap:wrap;gap:.45rem}.chip{font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--line);border-radius:999px;padding:.35rem .55rem}.gate{padding-top:.8rem;border-top:1px solid var(--line);font-size:.9rem}.muted{opacity:.72;font-size:.82rem}.repo-list{font-family:var(--mono);font-size:.76rem;line-height:1.65}.depth-actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2rem}.error{padding:1rem;border:1px solid #ff7d7d;border-radius:14px}.back{position:fixed;top:1rem;left:1rem;z-index:20}
+    @media(max-width:760px){.depth-hero{grid-template-columns:1fr}.depth-heading{display:block}.suite-grid,.depth-grid{grid-template-columns:1fr}.back{position:static;display:inline-flex;margin:1rem}}
+  </style>
+</head>
+<body>
+  <a class="button secondary back" href="/">← Main portfolio</a>
+  <main class="depth-page">
+    <section class="shell depth-hero">
+      <div>
+        <p class="kicker">THE ACTUAL SYSTEM</p>
+        <h1>Depth, not another thin portfolio.</h1>
+        <p class="hero-lead">The three featured stories are only the entry point. This surface exposes the Crown Jewels, emerging systems, company suites, blocked work, next promotion gates, and the governed Helix portfolio underneath them.</p>
+        <div class="depth-actions">
+          <a class="button primary" href="#flagships">Open Crown Jewels</a>
+          <a class="button secondary" href="#suites">Open company suites</a>
+          <a class="button quiet" href="https://github.com/GlacierEQ/job-app-helix/blob/main/manifests/portfolio_repositories.json" target="_blank" rel="noopener">Open 67-repo contract</a>
+        </div>
+      </div>
+      <div class="depth-stats" aria-label="Portfolio depth summary">
+        <div class="depth-stat"><b id="flagshipCount">—</b><span>flagship-class systems</span></div>
+        <div class="depth-stat"><b id="suiteCount">—</b><span>company suites</span></div>
+        <div class="depth-stat"><b>67</b><span>governed Helix repositories</span></div>
+        <div class="depth-stat"><b>12</b><span>SpaceX mission modules</span></div>
+      </div>
+    </section>
+
+    <section id="flagships" class="shell depth-section">
+      <div class="depth-heading"><div><p class="kicker">CROWN JEWELS + EMERGING FLAGSHIPS</p><h2>The strongest personal systems, with the work still required.</h2></div><p>No generic proof modal. Every card identifies the repository, evidence state, role, current receipt where available, and the next gate that materially changes its standing.</p></div>
+      <div id="flagshipGrid" class="depth-grid" aria-live="polite"></div>
+    </section>
+
+    <section id="suites" class="shell depth-section">
+      <div class="depth-heading"><div><p class="kicker">COMPANY SUITES</p><h2>One engineering story per company—not a wall of names.</h2></div><p>Flagships, supporting systems, experiments, historical release lines, audit candidates, and upstream references are separated so repository volume cannot masquerade as authorship or quality.</p></div>
+      <div id="suiteGrid" class="depth-grid suite-grid" aria-live="polite"></div>
+    </section>
+
+    <section class="shell depth-section">
+      <div class="depth-heading"><div><p class="kicker">CONTROL PLANE</p><h2>These are live data contracts, not page copy.</h2></div><p>The next site pass can consume the same registries for recruiter views, role-calibrated resumes, company dossiers, machine interfaces, and release gates.</p></div>
+      <div class="depth-actions">
+        <a class="button primary" href="/data/flagship-registry.json">Flagship JSON</a>
+        <a class="button secondary" href="/data/company-suites.json">Company suites JSON</a>
+        <a class="button quiet" href="/data/portfolio.graph.json">Existing invention graph</a>
+        <a class="button quiet" href="https://github.com/GlacierEQ/job-app-helix" target="_blank" rel="noopener">Job-App Helix</a>
+      </div>
+    </section>
+  </main>
+  <script>
+    const esc=(v='')=>String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    const load=async path=>{const r=await fetch(path,{headers:{Accept:'application/json'}});if(!r.ok)throw new Error(`${path}: ${r.status}`);return r.json()};
+    function renderFlagships(data){document.querySelector('#flagshipCount').textContent=data.flagships.length;document.querySelector('#flagshipGrid').innerHTML=data.flagships.map(x=>`<article class="depth-card"><div class="chips"><span class="chip">${esc(x.tier)}</span><span class="chip">${esc(x.state)}</span></div><h3>${esc(x.name)}</h3><p>${esc(x.role)}</p>${x.evidence?`<p><strong>Evidence:</strong> ${esc(x.evidence)}</p>`:''}<p class="gate"><strong>Next gate:</strong> ${esc(x.next_gate)}</p>${x.repository?`<a href="https://github.com/${esc(x.repository)}" target="_blank" rel="noopener">Open canonical repository →</a>`:`<span class="muted">Canonical public source required</span>`}</article>`).join('')}
+    function renderSuites(data){document.querySelector('#suiteCount').textContent=data.suites.length;document.querySelector('#suiteGrid').innerHTML=data.suites.map(x=>`<article class="depth-card"><div class="chips"><span class="chip">${esc(x.state)}</span><span class="chip">${x.repositories?.length||0} repos</span></div><h3>${esc(x.name)}</h3><p>${esc(x.story)}</p><p><strong>Flagship:</strong> ${esc(x.flagship)}</p>${x.supporting?.length?`<p><strong>Supporting:</strong> ${x.supporting.map(esc).join(', ')}</p>`:''}${x.experiments?.length?`<p><strong>Experiments:</strong> ${x.experiments.map(esc).join(', ')}</p>`:''}${x.historical?.length?`<p><strong>Historical lines:</strong> ${x.historical.map(esc).join(', ')}</p>`:''}${x.audit_candidates?.length?`<p><strong>Audit candidates:</strong> ${x.audit_candidates.map(esc).join(', ')}</p>`:''}<details><summary>All admitted repositories</summary><p class="repo-list">${(x.repositories||[]).map(esc).join('<br>')}</p></details><p class="gate"><strong>Next gate:</strong> ${esc(x.next_gate)}</p>${x.boundary?`<p class="muted">${esc(x.boundary)}</p>`:''}</article>`).join('')}
+    Promise.all([load('/data/flagship-registry.json'),load('/data/company-suites.json')]).then(([f,s])=>{renderFlagships(f);renderSuites(s)}).catch(error=>{document.querySelector('#flagshipGrid').innerHTML=`<div class="error">Portfolio depth failed to load: ${esc(error.message)}</div>`;console.error(error)});
+  </script>
+</body>
+</html>
