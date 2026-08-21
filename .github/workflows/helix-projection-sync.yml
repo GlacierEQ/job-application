@@ -67,12 +67,13 @@ jobs:
     timeout-minutes: 10
     env:
       GITHUB_TOKEN: ${{ github.token }}
-      NODE_OPTIONS: --import=./scripts/github-fetch-resilience.mjs
     steps:
       - name: Checkout exact portal source
         uses: actions/checkout@v4
         with:
           persist-credentials: false
+      - name: Activate repository-local GitHub fetch resilience
+        run: echo "NODE_OPTIONS=--import=$GITHUB_WORKSPACE/scripts/github-fetch-resilience.mjs" >> "$GITHUB_ENV"
       - name: Configure Node
         uses: actions/setup-node@v4
         with:
