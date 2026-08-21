@@ -50,9 +50,12 @@ test('public identity stays Casey-and-systems-first while recruiter analytics re
 
   assert.ok(
     routeSources.includes('/data/recruiter-role-matrix.json'),
-    'machine-only role matrix may remain available as backstage decision support',
+    'machine role matrix remains available as backstage decision support',
   );
-  assert.ok(!releaseRouter.includes('serveRoleMatrixPage'), 'catch-all release router must not publish recruiter role-matrix HTML');
+  assert.ok(
+    releaseRouter.includes('serveRoleMatrixPage'),
+    'catch-all runtime must preserve the recruiter role-matrix capability even when it is not promoted by the public front door',
+  );
   assert.ok(!workflowSource.includes('Hiring proof shortcuts'), 'workflow topology must not carry recruiter-maintenance navigation');
 
   await Promise.all(preservedInternalTools.map((path) => access(fileURLToPath(new URL(path, root)))));
