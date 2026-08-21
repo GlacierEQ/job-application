@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 const root = new URL('../', import.meta.url);
 const read = (path) => readFile(new URL(path, root), 'utf8');
 
-const backstageRoutes = [
+const backstageHumanRoutes = [
   '/recruiter-role-matrix/',
   '/recruiter-gap-analysis/',
   '/recruiter-action/',
@@ -18,6 +18,15 @@ const preservedInternalTools = [
   'tools/recruiter-action-packet.mjs',
   'tools/recruiter-recovery-completion.mjs',
 ];
+
+function publiclyRoutesHumanSurface(routeSources, route) {
+  const prefix = route.replace(/\/$/, '');
+  return routeSources.some((src) => (
+    src === prefix
+    || src === `${prefix}/?`
+    || src.startsWith(`${prefix}/`)
+  ));
+}
 
 test('public identity stays Casey-and-systems-first while recruiter analytics remain backstage', async () => {
   const [home, workflowSource, releaseRouter, vercelText] = await Promise.all([
@@ -31,14 +40,18 @@ test('public identity stays Casey-and-systems-first while recruiter analytics re
 
   assert.match(home, /Casey Barton/i, 'public front door must remain explicitly Casey-centered');
   assert.match(home, /href=["']\/inventions\//i, 'public front door must expose the inventions surface');
-  assert.match(workflowSource, /href=\\?"\/inventions\//i, 'workflow topology must hand off to inventions, not recruiter scoring');
+  assert.match(workflowSource, /href=["']\/inventions\//i, 'workflow topology must hand off to inventions, not recruiter scoring');
 
-  for (const route of backstageRoutes) {
+  for (const route of backstageHumanRoutes) {
     assert.ok(!home.includes(route), `home must not promote backstage recruiter route ${route}`);
     assert.ok(!workflowSource.includes(route), `workflow topology must not promote backstage recruiter route ${route}`);
-    assert.ok(!routeSources.some((src) => src.includes(route.replace(/\/$/, ''))), `vercel route map must not promote ${route}`);
+    assert.ok(!publiclyRoutesHumanSurface(routeSources, route), `vercel route map must not promote human recruiter surface ${route}`);
   }
 
+  assert.ok(
+    routeSources.includes('/data/recruiter-role-matrix.json'),
+    'machine-only role matrix may remain available as backstage decision support',
+  );
   assert.ok(!releaseRouter.includes('serveRoleMatrixPage'), 'catch-all release router must not publish recruiter role-matrix HTML');
   assert.ok(!workflowSource.includes('Hiring proof shortcuts'), 'workflow topology must not carry recruiter-maintenance navigation');
 
