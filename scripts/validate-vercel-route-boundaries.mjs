@@ -8,26 +8,34 @@ const config = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf8'));
 
 const redirects = Array.isArray(config.redirects) ? config.redirects : [];
 const atlasRedirects = redirects.filter(({ source }) => String(source || '').startsWith('/atlas/'));
-const expectedSources = new Set([
+const legacySources = new Set([
   '/atlas/:slug((?!starmap$)[a-z0-9-]+)/',
   '/atlas/:slug((?!starmap$)[a-z0-9-]+)',
 ]);
+const retiredSources = new Set(['/atlas/starmap/', '/atlas/starmap']);
 
-if (atlasRedirects.length !== expectedSources.size) {
+if (atlasRedirects.length !== legacySources.size + retiredSources.size) {
   throw new Error(
-    `atlas_redirect_contract: expected ${expectedSources.size} legacy redirects, found ${atlasRedirects.length}`,
+    `atlas_redirect_contract: expected ${legacySources.size + retiredSources.size} approved Atlas redirects, found ${atlasRedirects.length}`,
   );
 }
 
 for (const redirect of atlasRedirects) {
-  if (!expectedSources.has(redirect.source)) {
-    throw new Error(
-      `atlas_redirect_contract: ${redirect.source} can preempt reserved runtime routes such as /atlas/starmap/`,
-    );
+  if (legacySources.has(redirect.source)) {
+    if (redirect.destination !== '/companies/:slug/' || redirect.permanent !== true) {
+      throw new Error(`atlas_redirect_contract: malformed legacy redirect ${redirect.source}`);
+    }
+    continue;
   }
-  if (redirect.destination !== '/companies/:slug/' || redirect.permanent !== true) {
-    throw new Error(`atlas_redirect_contract: malformed legacy redirect ${redirect.source}`);
+  if (retiredSources.has(redirect.source)) {
+    if (redirect.destination !== '/atlas/' || redirect.permanent !== true) {
+      throw new Error(`atlas_redirect_contract: malformed retired-route redirect ${redirect.source}`);
+    }
+    continue;
   }
+  throw new Error(
+    `atlas_redirect_contract: ${redirect.source} can preempt reserved Atlas routes`,
+  );
 }
 
 for (const forbidden of ['/atlas/:slug/', '/atlas/:slug']) {
@@ -42,7 +50,8 @@ if (!String(config.buildCommand || '').includes('node scripts/validate-vercel-ro
 
 console.log(JSON.stringify({
   status: 'PASS',
-  reserved_runtime: '/atlas/starmap/',
-  legacy_redirects: [...expectedSources],
-  contract: 'legacy atlas company aliases may redirect; named runtime namespaces may not be preempted',
+  retired_route: '/atlas/starmap/',
+  legacy_redirects: [...legacySources],
+  retired_redirects: [...retiredSources],
+  contract: 'legacy Atlas company aliases and the retired Starmap route may redirect; broad dynamic redirects remain prohibited',
 }, null, 2));
