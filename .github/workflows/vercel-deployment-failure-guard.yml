@@ -7,6 +7,10 @@ permissions:
   contents: read
   issues: write
 
+concurrency:
+  group: vercel-deployment-failure-${{ github.event.sha }}
+  cancel-in-progress: false
+
 jobs:
   create-failure-issue:
     if: github.event.context == 'Vercel' && github.event.state == 'failure'
