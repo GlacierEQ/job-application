@@ -1,0 +1,85 @@
+name: Vercel deployment failure guard
+
+on:
+  status:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  create-failure-issue:
+    if: github.event.context == 'Vercel' && github.event.state == 'failure'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create or update the deployment-failure issue
+        uses: actions/github-script@v7
+        env:
+          DEPLOYMENT_SHA: ${{ github.event.sha }}
+          DEPLOYMENT_URL: ${{ github.event.target_url }}
+          DEPLOYMENT_DESCRIPTION: ${{ github.event.description }}
+        with:
+          script: |
+            const sha = process.env.DEPLOYMENT_SHA;
+            const shortSha = sha.slice(0, 7);
+            const title = `Vercel deployment failed: ${shortSha}`;
+            const label = 'vercel-deployment-failure';
+            const body = [
+              '## Deployment failure detected',
+              '',
+              `- **Commit:** [\`${shortSha}\`](https://github.com/${context.repo.owner}/${context.repo.repo}/commit/${sha})`,
+              `- **Vercel deployment:** ${process.env.DEPLOYMENT_URL || 'No dashboard URL was supplied.'}`,
+              `- **Status detail:** ${process.env.DEPLOYMENT_DESCRIPTION || 'No status description was supplied.'}`,
+              '',
+              'This issue was created automatically from the Vercel GitHub status. Review the deployment logs, fix the underlying cause, then close this issue.',
+            ].join('\n');
+
+            try {
+              await github.rest.issues.getLabel({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                name: label,
+              });
+            } catch (error) {
+              if (error.status !== 404) throw error;
+              await github.rest.issues.createLabel({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                name: label,
+                color: 'B60205',
+                description: 'Automatically detected Vercel deployment failure',
+              });
+            }
+
+            const { data: existing } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: label,
+              per_page: 100,
+            });
+            const duplicate = existing.find((issue) => issue.title === title);
+
+            if (duplicate) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: duplicate.number,
+                body: `A repeat failure was reported for this commit.\n\n${body}`,
+              });
+              core.notice(`Updated existing issue #${duplicate.number}.`);
+            } else {
+              const { data: issue } = await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title,
+                body,
+                labels: [label],
+              });
+              core.notice(`Created issue #${issue.number}.`);
+            }
+
+      - name: Mark the guard as failed
+        run: |
+          echo "Vercel reported a failed deployment: ${{ github.event.target_url }}"
+          exit 1
