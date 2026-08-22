@@ -6,6 +6,15 @@
   "trailingSlash": true,
   "headers": [
     {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
       "source": "/(.*)",
       "headers": [
         {
@@ -40,6 +49,16 @@
     }
   ],
   "redirects": [
+    {
+      "source": "/atlas/starmap/",
+      "destination": "/atlas/",
+      "permanent": true
+    },
+    {
+      "source": "/atlas/starmap",
+      "destination": "/atlas/",
+      "permanent": true
+    },
     {
       "source": "/atlas/:slug((?!starmap$)[a-z0-9-]+)/",
       "destination": "/companies/:slug/",

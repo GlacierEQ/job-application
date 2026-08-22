@@ -28,6 +28,7 @@ const steps = [
   ['scripts/validate-public-proof-surface.mjs'],
   ['scripts/normalize-full-estate-design.mjs', '--check'],
   ['scripts/validate-estate-role-lenses.mjs'],
+  ['scripts/optimize-production-seo.mjs'],
   ['site-v15/scripts/validate.mjs'],
 ];
 
