@@ -194,9 +194,7 @@ function withSchema(html, schema) {
 }
 
 function replaceBrokenCompaniesNav(html) {
-  return html
-    .replaceAll('<a href="/companies/">Companies</a>', '<a href="/atlas/">Company Atlas</a>')
-    .replaceAll('<a href="/companies/">Company Atlas</a>', '<a href="/atlas/">Company Atlas</a>');
+  return html.replace(/<a\b([^>]*?)\bhref=["']\/companies\/["']([^>]*)>([\s\S]*?)<\/a>/gi, '<a$1href="/atlas/"$2>$3</a>');
 }
 
 function versionLocalAssets(html, versions) {

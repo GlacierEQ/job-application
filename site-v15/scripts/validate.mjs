@@ -110,9 +110,10 @@ for (const token of [
   'I make powerful AI <em>dependable enough to use.</em>',
 ]) assert(recruiter.includes(token), `recruiter missing ${token}`);
 assert(recruiter.includes('cockpit') && recruiter.includes('bento') && recruiter.includes('pipeline'), 'cutting-edge visual hierarchy missing');
-for (const route of ['/master/', '/mesh/', '/machine/', '/resume/', '/companies/', '/atlas/', '/visualizer/', '/inventions/']) {
+for (const route of ['/master/', '/mesh/', '/machine/', '/resume/', '/atlas/', '/visualizer/', '/inventions/']) {
   assert(new RegExp(`href\\s*=\\s*["']${route.replaceAll('/', '\\/')}["']`, 'i').test(recruiter), `route missing ${route}`);
 }
+assert(!/href\s*=\s*["']\/companies\/["']/i.test(recruiter), 'recruiter must not link to the nonexistent Company index');
 
 assert(currentProof.schema === 'glaciereq.current-proof.v1', 'current-proof schema drift');
 assert(currentProof.release === 'V21 First Star Completion', 'current-proof release drift');
