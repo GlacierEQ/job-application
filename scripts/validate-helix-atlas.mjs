@@ -240,7 +240,7 @@ async function main() {
   const linked = [];
   for (const file of await htmlFiles(SITE)) {
     const text = await readFile(file, "utf8");
-    const navStart = text.indexOf('<nav class="links"');
+    const navStart = text.indexOf('<nav class="links" aria-label="Primary navigation"');
     if (navStart >= 0) {
       const navEnd = text.indexOf("</nav>", navStart);
       assert(navEnd >= 0, `primary navigation is not closed: ${path.relative(ROOT, file)}`);
