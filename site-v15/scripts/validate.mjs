@@ -11,7 +11,8 @@ const read = filePath => readFile(new URL(filePath, root), 'utf8');
 const bytes = filePath => readFile(new URL(filePath, root));
 const assert = (condition, message) => { if (!condition) throw new Error(message); };
 const exists = async filePath => access(fileURLToPath(new URL(filePath, root)));
-const stylesheetPattern = href => new RegExp(`<link\\b[^>]*\\bhref\\s*=\\s*["']${href.replaceAll('/', '\\/')}["'][^>]*>`, 'i');
+const stylesheetPattern = href => new RegExp(`<link\\b[^>]*\\bhref\\s*=\\s*["']${href.replaceAll('/', '\\/')}(?:\\?[^"']*)?["'][^>]*>`, 'i');
+const executableScriptPattern = /<script\b(?![^>]*\btype\s*=\s*["']application\/ld\+json["'])/i;
 
 const paths = {
   recruiter: 'index.html',
@@ -74,7 +75,7 @@ async function discoverHtml(directory) {
 
 for (const [name, html] of Object.entries(pages)) {
   assert((html.match(/<h1\b/g) || []).length === 1, `${name} must contain one h1`);
-  assert(!/<script\b/i.test(html), `${name} must remain script-free`);
+  assert(!executableScriptPattern.test(html), `${name} must remain free of executable scripts`);
   assert(!/javascript:/i.test(html), `${name} cannot use javascript URLs`);
   assert(!/\sstyle\s*=\s*/i.test(html), `${name} cannot use inline style attributes`);
   assert(stylesheetPattern('/assets/site.css').test(html), `${name} must use base CSS`);
@@ -89,7 +90,7 @@ assert(htmlFiles.length >= 100, `complete surface unexpectedly small: ${htmlFile
 for (const file of htmlFiles) {
   const relative = path.relative(rootPath, file).replaceAll(path.sep, '/');
   const html = await readFile(file, 'utf8');
-  assert(!/<script\b/i.test(html), `${relative} must remain script-free`);
+  assert(!executableScriptPattern.test(html), `${relative} must remain free of executable scripts`);
   assert(!/\sstyle\s*=\s*/i.test(html), `${relative} cannot use inline style attributes`);
   assert(stylesheetPattern('/assets/site.complete.css').test(html), `${relative} missing complete design CSS`);
 }
@@ -201,9 +202,16 @@ for (const selector of ['.bento-card p', '.master-card p', '.branch p']) {
   assert(cssSystems.includes(selector), `print contrast selector missing ${selector}`);
 }
 
-for (const route of ['/', '/resume/', '/master/', '/mesh/', '/machine/']) {
+for (const route of ['/', '/resume/', '/master/', '/mesh/', '/machine/', '/visualizer/', '/inventions/', '/estate/', '/atlas/']) {
   assert(sitemap.includes(`https://casey-barton-glaciereq.vercel.app${route}`), `sitemap missing ${route}`);
 }
+assert(!sitemap.includes('/atlas/starmap/'), 'sitemap must exclude stale Starmap route');
+assert(!/https:\/\/casey-barton-glaciereq\.vercel\.app\/atlas\/[a-z0-9-]+\//.test(sitemap), 'sitemap must exclude redirecting company routes');
+assert(!sitemap.includes('https://casey-barton-glaciereq.vercel.app/companies/</loc>'), 'sitemap must exclude non-existent company index');
+for (const [name, html] of Object.entries({ recruiter, resume, master, mesh, machine })) {
+  assert(/<link\s+rel=["']canonical["']\s+href=["']https:\/\/casey-barton-glaciereq\.vercel\.app\//i.test(html), `${name} must include an absolute canonical URL`);
+}
+assert(recruiter.includes('application/ld+json') && recruiter.includes('"@type":"Person"'), 'homepage person schema missing');
 assert(robots.includes('Sitemap: https://casey-barton-glaciereq.vercel.app/sitemap.xml'), 'robots missing sitemap');
 assert(llms.includes('/data/portfolio.json') && llms.includes('/data/psysoc-x-profiles.json') && llms.includes('/data/current-proof.json'), 'LLM orientation incomplete');
 

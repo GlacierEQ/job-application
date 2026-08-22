@@ -11,10 +11,10 @@ const SYSTEMS_LINK = '<link rel="stylesheet" href="/assets/site.systems.css">';
 const COMPLETE = '<link rel="stylesheet" href="/assets/site.complete.css">';
 const INTERACTION = '<link rel="stylesheet" href="/assets/site.interaction.css">';
 const ALGERIAN = '<link rel="stylesheet" href="/assets/site.algerian.css">';
-const SYSTEMS = /<link\s+rel=["']stylesheet["']\s+href=["']\/assets\/site\.systems\.css["']\s*>/i;
-const COMPLETE_PATTERN = /<link\s+rel=["']stylesheet["']\s+href=["']\/assets\/site\.complete\.css["']\s*>/gi;
-const INTERACTION_PATTERN = /<link\s+rel=["']stylesheet["']\s+href=["']\/assets\/site\.interaction\.css["']\s*>/gi;
-const ALGERIAN_PATTERN = /<link\s+rel=["']stylesheet["']\s+href=["']\/assets\/site\.algerian\.css["']\s*>/gi;
+const SYSTEMS = /<link\s+rel=["']stylesheet["']\s+href=["']\/assets\/site\.systems\.css(?:\?[^"']*)?["']\s*>/i;
+const COMPLETE_PATTERN = /<link\s+rel=["']stylesheet["']\s+href=["']\/assets\/site\.complete\.css(?:\?[^"']*)?["']\s*>/gi;
+const INTERACTION_PATTERN = /<link\s+rel=["']stylesheet["']\s+href=["']\/assets\/site\.interaction\.css(?:\?[^"']*)?["']\s*>/gi;
+const ALGERIAN_PATTERN = /<link\s+rel=["']stylesheet["']\s+href=["']\/assets\/site\.algerian\.css(?:\?[^"']*)?["']\s*>/gi;
 
 async function htmlFiles(directory) {
   const out = [];
