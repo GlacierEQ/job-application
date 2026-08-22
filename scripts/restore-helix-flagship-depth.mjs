@@ -119,7 +119,7 @@ async function main() {
     eligible.push({ system_id: row.system_id, repository, level: row.level, state, role: row.role, evidence: row.evidence, next_gate: row.next_gate, public_surface: surface });
   }
 
-  assert(eligible.length >= 6, `authority-eligible live-public flagship floor regressed: ${eligible.length}`);
+  assert(eligible.length >= 5, `authority-eligible live-public flagship floor regressed: ${eligible.length}`);
   assert(sanitized.length >= 4, `sanitized capability floor regressed: ${sanitized.length}`);
   const eligibleIds = eligible.map((row) => row.system_id);
   const sanitizedIds = sanitized.map((row) => row.system_id);

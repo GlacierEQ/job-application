@@ -66,6 +66,26 @@ const PRIMARY_PAGES = {
       },
     }],
   },
+  'machine/index.html': {
+    title: 'Machine-Readable Applied AI Portfolio Contract · Casey Barton',
+    description: 'Machine-readable public contract for Casey Barton’s applied AI systems portfolio, including evidence boundaries, system records, and inspectable source links.',
+    schema: [{
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: 'Machine-Readable Applied AI Portfolio Contract · Casey Barton',
+      description: 'Machine-readable public contract for Casey Barton’s applied AI systems portfolio.',
+    }],
+  },
+  'mesh/index.html': {
+    title: 'Applied AI Systems Relationship Mesh · Casey Barton',
+    description: 'Explore the public relationship mesh across Casey Barton’s applied AI systems, evidence boundaries, reusable capabilities, and technical source paths.',
+    schema: [{
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: 'Applied AI Systems Relationship Mesh · Casey Barton',
+      description: 'Public relationship map for applied AI systems, evidence boundaries, and reusable capabilities.',
+    }],
+  },
   'visualizer/index.html': {
     title: 'Architecture Evidence Explorer · Casey Barton',
     description: 'Explore evidence-bound architecture, system relationships, implementation paths, and proof ceilings across GlacierEQ applied AI systems.',

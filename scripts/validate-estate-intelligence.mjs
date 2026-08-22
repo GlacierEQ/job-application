@@ -18,6 +18,7 @@ const SHA64 = /^[a-f0-9]{64}$/;
 const COMPANY_ID = /^[a-z0-9_]+$/;
 const START = "<!-- ESTATE_INTELLIGENCE_START -->";
 const END = "<!-- ESTATE_INTELLIGENCE_END -->";
+const EXECUTABLE_SCRIPT = /<script\b(?![^>]*\btype\s*=\s*["']application\/ld\+json["'])/i;
 
 function requireValue(condition, message) {
   if (!condition) throw new Error(message);
@@ -141,7 +142,7 @@ async function main() {
     requireValue(html.includes('id="estate-intelligence"'), `${record.company_id}: estate intelligence section missing`);
     requireValue(html.includes("Observed current pressure"), `${record.company_id}: observed-pressure label missing`);
     requireValue(html.includes("GlacierEQ bottleneck inference"), `${record.company_id}: inference label missing`);
-    requireValue(!/<script\b/i.test(html), `${record.company_id}: client script introduced`);
+    requireValue(!EXECUTABLE_SCRIPT.test(html), `${record.company_id}: client script introduced`);
     requireValue(!/\sstyle\s*=\s*/i.test(html), `${record.company_id}: inline style introduced`);
   }
 
@@ -154,7 +155,7 @@ async function main() {
   const atlasHtml = await readFile(ATLAS_PATH, "utf8");
   requireValue(markerCount(atlasHtml, START) === 1 && markerCount(atlasHtml, END) === 1, "Atlas estate-intelligence summary is not exactly-once");
   requireValue(atlasHtml.includes("47 source-bound company pressure dossiers"), "Atlas external-intelligence count missing");
-  requireValue(!/<script\b/i.test(atlasHtml), "Atlas estate projection introduced client script");
+  requireValue(!EXECUTABLE_SCRIPT.test(atlasHtml), "Atlas estate projection introduced client script");
   requireValue(!/\sstyle\s*=\s*/i.test(atlasHtml), "Atlas estate projection introduced inline style");
 
   requireValue(!intelligenceText.includes('"visibility": "private"'), "private visibility leaked into public estate intelligence");

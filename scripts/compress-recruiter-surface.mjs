@@ -44,10 +44,14 @@ function writeAtomic(file, content) {
   fs.renameSync(temp, file);
 }
 
+function replaceRetiredCompaniesIndex(source) {
+  return source.replace(/<a\b([^>]*?)\bhref=["']\/companies\/["']([^>]*)>([\s\S]*?)<\/a>/gi, '<a$1href="/atlas/"$2>$3</a>');
+}
+
 function normalizeHome(source) {
   const match = source.match(PRIMARY_NAV_RE);
   if (!match) throw new Error('recruiter_primary_nav_missing');
-  return source.replace(PRIMARY_NAV_RE, RECRUITER_NAV);
+  return replaceRetiredCompaniesIndex(source.replace(PRIMARY_NAV_RE, RECRUITER_NAV));
 }
 
 function normalizeResume(source) {

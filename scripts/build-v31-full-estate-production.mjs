@@ -104,6 +104,7 @@ const RELEASE = '${RELEASE}';
 const SOURCE_COMMIT = '${sourceCommit}';
 const INNER_V25_SHA256 = '${v25Sha256}';
 const STATIC = Object.freeze(${staticLiteral});
+const EXECUTABLE_SCRIPT = /<script\\b(?![^>]*\\btype\\s*=\\s*["']application\\/ld\\+json["'])/i;
 let decoded = null;
 let innerHandler = null;
 
@@ -180,7 +181,7 @@ function verify() {
   if (!home.includes('href="/estate/"')) errors.push('home_estate_navigation');
   if (!estateHtml.includes('The library is the substrate. The recruiter view is only a projection.')) errors.push('restoration_marker');
   if (!sitemap.includes('https://casey-barton-glaciereq.vercel.app/estate/')) errors.push('sitemap_estate_route');
-  if (/<script\\b/i.test(estateHtml)) errors.push('estate_script_boundary');
+  if (EXECUTABLE_SCRIPT.test(estateHtml)) errors.push('estate_script_boundary');
   if (estate.records?.some((row) => !String(row.url || '').startsWith('https://github.com/GlacierEQ/'))) errors.push('estate_public_identity_boundary');
   if (typeof loadInnerV25() !== 'function') errors.push('inner_v25_handler');
   return {

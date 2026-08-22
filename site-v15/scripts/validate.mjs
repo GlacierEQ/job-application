@@ -93,6 +93,10 @@ for (const file of htmlFiles) {
   assert(!executableScriptPattern.test(html), `${relative} must remain free of executable scripts`);
   assert(!/\sstyle\s*=\s*/i.test(html), `${relative} cannot use inline style attributes`);
   assert(stylesheetPattern('/assets/site.complete.css').test(html), `${relative} missing complete design CSS`);
+  if (relative.startsWith('companies/')) {
+    assert((html.match(/data-company-intelligence-schema=["']v1["']/g) || []).length === 1, `${relative} must include exactly one company-intelligence schema block`);
+    assert(/<script\s+type=["']application\/ld\+json["'][^>]*data-company-intelligence-schema=["']v1["'][^>]*>\s*\{\s*["']@context["']\s*:\s*["']https:\/\/schema\.org["']\s*,\s*["']@type["']\s*:\s*["']WebPage["']/i.test(html), `${relative} company-intelligence schema must be a WebPage`);
+  }
 }
 
 assert(/<\/footer>\s*<\/body>\s*<\/html>\s*$/i.test(recruiter), 'recruiter footer must close cleanly');

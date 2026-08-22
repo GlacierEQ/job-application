@@ -7,6 +7,7 @@ import { fileURLToPath } from "node:url";
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SITE = path.join(ROOT, "site-v15");
 const COMPANY_ID_PATTERN = /^[a-z0-9_]+$/;
+const EXECUTABLE_SCRIPT = /<script\b(?![^>]*\btype\s*=\s*["']application\/ld\+json["'])/i;
 const SECOND_DEPTH_STAGES = [
   "MAPPED_ONLY",
   "ROLE_VERIFIED",
@@ -114,7 +115,7 @@ async function main() {
   assert(atlas.includes("CROWN JEWELS"), "Atlas Crown Jewels section is missing");
   assert(atlas.includes("SECOND-DEPTH CONTRACT"), "Atlas second-depth contract is missing");
   assert(atlas.includes("Lockheed Martin"), "Lockheed Martin is missing from Atlas");
-  assert(!/<script(?:\s|>)/i.test(atlas), "Company Atlas added client script despite zero-script contract");
+  assert(!EXECUTABLE_SCRIPT.test(atlas), "Company Atlas added client script despite zero-script contract");
   assert(!/\sstyle\s*=\s*/i.test(atlas), "Company Atlas cannot use inline style under locked CSP");
   assert(
     (atlas.match(/class="atlas-star /g) ?? []).length === snapshot.companies.length,
@@ -182,7 +183,7 @@ async function main() {
       assert(page.includes(blocker), `${company.company_id}: second-depth blocker missing: ${blocker}`);
     }
     assert(page.includes(company.non_affiliation), `${company.company_id}: non-affiliation boundary missing`);
-    assert(!/<script(?:\s|>)/i.test(page), `${company.company_id}: company page added client script`);
+    assert(!EXECUTABLE_SCRIPT.test(page), `${company.company_id}: company page added client script`);
     assert(
       !/\sstyle\s*=\s*/i.test(page),
       `${company.company_id}: company page cannot use inline style under locked CSP`,

@@ -11,6 +11,7 @@ const bundleDir = outputArg >= 0 ? path.resolve(process.argv[outputArg + 1]) : p
 const entry = path.join(bundleDir, 'api', 'index.js');
 const require = createRequire(import.meta.url);
 const handler = require(entry);
+const EXECUTABLE_SCRIPT = /<script\b(?![^>]*\btype\s*=\s*["']application\/ld\+json["'])/i;
 
 function request(url) {
   return new Promise((resolve, reject) => {
@@ -60,7 +61,7 @@ const estate = await request('/?path=estate/index.html');
 requireValue(estate.status === 200, `estate_status:${estate.status}`);
 const estateHtml = estate.body.toString('utf8');
 requireValue(estateHtml.includes('The library is the substrate. The recruiter view is only a projection.'), 'estate restoration marker missing');
-requireValue(!/<script\b/i.test(estateHtml), 'estate route introduced client script');
+requireValue(!EXECUTABLE_SCRIPT.test(estateHtml), 'estate route introduced client script');
 requireValue(estate.headers.get('content-security-policy')?.includes("script-src 'none'"), 'estate CSP weakened');
 
 const dataResponse = await request('/?path=data/public-estate.json');

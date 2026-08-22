@@ -14,6 +14,7 @@ on:
       - "scripts/build-v25-deployment-bundle.mjs"
       - "scripts/build-v25-effective-production.mjs"
       - "scripts/compress-recruiter-surface.mjs"
+      - "scripts/optimize-production-seo.mjs"
       - ".github/workflows/v31-full-estate-production.yml"
   push:
     branches: [main]
@@ -28,6 +29,7 @@ on:
       - "scripts/build-v25-deployment-bundle.mjs"
       - "scripts/build-v25-effective-production.mjs"
       - "scripts/compress-recruiter-surface.mjs"
+      - "scripts/optimize-production-seo.mjs"
       - ".github/workflows/v31-full-estate-production.yml"
   workflow_dispatch:
 
@@ -91,6 +93,7 @@ jobs:
           node scripts/compress-recruiter-surface.mjs --check
           node scripts/normalize-full-estate-design.mjs --check
           node scripts/validate-full-estate-explorer.mjs
+          node scripts/optimize-production-seo.mjs
           node site-v15/scripts/validate.mjs
 
       - name: Build proven V25 runtime as preserved inner engine

@@ -1,0 +1,127 @@
+name: Production SEO monitor
+
+on:
+  schedule:
+    # 04:17 HST daily; scheduled GitHub Actions workflows use UTC.
+    - cron: "17 14 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: production-seo-monitor
+  cancel-in-progress: false
+
+jobs:
+  crawl-public-site:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout monitor source
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Crawl production SEO surface
+        id: crawl
+        continue-on-error: true
+        env:
+          SEO_MONITOR_BASE_URL: https://casey-barton-glaciereq.vercel.app
+          SEO_MONITOR_MIN_SITEMAP_URLS: "175"
+          SEO_MONITOR_OUTPUT: artifacts/production-seo-monitor.json
+        run: node scripts/monitor-production-seo.mjs
+
+      - name: Upload SEO crawl report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-seo-monitor-${{ github.run_id }}
+          path: artifacts/production-seo-monitor.json
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Create or update SEO monitoring incident
+        if: steps.crawl.outcome == 'failure'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('node:fs');
+            const label = 'production-seo-monitoring';
+            const title = 'Production SEO monitoring alert';
+            const reportPath = 'artifacts/production-seo-monitor.json';
+            const runUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            let report = { summary: {}, violations: [{ name: 'monitor report unavailable', detail: 'The crawler failed before it produced a report.' }] };
+            if (fs.existsSync(reportPath)) report = JSON.parse(fs.readFileSync(reportPath, 'utf8'));
+
+            const preview = String(value => value || 'No detail recorded.');
+            const violations = (report.violations || []).map((violation) => {
+              const detail = String(violation.detail || 'No detail recorded.');
+              const sample = detail.split(', ').slice(0, 5).join(', ');
+              return `- **${violation.name}**: ${sample}${detail !== sample ? ' …' : ''}`;
+            });
+            const summary = report.summary || {};
+            const body = [
+              '## Production SEO crawl threshold failure',
+              '',
+              `- **Workflow run:** ${runUrl}`,
+              `- **Crawled at:** ${summary.audit_time_utc || 'Unknown'}`,
+              `- **Sitemap URLs:** ${summary.sitemap_urls ?? 'Unknown'}`,
+              `- **HTML pages:** ${summary.html_pages ?? 'Unknown'}`,
+              `- **Internal-link targets:** ${summary.internal_link_targets ?? 'Unknown'}`,
+              '',
+              '### Failed thresholds',
+              ...(violations.length ? violations : ['- Monitor exited unsuccessfully without an explicit violation.']),
+              '',
+              'The full JSON report is attached to the workflow run. Resolve the underlying production issue, rerun the monitor, then close this incident when it returns green.',
+            ].join('\n');
+
+            try {
+              await github.rest.issues.getLabel({ owner: context.repo.owner, repo: context.repo.repo, name: label });
+            } catch (error) {
+              if (error.status !== 404) throw error;
+              await github.rest.issues.createLabel({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                name: label,
+                color: 'D93F0B',
+                description: 'Automated production SEO crawl threshold failure',
+              });
+            }
+
+            const { data: openIssues } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: label,
+              per_page: 100,
+            });
+            const incident = openIssues.find((issue) => issue.title === title);
+            if (incident) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: incident.number,
+                body: `A new production SEO monitor failure was detected.\n\n${body}`,
+              });
+              core.notice(`Updated existing SEO monitoring incident #${incident.number}.`);
+            } else {
+              const { data: issue } = await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title,
+                body,
+                labels: [label],
+              });
+              core.notice(`Created SEO monitoring incident #${issue.number}.`);
+            }
+
+      - name: Mark failed monitor visibly
+        if: steps.crawl.outcome == 'failure'
+        run: exit 1

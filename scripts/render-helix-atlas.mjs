@@ -11,6 +11,7 @@ const ATLAS_OUTPUT = path.join(SITE, "atlas", "index.html");
 const COMPANIES_OUTPUT = path.join(SITE, "companies");
 const REPOSITORY_PATTERN = /^GlacierEQ\/[A-Za-z0-9_.-]+$/;
 const COMPANY_ID_PATTERN = /^[a-z0-9_]+$/;
+const BASE = "https://casey-barton-glaciereq.vercel.app";
 
 const POWER_LAYERS = [
   ["Silicon + compute", ["nvidia", "amd", "intel", "qualcomm", "groq", "cerebras", "coreweave"]],
@@ -64,6 +65,36 @@ function companySlug(companyId) {
 
 function companyRoute(companyId) {
   return `/companies/${companySlug(companyId)}/`;
+}
+
+function jsonLd(value) {
+  return JSON.stringify(value).replaceAll("<", "\\u003c");
+}
+
+function companyPageSchema(company) {
+  const route = companyRoute(company.company_id);
+  const url = `${BASE}${route}`;
+  const title = `${company.display_name} · GlacierEQ Company Intelligence`;
+  const description = `Independent GlacierEQ technical alignment dossier for ${company.display_name}: current evidence, second-depth state, machine contract, and evolution mesh.`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${url}#webpage`,
+    url,
+    name: title,
+    description,
+    inLanguage: "en",
+    isPartOf: {
+      "@type": "WebSite",
+      name: "Casey Barton · Applied AI Systems",
+      url: `${BASE}/`,
+    },
+    about: {
+      "@type": "Thing",
+      name: company.display_name,
+      description: company.recruiter_thesis,
+    },
+  };
 }
 
 function statusClass(state) {
@@ -283,6 +314,7 @@ function companyPage(company, stageOrder) {
   <link rel="stylesheet" href="/assets/site.css">
   <link rel="stylesheet" href="/assets/site.systems.css">
   <link rel="stylesheet" href="/assets/helix-atlas.css">
+  <script type="application/ld+json" data-company-intelligence-schema="v1">${jsonLd(companyPageSchema(company))}</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
