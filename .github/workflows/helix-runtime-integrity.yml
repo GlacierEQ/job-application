@@ -76,10 +76,21 @@ jobs:
           print("Helix retired submission transport: ABSENT")
           PY
 
-      - name: Prove application preparation remains operational
+      - name: Prove retained preparation API remains operational
         run: |
           job-app-helix --help >/dev/null
-          job-app-helix-target-application --help >/dev/null
+          python - <<'PY'
+          from job_app_helix.application_operations import (
+              ApplicationStore,
+              ManualApplicationAdapter,
+              compile_application_lifecycle,
+          )
+
+          assert ApplicationStore is not None
+          assert ManualApplicationAdapter is not None
+          assert compile_application_lifecycle is not None
+          print("Helix preparation API: AVAILABLE")
+          PY
 
       - name: Emit runtime integrity receipt
         shell: bash
@@ -94,6 +105,7 @@ jobs:
             "retired_helix_sha": "$retired",
             "retired_runtime_pin_present_in_workflows": false,
             "legacy_submission_transport_present": false,
+            "preparation_api_available": true,
             "external_submission_performed": false,
             "state": "SAFE_RUNTIME_VERIFIED"
           }
