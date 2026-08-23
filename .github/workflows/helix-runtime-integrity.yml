@@ -1,0 +1,103 @@
+name: Helix Runtime Integrity
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/**"
+      - "targets/**"
+      - "scripts/**"
+      - "tools/**"
+      - "docs/**"
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  HELIX_SAFE_SHA: ae900b5f2663a3be9e2f4b4e9d428ff01413763a
+  RETIRED_HELIX_SHA: 725e785453ab01350d7b273c94ddb4dac70501af
+
+jobs:
+  runtime-integrity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out hiring repository
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Reject retired Helix runtime pins in executable workflow state
+        shell: bash
+        run: |
+          set -euo pipefail
+          if grep -R --line-number --fixed-strings \
+            "$RETIRED_HELIX_SHA" .github/workflows; then
+            echo "retired Helix runtime pin reintroduced" >&2
+            exit 1
+          fi
+
+      - name: Check out exact eradicated Helix runtime
+        uses: actions/checkout@v6
+        with:
+          repository: GlacierEQ/job-app-helix
+          ref: ${{ env.HELIX_SAFE_SHA }}
+          path: .helix-runtime
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install exact Helix runtime
+        run: python -m pip install -e ./.helix-runtime
+
+      - name: Prove retired submission transport is absent
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from job_app_helix import application_operations as operations
+
+          source = Path(operations.__file__).read_text(encoding="utf-8")
+          forbidden = (
+              "class JsonApiApplicationAdapter",
+              "SUBMISSION_PACKET.json",
+              'method="POST"',
+              '"status": "SUBMITTED" if 200 <= response.status < 300',
+              'raise ValueError("SUBMITTED requires external_reference")',
+          )
+          assert not hasattr(operations, "JsonApiApplicationAdapter")
+          for signature in forbidden:
+              assert signature not in source, signature
+          print("Helix retired submission transport: ABSENT")
+          PY
+
+      - name: Prove application preparation remains operational
+        run: |
+          job-app-helix --help >/dev/null
+          job-app-helix-target-application --help >/dev/null
+
+      - name: Emit runtime integrity receipt
+        run: |
+          mkdir -p helix-runtime-integrity
+          cat > helix-runtime-integrity/receipt.json <<JSON
+          {
+            "schema": "glaciereq.helix-runtime-integrity.v1",
+            "helix_sha": "$HELIX_SAFE_SHA",
+            "retired_helix_sha": "$RETIRED_HELIX_SHA",
+            "retired_runtime_pin_present_in_workflows": false,
+            "legacy_submission_transport_present": false,
+            "external_submission_performed": false,
+            "state": "SAFE_RUNTIME_VERIFIED"
+          }
+          JSON
+
+      - name: Upload runtime integrity receipt
+        uses: actions/upload-artifact@v4
+        with:
+          name: helix-runtime-integrity
+          path: helix-runtime-integrity/receipt.json
+          if-no-files-found: error
