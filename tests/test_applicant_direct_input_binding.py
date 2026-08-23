@@ -103,9 +103,13 @@ class ApplicantDirectInputBindingTests(unittest.TestCase):
             result["remaining_generated_confirmation_fields"],
             ["job_application_answers_attributes_0_text_value"],
         )
-        self.assertFalse(result["ready_for_human_submission"])
+        self.assertFalse(result["applicant_field_resolution_complete"])
+        self.assertFalse(result["submission_readiness_claimed"])
         self.assertTrue(result["authority"]["values_are_applicant_supplied"])
         self.assertFalse(result["authority"]["machine_inferred_values"])
+        self.assertFalse(result["authority"]["artifact_set_verified"])
+        self.assertFalse(result["authority"]["provider_submission_verified"])
+        self.assertNotIn("ready_for_human_submission", result)
         self.assertEqual(
             [answer["match"]["field_name"] for answer in result["answers"]],
             [
