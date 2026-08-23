@@ -7,7 +7,9 @@ on:
       - "targets/**"
       - "scripts/**"
       - "tools/**"
+      - "tests/**"
       - "docs/**"
+      - "APEX_BLUEPRINT_V1_JOB_RESTORE.md"
   push:
     branches: [main]
   workflow_dispatch:
@@ -37,6 +39,34 @@ jobs:
           retired="${RETIRED_HELIX_SHA_A}${RETIRED_HELIX_SHA_B}"
           if grep -R --line-number --fixed-strings "$retired" .github/workflows; then
             echo "retired Helix runtime pin reintroduced" >&2
+            exit 1
+          fi
+
+      - name: Reject retired submission-package resurrection surfaces
+        shell: bash
+        run: |
+          set -euo pipefail
+          forbidden_paths=(
+            "tools/compose_applicant_submission_package.py"
+            "tests/test_compose_applicant_submission_package.py"
+            ".github/workflows/applicant-submission-package-proof.yml"
+            "APEX_BLUEPRINT_V1_JOB_RESTORE.md"
+            "docs/APEX_BLUEPRINT_V1_JOB_RESTORE_20260819_MULTIFIELD.md"
+          )
+          for path in "${forbidden_paths[@]}"; do
+            if [[ -e "$path" ]]; then
+              echo "retired submission-package resurrection surface exists: $path" >&2
+              exit 1
+            fi
+          done
+          if grep -R --line-number --fixed-strings \
+            "ready_for_human_submission" tools scripts 2>/dev/null; then
+            echo "submission-readiness semantic authority reintroduced into preparation code" >&2
+            exit 1
+          fi
+          if grep -R --line-number --fixed-strings \
+            "READY_FOR_HUMAN_SUBMISSION" tools scripts 2>/dev/null; then
+            echo "submission-ready lifecycle label reintroduced into preparation code" >&2
             exit 1
           fi
 
@@ -100,11 +130,13 @@ jobs:
           mkdir -p helix-runtime-integrity
           cat > helix-runtime-integrity/receipt.json <<JSON
           {
-            "schema": "glaciereq.helix-runtime-integrity.v1",
+            "schema": "glaciereq.helix-runtime-integrity.v2",
             "helix_sha": "$HELIX_SAFE_SHA",
             "retired_helix_sha": "$retired",
             "retired_runtime_pin_present_in_workflows": false,
             "legacy_submission_transport_present": false,
+            "submission_package_composer_present": false,
+            "submission_readiness_semantic_authority_present": false,
             "preparation_api_available": true,
             "external_submission_performed": false,
             "state": "SAFE_RUNTIME_VERIFIED"
