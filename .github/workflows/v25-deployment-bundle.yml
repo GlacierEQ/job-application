@@ -19,8 +19,6 @@ on:
       - "scripts/build-v25-effective-production.mjs"
       - "scripts/sync-helix-projection.mjs"
       - "scripts/sync-helix-projection-effective.mjs"
-      - "scripts/reconcile-helix-company-cardinality.mjs"
-      - "scripts/reconcile-v21-runtime-stars.mjs"
       - "scripts/verify-v25-v26-runtime.mjs"
       - "scripts/validate-github-merge-authority-public-readback.mjs"
       - "package.json"
@@ -42,8 +40,6 @@ on:
       - "scripts/build-v25-effective-production.mjs"
       - "scripts/sync-helix-projection.mjs"
       - "scripts/sync-helix-projection-effective.mjs"
-      - "scripts/reconcile-helix-company-cardinality.mjs"
-      - "scripts/reconcile-v21-runtime-stars.mjs"
       - "scripts/verify-v25-v26-runtime.mjs"
       - "scripts/validate-github-merge-authority-public-readback.mjs"
       - "package.json"
@@ -65,18 +61,15 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "24"
-      - name: Refresh effective immutable Helix release authority
+      - name: Compile current Helix projection without source mutation
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: |
-          node scripts/sync-helix-projection-effective.mjs
-          node scripts/reconcile-helix-company-cardinality.mjs
-          node scripts/reconcile-v21-runtime-stars.mjs
+        run: node scripts/sync-helix-projection-effective.mjs
       - name: Run full presentation regression suite
         run: npm test
       - name: Execute V21 through V26 runtime verifiers
         run: node scripts/verify-v25-v26-runtime.mjs
-      - name: Build deterministic self-contained deployment from effective authority
+      - name: Build deterministic self-contained deployment from current projection
         shell: bash
         run: |
           set -euo pipefail
