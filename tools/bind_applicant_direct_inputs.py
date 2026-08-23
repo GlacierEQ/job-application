@@ -6,7 +6,8 @@ APPLICANT_INPUT_REQUIRED, requires exact application/opening/provider-field iden
 stale, duplicate, unknown, reviewed, or empty bindings, and emits a deterministic semantic
 answer source accepted by the existing Greenhouse semantic answer bridge.
 
-It does not infer values, confirm generated answers, or submit anything externally.
+It does not infer values, confirm generated answers, determine submission readiness, or submit
+anything externally. Field resolution is descriptive preparation state only.
 """
 
 from __future__ import annotations
@@ -22,7 +23,7 @@ from pathlib import Path
 from typing import Any
 
 DIRECT_INPUT_SCHEMA = "glaciereq.applicant-direct-inputs.v1"
-BOUND_SOURCE_SCHEMA = "glaciereq.applicant-direct-input-binding.v1"
+BOUND_SOURCE_SCHEMA = "glaciereq.applicant-direct-input-binding.v2"
 
 
 class ApplicantDirectInputError(RuntimeError):
@@ -189,6 +190,9 @@ def bind_direct_inputs(inventory_path: Path, direct_input_path: Path) -> dict[st
         for field_name, decision in live.items()
         if decision.get("decision_state") == "APPLICANT_CONFIRMATION_REQUIRED"
     ]
+    field_resolution_complete = (
+        not unresolved_input_fields and not generated_confirmation_fields
+    )
 
     result: dict[str, Any] = {
         "schema": BOUND_SOURCE_SCHEMA,
@@ -201,13 +205,15 @@ def bind_direct_inputs(inventory_path: Path, direct_input_path: Path) -> dict[st
         "bound_direct_input_count": len(bindings),
         "remaining_direct_input_fields": unresolved_input_fields,
         "remaining_generated_confirmation_fields": generated_confirmation_fields,
-        "ready_for_human_submission": not unresolved_input_fields
-        and not generated_confirmation_fields,
+        "applicant_field_resolution_complete": field_resolution_complete,
+        "submission_readiness_claimed": False,
         "authority": {
             "values_are_applicant_supplied": True,
             "machine_inferred_values": False,
             "generated_answers_auto_confirmed": False,
             "external_submission_performed": False,
+            "artifact_set_verified": False,
+            "provider_submission_verified": False,
         },
     }
     result["receipt_sha256"] = hashlib.sha256(_canonical_bytes(result)).hexdigest()
@@ -233,7 +239,7 @@ def _atomic_write_json(path: Path, payload: Mapping[str, object]) -> None:
 
 def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
-        description="Bind explicit applicant values to unresolved live application fields."
+        description="Bind explicit applicant values to unresolved live application fields without claiming submission readiness."
     )
     parser.add_argument("--inventory", type=Path, required=True)
     parser.add_argument("--direct-inputs", type=Path, required=True)

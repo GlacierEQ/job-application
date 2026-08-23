@@ -5,7 +5,6 @@ on:
     paths:
       - "projects/github-merge-authority-proof/**"
       - "scripts/sync-helix-projection-effective.mjs"
-      - "scripts/reconcile-helix-company-cardinality.mjs"
       - "scripts/render-helix-atlas.mjs"
       - "scripts/link-helix-atlas.mjs"
       - "scripts/validate-helix-projection.mjs"
@@ -41,8 +40,6 @@ jobs:
           node-version: "24"
       - name: Compile effective Helix projection
         run: node scripts/sync-helix-projection-effective.mjs
-      - name: Reconcile downstream company cardinality
-        run: node scripts/reconcile-helix-company-cardinality.mjs
       - name: Validate effective projection and receipt
         run: node scripts/validate-helix-projection.mjs
       - name: Render GitHub company surface and Atlas

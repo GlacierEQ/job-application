@@ -57,34 +57,23 @@ jobs:
             tests/full-estate-explorer.test.mjs \
             tests/estate-role-lenses.test.mjs
 
-      - name: Build exact Vercel static surface from effective Helix authority
+      - name: Build exact Vercel static surface from checked-in source and declared generators
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           node scripts/sync-helix-projection-effective.mjs
-          node scripts/restore-helix-flagship-depth.mjs
-          node scripts/validate-helix-flagship-depth.mjs
-          node scripts/reconcile-helix-company-cardinality.mjs
-          node scripts/reconcile-v21-runtime-stars.mjs
           node scripts/validate-helix-projection.mjs
           node scripts/render-helix-atlas.mjs
           node scripts/link-helix-atlas.mjs
           node scripts/project-estate-intelligence.mjs
           node scripts/render-full-estate-explorer.mjs
-          node scripts/normalize-full-estate-design.mjs
           node scripts/validate-full-estate-explorer.mjs
           node scripts/render-estate-role-lenses.mjs
           node scripts/validate-estate-role-lenses.mjs
-          node scripts/apply-complete-web-design.mjs
           node scripts/validate-estate-intelligence.mjs
           node scripts/validate-helix-atlas.mjs
-          node scripts/harden-public-proof-surface.mjs
-          node scripts/preserve-private-capability-cards.mjs
           node scripts/validate-public-proof-surface.mjs
-          node scripts/compress-recruiter-surface.mjs
-          node scripts/compress-recruiter-surface.mjs --check
-          node scripts/normalize-full-estate-design.mjs --check
           node scripts/validate-full-estate-explorer.mjs
           node scripts/validate-estate-role-lenses.mjs
           node site-v15/scripts/validate.mjs
