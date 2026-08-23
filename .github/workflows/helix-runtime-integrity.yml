@@ -4,12 +4,14 @@ on:
   pull_request:
     paths:
       - ".github/workflows/**"
+      - ".github/helix-effective-trigger-20260809.txt"
       - "targets/**"
       - "scripts/**"
       - "tools/**"
       - "tests/**"
       - "docs/**"
       - "APEX_BLUEPRINT_V1_JOB_RESTORE.md"
+      - "build.sh"
   push:
     branches: [main]
   workflow_dispatch:
@@ -54,6 +56,14 @@ jobs:
             "docs/APEX_BLUEPRINT_V1_JOB_RESTORE_20260819_MULTIFIELD.md"
             "scripts/restore-helix-flagship-depth.mjs"
             "scripts/validate-helix-flagship-depth.mjs"
+            "scripts/reconcile-helix-company-cardinality.mjs"
+            "scripts/reconcile-v21-runtime-stars.mjs"
+            "scripts/reconcile-company-constellation-taxonomy.mjs"
+            "scripts/upgrade-helix-projection-stage-validator.mjs"
+            "scripts/upgrade-helix-projection-stage-validator-v2.mjs"
+            ".github/workflows/helix-effective-once.yml"
+            ".github/workflows/helix-projection-promote.yml"
+            ".github/helix-effective-trigger-20260809.txt"
           )
           for path in "${forbidden_paths[@]}"; do
             if [[ -e "$path" ]]; then
@@ -61,6 +71,24 @@ jobs:
               exit 1
             fi
           done
+
+          forbidden_references=(
+            "restore-helix-flagship-depth.mjs"
+            "validate-helix-flagship-depth.mjs"
+            "reconcile-helix-company-cardinality.mjs"
+            "reconcile-v21-runtime-stars.mjs"
+            "reconcile-company-constellation-taxonomy.mjs"
+            "upgrade-helix-projection-stage-validator.mjs"
+            "upgrade-helix-projection-stage-validator-v2.mjs"
+          )
+          for token in "${forbidden_references[@]}"; do
+            if grep -R --line-number --fixed-strings "$token" \
+              .github/workflows build.sh scripts tools 2>/dev/null; then
+              echo "retired self-heal invocation reintroduced: $token" >&2
+              exit 1
+            fi
+          done
+
           if grep -R --line-number --fixed-strings \
             "ready_for_human_submission" tools scripts 2>/dev/null; then
             echo "submission-readiness semantic authority reintroduced into preparation code" >&2
@@ -69,11 +97,6 @@ jobs:
           if grep -R --line-number --fixed-strings \
             "READY_FOR_HUMAN_SUBMISSION" tools scripts 2>/dev/null; then
             echo "submission-ready lifecycle label reintroduced into preparation code" >&2
-            exit 1
-          fi
-          if grep -R --line-number --fixed-strings \
-            "restore-helix-flagship-depth.mjs" .github/workflows scripts 2>/dev/null; then
-            echo "flagship self-heal invocation reintroduced" >&2
             exit 1
           fi
 
@@ -137,7 +160,7 @@ jobs:
           mkdir -p helix-runtime-integrity
           cat > helix-runtime-integrity/receipt.json <<JSON
           {
-            "schema": "glaciereq.helix-runtime-integrity.v3",
+            "schema": "glaciereq.helix-runtime-integrity.v4",
             "helix_sha": "$HELIX_SAFE_SHA",
             "retired_helix_sha": "$retired",
             "retired_runtime_pin_present_in_workflows": false,
@@ -145,6 +168,9 @@ jobs:
             "submission_package_composer_present": false,
             "submission_readiness_semantic_authority_present": false,
             "flagship_self_heal_present": false,
+            "source_rewriter_reconciliation_present": false,
+            "write_capable_projection_regenerator_present": false,
+            "validator_self_upgrade_present": false,
             "preparation_api_available": true,
             "external_submission_performed": false,
             "state": "SAFE_RUNTIME_VERIFIED"
