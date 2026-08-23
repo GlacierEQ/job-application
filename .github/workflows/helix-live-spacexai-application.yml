@@ -1,4 +1,4 @@
-name: Helix Live SpaceXAI Application
+name: Helix Live SpaceXAI Application - Submission Frozen
 
 on:
   pull_request:
@@ -223,7 +223,7 @@ jobs:
           fi
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
 
-      - name: Verify final review integrity and remaining applicant decisions
+      - name: Record provider package collapse as a hard submission blocker
         run: |
           python - <<'PY'
           import hashlib
@@ -234,30 +234,51 @@ jobs:
           assert final_path.is_file(), "final review artifact was not produced"
           final = json.loads(final_path.read_text(encoding="utf-8"))
           attachments = final["attachments"]
-          assert len(attachments) == 1
+          assert attachments, "provider-facing packet has no attachments"
           attachment = attachments[0]
           expected_resume = Path("RESUME_ATS.md").resolve()
           assert Path(attachment["path"]).resolve() == expected_resume
           assert attachment["sha256"] == hashlib.sha256(expected_resume.read_bytes()).hexdigest()
           assert final["resolved_required_count"] <= final["required_field_count"]
           unresolved = final["unresolved_required_fields"]
-          ready = final["ready_for_human_submission"]
-          assert ready is (len(unresolved) == 0)
+          provider_reported_ready = final["ready_for_human_submission"]
+          assert provider_reported_ready is (len(unresolved) == 0)
 
-          print(json.dumps({
+          collapsed = len(attachments) <= 1
+          diagnostic = {
+              "schema": "glaciereq.provider-package-collapse-diagnostic.v1",
               "application_id": final["application_id"],
               "opening_id": final["opening_id"],
-              "required_field_count": final["required_field_count"],
-              "resolved_required_count": final["resolved_required_count"],
-              "unresolved_required_fields": unresolved,
-              "ready_for_human_submission": ready,
-              "attachment_sha256": attachment["sha256"],
+              "provider": "greenhouse",
+              "provider_attachment_count": len(attachments),
+              "provider_attachment_paths": [row["path"] for row in attachments],
+              "provider_reported_ready": provider_reported_ready,
+              "provider_submission_ready": False,
+              "submission_performed": False,
               "final_receipt_sha256": final["receipt_sha256"],
-              "helix_sha": "725e785453ab01350d7b273c94ddb4dac70501af"
-          }, indent=2, sort_keys=True))
+              "state": "SUBMISSION_FROZEN" if collapsed else "ARTIFACT_SET_REVIEW_REQUIRED",
+              "reason": (
+                  "The upstream application system is multi-artifact, but the current "
+                  "provider-facing attachment set contains only one file. Do not "
+                  "promote this payload to submitted or submission-ready."
+                  if collapsed
+                  else
+                  "Multiple provider attachments exist, but exact artifact-set parity "
+                  "with the intended application package has not yet been proven."
+              ),
+          }
+          Path("helix-live/SUBMISSION_FREEZE_DIAGNOSTIC.json").write_text(
+              json.dumps(diagnostic, indent=2, sort_keys=True) + "\n",
+              encoding="utf-8",
+          )
+          print(json.dumps(diagnostic, indent=2, sort_keys=True))
+
+          assert diagnostic["provider_submission_ready"] is False
+          assert diagnostic["submission_performed"] is False
           PY
 
-      - name: Upload live application final-review package
+      - name: Upload live application diagnostics
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: helix-live-spacexai-application
@@ -270,4 +291,5 @@ jobs:
             helix-live/greenhouse-attachments.json
             helix-live/greenhouse-final.json
             helix-live/greenhouse-final-output.json
-          if-no-files-found: error
+            helix-live/SUBMISSION_FREEZE_DIAGNOSTIC.json
+          if-no-files-found: warn
