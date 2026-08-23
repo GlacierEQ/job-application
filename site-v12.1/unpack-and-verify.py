@@ -1,5 +1,8 @@
 from pathlib import Path
-import base64,hashlib,json,tarfile
+import base64
+import hashlib
+import json
+import tarfile
 root=Path(__file__).resolve().parent
 manifest=json.loads((root/'SOURCE_CAPSULE_MANIFEST.json').read_text())
 encoded=[]

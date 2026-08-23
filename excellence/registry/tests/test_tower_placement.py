@@ -317,3 +317,114 @@ class TowerPlacementTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+# --- HARVESTED FROM {branch} ---
+def repo_record():
+    return {
+        "company": "example",
+        "repository": "GlacierEQ/example",
+        "head_sha": "head123",
+        "inspection_status": "OK",
+        "observed": {},
+        "state": {
+            "next_action_class": "EVOLVE",
+            "next_failing_gate": None,
+            "declared_principal_state": "EVOLVING",
+            "effective_principal_state": "EVOLVING",
+            "prerequisite_errors": [],
+            "disposition_errors": [],
+        },
+    }
+
+def registry():
+    return {
+        "generated_at": "2026-08-12T00:00:00Z",
+        "authority": {"source": "test"},
+        "repositories": [repo_record()],
+    }
+
+def fetch_state(repo, path, ref, token):
+    return {
+        "principal_state": "EVOLVING",
+        "evolution_cursor": "next:material_work",
+    }, "state-blob"
+
+def test_valid_addition_requires_known_runtime_boundary_and_parity():
+    result = tower_placement.analyze_placement(
+        placement(), "GlacierEQ/example", "next:material_work", authority()
+    )
+    assert result == {
+        "status": "VALID",
+        "valid": True,
+        "errors": [],
+        "decision": "ADD",
+    }
+
+def test_missing_receipt_is_a_prospective_gate_not_state_corruption():
+    result = tower_placement.analyze_placement(
+        None, "GlacierEQ/example", "next:material_work", authority()
+    )
+    assert result["status"] == "MISSING"
+    assert result["valid"] is False
+    assert "missing" in result["errors"][0].lower()
+
+def test_cosmetic_or_unknown_language_addition_fails_closed():
+    bad = placement(candidate="madeuplang")
+    bad["diversity_value"] = "add another language"
+    result = tower_placement.analyze_placement(
+        bad, "GlacierEQ/example", "next:material_work", authority()
+    )
+    assert result["valid"] is False
+    assert any("not in Tower registry" in error for error in result["errors"])
+    assert any("diversity_value" in error for error in result["errors"])
+
+def test_semantic_overlap_cannot_drop_parity_contract():
+    bad = placement()
+    bad["boundaries"][0]["parity_contract"] = "none"
+    result = tower_placement.analyze_placement(
+        bad, "GlacierEQ/example", "next:material_work", authority()
+    )
+    assert result["valid"] is False
+    assert any("parity_contract" in error for error in result["errors"])
+
+def test_stale_cursor_or_stale_tower_semantic_authority_fails_closed():
+    stale = placement(cursor="next:old_work")
+    stale["tower_authority"]["technology_catalog_blob_sha"] = "old-catalog"
+    result = tower_placement.analyze_placement(
+        stale, "GlacierEQ/example", "next:material_work", authority()
+    )
+    assert result["valid"] is False
+    assert any("current evolution cursor" in error for error in result["errors"])
+    assert any("technology_catalog_blob_sha" in error for error in result["errors"])
+
+def test_queue_routes_missing_placement_to_tower_before_evolution():
+    out = queue_module.build_queue(
+        registry(),
+        fetch_state=fetch_state,
+        fetch_tower_authority=lambda token: authority(),
+        fetch_placement=lambda repo, ref, token: (None, None),
+    )
+    group = out["queue"][0]
+    assert group["action"] == "TOWER_PLACE"
+    assert group["gate"] == "TOWER_PLACEMENT"
+    assert group["selection_policy"] == "least_successful_evolutions_first_then_repository"
+    row = group["repositories"][0]
+    assert row["evolution_cursor"] == "next:material_work"
+    assert row["tower_placement_status"] == "MISSING"
+    assert row["tower_placement_valid"] is False
+
+def test_queue_allows_evolution_only_after_exact_valid_tower_receipt():
+    out = queue_module.build_queue(
+        registry(),
+        fetch_state=fetch_state,
+        fetch_tower_authority=lambda token: authority(),
+        fetch_placement=lambda repo, ref, token: (placement(), "placement-blob"),
+    )
+    group = out["queue"][0]
+    assert group["action"] == "EVOLVE"
+    assert group["gate"] == "EVOLUTION_CURSOR"
+    row = group["repositories"][0]
+    assert row["tower_placement_decision"] == "ADD"
+    assert row["tower_placement_blob_sha"] == "placement-blob"
+

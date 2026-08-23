@@ -25,9 +25,9 @@
     ]
   },
   "coverage": {
-    "current_flagships": 9,
+    "current_flagships": 16,
     "routed_flagships": 8,
-    "route_coverage_ratio": 0.8889,
+    "route_coverage_ratio": 0.5,
     "problem_lenses": 5,
     "workflow_routes": 4,
     "capability_routes": 6,
@@ -1166,5 +1166,5 @@
       ]
     }
   ],
-  "receipt_sha256": "de6d91d7619372dc33fc006c23bcddf297a372cf55c0cdfc060401e3db4c3a33"
+  "receipt_sha256": "b5cf28ca0f9c3423df09ac68ec61ed166608763776e420ed7220d7930d702d85"
 }
