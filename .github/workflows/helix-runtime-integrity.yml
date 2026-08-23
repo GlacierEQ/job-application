@@ -42,7 +42,7 @@ jobs:
             exit 1
           fi
 
-      - name: Reject retired submission-package resurrection surfaces
+      - name: Reject retired submission and self-heal resurrection surfaces
         shell: bash
         run: |
           set -euo pipefail
@@ -52,10 +52,12 @@ jobs:
             ".github/workflows/applicant-submission-package-proof.yml"
             "APEX_BLUEPRINT_V1_JOB_RESTORE.md"
             "docs/APEX_BLUEPRINT_V1_JOB_RESTORE_20260819_MULTIFIELD.md"
+            "scripts/restore-helix-flagship-depth.mjs"
+            "scripts/validate-helix-flagship-depth.mjs"
           )
           for path in "${forbidden_paths[@]}"; do
             if [[ -e "$path" ]]; then
-              echo "retired submission-package resurrection surface exists: $path" >&2
+              echo "retired resurrection surface exists: $path" >&2
               exit 1
             fi
           done
@@ -67,6 +69,11 @@ jobs:
           if grep -R --line-number --fixed-strings \
             "READY_FOR_HUMAN_SUBMISSION" tools scripts 2>/dev/null; then
             echo "submission-ready lifecycle label reintroduced into preparation code" >&2
+            exit 1
+          fi
+          if grep -R --line-number --fixed-strings \
+            "restore-helix-flagship-depth.mjs" .github/workflows scripts 2>/dev/null; then
+            echo "flagship self-heal invocation reintroduced" >&2
             exit 1
           fi
 
@@ -130,13 +137,14 @@ jobs:
           mkdir -p helix-runtime-integrity
           cat > helix-runtime-integrity/receipt.json <<JSON
           {
-            "schema": "glaciereq.helix-runtime-integrity.v2",
+            "schema": "glaciereq.helix-runtime-integrity.v3",
             "helix_sha": "$HELIX_SAFE_SHA",
             "retired_helix_sha": "$retired",
             "retired_runtime_pin_present_in_workflows": false,
             "legacy_submission_transport_present": false,
             "submission_package_composer_present": false,
             "submission_readiness_semantic_authority_present": false,
+            "flagship_self_heal_present": false,
             "preparation_api_available": true,
             "external_submission_performed": false,
             "state": "SAFE_RUNTIME_VERIFIED"
