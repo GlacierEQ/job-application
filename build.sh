@@ -6,7 +6,6 @@ set -euo pipefail
 echo "=== Phase 1: Route & Projection Validation ==="
 node scripts/validate-vercel-route-boundaries.mjs
 node scripts/sync-helix-projection-effective.mjs
-node scripts/reconcile-helix-company-cardinality.mjs
 node scripts/validate-helix-projection.mjs
 
 echo "=== Phase 2: Atlas & Estate Rendering ==="
