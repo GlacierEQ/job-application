@@ -7,8 +7,6 @@ on:
       - "scripts/sync-helix-projection.mjs"
       - "scripts/sync-helix-projection-effective.mjs"
       - "scripts/github-fetch-resilience.mjs"
-      - "scripts/restore-helix-flagship-depth.mjs"
-      - "scripts/validate-helix-flagship-depth.mjs"
       - "scripts/reconcile-helix-company-cardinality.mjs"
       - "scripts/reconcile-company-constellation-taxonomy.mjs"
       - "scripts/project-estate-intelligence.mjs"
@@ -32,8 +30,6 @@ on:
       - "scripts/sync-helix-projection.mjs"
       - "scripts/sync-helix-projection-effective.mjs"
       - "scripts/github-fetch-resilience.mjs"
-      - "scripts/restore-helix-flagship-depth.mjs"
-      - "scripts/validate-helix-flagship-depth.mjs"
       - "scripts/reconcile-helix-company-cardinality.mjs"
       - "scripts/reconcile-company-constellation-taxonomy.mjs"
       - "scripts/project-estate-intelligence.mjs"
@@ -80,11 +76,7 @@ jobs:
           node-version: "24"
       - name: Compile effective public-safe Helix projection and receipt
         run: node scripts/sync-helix-projection-effective.mjs
-      - name: Restore authority-eligible flagship depth
-        run: node scripts/restore-helix-flagship-depth.mjs
-      - name: Validate restored flagship depth
-        run: node scripts/validate-helix-flagship-depth.mjs
-      - name: Reconcile downstream company cardinality to fresh Helix authority
+      - name: Reconcile downstream company cardinality to current projection
         run: node scripts/reconcile-helix-company-cardinality.mjs
       - name: Validate public-safe projection and receipt
         run: node scripts/validate-helix-projection.mjs
@@ -94,7 +86,7 @@ jobs:
         run: node scripts/link-helix-atlas.mjs
       - name: Validate generated Atlas, company routes, and links
         run: node scripts/validate-helix-atlas.mjs
-      - name: Reconcile constellation taxonomy to governed Helix tracks
+      - name: Reconcile constellation taxonomy to current Helix tracks
         run: node scripts/reconcile-company-constellation-taxonomy.mjs
       - name: Compile evidence-aware company constellation
         run: node scripts/render-company-constellation.mjs
