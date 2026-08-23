@@ -17,7 +17,8 @@ permissions:
 
 env:
   HELIX_SAFE_SHA: ae900b5f2663a3be9e2f4b4e9d428ff01413763a
-  RETIRED_HELIX_SHA: 725e785453ab01350d7b273c94ddb4dac70501af
+  RETIRED_HELIX_SHA_A: 725e785453ab01350d7b
+  RETIRED_HELIX_SHA_B: 273c94ddb4dac70501af
 
 jobs:
   runtime-integrity:
@@ -33,8 +34,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if grep -R --line-number --fixed-strings \
-            "$RETIRED_HELIX_SHA" .github/workflows; then
+          retired="${RETIRED_HELIX_SHA_A}${RETIRED_HELIX_SHA_B}"
+          if grep -R --line-number --fixed-strings "$retired" .github/workflows; then
             echo "retired Helix runtime pin reintroduced" >&2
             exit 1
           fi
@@ -81,13 +82,16 @@ jobs:
           job-app-helix-target-application --help >/dev/null
 
       - name: Emit runtime integrity receipt
+        shell: bash
         run: |
+          set -euo pipefail
+          retired="${RETIRED_HELIX_SHA_A}${RETIRED_HELIX_SHA_B}"
           mkdir -p helix-runtime-integrity
           cat > helix-runtime-integrity/receipt.json <<JSON
           {
             "schema": "glaciereq.helix-runtime-integrity.v1",
             "helix_sha": "$HELIX_SAFE_SHA",
-            "retired_helix_sha": "$RETIRED_HELIX_SHA",
+            "retired_helix_sha": "$retired",
             "retired_runtime_pin_present_in_workflows": false,
             "legacy_submission_transport_present": false,
             "external_submission_performed": false,
