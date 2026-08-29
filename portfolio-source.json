@@ -24,7 +24,9 @@
     "publish_private_records": false,
     "publish_authenticated_estate_cardinality": false,
     "publish_legal_private_material": false,
-    "allowed_repository_visibility": ["public"],
+    "allowed_repository_visibility": [
+      "public"
+    ],
     "allowed_promotion_states": [
       "PROMOTED",
       "REFERENCE_ONLY"
@@ -49,6 +51,28 @@
     "Company second-depth stage, ordinal, claim ceiling, blockers, next gate, and public evidence references are Helix-governed invariants and may not be inferred or promoted downstream.",
     "Every projected second-depth evidence reference must remain public, immutable-source-bound, structurally validated, and sufficient for its declared stage.",
     "No private repository identity or private operational metadata may enter the generated public snapshot.",
-    "Every generated snapshot is bound to one immutable Helix commit."
-  ]
-}
+    "Every generated snapshot is bound to one immutable Helix commit.",
+    "Fixed repository, company, and relation counts may describe a snapshot but may never define portfolio membership.",
+    "Company projections consume the Helix estate mesh and never own duplicate repository truth."
+  ],
+  "estate_mesh": {
+    "authority_repository": "GlacierEQ/job-app-helix",
+    "authority_manifest": "manifests/company_mesh/index.json",
+    "compiler_module": "src/job_app_helix/estate_mesh.py",
+    "contract": "docs/UNBOUNDED_ESTATE_CONTRACT.md",
+    "membership": "source-exhaustive",
+    "fixed_repo_cap": null,
+    "fixed_company_cap": null,
+    "fixed_relation_cap": null,
+    "counts_are": "observations, never admission limits",
+    "public_projection": {
+      "publish_private_records": false,
+      "allowed_repository_visibility": [
+        "public"
+      ],
+      "company_edges_mean": "relevance only",
+      "affiliation_inference": false,
+      "presentation_pagination_changes_membership": false
+    }
+  }
+}\n

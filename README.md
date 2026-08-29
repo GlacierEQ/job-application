@@ -1,4 +1,4 @@
-# GlacierEQ Hiring System
+\n> **Estate projection upgrade (2026-08-29):** company and repository views now consume the source-exhaustive Helix estate contract. Fixed counts are snapshot observations, never portfolio ceilings; recruiter filtering changes presentation, not membership.\n# GlacierEQ Hiring System
 
 **One governed portfolio truth. Multiple evaluator-specific projections. Evidence stays with the system that earned it.**
 
