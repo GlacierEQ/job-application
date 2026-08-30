@@ -1,4 +1,8 @@
 name: V25 Deployment Bundle
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 
 on:
   push:

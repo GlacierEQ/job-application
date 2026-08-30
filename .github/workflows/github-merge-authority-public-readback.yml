@@ -1,4 +1,8 @@
 name: GitHub Merge Authority Public Readback
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 
 on:
   pull_request:

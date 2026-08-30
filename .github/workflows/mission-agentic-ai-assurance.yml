@@ -1,4 +1,8 @@
 name: Mission Agentic AI Assurance
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 
 on:
   push:
@@ -19,6 +23,7 @@ jobs:
       matrix:
         python: ["3.11", "3.12", "3.13"]
     runs-on: ubuntu-24.04
+    timeout-minutes: 15
     defaults:
       run:
         working-directory: projects/mission-agentic-ai-assurance

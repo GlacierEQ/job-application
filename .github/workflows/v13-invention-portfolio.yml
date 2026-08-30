@@ -1,4 +1,8 @@
 name: V13 Invention Portfolio
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 
 on:
   pull_request:
