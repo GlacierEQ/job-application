@@ -107,6 +107,53 @@ function escapeHtml(value) {
     .replaceAll("'", "&#39;");
 }
 
+// Recruiter-visible GitHub is anonymous HTTP. These two repositories 404 without
+// auth, so public HTML must not treat them as inspectable source CTAs.
+const PRIVATE_GITHUB_REPOS = new Set([
+  "https://github.com/GlacierEQ/AKOS",
+  "https://github.com/GlacierEQ/Pro-DOCTOR-STRANGE",
+]);
+
+// Pinned AKOS pytest receipt — same wording/SHA as /resume/ and /master/.
+// Do not print the older 118/118 diligence count on this surface.
+const AKOS_PINNED_HEAD = "eac3cab001306225b99da41c37370528331966dd";
+const AKOS_PINNED_EVIDENCE = `Pinned head ${AKOS_PINNED_HEAD}. Python 3.12: 200 collected, 199 passed, 1 skipped, 0 failures, 0 errors.`;
+
+function isPrivateGithubCta(repo) {
+  return PRIVATE_GITHUB_REPOS.has(repo);
+}
+
+function publicEvidenceCopy(system) {
+  return system.id === "akos" ? AKOS_PINNED_EVIDENCE : system.evidence;
+}
+
+function sourceControl(system, { compact = false } = {}) {
+  if (!isPrivateGithubCta(system.repo)) {
+    const label = compact ? "source ↗" : "Inspect repository →";
+    return `<a href="${escapeHtml(system.repo)}" target="_blank" rel="noopener">${label}</a>`;
+  }
+  if (system.id === "akos") {
+    const label = compact ? "pinned proof ↗" : "Inspect pinned proof →";
+    return `<a href="/master/">${label}</a>`;
+  }
+  const method = compact
+    ? "private source · public method"
+    : "independent-reader convergence · private source · public method";
+  return `<span class="source-method">${method}</span>`;
+}
+
+function capabilityItem(system) {
+  const meta = `${escapeHtml(system.state)} · ${escapeHtml(system.level)}`;
+  const inner = `<b>${escapeHtml(system.name)}</b><span>${meta}</span>`;
+  if (!isPrivateGithubCta(system.repo)) {
+    return `<li><a href="${escapeHtml(system.repo)}" target="_blank" rel="noopener">${inner}</a></li>`;
+  }
+  if (system.id === "akos") {
+    return `<li><a href="/master/">${inner}</a></li>`;
+  }
+  return `<li><span class="source-method"><b>${escapeHtml(system.name)}</b><span>${meta} · private source · public method</span></span></li>`;
+}
+
 function normalizeSystem(system) {
   return {
     id: system.id,
@@ -245,8 +292,8 @@ function systemCard(system) {
     <h3>${escapeHtml(system.name)}</h3>
     <p>${escapeHtml(system.summary)}</p>
     ${mechanisms}
-    <dl><div><dt>Evidence</dt><dd>${escapeHtml(system.evidence)}</dd></div><div><dt>Current ceiling</dt><dd>${escapeHtml(system.limit)}</dd></div></dl>
-    <a href="${escapeHtml(system.repo)}" target="_blank" rel="noopener">Inspect repository →</a>
+    <dl><div><dt>Evidence</dt><dd>${escapeHtml(publicEvidenceCopy(system))}</dd></div><div><dt>Current ceiling</dt><dd>${escapeHtml(system.limit)}</dd></div></dl>
+    ${sourceControl(system)}
   </article>`;
 }
 
@@ -256,7 +303,7 @@ function topologyRoute(route, index) {
       (stage, stageIndex) => `<div class="topology-stage">
         <span>${String(stageIndex + 1).padStart(2, "0")}</span>
         <div><b>${escapeHtml(stage.name)}</b><small>${escapeHtml(stage.state)} · ${escapeHtml(stage.level)}</small></div>
-        <a href="${escapeHtml(stage.repo)}" target="_blank" rel="noopener">source ↗</a>
+        ${sourceControl(stage, { compact: true })}
       </div>`,
     )
     .join("");
@@ -271,11 +318,7 @@ function topologyRoute(route, index) {
 function capabilityRoute(route) {
   return `<article class="capability-route">
     <div><p class="eyebrow">${escapeHtml(route.id)}</p><h3>${escapeHtml(route.title)}</h3><p>${escapeHtml(route.detail)}</p></div>
-    <ol>${route.systems
-      .map(
-        (system) => `<li><a href="${escapeHtml(system.repo)}" target="_blank" rel="noopener"><b>${escapeHtml(system.name)}</b><span>${escapeHtml(system.state)} · ${escapeHtml(system.level)}</span></a></li>`,
-      )
-      .join("")}</ol>
+    <ol>${route.systems.map(capabilityItem).join("")}</ol>
   </article>`;
 }
 
@@ -318,7 +361,7 @@ function renderHtml(map) {
 </head>
 <body>
 <a class="skip" href="#main">Skip to invention map</a>
-<header class="site-header"><div class="shell nav"><a class="brand" href="/"><span class="mark">CB</span><span><strong>CASEY BARTON</strong><small>INVENTION EVIDENCE MAP</small></span></a><nav class="links" aria-label="Invention map navigation"><a href="#topology">Topology</a><a href="#capabilities">Capabilities</a>${map.lenses.map((lens) => `<a href="#${escapeHtml(lens.id)}">${escapeHtml(lens.title)}</a>`).join("")}</nav><a class="nav-cta" href="/">Portfolio home</a></div></header>
+<header class="site-header"><div class="shell nav"><a class="brand" href="/"><span class="mark">CB</span><span><strong>CASEY BARTON</strong><small>INVENTION EVIDENCE MAP</small></span></a><nav class="links" aria-label="Invention map navigation"><a href="#topology">Topology</a><a href="#capabilities">Capabilities</a>${map.lenses.map((lens) => `<a href="#${escapeHtml(lens.id)}">${escapeHtml(lens.title)}</a>`).join("")}<a href="/hire/">Hire</a></nav><a class="nav-cta" href="/">Portfolio home</a></div></header>
 <main id="main" class="invention-main">
 <section class="invention-hero"><div class="shell"><p class="eyebrow">RECOVERED + COMPOSED · PROBLEM-CENTERED REVIEW</p><h1>Start with the problem. Follow the mechanism to its proof.</h1><p class="lead">The modern hiring surface keeps the strongest idea from the earlier invention constellation: repositories are useful only when a reviewer can see what problem they attack, how systems combine, what evidence exists, and where the current proof stops.</p><div class="invention-receipt"><span>Evidence policy</span><b>${escapeHtml(map.source.evidence_policy)}</b><span>Map receipt</span><code>${map.receipt_sha256.slice(0, 16)}</code></div><div class="coverage-strip"><div><b>${map.coverage.routed_flagships}/${map.coverage.current_flagships}</b><span>current flagships routed</span></div><div><b>${map.coverage.workflow_routes}</b><span>cross-system review routes</span></div><div><b>${map.coverage.capability_routes}</b><span>capability routes</span></div><div><b>${map.coverage.problem_lenses}</b><span>problem lenses</span></div></div></div></section>
 <section id="topology" class="topology-section"><div class="shell"><div class="section-head"><div><p class="eyebrow">CROSS-REPOSITORY WORKFLOW TOPOLOGY</p><h2>See how independent systems combine without pretending they are one monolith.</h2></div><p>These routes recover the old workflow-map leverage while preserving the modern evidence boundary: composition is shown explicitly, repository ownership stays visible, and no runtime coupling is invented.</p></div><div class="topology-grid">${topologyRoutes}</div></div></section>
@@ -327,6 +370,7 @@ function renderHtml(map) {
 <section class="role-map"><div class="shell"><div class="section-head"><div><p class="eyebrow">ROLE → PROBLEM → REPOSITORY</p><h2>One estate, routed by the decision being made.</h2></div><p>This restores V13's role-to-repository evidence path without reviving its client-side runtime. Every route is generated from the current portfolio graph and deploys under the script-free public CSP.</p></div><div class="role-route-grid">${roleRows}</div></div></section>
 <section class="lineage"><div class="shell"><p class="eyebrow">RESTORATION LINEAGE</p><h2>Recovered mechanism, not reverted website.</h2><p>Donor <code>${map.restoration_lineage.donor_commit.slice(0, 12)}</code> → contraction <code>${map.restoration_lineage.contraction_commit.slice(0, 12)}</code>. Preserved later gains: ${map.restoration_lineage.preserved_later_gains.map(escapeHtml).join(" · ")}.</p><a class="button primary" href="/machine/">Inspect machine surface</a></div></section>
 </main>
+<footer class="footer"><div class="shell footer-grid"><div><strong>Invention Evidence Map · Casey Barton</strong><br><span>Problem-first routes. Private source stays method-only on this public surface.</span></div><nav class="footer-links" aria-label="Footer navigation"><a href="/hire/">Hire</a><a href="/resume/">Résumé</a><a href="/master/">Master</a><a href="/">Portfolio home</a></nav></div></footer>
 </body>
 </html>`;
 }

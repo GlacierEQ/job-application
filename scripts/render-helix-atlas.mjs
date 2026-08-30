@@ -179,6 +179,38 @@ function directoryCard(company) {
   return `<a class="atlas-directory-item" href="${companyRoute(company.company_id)}"><span><strong>${escapeHtml(company.display_name)}</strong><small>${escapeHtml(company.track_state)} · ${escapeHtml(depth.stage)}</small></span><b class="evidence-state ${state}">${evidenceLabel(state)}</b></a>`;
 }
 
+function companyIndexPage(companies) {
+  const rich = companies.filter((company) => evidenceState(company) === "repository-rich").length;
+  const seeded = companies.filter((company) => evidenceState(company) === "seeded").length;
+  const scaffold = companies.filter((company) => evidenceState(company) === "scaffold").length;
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#03080b">
+  <meta name="description" content="Company intelligence index for Casey Barton's GlacierEQ portfolio: real /companies/<slug>/ dossiers and the Atlas constellation.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://casey-barton-glaciereq.vercel.app/companies/">
+  <title>Company tracks · Casey Barton</title>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/site.css">
+  <link rel="stylesheet" href="/assets/site.systems.css">
+  <link rel="stylesheet" href="/assets/helix-atlas.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="signal-bar"><div class="shell signal-inner"><span class="signal-live">COMPANY INDEX · GOVERNED TRACKS</span><span>${companies.length} lenses · Atlas is the map</span></div></div>
+<header class="site-header"><div class="shell nav"><a class="brand" href="/" aria-label="Casey Barton portfolio home"><span class="mark">CB</span><span><strong>CASEY BARTON</strong><small>APPLIED AI SYSTEMS ARCHITECT</small></span></a><nav class="links" aria-label="Primary navigation"><a href="/">Recruiter</a><a href="/hire/">Hire</a><a href="/resume/">Résumé</a><a href="/master/">Master</a><a href="/companies/" aria-current="page">Companies</a><a href="/atlas/">Atlas</a></nav><a class="nav-cta" href="mailto:glacier.equilibrium@gmail.com">Start a conversation</a></div></header>
+<main id="main">
+<section class="hero atlas-hero"><div class="shell"><p class="eyebrow">COMPANY INTELLIGENCE · INDEX DOOR</p><h1>Company tracks. Atlas is the map.</h1><p class="lead">This page is the index so <code>/companies/</code> is a real route, not a 404. Each name opens a four-layer dossier. The constellation, power map, and second-depth contract live on Atlas. Alignment is not affiliation, employment, clearance, or production adoption.</p><div class="proof-strip" aria-label="Company index scope"><div><b>${companies.length}</b><span>governed company lenses</span></div><div><b>${rich}</b><span>repository-rich</span></div><div><b>${seeded}</b><span>seeded</span></div><div><b>${scaffold}</b><span>scaffold</span></div></div><div class="actions"><a class="button primary" href="/atlas/">Open Company Atlas</a><a class="button secondary" href="/hire/">Hire door</a><a class="button ghost" href="/resume/">Résumé</a></div></div></section>
+<section class="section"><div class="shell"><div class="section-head"><div><p class="eyebrow">DIRECTORY</p><h2>Every governed track, one hop from this index.</h2></div><p>Repository-rich means multiple or advanced public evidence. Seeded means one admitted public repository. Scaffold means no company-specific repo is recruiter-admitted yet.</p></div><div class="atlas-directory">${companies.map(directoryCard).join("")}</div></div></section>
+</main>
+<footer class="site-footer"><div class="shell"><p><strong>Casey Barton · GlacierEQ</strong></p><p>Independent systems work. Company names identify target domains. They do not imply affiliation, endorsement, employment, proprietary access, contract relationship, clearance, or production deployment.</p></div></footer>
+</body>
+</html>\n`;
+}
+
 function powerMap(companies) {
   const byId = new Map(companies.map((company) => [company.company_id, company]));
   const used = new Set();
@@ -287,7 +319,7 @@ function companyPage(company, stageOrder) {
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="signal-bar"><div class="shell signal-inner"><span class="signal-live">COMPANY INTELLIGENCE · ${escapeHtml(evidenceLabel(state).toUpperCase())}</span><span>${escapeHtml(depth.stage)} · claim ceiling ${escapeHtml(depth.claim_ceiling)}</span></div></div>
-<header class="site-header"><div class="shell nav"><a class="brand" href="/" aria-label="Casey Barton portfolio home"><span class="mark">CB</span><span><strong>CASEY BARTON</strong><small>APPLIED AI SYSTEMS ARCHITECT</small></span></a><nav class="links" aria-label="Primary navigation"><a href="/">Recruiter</a><a href="/resume/">Résumé</a><a href="/master/">Master</a><a href="/mesh/">Mesh</a><a href="/atlas/">Atlas</a><a href="/machine/">Machine</a></nav><a class="nav-cta" href="mailto:glacier.equilibrium@gmail.com">Start a conversation</a></div></header>
+<header class="site-header"><div class="shell nav"><a class="brand" href="/" aria-label="Casey Barton portfolio home"><span class="mark">CB</span><span><strong>CASEY BARTON</strong><small>APPLIED AI SYSTEMS ARCHITECT</small></span></a><nav class="links" aria-label="Primary navigation"><a href="/">Recruiter</a><a href="/hire/">Hire</a><a href="/resume/">Résumé</a><a href="/master/">Master</a><a href="/mesh/">Mesh</a><a href="/atlas/">Atlas</a><a href="/machine/">Machine</a></nav><a class="nav-cta" href="mailto:glacier.equilibrium@gmail.com">Start a conversation</a></div></header>
 <main id="main">
 <section class="company-hero"><div class="shell company-hero-grid"><div><p class="eyebrow">INDEPENDENT COMPANY LENS · ${escapeHtml(evidenceLabel(state).toUpperCase())}</p><h1>${escapeHtml(company.display_name)}</h1><p class="lead">${escapeHtml(company.recruiter_thesis)}</p><div class="company-role-chips">${roleChips}</div></div><aside class="card company-state-card"><span class="evidence-state ${state}">${evidenceLabel(state)}</span><strong>${company.repositories.length}</strong><p>direct public evidence ${company.repositories.length === 1 ? "repository" : "repositories"}</p><small>${escapeHtml(company.track_state)}</small><p><strong>Second depth:</strong> ${escapeHtml(depthLabel(depth.stage))}</p><small>claim ceiling · ${escapeHtml(depth.claim_ceiling)}</small></aside></div></section>
 <section class="section company-layer" id="recruiter"><div class="shell"><div class="layer-heading"><span>01 · RECRUITER</span><h2>What matters to this operating environment.</h2></div><div class="company-two-col"><article class="card"><h3>Alignment thesis</h3><p>${escapeHtml(company.recruiter_thesis)}</p><p>${escapeHtml(evidenceSummary)}</p></article><article class="card boundary-card"><h3>Truth boundary</h3><p>${escapeHtml(company.non_affiliation)}</p><p><strong>Current public claim ceiling:</strong> ${escapeHtml(depth.claim_ceiling)}</p></article></div></div></section>
@@ -328,6 +360,7 @@ async function writeCompanyRoutes(companies, stageOrder) {
       "utf8",
     );
   }
+  await writeFile(path.join(COMPANIES_OUTPUT, "index.html"), companyIndexPage(companies), "utf8");
 }
 
 async function main() {

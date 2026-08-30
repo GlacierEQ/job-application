@@ -17,9 +17,21 @@ if (map.topology.length < 4) fail("cross-repository workflow topology contracted
 if (map.capability_routes.length !== portfolio.capabilities.length) fail("capability routing is incomplete");
 if (!map.role_routes.length) fail("role-to-repository routing missing");
 if (/<script\b/i.test(html)) fail("public invention map violates script-free CSP");
+if ((html.match(/<h1\b/g) || []).length !== 1) fail("public invention map must contain one h1");
+if (/\sstyle\s*=\s*/i.test(html)) fail("public invention map cannot use inline style attributes");
 if (!html.includes(map.receipt_sha256.slice(0, 16))) fail("human surface is not bound to map receipt");
 if (!html.includes("CROSS-REPOSITORY WORKFLOW TOPOLOGY")) fail("human topology surface missing");
 if (!html.includes("CAPABILITY → SYSTEM → PROOF")) fail("human capability route surface missing");
+if (html.includes("github.com/GlacierEQ/AKOS") || html.includes("github.com/GlacierEQ/Pro-DOCTOR-STRANGE")) {
+  fail("public invention map exposes private GitHub source CTAs");
+}
+if (html.includes("118/118")) fail("invention map still prints retired AKOS 118/118 diligence count");
+if (!html.includes("eac3cab001306225b99da41c37370528331966dd")) fail("AKOS pinned head SHA missing from human surface");
+if (!html.includes("200 collected, 199 passed, 1 skipped")) fail("AKOS pinned pytest receipt missing from human surface");
+const hireHrefs = [...html.matchAll(/href=["']\/hire\/["']/g)];
+if (hireHrefs.length < 2) fail(`invention map Hire must appear in nav and footer, found ${hireHrefs.length}`);
+if (!html.includes("<footer")) fail("invention map footer missing");
+if (!html.includes("private source · public method")) fail("Doctor Strange private-source method label missing");
 
 const currentIds = new Set(portfolio.flagships.map(({ id }) => id));
 const routedIds = new Set();

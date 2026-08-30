@@ -176,7 +176,8 @@ for (const token of [
 assert(master.includes('The owning system keeps the proof.') && master.includes('Current heads do not inherit historical test receipts.'), 'master evidence policy missing');
 assert(machine.includes('/data/portfolio.json') && machine.includes('/data/company-families.json') && machine.includes('/data/psysoc-x-profiles.json'), 'machine links incomplete');
 assert(hire.includes('github.com/GlacierEQ/the-tower-of-babel'), 'hire missing Babel source');
-assert(hire.includes('github.com/GlacierEQ/monolith'), 'hire missing Monolith source');
+assert(hire.includes('<h3>Monolith</h3>') && hire.includes('window onto the estate') && hire.includes('estate window'), 'hire missing Monolith method');
+assert(!hire.includes('github.com/GlacierEQ/monolith') && !hire.includes('Inspect Monolith'), 'hire must not dead-link private monolith');
 assert(hire.includes('snowball OS') && hire.includes('private source'), 'hire missing mega-skills public method');
 assert(!hire.includes('github.com/GlacierEQ/mega-skills'), 'hire must not dead-link private mega-skills');
 assert(notFound.includes('href="/hire/"'), '404 missing hire recovery');
@@ -204,7 +205,7 @@ for (const selector of ['.bento-card p', '.master-card p', '.branch p']) {
   assert(cssSystems.includes(selector), `print contrast selector missing ${selector}`);
 }
 
-for (const route of ['/', '/hire/', '/resume/', '/master/', '/mesh/', '/machine/']) {
+for (const route of ['/', '/hire/', '/resume/', '/master/', '/mesh/', '/machine/', '/companies/', '/inventions/', '/evidence-gallery/']) {
   assert(sitemap.includes(`https://casey-barton-glaciereq.vercel.app${route}`), `sitemap missing ${route}`);
 }
 assert(robots.includes('Sitemap: https://casey-barton-glaciereq.vercel.app/sitemap.xml'), 'robots missing sitemap');

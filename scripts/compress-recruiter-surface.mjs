@@ -31,6 +31,7 @@ const REQUIRED_STATIC_DEEP_ROUTES = [
   'inventions/index.html',
   'hire/index.html',
   'resume/index.html',
+  'companies/index.html',
 ];
 
 function read(file) {

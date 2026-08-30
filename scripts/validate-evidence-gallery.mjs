@@ -43,8 +43,20 @@ for (const system of gallery.systems) {
   if (!html.includes(source.name) || !html.includes(source.evidence) || !html.includes(source.limit)) {
     fail(`${system.id} drilldown lost current proof boundary`);
   }
-  if (!html.includes(source.repo)) fail(`${system.id} drilldown lost owning repository link`);
+  const privateGithub = source.repo === "https://github.com/GlacierEQ/AKOS"
+    || source.repo === "https://github.com/GlacierEQ/Pro-DOCTOR-STRANGE";
+  if (privateGithub) {
+    if (html.includes(`href="${source.repo}"`) || html.includes(`href='${source.repo}'`)) {
+      fail(`${system.id} public drilldown links a private GitHub repository`);
+    }
+  } else if (!html.includes(source.repo)) {
+    fail(`${system.id} drilldown lost owning repository link`);
+  }
   if (!html.includes(gallery.receipt_sha256.slice(0, 16))) fail(`${system.id} drilldown is not bound to gallery receipt`);
+}
+
+if (indexHtml.includes("github.com/GlacierEQ/AKOS") || indexHtml.includes("github.com/GlacierEQ/Pro-DOCTOR-STRANGE")) {
+  fail("gallery index exposes private GitHub source CTAs");
 }
 
 for (const source of portfolio.flagships) {

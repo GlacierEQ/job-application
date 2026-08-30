@@ -40,6 +40,37 @@ function unique(values) {
   return [...new Set(values)];
 }
 
+// Recruiter-visible GitHub is anonymous HTTP. These repositories 404 without
+// auth, so public HTML must not treat them as inspectable source CTAs.
+const PRIVATE_GITHUB_REPOS = new Set([
+  "https://github.com/GlacierEQ/AKOS",
+  "https://github.com/GlacierEQ/Pro-DOCTOR-STRANGE",
+]);
+
+function isPrivateGithubCta(repo) {
+  return PRIVATE_GITHUB_REPOS.has(repo);
+}
+
+function sourceControl(system) {
+  if (!isPrivateGithubCta(system.repo)) {
+    return `<a href="${escapeHtml(system.repo)}" target="_blank" rel="noopener">Source ↗</a>`;
+  }
+  if (system.id === "akos") {
+    return `<a href="/master/">Pinned proof ↗</a>`;
+  }
+  return `<span class="source-method">private source · public method</span>`;
+}
+
+function owningControl(system) {
+  if (!isPrivateGithubCta(system.repo)) {
+    return `<a class="source-link" href="${escapeHtml(system.repo)}" target="_blank" rel="noopener">Inspect owning repository ↗</a>`;
+  }
+  if (system.id === "akos") {
+    return `<a class="source-link" href="/master/">Inspect pinned proof →</a>`;
+  }
+  return `<span class="source-method">independent-reader convergence · private source · public method</span>`;
+}
+
 function buildReverseRoutes(inventionMap) {
   const bySystem = new Map();
   const ensure = (id) => {
@@ -160,7 +191,7 @@ function pageHead(title, description) {
 }
 
 function nav() {
-  return `<header class="site-header"><div class="shell nav"><a class="brand" href="/"><span class="mark">CB</span><span><strong>CASEY BARTON</strong><small>EVIDENCE GALLERY</small></span></a><nav class="links" aria-label="Evidence gallery navigation"><a href="/inventions/">Invention map</a><a href="/evidence-gallery/">All systems</a></nav><a class="nav-cta" href="/">Portfolio home</a></div></header>`;
+  return `<header class="site-header"><div class="shell nav"><a class="brand" href="/"><span class="mark">CB</span><span><strong>CASEY BARTON</strong><small>EVIDENCE GALLERY</small></span></a><nav class="links" aria-label="Evidence gallery navigation"><a href="/hire/">Hire</a><a href="/inventions/">Invention map</a><a href="/evidence-gallery/">All systems</a></nav><a class="nav-cta" href="/">Portfolio home</a></div></header>`;
 }
 
 function evidenceCard(system) {
@@ -173,7 +204,7 @@ function evidenceCard(system) {
 <div class="evidence-facts"><div><b>Evidence</b><span>${escapeHtml(system.evidence)}</span></div><div><b>Current ceiling</b><span>${escapeHtml(system.current_ceiling)}</span></div></div>
 ${capabilities ? `<div class="facet-row"><b>Capabilities</b>${capabilities}</div>` : ""}
 ${lenses ? `<div class="facet-row"><b>Problem lenses</b>${lenses}</div>` : ""}
-<div class="evidence-actions"><a href="${escapeHtml(system.drilldown)}">Inspect evidence routes →</a><a href="${escapeHtml(system.repo)}" target="_blank" rel="noopener">Source ↗</a></div>
+<div class="evidence-actions"><a href="${escapeHtml(system.drilldown)}">Inspect evidence routes →</a>${sourceControl(system)}</div>
 </article>`;
 }
 
@@ -210,7 +241,7 @@ function renderSystem(system, gallery) {
   return `<!doctype html><html lang="en">${pageHead(`${system.name} · Evidence Drilldown`, `${system.name}: current evidence, proof ceiling, recruiter routes, capability routes, and workflow position.`)}<body>
 <a class="skip" href="#main">Skip to evidence</a>${nav()}
 <main id="main" class="drilldown-main"><section class="drilldown-hero"><div class="shell"><a class="back-link" href="/evidence-gallery/">← All systems</a><p class="eyebrow">CURRENT SYSTEM · #${String(system.rank).padStart(2, "0")}</p><h1>${escapeHtml(system.name)}</h1><p class="lead">${escapeHtml(system.summary)}</p><div class="system-status"><span>${escapeHtml(system.state)}</span><span>${escapeHtml(system.level)}</span><span>${escapeHtml(system.public_surface)}</span></div></div></section>
-<div class="shell drilldown-grid"><section class="proof-panel"><p class="eyebrow">PROOF BOUNDARY</p><h2>What is evidenced</h2><p>${escapeHtml(system.evidence)}</p><h2>Current ceiling</h2><p>${escapeHtml(system.current_ceiling)}</p><h2>Owned mechanisms</h2>${mechanisms}<a class="source-link" href="${escapeHtml(system.repo)}" target="_blank" rel="noopener">Inspect owning repository ↗</a></section><div class="route-stack">${lenses}${capabilities}${workflows}${roles}</div></div></main>
+<div class="shell drilldown-grid"><section class="proof-panel"><p class="eyebrow">PROOF BOUNDARY</p><h2>What is evidenced</h2><p>${escapeHtml(system.evidence)}</p><h2>Current ceiling</h2><p>${escapeHtml(system.current_ceiling)}</p><h2>Owned mechanisms</h2>${mechanisms}${owningControl(system)}</section><div class="route-stack">${lenses}${capabilities}${workflows}${roles}</div></div></main>
 <footer class="gallery-footer"><div class="shell"><p>Gallery receipt ${escapeHtml(gallery.receipt_sha256.slice(0, 16))} · Invention-map receipt ${escapeHtml(gallery.source.invention_map_receipt.slice(0, 16))}</p><a href="/data/evidence-gallery.json">Machine-readable gallery</a></div></footer></body></html>`;
 }
 

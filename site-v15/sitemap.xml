@@ -6,6 +6,10 @@
   <url><loc>https://casey-barton-glaciereq.vercel.app/master/</loc><priority>0.8</priority></url>
   <url><loc>https://casey-barton-glaciereq.vercel.app/mesh/</loc><priority>0.8</priority></url>
   <url><loc>https://casey-barton-glaciereq.vercel.app/machine/</loc><priority>0.7</priority></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/inventions/</loc><priority>0.85</priority></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/evidence-gallery/</loc><priority>0.7</priority></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/visualizer/</loc><priority>0.7</priority></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/</loc></url>
   <url><loc>https://casey-barton-glaciereq.vercel.app/atlas/</loc></url>
   <url><loc>https://casey-barton-glaciereq.vercel.app/atlas/openai/</loc></url>
   <url><loc>https://casey-barton-glaciereq.vercel.app/atlas/anthropic/</loc></url>
@@ -56,7 +60,6 @@
   <url><loc>https://casey-barton-glaciereq.vercel.app/atlas/lockheed-martin/</loc></url>
   <url><loc>https://casey-barton-glaciereq.vercel.app/atlas/nasa/</loc></url>
   <url><loc>https://casey-barton-glaciereq.vercel.app/atlas/glaciereq-core/</loc></url>
-  <url><loc>https://casey-barton-glaciereq.vercel.app/atlas/starmap/</loc></url>
   <url><loc>https://casey-barton-glaciereq.vercel.app/companies/openai/</loc></url>
   <url><loc>https://casey-barton-glaciereq.vercel.app/companies/anthropic/</loc></url>
   <url><loc>https://casey-barton-glaciereq.vercel.app/companies/google-deepmind/</loc></url>

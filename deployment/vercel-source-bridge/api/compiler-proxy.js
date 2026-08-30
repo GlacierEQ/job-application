@@ -4,7 +4,7 @@ const estateProxy = require('./estate-proxy.js');
 const proxy = require('./proxy.js');
 const typographyProxy = require('./typography-proxy.js');
 
-const COMPILER_HELIX_COMMIT = '0a718289efe4ea038ee7929be425bb4e3f0ab082';
+const COMPILER_HELIX_COMMIT = '4c0318a8d0a3daaed09e7d9ba2c308016d3d1dfb';
 const HELIX_RAW = `https://raw.githubusercontent.com/GlacierEQ/job-app-helix/${COMPILER_HELIX_COMMIT}/`;
 const COMPANY_INDEX_PATH = 'manifests/company_dossiers.json';
 const SECOND_DEPTH_PATH = 'manifests/company_second_depth.json';

@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { existsSync } from "node:fs";
 import { readdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -73,13 +74,25 @@ async function updateSitemap(companyIds) {
     /\s*<url><loc>https:\/\/casey-barton-glaciereq\.vercel\.app\/companies\/[^<]+<\/loc>(?:<priority>[^<]+<\/priority>)?<\/url>/g,
     "",
   );
+  if (!existsSync(path.join(SITE, "atlas", "starmap", "index.html"))) {
+    text = text.replace(
+      /\s*<url><loc>https:\/\/casey-barton-glaciereq\.vercel\.app\/atlas\/starmap\/<\/loc>(?:<priority>[^<]+<\/priority>)?<\/url>/g,
+      "",
+    );
+  }
   const wanted = [
     "https://casey-barton-glaciereq.vercel.app/atlas/",
-    "https://casey-barton-glaciereq.vercel.app/atlas/starmap/",
+    "https://casey-barton-glaciereq.vercel.app/companies/",
+    "https://casey-barton-glaciereq.vercel.app/inventions/",
+    "https://casey-barton-glaciereq.vercel.app/evidence-gallery/",
+    "https://casey-barton-glaciereq.vercel.app/visualizer/",
     ...companyIds.map(
       (id) => `https://casey-barton-glaciereq.vercel.app/companies/${companySlug(id)}/`,
     ),
   ];
+  if (existsSync(path.join(SITE, "atlas", "starmap", "index.html"))) {
+    wanted.splice(1, 0, "https://casey-barton-glaciereq.vercel.app/atlas/starmap/");
+  }
   const insertion = wanted
     .filter((url) => !text.includes(`<loc>${url}</loc>`))
     .map((url) => `  <url><loc>${url}</loc></url>`)

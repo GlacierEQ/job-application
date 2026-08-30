@@ -151,6 +151,13 @@ async function main() {
     companyDirectories.length === snapshot.companies.length,
     "generated company route count differs from snapshot",
   );
+  const companiesIndex = await readFile(path.join(companiesDir, "index.html"), "utf8");
+  assert((companiesIndex.match(/<h1\b/g) ?? []).length === 1, "companies index must contain one h1");
+  assert(!/<script\b/i.test(companiesIndex), "companies index must remain script-free");
+  assert(!/\sstyle\s*=\s*/i.test(companiesIndex), "companies index cannot use inline style attributes");
+  assert(companiesIndex.includes('href="/atlas/"'), "companies index must door to Atlas");
+  assert(companiesIndex.includes('href="/hire/"'), "companies index must link Hire");
+  assert(companiesIndex.includes('href="/companies/"'), "companies index must self-identify");
 
   for (const company of snapshot.companies) {
     const slug = companySlug(company.company_id);
@@ -262,6 +269,14 @@ async function main() {
   const sitemap = await readFile(path.join(SITE, "sitemap.xml"), "utf8");
   const llms = await readFile(path.join(SITE, "llms.txt"), "utf8");
   assert(sitemap.includes("/atlas/"), "Atlas missing from sitemap");
+  assert(
+    sitemap.includes("https://casey-barton-glaciereq.vercel.app/companies/</loc>"),
+    "sitemap missing /companies/ index",
+  );
+  assert(
+    !sitemap.includes("/atlas/starmap/"),
+    "sitemap must not list missing /atlas/starmap/",
+  );
   assert(llms.includes("Company Atlas"), "Company Atlas missing from llms.txt");
   for (const company of snapshot.companies) {
     assert(
