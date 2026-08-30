@@ -1,151 +1,199 @@
-# LinkedIn Profile — Casey Barton
+# LinkedIn Profile — Casey Del Carpio Barton
+
+## Profile Strategy
+
+**Primary positioning:** Applied AI Engineer who turns ambiguous, tool-using AI prototypes into dependable, testable systems.
+
+**Best-fit hiring lanes:** Applied AI Engineer, Forward Deployed Engineer, AI Infrastructure Engineer, Platform Engineer, Agent Infrastructure Engineer.
+
+The profile deliberately leads with standard recruiter language and concrete engineering outcomes. Internal project names support the story; they do not carry it.
+
+---
 
 ## Headline
-Senior AI Infrastructure Engineer | Built Colossus-Scale Systems (200k GPUs) | 1,052 GitHub Repos | xAI/SpaceX Target
+
+**Applied AI Engineer | Forward-Deployed & Agent Systems | AI Infrastructure, Python, TypeScript, FastAPI, MCP**
+
+---
+
+## Current Position
+
+**Applied AI Engineer | Founder, GlacierEQ**
+
+Honolulu, Hawaiʻi | January 2025 – Present
+
+---
 
 ## About
-I build infrastructure that scales to 200,000+ GPUs.
 
-While most engineers think about software, I think about the physical layer that makes software possible — thermal management, power systems, water treatment, firmware, security.
+I build the hard middle between an AI demo and a dependable system.
 
-I built a complete infrastructure simulation for xAI's Colossus because I wanted to understand what it takes to run the world's largest AI supercomputer. I didn't just read the specs. I engineered solutions across 26 repositories, 43,874 lines of code, and 10 interconnected subsystems.
+That means connecting models to tools and real workflows, defining state and authority, handling retries and recovery, making failures observable, preserving provenance, and leaving evidence of what actually ran.
 
-What I'm looking for: A team where I can identify blockers and fix them — fast. I'm the person you call when the normal process isn't working.
+My primary stack is Python and TypeScript, with FastAPI, Node.js, SQL, Docker, GitHub Actions, REST/JSON-RPC, JSON Schema, React/Next.js, and Model Context Protocol (MCP).
 
-**Recent work:**
-- 26-repo infrastructure suite for Colossus (cooling, energy, water, security, firmware)
-- AEON-777: 10-domain AI orchestration system with real physics models
-- FILEBOSS v3.0: Forensic exhibit processor with SHA-256+SHA-512 dual hashing
-- Google Drive Runtime: 6 automation scripts for evidence processing
-- Self-hosted CI/CD fleet (27 repos, zero GitHub minutes)
+Recent public engineering proof includes:
 
-**Technical depth:**
-- PINN (Physics-Informed Neural Networks) for thermal digital twins
-- Fat-tree InfiniBand topology for 200k GPU clusters
-- sCO2 Brayton cycle waste heat recovery
-- Megapack FSM (8-state battery storage optimization)
-- Hydra immune response (multi-head threat detection)
+- An agent control-plane project verified across Python 3.11, 3.12, and 3.13; the reference Python 3.12 run records **199 passed, 1 skipped, 0 failures**.
+- A recovery/orchestration system with commit-pinned compile, correctness-lint, dependency-audit, **48/48 test**, and CLI verification.
+- A multi-language systems architecture that assigns technologies explicit responsibilities, interfaces, and proof gates instead of treating a long tool list as expertise.
+- An evidence-grounded hiring/portfolio system that separates implementation proof from recruiter-facing presentation.
 
-GitHub: github.com/GlacierEQ | 1,052 repos | 43,874 lines in Colossus suite
+Before software, I spent years diagnosing real building systems, running field-service work, and performing home inspections. That background made me comfortable with incomplete information, interacting failure modes, real constraints, and owning an outcome from diagnosis through verification.
+
+I’m strongest where the problem is not neatly packaged: applied AI, forward-deployed engineering, agent infrastructure, platform reliability, developer tooling, automation, and systems integration.
+
+**Portfolio:** https://casey-barton-glaciereq.vercel.app/  
+**GitHub:** https://github.com/GlacierEQ
+
+---
 
 ## Experience
 
-### Senior AI Infrastructure Engineer (Self-Employed)
-**2024 — Present** | Honolulu, HI
+### GlacierEQ
+**Applied AI Engineer | Founder**  
+Honolulu, Hawaiʻi | January 2025 – Present
 
-Built complete infrastructure blueprints for xAI's Colossus data center:
+- Build AI-agent, automation, document, memory, evidence, and infrastructure systems primarily in Python and TypeScript.
+- Connect models to tools, APIs, data, and workflows through FastAPI, REST, JSON-RPC, MCP, SQL, event-driven components, and typed interfaces.
+- Turn ambiguous requirements into runnable software, explicit state transitions, tests, failure behavior, recovery paths, observability, and reviewable completion evidence.
+- Engineer reliability around tool-using AI with authority checks, idempotent operations, bounded retries, state reconciliation, provenance, integrity verification, and durable receipts.
+- Build CI and verification workflows with Docker, GitHub Actions, automated tests, static analysis, and dependency auditing.
+- Maintain clear evidence boundaries between simulation and hardware, proposal and execution, historical proof and current-head proof, and private source state versus public claims.
+- Use AI-assisted development as an inspectable engineering workflow combining source review, implementation, deterministic validation, exact-revision proof, and human judgment.
 
-**Thermal Management**
-- Bio-inspired CFD simulation with PINN digital twin
-- PUE <1.05 targets with predictive thermal runaway detection
-- Multi-phase immersion cooling (Novec 7100, Fluorinert)
-- PID cascade control with cavitation boundary detection
+**Selected proof**
+- Agent control plane: current-head verification across Python 3.11/3.12/3.13; Python 3.12 reference run records 199 passed, 1 skipped, 0 failures.
+- Recovery/orchestration system: commit-pinned compile, lint, dependency-audit, 48/48-test, and CLI verification.
+- Multi-language interoperability architecture: explicit technology responsibilities, interfaces, activation conditions, and proof gates.
 
-**Power Systems**
-- 1.5GW baseload management with Tesla Megapack deployment
-- sCO2 Brayton cycle waste heat recovery (124.7 MW)
-- Grid frequency regulation with 4% droop control
-- Phase angle synchronization for parallel generators
+### Diamond Head Home Inspections
+**Certified Home Inspector**  
+Honolulu, Hawaiʻi | 2020 – 2024
 
-**Water Treatment**
-- Zero-Liquid-Discharge (ZLD) sCO2-driven distillation
-- RO membrane flux modeling with osmotic pressure calculation
-- Langelier Saturation Index monitoring
-- Chemical dosing control (anti-scalant, biocide, pH adjust)
+- Diagnosed structural, roofing, electrical, plumbing, HVAC, moisture, and safety conditions under real-world time and information constraints.
+- Converted incomplete or conflicting observations into prioritized risk, evidence strength, uncertainty, and practical next actions.
+- Communicated technical findings clearly to clients making consequential property and repair decisions.
+- Developed the diagnostic discipline now carried into software engineering: inspect the real system first, trace interacting failure modes, test boundaries, communicate uncertainty, and verify the result.
 
-**Firmware & Security**
-- GPU driver matrix and flash controller management
-- TEMPEST SCIF electromagnetic shielding (120 dB SE)
-- Active anti-phase RF cancellation with DAC latency compensation
-- Zero-trust physical + cyber perimeter
+### Hi-Class Home Services / Hi Class Maintenance Oahu LLC
+**Owner-Operator | Building Systems & Field Services**  
+Honolulu, Hawaiʻi | 2017 – Present
 
-**AI Orchestration**
-- AEON-777: 10-domain system with real physics models
-- FILEBOSS v3.0: Forensic exhibit processor (SHA-256+SHA-512)
-- MCP Hub: 15 connectors, 10 pillars, security routing
-- Google Drive Runtime: 6 automation scripts
-
-**Code Metrics**
-- 26 repositories, 43,874 lines of code
-- 414 Python files, 465 tests passing
-- 12 Pistons at Ring -3 (hidden execution layer)
-- 10 watchdog daemons (self-healing)
-
-## Skills
-
-### Infrastructure Engineering (Expert)
-- Thermal Management (CFD, PINN, immersion cooling)
-- Power Systems (1.5GW, Megapack, grid integration)
-- Water Treatment (ZLD, RO membranes, LSI monitoring)
-- Firmware Development (GPU drivers, flash controllers)
-- Security Architecture (TEMPEST SCIF, RF cancellation)
-
-### AI/ML Systems (Expert)
-- Model Architecture (314B MoE, JAX/Haiku, DeepSpeed)
-- Multi-Agent Orchestration (9-agent systems, diamond topology)
-- Memory Systems (4-tier: pgvector + Pinecone + Neo4j + Supermemory)
-- MCP Protocol (Custom servers, unified gateway)
-
-### Programming (Expert)
-- Python (Orchestration, agents, forensics, CLI tools)
-- TypeScript (MCP connectors, browser automation)
-- Go (Infrastructure services)
-- Rust (Performance-critical components)
-- JAX (Model training, physics simulation)
-- SQL (pgvector queries, analytics)
-
-### Infrastructure (Advanced)
-- Docker, Kubernetes, Terraform
-- GitHub Actions (self-hosted fleet)
-- AWS, GCP, Vercel, Railway, Render
-- PostgreSQL, Redis, Pinecone, Neo4j, Supabase
-
-## Projects
-
-### xAI Colossus Infrastructure Suite (26 repos)
-Complete engineering blueprints for gigawatt-scale AI compute:
-- Thermal: PINN digital twin, immersion cooling, cascade systems
-- Energy: 1.5GW grid, Megapack FSM, sCO2 recovery
-- Water: ZLD treatment, RO membranes, chemical dosing
-- Security: TEMPEST SCIF, RF cancellation, zero-trust
-- Firmware: GPU drivers, flash controllers, audit CLI
-- AEON-777: 10-domain AI orchestration with real physics
-
-**Scale**: 12,500 racks · 200,000 GPUs · 100,000 InfiniBand links · 1.5GW
-
-### Mastermind AI Orchestration (19k+ LOC)
-Production-grade multi-agent system:
-- 9 specialized agents with task chaining
-- Real-time health monitoring and self-healing
-- Diamond topology swarm coordination
-
-### FILEBOSS v3.0 (Forensic Exhibit Processor)
-- SHA-256 + SHA-512 dual hashing
-- Bates stamping with case ID
-- Chain of custody tracking
-- Notion/ClickUp/OneDrive sync
-
-### Google Drive Runtime
-- 6 automation scripts (intel, organize, sync, watcher)
-- File classification and anomaly detection
-- Auto-organization by type/keyword/size
+- Translate incomplete customer requirements into scoped work, estimates, sequencing, execution, and closeout.
+- Diagnose interacting building-system failures while balancing safety, resources, client priorities, and completion quality.
+- Own outcomes from initial problem definition through hands-on execution and verification.
 
 ---
 
-## Education
+## Featured
 
-**Self-Directed Learning** | 2020 — Present
-- Analyzed Grok-1 source code (314B MoE, JAX/Haiku)
-- Built 26-repo Colossus infrastructure suite
-- Engineered 10-domain AI orchestration system
-- 1,052 GitHub repositories across AI/infrastructure/automation
+### 1. Applied AI Systems Portfolio
+https://casey-barton-glaciereq.vercel.app/
+
+**Card description:** Applied AI, agent infrastructure, reliability, automation, and evidence-driven engineering with inspectable public proof.
+
+### 2. GlacierEQ GitHub
+https://github.com/GlacierEQ
+
+**Card description:** Source code, revision history, tests, technical documentation, and public proof-of-work.
+
+### 3. Technical Master
+https://casey-barton-glaciereq.vercel.app/master/
+
+**Card description:** Deeper architecture and implementation view across AI systems, reliability mechanisms, and verification boundaries.
+
+### 4. Evidence Mesh
+https://casey-barton-glaciereq.vercel.app/mesh/
+
+**Card description:** A proof-oriented view connecting technical claims to repositories, revisions, tests, and evidence.
 
 ---
 
-## Certifications
-- AWS Solutions Architect (In Progress)
-- Kubernetes Administrator (CKA) (In Progress)
+## Skills — Priority Order
+
+### Pin these
+1. Python
+2. Artificial Intelligence (AI)
+3. Software Architecture
+
+### High-priority recruiter terms
+4. TypeScript
+5. AI Infrastructure
+6. FastAPI
+7. Agentic AI
+8. Platform Engineering
+9. Reliability Engineering
+10. Automation
+11. API Design
+12. Model Context Protocol (MCP)
+13. REST APIs
+14. Distributed Systems
+15. Event-Driven Architecture
+16. State Machines
+17. CI/CD
+18. GitHub Actions
+19. Docker
+20. SQL
+21. PostgreSQL
+22. JavaScript
+23. Node.js
+24. React.js
+25. Next.js
+26. Observability
+27. Automated Testing
+28. Data Provenance
+29. Idempotency
+30. Workflow Automation
 
 ---
 
-*Targeting: Senior Infrastructure Engineer, AI Systems Architect, Platform Engineer at xAI/SpaceX*
+## Open to Work
+
+### Job titles
+1. Applied AI Engineer
+2. Forward Deployed Engineer
+3. AI Infrastructure Engineer
+4. Platform Engineer
+5. Software Engineer
+
+### Locations
+- Honolulu, Hawaiʻi
+- San Francisco Bay Area
+- Seattle
+- Remote, United States
+
+### Employment
+- Full-time
+- Remote
+- Hybrid
+- On-site for exceptional high-fit roles
+
+### Visibility
+**Recruiters only**
+
+---
+
+## Banner
+
+**FROM AI PROTOTYPE TO VERIFIED SYSTEM**
+
+Agents • APIs • Reliability • Automation
+
+---
+
+## Recruiter Search Vocabulary
+
+Applied AI, Forward Deployed Engineering, AI Infrastructure, Agent Infrastructure, Platform Engineering, Reliability Engineering, Distributed Systems, Developer Tools, Automation, Python, TypeScript, FastAPI, MCP, APIs, CI/CD, Docker, GitHub Actions, State Machines, Idempotency, Provenance, Observability, Recovery, Testing.
+
+---
+
+## Profile Guardrails
+
+- Use standardized, searchable titles in the headline, current role, and Open-to-Work settings.
+- Do not claim employment or formal affiliation with companies where none exists.
+- Do not describe simulations, architecture studies, or independent exhibits as deployed company production systems.
+- Prefer exact repository, revision, test, and artifact evidence over repository counts or simulated-scale numbers.
+- Do not list certifications as completed until the credential is issued.
+- Keep internal project names secondary to plain-language descriptions of the engineering problem and outcome.
+- Every prominent claim should answer one recruiter question: **What can this person build, fix, or own for our team?**
