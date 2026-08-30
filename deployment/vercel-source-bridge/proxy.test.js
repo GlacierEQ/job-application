@@ -190,7 +190,7 @@ test('V21 projection filters recruiter evidence and preserves Lockheed inspected
     [{ companies }],
     advanceLockheed(depthRegistry(ids)),
   );
-  assert.ok(projection.company_count >= 49);
+  assert.ok(projection.company_count >= 166);
   const anthropic = projection.companies.find((row) => row.company_id === 'anthropic');
   assert.equal(anthropic.repositories.length, 1);
   assert.equal(

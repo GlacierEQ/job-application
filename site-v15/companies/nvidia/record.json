@@ -41,7 +41,7 @@
       "proof_artifacts": [],
       "role_evidence": []
     },
-    "next_gate": "Verify a current public NVIDIA role/team, identify one externally supportable infrastructure problem, then inspect only the governed NVIDIA-aligned repositories that could materially address it.",
+    "next_gate": "Verify a current public NVIDIA role/team, identify one externally supportable infrastructure problem, then inspect the relevant source-bound NVIDIA-aligned records that could materially address it.",
     "ordinal": 0,
     "stage": "MAPPED_ONLY"
   },

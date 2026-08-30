@@ -40,6 +40,7 @@ async function htmlFiles(directory) {
 }
 
 async function patchHtml(file) {
+  if (path.resolve(file) === path.join(SITE, "index.html")) return false;
   let text = await readFile(file, "utf8");
   const navStart = text.indexOf('<nav class="links"');
   if (navStart < 0) return false;

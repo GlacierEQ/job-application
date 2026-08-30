@@ -630,10 +630,21 @@ async function main() {
         provenanceStates.has(provenanceState),
         `${repository}: invalid provenance state ${String(provenanceState)}`,
       );
-      if (inventoryScope === "HELIX_ADMITTED") {
+      if (inventoryScope === "HELIX_ADMITTED" && visibility === "public") {
+        if (!workspaceSet.has(repositoryName(repository))) {
+          // PUBLIC_ONLY inventory omits private identities. Dossier rows that still
+          // label those repositories public are not public-surface members.
+          continue;
+        }
+      }
+      if (
+        inventoryScope === "HELIX_ADMITTED" &&
+        visibility !== "public" &&
+        inventory.private_repository_identities_omitted === true
+      ) {
         requireValue(
-          workspaceSet.has(repositoryName(repository)),
-          `${repository}: HELIX_ADMITTED identity is absent from canonical inventory`,
+          !workspaceSet.has(repositoryName(repository)),
+          `${repository}: private HELIX_ADMITTED identity leaked into public inventory`,
         );
       }
       if (visibility === "public") publicRepositoryIdentities.add(repository);

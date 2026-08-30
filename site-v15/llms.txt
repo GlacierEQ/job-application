@@ -1,6 +1,7 @@
 # Casey Barton - Applied AI Systems Architect
 
 Canonical human entry: /
+Recruiter hire door: /hire/
 Current reproduced proof: /data/current-proof.json
 Resume intelligence: /resume/
 ATS / scraper-safe resume text: /resume/ats.txt
@@ -39,3 +40,4 @@ Chronology boundary:
 Public GlacierEQ anchors include Pillars & Pistons on 2026-03-16 and a public Spiral Engine artifact on 2026-03-24. A later 2026-05-27 OpenAI public three-pillar/self-improvement comparator falls 72 and 64 days later, respectively. This is dated semantic convergence only. No access, copying, transmission, causation, or ownership of ordinary terminology is claimed.
 
 Evidence rule: claims must not exceed the owning repository's current source revision and receipt. Reviewed, generated, executed, deployed, and production states are distinct. Current heads do not inherit historical proof. Repository count is not accomplishment count. Company-oriented names do not imply employment, affiliation, proprietary access, production use, or endorsement.
+- Company Atlas: https://casey-barton-glaciereq.vercel.app/atlas/ (76 real company routes under /companies/<slug>/; Recruiter + Master + Machine + Mesh depth; Helix-governed second-depth stage, claim ceiling, blockers, next gate, and pinned public evidence)

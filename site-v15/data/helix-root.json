@@ -34,7 +34,7 @@
           "proof_artifacts": [],
           "role_evidence": []
         },
-        "next_gate": "Verify a current public OpenAI role/team and inspect the exact admitted KV-sentinel implementation before connecting it to any company-specific engineering problem.",
+        "next_gate": "Verify a current public OpenAI role/team and inspect the source-admitted KV-sentinel implementation before connecting it to any company-specific engineering problem.",
         "ordinal": 0,
         "stage": "MAPPED_ONLY"
       },
@@ -317,7 +317,7 @@
           "proof_artifacts": [],
           "role_evidence": []
         },
-        "next_gate": "Verify a current public Microsoft role/team and inspect the exact recruiter-admitted Microsoft-aligned repositories before promoting beyond general systems alignment.",
+        "next_gate": "Verify a current public Microsoft role/team and inspect relevant source-admitted Microsoft-aligned records before promoting beyond general systems alignment.",
         "ordinal": 0,
         "stage": "MAPPED_ONLY"
       },
@@ -551,7 +551,7 @@
           "proof_artifacts": [],
           "role_evidence": []
         },
-        "next_gate": "Verify a current public NVIDIA role/team, identify one externally supportable infrastructure problem, then inspect only the governed NVIDIA-aligned repositories that could materially address it.",
+        "next_gate": "Verify a current public NVIDIA role/team, identify one externally supportable infrastructure problem, then inspect the relevant source-bound NVIDIA-aligned records that could materially address it.",
         "ordinal": 0,
         "stage": "MAPPED_ONLY"
       },
@@ -848,14 +848,6 @@
           "level": "L3",
           "promotion_state": "REFERENCE_ONLY",
           "provenance_state": "ORIGINAL_CANDIDATE",
-          "repository": "GlacierEQ/notion-mcp-empowerment-engine",
-          "visibility": "public"
-        },
-        {
-          "inventory_scope": "HELIX_ADMITTED",
-          "level": "L3",
-          "promotion_state": "REFERENCE_ONLY",
-          "provenance_state": "ORIGINAL_CANDIDATE",
           "repository": "GlacierEQ/notion-workflow-intelligence",
           "visibility": "public"
         },
@@ -885,7 +877,7 @@
           "proof_artifacts": [],
           "role_evidence": []
         },
-        "next_gate": "Verify a current public Notion role/team and inspect the exact recruiter-admitted Notion-aligned repositories before promoting beyond general platform alignment.",
+        "next_gate": "Verify a current public Notion role/team and inspect relevant source-admitted Notion-aligned records before promoting beyond general platform alignment.",
         "ordinal": 0,
         "stage": "MAPPED_ONLY"
       },
@@ -2029,7 +2021,7 @@
       ],
       "company_id": "coreweave",
       "display_name": "CoreWeave",
-      "gap_or_next_gate": "Promote only through the experiment ladder: prove unique value, add deterministic tests and runtime receipts, integrate surviving mechanisms into a canonical system, then require capability proof and the promotion-score gate. Current source audit found unverified claims and concrete implementation defects, so all five remain private experiments.",
+      "gap_or_next_gate": "Promote only through the experiment ladder: prove unique value, add deterministic tests and runtime receipts, integrate surviving mechanisms into a reference system, then require capability proof and the promotion-score gate. Current source audit found unverified claims and concrete implementation defects, so all five remain private experiments.",
       "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
       "recruiter_thesis": "Five private CoreWeave-named prototypes form one reliability R&D family, not five independent accomplishments. None is recruiter proof until claims are bounded and positive verification receipts exist.",
       "repositories": [],
@@ -2591,29 +2583,99 @@
       "company_id": "github",
       "display_name": "GitHub",
       "gap_or_next_gate": "Run exact-name plus semantic estate discovery, verify provenance and unique value, map current public company pressures from official sources, then admit only repositories with bounded evidence.",
-      "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+      "non_affiliation": "Independent GlacierEQ work; no GitHub affiliation, endorsement, employment, proprietary access, adoption, or production deployment is claimed.",
       "recruiter_thesis": "High-fit strategic target identified from estate capability alignment. No company-specific accomplishment is claimed without direct repository and proof admission.",
       "repositories": [],
       "second_depth": {
         "blockers": [
-          "current_role_not_verified",
-          "company_problem_not_bounded",
-          "repository_code_not_inspected",
-          "proof_not_reproduced"
+          "github_adoption_not_claimed",
+          "github_capability_production_scale_not_demonstrated",
+          "private_implementation_source_not_public"
         ],
-        "claim_ceiling": "company_alignment_only",
+        "claim_ceiling": "proof_bound_company_specific",
         "evidence": {
-          "claim_receipts": [],
-          "gap_queue": [],
-          "implementation_receipts": [],
-          "inspected_repositories": [],
-          "problem_evidence": [],
-          "proof_artifacts": [],
-          "role_evidence": []
+          "claim_receipts": [
+            {
+              "id": "github_claim_bounded_public_claim",
+              "kind": "claim_receipt",
+              "source_identity": "https://github.com/GlacierEQ/job-application/blob/577f63c506c6c4df9c1751a0ff5b8fa07822e491/projects/github-merge-authority-proof/proof/claim-receipt.json",
+              "source_ref": "commit:577f63c506c6c4df9c1751a0ff5b8fa07822e491",
+              "verification_state": "VERIFIED",
+              "visibility": "public"
+            },
+            {
+              "id": "github_claim_production_projection_closure",
+              "kind": "claim_receipt",
+              "source_identity": "https://github.com/GlacierEQ/job-application/blob/577f63c506c6c4df9c1751a0ff5b8fa07822e491/projects/github-merge-authority-proof/proof/production-projection-closure.json",
+              "source_ref": "commit:577f63c506c6c4df9c1751a0ff5b8fa07822e491",
+              "verification_state": "VERIFIED",
+              "visibility": "public"
+            }
+          ],
+          "gap_queue": [
+            {
+              "id": "github_remedy_merge_authority_contract",
+              "kind": "bounded_gap",
+              "source_identity": "https://github.com/GlacierEQ/job-application/blob/7d41cfd84eb9e98fbdeb9fd7ca5be10515397c13/projects/github-merge-authority-proof/machine/remedy-contract.json",
+              "source_ref": "commit:7d41cfd84eb9e98fbdeb9fd7ca5be10515397c13",
+              "verification_state": "VERIFIED",
+              "visibility": "public"
+            }
+          ],
+          "implementation_receipts": [
+            {
+              "id": "github_implementation_merge_authority",
+              "kind": "implementation_receipt",
+              "source_identity": "https://github.com/GlacierEQ/job-application/blob/7d41cfd84eb9e98fbdeb9fd7ca5be10515397c13/projects/github-merge-authority-proof/proof/implementation-receipt.json",
+              "source_ref": "commit:7d41cfd84eb9e98fbdeb9fd7ca5be10515397c13",
+              "verification_state": "VERIFIED",
+              "visibility": "public"
+            }
+          ],
+          "inspected_repositories": [
+            {
+              "id": "github_inspection_merge_authority_private_hash_boundary",
+              "kind": "repository_inspection",
+              "source_identity": "https://github.com/GlacierEQ/job-application/blob/7d41cfd84eb9e98fbdeb9fd7ca5be10515397c13/projects/github-merge-authority-proof/machine/implementation-inspection.json",
+              "source_ref": "commit:7d41cfd84eb9e98fbdeb9fd7ca5be10515397c13",
+              "verification_state": "VERIFIED",
+              "visibility": "public"
+            }
+          ],
+          "problem_evidence": [
+            {
+              "id": "github_problem_agentic_repository_promotion",
+              "kind": "problem",
+              "source_identity": "https://github.com/GlacierEQ/job-application/blob/7d41cfd84eb9e98fbdeb9fd7ca5be10515397c13/projects/github-merge-authority-proof/evidence/github-problem.json",
+              "source_ref": "commit:7d41cfd84eb9e98fbdeb9fd7ca5be10515397c13",
+              "verification_state": "VERIFIED",
+              "visibility": "public"
+            }
+          ],
+          "proof_artifacts": [
+            {
+              "id": "github_proof_merge_authority_reference_reproduction",
+              "kind": "proof_artifact",
+              "source_identity": "https://github.com/GlacierEQ/job-application/blob/7d41cfd84eb9e98fbdeb9fd7ca5be10515397c13/projects/github-merge-authority-proof/proof/reference-reproduction.json",
+              "source_ref": "commit:7d41cfd84eb9e98fbdeb9fd7ca5be10515397c13",
+              "verification_state": "REPRODUCED",
+              "visibility": "public"
+            }
+          ],
+          "role_evidence": [
+            {
+              "id": "github_role_mission_control_5611",
+              "kind": "role",
+              "source_identity": "https://github.com/GlacierEQ/job-application/blob/7d41cfd84eb9e98fbdeb9fd7ca5be10515397c13/projects/github-merge-authority-proof/evidence/github-role-5611.json",
+              "source_ref": "commit:7d41cfd84eb9e98fbdeb9fd7ca5be10515397c13",
+              "verification_state": "VERIFIED",
+              "visibility": "public"
+            }
+          ]
         },
-        "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
-        "ordinal": 0,
-        "stage": "MAPPED_ONLY"
+        "next_gate": "Maintain the proof-bound public claim and its production projection receipts. Any future claim of GitHub adoption, GitHub production deployment, or production-scale reliability requires new public evidence and a new gate; none is claimed here.",
+        "ordinal": 7,
+        "stage": "CLAIM_PROMOTED"
       },
       "source_shard": "manifests/company_dossiers/expansion_targets.json",
       "target_roles": [
@@ -2678,7 +2740,7 @@
       ],
       "company_id": "mongodb",
       "display_name": "MongoDB",
-      "gap_or_next_gate": "Keep all direct-name forks excluded from authorship. Search canonical GlacierEQ systems for original MongoDB-relevant capabilities—governed MCP/database access, persistent agent state, connector security, observability, and database-grounded workflows—and admit only provenance-verified implementations with current proof.",
+      "gap_or_next_gate": "Keep all direct-name forks excluded from authorship. Search reference GlacierEQ systems for original MongoDB-relevant capabilities—governed MCP/database access, persistent agent state, connector security, observability, and database-grounded workflows—and admit only provenance-verified implementations with current proof.",
       "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
       "recruiter_thesis": "Three direct-name estate repositories exist, but GitHub metadata proves all three are upstream forks. They are useful reference and integration-context evidence, not Casey-authored MongoDB proof.",
       "repositories": [],
@@ -3560,7 +3622,7 @@
       "display_name": "MotherDuck",
       "gap_or_next_gate": "Compile the public gateway donor's bounded MotherDuck capabilities and exact-head proof into role projections. Promote additional generic analytics mechanisms only after they exist in a neutral recruiter-eligible donor with independently verified evidence.",
       "non_affiliation": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
-      "recruiter_thesis": "A public non-fork canonical gateway donor provides two transferable MotherDuck mechanisms: a bounded query facade and structured connector health telemetry. Recruiter projection stays capability-led and makes no production deployment or affiliation claim.",
+      "recruiter_thesis": "A public non-fork reference gateway donor provides two transferable MotherDuck mechanisms: a bounded query facade and structured connector health telemetry. Recruiter projection stays capability-led and makes no production deployment or affiliation claim.",
       "repositories": [],
       "second_depth": {
         "blockers": [
@@ -7025,22 +7087,6 @@
           "level": "L3",
           "promotion_state": "REFERENCE_ONLY",
           "provenance_state": "ORIGINAL_CANDIDATE",
-          "repository": "GlacierEQ/AEON-777",
-          "visibility": "public"
-        },
-        {
-          "inventory_scope": "HELIX_ADMITTED",
-          "level": "L5",
-          "promotion_state": "PROMOTED",
-          "provenance_state": "ORIGINAL_CANDIDATE",
-          "repository": "GlacierEQ/AKOS",
-          "visibility": "public"
-        },
-        {
-          "inventory_scope": "HELIX_ADMITTED",
-          "level": "L3",
-          "promotion_state": "REFERENCE_ONLY",
-          "provenance_state": "ORIGINAL_CANDIDATE",
           "repository": "GlacierEQ/GlacierEQ_Swarm",
           "visibility": "public"
         },
@@ -7165,7 +7211,7 @@
   ],
   "company_second_depth": {
     "boundary": "Second-depth state is Helix-governed. Public claim ceilings advance only when pinned public evidence satisfies every cumulative stage prerequisite.",
-    "content_sha256": "6df29f45139a99c22d1530c9c09db8e323f0bed7e68b1205be36cbfd6d715d58",
+    "content_sha256": "7eba15263ab1a872a7a6bb0eefd2b150badc140105d400ecfa6d31e8155ad74f",
     "priority_wave": [
       "lockheed_martin",
       "openai",
@@ -7223,21 +7269,11 @@
   },
   "evidence": {
     "boundary": "Repository-native receipts remain authoritative; this public bundle carries only source identity, not unfiltered evidence rows.",
-    "content_sha256": "25170fe029a3fb19d6a7a344daffa6d8c58e85094745677bd78e989a0eaf8943",
+    "content_sha256": "6e64fb3753ab18dc57a12bb7873c423105ee466c3569129ce22bbe958e6e2d99",
     "schema": "glaciereq.live-repository-evidence-registry.v1",
     "source_path": "manifests/live_repository_evidence.json"
   },
   "flagships": [
-    {
-      "evidence": "Diligence records 118/118 per interpreter, 10/10 Forge, 4/4 PSYSOC-X.",
-      "level": "L5",
-      "next_gate": "Current connector/artifact lifecycle receipts; isolate case-specific paths.",
-      "public_surface": "PUBLIC_ALLOWLIST_REQUIRED",
-      "repository": "GlacierEQ/AKOS",
-      "role": "Authority/evidence/tool-state/closure runtime",
-      "state": "PROMOTED",
-      "system_id": "akos"
-    },
     {
       "evidence": "A- verified-with-hardening; external production references separate from local proof.",
       "level": "L4",
@@ -7249,7 +7285,7 @@
       "system_id": "tower_of_babel"
     },
     {
-      "evidence": "Canonical 4a1ca8e5: 140/140 Node 22 tests; live GitHub Contents canary performed 2 writes/5 reads, recovered a deliberately lost success response to confirmed_applied, preserved restart-readable recovery evidence, and blocked replay before a third write.",
+      "evidence": "Source-bound 4a1ca8e5: 140/140 Node 22 tests; live GitHub Contents canary performed 2 writes/5 reads, recovered a deliberately lost success response to confirmed_applied, preserved restart-readable recovery evidence, and blocked replay before a third write.",
       "level": "L4",
       "next_gate": "Add a second real provider contract and multi-host coordination before any distributed or provider-transactional exactly-once claim.",
       "public_surface": "PUBLIC",
@@ -7271,10 +7307,10 @@
     {
       "evidence": "Strong public/private contract and release-candidate website checks.",
       "level": "L4",
-      "next_gate": "Bind production bytes to canonical Git SHA.",
+      "next_gate": "Bind production bytes to reference Git SHA.",
       "public_surface": "PUBLIC",
       "repository": "GlacierEQ/job-application",
-      "role": "Canonical recruiter/runtime source",
+      "role": "Source-bound recruiter/runtime source",
       "state": "PROMOTED",
       "system_id": "job_application"
     }
@@ -7291,14 +7327,16 @@
     "Company second-depth stage, ordinal, claim ceiling, blockers, next gate, and public evidence references are Helix-governed invariants and may not be inferred or promoted downstream.",
     "Every projected second-depth evidence reference must remain public, immutable-source-bound, structurally validated, and sufficient for its declared stage.",
     "No private repository identity or private operational metadata may enter the generated public snapshot.",
-    "Every generated snapshot is bound to one immutable Helix commit."
+    "Every generated snapshot is bound to one immutable Helix commit.",
+    "Fixed repository, company, and relation counts may describe a snapshot but may never define portfolio membership.",
+    "Company projections consume the Helix estate mesh and never own duplicate repository truth."
   ],
   "inventory": {
     "identities_withheld_from_public_bundle": true,
     "portfolio_root": "job-app-helix",
     "root_repositories": 1,
-    "total_repositories": 67,
-    "workspace_repositories": 66
+    "total_repositories": 63,
+    "workspace_repositories": 62
   },
   "language_fit": {
     "entries": [
@@ -7325,7 +7363,7 @@
         "verification_state": "VERIFIED"
       },
       {
-        "boundary": "Repository-local interchange and receipt artifacts; not the canonical cross-language wire schema.",
+        "boundary": "Repository-local interchange and receipt artifacts; not the reference cross-language wire schema.",
         "build_command": "python -m job_app_helix.readme_mesh_cli build --output-dir artifacts/readme-mesh",
         "evidence_receipt": "docs/README_MESH_ROLLOUT_2026-07-28.md",
         "interface_contract": "UTF-8 JSON objects with explicit schema identifiers and deterministic field semantics.",
@@ -7358,27 +7396,27 @@
       "raw_url": "https://raw.githubusercontent.com/GlacierEQ/job-app-helix/main/manifests/portfolio_root_truth.json",
       "repository": "GlacierEQ/job-app-helix"
     },
-    "root_ref": "a1628a682dce096bdcbcfe17a3b7a9a4ada84211",
-    "root_version": "1.1.0",
-    "source_digest": "8d1cff1f36914f819af35d75b989f79df44acd9c654038c819c06e389c6aa3c0",
+    "root_ref": "0a718289efe4ea038ee7929be425bb4e3f0ab082",
+    "root_version": "1.2.0",
+    "source_digest": "b136a7ad183d7506cc0aa6abb5b450bee3afae625518b2d7fa8894ef54016862",
     "source_hashes": {
       "manifests/application_intelligence/company_bottleneck_atlas.external.json": "2d93f4e0c736426dcf6904be6d0139075a48c78f3051278becf05703ee67f654",
       "manifests/company_dossiers.json": "ba686d5f26d77098ae64c8df33ac9ec397a68169ec9a026ddecd0a07fe5d3ac1",
-      "manifests/company_dossiers/additional_targets.json": "cdafae69f78d6c45a65b8c8f64eb213e12404b4cb9580ebc3ced49b1e75d4096",
-      "manifests/company_dossiers/expansion_targets.json": "ec4c2c095d002e111f0a508e89188c9678ddf3de4e21ccb66fab233700ce78e0",
+      "manifests/company_dossiers/additional_targets.json": "e38877d353ab2a752e149507e4a811906bfc2a1ce9055f7a47894d38beb7a063",
+      "manifests/company_dossiers/expansion_targets.json": "5c6022ba97839460d6ef481a0b479bdb27a6f9b3905fc63766d8828dc584f750",
       "manifests/company_dossiers/frontier_ai.json": "f72e7b9ba2defc3dcfd9c3d56e7f20994ee4117a09d4d218c13baf070a7afb4c",
       "manifests/company_dossiers/glaciereq_core.json": "07c9cb10c98702fa409ad60ab725cdb085423a58c4ec292612a686c3f4b7bdae",
       "manifests/company_dossiers/innovation_expansion_2026_08_09.json": "2c7cc61cbc85c2a59456d738b01fb14e4ba1e602fab662a43ed45dda5ccd2d63",
       "manifests/company_dossiers/model_product_companies.json": "5fab1848b36de973fda5ca8cb46ecc342540a95036be9b83e1d9fdbd92e6db27",
       "manifests/company_dossiers/platform_infrastructure.json": "93a864ed5fae0ef9c78f026b4cd0b050be239f9b454a6545fc5b1d5efc756a5d",
-      "manifests/company_second_depth.json": "6df29f45139a99c22d1530c9c09db8e323f0bed7e68b1205be36cbfd6d715d58",
-      "manifests/estate_compiler.json": "f0aeff92c8b347d704bf90fbaf8c87005017ad8bf0534c9bb0d0ec744aec8f92",
-      "manifests/estate_projection_policy.json": "95517ada8d5535e6b730f301203083d56b056691b0400d8e6a1137f31a250de5",
-      "manifests/flagship_registry.json": "8444aba20e409150846f8179645fd09b55e14e24bbd6ebab93ce65f410518ee0",
-      "manifests/language_fit.json": "424dcf0ffb56b531ca4295cca5011f179d606e67527d1b311e43aa12ef241258",
-      "manifests/live_repository_evidence.json": "25170fe029a3fb19d6a7a344daffa6d8c58e85094745677bd78e989a0eaf8943",
-      "manifests/portfolio_repositories.json": "514ae2516e4060d044e45366aaa774b92f10426ad5bb71257dd97ea6a89778d0",
-      "manifests/portfolio_root_truth.json": "0e918cb3e425162fbce1649eec7b0268b0ea27f671d35645e3ac693af5a99dda"
+      "manifests/company_second_depth.json": "7eba15263ab1a872a7a6bb0eefd2b150badc140105d400ecfa6d31e8155ad74f",
+      "manifests/estate_compiler.json": "51c5efffc945ee65e4f9fda2945099fb548227351d9290d50bb967abc6e7ea2d",
+      "manifests/estate_projection_policy.json": "515dbd39e35f25a8c5eea414d94fd99a92b01adbb9df03ba09036de2d868ce8c",
+      "manifests/flagship_registry.json": "769dbc595f08ff145f349e02f677f38fcfb28b9384932de7da5f3abc4fa748f4",
+      "manifests/language_fit.json": "ecd1e164a8ffbbaae203a570dfc5e698521a8b8f9f7e6fa0f001f16775b4fba3",
+      "manifests/live_repository_evidence.json": "6e64fb3753ab18dc57a12bb7873c423105ee466c3569129ce22bbe958e6e2d99",
+      "manifests/portfolio_repositories.json": "ec655354fe7ed03cc985cc0d206e90616125e8af69140fe63c9ff11d7ab85a16",
+      "manifests/portfolio_root_truth.json": "928a4c25a24750109633fff02e81128b2ab41cf24e9d18b1b72909181b013002"
     }
   }
 }

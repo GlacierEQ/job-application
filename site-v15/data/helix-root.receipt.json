@@ -1,13 +1,13 @@
 {
   "company_second_depth_source": "manifests/company_second_depth.json",
   "company_tracks": 166,
-  "consumed_source_digest": "8d1cff1f36914f819af35d75b989f79df44acd9c654038c819c06e389c6aa3c0",
+  "consumed_source_digest": "b136a7ad183d7506cc0aa6abb5b450bee3afae625518b2d7fa8894ef54016862",
   "consumer_repository": "GlacierEQ/job-application",
   "output_path": "site-v15/data/helix-root.json",
-  "output_sha256": "8141986ea5b303700b5e50c3fb297e967da99c97ee8059a7effad3ee9eb894a9",
+  "output_sha256": "beaa9fa6bbf7b68f6c3b817f31b6e8d5ae564bddcfcc94e803787fcca37c8ce9",
   "projection_id": "public_portal",
-  "root_version": "1.1.0",
+  "root_version": "1.2.0",
   "schema": "glaciereq.portfolio-projection-receipt.v1",
-  "source_commit": "a1628a682dce096bdcbcfe17a3b7a9a4ada84211",
+  "source_commit": "0a718289efe4ea038ee7929be425bb4e3f0ab082",
   "status": "PASS"
 }

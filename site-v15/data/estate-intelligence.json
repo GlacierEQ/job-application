@@ -1,10 +1,5 @@
 {
   "policy": {
-    "audience_caps": {
-      "company_reviewer": 5,
-      "recruiter": 10,
-      "senior_engineer": 20
-    },
     "internal_receipts_runner_local": true,
     "private_repository_identities_excluded": true,
     "role_fit_is_capability_overlap_not_hiring_prediction": true,
@@ -1330,7 +1325,7 @@
   ],
   "schema": "glaciereq.public-estate-intelligence.v1",
   "source": {
-    "authority_commit": "8345955b67f163c3215b23195a267b6021a5be5e",
+    "authority_commit": "0a718289efe4ea038ee7929be425bb4e3f0ab082",
     "external_manifest_path": "manifests/application_intelligence/company_bottleneck_atlas.external.json",
     "external_manifest_sha256": "2d93f4e0c736426dcf6904be6d0139075a48c78f3051278becf05703ee67f654",
     "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",

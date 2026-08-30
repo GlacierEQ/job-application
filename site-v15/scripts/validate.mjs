@@ -19,6 +19,7 @@ const paths = {
   master: 'master/index.html',
   mesh: 'mesh/index.html',
   machine: 'machine/index.html',
+  hire: 'hire/index.html',
   notFound: '404.html',
   css: 'assets/site.css',
   cssSystems: 'assets/site.systems.css',
@@ -41,12 +42,12 @@ const paths = {
 for (const filePath of Object.values(paths)) await exists(filePath);
 
 const [
-  recruiter, resume, master, mesh, machine, notFound,
+  recruiter, resume, master, mesh, machine, hire, notFound,
   cssBase, cssSystems, cssComplete,
   portfolioText, currentProofText, companiesText, profilesText, resumeArtifactsText,
   ats, vercelText, sitemap, robots, llms,
 ] = await Promise.all([
-  read(paths.recruiter), read(paths.resume), read(paths.master), read(paths.mesh), read(paths.machine), read(paths.notFound),
+  read(paths.recruiter), read(paths.resume), read(paths.master), read(paths.mesh), read(paths.machine), read(paths.hire), read(paths.notFound),
   read(paths.css), read(paths.cssSystems), read(paths.cssComplete),
   read(paths.portfolio), read(paths.currentProof), read(paths.companies), read(paths.profiles), read(paths.resumeArtifacts),
   read(paths.ats), read(paths.vercel), read(paths.sitemap), read(paths.robots), read(paths.llms),
@@ -59,7 +60,7 @@ const companies = JSON.parse(companiesText);
 const profiles = JSON.parse(profilesText);
 const resumeArtifacts = JSON.parse(resumeArtifactsText);
 const vercel = JSON.parse(vercelText);
-const pages = { recruiter, resume, master, mesh, machine, notFound };
+const pages = { recruiter, resume, master, mesh, machine, hire, notFound };
 
 async function discoverHtml(directory) {
   const out = [];
@@ -109,7 +110,7 @@ for (const token of [
   'I make powerful AI <em>dependable enough to use.</em>',
 ]) assert(recruiter.includes(token), `recruiter missing ${token}`);
 assert(recruiter.includes('cockpit') && recruiter.includes('bento') && recruiter.includes('pipeline'), 'cutting-edge visual hierarchy missing');
-for (const route of ['/master/', '/mesh/', '/machine/', '/resume/', '/companies/', '/atlas/']) {
+for (const route of ['/master/', '/mesh/', '/machine/', '/resume/', '/hire/', '/companies/', '/atlas/']) {
   assert(new RegExp(`href\\s*=\\s*["']${route.replaceAll('/', '\\/')}["']`, 'i').test(recruiter), `route missing ${route}`);
 }
 
@@ -174,6 +175,11 @@ for (const token of [
 ]) assert(master.includes(token), `V23 master evidence drift: ${token}`);
 assert(master.includes('The owning system keeps the proof.') && master.includes('Current heads do not inherit historical test receipts.'), 'master evidence policy missing');
 assert(machine.includes('/data/portfolio.json') && machine.includes('/data/company-families.json') && machine.includes('/data/psysoc-x-profiles.json'), 'machine links incomplete');
+assert(hire.includes('github.com/GlacierEQ/the-tower-of-babel'), 'hire missing Babel source');
+assert(hire.includes('github.com/GlacierEQ/monolith'), 'hire missing Monolith source');
+assert(hire.includes('snowball OS') && hire.includes('private source'), 'hire missing mega-skills public method');
+assert(!hire.includes('github.com/GlacierEQ/mega-skills'), 'hire must not dead-link private mega-skills');
+assert(notFound.includes('href="/hire/"'), '404 missing hire recovery');
 
 assert(companies.schema === 'glaciereq.public-company-mesh.v15', 'company schema drift');
 assert(companies.families.length === 27 && companies.totals.families === 27 && companies.totals.unique_repositories === 200 && companies.totals.memberships === 203 && companies.totals.unprocessed === 78 && companies.totals.reference_or_upstream === 34, 'company totals drift');
@@ -198,11 +204,11 @@ for (const selector of ['.bento-card p', '.master-card p', '.branch p']) {
   assert(cssSystems.includes(selector), `print contrast selector missing ${selector}`);
 }
 
-for (const route of ['/', '/resume/', '/master/', '/mesh/', '/machine/']) {
+for (const route of ['/', '/hire/', '/resume/', '/master/', '/mesh/', '/machine/']) {
   assert(sitemap.includes(`https://casey-barton-glaciereq.vercel.app${route}`), `sitemap missing ${route}`);
 }
 assert(robots.includes('Sitemap: https://casey-barton-glaciereq.vercel.app/sitemap.xml'), 'robots missing sitemap');
-assert(llms.includes('/data/portfolio.json') && llms.includes('/data/psysoc-x-profiles.json') && llms.includes('/data/current-proof.json'), 'LLM orientation incomplete');
+assert(llms.includes('/data/portfolio.json') && llms.includes('/data/psysoc-x-profiles.json') && llms.includes('/data/current-proof.json') && llms.includes('/hire/'), 'LLM orientation incomplete');
 
 assert(resumeArtifacts.schema === 'glaciereq.resume-artifacts.v17', 'resume artifact manifest schema drift');
 const pdf = await bytes(paths.pdf);
@@ -215,7 +221,7 @@ assert(resumeArtifacts.artifacts.pdf.sha256 === pdfHash, 'PDF manifest hash drif
 assert(ats.includes('CASEY DEL CARPIO BARTON'), 'ATS resume identity missing');
 assert(Buffer.byteLength(ats, 'utf8') > 3000, 'ATS resume unexpectedly small');
 
-const legacyRoutes = ['/', '/resume/', '/master/', '/mesh/', '/machine/'];
+const legacyRoutes = ['/', '/hire/', '/resume/', '/master/', '/mesh/', '/machine/'];
 const visualContracts = [
   'cockpit',
   'radar',

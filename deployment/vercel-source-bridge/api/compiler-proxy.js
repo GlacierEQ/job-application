@@ -4,7 +4,7 @@ const estateProxy = require('./estate-proxy.js');
 const proxy = require('./proxy.js');
 const typographyProxy = require('./typography-proxy.js');
 
-const COMPILER_HELIX_COMMIT = '8345955b67f163c3215b23195a267b6021a5be5e';
+const COMPILER_HELIX_COMMIT = '0a718289efe4ea038ee7929be425bb4e3f0ab082';
 const HELIX_RAW = `https://raw.githubusercontent.com/GlacierEQ/job-app-helix/${COMPILER_HELIX_COMMIT}/`;
 const COMPANY_INDEX_PATH = 'manifests/company_dossiers.json';
 const SECOND_DEPTH_PATH = 'manifests/company_second_depth.json';
@@ -671,7 +671,7 @@ async function verifyV25(res) {
       machine_projection: html.includes('/data/application-compiler.json'),
     };
     if (data.projection.source_commit !== COMPILER_HELIX_COMMIT) errors.push('compiler_projection_authority_mismatch');
-    if (data.projection.company_count !== 76) errors.push('compiler_company_count');
+    if (data.projection.company_count !== 166) errors.push('compiler_company_count');
     if (route.route.company_id !== 'openai') errors.push('compiler_openai_route_missing');
     if (!route.observed_pressure) errors.push('compiler_openai_pressure_missing');
     if (!page.script_free || !page.inline_style_free) errors.push('compiler_script_free_contract_failed');

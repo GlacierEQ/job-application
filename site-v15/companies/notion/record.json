@@ -5,12 +5,6 @@
   "id": "notion",
   "repos": [
     {
-      "id": "GlacierEQ/notion-mcp-empowerment-engine",
-      "lvl": "L3",
-      "provenance": "ORIGINAL_CANDIDATE",
-      "state": "REFERENCE_ONLY"
-    },
-    {
       "id": "GlacierEQ/notion-workflow-intelligence",
       "lvl": "L3",
       "provenance": "ORIGINAL_CANDIDATE",
@@ -47,7 +41,7 @@
       "proof_artifacts": [],
       "role_evidence": []
     },
-    "next_gate": "Verify a current public Notion role/team and inspect the exact recruiter-admitted Notion-aligned repositories before promoting beyond general platform alignment.",
+    "next_gate": "Verify a current public Notion role/team and inspect relevant source-admitted Notion-aligned records before promoting beyond general platform alignment.",
     "ordinal": 0,
     "stage": "MAPPED_ONLY"
   },

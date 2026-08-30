@@ -14,7 +14,8 @@ const RESUME = path.join(SITE, 'resume', 'index.html');
 // Recruiter compression should reduce decision noise, not erase the estate's
 // strongest problem-first discovery surface. Inventions earns a primary slot
 // because it routes capability -> systems -> evidence without exposing raw repo volume.
-const RECRUITER_NAV = '<nav class="links" aria-label="Primary navigation"><a href="#proof">Proof</a><a href="#systems">Systems</a><a href="/inventions/">Inventions</a><a href="/resume/">Résumé</a><a href="/master/">Technical</a></nav>';
+// /hire/ is the human door onto that stack; a rebuild must not wipe it.
+const RECRUITER_NAV = '<nav class="links" aria-label="Primary navigation"><a href="#proof">Proof</a><a href="#systems">Systems</a><a href="/inventions/">Inventions</a><a href="/hire/">Hire</a><a href="/resume/">Résumé</a><a href="/master/">Technical</a></nav>';
 const PRIMARY_NAV_RE = /<nav class="links" aria-label="Primary navigation">[\s\S]*?<\/nav>/;
 const ATS_LINK_RE = /<a\b[^>]*href=["']\/resume\/ats\.txt["'][^>]*>[\s\S]*?<\/a>/g;
 
@@ -28,6 +29,7 @@ const REQUIRED_STATIC_DEEP_ROUTES = [
   'machine/index.html',
   'atlas/index.html',
   'inventions/index.html',
+  'hire/index.html',
   'resume/index.html',
 ];
 
@@ -68,7 +70,7 @@ function extractPrimaryNav(source) {
 function validate(home, resume) {
   const nav = extractPrimaryNav(home);
   const hrefs = [...nav.matchAll(/<a\b[^>]*href=["']([^"']+)["']/g)].map((match) => match[1]);
-  const expected = ['#proof', '#systems', '/inventions/', '/resume/', '/master/'];
+  const expected = ['#proof', '#systems', '/inventions/', '/hire/', '/resume/', '/master/'];
   if (JSON.stringify(hrefs) !== JSON.stringify(expected)) {
     throw new Error(`recruiter_nav_contract_failed:${JSON.stringify(hrefs)}`);
   }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://casey-barton-glaciereq.vercel.app/</loc><priority>1.0</priority></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/hire/</loc><priority>0.95</priority></url>
   <url><loc>https://casey-barton-glaciereq.vercel.app/resume/</loc><priority>0.9</priority></url>
   <url><loc>https://casey-barton-glaciereq.vercel.app/master/</loc><priority>0.8</priority></url>
   <url><loc>https://casey-barton-glaciereq.vercel.app/mesh/</loc><priority>0.8</priority></url>
@@ -55,6 +56,7 @@
   <url><loc>https://casey-barton-glaciereq.vercel.app/atlas/lockheed-martin/</loc></url>
   <url><loc>https://casey-barton-glaciereq.vercel.app/atlas/nasa/</loc></url>
   <url><loc>https://casey-barton-glaciereq.vercel.app/atlas/glaciereq-core/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/atlas/starmap/</loc></url>
   <url><loc>https://casey-barton-glaciereq.vercel.app/companies/openai/</loc></url>
   <url><loc>https://casey-barton-glaciereq.vercel.app/companies/anthropic/</loc></url>
   <url><loc>https://casey-barton-glaciereq.vercel.app/companies/google-deepmind/</loc></url>
@@ -130,5 +132,95 @@
   <url><loc>https://casey-barton-glaciereq.vercel.app/companies/weaviate/</loc></url>
   <url><loc>https://casey-barton-glaciereq.vercel.app/companies/qdrant/</loc></url>
   <url><loc>https://casey-barton-glaciereq.vercel.app/companies/motherduck/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/apptronik/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/arm/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/astera-labs/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/braintrust/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/clickhouse/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/etched/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/figure-ai/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/langchain/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/obsidian-security/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/safe-superintelligence-ssi/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/shield-ai/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/skild-ai/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/tsmc/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/temporal/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/thinking-machines-lab/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/world-labs/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/1x/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/asml/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/agility-robotics/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/arista-networks/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/ayar-labs/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/boston-dynamics/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/broadcom/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/calypsoai/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/celestial-ai/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/cisco/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/crowdstrike/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/dell-technologies/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/digital-realty/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/eaton/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/equinix/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/ge-vernova/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/genesis-ai/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/hewlett-packard-enterprise/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/hiddenlayer/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/lightmatter/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/marvell/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/micron/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/noma-security/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/oklo/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/operant-ai/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/palo-alto-networks/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/physical-intelligence/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/rhoda-ai/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/sk-hynix/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/samsung-electronics/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/sanctuary-ai/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/schneider-electric/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/supermicro/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/tenstorrent/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/unitree-robotics/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/vertiv/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/zenity/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/d-matrix/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/anyscale/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/applied-intuition/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/arize-ai/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/aurora-innovation/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/browserbase/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/cockroach-labs/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/confluent/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/docker/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/e2b/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/gecko-robotics/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/hadrian/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/helicone/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/helsing/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/inngest/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/pydantic/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/restate/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/saronic/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/skydio/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/zilliz-milvus/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/ai21-labs/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/baidu/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/bytedance-seed/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/datadog/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/decagon/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/grafana-labs/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/harvey/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/hebbia/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/huawei/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/mercor/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/minimax/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/sap/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/sentry/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/servicenow/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/sierra/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/tencent/</loc></url>
+  <url><loc>https://casey-barton-glaciereq.vercel.app/companies/zhipu-ai-z-ai/</loc></url>
   <url><loc>https://casey-barton-glaciereq.vercel.app/companies/glaciereq-core/</loc></url>
 </urlset>

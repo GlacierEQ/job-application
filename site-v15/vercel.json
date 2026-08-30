@@ -64,6 +64,36 @@
       "source": "/atlas/:slug",
       "destination": "/companies/:slug/",
       "permanent": true
+    },
+    {
+      "source": "/apply",
+      "destination": "/hire/",
+      "permanent": true
+    },
+    {
+      "source": "/apply/",
+      "destination": "/hire/",
+      "permanent": true
+    },
+    {
+      "source": "/jobs",
+      "destination": "/hire/",
+      "permanent": true
+    },
+    {
+      "source": "/jobs/",
+      "destination": "/hire/",
+      "permanent": true
+    },
+    {
+      "source": "/recruiter",
+      "destination": "/hire/",
+      "permanent": true
+    },
+    {
+      "source": "/recruiter/",
+      "destination": "/hire/",
+      "permanent": true
     }
   ]
 }

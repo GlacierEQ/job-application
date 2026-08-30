@@ -7,7 +7,7 @@
     "tower_of_babel",
     "job_application"
   ],
-  "gate": "Promote only through the experiment ladder: prove unique value, add deterministic tests and runtime receipts, integrate surviving mechanisms into a canonical system, then require capability proof and the promotion-score gate. Current source audit found unverified claims and concrete implementation defects, so all five remain private experiments.",
+  "gate": "Promote only through the experiment ladder: prove unique value, add deterministic tests and runtime receipts, integrate surviving mechanisms into a reference system, then require capability proof and the promotion-score gate. Current source audit found unverified claims and concrete implementation defects, so all five remain private experiments.",
   "id": "coreweave",
   "repos": [],
   "roles": [

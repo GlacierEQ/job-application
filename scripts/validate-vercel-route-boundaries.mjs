@@ -36,8 +36,16 @@ for (const forbidden of ['/atlas/:slug/', '/atlas/:slug']) {
   }
 }
 
-if (!String(config.buildCommand || '').includes('node scripts/validate-vercel-route-boundaries.mjs')) {
-  throw new Error('atlas_redirect_contract: Vercel build must execute this route-boundary validator');
+const buildCommand = String(config.buildCommand || '');
+if (buildCommand.length > 256) {
+  throw new Error('atlas_redirect_contract: Vercel buildCommand must stay within the 256-character schema limit');
+}
+const buildWrapper = fs.readFileSync(path.join(ROOT, 'scripts/vercel-build.mjs'), 'utf8');
+if (buildCommand !== 'node scripts/vercel-build.mjs') {
+  throw new Error('atlas_redirect_contract: Vercel build must execute scripts/vercel-build.mjs');
+}
+if (!buildWrapper.includes('scripts/validate-vercel-route-boundaries.mjs')) {
+  throw new Error('atlas_redirect_contract: Vercel build wrapper must execute this route-boundary validator');
 }
 
 console.log(JSON.stringify({

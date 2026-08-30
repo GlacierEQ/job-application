@@ -5,18 +5,6 @@
   "id": "glaciereq_core",
   "repos": [
     {
-      "id": "GlacierEQ/AEON-777",
-      "lvl": "L3",
-      "provenance": "ORIGINAL_CANDIDATE",
-      "state": "REFERENCE_ONLY"
-    },
-    {
-      "id": "GlacierEQ/AKOS",
-      "lvl": "L5",
-      "provenance": "ORIGINAL_CANDIDATE",
-      "state": "PROMOTED"
-    },
-    {
       "id": "GlacierEQ/GlacierEQ_Swarm",
       "lvl": "L3",
       "provenance": "ORIGINAL_CANDIDATE",

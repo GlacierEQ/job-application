@@ -35,7 +35,7 @@
       "proof_artifacts": [],
       "role_evidence": []
     },
-    "next_gate": "Verify a current public OpenAI role/team and inspect the exact admitted KV-sentinel implementation before connecting it to any company-specific engineering problem.",
+    "next_gate": "Verify a current public OpenAI role/team and inspect the source-admitted KV-sentinel implementation before connecting it to any company-specific engineering problem.",
     "ordinal": 0,
     "stage": "MAPPED_ONLY"
   },

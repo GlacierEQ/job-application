@@ -7,7 +7,12 @@
     "facts_invariant": true,
     "generated_on": "2026-08-12",
     "evidence_policy": "claims-do-not-exceed-owning-source-revision-and-receipt",
-    "presentation_layers": ["HUMAN", "MASTER", "MACHINE", "MESH"],
+    "presentation_layers": [
+      "HUMAN",
+      "MASTER",
+      "MACHINE",
+      "MESH"
+    ],
     "invariants": [
       "identity",
       "dates",
@@ -21,13 +26,23 @@
   },
   "basics": {
     "name": "Casey Del Carpio Barton",
-    "label": "Applied AI Systems Architect | Forward-Deployed AI Engineer | Agent Infrastructure Engineer",
+    "label": "Forward-Deployed AI Architect | Principal Agentic Systems Architect | Principal AI Platform Architect",
     "phone": "+1-808-936-5654",
     "email": "glacier.equilibrium@gmail.com",
     "url": "https://casey-barton-glaciereq.vercel.app/",
-    "location": {"city": "Honolulu", "region": "Hawaiʻi", "countryCode": "US"},
-    "profiles": [{"network": "GitHub", "username": "GlacierEQ", "url": "https://github.com/GlacierEQ"}],
-    "summary": "Builds the control layer between powerful models and dependable real-world outcomes: bind identity and authority before execution, carry evidence through the operation, make failure states explicit, reconcile canonical state afterward, and refuse completion when the receipt does not match what actually ran."
+    "location": {
+      "city": "Honolulu",
+      "region": "Hawaiʻi",
+      "countryCode": "US"
+    },
+    "profiles": [
+      {
+        "network": "GitHub",
+        "username": "GlacierEQ",
+        "url": "https://github.com/GlacierEQ"
+      }
+    ],
+    "summary": "AI systems architect who turns ambiguous operating problems into dependable agentic systems using explicit authority, bounded tool execution, longitudinal evaluation, durable recovery, provenance, and human-verifiable completion."
   },
   "work": [
     {
@@ -93,27 +108,86 @@
   "skills": [
     {
       "name": "Evidence-carrying execution",
-      "keywords": ["operation identity", "authority binding", "typed evidence", "receipt verification", "terminal promotion gates"]
+      "keywords": [
+        "operation identity",
+        "authority binding",
+        "typed evidence",
+        "receipt verification",
+        "terminal promotion gates"
+      ]
     },
     {
       "name": "Fail-closed execution and bounded state transitions",
-      "keywords": ["preconditions", "resource ceilings", "ALLOW-CONFIRM-DENY", "deferral", "canonical reconciliation", "explicit failure semantics"]
+      "keywords": [
+        "preconditions",
+        "resource ceilings",
+        "ALLOW-CONFIRM-DENY",
+        "deferral",
+        "canonical reconciliation",
+        "explicit failure semantics"
+      ]
     },
     {
       "name": "Recovery and provenance",
-      "keywords": ["stable identity", "idempotency", "replay boundaries", "integrity hashing", "durable receipts", "known-good state", "rollback"]
+      "keywords": [
+        "stable identity",
+        "idempotency",
+        "replay boundaries",
+        "integrity hashing",
+        "durable receipts",
+        "known-good state",
+        "rollback"
+      ]
     },
     {
       "name": "Agent infrastructure and governance",
-      "keywords": ["multi-agent coordination", "MCP", "tool contracts", "capability-authority separation", "approval models", "state machines", "bounded retries"]
+      "keywords": [
+        "multi-agent coordination",
+        "MCP",
+        "tool contracts",
+        "capability-authority separation",
+        "approval models",
+        "state machines",
+        "bounded retries"
+      ]
     },
     {
       "name": "Primary technology",
-      "keywords": ["Python", "TypeScript", "JavaScript", "SQL", "Bash", "Node.js", "React", "Next.js", "FastAPI", "REST", "JSON-RPC", "MCP", "GitHub Actions", "Docker", "Vercel"]
+      "keywords": [
+        "Python",
+        "TypeScript",
+        "JavaScript",
+        "SQL",
+        "Bash",
+        "Node.js",
+        "React",
+        "Next.js",
+        "FastAPI",
+        "REST",
+        "JSON-RPC",
+        "MCP",
+        "GitHub Actions",
+        "Docker",
+        "Vercel"
+      ]
     },
     {
       "name": "Evidence-bounded polyglot exposure",
-      "keywords": ["Go", "Rust", "C", "C++", "CUDA", "Swift", "Metal", "Julia", "R", "Verilog", "SystemVerilog", "WebAssembly", "Lean 4"]
+      "keywords": [
+        "Go",
+        "Rust",
+        "C",
+        "C++",
+        "CUDA",
+        "Swift",
+        "Metal",
+        "Julia",
+        "R",
+        "Verilog",
+        "SystemVerilog",
+        "WebAssembly",
+        "Lean 4"
+      ]
     }
   ],
   "projects": [
@@ -121,37 +195,70 @@
       "name": "AKOS",
       "url": "https://github.com/GlacierEQ/AKOS",
       "description": "Current-head tested execution authority and delegated-identity verification.",
-      "keywords": ["current_head:eac3cab001306225b99da41c37370528331966dd", "python:3.11-3.13", "collected:200", "passed:199", "skipped:1", "failures:0", "errors:0", "ruff_quality_debt:160"]
+      "keywords": [
+        "current_head:eac3cab001306225b99da41c37370528331966dd",
+        "python:3.11-3.13",
+        "collected:200",
+        "passed:199",
+        "skipped:1",
+        "failures:0",
+        "errors:0",
+        "ruff_quality_debt:160"
+      ]
     },
     {
       "name": "ECHO",
       "url": "https://github.com/GlacierEQ/ECHO",
       "description": "Continuity, idempotent flow, recovery, provenance, and receipt-backed orchestration under an AKOS governance boundary.",
-      "keywords": ["current_head:6acdb3be1739f1659f3cec9f4b7d39d5799cd476", "privacy_boundary_hardened", "tests:48/48", "cli:VERIFIED"]
+      "keywords": [
+        "current_head:6acdb3be1739f1659f3cec9f4b7d39d5799cd476",
+        "privacy_boundary_hardened",
+        "tests:48/48",
+        "cli:VERIFIED"
+      ]
     },
     {
       "name": "The Tower of Babel",
       "url": "https://github.com/GlacierEQ/the-tower-of-babel",
       "description": "Executable technology placement, interoperability, proof gates, and deterministic receipts.",
-      "keywords": ["technology_floors:40", "easy_advanced_exhibits:80", "behavioral_proof_floors:17", "formal_proof_floors:3", "explicitly_gated_floors:9"]
+      "keywords": [
+        "technology_floors:40",
+        "easy_advanced_exhibits:80",
+        "behavioral_proof_floors:17",
+        "formal_proof_floors:3",
+        "explicitly_gated_floors:9"
+      ]
     },
     {
       "name": "Job Application Helix",
       "url": "https://github.com/GlacierEQ/job-app-helix",
       "description": "Portfolio authority for admission, evidence state, company/role alignment, flagship hierarchy, freshness, and public-safe projection policy.",
-      "keywords": ["portfolio_authority", "fail_closed_evidence_ladder", "machine_contracts", "repository_count_not_accomplishment_count"]
+      "keywords": [
+        "portfolio_authority",
+        "fail_closed_evidence_ladder",
+        "machine_contracts",
+        "repository_count_not_accomplishment_count"
+      ]
     },
     {
       "name": "Agent Coordinator",
       "url": "https://github.com/GlacierEQ/anthropic-agent-coordinator",
       "description": "Deterministic dependency, capacity, priority, and shared-budget scheduling.",
-      "keywords": ["pinned_behavioral_evidence", "tests:62/62"]
+      "keywords": [
+        "pinned_behavioral_evidence",
+        "tests:62/62"
+      ]
     },
     {
       "name": "Colossal Agent / Spiral Engine",
       "url": "https://github.com/GlacierEQ/spiral-engine",
       "description": "Biologically inspired systems lineage: nested organization, paired strands, persistent iterative state, and principle/mechanism separation.",
-      "keywords": ["double_helix", "spiral_state_advancement", "pillars_and_pistons", "sanitized_public_description"]
+      "keywords": [
+        "double_helix",
+        "spiral_state_advancement",
+        "pillars_and_pistons",
+        "sanitized_public_description"
+      ]
     }
   ],
   "x_capability_clusters": [
@@ -189,33 +296,102 @@
   "x_systems_lineage": {
     "thesis": "Biological systems -> field diagnosis -> safety-critical physical systems -> engineered AI systems.",
     "mappings": [
-      ["nested biological organization", "system/subsystem/component ownership"],
-      ["membranes and selective permeability", "tool/data/privacy/authority admission boundaries"],
-      ["receptors and signal response", "connectors/events/typed inputs/observability"],
-      ["homeostasis", "health checks/bounded recovery/known-good state/rollback"],
-      ["adaptation", "correction/policy/regression test/next operating cycle"],
-      ["structure/function", "technology placement where every component earns a boundary"],
-      ["morphometric classification", "observable features/measurable signals/defensible state"],
-      ["DNA/double helix", "shared invariants across coordinated strands without collapsed identity"]
+      [
+        "nested biological organization",
+        "system/subsystem/component ownership"
+      ],
+      [
+        "membranes and selective permeability",
+        "tool/data/privacy/authority admission boundaries"
+      ],
+      [
+        "receptors and signal response",
+        "connectors/events/typed inputs/observability"
+      ],
+      [
+        "homeostasis",
+        "health checks/bounded recovery/known-good state/rollback"
+      ],
+      [
+        "adaptation",
+        "correction/policy/regression test/next operating cycle"
+      ],
+      [
+        "structure/function",
+        "technology placement where every component earns a boundary"
+      ],
+      [
+        "morphometric classification",
+        "observable features/measurable signals/defensible state"
+      ],
+      [
+        "DNA/double helix",
+        "shared invariants across coordinated strands without collapsed identity"
+      ]
     ]
   },
   "x_cross_domain_foundation": [
-    {"domain": "scientific_measurement", "organization": "University of Hawaiʻi", "role": "Sea Urchin Morphometric Research", "period": "2016-2017", "scope": "Processed physical measurements of gill structures to support visual species identification."},
-    {"domain": "compressed_gas_systems", "organization": "Hawaiian Diving Adventures and UH Dive Office", "role": "Scuba Tank Technician", "period": "2016-2017", "scope": "Tank filling, transport, inspection and repair support, and gas mixing under safety-critical procedures."},
-    {"domain": "historical_leadership", "organization": "Civil Air Patrol", "role": "Cadet Commander / Search-and-Rescue Ground Team Leader", "period": "2007-2011", "scope": "Historical leadership context; an official 2009 certificate documents Cadet Officer appointment; not represented as formal professional people-management experience."}
+    {
+      "domain": "scientific_measurement",
+      "organization": "University of Hawaiʻi",
+      "role": "Sea Urchin Morphometric Research",
+      "period": "2016-2017",
+      "scope": "Processed physical measurements of gill structures to support visual species identification."
+    },
+    {
+      "domain": "compressed_gas_systems",
+      "organization": "Hawaiian Diving Adventures and UH Dive Office",
+      "role": "Scuba Tank Technician",
+      "period": "2016-2017",
+      "scope": "Tank filling, transport, inspection and repair support, and gas mixing under safety-critical procedures."
+    },
+    {
+      "domain": "historical_leadership",
+      "organization": "Civil Air Patrol",
+      "role": "Cadet Commander / Search-and-Rescue Ground Team Leader",
+      "period": "2007-2011",
+      "scope": "Historical leadership context; an official 2009 certificate documents Cadet Officer appointment; not represented as formal professional people-management experience."
+    }
   ],
   "x_historical_credentials": {
     "status": "CURRENT_STATUS_NOT_ASSERTED",
-    "items": ["PSI Visual Cylinder Inspector", "PSI Eddy Current Technician", "PSI Valve Repair Technician", "PSI Oxygen Cleaning Cylinder Technician", "NAUI Rescue Diver", "NAUI Master Diver", "PADI Enriched Air Diver"]
+    "items": [
+      "PSI Visual Cylinder Inspector",
+      "PSI Eddy Current Technician",
+      "PSI Valve Repair Technician",
+      "PSI Oxygen Cleaning Cylinder Technician",
+      "NAUI Rescue Diver",
+      "NAUI Master Diver",
+      "PADI Enriched Air Diver"
+    ]
   },
   "x_chronology": {
     "classification": "DATED_SEMANTIC_CONVERGENCE_ONLY",
     "anchors": [
-      {"concept": "Pillars & Pistons", "date": "2026-03-16"},
-      {"concept": "Spiral Engine public artifact", "date": "2026-03-24"},
-      {"comparator": "OpenAI public three-pillar/self-improvement architecture", "date": "2026-05-27", "lead_days": [72, 64]}
+      {
+        "concept": "Pillars & Pistons",
+        "date": "2026-03-16"
+      },
+      {
+        "concept": "Spiral Engine public artifact",
+        "date": "2026-03-24"
+      },
+      {
+        "comparator": "OpenAI public three-pillar/self-improvement architecture",
+        "date": "2026-05-27",
+        "lead_days": [
+          72,
+          64
+        ]
+      }
     ],
-    "nonclaims": ["access", "copying", "transmission", "causation", "ownership_of_ordinary_terminology"]
+    "nonclaims": [
+      "access",
+      "copying",
+      "transmission",
+      "causation",
+      "ownership_of_ordinary_terminology"
+    ]
   },
   "x_evidence": {
     "limits": [

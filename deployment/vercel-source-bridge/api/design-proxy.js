@@ -3,7 +3,7 @@ const { URL } = require('node:url');
 const proxy = require('./proxy.js');
 
 const WEB_SOURCE_COMMIT = '95a91fd9b51c77babf51b3bed7c156acfd9d06f7';
-const HELIX_COMMIT = '8345955b67f163c3215b23195a267b6021a5be5e';
+const HELIX_COMMIT = '0a718289efe4ea038ee7929be425bb4e3f0ab082';
 const WEB_RAW_ROOT = `https://raw.githubusercontent.com/GlacierEQ/job-application/${WEB_SOURCE_COMMIT}/site-v15/`;
 const GITHUB_TREE_ROOT = `https://api.github.com/repos/GlacierEQ/job-application/git/trees/${WEB_SOURCE_COMMIT}`;
 const COMPLETE_LINK = '<link rel="stylesheet" href="/assets/site.complete.css">';
@@ -185,7 +185,7 @@ async function verifyGeneratedSurface() {
   const projectionResponse = await captureProxy('data/company-atlas.json');
   if (projectionResponse.status !== 200) throw new Error('company_projection_route_failed');
   const projection = JSON.parse(projectionResponse.body.toString('utf8'));
-  if (projection.company_count < 49 || !Array.isArray(projection.companies)) throw new Error('company_projection_topology_drift');
+  if (projection.company_count < 166 || !Array.isArray(projection.companies)) throw new Error('company_projection_topology_drift');
   let htmlRoutes = 0;
   let recordRoutes = 0;
   for (const route of ['atlas/index.html', 'companies/index.html']) {

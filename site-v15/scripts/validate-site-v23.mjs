@@ -83,7 +83,7 @@ assert((cssActive.match(/{/g) || []).length === (cssActive.match(/}/g) || []).le
 
 const result = {
   schema: 'glaciereq.site-signal-validation.v23', status: 'PASS',
-  routes: ['/', '/resume/', '/master/', '/mesh/', '/machine/', '/atlas/', '/companies/'],
+  routes: ['/', '/hire/', '/resume/', '/master/', '/mesh/', '/machine/', '/atlas/', '/companies/'],
   profiles: Object.keys(profiles.profiles).sort(), facts_invariant: true,
   proof: {
     current_resume_schema: resumeJson.meta.schema,

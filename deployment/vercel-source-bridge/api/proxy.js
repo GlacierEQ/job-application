@@ -2,7 +2,7 @@ const crypto = require('crypto');
 const { URL } = require('node:url');
 
 const SOURCE_COMMIT = '95a91fd9b51c77babf51b3bed7c156acfd9d06f7';
-const HELIX_COMMIT = '8345955b67f163c3215b23195a267b6021a5be5e';
+const HELIX_COMMIT = '0a718289efe4ea038ee7929be425bb4e3f0ab082';
 const RAW_ROOT = `https://raw.githubusercontent.com/GlacierEQ/job-application/${SOURCE_COMMIT}/site-v15/`;
 const HELIX_ROOT = `https://raw.githubusercontent.com/GlacierEQ/job-app-helix/${HELIX_COMMIT}/`;
 const PUBLIC_ORIGIN = 'https://casey-barton-glaciereq.vercel.app';
@@ -404,7 +404,7 @@ function compileProjection(index, shards, secondDepthRegistry) {
   });
 
   companies.sort((a, b) => a.display_name.localeCompare(b.display_name));
-  if (companies.length < 49) throw new Error(`expected >=49 company tracks, received ${companies.length}`);
+  if (companies.length < 166) throw new Error(`expected >=166 company tracks, received ${companies.length}`);
   return {
     schema: 'glaciereq.company-atlas-projection.v2',
     authority: 'GlacierEQ/job-app-helix',
@@ -720,8 +720,8 @@ async function verifyDeployment(res) {
       memberships += company.repositories.length;
     }
     lockheed = projection.companies.find((company) => company.company_id === 'lockheed_martin') || null;
-    const topologyOk = projection.company_count >= 49 && memberships === 59 &&
-      stageCounts.CLAIM_PROMOTED === 1 && Object.values(stageCounts).reduce((a,b)=>a+b,0) === projection.company_count &&
+    const topologyOk = projection.company_count >= 166 && memberships === 59 &&
+      stageCounts.CLAIM_PROMOTED === 2 && Object.values(stageCounts).reduce((a,b)=>a+b,0) === projection.company_count &&
       lockheed && lockheed.repositories.length === 0 &&
       lockheed.second_depth.stage === 'CLAIM_PROMOTED' &&
       lockheed.second_depth.ordinal === 7 &&
