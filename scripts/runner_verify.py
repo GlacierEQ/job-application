@@ -8,6 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 COMMANDS = (
+    ["git", "ls-files", "--error-unmatch", "--", "SHOWCASE.md"],
     [sys.executable, "generate_showcase.py"],
     [sys.executable, "test_showcase.py"],
     ["git", "diff", "--exit-code", "--", "SHOWCASE.md"],
