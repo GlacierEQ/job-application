@@ -74,6 +74,15 @@ for (const [profile, route] of [['recruiter', '/'], ['master', '/master/'], ['ma
   assert(profiles.profiles[profile].route === route, `${profile} route drift`);
 }
 
+assert(profiles.dynamic_adjustment?.governing_function === 'Fixed principles. Adaptive expression.', 'PSYSOC-X governing function drift');
+assert(profiles.dynamic_adjustment?.presentation_truth_states?.join(',') === 'demonstrated,verified,designed_for,aspirational,unknown', 'PSYSOC-X presentation truth states drift');
+assert(profiles.dynamic_adjustment?.aspiration_policy?.includes('label it'), 'PSYSOC-X aspiration labeling policy missing');
+assert(profiles.dynamic_adjustment?.humanization_policy?.includes('Add life'), 'PSYSOC-X humanization policy missing');
+assert(profiles.profiles.recruiter.tone.includes('human') && profiles.profiles.recruiter.tone.includes('aspirational'), 'recruiter calibration lost human/aspirational balance');
+assert(profiles.profiles.recruiter.humor.startsWith('contextual-light'), 'recruiter humor must remain impact-aware, not globally disabled');
+assert(root.includes('capability that holds up in the real world'), 'recruiter hero lost PSYSOC-X human hook');
+assert(root.includes('I do not start from trust. I start from behavior'), 'recruiter operating philosophy drift');
+
 const csp = vercel.headers?.[0]?.headers?.find(item => item.key === 'Content-Security-Policy')?.value ?? '';
 assert(csp.includes("script-src 'none'") && csp.includes("style-src 'self'") && csp.includes("connect-src 'none'") && csp.includes("frame-ancestors 'none'"), 'CSP incomplete');
 for (const token of ['@media print', ':focus-visible', '.terminal']) {
