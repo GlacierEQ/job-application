@@ -107,7 +107,7 @@ for (const token of [
   '69/69',
   '148/148',
   '62/62',
-  'I make powerful AI <em>dependable enough to use.</em>',
+  'I turn frontier AI into <em>capability that holds up in the real world.</em>',
 ]) assert(recruiter.includes(token), `recruiter missing ${token}`);
 assert(recruiter.includes('cockpit') && recruiter.includes('bento') && recruiter.includes('pipeline'), 'cutting-edge visual hierarchy missing');
 for (const route of ['/master/', '/mesh/', '/machine/', '/resume/', '/hire/', '/companies/', '/atlas/']) {
