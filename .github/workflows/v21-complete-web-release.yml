@@ -70,6 +70,7 @@ jobs:
           node scripts/harden-public-proof-surface.mjs
           node scripts/validate-public-proof-surface.mjs
           node site-v15/scripts/validate.mjs
+          node site-v15/scripts/validate-mega-skills.mjs
 
       - name: Exercise immutable V21 static and generated runtime surfaces
         run: |
