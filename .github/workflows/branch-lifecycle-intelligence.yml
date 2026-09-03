@@ -1,0 +1,33 @@
+name: Branch Lifecycle Intelligence
+
+on:
+  pull_request:
+    types: [closed]
+  schedule:
+    - cron: "23 7 * * 0"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: report or apply
+        required: true
+        default: report
+        type: choice
+        options: [report, apply]
+
+permissions:
+  contents: write
+  pull-requests: read
+  actions: read
+
+jobs:
+  lifecycle:
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.merged == true }}
+    uses: GlacierEQ/mega-skills/.github/workflows/branch-lifecycle-intelligence.yml@main
+    with:
+      mode: ${{ github.event_name == 'workflow_dispatch' && inputs.mode || (github.event_name == 'pull_request' && 'apply' || 'report') }}
+      scope: ${{ github.event_name == 'pull_request' && 'event_head' || 'full' }}
+      stale_days: 30
+      minimum_delete_confidence: 95
+      max_branches: 500
+      max_deletes: 100
+    secrets: inherit
