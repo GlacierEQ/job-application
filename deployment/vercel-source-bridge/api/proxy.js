@@ -721,7 +721,16 @@ async function verifyDeployment(res) {
     lockheed = projection.companies.find((company) => company.company_id === 'lockheed_martin') || null;
     const topologyOk = Number.isInteger(projection.company_count) &&
       projection.company_count === projection.companies.length &&
-      stageCounts.CLAIM_PROMOTED >= 1 && Object.values(stageCounts).reduce((a,b)=>a+b,0) === projection.company_count &&
+      projection.companies
+        .filter((company) => company.second_depth.stage === 'CLAIM_PROMOTED')
+        .every((company) => company.second_depth.evidence.claim_receipts.length > 0) &&
+      projection.companies.some((company) =>
+        company.company_id === 'github' &&
+        company.second_depth.stage === 'CLAIM_PROMOTED' &&
+        company.second_depth.claim_ceiling === 'proof_bound_company_specific' &&
+        company.second_depth.evidence.claim_receipts.length >= 2
+      ) &&
+      Object.values(stageCounts).reduce((a,b)=>a+b,0) === projection.company_count &&
       lockheed && lockheed.repositories.length === 0 &&
       lockheed.second_depth.stage === 'CLAIM_PROMOTED' &&
       lockheed.second_depth.ordinal === 7 &&
