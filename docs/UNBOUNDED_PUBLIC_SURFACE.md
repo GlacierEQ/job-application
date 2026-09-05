@@ -9,10 +9,13 @@ flagships, projects, companies, capability routes, or evidence-bearing systems.
 - Orientation order is not portfolio membership.
 - A card, ranking, pagination boundary, or recruiter path may improve comprehension,
   but may not define what exists.
-- Every eligible public project remains discoverable through the Atlas, Mesh, Machine
-  contracts, invention map, company routes, or the owning public repository.
-- Experimental, historical, blocked, reference-only, and unresolved projects remain
-  visible with their actual evidence state when public-safe.
+- Every eligible public or reference-only project remains discoverable through the
+  Atlas, Mesh, Machine contracts, invention map, company routes, or its public
+  repository link.
+- Experimental, historical, and unresolved projects may remain visible with their
+  actual evidence state when public-safe.
+- Blocked and quarantined projects remain preserved for repair or history but are not
+  admitted to public routes unless the owning authority explicitly reclassifies them.
 - Private, sensitive, legal, inaccessible, or unsupported material remains excluded or
   sanitized according to the owning authority.
 

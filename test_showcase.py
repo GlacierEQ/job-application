@@ -40,13 +40,13 @@ class ShowcaseTests(unittest.TestCase):
         self.assertTrue(all(item["visibility"] == "public" for item in flagships))
 
         text = generate_showcase.build(self.manifest)
-        for repo in (
-            "JOB-RESUME-BUILDER-",
-            "AKOS",
-            "pro-code",
-            "xai-colossus-cooling",
-            "job-app-helix",
-        ):
+        expected_repositories = {
+            repository
+            for item in self.manifest["flagships"]
+            for repository in ([item["repo"]] if item.get("repo") else item["repos"])
+        }
+        expected_repositories.add("job-app-helix")
+        for repo in expected_repositories:
             self.assertIn(f"https://github.com/GlacierEQ/{repo}", text)
 
     def test_governance_reconciles_public_flagships_with_helix(self) -> None:
@@ -92,8 +92,8 @@ class ShowcaseTests(unittest.TestCase):
         text = generate_showcase.build(self.manifest)
         public_url = "https://github.com/GlacierEQ/JOB-RESUME-BUILDER-"
         self.assertIn(public_url, text)
-        self.assertIn("truthfulness boundary", text)
-        self.assertIn("adversarial tests", text)
+        self.assertIn("deterministic truthfulness enforcement", text)
+        self.assertIn("tests/truthfulness.test.ts", text)
 
     def test_showcase_rejects_repo_count_hype_and_legal_material(self) -> None:
         text = generate_showcase.build(self.manifest)

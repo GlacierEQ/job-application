@@ -54,6 +54,9 @@ def validate_manifest(data: dict[str, Any]) -> None:
 
     seen_ids: set[str] = set()
     for index, item in enumerate(flagships):
+        if not isinstance(item, dict):
+            raise ValueError(f"flagship {index} must be an object")
+
         required = {
             "id",
             "name",
@@ -122,12 +125,15 @@ def compact_signal(values: list[str]) -> str:
 
 
 def visibility_summary(flagships: list[dict[str, Any]]) -> str:
+    if not flagships:
+        return "No orientation systems are currently listed; the full eligible estate remains reachable through the Atlas and machine contracts."
+
     public_count = sum(item["visibility"] == "public" for item in flagships)
     private_count = len(flagships) - public_count
     if private_count == 0:
         return "All listed orientation systems are public and directly inspectable."
     return (
-        f"{public_count} flagship system(s) are public and directly inspectable; "
+        f"{public_count} orientation system(s) are public and directly inspectable; "
         f"{private_count} remain explicitly labeled for curated review."
     )
 
@@ -193,6 +199,37 @@ def build(data: dict[str, Any]) -> str:
             f"4. Open **[{control_plane}]({github_url(owner, control_plane)})** to inspect how portfolio evidence, README contracts, and repository relationships are governed."
         )
 
+    review_lines = []
+    for index, item in enumerate(flagships, start=1):
+        review_lines.append(
+            f"{index}. **{item['name']}:** inspect its listed implementation, tests, evidence path, and current gaps."
+        )
+    review_lines.extend([
+        f"{len(review_lines) + 1}. **Evidence discipline:** verify that each system separates public source, executable proof, deployment proof, and unresolved scope.",
+        f"{len(review_lines) + 2}. **Portfolio control:** inspect `{control_plane}` for deterministic inventory, planning, verification receipts, and the typed README Mesh.",
+    ])
+    review_text = "\n".join(review_lines)
+
+    role_lines = [
+        "job-application",
+        "├── recruiter-facing portfolio and application portal",
+        "├── open-ended orientation manifest and generated showcase",
+        "└── public machine and evidence entrypoints",
+        "",
+        control_plane,
+        "├── portfolio inventory and verification control plane",
+        "├── README contract and typed repository mesh",
+        "└── deterministic plans and atomic receipts",
+    ]
+    for item in flagships:
+        for index, repository in enumerate(repositories(item)):
+            branch = "└──" if index == len(repositories(item)) - 1 else "├──"
+            role_lines.extend(["", repository, f"{branch} public orientation system; inspect its repository-native evidence"])
+    private_operations = data.get("private_operations_repo")
+    if private_operations:
+        role_lines.extend(["", private_operations, "└── private operations; excluded from the public inventory"])
+    repository_roles = "\n".join(role_lines)
+
     return f"""# GlacierEQ — Engineering Portfolio
 
 > **{data["positioning"]}**
@@ -217,30 +254,12 @@ This portfolio uses an orientation sequence over an open-ended estate. The liste
 
 ## Ten-minute engineering review
 
-1. **Product behavior:** inspect Resume Shapeshifter's API routes, truthfulness boundary, and adversarial tests.
-2. **Governance architecture:** inspect AKOS and pro-code for explicit authority, completion, and engineering-contract surfaces.
-3. **Systems modeling:** inspect xAI Colossus Cooling's assumptions, calculations, and reproducibility path.
-4. **Evidence discipline:** verify that each system separates public source, executable proof, deployment proof, and unresolved scope.
-5. **Portfolio control:** inspect `{control_plane}` for deterministic inventory, planning, verification receipts, and the typed README Mesh.
+{review_text}
 
 ## Repository roles
 
 ```text
-job-application
-├── recruiter-facing portfolio and application portal
-├── evidence-bound flagship manifest
-└── generated showcase and resume entrypoints
-
-{control_plane}
-├── portfolio inventory and verification control plane
-├── README contract and typed repository mesh
-└── deterministic plans and atomic receipts
-
-JOB-RESUME-BUILDER-
-└── public product proof; branded as Resume Shapeshifter
-
-job-app
-└── private resumes, applications, outreach, and status tracking
+{repository_roles}
 ```
 
 ## Release gates

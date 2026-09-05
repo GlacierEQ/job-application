@@ -127,9 +127,9 @@ This portfolio uses an orientation sequence over an open-ended estate. The liste
 
 ## Ten-minute engineering review
 
-1. **Product behavior:** inspect Resume Shapeshifter's API routes, truthfulness boundary, and adversarial tests.
-2. **Governance architecture:** inspect AKOS and pro-code for explicit authority, completion, and engineering-contract surfaces.
-3. **Systems modeling:** inspect xAI Colossus Cooling's assumptions, calculations, and reproducibility path.
+1. **Resume Shapeshifter:** inspect its listed implementation, tests, evidence path, and current gaps.
+2. **AKOS + pro-code:** inspect its listed implementation, tests, evidence path, and current gaps.
+3. **xAI Colossus Cooling:** inspect its listed implementation, tests, evidence path, and current gaps.
 4. **Evidence discipline:** verify that each system separates public source, executable proof, deployment proof, and unresolved scope.
 5. **Portfolio control:** inspect `job-app-helix` for deterministic inventory, planning, verification receipts, and the typed README Mesh.
 
@@ -138,8 +138,8 @@ This portfolio uses an orientation sequence over an open-ended estate. The liste
 ```text
 job-application
 ├── recruiter-facing portfolio and application portal
-├── evidence-bound flagship manifest
-└── generated showcase and resume entrypoints
+├── open-ended orientation manifest and generated showcase
+└── public machine and evidence entrypoints
 
 job-app-helix
 ├── portfolio inventory and verification control plane
@@ -147,10 +147,19 @@ job-app-helix
 └── deterministic plans and atomic receipts
 
 JOB-RESUME-BUILDER-
-└── public product proof; branded as Resume Shapeshifter
+└── public orientation system; inspect its repository-native evidence
+
+AKOS
+├── public orientation system; inspect its repository-native evidence
+
+pro-code
+└── public orientation system; inspect its repository-native evidence
+
+xai-colossus-cooling
+└── public orientation system; inspect its repository-native evidence
 
 job-app
-└── private resumes, applications, outreach, and status tracking
+└── private operations; excluded from the public inventory
 ```
 
 ## Release gates
