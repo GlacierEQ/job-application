@@ -204,10 +204,12 @@ def build(data: dict[str, Any]) -> str:
         review_lines.append(
             f"{index}. **{item['name']}:** inspect its listed implementation, tests, evidence path, and current gaps."
         )
-    review_lines.extend([
-        f"{len(review_lines) + 1}. **Evidence discipline:** verify that each system separates public source, executable proof, deployment proof, and unresolved scope.",
-        f"{len(review_lines) + 2}. **Portfolio control:** inspect `{control_plane}` for deterministic inventory, planning, verification receipts, and the typed README Mesh.",
-    ])
+    review_lines.extend(
+        [
+            f"{len(review_lines) + 1}. **Evidence discipline:** verify that each system separates public source, executable proof, deployment proof, and unresolved scope.",
+            f"{len(review_lines) + 2}. **Portfolio control:** inspect `{control_plane}` for deterministic inventory, planning, verification receipts, and the typed README Mesh.",
+        ]
+    )
     review_text = "\n".join(review_lines)
 
     role_lines = [
@@ -224,10 +226,22 @@ def build(data: dict[str, Any]) -> str:
     for item in flagships:
         for index, repository in enumerate(repositories(item)):
             branch = "└──" if index == len(repositories(item)) - 1 else "├──"
-            role_lines.extend(["", repository, f"{branch} public orientation system; inspect its repository-native evidence"])
+            role_lines.extend(
+                [
+                    "",
+                    repository,
+                    f"{branch} public orientation system; inspect its repository-native evidence",
+                ]
+            )
     private_operations = data.get("private_operations_repo")
     if private_operations:
-        role_lines.extend(["", private_operations, "└── private operations; excluded from the public inventory"])
+        role_lines.extend(
+            [
+                "",
+                private_operations,
+                "└── private operations; excluded from the public inventory",
+            ]
+        )
     repository_roles = "\n".join(role_lines)
 
     return f"""# GlacierEQ — Engineering Portfolio
