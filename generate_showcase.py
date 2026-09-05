@@ -135,7 +135,9 @@ def visibility_summary(flagships: list[dict[str, Any]]) -> str:
 def build(data: dict[str, Any]) -> str:
     owner = data["owner"]
     flagships = data["flagships"]
-    public_flagship = next((item for item in flagships if item["visibility"] == "public"), None)
+    public_flagship = next(
+        (item for item in flagships if item["visibility"] == "public"), None
+    )
     control_plane = data.get("integration_control_plane", "job-app-helix")
 
     sections: list[str] = []
