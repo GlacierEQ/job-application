@@ -50,7 +50,7 @@ def validate_manifest(data: dict[str, Any]) -> None:
 
     flagships = data["flagships"]
     if not isinstance(flagships, list):
-        raise ValueError("manifest flagships must be a list")
+        raise TypeError("manifest flagships must be a list")
 
     seen_ids: set[str] = set()
     for index, item in enumerate(flagships):
@@ -181,15 +181,14 @@ def build(data: dict[str, Any]) -> str:
         start_here = (
             "1. Open the [full Systems Atlas](https://casey-barton-glaciereq.vercel.app/atlas/).\n"
             "2. Follow any eligible public system into its owning repository and evidence path.\n"
-            "3. Open the [control plane](%s) to inspect how portfolio evidence and repository relationships are governed." % github_url(owner, control_plane)
+            f"3. Open the [control plane]({github_url(owner, control_plane)}) to inspect how portfolio evidence and repository relationships are governed."
         )
     else:
         start_here = (
-            "1. Open **[%s](%s)** as one orientation entry.\n"
+            f"1. Open **[{public_flagship['name']}]({github_url(owner, repositories(public_flagship)[0])})** as one orientation entry.\n"
             "2. Follow its listed evidence paths into the implementation and tests.\n"
             "3. Compare the verified proof with the stated gaps; the gaps are part of the product record.\n"
-            "4. Open **[%s](%s)** to inspect how portfolio evidence, README contracts, and repository relationships are governed."
-            % (public_flagship["name"], github_url(owner, repositories(public_flagship)[0]), control_plane, github_url(owner, control_plane))
+            f"4. Open **[{control_plane}]({github_url(owner, control_plane)})** to inspect how portfolio evidence, README contracts, and repository relationships are governed."
         )
 
     return f"""# GlacierEQ — Engineering Portfolio
