@@ -55,7 +55,7 @@ def validate_manifest(data: dict[str, Any]) -> None:
     seen_ids: set[str] = set()
     for index, item in enumerate(flagships):
         if not isinstance(item, dict):
-            raise ValueError(f"flagship {index} must be an object")
+            raise TypeError(f"flagship {index} must be an object")
 
         required = {
             "id",
