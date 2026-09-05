@@ -122,16 +122,16 @@ A repository name is not proof. Source presence is not executed behavior. A gree
 
 ## Portfolio Hierarchy
 
-The public site intentionally avoids treating every repository as equally important. It projects a governed hierarchy from Helix:
+The public site exposes a governed hierarchy from Helix without treating any level as a fixed-size shortlist or membership boundary. The hierarchy is an evidence and orientation model:
 
 1. **Crown Jewels / flagships** — strongest differentiated systems with the clearest evidence and senior-level value.
 2. **Advanced systems** — substantial original systems whose remaining gates are explicit.
 3. **Focused prototypes** — bounded technical exhibits that need stronger current execution, hardware, provider, benchmark, or deployment proof.
-4. **Reference architecture / private systems** — useful architectural context without public-source promotion.
-5. **Studies, upstream references, and experiments** — never presented as original recruiter proof without verified differentiated contribution.
-6. **Quarantined or blocked systems** — preserved for repair or history, not promoted.
+4. **Reference architecture / private systems** — useful architectural context with the applicable public boundary.
+5. **Studies, upstream references, and experiments** — visible with their actual provenance and never presented as original recruiter proof without verified differentiated contribution.
+6. **Quarantined or blocked systems** — preserved for repair or history, not promoted as completed proof.
 
-The Atlas and Mesh provide the full governed relationship model without turning the recruiter experience into a wall of links.
+The Atlas, Inventions, Mesh, Machine, Mega-Skills, and owning repository routes provide the full governed relationship model. Orientation order, pagination, and recruiter views improve comprehension but never define what exists.
 
 ## Helix Projection Pipeline
 

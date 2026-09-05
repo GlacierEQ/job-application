@@ -11,11 +11,10 @@ const VERIFY_ONLY = process.argv.includes('--check');
 const HOME = path.join(SITE, 'index.html');
 const RESUME = path.join(SITE, 'resume', 'index.html');
 
-// Recruiter compression should reduce decision noise, not erase the estate's
-// strongest problem-first discovery surface. Inventions earns a primary slot
-// because it routes capability -> systems -> evidence without exposing raw repo volume.
-// /hire/ is the human door onto that stack; a rebuild must not wipe it.
-const RECRUITER_NAV = '<nav class="links" aria-label="Primary navigation"><a href="#proof">Proof</a><a href="#systems">Systems</a><a href="/inventions/">Inventions</a><a href="/hire/">Hire</a><a href="/resume/">Résumé</a><a href="/master/">Technical</a></nav>';
+// The home route is an orientation surface, not a membership filter. Keep the
+// complete review stack reachable from the primary navigation so the public estate
+// remains discoverable without changing evidence, privacy, or claim boundaries.
+const RECRUITER_NAV = '<nav class="links" aria-label="Primary navigation"><a href="#proof">Proof</a><a href="#systems">Systems</a><a href="/inventions/">Inventions</a><a href="/mega-skills/">Mega-Skills</a><a href="/atlas/">Atlas</a><a href="/mesh/">Mesh</a><a href="/machine/">Machine</a><a href="/companies/">Companies</a><a href="/hire/">Hire</a><a href="/resume/">Résumé</a><a href="/master/">Technical</a></nav>';
 const PRIMARY_NAV_RE = /<nav class="links" aria-label="Primary navigation">[\s\S]*?<\/nav>/;
 const ATS_LINK_RE = /<a\b[^>]*href=["']\/resume\/ats\.txt["'][^>]*>[\s\S]*?<\/a>/g;
 
@@ -71,16 +70,13 @@ function extractPrimaryNav(source) {
 function validate(home, resume) {
   const nav = extractPrimaryNav(home);
   const hrefs = [...nav.matchAll(/<a\b[^>]*href=["']([^"']+)["']/g)].map((match) => match[1]);
-  const expected = ['#proof', '#systems', '/inventions/', '/hire/', '/resume/', '/master/'];
+  const expected = ['#proof', '#systems', '/inventions/', '/mega-skills/', '/atlas/', '/mesh/', '/machine/', '/companies/', '/hire/', '/resume/', '/master/'];
   if (JSON.stringify(hrefs) !== JSON.stringify(expected)) {
     throw new Error(`recruiter_nav_contract_failed:${JSON.stringify(hrefs)}`);
   }
 
-  for (const forbidden of ['/mesh/', '/companies/', '/atlas/', '/machine/', '/compiler/']) {
-    if (nav.includes(`href="${forbidden}"`) || nav.includes(`href='${forbidden}'`)) {
-      throw new Error(`recruiter_nav_not_compressed:${forbidden}`);
-    }
-  }
+  // Deep review routes are intentionally present. Orientation order does not
+  // define estate membership, so there is no forbidden deep-route list here.
 
   if (!home.includes('class="nav-cta"') || !home.includes('mailto:glacier.equilibrium@gmail.com')) {
     throw new Error('recruiter_contact_decision_missing');

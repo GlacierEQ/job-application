@@ -4,16 +4,16 @@
 
 Systems architect and full-stack engineer building AI operating systems, connector infrastructure, failure-tolerant workflows, and verifiable artifact pipelines.
 
-This portfolio is intentionally concentrated around **three evidence-bearing systems** rather than repository-count marketing. All three flagship systems are public and directly inspectable. Every claim below is paired with an evidence path and an explicit boundary.
+This portfolio uses an orientation sequence over an open-ended estate. The listed systems are not a fixed flagship count or membership boundary. All listed orientation systems are public and directly inspectable. Every claim below is paired with an evidence path and an explicit boundary.
 
-## Start here: three-minute proof
+## Start here: a proof path
 
-1. Open **[Resume Shapeshifter](https://github.com/GlacierEQ/JOB-RESUME-BUILDER-)**.
+1. Open **[Resume Shapeshifter](https://github.com/GlacierEQ/JOB-RESUME-BUILDER-)** as one orientation entry.
 2. Follow its listed evidence paths into the implementation and tests.
 3. Compare the verified proof with the stated gaps; the gaps are part of the product record.
 4. Open **[job-app-helix](https://github.com/GlacierEQ/job-app-helix)** to inspect how portfolio evidence, README contracts, and repository relationships are governed.
 
-## Flagship systems
+## Flagship and reference systems (orientation order)
 
 | System | Access | Readiness | Primary signal |
 |---|---|---|---|

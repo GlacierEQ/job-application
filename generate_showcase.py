@@ -1,9 +1,9 @@
-"""Generate the recruiter showcase from an evidence-bound manifest.
+"""Generate the public showcase from an evidence-bound manifest.
 
-The generator favors a small number of inspectable systems over portfolio-count
-marketing. Public repositories become links. Private repositories, when present,
+The manifest is open-ended: it may contain zero, one, or many orientation
+systems. Public repositories become links. Private repositories, when present,
 remain clearly labeled so the generated surface cannot imply access or proof that
-is not available.
+is not available. Orientation order is presentation only, never a membership cap.
 """
 
 from __future__ import annotations
@@ -49,8 +49,8 @@ def validate_manifest(data: dict[str, Any]) -> None:
         raise ValueError(f"manifest missing required fields: {', '.join(missing)}")
 
     flagships = data["flagships"]
-    if not isinstance(flagships, list) or len(flagships) != 3:
-        raise ValueError("manifest must define exactly three flagship systems")
+    if not isinstance(flagships, list):
+        raise ValueError("manifest flagships must be a list")
 
     seen_ids: set[str] = set()
     for index, item in enumerate(flagships):
@@ -93,9 +93,6 @@ def validate_manifest(data: dict[str, Any]) -> None:
                     f"flagship {item['id']} requires a non-empty {field} list"
                 )
 
-    if not any(item["visibility"] == "public" for item in flagships):
-        raise ValueError("manifest requires at least one public flagship")
-
     serialized = json.dumps(data)
     if LEGAL_BLOCK.search(serialized):
         raise ValueError("legal or case material detected in recruiter manifest")
@@ -128,7 +125,7 @@ def visibility_summary(flagships: list[dict[str, Any]]) -> str:
     public_count = sum(item["visibility"] == "public" for item in flagships)
     private_count = len(flagships) - public_count
     if private_count == 0:
-        return "All three flagship systems are public and directly inspectable."
+        return "All listed orientation systems are public and directly inspectable."
     return (
         f"{public_count} flagship system(s) are public and directly inspectable; "
         f"{private_count} remain explicitly labeled for curated review."
@@ -138,7 +135,7 @@ def visibility_summary(flagships: list[dict[str, Any]]) -> str:
 def build(data: dict[str, Any]) -> str:
     owner = data["owner"]
     flagships = data["flagships"]
-    public_flagship = next(item for item in flagships if item["visibility"] == "public")
+    public_flagship = next((item for item in flagships if item["visibility"] == "public"), None)
     control_plane = data.get("integration_control_plane", "job-app-helix")
 
     sections: list[str] = []
@@ -180,22 +177,34 @@ def build(data: dict[str, Any]) -> str:
     )
     joined_sections = "\n---\n\n".join(sections)
 
+    if public_flagship is None:
+        start_here = (
+            "1. Open the [full Systems Atlas](https://casey-barton-glaciereq.vercel.app/atlas/).\n"
+            "2. Follow any eligible public system into its owning repository and evidence path.\n"
+            "3. Open the [control plane](%s) to inspect how portfolio evidence and repository relationships are governed." % github_url(owner, control_plane)
+        )
+    else:
+        start_here = (
+            "1. Open **[%s](%s)** as one orientation entry.\n"
+            "2. Follow its listed evidence paths into the implementation and tests.\n"
+            "3. Compare the verified proof with the stated gaps; the gaps are part of the product record.\n"
+            "4. Open **[%s](%s)** to inspect how portfolio evidence, README contracts, and repository relationships are governed."
+            % (public_flagship["name"], github_url(owner, repositories(public_flagship)[0]), control_plane, github_url(owner, control_plane))
+        )
+
     return f"""# GlacierEQ — Engineering Portfolio
 
 > **{data["positioning"]}**
 
 {data["identity"]}
 
-This portfolio is intentionally concentrated around **three evidence-bearing systems** rather than repository-count marketing. {visibility_summary(flagships)} Every claim below is paired with an evidence path and an explicit boundary.
+This portfolio uses an orientation sequence over an open-ended estate. The listed systems are not a fixed flagship count or membership boundary. {visibility_summary(flagships)} Every claim below is paired with an evidence path and an explicit boundary.
 
-## Start here: three-minute proof
+## Start here: a proof path
 
-1. Open **[{public_flagship["name"]}]({github_url(owner, repositories(public_flagship)[0])})**.
-2. Follow its listed evidence paths into the implementation and tests.
-3. Compare the verified proof with the stated gaps; the gaps are part of the product record.
-4. Open **[{control_plane}]({github_url(owner, control_plane)})** to inspect how portfolio evidence, README contracts, and repository relationships are governed.
+{start_here}
 
-## Flagship systems
+## Flagship and reference systems (orientation order)
 
 | System | Access | Readiness | Primary signal |
 |---|---|---|---|
