@@ -5,6 +5,12 @@
   "id": "notion",
   "repos": [
     {
+      "id": "GlacierEQ/notion-mcp-empowerment-engine",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    },
+    {
       "id": "GlacierEQ/notion-workflow-intelligence",
       "lvl": "L3",
       "provenance": "ORIGINAL_CANDIDATE",
