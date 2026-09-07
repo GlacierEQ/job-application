@@ -91,31 +91,45 @@
       ]
     },
     {
-      "application_move": "Present the coordinator and safety monitor as bounded systems, with counter-analysis and explicit non-claims.",
+      "application_move": "Lead with the living GlacierEQ estate as forward-deployed proof: cross-system diagnosis, model/tool/data integration, agent/MCP runtime construction, evidence-bound execution, verification/readback, recovery, and reusable patterns. Use Anthropic-oriented coordinator, safety, eval, containment, and agent-skills systems as concrete capability donors—not as affiliation claims.",
       "company_id": "anthropic",
       "display_name": "Anthropic",
       "expected_impact": "Improves safety-case clarity and makes agent limitations visible before deployment.",
       "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
       "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
-      "inferred_bottleneck": "Increasing useful autonomy while retaining honest uncertainty, safety boundaries, and measurable behavior.",
-      "inferred_brick_wall": "Preventing higher-capability agents from becoming opaque, reward-hacking, unsafe, or operationally unreliable in open-ended environments.",
+      "inferred_bottleneck": "Turning frontier-model capability into reliable, safe, repeatable production outcomes inside heterogeneous customer systems while feeding deployment learning back into product and engineering.",
+      "inferred_brick_wall": "Scaling high-touch forward deployment without losing source context, authority boundaries, evaluation rigor, recoverability, or the ability to distinguish a one-off customer solution from a reusable deployment pattern.",
       "leverage_mechanism": "Combine deterministic coordination, contradiction-preserving review, escalation gates, and proof-weighted evaluation.",
-      "next_deep_dive": "Deep-read current safety, evals, and agent-infrastructure postings and produce requirement-level evidence matrices.",
-      "observed_current_pressure": "Capability, inference performance, safeguards, evaluations, interpretability, and computer-use reliability are advancing simultaneously.",
+      "next_deep_dive": "Implement and reproduce one Anthropic-specific Forward Deployed Engineer / Applied AI Architect proof that maps the current role responsibilities to a working customer-system integration and reusable deployment artifact.",
+      "observed_current_pressure": "Anthropic’s Applied AI organization is actively hiring Forward Deployed Engineers, Applied AI Architects, and Applied AI Engineers to move Claude from technical discovery and evaluation into customer production environments.",
       "official_sources": [
         {
-          "observed_signal": "Concentrated hiring across inference, safeguards, evaluations, interpretability, computer use, and security.",
+          "observed_signal": "Anthropic currently lists 43 Applied AI openings, including Forward Deployed Engineer, Applied AI Architect, and Applied AI Engineer roles.",
           "publisher": "Anthropic",
-          "source_sha256": "ff0b10b260016cbffe9a4648ccac3227849bb643744def25e39789417e5725b1",
-          "title": "Anthropic Careers",
+          "source_sha256": "a28f1434bb04e2e797e079cc8bd52a909fa6a6f7d82ce987b71a8d6748e45139",
+          "title": "Anthropic jobs — Applied AI",
           "url": "https://www.anthropic.com/careers/jobs"
+        },
+        {
+          "observed_signal": "The US Forward Deployed Engineer role embeds with strategic customers to ship production Claude applications and technical artifacts such as MCP servers, sub-agents, and agent skills.",
+          "publisher": "Anthropic",
+          "source_sha256": "21f1c0938619e8b536d0e0e7102c3be480143d9420eb9e30d77b8d1ea1e0264f",
+          "title": "Forward Deployed Engineer",
+          "url": "https://job-boards.greenhouse.io/anthropic/jobs/5302966008"
+        },
+        {
+          "observed_signal": "Applied AI Architect, Strategic Enterprise Tech is a customer-facing technical architecture role for integrating and deploying Claude in enterprise technology stacks.",
+          "publisher": "Anthropic",
+          "source_sha256": "7590c48e40e3b692c887ab8c49125dd139b55eff20f7fa5b532c283203dfebd4",
+          "title": "Applied AI Architect, Strategic Enterprise Tech",
+          "url": "https://job-boards.greenhouse.io/anthropic/jobs/5409008008"
         }
       ],
       "research_as_of": "2026-08-05",
       "target_roles": [
-        "Applied AI Systems Architect",
-        "Agent Infrastructure Engineer",
-        "Evaluation / Reliability Engineer"
+        "Forward Deployed Engineer",
+        "Applied AI Architect",
+        "Applied AI Engineer"
       ]
     },
     {
@@ -1325,9 +1339,9 @@
   ],
   "schema": "glaciereq.public-estate-intelligence.v1",
   "source": {
-    "authority_commit": "4c0318a8d0a3daaed09e7d9ba2c308016d3d1dfb",
+    "authority_commit": "39034acebb9a822c122ee3ba87ebb8672d83876b",
     "external_manifest_path": "manifests/application_intelligence/company_bottleneck_atlas.external.json",
-    "external_manifest_sha256": "2d93f4e0c736426dcf6904be6d0139075a48c78f3051278becf05703ee67f654",
+    "external_manifest_sha256": "c63e52a7f993ae7e4a2d93cc88164ac66abbaf788021a1557f79a8451f77a93d",
     "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",
     "inference_boundary": "Observed current pressure and official-source signals are source-backed snapshot facts; bottlenecks, brick walls, leverage mechanisms, expected impact, and application moves are GlacierEQ inferences and must not be presented as employer-confirmed internal conditions.",
     "research_as_of": "2026-08-05",

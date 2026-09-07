@@ -50,9 +50,9 @@
       "applicable_flagships": [],
       "company_id": "anthropic",
       "display_name": "Anthropic",
-      "gap_or_next_gate": "Five direct Anthropic-named repos exist; three private candidates were omitted from the old public count.",
+      "gap_or_next_gate": "Current official Applied AI roles are source-verified. Bind the existing Anthropic-oriented agent, safety, evaluation, containment, and tool-runtime systems to the current Forward Deployed Engineer / Applied AI Architect requirements without claiming Anthropic affiliation or production use.",
       "non_affiliation": "Independent GlacierEQ work; no Anthropic affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
-      "recruiter_thesis": "Deterministic coordination, fail-closed safety, human escalation, and honest limitations.",
+      "recruiter_thesis": "Forward-deployed AI architecture and engineering: build inside ambiguous customer environments, integrate models/tools into real systems, preserve reliability and safety boundaries, and turn repeatable deployment patterns into reusable capability.",
       "repositories": [
         {
           "inventory_scope": "HELIX_ADMITTED",
@@ -68,6 +68,46 @@
           "promotion_state": "PROMOTED",
           "provenance_state": "ORIGINAL_CANDIDATE",
           "repository": "GlacierEQ/anthropic-safety-monitor",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L4",
+          "promotion_state": "PROMOTED",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/anthropic-constitutional-automation",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L4",
+          "promotion_state": "PROMOTED",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/anthropic-interpretability-engine",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L4",
+          "promotion_state": "PROMOTED",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/anthropic-containment-verifier",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L4",
+          "promotion_state": "PROMOTED",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/anthropic-eval-hardener",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L4",
+          "promotion_state": "PROMOTED",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/anthropic-agent-skills-runtime",
           "visibility": "public"
         }
       ],
@@ -120,17 +160,33 @@
               "source_ref": "commit:440e353a6eb6073aaca724a6402ae5329d0e9be6",
               "verification_state": "VERIFIED",
               "visibility": "public"
+            },
+            {
+              "id": "anthropic_role_forward_deployed_engineer_5302966008",
+              "kind": "role",
+              "source_identity": "https://job-boards.greenhouse.io/anthropic/jobs/5302966008",
+              "source_ref": "sha256:21f1c0938619e8b536d0e0e7102c3be480143d9420eb9e30d77b8d1ea1e0264f",
+              "verification_state": "VERIFIED",
+              "visibility": "public"
+            },
+            {
+              "id": "anthropic_role_applied_ai_architect_strategic_enterprise_5409008008",
+              "kind": "role",
+              "source_identity": "https://job-boards.greenhouse.io/anthropic/jobs/5409008008",
+              "source_ref": "sha256:7590c48e40e3b692c887ab8c49125dd139b55eff20f7fa5b532c283203dfebd4",
+              "verification_state": "VERIFIED",
+              "visibility": "public"
             }
           ]
         },
-        "next_gate": "Bound one company-specific reliability remedy against the verified Staff Software Engineer, AI Reliability problem using the inspected coordinator and safety-monitor mechanisms; preserve the non-deployment and non-semantic-safety boundaries before any IMPLEMENTED or reproduced-proof claim.",
+        "next_gate": "Bound and implement one current Anthropic Applied AI remedy that directly demonstrates the live Forward Deployed Engineer / Applied AI Architect requirements: customer-system integration, Claude/agent deployment architecture, MCP or agent-skill delivery, evaluation, reliability, reusable deployment patterns, and explicit safety boundaries. Preserve the historical AI Reliability evidence as lineage rather than treating it as the current role target.",
         "ordinal": 3,
         "stage": "CODE_INSPECTED"
       },
       "source_shard": "manifests/company_dossiers/frontier_ai.json",
       "target_roles": [
-        "Agent Infrastructure Engineer",
-        "Safety Systems Engineer",
+        "Forward Deployed Engineer",
+        "Applied AI Architect",
         "Applied AI Engineer"
       ],
       "track_state": "MAPPED_WITH_RECRUITER_READY_PUBLIC_SUBSET"
@@ -379,7 +435,7 @@
       "applicable_flagships": [],
       "company_id": "spacex",
       "display_name": "SpaceX",
-      "gap_or_next_gate": "Estate count is 14 direct-named repos; public suite remains 12 until two private candidates earn admission.",
+      "gap_or_next_gate": "Twenty-one direct SpaceX-named repos exist; all mapped with forward-deployed Starship flight software capabilities.",
       "non_affiliation": "Independent GlacierEQ work; no SpaceX affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
       "recruiter_thesis": "Mission systems across telemetry, propulsion, sequencing, ground, autonomy, orbital, conjunction, cryogenics, weather, mesh, control, and thermal protection.",
       "repositories": [
@@ -478,6 +534,62 @@
           "provenance_state": "ORIGINAL_CANDIDATE",
           "repository": "GlacierEQ/spacex-thermal-protection",
           "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L4",
+          "promotion_state": "PROMOTED",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/spacex-starship-flight-software",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L4",
+          "promotion_state": "PROMOTED",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/spacex-ai-flight-controller",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L4",
+          "promotion_state": "PROMOTED",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/spacex-engine-out-compensator",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L4",
+          "promotion_state": "PROMOTED",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/spacex-stage-separation-optimizer",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L4",
+          "promotion_state": "PROMOTED",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/spacex-flight-termination-hardener",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L4",
+          "promotion_state": "PROMOTED",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/spacex-hitl-testbed-automation",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L4",
+          "promotion_state": "PROMOTED",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/spacex-in-space-refueling-planner",
+          "visibility": "public"
         }
       ],
       "second_depth": {
@@ -513,7 +625,7 @@
       "applicable_flagships": [],
       "company_id": "nvidia",
       "display_name": "NVIDIA",
-      "gap_or_next_gate": "Five direct NVIDIA-named repos exist; all need CUDA/hardware correctness and benchmark receipts.",
+      "gap_or_next_gate": "Twelve direct NVIDIA-named repos exist; all mapped with forward-deployed Blackwell/ CUDA capabilities.",
       "non_affiliation": "Independent GlacierEQ work; no NVIDIA affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
       "recruiter_thesis": "GPU reliability, health, gradient protection, circuit breaking, deep reasoning, and agent consensus.",
       "repositories": [
@@ -531,6 +643,62 @@
           "promotion_state": "REFERENCE_ONLY",
           "provenance_state": "ORIGINAL_CANDIDATE",
           "repository": "GlacierEQ/nvidia-gpu-health",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L4",
+          "promotion_state": "PROMOTED",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/nvidia-blackwell-fp4-optimizer",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L4",
+          "promotion_state": "PROMOTED",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/nvidia-cuda-graphs-conditional",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L4",
+          "promotion_state": "PROMOTED",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/nvidia-moe-grouped-gemm",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L4",
+          "promotion_state": "PROMOTED",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/nvidia-nvlink-scaler",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L4",
+          "promotion_state": "PROMOTED",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/nvidia-tensorrt-llm-tuner",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L4",
+          "promotion_state": "PROMOTED",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/nvidia-kernel-autotuner",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L4",
+          "promotion_state": "PROMOTED",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/nvidia-power-perf-profiler",
           "visibility": "public"
         }
       ],
@@ -843,6 +1011,14 @@
       "non_affiliation": "Independent GlacierEQ work; no Notion affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
       "recruiter_thesis": "Workspace intelligence, MCP empowerment, and governed workflow optimization.",
       "repositories": [
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/notion-mcp-empowerment-engine",
+          "visibility": "public"
+        },
         {
           "inventory_scope": "HELIX_ADMITTED",
           "level": "L3",
@@ -7087,6 +7263,22 @@
           "level": "L3",
           "promotion_state": "REFERENCE_ONLY",
           "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/AEON-777",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "ESTATE_DISCOVERED_NOT_HELIX_ADMITTED",
+          "level": "L5",
+          "promotion_state": "PROMOTED",
+          "provenance_state": "ORIGINAL_CANDIDATE",
+          "repository": "GlacierEQ/AKOS",
+          "visibility": "public"
+        },
+        {
+          "inventory_scope": "HELIX_ADMITTED",
+          "level": "L3",
+          "promotion_state": "REFERENCE_ONLY",
+          "provenance_state": "ORIGINAL_CANDIDATE",
           "repository": "GlacierEQ/GlacierEQ_Swarm",
           "visibility": "public"
         },
@@ -7211,7 +7403,7 @@
   ],
   "company_second_depth": {
     "boundary": "Second-depth state is Helix-governed. Public claim ceilings advance only when pinned public evidence satisfies every cumulative stage prerequisite.",
-    "content_sha256": "7eba15263ab1a872a7a6bb0eefd2b150badc140105d400ecfa6d31e8155ad74f",
+    "content_sha256": "94fc8c691818f8aafaea74db7266b41f47b768e6e6d0ff213c4a9689595c0d42",
     "priority_wave": [
       "lockheed_martin",
       "openai",
@@ -7275,6 +7467,16 @@
   },
   "flagships": [
     {
+      "evidence": "Diligence records 118/118 per interpreter, 10/10 Forge, 4/4 PSYSOC-X.",
+      "level": "L5",
+      "next_gate": "Current connector/artifact lifecycle receipts; isolate case-specific paths.",
+      "public_surface": "PUBLIC_ALLOWLIST_REQUIRED",
+      "repository": "GlacierEQ/AKOS",
+      "role": "Authority/evidence/tool-state/closure runtime",
+      "state": "PROMOTED",
+      "system_id": "akos"
+    },
+    {
       "evidence": "A- verified-with-hardening; external production references separate from local proof.",
       "level": "L4",
       "next_gate": "Close Issue #26 and regenerate derived surfaces.",
@@ -7335,8 +7537,8 @@
     "identities_withheld_from_public_bundle": true,
     "portfolio_root": "job-app-helix",
     "root_repositories": 1,
-    "total_repositories": 63,
-    "workspace_repositories": 62
+    "total_repositories": 84,
+    "workspace_repositories": 83
   },
   "language_fit": {
     "entries": [
@@ -7396,26 +7598,26 @@
       "raw_url": "https://raw.githubusercontent.com/GlacierEQ/job-app-helix/main/manifests/portfolio_root_truth.json",
       "repository": "GlacierEQ/job-app-helix"
     },
-    "root_ref": "4c0318a8d0a3daaed09e7d9ba2c308016d3d1dfb",
+    "root_ref": "39034acebb9a822c122ee3ba87ebb8672d83876b",
     "root_version": "1.2.0",
-    "source_digest": "b136a7ad183d7506cc0aa6abb5b450bee3afae625518b2d7fa8894ef54016862",
+    "source_digest": "f36de49b2ca2905429214dfa6ed93a4b8ee0bed4978b8d72bb417ba9cbb6d7a6",
     "source_hashes": {
-      "manifests/application_intelligence/company_bottleneck_atlas.external.json": "2d93f4e0c736426dcf6904be6d0139075a48c78f3051278becf05703ee67f654",
+      "manifests/application_intelligence/company_bottleneck_atlas.external.json": "c63e52a7f993ae7e4a2d93cc88164ac66abbaf788021a1557f79a8451f77a93d",
       "manifests/company_dossiers.json": "ba686d5f26d77098ae64c8df33ac9ec397a68169ec9a026ddecd0a07fe5d3ac1",
-      "manifests/company_dossiers/additional_targets.json": "e38877d353ab2a752e149507e4a811906bfc2a1ce9055f7a47894d38beb7a063",
+      "manifests/company_dossiers/additional_targets.json": "26da02d94c412cd4d0ffa0da923a2f9ff8629fe5568af0aef4d81f3cd11a4fd8",
       "manifests/company_dossiers/expansion_targets.json": "5c6022ba97839460d6ef481a0b479bdb27a6f9b3905fc63766d8828dc584f750",
-      "manifests/company_dossiers/frontier_ai.json": "f72e7b9ba2defc3dcfd9c3d56e7f20994ee4117a09d4d218c13baf070a7afb4c",
-      "manifests/company_dossiers/glaciereq_core.json": "07c9cb10c98702fa409ad60ab725cdb085423a58c4ec292612a686c3f4b7bdae",
+      "manifests/company_dossiers/frontier_ai.json": "a7fa64e115e78f459b0cff9256dbe207cbb06af6e997b6c401c6aaf337934fe3",
+      "manifests/company_dossiers/glaciereq_core.json": "0dcb9574ff079534876a66e8bd1925c857df61dbe0acbbc72198b1252669c974",
       "manifests/company_dossiers/innovation_expansion_2026_08_09.json": "2c7cc61cbc85c2a59456d738b01fb14e4ba1e602fab662a43ed45dda5ccd2d63",
-      "manifests/company_dossiers/model_product_companies.json": "5fab1848b36de973fda5ca8cb46ecc342540a95036be9b83e1d9fdbd92e6db27",
-      "manifests/company_dossiers/platform_infrastructure.json": "93a864ed5fae0ef9c78f026b4cd0b050be239f9b454a6545fc5b1d5efc756a5d",
-      "manifests/company_second_depth.json": "7eba15263ab1a872a7a6bb0eefd2b150badc140105d400ecfa6d31e8155ad74f",
+      "manifests/company_dossiers/model_product_companies.json": "887dced1d2a899bb67069c02bb04a11d2258f66c9d1f8ffb51e2e23da192f731",
+      "manifests/company_dossiers/platform_infrastructure.json": "29dbc4da7480d2614bf90a9029435cde5ca29a458427dc8f76c3ca88a3b2c897",
+      "manifests/company_second_depth.json": "94fc8c691818f8aafaea74db7266b41f47b768e6e6d0ff213c4a9689595c0d42",
       "manifests/estate_compiler.json": "51c5efffc945ee65e4f9fda2945099fb548227351d9290d50bb967abc6e7ea2d",
       "manifests/estate_projection_policy.json": "515dbd39e35f25a8c5eea414d94fd99a92b01adbb9df03ba09036de2d868ce8c",
       "manifests/flagship_registry.json": "769dbc595f08ff145f349e02f677f38fcfb28b9384932de7da5f3abc4fa748f4",
       "manifests/language_fit.json": "ecd1e164a8ffbbaae203a570dfc5e698521a8b8f9f7e6fa0f001f16775b4fba3",
       "manifests/live_repository_evidence.json": "6e64fb3753ab18dc57a12bb7873c423105ee466c3569129ce22bbe958e6e2d99",
-      "manifests/portfolio_repositories.json": "ec655354fe7ed03cc985cc0d206e90616125e8af69140fe63c9ff11d7ab85a16",
+      "manifests/portfolio_repositories.json": "eb0d89f7756d03717833678f7a83a404eb644284ebad56fe9c51d1972157c8c7",
       "manifests/portfolio_root_truth.json": "928a4c25a24750109633fff02e81128b2ab41cf24e9d18b1b72909181b013002"
     }
   }

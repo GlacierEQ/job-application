@@ -1,7 +1,7 @@
 {
   "boundary": "Independent GlacierEQ work; no NVIDIA affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
   "flagships": [],
-  "gate": "Five direct NVIDIA-named repos exist; all need CUDA/hardware correctness and benchmark receipts.",
+  "gate": "Twelve direct NVIDIA-named repos exist; all mapped with forward-deployed Blackwell/ CUDA capabilities.",
   "id": "nvidia",
   "repos": [
     {
@@ -15,6 +15,48 @@
       "lvl": "L3",
       "provenance": "ORIGINAL_CANDIDATE",
       "state": "REFERENCE_ONLY"
+    },
+    {
+      "id": "GlacierEQ/nvidia-blackwell-fp4-optimizer",
+      "lvl": "L4",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "PROMOTED"
+    },
+    {
+      "id": "GlacierEQ/nvidia-cuda-graphs-conditional",
+      "lvl": "L4",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "PROMOTED"
+    },
+    {
+      "id": "GlacierEQ/nvidia-moe-grouped-gemm",
+      "lvl": "L4",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "PROMOTED"
+    },
+    {
+      "id": "GlacierEQ/nvidia-nvlink-scaler",
+      "lvl": "L4",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "PROMOTED"
+    },
+    {
+      "id": "GlacierEQ/nvidia-tensorrt-llm-tuner",
+      "lvl": "L4",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "PROMOTED"
+    },
+    {
+      "id": "GlacierEQ/nvidia-kernel-autotuner",
+      "lvl": "L4",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "PROMOTED"
+    },
+    {
+      "id": "GlacierEQ/nvidia-power-perf-profiler",
+      "lvl": "L4",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "PROMOTED"
     }
   ],
   "roles": [
