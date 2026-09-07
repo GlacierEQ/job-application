@@ -185,7 +185,7 @@ async function verifyGeneratedSurface() {
   const projectionResponse = await captureProxy('data/company-atlas.json');
   if (projectionResponse.status !== 200) throw new Error('company_projection_route_failed');
   const projection = JSON.parse(projectionResponse.body.toString('utf8'));
-  if (projection.company_count < 166 || !Array.isArray(projection.companies)) throw new Error('company_projection_topology_drift');
+  if (!Array.isArray(projection.companies) || projection.company_count !== projection.companies.length) throw new Error('company_projection_topology_drift');
   let htmlRoutes = 0;
   let recordRoutes = 0;
   for (const route of ['atlas/index.html', 'companies/index.html']) {

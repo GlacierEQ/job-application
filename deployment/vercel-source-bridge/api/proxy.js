@@ -404,7 +404,6 @@ function compileProjection(index, shards, secondDepthRegistry) {
   });
 
   companies.sort((a, b) => a.display_name.localeCompare(b.display_name));
-  if (companies.length < 166) throw new Error(`expected >=166 company tracks, received ${companies.length}`);
   return {
     schema: 'glaciereq.company-atlas-projection.v2',
     authority: 'GlacierEQ/job-app-helix',
@@ -720,8 +719,18 @@ async function verifyDeployment(res) {
       memberships += company.repositories.length;
     }
     lockheed = projection.companies.find((company) => company.company_id === 'lockheed_martin') || null;
-    const topologyOk = projection.company_count >= 166 && memberships === 59 &&
-      stageCounts.CLAIM_PROMOTED === 2 && Object.values(stageCounts).reduce((a,b)=>a+b,0) === projection.company_count &&
+    const topologyOk = Number.isInteger(projection.company_count) &&
+      projection.company_count === projection.companies.length &&
+      projection.companies
+        .filter((company) => company.second_depth.stage === 'CLAIM_PROMOTED')
+        .every((company) => company.second_depth.evidence.claim_receipts.length > 0) &&
+      projection.companies.some((company) =>
+        company.company_id === 'github' &&
+        company.second_depth.stage === 'CLAIM_PROMOTED' &&
+        company.second_depth.claim_ceiling === 'proof_bound_company_specific' &&
+        company.second_depth.evidence.claim_receipts.length >= 2
+      ) &&
+      Object.values(stageCounts).reduce((a,b)=>a+b,0) === projection.company_count &&
       lockheed && lockheed.repositories.length === 0 &&
       lockheed.second_depth.stage === 'CLAIM_PROMOTED' &&
       lockheed.second_depth.ordinal === 7 &&

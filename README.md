@@ -2,7 +2,7 @@
 
 **One governed portfolio truth. Multiple evaluator-specific projections. Evidence stays with the system that earned it.**
 
-[Open the current public portfolio](https://casey-barton-glaciereq.vercel.app)
+[Open the current public portfolio](https://casey-barton-glaciereq.vercel.app) · [Read the unbounded public-surface contract](docs/UNBOUNDED_PUBLIC_SURFACE.md)
 
 `GlacierEQ/job-application` is the public presentation and delivery surface for Casey Barton’s hiring system. It is **not** the portfolio authority and it does not independently promote repository claims.
 
@@ -44,7 +44,8 @@ Release names describe compatible layers of one hiring system; they are not inde
 | **Résumé** ([`/resume/`](https://casey-barton-glaciereq.vercel.app/resume/)) | Recruiters, ATS workflows, and hiring teams | Evidence-forward professional history and selected systems |
 | **Technical Master** ([`/master/`](https://casey-barton-glaciereq.vercel.app/master/)) | Senior engineers and technical leaders | Architecture, executed evidence, blockers, non-claims, and promotion state |
 | **Evidence Mesh** ([`/mesh/`](https://casey-barton-glaciereq.vercel.app/mesh/)) | Systems reviewers | Typed relationships among systems, repositories, evidence, and company tracks |
-| **Systems Atlas** ([`/atlas/`](https://casey-barton-glaciereq.vercel.app/atlas/)) | Technical hiring managers | Helix-governed Crown Jewels and company-aligned public systems |
+| **Systems Atlas** ([`/atlas/`](https://casey-barton-glaciereq.vercel.app/atlas/)) | Technical hiring managers | Helix-governed public and reference systems across the estate |
+| **Mega-Skills** ([`/mega-skills/`](https://casey-barton-glaciereq.vercel.app/mega-skills/)) | Systems reviewers | Manifest-backed capability compositions and validation boundaries |
 | **Machine** ([`/machine/`](https://casey-barton-glaciereq.vercel.app/machine/)) | AI systems and automated reviewers | Stable machine contracts, evidence semantics, and bounded startup paths |
 
 ## Authority Split
@@ -122,16 +123,16 @@ A repository name is not proof. Source presence is not executed behavior. A gree
 
 ## Portfolio Hierarchy
 
-The public site intentionally avoids treating every repository as equally important. It projects a governed hierarchy from Helix:
+The public site exposes a governed hierarchy from Helix without treating any level as a fixed-size shortlist or membership boundary. The hierarchy is an evidence and orientation model:
 
 1. **Crown Jewels / flagships** — strongest differentiated systems with the clearest evidence and senior-level value.
 2. **Advanced systems** — substantial original systems whose remaining gates are explicit.
 3. **Focused prototypes** — bounded technical exhibits that need stronger current execution, hardware, provider, benchmark, or deployment proof.
-4. **Reference architecture / private systems** — useful architectural context without public-source promotion.
-5. **Studies, upstream references, and experiments** — never presented as original recruiter proof without verified differentiated contribution.
-6. **Quarantined or blocked systems** — preserved for repair or history, not promoted.
+4. **Reference architecture / private systems** — useful architectural context with the applicable public boundary.
+5. **Studies, upstream references, and experiments** — visible with their actual provenance and never presented as original recruiter proof without verified differentiated contribution.
+6. **Quarantined or blocked systems** — preserved for repair or history, not promoted as completed proof.
 
-The Atlas and Mesh provide the full governed relationship model without turning the recruiter experience into a wall of links.
+The Atlas, Inventions, Mesh, Machine, Mega-Skills, and linked public repositories provide the full governed relationship model. Orientation order, pagination, and recruiter views improve comprehension but never define what exists.
 
 ## Helix Projection Pipeline
 
@@ -225,6 +226,8 @@ site-v15/                              current public-site source line
 site-v15/data/helix-root.json          generated public-safe Helix snapshot
 site-v15/data/helix-root.receipt.json  projection integrity receipt
 site-v15/atlas/                        generated Systems Atlas
+site-v15/mega-skills/                  generated Mega-Skills routes
+docs/UNBOUNDED_PUBLIC_SURFACE.md       open-ended public-surface contract
 site-v15/machine/                      machine-facing contracts
 scripts/                               projection, rendering, and validation tools
 deployment/                            retained delivery and compatibility paths

@@ -72,7 +72,17 @@
       ],
       "company_edges_mean": "relevance only",
       "affiliation_inference": false,
-      "presentation_pagination_changes_membership": false
+      "presentation_pagination_changes_membership": false,
+      "orientation_order_is_not_membership": true,
+      "flagship_membership": "open-ended",
+      "full_estate_routes": [
+        "atlas",
+        "inventions",
+        "mesh",
+        "machine",
+        "companies",
+        "mega-skills"
+      ]
     }
   }
 }

@@ -24,9 +24,9 @@ class ShowcaseTests(unittest.TestCase):
     def setUp(self) -> None:
         self.manifest = generate_showcase.load_manifest()
 
-    def test_manifest_has_exactly_three_evidence_bound_flagships(self) -> None:
+    def test_manifest_has_an_open_ended_orientation_list(self) -> None:
         flagships = self.manifest["flagships"]
-        self.assertEqual(len(flagships), 3)
+        self.assertIsInstance(flagships, list)
         self.assertEqual(flagships[0]["id"], "resume-shapeshifter")
 
         for item in flagships:
@@ -40,13 +40,13 @@ class ShowcaseTests(unittest.TestCase):
         self.assertTrue(all(item["visibility"] == "public" for item in flagships))
 
         text = generate_showcase.build(self.manifest)
-        for repo in (
-            "JOB-RESUME-BUILDER-",
-            "AKOS",
-            "pro-code",
-            "xai-colossus-cooling",
-            "job-app-helix",
-        ):
+        expected_repositories = {
+            repository
+            for item in self.manifest["flagships"]
+            for repository in generate_showcase.repositories(item)
+        }
+        expected_repositories.add("job-app-helix")
+        for repo in expected_repositories:
             self.assertIn(f"https://github.com/GlacierEQ/{repo}", text)
 
     def test_governance_reconciles_public_flagships_with_helix(self) -> None:
@@ -78,7 +78,7 @@ class ShowcaseTests(unittest.TestCase):
 
         text = (ROOT / "SHOWCASE.md").read_text(encoding="utf-8")
         self.assertGreater(len(text), 2_000)
-        self.assertIn("three-minute proof", text.lower())
+        self.assertIn("proof path", text.lower())
         self.assertIn("Ten-minute engineering review", text)
         self.assertIn("Portfolio control", text)
         self.assertIn("Release gates", text)
@@ -92,8 +92,8 @@ class ShowcaseTests(unittest.TestCase):
         text = generate_showcase.build(self.manifest)
         public_url = "https://github.com/GlacierEQ/JOB-RESUME-BUILDER-"
         self.assertIn(public_url, text)
-        self.assertIn("truthfulness boundary", text)
-        self.assertIn("adversarial tests", text)
+        self.assertIn("deterministic truthfulness enforcement", text)
+        self.assertIn("tests/truthfulness.test.ts", text)
 
     def test_showcase_rejects_repo_count_hype_and_legal_material(self) -> None:
         text = generate_showcase.build(self.manifest)
@@ -101,13 +101,22 @@ class ShowcaseTests(unittest.TestCase):
         self.assertNotIn("hundreds of repos", text.lower())
         self.assertIsNone(LEGAL_RE.search(text))
 
-    def test_manifest_requires_a_public_flagship(self) -> None:
-        invalid = copy.deepcopy(self.manifest)
-        for item in invalid["flagships"]:
-            item["visibility"] = "private"
+    def test_manifest_allows_zero_orientation_systems(self) -> None:
+        empty = copy.deepcopy(self.manifest)
+        empty["flagships"] = []
+        generate_showcase.validate_manifest(empty)
+        text = generate_showcase.build(empty)
+        self.assertIn("full Systems Atlas", text)
 
-        with self.assertRaisesRegex(ValueError, "at least one public flagship"):
-            generate_showcase.validate_manifest(invalid)
+    def test_manifest_has_no_fixed_flagship_count(self) -> None:
+        expanded = copy.deepcopy(self.manifest)
+        extra = copy.deepcopy(expanded["flagships"][0])
+        extra["id"] = "additional-orientation-system"
+        extra["name"] = "Additional Orientation System"
+        expanded["flagships"].append(extra)
+        generate_showcase.validate_manifest(expanded)
+        text = generate_showcase.build(expanded)
+        self.assertIn("Additional Orientation System", text)
 
     def test_manifest_rejects_legal_or_case_content(self) -> None:
         invalid = copy.deepcopy(self.manifest)

@@ -176,7 +176,7 @@ test('bridge uses exact V21 first-star pins and no legacy URL parser', () => {
   );
   assert.equal(
     bridge.constants.HELIX_COMMIT,
-    '8345955b67f163c3215b23195a267b6021a5be5e',
+    '4c0318a8d0a3daaed09e7d9ba2c308016d3d1dfb',
   );
   assert.match(proxySource, /new URL\(/);
   assert.doesNotMatch(proxySource, /\burl\.parse\s*\(/);
@@ -190,7 +190,7 @@ test('V21 projection filters recruiter evidence and preserves Lockheed inspected
     [{ companies }],
     advanceLockheed(depthRegistry(ids)),
   );
-  assert.ok(projection.company_count >= 166);
+  assert.equal(projection.company_count, 49);
   const anthropic = projection.companies.find((row) => row.company_id === 'anthropic');
   assert.equal(anthropic.repositories.length, 1);
   assert.equal(

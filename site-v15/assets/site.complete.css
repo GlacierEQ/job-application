@@ -237,6 +237,8 @@ td{color:#b6c7c4}
 .resume-chip{border-radius:7px}
 
 @media(max-width:1120px){
+  .nav{flex-wrap:wrap;padding:10px 0}
+  .links{order:3;width:100%;overflow-x:auto;justify-content:flex-start;border-radius:14px;scrollbar-width:thin}
   .hero-v21-grid{grid-template-columns:1fr;gap:38px}
   .hero-proof-rail{max-width:820px}
   .proof-band-grid{grid-template-columns:repeat(3,1fr)}
@@ -248,8 +250,6 @@ td{color:#b6c7c4}
 
 @media(max-width:900px){
   .shell{width:min(var(--max),calc(100% - 30px))}
-  .nav{flex-wrap:wrap;padding:10px 0}
-  .links{order:3;width:100%;overflow-x:auto;justify-content:flex-start;border-radius:14px;scrollbar-width:thin}
   .section{padding:82px 0}
   .section-head{grid-template-columns:1fr;gap:14px}
   .section-head>p{justify-self:start}
