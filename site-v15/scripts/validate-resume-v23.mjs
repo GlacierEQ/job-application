@@ -56,7 +56,7 @@ assert(resume.meta.profile === 'SYSTEMS_ATLAS_FOUR_LAYER', 'machine profile drif
 assert(resume.meta.facts_invariant === true, 'facts invariant missing');
 assert(JSON.stringify(resume.meta.presentation_layers) === JSON.stringify(['HUMAN', 'MASTER', 'MACHINE', 'MESH']), 'four-layer projection order drift');
 assert(resume.basics.name === 'Casey Del Carpio Barton', 'identity drift');
-assert(resume.basics.label === 'Applied AI Systems Architect | Forward-Deployed AI Engineer | Agent Infrastructure Engineer', 'role label drift');
+assert(resume.basics.label === 'Forward-Deployed AI Architect | Principal Agentic Systems Architect | Principal AI Platform Architect', 'role label drift');
 assert(resume.work.length >= 3, 'cross-domain work history incomplete');
 assert(resume.x_capability_clusters.length === 6, 'V23 must expose six capability clusters');
 assert(resume.x_systems_lineage.mappings.length >= 8, 'systems-lineage mappings incomplete');
