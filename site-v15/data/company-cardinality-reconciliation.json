@@ -3,7 +3,7 @@
   "status": "PASS",
   "source": "site-v15/data/helix-root.json",
   "source_sha256": "a36e7ae0fcba2ac3339fedce6fb431cdb571e1e26cb26c213d5c2372d94bf186",
-  "authoritative_helix_commit": "39034acebb9a822c122ee3ba87ebb8672d83876b",
+  "authoritative_helix_commit": "bb8e257dd823098b41da33a5c403749e866c6778",
   "authoritative_company_tracks": 166,
   "authoritative_second_depth_stage_counts": {
     "MAPPED_ONLY": 163,
