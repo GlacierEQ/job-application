@@ -1,0 +1,10 @@
+version: 2
+
+secret:
+  show_secrets: false
+  ignore_known_secrets: false
+  ignored_matches:
+    - name: public_helix_git_object_39034ace
+      match: 39034acebb9a822c122ee3ba87ebb8672d83876b
+    - name: public_helix_git_object_bb8e257d
+      match: bb8e257dd823098b41da33a5c403749e866c6778
