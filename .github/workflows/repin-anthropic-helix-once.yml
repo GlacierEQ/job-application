@@ -1,0 +1,51 @@
+name: Repin corrected Anthropic Helix once
+
+on:
+  push:
+    branches:
+      - fix/repin-corrected-anthropic-helix-20260907
+
+permissions:
+  contents: write
+
+jobs:
+  repin:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/repin-corrected-anthropic-helix-20260907
+          fetch-depth: 0
+      - name: Repin recruiter runtime to corrected Helix authority
+        shell: python
+        run: |
+          from pathlib import Path
+
+          old = "39034acebb9a822c122ee3ba87ebb8672d83876b"
+          new = "bb8e257dd823098b41da33a5c403749e866c6778"
+          roots = [
+              Path("deployment/vercel-source-bridge/api"),
+              Path("deployment/vercel-source-bridge"),
+          ]
+          changed = []
+          seen = set()
+          for root in roots:
+              for path in root.glob("*.js"):
+                  if path in seen:
+                      continue
+                  seen.add(path)
+                  text = path.read_text()
+                  if old in text:
+                      path.write_text(text.replace(old, new))
+                      changed.append(str(path))
+          if not changed:
+              raise SystemExit("expected Helix pin not found")
+          print("repinned:", *changed, sep="\n- ")
+          Path(".github/workflows/repin-anthropic-helix-once.yml").unlink()
+      - name: Commit runtime repin
+        run: |
+          git config user.name "GlacierEQ Hiring Runtime Repair"
+          git config user.email "glacier.equilibrium@gmail.com"
+          git add deployment/vercel-source-bridge .github/workflows/repin-anthropic-helix-once.yml
+          git commit -m "fix: repin recruiter runtime to corrected Anthropic Helix authority"
+          git push origin HEAD:fix/repin-corrected-anthropic-helix-20260907
