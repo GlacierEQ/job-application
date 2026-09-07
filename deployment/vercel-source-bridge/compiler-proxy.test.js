@@ -107,7 +107,7 @@ function fixture() {
 test('pins V25 to the verified current Helix compiler authority', () => {
   assert.equal(
     compiler.constants.COMPILER_HELIX_COMMIT,
-    '39034acebb9a822c122ee3ba87ebb8672d83876b',
+    'bb8e257dd823098b41da33a5c403749e866c6778',
   );
   assert.equal(compiler.constants.RELEASE, 'V25-APPLICATION-COMPILER');
   assert.equal(
