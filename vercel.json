@@ -41,6 +41,16 @@
   ],
   "redirects": [
     {
+      "source": "/companies",
+      "destination": "/atlas/",
+      "permanent": true
+    },
+    {
+      "source": "/companies/",
+      "destination": "/atlas/",
+      "permanent": true
+    },
+    {
       "source": "/atlas/:slug((?!starmap$)[a-z0-9-]+)/",
       "destination": "/companies/:slug/",
       "permanent": true
