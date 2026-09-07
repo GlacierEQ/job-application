@@ -20,7 +20,18 @@ assert(data.counts.atomic_skills === 709 && data.counts.compound_skills === 33 &
 assert(data.counts.unresolved_owned_references === 0 && data.counts.compound_cycles === 0, 'Mega-Skills graph must be resolved and acyclic');
 assert(data.mega_skills.length === 29 && new Set(data.mega_skills.map(x => x.id)).size === 29, 'Mega-Skills must expose 29 unique apexes');
 assert(home.includes('href="/mega-skills/"'), 'portfolio home must link Mega-Skills');
+const sitemapMegaRoutes = new Set(
+  [...sitemap.matchAll(/<loc>https:\/\/casey-barton-glaciereq\.vercel\.app(\/mega-skills\/[^<]*)<\/loc>/g)].map((match) => match[1]),
+);
+const expectedMegaRoutes = new Set(['/mega-skills/', ...data.mega_skills.map((mega) => mega.route)]);
 assert(sitemap.includes('https://casey-barton-glaciereq.vercel.app/mega-skills/'), 'root sitemap missing Mega-Skills');
+assert(sitemapMegaRoutes.size === expectedMegaRoutes.size, 'Mega-Skills sitemap route count drift');
+for (const route of expectedMegaRoutes) {
+  assert(sitemapMegaRoutes.has(route), `Mega-Skills sitemap missing manifest route: ${route}`);
+}
+for (const route of sitemapMegaRoutes) {
+  assert(expectedMegaRoutes.has(route), `Mega-Skills sitemap contains undeclared route: ${route}`);
+}
 assert(llms.includes('/mega-skills/') && llms.includes('/data/mega-skills.json'), 'LLM orientation missing Mega-Skills');
 await exists('assets/mega-skills.css');
 

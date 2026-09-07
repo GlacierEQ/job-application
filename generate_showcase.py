@@ -224,13 +224,19 @@ def build(data: dict[str, Any]) -> str:
         "└── deterministic plans and atomic receipts",
     ]
     for item in flagships:
-        for index, repository in enumerate(repositories(item)):
-            branch = "└──" if index == len(repositories(item)) - 1 else "├──"
+        access_role = (
+            "public orientation system; inspect its repository-native evidence"
+            if item["visibility"] == "public"
+            else "private orientation system; curated review required"
+        )
+        item_repositories = repositories(item)
+        for index, repository in enumerate(item_repositories):
+            branch = "└──" if index == len(item_repositories) - 1 else "├──"
             role_lines.extend(
                 [
                     "",
                     repository,
-                    f"{branch} public orientation system; inspect its repository-native evidence",
+                    f"{branch} {access_role}",
                 ]
             )
     private_operations = data.get("private_operations_repo")

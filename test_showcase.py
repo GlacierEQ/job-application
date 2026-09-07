@@ -43,7 +43,7 @@ class ShowcaseTests(unittest.TestCase):
         expected_repositories = {
             repository
             for item in self.manifest["flagships"]
-            for repository in ([item["repo"]] if item.get("repo") else item["repos"])
+            for repository in generate_showcase.repositories(item)
         }
         expected_repositories.add("job-app-helix")
         for repo in expected_repositories:
