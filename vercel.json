@@ -63,6 +63,16 @@
   ],
   "redirects": [
     {
+      "source": "/oauth/consent",
+      "destination": "https://dyhprklicgewmrimecey.supabase.co/functions/v1/glaciereq-oauth-consent",
+      "permanent": false
+    },
+    {
+      "source": "/oauth/consent/",
+      "destination": "https://dyhprklicgewmrimecey.supabase.co/functions/v1/glaciereq-oauth-consent",
+      "permanent": false
+    },
+    {
       "source": "/companies",
       "destination": "/atlas/",
       "permanent": true
