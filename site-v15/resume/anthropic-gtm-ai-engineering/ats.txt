@@ -2,7 +2,7 @@ CASEY DEL CARPIO BARTON
 Applied AI Systems Architect | Forward-Deployed AI Engineer | Agent Systems Engineer
 Honolulu, Hawaiʻi | 808-936-5654 | glacier.equilibrium@gmail.com
 Portfolio: https://casey-barton-glaciereq.vercel.app/
-Role proof: https://casey-barton-glaciereq.vercel.app/companies/anthropic/gtm-claudification/
+Role proof: https://casey-barton-glaciereq.vercel.app/roles/anthropic-gtm-ai-engineering/
 GitHub: https://github.com/GlacierEQ
 
 TARGET
