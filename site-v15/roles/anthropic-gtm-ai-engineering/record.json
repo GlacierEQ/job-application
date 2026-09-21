@@ -15,7 +15,7 @@
     "min": 320000,
     "max": 405000
   },
-  "thesis": "Existing GlacierEQ work already demonstrates many of the engineering mechanisms the role requests; application positioning should expose that evidence without claiming prior Anthropic or seller/RevOps production ownership.",
+  "thesis": "GlacierEQ already contains the GTM workflow, agent coordination, governed MCP/tool, human-approval, outbound-transaction, evaluation, receipt/readback, continuity, and shared-capability layers; Claudification is the role-specific composition of those existing systems.",
   "primary_evidence": [
     {
       "repo": "GlacierEQ/anthropic-safety-monitor",
@@ -81,5 +81,46 @@
     "unsupported pipeline or revenue impact",
     "production Claude Agent SDK deployment without native evidence",
     "eight years of pure software-engineering tenure unless employment evidence establishes it"
-  ]
+  ],
+  "system_map": "/applications/anthropic-gtm-ai-engineering/CLAUDIFICATION_SYSTEM_MAP.md",
+  "claudification_composition": {
+    "status": "SOURCE_BOUND_COMPOSITION",
+    "motion": [
+      "signal_or_account_context",
+      "sales_workflow_and_context_recovery",
+      "agent_plan_and_dependency_coordination",
+      "governed_tool_or_mcp_proposal",
+      "policy_review_allow_confirm_deny",
+      "human_authority_boundary",
+      "bounded_outbound_transaction",
+      "provider_receipt_and_readback",
+      "eval_regression_telemetry",
+      "reusable_shared_capability"
+    ],
+    "gtm_surfaces": [
+      "GlacierEQ/monolith:skills/mega-sales/SKILL.md",
+      "GlacierEQ/mega-skills:skills/sales/SKILL.md",
+      "GlacierEQ/mega-skills:skills/analyze-account-signals",
+      "GlacierEQ/mega-skills:skills/prioritize-accounts",
+      "GlacierEQ/mega-skills:skills/plan-deal-strategy",
+      "GlacierEQ/mega-skills:skills/review-forecast",
+      "GlacierEQ/mega-skills:skills/email-sequence",
+      "GlacierEQ/mega-skills:skills/agent-evaluation",
+      "GlacierEQ/mega-skills:skills/mega-agent-evaluation"
+    ],
+    "control_surfaces": [
+      "GlacierEQ/anthropic-agent-coordinator",
+      "GlacierEQ/anthropic-safety-monitor",
+      "GlacierEQ/glaciereq-mcp-stack",
+      "GlacierEQ/apex-control-plane",
+      "GlacierEQ/operator-administration"
+    ],
+    "boundaries": [
+      "no_anthropic_internal_deployment_claim",
+      "no_unsupervised_send_claim",
+      "no_unsupported_pipeline_or_revenue_attribution",
+      "no_production_claude_agent_sdk_claim_without_native_receipt",
+      "no_real_customer_discovery_claim_while_retrieval_blocked"
+    ]
+  }
 }
