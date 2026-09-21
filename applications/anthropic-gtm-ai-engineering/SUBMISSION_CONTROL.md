@@ -22,6 +22,7 @@ Submit the strongest truthful application without rebuilding the GlacierEQ estat
 - Current role-specific résumé source: `GlacierEQ/job-app-helix:hire_package/casey-barton/applications/anthropic/5390966008_GTM_CLAUDIFICATION_RESUME.md`
 - Current application responses: `GlacierEQ/job-app-helix:hire_package/casey-barton/applications/anthropic/5390966008_GTM_CLAUDIFICATION_APPLICATION_RESPONSES.md`
 - Current live-demo runbook: `GlacierEQ/job-app-helix:hire_package/casey-barton/applications/anthropic/5390966008_GTM_CLAUDIFICATION_DEMO_RUNBOOK.md`
+- Verified end-to-end runtime receipt: `GlacierEQ/job-app-helix:hire_package/casey-barton/applications/anthropic/evidence/5390966008-claudification-end-to-end-runtime-receipt-2026-09-21.json`
 
 ## Current Greenhouse fields
 
@@ -84,6 +85,7 @@ Do not claim Anthropic internal operation, prior Anthropic seller/RevOps ownersh
 - [x] Targeted résumé final upload artifact chosen and visually checked (2 pages; PDF + DOCX hashes recorded in Job-App Helix receipt `evidence/5390966008-resume-artifact-receipt-2026-09-21.json`).
 - [x] Casey first-draft "Why Anthropic?" captured.
 - [x] AI refinement of Casey's first draft completed and committed.
+- [x] Provider-backed Claudification outbound sandbox motion executed through human gate → bounded action → provider readback → eval; final state `VERIFIED`, receipt SHA-256 `e1a4579496fbf47c0465e84f59d20c96d1966c6b0a475fae8f8f0058cb870eca`.
 - [ ] User-only form decisions completed.
 - [ ] Final application reviewed against truth boundaries.
 - [ ] Submit application.
