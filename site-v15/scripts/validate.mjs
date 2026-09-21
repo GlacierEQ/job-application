@@ -205,11 +205,11 @@ for (const selector of ['.bento-card p', '.master-card p', '.branch p']) {
   assert(cssSystems.includes(selector), `print contrast selector missing ${selector}`);
 }
 
-for (const route of ['/', '/hire/', '/resume/', '/master/', '/mesh/', '/machine/', '/companies/', '/companies/anthropic/gtm-claudification/', '/inventions/', '/evidence-gallery/']) {
+for (const route of ['/', '/hire/', '/resume/', '/master/', '/mesh/', '/machine/', '/companies/', '/roles/anthropic-gtm-ai-engineering/', '/inventions/', '/evidence-gallery/']) {
   assert(sitemap.includes(`https://casey-barton-glaciereq.vercel.app${route}`), `sitemap missing ${route}`);
 }
-await exists('companies/anthropic/gtm-claudification/index.html');
-const anthropicGtm = await read('companies/anthropic/gtm-claudification/index.html');
+await exists('roles/anthropic-gtm-ai-engineering/index.html');
+const anthropicGtm = await read('roles/anthropic-gtm-ai-engineering/index.html');
 for (const token of ['GTM AI ENGINEERING', 'anthropic-agent-coordinator', 'anthropic-safety-monitor', 'glaciereq-mcp-stack', 'APEX Control Plane', 'The application should win on demonstrated systems judgment, not résumé fiction.']) {
   assert(anthropicGtm.includes(token), `Anthropic GTM proof route missing ${token}`);
 }
