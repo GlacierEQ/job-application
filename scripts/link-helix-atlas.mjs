@@ -71,7 +71,7 @@ async function updateSitemap(companyIds) {
   if (!text.includes("</urlset>")) throw new Error("sitemap.xml has no closing urlset element");
 
   text = text.replace(
-    /\s*<url><loc>https:\/\/casey-barton-glaciereq\.vercel\.app\/companies\/[^<]+<\/loc>(?:<priority>[^<]+<\/priority>)?<\/url>/g,
+    /\s*<url><loc>https:\/\/casey-barton-glaciereq\.vercel\.app\/companies\/[^\/<]+\/<\/loc>(?:<priority>[^<]+<\/priority>)?<\/url>/g,
     "",
   );
   if (!existsSync(path.join(SITE, "atlas", "starmap", "index.html"))) {
