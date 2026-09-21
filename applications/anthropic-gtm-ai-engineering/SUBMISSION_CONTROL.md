@@ -18,6 +18,10 @@ Submit the strongest truthful application without rebuilding the GlacierEQ estat
 - Claudification system map: `CLAUDIFICATION_SYSTEM_MAP.md`
 - Machine-readable role record: `site-v15/roles/anthropic-gtm-ai-engineering/record.json`
 - Evidence estate: https://github.com/GlacierEQ
+- Current requirement/evidence matrix: `GlacierEQ/job-app-helix:hire_package/casey-barton/applications/anthropic/5390966008_GTM_CLAUDIFICATION_REQUIREMENT_EVIDENCE_MATRIX.json`
+- Current role-specific résumé source: `GlacierEQ/job-app-helix:hire_package/casey-barton/applications/anthropic/5390966008_GTM_CLAUDIFICATION_RESUME.md`
+- Current application responses: `GlacierEQ/job-app-helix:hire_package/casey-barton/applications/anthropic/5390966008_GTM_CLAUDIFICATION_APPLICATION_RESPONSES.md`
+- Current live-demo runbook: `GlacierEQ/job-app-helix:hire_package/casey-barton/applications/anthropic/5390966008_GTM_CLAUDIFICATION_DEMO_RUNBOOK.md`
 
 ## Current Greenhouse fields
 
@@ -31,9 +35,9 @@ Submit the strongest truthful application without rebuilding the GlacierEQ estat
 | Earliest start | USER_DECISION_REQUIRED |
 | Timeline considerations | USER_DECISION_REQUIRED if any |
 | AI Policy acknowledgement | USER_MUST_REVIEW_AND_CONFIRM |
-| Why Anthropic? | USER_FIRST_DRAFT_REQUIRED, then AI refinement permitted |
+| Why Anthropic? | CANDIDATE_FIRST_DRAFT_CAPTURED; AI_REFINEMENT_COMMITTED |
 | Visa sponsorship | USER_DECISION_REQUIRED |
-| Additional information / cover letter | CAN_REFINE_FROM_EXISTING_USER_AUTHORED_POSITIONING |
+| Additional information / cover letter | REFINED_FROM_EXISTING_CANDIDATE_POSITIONING; COMMITTED |
 | LinkedIn | USER_PROFILE_URL_REQUIRED if not already supplied |
 | Relocation | USER_DECISION_REQUIRED |
 | Working address / relocating | USER_INPUT_REQUIRED |
@@ -54,17 +58,11 @@ Therefore:
 
 ## Why Anthropic — first-draft capture
 
-**Status:** WAITING_FOR_CASEY_FIRST_DRAFT
+**Status:** CAPTURED_AND_REFINED
 
-The first draft can be rough. It only needs to answer, in Casey's own words:
+Casey's own current-conversation language supplied the first-draft substance: this is the job he has been working toward; Claudification is a live GTM agent desk on the GlacierEQ estate; the estate already contains many interoperable layers designed to fit together; and the application must make that existing system legible rather than invent a new identity.
 
-1. Why this exact Claudification mission matters to him.
-2. Why Anthropic rather than a generic AI company.
-3. What he has already spent his time building that makes the work feel native.
-4. Why the seller/RevOps + agent-systems intersection is the work he wants to do next.
-5. What he wants to learn/build with Anthropic that he cannot honestly claim to have done yet.
-
-After that draft exists, refine it to 200–400 words without adding experiences.
+The refined 200–400 word response and Additional Information text are preserved in `GlacierEQ/job-app-helix:hire_package/casey-barton/applications/anthropic/5390966008_GTM_CLAUDIFICATION_APPLICATION_RESPONSES.md`. Do not replace them with generic company enthusiasm or add experiences not supplied by Casey/source evidence.
 
 ## Final application narrative
 
@@ -84,8 +82,8 @@ Do not claim Anthropic internal operation, prior Anthropic seller/RevOps ownersh
 - [x] Public role page promoted to integrated-system framing.
 - [x] Public role page deployed and verified HTTP 200.
 - [ ] Targeted résumé final upload artifact chosen and visually checked.
-- [ ] Casey first-draft "Why Anthropic?" captured.
-- [ ] AI refinement of Casey's first draft completed.
+- [x] Casey first-draft "Why Anthropic?" captured.
+- [x] AI refinement of Casey's first draft completed and committed.
 - [ ] User-only form decisions completed.
 - [ ] Final application reviewed against truth boundaries.
 - [ ] Submit application.
