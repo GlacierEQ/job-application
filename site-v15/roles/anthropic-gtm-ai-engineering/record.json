@@ -18,6 +18,17 @@
   "thesis": "GlacierEQ already contains the GTM workflow, agent coordination, governed MCP/tool, human-approval, outbound-transaction, evaluation, receipt/readback, continuity, and shared-capability layers; Claudification is the role-specific composition of those existing systems.",
   "primary_evidence": [
     {
+      "repo": "GlacierEQ/command-center",
+      "proves": [
+        "role-specific Claudification motion desk",
+        "human-gated outbound state machine",
+        "provider-backed sandbox execution",
+        "provider receipt/readback",
+        "behavior eval after execution"
+      ],
+      "boundary": "verified sandbox motion; not Anthropic production or revenue impact"
+    },
+    {
       "repo": "GlacierEQ/anthropic-safety-monitor",
       "proves": [
         "human oversight states",
@@ -84,7 +95,7 @@
   ],
   "system_map": "/applications/anthropic-gtm-ai-engineering/CLAUDIFICATION_SYSTEM_MAP.md",
   "claudification_composition": {
-    "status": "SOURCE_BOUND_COMPOSITION",
+    "status": "PROVIDER_VERIFIED_SANDBOX_EXECUTION",
     "motion": [
       "signal_or_account_context",
       "sales_workflow_and_context_recovery",
@@ -122,5 +133,31 @@
       "no_production_claude_agent_sdk_claim_without_native_receipt",
       "no_real_customer_discovery_claim_while_retrieval_blocked"
     ]
+  },
+  "claudification_runtime_proof": {
+    "observed_at": "2026-09-21T23:29:20.731412Z",
+    "motion_id": "d82a1c55-26dd-44c5-b4af-07522811d594",
+    "motion_type": "OUTBOUND",
+    "final_state": "VERIFIED",
+    "human_gate_decision": "APPROVE",
+    "provider": "Supabase Postgres",
+    "project_ref": "kjebemdgvjvuutzvhbtp",
+    "provider_receipt_sha256": "e1a4579496fbf47c0465e84f59d20c96d1966c6b0a475fae8f8f0058cb870eca",
+    "eval_gate": "SHIP_DEMO",
+    "readback_id_matches": true,
+    "provider_execution_observed": true,
+    "external_customer_contact": false,
+    "event_sequence": [
+      "CONTEXT_RECOVERED",
+      "TOOL_PLAN_BOUND",
+      "ACTION_PROPOSED",
+      "HUMAN_GATE_REQUIRED",
+      "HUMAN_APPROVE",
+      "BOUNDED_PROVIDER_ACTION_EXECUTED",
+      "PROVIDER_READBACK_REQUESTED",
+      "PROVIDER_READBACK_VERIFIED",
+      "EVAL_COMPLETED"
+    ],
+    "boundary": "Provider-backed sandbox ledger mutation only; no Anthropic production deployment, seller/customer contact, CRM/email mutation, revenue, or ROI claim."
   }
 }
