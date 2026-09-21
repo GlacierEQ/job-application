@@ -1,0 +1,81 @@
+CASEY DEL CARPIO BARTON
+Applied AI Systems Architect | Forward-Deployed AI Engineer | Agent Systems Engineer
+Honolulu, Hawaiʻi | 808-936-5654 | glacier.equilibrium@gmail.com
+Portfolio: https://casey-barton-glaciereq.vercel.app/
+Role proof: https://casey-barton-glaciereq.vercel.app/companies/anthropic/gtm-claudification/
+GitHub: https://github.com/GlacierEQ
+
+TARGET
+Anthropic — Staff Software Engineer, GTM AI Engineering (Claudification)
+
+PROFESSIONAL SUMMARY
+I build agent systems that turn ambiguous real-world workflows into governed, observable execution. My work combines context engineering, multi-agent coordination, MCP/tool interfaces, human approval and escalation boundaries, deterministic evals, provider readback, failure recovery, and reusable capability contracts. I work from actual operating state: recover context, bind authority, execute, inspect receipts/transcripts, repair failure, and convert the successful pattern into something other builders can reuse.
+
+My strongest evidence maps directly to the engineering mechanisms in Anthropic's GTM AI Engineering role: autonomous agent coordination, seller-control-style approval gates, eval/regression discipline, model/tool observability, governed MCP access, shared agent skills, and ambiguity-to-working-system delivery. I do not claim prior Anthropic employment or prior ownership of a seller/RevOps production system; the value proposition is transferring an already-demonstrated agent-systems discipline into that environment.
+
+ROLE-ALIGNED ENGINEERING PROOF
+- AUTONOMOUS AGENT COORDINATION — Anthropic Agent Coordinator: dependency-aware specialist scheduling, token budgets, per-role capacity, cycle validation, explicit blocked/deferred states, and deterministic handoff semantics. Historical exact-revision proof: 62/62 tests.
+- HUMAN OVERSIGHT + ESCALATION — Anthropic Safety Monitor: proposed tool actions resolve to ALLOW, CONFIRM, or DENY with explicit reasons and human-confirmation requirements. Verified matrix: 51 tests across Python 3.11, 3.12, and 3.13 = 153 executions with zero reported failures/errors/skips at the documented promotion.
+- EVALS + REGRESSION — Deterministic policy tests, exact-revision evidence, failure-state visibility, promotion gates, and claim-to-proof workflows across the Anthropic safety surface and Job Application Helix.
+- MCP + TOOL INFRASTRUCTURE — GlacierEQ MCP Stack: explicit registration vs execution authority, mutation gating, fail-closed dispatch, plus credential-gated stdio MCP packages for GitHub, Asana, Confluence, Supabase, and Neo4j.
+- OBSERVABILITY + OPERATIONS — APEX Control Plane: immutable receipts, connector retries, circuit breakers, dead-letter capture, execution-state promotion, continuity recovery, and provider-readback validation.
+- REUSABLE AGENT PLATFORM — Mega-Skills + Mega Pipeline: reusable capability contracts and an implementation-first frontier architect -> manager -> worker -> frontier repair execution pattern.
+- BUSINESS WORKFLOW SYSTEMS — Job Application Helix: evidence/release control plane that turns a messy multi-system hiring workflow into governed state, company/role alignment, machine-readable proof, public projections, and deterministic validation.
+- FULL-STACK / DATA — Python, TypeScript, JavaScript, SQL, Bash, Node.js, FastAPI, React/Next.js; REST, JSON-RPC, MCP, JSON Schema, PostgreSQL/SQLite concepts, Docker, GitHub Actions, Vercel.
+
+PROFESSIONAL EXPERIENCE
+GLACIEREQ | Founder / Applied AI Systems Builder | Honolulu, Hawaiʻi | January 2025-Present
+- Architect and implement interconnected AI-agent, tool, memory, browser, evidence, infrastructure, and workflow systems with explicit control-plane, execution-plane, receipt-plane, and source-authority boundaries.
+- Convert underspecified missions into executable contracts, working vertical slices, tests/evals, approval paths, recovery behavior, machine interfaces, and verified completion receipts.
+- Build multi-agent orchestration, context/continuity systems, governed connector/MCP layers, tool-use policy, provider readback, idempotent execution, retry/circuit-breaker behavior, and evidence-carrying workflows.
+- Turn one-off implementation success into reusable skills, templates, manager/worker contracts, and regression gates so the pattern can scale without losing intent or proof.
+- Use AI-assisted development as an inspectable engineering workflow: source recovery, implementation, execution, adversarial verification, repair, and exact-state readback rather than prompt-only generation.
+- Maintain public/private, proposal/execution, capability/authority, historical/current-proof, and source/presentation boundaries across a large multi-repository engineering estate.
+
+DIAMOND HEAD HOME INSPECTIONS | Certified Home Inspector | Honolulu, Hawaiʻi | 2020-2024
+- Diagnosed interacting structural, roofing, electrical, plumbing, HVAC, moisture, and safety conditions from incomplete field evidence under time pressure.
+- Translated observations into prioritized risk, uncertainty, and practical actions for non-technical clients.
+- Developed the operating discipline now used in software: observe actual state, distinguish symptom from cause, preserve evidence, test boundaries, and explain uncertainty clearly.
+
+HI-CLASS HOME SERVICES / HI CLASS MAINTENANCE OAHU LLC | Owner-Operator | Honolulu, Hawaiʻi | 2017-Present
+- Translate incomplete customer needs into scoped work, estimates, execution sequences, and closeout.
+- Coordinate real-world work across safety, dependencies, changing constraints, resource limits, and customer communication.
+
+SELECTED SYSTEMS
+ANTHROPIC AGENT COORDINATOR
+- Deterministic multi-agent DAG scheduling with dependency waves, budgets, role capacity, cycle handling, and explicit deferrals.
+- Source: https://github.com/GlacierEQ/anthropic-agent-coordinator
+
+ANTHROPIC SAFETY MONITOR
+- Deterministic tool-use policy and human-control boundary; ALLOW / CONFIRM / DENY outcomes with auditable reasons.
+- Source: https://github.com/GlacierEQ/anthropic-safety-monitor
+
+GLACIEREQ MCP STACK
+- Governed MCP/tool dispatch with registration/authority separation, mutation gates, and credential-gated operational integration packages.
+- Source: https://github.com/GlacierEQ/glaciereq-mcp-stack
+
+APEX CONTROL PLANE
+- Continuity, execution-state integrity, connector recovery, circuit breakers, dead-letter handling, audit receipts, and provider verification.
+- Source: https://github.com/GlacierEQ/apex-control-plane
+
+JOB APPLICATION HELIX
+- Evidence-bound workflow and release system: source -> implementation -> verification -> receipt -> promotion -> audience-specific projection.
+- Source: https://github.com/GlacierEQ/job-app-helix
+
+TECHNICAL PROFILE
+Languages: Python, TypeScript, JavaScript, SQL, Bash
+Agent systems: context engineering, multi-agent orchestration, tool use, MCP, human-in-the-loop control, state machines, structured outputs, skills/capability routing
+Evaluation: deterministic tests, regression gates, transcript/receipt inspection, exact-revision evidence, behavior-policy validation
+Systems: REST, JSON-RPC, JSON Schema, events, idempotency, retries, circuit breakers, dead-letter handling, provenance, SHA-256 integrity
+Data: PostgreSQL concepts, SQLite, structured extraction, machine-readable receipts
+Delivery: Git, GitHub Actions, Docker, Vercel, automated testing, static analysis, dependency auditing
+
+EDUCATION
+UNIVERSITY OF HAWAIʻI AT MĀNOA | Bachelor of Science, Marine Biology | 2016
+Scientific training in interacting systems, experimental design, quantitative reasoning, evidence evaluation, field/laboratory investigation, and professional communication.
+
+AWS CLOUD INSTITUTE | Cloud Application Developer program | 2025-2026, in progress
+Hands-on application development, cloud architecture, security, DevOps, data, labs, and capstone work.
+
+ROLE BOUNDARY
+Independent GlacierEQ work. No Anthropic employment, affiliation, endorsement, proprietary access, internal deployment, or prior ownership of Anthropic seller/RevOps systems is claimed. No unsupported pipeline or revenue attribution is claimed.
