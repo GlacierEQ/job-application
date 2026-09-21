@@ -205,9 +205,15 @@ for (const selector of ['.bento-card p', '.master-card p', '.branch p']) {
   assert(cssSystems.includes(selector), `print contrast selector missing ${selector}`);
 }
 
-for (const route of ['/', '/hire/', '/resume/', '/master/', '/mesh/', '/machine/', '/companies/', '/inventions/', '/evidence-gallery/']) {
+for (const route of ['/', '/hire/', '/resume/', '/master/', '/mesh/', '/machine/', '/companies/', '/companies/anthropic/gtm-claudification/', '/inventions/', '/evidence-gallery/']) {
   assert(sitemap.includes(`https://casey-barton-glaciereq.vercel.app${route}`), `sitemap missing ${route}`);
 }
+await exists('companies/anthropic/gtm-claudification/index.html');
+const anthropicGtm = await read('companies/anthropic/gtm-claudification/index.html');
+for (const token of ['GTM AI ENGINEERING', 'anthropic-agent-coordinator', 'anthropic-safety-monitor', 'glaciereq-mcp-stack', 'APEX Control Plane', 'The application should win on demonstrated systems judgment, not résumé fiction.']) {
+  assert(anthropicGtm.includes(token), `Anthropic GTM proof route missing ${token}`);
+}
+assert(!anthropicGtm.includes('Anthropic employee') && !anthropicGtm.includes('Anthropic production deployment'), 'Anthropic GTM route must not imply affiliation or deployment');
 assert(robots.includes('Sitemap: https://casey-barton-glaciereq.vercel.app/sitemap.xml'), 'robots missing sitemap');
 assert(llms.includes('/data/portfolio.json') && llms.includes('/data/psysoc-x-profiles.json') && llms.includes('/data/current-proof.json') && llms.includes('/hire/'), 'LLM orientation incomplete');
 
