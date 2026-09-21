@@ -81,7 +81,7 @@ Do not claim Anthropic internal operation, prior Anthropic seller/RevOps ownersh
 - [x] Role-fit dossier promoted to integrated-system framing.
 - [x] Public role page promoted to integrated-system framing.
 - [x] Public role page deployed and verified HTTP 200.
-- [ ] Targeted résumé final upload artifact chosen and visually checked.
+- [x] Targeted résumé final upload artifact chosen and visually checked (2 pages; PDF + DOCX hashes recorded in Job-App Helix receipt `evidence/5390966008-resume-artifact-receipt-2026-09-21.json`).
 - [x] Casey first-draft "Why Anthropic?" captured.
 - [x] AI refinement of Casey's first draft completed and committed.
 - [ ] User-only form decisions completed.
@@ -89,3 +89,17 @@ Do not claim Anthropic internal operation, prior Anthropic seller/RevOps ownersh
 - [ ] Submit application.
 - [ ] Capture submission confirmation / receipt.
 - [ ] Trigger recruiter / hiring-manager follow-up motion.
+
+
+## Verified upload artifact
+
+The current private application artifact was generated from the role-specific Job-App Helix resume source and visually inspected after DOCX -> PDF rendering.
+
+- PDF: `Casey_Barton_Anthropic_GTM_Claudification_Resume_FINAL.pdf`
+- PDF SHA-256: `d4893d77074342c841a6769b392e8bf36102712455de0c0536db2bf162ea6031`
+- DOCX: `Casey_Barton_Anthropic_GTM_Claudification_Resume_FINAL.docx`
+- DOCX SHA-256: `5217b8e0f0bc5c7d44e37efca59e4618883108b9db0153cbe18cb0739772b3bc`
+- Visual QA: PASS, 2 pages, no observed clipping/overlap/broken glyphs.
+- Provider upload state: NOT_YET_ASSERTED.
+
+The binary artifact remains separate from source control; the Job-App Helix evidence receipt binds its hash to the owning resume source without falsely claiming Greenhouse upload.
