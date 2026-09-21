@@ -34,6 +34,35 @@ reusable skill, pattern, or shared platform capability
 
 The application should present that composition first, then let reviewers drill into the underlying repositories.
 
+## Provider-verified runtime proof
+
+On 2026-09-21, the role-specific composition was executed as a live provider-backed sandbox motion rather than left as an architecture-only claim.
+
+**Motion:** `d82a1c55-26dd-44c5-b4af-07522811d594`  
+**Provider:** Supabase Postgres · project `kjebemdgvjvuutzvhbtp`  
+**Provider receipt SHA-256:** `e1a4579496fbf47c0465e84f59d20c96d1966c6b0a475fae8f8f0058cb870eca`  
+**Final state:** `VERIFIED` · eval gate `SHIP_DEMO`
+
+The durable provider event sequence was:
+
+```text
+CONTEXT_RECOVERED
+→ TOOL_PLAN_BOUND
+→ ACTION_PROPOSED
+→ HUMAN_GATE_REQUIRED
+→ HUMAN_APPROVE
+→ BOUNDED_PROVIDER_ACTION_EXECUTED
+→ PROVIDER_READBACK_REQUESTED
+→ PROVIDER_READBACK_VERIFIED
+→ EVAL_COMPLETED
+```
+
+Provider readback matched the motion ID and provider reference, the receipt hash was present, and the behavior evaluation recorded `provider_execution_observed=true` and `readback_id_matches=true`.
+
+**Boundary:** this is a real end-to-end execution proof of the governed motion architecture, but the provider mutation was deliberately confined to the dedicated Supabase sandbox receipt ledger. It did **not** send email, mutate a CRM, contact a seller/customer, or establish revenue/ROI impact. It is not an Anthropic production deployment claim.
+
+The evidence receipt is preserved in Job-App Helix as `evidence/5390966008-claudification-end-to-end-runtime-receipt-2026-09-21.json`.
+
 ## Layer map
 
 | GTM / agent-system layer | Existing GlacierEQ surface | Concrete implementation evidence | Evidence state / boundary |
