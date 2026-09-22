@@ -23,6 +23,7 @@ Submit the strongest truthful application without rebuilding the GlacierEQ estat
 - Current application responses: `GlacierEQ/job-app-helix:hire_package/casey-barton/applications/anthropic/5390966008_GTM_CLAUDIFICATION_APPLICATION_RESPONSES.md`
 - Current live-demo runbook: `GlacierEQ/job-app-helix:hire_package/casey-barton/applications/anthropic/5390966008_GTM_CLAUDIFICATION_DEMO_RUNBOOK.md`
 - Verified end-to-end runtime receipt: `GlacierEQ/job-app-helix:hire_package/casey-barton/applications/anthropic/evidence/5390966008-claudification-end-to-end-runtime-receipt-2026-09-21.json`
+- Operator decision receipt: `GlacierEQ/job-app-helix:hire_package/casey-barton/applications/anthropic/evidence/5390966008-operator-form-decisions-2026-09-21.json`
 
 ## Current Greenhouse fields
 
@@ -32,18 +33,18 @@ Submit the strongest truthful application without rebuilding the GlacierEQ estat
 | Email / phone | READY_FROM_RESUME |
 | Resume/CV | TARGETED_ARTIFACT_EXISTS; final upload format to confirm |
 | Website | USE_ROLE_SPECIFIC_PORTFOLIO_ROUTE |
-| 25% in-office openness | USER_DECISION_REQUIRED |
+| 25% in-office openness | YES — OPERATOR_CONFIRMED |
 | Earliest start | USER_DECISION_REQUIRED |
 | Timeline considerations | USER_DECISION_REQUIRED if any |
-| AI Policy acknowledgement | USER_MUST_REVIEW_AND_CONFIRM |
+| AI Policy acknowledgement | YES — OPERATOR_CONFIRMED |
 | Why Anthropic? | CANDIDATE_FIRST_DRAFT_CAPTURED; AI_REFINEMENT_COMMITTED |
-| Visa sponsorship | USER_DECISION_REQUIRED |
+| Visa sponsorship | CURRENT NO_TENTATIVE; NOW/FUTURE YES_TENTATIVE — wording requires final review |
 | Additional information / cover letter | REFINED_FROM_EXISTING_CANDIDATE_POSITIONING; COMMITTED |
 | LinkedIn | USER_PROFILE_URL_REQUIRED if not already supplied |
-| Relocation | USER_DECISION_REQUIRED |
+| Relocation | UNRESOLVED — possible, but Operator does not agree now |
 | Working address / relocating | USER_INPUT_REQUIRED |
-| Prior Anthropic interview | USER_DECISION_REQUIRED |
-| Arbitration agreement | USER_MUST_READ_AND_DECIDE |
+| Prior Anthropic interview | NO — OPERATOR_CONFIRMED |
+| Arbitration agreement | READ=NO; AGREEMENT=UNRESOLVED ('probably' is not explicit consent) |
 | Voluntary demographic fields | USER_DECISION_ONLY |
 
 ## Candidate-AI policy lock
@@ -86,7 +87,7 @@ Do not claim Anthropic internal operation, prior Anthropic seller/RevOps ownersh
 - [x] Casey first-draft "Why Anthropic?" captured.
 - [x] AI refinement of Casey's first draft completed and committed.
 - [x] Provider-backed Claudification outbound sandbox motion executed through human gate → bounded action → provider readback → eval; final state `VERIFIED`, receipt SHA-256 `e1a4579496fbf47c0465e84f59d20c96d1966c6b0a475fae8f8f0058cb870eca`.
-- [ ] User-only form decisions completed.
+- [ ] User-only form decisions completed — office/AI-policy/prior-interview resolved; visa wording, relocation, arbitration, start/timeline/address remain under final review.
 - [ ] Final application reviewed against truth boundaries.
 - [ ] Submit application.
 - [ ] Capture submission confirmation / receipt.
