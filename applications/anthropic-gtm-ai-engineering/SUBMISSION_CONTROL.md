@@ -38,7 +38,7 @@ Submit the strongest truthful application without rebuilding the GlacierEQ estat
 | Timeline considerations | USER_DECISION_REQUIRED if any |
 | AI Policy acknowledgement | YES — OPERATOR_CONFIRMED |
 | Why Anthropic? | CANDIDATE_FIRST_DRAFT_CAPTURED; AI_REFINEMENT_COMMITTED |
-| Visa sponsorship | CURRENT NO_TENTATIVE; NOW/FUTURE YES_TENTATIVE — wording requires final review |
+| Visa sponsorship | CURRENT NO; FUTURE NO — OPERATOR_CONFIRMED U.S. CITIZEN |
 | Additional information / cover letter | REFINED_FROM_EXISTING_CANDIDATE_POSITIONING; COMMITTED |
 | LinkedIn | USER_PROFILE_URL_REQUIRED if not already supplied |
 | Relocation | UNRESOLVED — possible, but Operator does not agree now |
@@ -87,7 +87,7 @@ Do not claim Anthropic internal operation, prior Anthropic seller/RevOps ownersh
 - [x] Casey first-draft "Why Anthropic?" captured.
 - [x] AI refinement of Casey's first draft completed and committed.
 - [x] Provider-backed Claudification outbound sandbox motion executed through human gate → bounded action → provider readback → eval; final state `VERIFIED`, receipt SHA-256 `e1a4579496fbf47c0465e84f59d20c96d1966c6b0a475fae8f8f0058cb870eca`.
-- [ ] User-only form decisions completed — office/AI-policy/prior-interview resolved; visa wording, relocation, arbitration, start/timeline/address remain under final review.
+- [ ] User-only form decisions completed — office/AI-policy/prior-interview resolved; relocation, arbitration, start/timeline/address remain under final review.
 - [ ] Final application reviewed against truth boundaries.
 - [ ] Submit application.
 - [ ] Capture submission confirmation / receipt.
