@@ -159,5 +159,20 @@
       "EVAL_COMPLETED"
     ],
     "boundary": "Provider-backed sandbox ledger mutation only; no Anthropic production deployment, seller/customer contact, CRM/email mutation, revenue, or ROI claim."
+  },
+  "reviewer_safari": {
+    "owner": "GlacierEQ/monolith",
+    "route_id": "anthropic-5390966008-claudification",
+    "estimated_review_minutes": 12,
+    "rule": "Do not browse the estate; follow exact proof files through owning repositories.",
+    "public_stops": [
+      "GlacierEQ/command-center",
+      "GlacierEQ/apex-control-plane",
+      "GlacierEQ/glaciereq-mcp-stack",
+      "GlacierEQ/anthropic-safety-monitor",
+      "GlacierEQ/anthropic-agent-coordinator",
+      "GlacierEQ/job-app-helix",
+      "GlacierEQ/job-application"
+    ]
   }
 }
