@@ -1,15 +1,9 @@
 {
   "boundary": "Independent GlacierEQ work; no Notion affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
   "flagships": [],
-  "gate": "Three admitted prototypes; upstream delta and archive excluded.",
+  "gate": "Two admitted prototypes; upstream delta and archive excluded.",
   "id": "notion",
   "repos": [
-    {
-      "id": "GlacierEQ/notion-mcp-empowerment-engine",
-      "lvl": "L3",
-      "provenance": "ORIGINAL_CANDIDATE",
-      "state": "REFERENCE_ONLY"
-    },
     {
       "id": "GlacierEQ/notion-workflow-intelligence",
       "lvl": "L3",

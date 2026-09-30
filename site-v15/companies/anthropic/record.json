@@ -1,7 +1,7 @@
 {
   "boundary": "Independent GlacierEQ work; no Anthropic affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
   "flagships": [],
-  "gate": "Current official Applied AI roles are source-verified. Bind the existing Anthropic-oriented agent, safety, evaluation, containment, and tool-runtime systems to the current Forward Deployed Engineer / Applied AI Architect requirements without claiming Anthropic affiliation or production use.",
+  "gate": "Current official Applied AI roles are source-verified. Public recruiter evidence is now limited to provider-resolvable Anthropic-oriented systems; build the next Forward Deployed Engineer / Applied AI Architect proof by integrating customer-system delivery, evaluation, reliability, reusable deployment patterns, and explicit safety boundaries without claiming Anthropic affiliation or production use.",
   "id": "anthropic",
   "repos": [
     {
@@ -12,36 +12,6 @@
     },
     {
       "id": "GlacierEQ/anthropic-safety-monitor",
-      "lvl": "L4",
-      "provenance": "ORIGINAL_CANDIDATE",
-      "state": "PROMOTED"
-    },
-    {
-      "id": "GlacierEQ/anthropic-constitutional-automation",
-      "lvl": "L4",
-      "provenance": "ORIGINAL_CANDIDATE",
-      "state": "PROMOTED"
-    },
-    {
-      "id": "GlacierEQ/anthropic-interpretability-engine",
-      "lvl": "L4",
-      "provenance": "ORIGINAL_CANDIDATE",
-      "state": "PROMOTED"
-    },
-    {
-      "id": "GlacierEQ/anthropic-containment-verifier",
-      "lvl": "L4",
-      "provenance": "ORIGINAL_CANDIDATE",
-      "state": "PROMOTED"
-    },
-    {
-      "id": "GlacierEQ/anthropic-eval-hardener",
-      "lvl": "L4",
-      "provenance": "ORIGINAL_CANDIDATE",
-      "state": "PROMOTED"
-    },
-    {
-      "id": "GlacierEQ/anthropic-agent-skills-runtime",
       "lvl": "L4",
       "provenance": "ORIGINAL_CANDIDATE",
       "state": "PROMOTED"
@@ -88,7 +58,7 @@
         {
           "id": "anthropic_problem_ai_reliability_serving_path",
           "kind": "problem",
-          "source_identity": "https://github.com/GlacierEQ/job-application/blob/440e353a6eb6073aaca724a6402ae5329d0e9be6/portfolio-proof/receipts/ANTHROPIC_AI_RELIABILITY_RECONCILIATION__2026-08-09.json",
+          "source_identity": "https://github.com/GlacierEQ/job-application/blob/main/portfolio-proof/receipts/ANTHROPIC_AI_RELIABILITY_RECONCILIATION__2026-08-09.json",
           "source_ref": "commit:440e353a6eb6073aaca724a6402ae5329d0e9be6",
           "verification_state": "VERIFIED",
           "visibility": "public"
@@ -99,7 +69,7 @@
         {
           "id": "anthropic_role_staff_software_engineer_ai_reliability_5113224008",
           "kind": "role",
-          "source_identity": "https://github.com/GlacierEQ/job-application/blob/440e353a6eb6073aaca724a6402ae5329d0e9be6/portfolio-proof/receipts/ANTHROPIC_AI_RELIABILITY_RECONCILIATION__2026-08-09.json",
+          "source_identity": "https://github.com/GlacierEQ/job-application/blob/main/portfolio-proof/receipts/ANTHROPIC_AI_RELIABILITY_RECONCILIATION__2026-08-09.json",
           "source_ref": "commit:440e353a6eb6073aaca724a6402ae5329d0e9be6",
           "verification_state": "VERIFIED",
           "visibility": "public"

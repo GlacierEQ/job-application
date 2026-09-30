@@ -2,7 +2,7 @@ const crypto = require('node:crypto');
 const proxy = require('./proxy.js');
 const truthRuntime = require('./truth-runtime.js');
 
-const TYPOGRAPHY_SOURCE_COMMIT = 'b4a1d9ccd8749b29129a09881d0bd183337b1a41';
+const TYPOGRAPHY_SOURCE_COMMIT = 'a20c28de990784c81aeb52ad32a948f234fd9cf5';
 const TYPOGRAPHY_CSS_PATH = 'site-v15/assets/site.algerian.css';
 const TYPOGRAPHY_CSS_BLOB = 'f9b29ee4b2fd3b82a30c1e10c23102f35fc62467';
 const TYPOGRAPHY_RAW_URL = `https://raw.githubusercontent.com/GlacierEQ/job-application/${TYPOGRAPHY_SOURCE_COMMIT}/${TYPOGRAPHY_CSS_PATH}`;

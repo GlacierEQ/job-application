@@ -12,7 +12,7 @@ const releaseRouterSource = fs.readFileSync(
 test('pins the reviewed Algerian presentation source and exact CSS blob', () => {
   assert.equal(
     typography.constants.TYPOGRAPHY_SOURCE_COMMIT,
-    'b4a1d9ccd8749b29129a09881d0bd183337b1a41',
+    'a20c28de990784c81aeb52ad32a948f234fd9cf5',
   );
   assert.equal(
     typography.constants.TYPOGRAPHY_CSS_BLOB,

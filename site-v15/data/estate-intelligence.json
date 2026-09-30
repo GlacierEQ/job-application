@@ -310,7 +310,7 @@
       "inferred_bottleneck": "Power, hardware reliability, scheduling, checkpointing, recovery, and utilization at cluster scale.",
       "inferred_brick_wall": "Maintaining economic and operational reliability amid component failures and huge infrastructure expansion.",
       "leverage_mechanism": "Use health-driven scheduling, dependency graphs, checkpoint receipts, and failure-injection review.",
-      "next_deep_dive": "Create a simulated cluster failure benchmark with clearly bounded claims.",
+      "next_deep_dive": "Create a simulated cluster failure benchmark with clearly evidence-scoped claims.",
       "observed_current_pressure": "AI clouds must operate mega-clusters across training, inference, observability, and rapidly expanding data-center capacity.",
       "official_sources": [
         {
@@ -1339,7 +1339,7 @@
   ],
   "schema": "glaciereq.public-estate-intelligence.v1",
   "source": {
-    "authority_commit": "39034acebb9a822c122ee3ba87ebb8672d83876b",
+    "authority_commit": "eedf2838918a260a49b1d630b52b5105b2823b7c",
     "external_manifest_path": "manifests/application_intelligence/company_bottleneck_atlas.external.json",
     "external_manifest_sha256": "c63e52a7f993ae7e4a2d93cc88164ac66abbaf788021a1557f79a8451f77a93d",
     "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",

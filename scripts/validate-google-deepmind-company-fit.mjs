@@ -3,9 +3,9 @@ import { readFile } from 'node:fs/promises';
 
 const root = new URL('../', import.meta.url);
 const proofPath = 'portfolio-proof/company-fit/GOOGLE_DEEPMIND__UNCERTAINTY_AWARE_GOVERNED_EXECUTION__2026-08-12.md';
-const helixCommit = '63eb32b86d49328eebe02731852cc44345374c6d';
+const helixCommit = 'eedf2838918a260a49b1d630b52b5105b2823b7c';
 const dossierPath = 'manifests/company_dossiers/frontier_ai.json';
-const expectedDossierBlob = 'bb351bd35fa8640f03c1d03fdd21068ecd31bfcf';
+const expectedDossierBlob = 'b827f738aaca8fa4ca463aae7999e8a9233cb925';
 const AKOS = 'eac3cab001306225b99da41c37370528331966dd';
 const TRACK = 'fb8e460e3b76b9d0453e702dfd2bd167368dd6a5';
 const TRACK_LATER = '46f0061f27070e5bcfbfcfe77d5b06b0e014c31f';

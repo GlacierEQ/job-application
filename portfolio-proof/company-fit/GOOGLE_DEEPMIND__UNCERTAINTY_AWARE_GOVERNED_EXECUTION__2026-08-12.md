@@ -6,8 +6,9 @@ Status: `EVIDENCE_BOUND_COMPANY_FIT_PROJECTION`
 
 Current controlling GlacierEQ company study:
 - repository: `GlacierEQ/job-app-helix`
-- revision: `63eb32b86d49328eebe02731852cc44345374c6d`
+- revision: `eedf2838918a260a49b1d630b52b5105b2823b7c`
 - artifact: `manifests/company_dossiers/frontier_ai.json`
+- re-pin note (2026-09-30): Helix moved to a fresh public history; the `google_deepmind` row is content-identical to the previous pin `63eb32b8`, so the authority now points at the public revision above.
 - company: `google_deepmind`
 - track state: `MAPPED_NOT_RECRUITER_READY`
 - target roles: `ML Systems Engineer`, `Applied AI Engineer`, `Infrastructure Engineer`
@@ -86,7 +87,7 @@ projection: uncertainty_aware_governed_execution
 status: EVIDENCE_BOUND_COMPANY_FIT_PROJECTION
 company_study:
   authority_repository: GlacierEQ/job-app-helix
-  authority_revision: 63eb32b86d49328eebe02731852cc44345374c6d
+  authority_revision: eedf2838918a260a49b1d630b52b5105b2823b7c
   artifact: manifests/company_dossiers/frontier_ai.json
   company_id: google_deepmind
   track_state: MAPPED_NOT_RECRUITER_READY
@@ -146,7 +147,7 @@ next_cursor: refresh one exact live Google/DeepMind role and specialize this pro
 ### Proven
 - AKOS exact canonical revision has current, multi-version repository-native CI and evidence-bound delegated execution semantics.
 - Track Envelope exact proof subject executed successfully in both Python and native C and preserves temporal/uncertainty semantics under adversarial conditions.
-- Current Helix authority `63eb32b86d49328eebe02731852cc44345374c6d` still describes the Google / DeepMind company track as `MAPPED_NOT_RECRUITER_READY` with the same ML-systems, temporal-routing, predictive-handoff, and governed-polyglot thesis.
+- Current Helix authority `eedf2838918a260a49b1d630b52b5105b2823b7c` still describes the Google / DeepMind company track as `MAPPED_NOT_RECRUITER_READY` with the same ML-systems, temporal-routing, predictive-handoff, and governed-polyglot thesis.
 
 ### Separately gated
 - `deepmind-tpu-mesh-optimizer` remains `REFERENCE_ONLY`, not executable recruiter proof in this projection.
