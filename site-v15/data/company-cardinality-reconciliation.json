@@ -2,8 +2,8 @@
   "schema": "glaciereq.public-company-cardinality-reconciliation.v8",
   "status": "PASS",
   "source": "site-v15/data/helix-root.json",
-  "source_sha256": "9a362515d0d750eb142e57639e03ffd2bbbb5bc386200a6eceecce3bb360982f",
-  "authoritative_helix_commit": "eedf2838918a260a49b1d630b52b5105b2823b7c",
+  "source_sha256": "e5c4d74e500f878be530aa3891f88cf9eb3895c35149213304154025a01ba878",
+  "authoritative_helix_commit": "b6c4ed3122487b3184291254fb7016f33b03f722",
   "authoritative_company_tracks": 166,
   "authoritative_second_depth_stage_counts": {
     "MAPPED_ONLY": 163,
@@ -40,32 +40,32 @@
       "replacements": 1,
       "runtime_helix_pin_updated": true,
       "historical_proof_boundary_updated": false,
-      "before_sha256": "41ec0731b596bd7a5679471d85c4892b00159943006e657c16da1ce6db2357a3",
-      "after_sha256": "6ce0db9780debf567da3fd44f41491473c2cffc78d6254e90118d18255bfff67"
+      "before_sha256": "6ce0db9780debf567da3fd44f41491473c2cffc78d6254e90118d18255bfff67",
+      "after_sha256": "3653a6ab5ecffe681ce9d79fe41dd571f19e9c67e502bae42c303f03aed25288"
     },
     {
       "path": "deployment/vercel-source-bridge/api/design-proxy.js",
       "replacements": 1,
       "runtime_helix_pin_updated": true,
       "historical_proof_boundary_updated": false,
-      "before_sha256": "351144f2983137691b5528aabb429e798c3b9c4571ca1bf467a47b3e189fd8bb",
-      "after_sha256": "eda3893553e0f3d5e76da65235374a649c75d99e6f3bd91b43c77185a14c08b4"
+      "before_sha256": "eda3893553e0f3d5e76da65235374a649c75d99e6f3bd91b43c77185a14c08b4",
+      "after_sha256": "f7981f8790cfa181c72248e3c11ec6ab511f466d51d60d4c86e76d03368c72a6"
     },
     {
       "path": "deployment/vercel-source-bridge/api/compiler-proxy.js",
       "replacements": 1,
       "runtime_helix_pin_updated": true,
       "historical_proof_boundary_updated": false,
-      "before_sha256": "279722720a90a7532b736bc07f94844a6cd8951bff421b3cf9d65436b0363ab1",
-      "after_sha256": "21176b1bfbb9a5a52e9aa8b90bd66becf4285e1edccbb05b1dc1b6c02b8a7e29"
+      "before_sha256": "21176b1bfbb9a5a52e9aa8b90bd66becf4285e1edccbb05b1dc1b6c02b8a7e29",
+      "after_sha256": "510cdf9edbf9d8aa560b03340362788c04c5c6369d1e7444a35f396c36d282a2"
     },
     {
       "path": "deployment/vercel-source-bridge/compiler-proxy.test.js",
       "replacements": 1,
       "runtime_helix_pin_updated": false,
       "historical_proof_boundary_updated": false,
-      "before_sha256": "2aff69fce5d08bdeafd3f289e0010eab9543827021d8ec00b830693ee707a8f1",
-      "after_sha256": "c22df55f216c613b542c4677e268c00afd5f3fbf3b80fc69c2a558c77b4fb350"
+      "before_sha256": "c22df55f216c613b542c4677e268c00afd5f3fbf3b80fc69c2a558c77b4fb350",
+      "after_sha256": "6c9e6212294f6cd998271815e30dde8851d08896046ee9456a38daeaf6bbf7ad"
     }
   ],
   "invariants": [

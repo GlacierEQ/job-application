@@ -7347,7 +7347,7 @@
   ],
   "company_second_depth": {
     "boundary": "Second-depth state is Helix-governed. Public claim ceilings advance only when pinned public evidence satisfies every cumulative stage prerequisite.",
-    "content_sha256": "6391a462588446f9732afb048bfed0fbd2d37163015ac1f9d8677f324f977233",
+    "content_sha256": "8041cde45d223a6972b928f7a10472cfdd35e4cab698acdb97261dc60dc821a4",
     "priority_wave": [
       "lockheed_martin",
       "openai",
@@ -7542,9 +7542,9 @@
       "raw_url": "https://raw.githubusercontent.com/GlacierEQ/job-app-helix/main/manifests/portfolio_root_truth.json",
       "repository": "GlacierEQ/job-app-helix"
     },
-    "root_ref": "eedf2838918a260a49b1d630b52b5105b2823b7c",
+    "root_ref": "b6c4ed3122487b3184291254fb7016f33b03f722",
     "root_version": "1.2.0",
-    "source_digest": "23c6efc3aa5b59091cb5aa3d3c6cc56e48775c809f7c80ea12e5e0521ed26bd5",
+    "source_digest": "7360022174eb4e4d0a1ef1adea4fa6936b56ed35d8577c930fe534bfd019763d",
     "source_hashes": {
       "manifests/application_intelligence/company_bottleneck_atlas.external.json": "c63e52a7f993ae7e4a2d93cc88164ac66abbaf788021a1557f79a8451f77a93d",
       "manifests/company_dossiers.json": "f74371573b6db90b1f79cface3113b0a5e0b4496fd4e5a5dd3c0d587e90f441a",
@@ -7555,7 +7555,7 @@
       "manifests/company_dossiers/innovation_expansion_2026_08_09.json": "2c7cc61cbc85c2a59456d738b01fb14e4ba1e602fab662a43ed45dda5ccd2d63",
       "manifests/company_dossiers/model_product_companies.json": "a32f79c75a364c9b311b5d0df40f896570c244e4535b47138729733c99b44a38",
       "manifests/company_dossiers/platform_infrastructure.json": "29dbc4da7480d2614bf90a9029435cde5ca29a458427dc8f76c3ca88a3b2c897",
-      "manifests/company_second_depth.json": "6391a462588446f9732afb048bfed0fbd2d37163015ac1f9d8677f324f977233",
+      "manifests/company_second_depth.json": "8041cde45d223a6972b928f7a10472cfdd35e4cab698acdb97261dc60dc821a4",
       "manifests/estate_compiler.json": "6016e149058388a30f10824e497ea2fb1f7b8d555a23097c6ea83d9f8c291f09",
       "manifests/estate_projection_policy.json": "515dbd39e35f25a8c5eea414d94fd99a92b01adbb9df03ba09036de2d868ce8c",
       "manifests/flagship_registry.json": "1e5ffd7dc36caf5cd79ca0d64504786cd60fd883e2c0a04f37545db9078e9ed0",

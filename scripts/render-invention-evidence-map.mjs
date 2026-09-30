@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { isUnavailableGithubUrl } from './unavailable-github-repositories.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const PORTFOLIO_PATH = resolve(ROOT, "site-v15/data/portfolio.json");
@@ -120,7 +121,7 @@ const AKOS_PINNED_HEAD = "eac3cab001306225b99da41c37370528331966dd";
 const AKOS_PINNED_EVIDENCE = `Pinned head ${AKOS_PINNED_HEAD}. Python 3.12: 200 collected, 199 passed, 1 skipped, 0 failures, 0 errors.`;
 
 function isPrivateGithubCta(repo) {
-  return PRIVATE_GITHUB_REPOS.has(repo);
+  return PRIVATE_GITHUB_REPOS.has(repo) || isUnavailableGithubUrl(repo);
 }
 
 function publicEvidenceCopy(system) {

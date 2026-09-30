@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { isUnavailableGithubUrl } from './unavailable-github-repositories.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const PORTFOLIO_PATH = resolve(ROOT, "site-v15/data/portfolio.json");
@@ -48,7 +49,7 @@ const PRIVATE_GITHUB_REPOS = new Set([
 ]);
 
 function isPrivateGithubCta(repo) {
-  return PRIVATE_GITHUB_REPOS.has(repo);
+  return PRIVATE_GITHUB_REPOS.has(repo) || isUnavailableGithubUrl(repo);
 }
 
 function sourceControl(system) {

@@ -1,5 +1,6 @@
 import { access, readFile } from "node:fs/promises";
 import { resolve } from "node:path";
+import { isUnavailableGithubUrl } from './unavailable-github-repositories.mjs';
 
 const ROOT = process.cwd();
 const gallery = JSON.parse(await readFile(resolve(ROOT, "site-v15/data/evidence-gallery.json"), "utf8"));
@@ -43,8 +44,7 @@ for (const system of gallery.systems) {
   if (!html.includes(source.name) || !html.includes(source.evidence) || !html.includes(source.limit)) {
     fail(`${system.id} drilldown lost current proof boundary`);
   }
-  const privateGithub = source.repo === "https://github.com/GlacierEQ/AKOS"
-    || source.repo === "https://github.com/GlacierEQ/Pro-DOCTOR-STRANGE";
+  const privateGithub = isUnavailableGithubUrl(source.repo);
   if (privateGithub) {
     if (html.includes(`href="${source.repo}"`) || html.includes(`href='${source.repo}'`)) {
       fail(`${system.id} public drilldown links a private GitHub repository`);

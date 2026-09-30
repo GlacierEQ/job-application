@@ -56,8 +56,7 @@ GLACIEREQ MCP STACK
 
 APEX CONTROL PLANE
 - Continuity, execution-state integrity, connector recovery, circuit breakers, dead-letter handling, audit receipts, and provider verification.
-- Source: https://github.com/GlacierEQ/apex-control-plane
-
+- Source: private repository, available on request
 JOB APPLICATION HELIX
 - Evidence-bound workflow and release system: source -> implementation -> verification -> receipt -> promotion -> audience-specific projection.
 - Source: https://github.com/GlacierEQ/job-app-helix

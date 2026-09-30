@@ -18,12 +18,14 @@ const steps = [
   ['scripts/render-evidence-gallery.mjs'],
   ['scripts/validate-evidence-gallery.mjs'],
   ['scripts/link-helix-atlas.mjs'],
+  ['scripts/prune-unavailable-github-links.mjs'],
   ['scripts/validate-algerian-display.mjs'],
   ['--test', 'deployment/vercel-source-bridge/typography-proxy.test.js'],
   ['scripts/validate-estate-intelligence.mjs'],
   ['scripts/validate-helix-atlas.mjs'],
   ['scripts/harden-public-proof-surface.mjs'],
   ['scripts/validate-public-proof-surface.mjs'],
+  ['scripts/prune-unavailable-github-links.mjs', '--check'],
   ['site-v15/scripts/validate.mjs'],
 ];
 
