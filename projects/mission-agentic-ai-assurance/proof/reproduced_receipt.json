@@ -1,0 +1,14 @@
+{
+  "action": "agent.integration.assess",
+  "action_id": "lockheed-public-lens-734997br-demo-001",
+  "breaker_state": "CLOSED",
+  "decision": "ALLOW",
+  "drift": 0.04,
+  "evidence_digest": "3628123b04948b4bd4986609eb8275226873c1bb36b3e62e8e68dcb2aaa4fc2d",
+  "outcome_hash": "c4d90a737b26a5778465ba239ff746ff531c7af2dc48d0e6b5b22893c4f7892a",
+  "policy_hash": "d0a44544cf2aac3a97a040d95a920a7671b7eda4c23f1e61037e46dc2de8c9b9",
+  "reasons": [],
+  "receipt_id": "b7a3e3cba968e19bb91ed8f6881b69e37efc97d7e8414be0aca431dff501123f",
+  "request_hash": "34eca46b5f66f3ac9a48b3c48ada2cf372a0bd712477cc3adb47fba676da88a8",
+  "schema": "glaciereq.mission-assurance-receipt.v1"
+}

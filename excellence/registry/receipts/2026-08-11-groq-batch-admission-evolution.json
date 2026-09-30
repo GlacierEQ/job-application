@@ -1,0 +1,21 @@
+{
+  "schema": "glaciereq.excellence-evolution-readback-request.v1",
+  "repository": "GlacierEQ/groq-batch-admission-gate",
+  "consumed_cursor": "next:nonstationary_queue_estimation_workload_class_budgets_adaptive_thresholds_hard_latency_refusal",
+  "merge_sha": "9245f6d62f750dc7e73553a3f95da5a8f26bfbba",
+  "post_merge_workflow": 31539079665,
+  "post_merge_python": "PASS",
+  "post_merge_go": "PASS",
+  "expected_principal_state": "EVOLVING",
+  "expected_next_cursor": "next:authenticated_observation_provenance_model_freshness_restart_safe_state_and_distributed_budget_coordination",
+  "job_application_base_sha": "c8e97c8bd2348e2a7f19d5e9bce42814bf411c07",
+  "purpose": "Trigger a fresh hardened read-only governed census after the Groq batch-admission evolution and select the next least-evolved material cursor from current estate state.",
+  "truth_boundaries": [
+    "service-time observations are caller supplied and are not authenticated provider telemetry",
+    "the estimator is bounded deterministic EWMA adaptation rather than arbitrary online policy learning",
+    "model evidence does not yet expire by freshness or survive process restart",
+    "budget state is local to one controller instance and is not distributed or quorum coordinated",
+    "no Groq affiliation, adoption, production deployment, or internal scheduler knowledge is claimed",
+    "this receipt does not pre-assert the census result"
+  ]
+}

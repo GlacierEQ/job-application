@@ -1,0 +1,35 @@
+{
+  "schema": "glaciereq.portfolio-proof.claim-retirement.v1",
+  "created_on": "2026-08-10",
+  "claim_surface": "RESUME.md",
+  "claim_subject": "GlacierEQ/anthropic-agent-coordinator",
+  "status": "RETIRED_PENDING_SOURCE_CORRECTION",
+  "reason": "The canonical resume names current repository head 2329fd6ff7f1722310ce01ff0a6bad42025832d4, but the repository default branch master currently resolves to 0f2ca5199e67664a87ffef3f874d5836984dbbdb. A stale revision must not remain current-head claim authority.",
+  "portfolio_base": "da6a6ac0f5c2a5bd61945e1935c4fcc92bcc5b07",
+  "stale_resume_revision": "2329fd6ff7f1722310ce01ff0a6bad42025832d4",
+  "verified_repository_default_branch": "master",
+  "verified_current_head": "0f2ca5199e67664a87ffef3f874d5836984dbbdb",
+  "current_head_evidence": {
+    "excellence_state_path": "machine/excellence-state.json",
+    "excellence_state_blob": "5fd86101521f4a35df43a521fb512d2b39eead3a",
+    "principal_state": "DISCOVERED",
+    "proof_ok": false,
+    "operable_ok": false,
+    "blocker": "TESTS_FAIL",
+    "gap_receipt_ref": "machine/gap-receipt.json"
+  },
+  "historical_evidence": {
+    "executable_revision": "87438f57bdfd2cb380730cf51140611963d7c95b",
+    "test_result": "62/62",
+    "authority": "HISTORICAL_PINNED_ONLY"
+  },
+  "retired_interpretations": [
+    "2329fd6ff7f1722310ce01ff0a6bad42025832d4 is the current Agent Coordinator repository head",
+    "62/62 is current-head verification",
+    "historical passing tests imply current promotion"
+  ],
+  "allowed_claim": "Agent Coordinator has historical executable evidence of 62/62 passing tests at 87438f57bdfd2cb380730cf51140611963d7c95b. Current default-branch head 0f2ca5199e67664a87ffef3f874d5836984dbbdb remains DISCOVERED with proof_ok=false, operable_ok=false, and blocker=TESTS_FAIL.",
+  "claim_ceiling": "HISTORICAL_PINNED_TEST_EVIDENCE_WITH_CURRENT_HEAD_GAP",
+  "next_cursor": "Replace the stale 2329fd6 current-head references in RESUME.md and generated resume surfaces with 0f2ca519 current-head state; regenerate derived artifacts; run resume and portfolio validators before restoring those surfaces to current authority.",
+  "repository_count_effect": "NONE"
+}

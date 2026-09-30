@@ -1,0 +1,43 @@
+{
+  "boundary": "Independent GlacierEQ work; no Lovable affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
+  "flagships": [],
+  "gate": "Prototype until build correctness, UI quality, and provenance receipts pass.",
+  "id": "lovable",
+  "repos": [
+    {
+      "id": "GlacierEQ/lovable-design-app-synth",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    }
+  ],
+  "roles": [
+    "Applied AI Systems Engineer",
+    "Forward-Deployed Engineer"
+  ],
+  "route": "/companies/lovable/",
+  "schema": "glaciereq.company-intelligence.v1",
+  "second_depth": {
+    "blockers": [
+      "current_role_not_verified",
+      "company_problem_not_bounded",
+      "repository_code_not_inspected",
+      "proof_not_reproduced"
+    ],
+    "claim_ceiling": "company_alignment_only",
+    "evidence": {
+      "claim_receipts": [],
+      "gap_queue": [],
+      "implementation_receipts": [],
+      "inspected_repositories": [],
+      "problem_evidence": [],
+      "proof_artifacts": [],
+      "role_evidence": []
+    },
+    "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+    "ordinal": 0,
+    "stage": "MAPPED_ONLY"
+  },
+  "state": "seeded",
+  "track": "MAPPED_NOT_RECRUITER_READY"
+}

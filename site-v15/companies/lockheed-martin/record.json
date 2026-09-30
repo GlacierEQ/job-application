@@ -1,0 +1,133 @@
+{
+  "boundary": "Independent GlacierEQ work; no Lockheed Martin affiliation, endorsement, employment, proprietary access, contract relationship, clearance, or production deployment is claimed.",
+  "flagships": [
+    "job_app_helix",
+    "akos",
+    "doctor_strange",
+    "tower_of_babel",
+    "job_application"
+  ],
+  "gate": "No Lockheed Martin-named repository or recruiter-admitted company-specific proof was found in the connected GlacierEQ estate. Verify a current public role and team, bound one externally supportable problem, then inspect only genuinely relevant GlacierEQ implementations before raising the claim ceiling.",
+  "id": "lockheed_martin",
+  "repos": [],
+  "roles": [
+    "AI / ML Systems Engineer",
+    "Mission Systems Software Engineer",
+    "Systems Architect"
+  ],
+  "route": "/companies/lockheed-martin/",
+  "schema": "glaciereq.company-intelligence.v1",
+  "second_depth": {
+    "blockers": [
+      "distributed_state_not_implemented",
+      "workload_identity_not_implemented",
+      "durable_tamper_evident_store_not_implemented",
+      "real_telemetry_adapters_not_implemented",
+      "sandboxed_executor_not_implemented",
+      "production_scale_not_demonstrated",
+      "aerospace_defense_certification_not_claimed"
+    ],
+    "claim_ceiling": "proof_bound_company_specific",
+    "evidence": {
+      "claim_receipts": [
+        {
+          "id": "lockheed_claim_mission_agentic_ai_assurance",
+          "kind": "claim_receipt",
+          "source_identity": "https://github.com/GlacierEQ/job-application/blob/4328fa7078e6e4125f895768142c6af0c5ec1234/projects/mission-agentic-ai-assurance/proof/claim_receipt.json",
+          "source_ref": "commit:4328fa7078e6e4125f895768142c6af0c5ec1234",
+          "verification_state": "VERIFIED",
+          "visibility": "public"
+        }
+      ],
+      "gap_queue": [
+        {
+          "id": "lockheed_remedy_mission_agentic_ai_assurance",
+          "kind": "bounded_gap",
+          "source_identity": "https://github.com/GlacierEQ/job-application/blob/4328fa7078e6e4125f895768142c6af0c5ec1234/projects/mission-agentic-ai-assurance/machine/remedy.json",
+          "source_ref": "commit:4328fa7078e6e4125f895768142c6af0c5ec1234",
+          "verification_state": "VERIFIED",
+          "visibility": "public"
+        }
+      ],
+      "implementation_receipts": [
+        {
+          "id": "lockheed_implementation_mission_agentic_ai_assurance",
+          "kind": "implementation_receipt",
+          "source_identity": "https://github.com/GlacierEQ/job-application/blob/4328fa7078e6e4125f895768142c6af0c5ec1234/projects/mission-agentic-ai-assurance/proof/implementation_receipt.json",
+          "source_ref": "commit:4328fa7078e6e4125f895768142c6af0c5ec1234",
+          "verification_state": "VERIFIED",
+          "visibility": "public"
+        }
+      ],
+      "inspected_repositories": [
+        {
+          "id": "lockheed_inspection_akos_runtime",
+          "kind": "repository_inspection",
+          "source_identity": "https://github.com/GlacierEQ/AKOS/blob/89403272a76dda8e1f9f317e16bfce5b60c1a3f5/runtime/src/index.ts",
+          "source_ref": "commit:89403272a76dda8e1f9f317e16bfce5b60c1a3f5",
+          "verification_state": "VERIFIED",
+          "visibility": "public"
+        },
+        {
+          "id": "lockheed_inspection_apex_control_plane",
+          "kind": "repository_inspection",
+          "source_identity": "https://github.com/GlacierEQ/apex-control-plane/blob/340834cf8d6c65832196b6cc0b6df281574842f8/src/control_plane_runtime.py",
+          "source_ref": "commit:340834cf8d6c65832196b6cc0b6df281574842f8",
+          "verification_state": "VERIFIED",
+          "visibility": "public"
+        },
+        {
+          "id": "lockheed_inspection_tower_integrity",
+          "kind": "repository_inspection",
+          "source_identity": "https://github.com/GlacierEQ/the-tower-of-babel/blob/e3778353e92b404de43f41963a0c7bffb84897ac/src/tower/integrity.py",
+          "source_ref": "commit:e3778353e92b404de43f41963a0c7bffb84897ac",
+          "verification_state": "VERIFIED",
+          "visibility": "public"
+        },
+        {
+          "id": "lockheed_inspection_tower_receipt",
+          "kind": "repository_inspection",
+          "source_identity": "https://github.com/GlacierEQ/the-tower-of-babel/blob/e3778353e92b404de43f41963a0c7bffb84897ac/src/tower/receipt.py",
+          "source_ref": "commit:e3778353e92b404de43f41963a0c7bffb84897ac",
+          "verification_state": "VERIFIED",
+          "visibility": "public"
+        }
+      ],
+      "problem_evidence": [
+        {
+          "id": "lockheed_problem_trusted_agentic_ai_integration",
+          "kind": "problem",
+          "source_identity": "https://www.lockheedmartin.com/en-us/capabilities/artificial-intelligence-machine-learning.html",
+          "source_ref": "sha256:87cc52bdc656fd2348ae30ec9a9bbfc3cb5b47927147f2cb2557062fa48ecd75",
+          "verification_state": "VERIFIED",
+          "visibility": "public"
+        }
+      ],
+      "proof_artifacts": [
+        {
+          "id": "lockheed_proof_mission_agentic_ai_assurance",
+          "kind": "proof_artifact",
+          "source_identity": "https://github.com/GlacierEQ/job-application/blob/4328fa7078e6e4125f895768142c6af0c5ec1234/projects/mission-agentic-ai-assurance/proof/reproduced_receipt.json",
+          "source_ref": "commit:4328fa7078e6e4125f895768142c6af0c5ec1234",
+          "verification_state": "REPRODUCED",
+          "visibility": "public"
+        }
+      ],
+      "role_evidence": [
+        {
+          "id": "lockheed_role_734997br",
+          "kind": "role",
+          "source_identity": "https://www.lockheedmartinjobs.com/job/sunnyvale/architecture-and-algorithms-agentic-ai-ml-engineer-level-2-3/694/97838518096",
+          "source_ref": "sha256:e3a0306982ef5f73f81107bbf9197c0c3a949909103fb4ac0b47e530fd4c3d01",
+          "verification_state": "VERIFIED",
+          "visibility": "public"
+        }
+      ]
+    },
+    "next_gate": "Preserve this proof-bound claim while evolving the Mesh aspiration gaps through separately tested adapters; do not raise production-scale, certification, adoption, or company-deployment claims without new independent evidence.",
+    "ordinal": 7,
+    "stage": "CLAIM_PROMOTED"
+  },
+  "state": "scaffold",
+  "track": "NO_DIRECT_EXHIBIT_VERIFIED"
+}

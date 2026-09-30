@@ -1,0 +1,41 @@
+{
+  "schema": "glaciereq.portfolio-proof-surface-receipt.v1",
+  "system_id": "anduril_track_envelope_compiler",
+  "source_repository": "GlacierEQ/anduril-track-envelope-compiler",
+  "canonical_branch": "main",
+  "current_canonical_head_observed": "46f0061f27070e5bcfbfcfe77d5b06b0e014c31f",
+  "current_head_execution": "NOT_ESTABLISHED_BY_THIS_RECEIPT",
+  "executed_proof_subject": "fb8e460e3b76b9d0453e702dfd2bd167368dd6a5",
+  "workflow_run": 31461547751,
+  "source_receipt": "machine/evolution-receipts/2026-08-11-temporal-covariance-fusion.json",
+  "executed_lanes": {
+    "python_unittest": "PASS",
+    "clang_c11_native": "PASS"
+  },
+  "verified_mechanisms": [
+    "temporal_evidence_decay",
+    "covariance_expanded_bounds",
+    "same_sensor_multiplicity_resistance",
+    "multi_sensor_support_fusion",
+    "explicit_residual_unknown_mass",
+    "malformed_uncertainty_fail_closed",
+    "order_invariant_python_fingerprint",
+    "zero_allocation_native_v2_path"
+  ],
+  "projection_surfaces": [
+    "recruiter",
+    "master",
+    "machine",
+    "mesh"
+  ],
+  "forbidden_inferences": [
+    "authenticated_sensor_identity",
+    "provenance_attested_covariance",
+    "anduril_affiliation_or_adoption",
+    "production_tracking_or_targeting_deployment",
+    "production_scale",
+    "current_head_execution_inheritance"
+  ],
+  "claim_ceiling": "EXECUTED_EVOLUTION_CANDIDATE_PYTHON_AND_NATIVE_C_WITH_ADVERSARIAL_UNCERTAINTY_SEMANTICS",
+  "next_cursor": "obtain_exact_sha_execution_for_current_canonical_head_46f0061f"
+}

@@ -1,0 +1,44 @@
+{
+  "boundary": "Independent GlacierEQ work; no affiliation, endorsement, employment, proprietary access, or production deployment with the named target is claimed.",
+  "flagships": [
+    "job_app_helix",
+    "akos",
+    "doctor_strange",
+    "tower_of_babel",
+    "job_application"
+  ],
+  "gate": "Compile the admitted public semantic donor relationships and their exact-head proof into Supabase role projections. Expand the public claim surface only when additional public donor mechanisms satisfy the same provenance and verification gates.",
+  "id": "supabase",
+  "repos": [],
+  "roles": [
+    "Applied AI Systems Engineer",
+    "Agent Infrastructure Engineer",
+    "Forward-Deployed Engineer",
+    "Platform / Reliability Engineer"
+  ],
+  "route": "/companies/supabase/",
+  "schema": "glaciereq.company-intelligence.v1",
+  "second_depth": {
+    "blockers": [
+      "current_role_not_verified",
+      "company_problem_not_bounded",
+      "repository_code_not_inspected",
+      "proof_not_reproduced"
+    ],
+    "claim_ceiling": "company_alignment_only",
+    "evidence": {
+      "claim_receipts": [],
+      "gap_queue": [],
+      "implementation_receipts": [],
+      "inspected_repositories": [],
+      "problem_evidence": [],
+      "proof_artifacts": [],
+      "role_evidence": []
+    },
+    "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+    "ordinal": 0,
+    "stage": "MAPPED_ONLY"
+  },
+  "state": "scaffold",
+  "track": "SEMANTIC_CAPABILITY_DONORS_ADMITTED"
+}

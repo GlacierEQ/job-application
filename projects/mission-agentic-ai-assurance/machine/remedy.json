@@ -1,0 +1,42 @@
+{
+  "schema": "glaciereq.mission-assurance-remedy.v1",
+  "name": "Mission Agentic AI Assurance",
+  "status": "REFERENCE_IMPLEMENTATION",
+  "public_problem": "Integrate and operationalize agentic AI/ML across disparate mission software while preserving traceability, reliability, explainability, monitoring, testability, and CI/CD discipline.",
+  "mechanisms": [
+    "immutable_evidence_refs",
+    "canonical_request_hashing",
+    "policy_gate",
+    "drift_gate",
+    "idempotency_ledger",
+    "circuit_breaker",
+    "executor_boundary",
+    "deterministic_assurance_receipt"
+  ],
+  "acceptance": [
+    "valid_evidence_can_allow",
+    "missing_evidence_fails_closed",
+    "mutable_or_malformed_ref_rejected",
+    "unknown_action_denied",
+    "excessive_drift_denied",
+    "identical_replay_is_exact",
+    "conflicting_replay_rejected",
+    "repeated_executor_failure_opens_breaker",
+    "demo_receipt_reproduces_exactly",
+    "proof_manifest_hashes_verify"
+  ],
+  "limits": [
+    "in_memory_state_only",
+    "no_authn_authz_adapter",
+    "no_external_tamper_evident_store",
+    "simple_scalar_drift_gate",
+    "no_sandboxed_executor",
+    "no_production_scale_claim",
+    "no_company_adoption_claim"
+  ],
+  "hook": {
+    "python": "PYTHONPATH=src python scripts/demo.py",
+    "test": "PYTHONPATH=src python -m unittest discover -s tests -v",
+    "verify": "PYTHONPATH=src python scripts/verify_proof.py"
+  }
+}

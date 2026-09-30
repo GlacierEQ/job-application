@@ -1,0 +1,42 @@
+syntax = "proto3";
+package glaciereq.company_atlas.v1;
+
+message CompanyAtlasPublicSummary {
+  SourceBinding source = 1;
+  AtlasCounts counts = 2;
+  repeated CompanyTrack tracks = 3;
+}
+
+message SourceBinding {
+  string authority = 1;
+  string source_commit = 2;
+  string source_digest = 3;
+  string dossier_digest = 4;
+}
+
+message AtlasCounts {
+  uint32 governed_tracks = 1;
+  uint32 mapped_repository_records = 2;
+  uint32 recruiter_admissible_memberships = 3;
+}
+
+enum EvidenceState {
+  EVIDENCE_STATE_UNSPECIFIED = 0;
+  CORE = 1;
+  PROMOTED = 2;
+  REFERENCE = 3;
+  EMPTY = 4;
+}
+
+message CompanyTrack {
+  string company_id = 1;
+  string display_name = 2;
+  string cluster = 3;
+  string track_state = 4;
+  EvidenceState evidence_state = 5;
+  uint32 mapped_repository_records = 6;
+  uint32 recruiter_admissible_repositories = 7;
+  string design_hypothesis = 8;
+  string design_hypothesis_basis = 9;
+  string route = 10;
+}

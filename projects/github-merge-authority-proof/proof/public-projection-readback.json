@@ -1,0 +1,56 @@
+{
+  "schema": "glaciereq.public-projection-readback.v2",
+  "company": "GitHub",
+  "capability": "merge_authority_graph",
+  "projection_authority": {
+    "deployed_helix_sha": "63eb32b86d49328eebe02731852cc44345374c6d",
+    "current_helix_sha_at_readback": "db2b7399aa80ce007b3d2cdaece61d1b3c322849",
+    "repository_state": "EVOLVING",
+    "canonical_anchor_head": "f791c85a81768e72446619b39b5312ef1c768a02",
+    "current_evolved_head": "346b330bbfd705579b3a4d10d298a89493a98ee6",
+    "helix_stage": "CLAIM_PROMOTED",
+    "helix_claim_ceiling": "proof_bound_company_specific"
+  },
+  "expected_public_projection": {
+    "record_path": "site-v15/companies/github/record.json",
+    "page_path": "site-v15/companies/github/index.html",
+    "company_id": "github",
+    "stage": "CLAIM_PROMOTED",
+    "claim_ceiling": "proof_bound_company_specific",
+    "claim_receipts": 2,
+    "public_proof_package": "projects/github-merge-authority-proof/"
+  },
+  "historical_promotion_basis": {
+    "claim_receipt": "projects/github-merge-authority-proof/proof/claim-receipt.json",
+    "claim_receipt_git_blob_sha": "8386979ae83426b3e6651d9e67018efbd90bb571",
+    "production_closure_receipt": "projects/github-merge-authority-proof/proof/production-projection-closure.json",
+    "production_closure_git_blob_sha": "0726d2f6185f3c7f178760a0629db3b639f7e55f",
+    "admitted_commit": "577f63c506c6c4df9c1751a0ff5b8fa07822e491"
+  },
+  "historical_claim_promotion_readback": "projects/github-merge-authority-proof/proof/production-claim-promotion-readback.json",
+  "historical_canonical_freshness_readback": "projects/github-merge-authority-proof/proof/production-canonical-freshness-readback.json",
+  "current_production_freshness_readback": "projects/github-merge-authority-proof/proof/production-evolving-freshness-readback.json",
+  "validation_contract": [
+    "historical promotion receipts remain content-addressed and immutable",
+    "deployed production compiler authority is exact Helix 63eb32b86d49328eebe02731852cc44345374c6d",
+    "current Helix db2b7399aa80ce007b3d2cdaece61d1b3c322849 differs only by portfolio rollout progress and that path must pass executable semantic equivalence before freshness is admitted",
+    "receipt-only Helix changes may inherit freshness directly; any other non-rollout delta requires a new production compile/readback",
+    "Apex canonical anchor remains f791c85a81768e72446619b39b5312ef1c768a02 while current evolved head is 346b330bbfd705579b3a4d10d298a89493a98ee6",
+    "repository state is EVOLVING with NEXT_MEASURED_EVOLUTION as the next gate",
+    "current production deployment is dpl_CSJrDfdYfiXYY7aWeQ8AwJ2v4KcQ and live bundle source is exact source 5cbb8c0656a4e8dfc32b4242308b14f25fdea60c",
+    "V25 main-push run 31637912104 attempt 2 and artifact 9158124025 bind the deterministic 11-module deployment package and Vercel independently reproduced its API and factory hashes",
+    "bundle, V25, V26, compiler JSON, company JSON, and company HTML independently read back from the canonical public alias",
+    "GitHub company stage remains CLAIM_PROMOTED at proof_bound_company_specific with exactly two admitted claim receipts",
+    "Apex repository remains private while the exact three-file evolution proof slice is truthfully disclosed as public on public-actions-runner-host PR 269",
+    "no GitHub adoption, affiliation, capability production deployment, proprietary access, or production-scale reliability claim is created by repository evolution"
+  ],
+  "allowed_public_claim": "GlacierEQ independently implemented, reproduced, and measurably evolved a governed repository mutation specialist. The deployed portfolio projection is bound to exact source and Helix authority; later portfolio-rollout-only progress is admitted only after executable semantic-equivalence proof. The GitHub company claim remains proof-bound and explicitly non-adoptive.",
+  "prohibited_claims": [
+    "GitHub uses, adopted, evaluated, endorsed, or deployed this GlacierEQ capability.",
+    "Casey Barton is or was employed by GitHub on the basis of this proof.",
+    "A GlacierEQ portfolio deployment is a GitHub capability production deployment.",
+    "The entire private apex-github-worker repository is public.",
+    "Production-scale reliability, latency, throughput, durability, or GitHub-scale operation is established."
+  ],
+  "promotion_rule": "Repository EVOLVING state and production freshness do not raise the GitHub company claim. Any higher company claim requires new public evidence and a separate gate."
+}

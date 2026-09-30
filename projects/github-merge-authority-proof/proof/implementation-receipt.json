@@ -1,0 +1,38 @@
+{
+  "schema": "glaciereq.public-implementation-receipt.v1",
+  "capability": "merge_authority_graph",
+  "private_owner": "GlacierEQ/apex-github-worker",
+  "canonical_head": "f791c85a81768e72446619b39b5312ef1c768a02",
+  "reproduced_source_sha": "1a5331a0203e1273c1045589ea66f5bcf1080b55",
+  "implementation_blobs": {
+    "merge-authority/merge-authority.mjs": "b1e30e9caa593d094de64b934b6b8ef762570b6f",
+    "merge-authority/github-provider.mjs": "e6e8587931efbf1f6fc0e7e52093c95c0ae70373"
+  },
+  "state": "PROOF_REPRODUCED",
+  "proof": {
+    "exact_merge_authority_tests": {"passed": 26, "failed": 0},
+    "proof_host_gateway_tests": {"passed": 38, "failed": 0},
+    "production_dependency_high_severity_findings": 0,
+    "real_provider_observed": true,
+    "provider": "GitHub",
+    "provider_target_repository": "GlacierEQ/public-actions-runner-host",
+    "provider_target_branch": "operability/merge-authority-v4",
+    "provider_mutation_sha": "1ec5b60e46c1e5e706838d6291ac6523fdc18a5a",
+    "canonical_readback_sha": "1ec5b60e46c1e5e706838d6291ac6523fdc18a5a",
+    "replay_result": "DUPLICATE_ALREADY_COMPLETED",
+    "replay_mutation_attempted": false,
+    "short_lived_token_revoked": true,
+    "target_main_mutated": false
+  },
+  "evidence": {
+    "public_provider_patch": "https://github.com/GlacierEQ/public-actions-runner-host/blob/operability/merge-authority-v4/proof-runtime/merge-authority-operable-v4.json",
+    "public_completed_receipt": "https://github.com/GlacierEQ/public-actions-runner-host/blob/receipts/merge-authority-v4/.merge-authority-receipts/completed/34dd2370efa88e255c0647cf5b1bb224370024dbe536c1d099fbf15cd0fe92fb.json",
+    "public_replay_receipt": "https://github.com/GlacierEQ/public-actions-runner-host/blob/receipts/merge-authority-v4/.merge-authority-receipts/events/34dd2370efa88e255c0647cf5b1bb224370024dbe536c1d099fbf15cd0fe92fb/23c999825b46599f98bf877d.json"
+  },
+  "limitations": [
+    "The private source code is not published in this receipt.",
+    "The provider run used disposable proof branches and does not establish a production deployment.",
+    "Production-scale reliability, latency, throughput, and durability remain unclaimed.",
+    "The evidence does not imply GitHub adoption, endorsement, employment, or affiliation."
+  ]
+}

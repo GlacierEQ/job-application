@@ -1,0 +1,49 @@
+{
+  "schema": "glaciereq.excellence-registry-refresh-receipt.v1",
+  "generated_at": "2026-08-10T13:34:00Z",
+  "scope": "snowflake-pair",
+  "purpose": "Bind the newly canonical Snowflake-lens claim-fence and query-intent states and trigger a fresh live 37-repository excellence census from current canonical heads.",
+  "repositories": [
+    {
+      "repository": "GlacierEQ/snowflake-cortex-claim-bound",
+      "canonical_head": "e02ba22ef0a6a36f6ef6b166b61f60a4698d5757",
+      "principal_state": "EVOLVING",
+      "canonical_role": "CANONICAL_SPECIALIST",
+      "owns": "registered_query_citation_claim_fence",
+      "proof": {
+        "candidate_source_sha": "b9174fcc5a19ae59287f3dfee66ffd449d799ffd",
+        "candidate_workflow_run": 31392270353,
+        "receipt_inclusive_head": "8a38d2e5506fbbc0a773183764de070d6c668a93",
+        "receipt_inclusive_workflow_run": 31392492294
+      }
+    },
+    {
+      "repository": "GlacierEQ/snowflake-query-intent-ledger",
+      "canonical_head": "f1c254816c3b7bf3aae6700609e04496108849cf",
+      "principal_state": "EVOLVING",
+      "canonical_role": "CANONICAL_SPECIALIST",
+      "owns": "purpose_bound_query_reuse_governance",
+      "proof": {
+        "candidate_source_sha": "f0f8f47273300d619467ecaeb56a39ee4b92d7db",
+        "candidate_workflow_run": 31393133182,
+        "receipt_inclusive_head": "3eabe513830f145c3af61648b7d7d76fc50f2f4c",
+        "receipt_inclusive_workflow_run": 31393372725
+      }
+    }
+  ],
+  "pair_contract": {
+    "planes": [
+      "registered_query_citation_claim_fence",
+      "purpose_bound_query_reuse_governance"
+    ],
+    "future_composition": "immutable query-intent fingerprint + query-result evidence -> registered claim citation -> semantic-support verification",
+    "integration_exercised": false
+  },
+  "truth_boundary": [
+    "A registered query citation does not prove semantic support for a natural-language claim.",
+    "The query-intent ledger does not execute SQL, verify results, authenticate external actors, or enforce Snowflake RLS.",
+    "No Snowflake affiliation, adoption, proprietary access, deployment, or production use is claimed.",
+    "The governed roster count is a census scope, not an accomplishment count."
+  ],
+  "next_gate": "FRESH_37_REPO_CENSUS"
+}

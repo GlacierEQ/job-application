@@ -1,0 +1,54 @@
+{
+  "schema": "glaciereq.excellence-registry-refresh-receipt.v1",
+  "trigger": "Waymo-lens pair canonicalization",
+  "canonical_heads": [
+    {
+      "repository": "GlacierEQ/waymo-phantom-freespace-certificate",
+      "merge_sha": "4c1bc3593c40a5d0c09ef556bdf57a85891f3d09",
+      "state": "EVOLVING",
+      "canonical_role": "evidence_bound_whole_grid_freespace_certification",
+      "exact_candidate_proof": {
+        "source_sha": "feee6e51999ea391bd8793a77f2576c21b6464bc",
+        "workflow_run_id": 31403184766,
+        "result": "PASS"
+      },
+      "receipt_inclusive_proof": {
+        "source_sha": "224829439afb463505cb509702299b740c9f822e",
+        "workflow_run_id": 31403534178,
+        "result": "PASS"
+      }
+    },
+    {
+      "repository": "GlacierEQ/waymo-uncertainty-lane-graph",
+      "merge_sha": "7bfdb2aa33f2ba95bb9b5b981e8930aa89e6c5f1",
+      "state": "EVOLVING",
+      "canonical_role": "conflict_safe_uncertainty_aware_lane_topology_routing",
+      "external_claim_ceiling": "PROMOTED",
+      "exact_candidate_proof": {
+        "source_sha": "e22e8a85d455cca69cfd40ebc7bcae0c2fedad07",
+        "workflow_run_id": 31404546209,
+        "result": "PASS"
+      },
+      "receipt_inclusive_proof": {
+        "source_sha": "15ddf3bd45b9d2343d0fe0b052ad99946e1319a7",
+        "workflow_run_id": 31404831275,
+        "result": "PASS"
+      }
+    }
+  ],
+  "preserved_blockers": [
+    {
+      "repository": "GlacierEQ/vercel-edge-agent-cap-token",
+      "state": "PROMOTED",
+      "blocker_issue": "https://github.com/GlacierEQ/vercel-edge-agent-cap-token/issues/1",
+      "promotion_forbidden_until_exact_proof": true
+    }
+  ],
+  "truth_boundary": {
+    "waymo_pair_integration_exercised": false,
+    "autonomous_driving_authority_claimed": false,
+    "waymo_affiliation_or_adoption_claimed": false,
+    "production_deployment_claimed": false
+  },
+  "required_next_gate": "live 37-repository census must inspect current canonical heads, preserve explicit blockers, and derive a fresh priority queue"
+}

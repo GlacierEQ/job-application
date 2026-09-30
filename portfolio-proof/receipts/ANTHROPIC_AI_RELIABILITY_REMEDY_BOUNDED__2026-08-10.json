@@ -1,0 +1,53 @@
+{
+  "schema": "glaciereq.company-fit-remedy.v1",
+  "company": "Anthropic",
+  "role": "Staff Software Engineer, AI Reliability",
+  "cycle_date": "2026-08-10",
+  "delta_type": "COMPANY_SPECIFIC_REMEDY_BOUNDED",
+  "job_application_base": "7ba1cdfbaa7a9c7cb4262c0bb26ac886198d0887",
+  "helix_authority": "8345955b67f163c3215b23195a267b6021a5be5e",
+  "prior_stage": "CODE_INSPECTED",
+  "bounded_remedy": {
+    "name": "Reliability Admission and Failure-Semantics Control Plane",
+    "problem": "Cross-cutting AI serving reliability requires work and risky actions to enter the system through explicit constraints, with observable deferral/failure states and evidence rules that prevent infrastructure failure from becoming a performance claim.",
+    "mechanisms": [
+      "dependency-aware deterministic admission",
+      "explicit global resource ceilings",
+      "structured budget/capacity/dependency deferrals",
+      "ALLOW_CONFIRM_DENY review for bounded high-risk actions",
+      "fail-closed malformed-input handling",
+      "evidence validity rules separating infrastructure failure from performance evidence"
+    ],
+    "donors": [
+      {
+        "repository": "GlacierEQ/anthropic-agent-coordinator",
+        "commit": "ac977563cfd59deb8e87177f53082184f6468aa8",
+        "path": "src/anthropic_agent_coordinator/coordinator.py",
+        "proof_boundary": "62 executed / 62 passed candidate receipt; planning/control only"
+      },
+      {
+        "repository": "GlacierEQ/anthropic-safety-monitor",
+        "commit": "a5c21172e32ce6054994402c38d86f7ef94bc56b",
+        "path": "src/anthropic_safety_monitor/policy.py",
+        "proof_boundary": "153 cross-version executions / 0 failures; policy review only"
+      },
+      {
+        "repository": "GlacierEQ/job-app-helix",
+        "commit": "8345955b67f163c3215b23195a267b6021a5be5e",
+        "proof_boundary": "worker-science evidence governance; provider failure remains PROVIDER_BLOCKED"
+      }
+    ]
+  },
+  "claim": "A bounded Anthropic-fit remedy is now defined: a reliability admission and failure-semantics control plane combining deterministic work admission, explicit resource ceilings, structured deferral, bounded risky-action review, and fail-closed evidence governance.",
+  "nonclaims": [
+    "Anthropic affiliation or adoption",
+    "Anthropic runtime integration",
+    "production deployment",
+    "production SLO attainment",
+    "multi-region failover implementation",
+    "GPU fleet or token-path reliability",
+    "complete semantic safety",
+    "company-specific implementation or reproduced proof"
+  ],
+  "next_gate": "Bind an implementation receipt to this exact remedy before any IMPLEMENTED, PROOF_REPRODUCED, or CLAIM_PROMOTED transition."
+}

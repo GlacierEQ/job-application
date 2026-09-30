@@ -1,0 +1,3 @@
+helix_sha=82ab13cad82d005b1b9631fe32fa233443288268
+purpose=compile modular GitHub PROOF_REPRODUCED state into governed public projection
+mode=one-shot push trigger; generated projection proposed by PR only

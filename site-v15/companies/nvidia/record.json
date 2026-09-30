@@ -1,0 +1,92 @@
+{
+  "boundary": "Independent GlacierEQ work; no NVIDIA affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
+  "flagships": [],
+  "gate": "Twelve direct NVIDIA-named repos exist; all mapped with forward-deployed Blackwell/ CUDA capabilities.",
+  "id": "nvidia",
+  "repos": [
+    {
+      "id": "GlacierEQ/nvidia-deep-reasoning",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    },
+    {
+      "id": "GlacierEQ/nvidia-gpu-health",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    },
+    {
+      "id": "GlacierEQ/nvidia-blackwell-fp4-optimizer",
+      "lvl": "L4",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "PROMOTED"
+    },
+    {
+      "id": "GlacierEQ/nvidia-cuda-graphs-conditional",
+      "lvl": "L4",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "PROMOTED"
+    },
+    {
+      "id": "GlacierEQ/nvidia-moe-grouped-gemm",
+      "lvl": "L4",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "PROMOTED"
+    },
+    {
+      "id": "GlacierEQ/nvidia-nvlink-scaler",
+      "lvl": "L4",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "PROMOTED"
+    },
+    {
+      "id": "GlacierEQ/nvidia-tensorrt-llm-tuner",
+      "lvl": "L4",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "PROMOTED"
+    },
+    {
+      "id": "GlacierEQ/nvidia-kernel-autotuner",
+      "lvl": "L4",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "PROMOTED"
+    },
+    {
+      "id": "GlacierEQ/nvidia-power-perf-profiler",
+      "lvl": "L4",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "PROMOTED"
+    }
+  ],
+  "roles": [
+    "AI Infrastructure Engineer",
+    "GPU Reliability Engineer",
+    "Applied Deep Learning Engineer"
+  ],
+  "route": "/companies/nvidia/",
+  "schema": "glaciereq.company-intelligence.v1",
+  "second_depth": {
+    "blockers": [
+      "current_role_not_verified",
+      "company_problem_not_bounded",
+      "repository_code_not_inspected",
+      "proof_not_reproduced"
+    ],
+    "claim_ceiling": "company_alignment_only",
+    "evidence": {
+      "claim_receipts": [],
+      "gap_queue": [],
+      "implementation_receipts": [],
+      "inspected_repositories": [],
+      "problem_evidence": [],
+      "proof_artifacts": [],
+      "role_evidence": []
+    },
+    "next_gate": "Verify a current public NVIDIA role/team, identify one externally supportable infrastructure problem, then inspect the relevant source-bound NVIDIA-aligned records that could materially address it.",
+    "ordinal": 0,
+    "stage": "MAPPED_ONLY"
+  },
+  "state": "repository-rich",
+  "track": "MAPPED_NOT_RECRUITER_READY"
+}

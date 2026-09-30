@@ -1,0 +1,11 @@
+{
+  "schema": "job-application.mega-skills-source-lock.v1",
+  "source_repository": "GlacierEQ/mega-skills",
+  "source_commit": "60face3915605909b9c7d3ed05a81dd289be3ba1",
+  "source_graph_sha256": "c661ead55c7d6d2ad45fec693283102f81b3d46b0d6c0fad4bf9a952a1ba0524",
+  "public_schema": "glaciereq.public-mega-skills.v2",
+  "route_count": 34,
+  "root_manifest_sha256": "f80b15f8e61ae73b618df1416cedad9710c63deb802e38cdaef4a1048ff86969",
+  "aggregate_projection_sha256": "c661ead55c7d6d2ad45fec693283102f81b3d46b0d6c0fad4bf9a952a1ba0524",
+  "compiler": "GlacierEQ/job-app-helix:scripts/compile_mega_skills_projection.py"
+}

@@ -1,0 +1,11 @@
+{
+  "schema": "glaciereq.promotion-authority-grant.v1",
+  "repository": "GlacierEQ/job-application",
+  "source_sha": "09bd39b84f8656f2c074f76750584955d6b640e2b21dafff122b82fb9ec3e67b",
+  "proof_receipt_digest": "f4760c8833db34444f278c115b1d9cbfda2ee1bea53f1d06945bcb67e635d2ea",
+  "not_after": 1788927149.234226,
+  "mac": "f09c4477afac789ac5e7fb859a06ef86218e1f4cca172f580575295905071d8c",
+  "issuer": "local_operator_promotion_authority",
+  "verified": true,
+  "secret_ref": "src/promotion_authority.py::LOCAL_OPERATOR_SECRET"
+}

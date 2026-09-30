@@ -1,0 +1,29 @@
+{
+  "schema": "glaciereq.public-claim-receipt.v1",
+  "company": "GitHub",
+  "capability": "merge_authority_graph",
+  "stage": "PROOF_REPRODUCED",
+  "claim_ceiling": "reproducible_company_specific_proof",
+  "allowed_claim": "Independently designed and reproduced a governed GitHub mutation path that binds exact change identity, expected repository state, required validation, bounded approval, short-lived repository authority, provider mutation, bounded eventual-state reconciliation, canonical readback, replay suppression, and receipt evidence.",
+  "proof_basis": {
+    "private_owner_repository": "GlacierEQ/apex-github-worker",
+    "canonical_promotion_head": "f791c85a81768e72446619b39b5312ef1c768a02",
+    "reproduced_source_sha": "1a5331a0203e1273c1045589ea66f5bcf1080b55",
+    "public_provider_repository": "GlacierEQ/public-actions-runner-host",
+    "provider_mutation_sha": "1ec5b60e46c1e5e706838d6291ac6523fdc18a5a",
+    "canonical_receipt_blob_sha": "175d6e236eb460d2913b711f5d72c13c8c5ef4cd",
+    "replay_receipt_blob_sha": "166f4f86a095392fc38a7a6e657e9e2b172f3cc5",
+    "exact_tests": "26/26",
+    "proof_host_tests": "38/38"
+  },
+  "prohibited_claims": [
+    "GitHub uses, adopted, evaluated, endorsed, or deployed this GlacierEQ capability.",
+    "Casey Barton is or was employed by GitHub on the basis of this proof.",
+    "The capability has production-scale GitHub reliability, latency, throughput, durability, or multi-tenant scale evidence.",
+    "The private apex-github-worker source code is public.",
+    "Disposable proof-branch execution is a production deployment.",
+    "The proof establishes any GitHub proprietary architecture beyond the cited public operating context."
+  ],
+  "public_boundary": "Recruiter and company surfaces may state the allowed claim and the disclosed evidence. They must preserve the independent-work, non-adoption, private-source, and non-production boundaries above.",
+  "next_claim_gate": "CLAIM_PROMOTED only after Helix validates this public package, every prerequisite evidence class is public and pinned, and the outward compiled surface reads back the same bounded claim."
+}

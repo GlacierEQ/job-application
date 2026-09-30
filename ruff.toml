@@ -1,0 +1,19 @@
+# The deterministic resume artifact generator is validated by the dedicated
+# V17 Resume Intelligence workflow, including regeneration, artifact hashes,
+# PDF/DOCX integrity, evidence boundaries, and reproducibility. Keep the
+# repository-wide quick CI focused on application/runtime Python rather than
+# reformatting this deterministic document-construction source.
+extend-exclude = ["site-v15/scripts/generate-resume-v17.py"]
+
+# The portfolio reflection harness intentionally probes arbitrary imported
+# modules, constructors, and edge paths. Broad exception capture is part of its
+# fail-closed discovery contract rather than application error handling. Keep
+# these ignores scoped to the dynamic harness and adversarial probe tests; all
+# other Ruff rules and repository files remain strict.
+[lint.per-file-ignores]
+"scripts/operate.py" = ["BLE001", "S110", "S112", "SIM102"]
+"tests/test_adversarial.py" = ["BLE001", "S112"]
+# A live estate census must preserve the full roster when one repository or
+# provider read fails. The broad catch converts that single failure into an
+# explicit RETRY_INSPECTION record instead of aborting the entire census.
+"excellence/registry/build_registry.py" = ["BLE001"]

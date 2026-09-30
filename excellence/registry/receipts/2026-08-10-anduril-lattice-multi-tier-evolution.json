@@ -1,0 +1,17 @@
+{
+  "schema": "glaciereq.excellence-evolution-readback-request.v1",
+  "repository": "GlacierEQ/anduril-lattice-dissent-freeze",
+  "consumed_cursor": "next:multi_tier_dissent_recovery_and_cross_sensor_clustering",
+  "merge_sha": "dbd4c9dc95156af5189b417f4113a9e14d936b74",
+  "post_merge_workflow": 31452921466,
+  "post_merge_python": "PASS",
+  "post_merge_go": "PASS",
+  "expected_principal_state": "EVOLVING",
+  "expected_next_cursor": "next:signature_verified_sensor_identity_cluster_persistence_and_recovery_receipt_chain",
+  "purpose": "Trigger a fresh read-only governed census after executing one material evolution cursor and verify that the live queue consumes the old cursor and exposes the new exact-head cursor.",
+  "truth_boundaries": [
+    "No Anduril affiliation or production Lattice deployment is claimed.",
+    "SensorOpinion.signature authenticity remains unverified and is part of the next evolution cursor.",
+    "This receipt does not pre-assert the census result."
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "schema": "glaciereq.company-fit-control-plane-reconciliation.v1",
+  "company": "Anthropic",
+  "role": "Staff Software Engineer, AI Reliability",
+  "cycle_date": "2026-08-11",
+  "delta_type": "CONTROL_PLANE_CONTRADICTION_RECONCILED",
+  "job_application_base": "f5563d0f95d69819c3d6b504cd851b3d4e739555",
+  "current_public_role": {
+    "source": "https://job-boards.greenhouse.io/anthropic/jobs/5113224008",
+    "verified_on": "2026-08-11",
+    "status": "CURRENT_PUBLIC_POSTING_VERIFIED",
+    "bounded_problem": [
+      "service-level objectives for LLM serving",
+      "monitoring and observability across the token path",
+      "high-availability serving across regions and cloud providers",
+      "incident response, recovery, and systematic improvement",
+      "safeguard model serving reliability"
+    ]
+  },
+  "portfolio_remedy_receipt": {
+    "path": "portfolio-proof/receipts/ANTHROPIC_AI_RELIABILITY_REMEDY_BOUNDED__2026-08-10.json",
+    "status": "EXISTS",
+    "bounded_remedy": "Reliability Admission and Failure-Semantics Control Plane",
+    "claim": "A company-fit remedy has been bounded in the job-application control plane, but this artifact alone does not advance canonical Helix company-second-depth authority."
+  },
+  "canonical_helix_readback": {
+    "repository": "GlacierEQ/job-app-helix",
+    "head": "388f63b8881a147bb6a7c09b0af3e78f14e5fc4e",
+    "manifest": "manifests/company_second_depth.json",
+    "company_stage": "CODE_INSPECTED",
+    "claim_ceiling": "inspected_implementation_alignment",
+    "blockers": [
+      "company_specific_remedy_not_bounded",
+      "implementation_receipt_not_bound_to_anthropic_problem",
+      "proof_not_reproduced",
+      "claim_not_promoted"
+    ],
+    "authority_rule": "Helix remains controlling. The portfolio remedy receipt is not treated as a canonical stage transition until Helix ingests and validates it."
+  },
+  "donor_proof_boundary": {
+    "tested_and_inspected_exact_revisions": [
+      {
+        "repository": "GlacierEQ/anthropic-agent-coordinator",
+        "evidence_commit": "ac977563cfd59deb8e87177f53082184f6468aa8",
+        "evidence": "62 executed / 62 passed candidate receipt; planning/control only"
+      },
+      {
+        "repository": "GlacierEQ/anthropic-safety-monitor",
+        "evidence_commit": "a5c21172e32ce6054994402c38d86f7ef94bc56b",
+        "evidence": "153 cross-version executions / 0 failures; policy review only"
+      }
+    ],
+    "current_heads_observed": [
+      {
+        "repository": "GlacierEQ/anthropic-agent-coordinator",
+        "head": "0f2ca5199e67664a87ffef3f874d5836984dbbdb"
+      },
+      {
+        "repository": "GlacierEQ/anthropic-safety-monitor",
+        "head": "6af397feea78829f494d61e98388bd4f9d90bcbe"
+      }
+    ],
+    "inheritance_rule": "Passing evidence remains bound to the tested exact revisions and is not silently inherited by newer heads without fresh proof."
+  },
+  "reconciled_company_fit": {
+    "recruiter": "Verified GlacierEQ reliability-control mechanisms map to Anthropic's current AI Reliability problem through a bounded Reliability Admission and Failure-Semantics Control Plane. The remedy exists as portfolio design evidence; canonical Helix authority remains CODE_INSPECTED until that remedy is ingested and validated.",
+    "master": "dependency-aware admission -> explicit resource ceilings -> structured deferral/failure states -> bounded risky-action review -> fail-closed evidence governance",
+    "machine_claim_ceiling": "INSPECTED_IMPLEMENTATION_ALIGNMENT_WITH_PORTFOLIO_REMEDY_DEFINED_NOT_CANONICALLY_PROMOTED",
+    "mesh": "Anthropic role/problem CURRENT -> donor evidence exact-revision VERIFIED -> portfolio remedy BOUNDED -> Helix ingestion PENDING -> implementation/reproduction/promotion BLOCKED"
+  },
+  "nonclaims": [
+    "Anthropic affiliation, endorsement, employment, adoption, or proprietary access",
+    "Anthropic runtime integration or production deployment",
+    "production SLO attainment, multi-region failover implementation, token-path reliability, or Anthropic-scale operation",
+    "complete semantic safety or model-safety equivalence",
+    "current-head donor test inheritance",
+    "canonical Helix REMEDY_BOUNDED, IMPLEMENTED, PROOF_REPRODUCED, or CLAIM_PROMOTED state"
+  ],
+  "next_cursor": "Update GlacierEQ/job-app-helix manifests/company_second_depth.json through its native validated promotion path to ingest the existing 2026-08-10 Anthropic remedy receipt; only after Helix readback removes company_specific_remedy_not_bounded may the next implementation-receipt gate begin."
+}

@@ -1,0 +1,178 @@
+{
+  "schema": "glaciereq.role-fit.v1",
+  "generated_at": "2026-09-21",
+  "candidate": "Casey Del Carpio Barton",
+  "company": "Anthropic",
+  "role": "Staff Software Engineer, GTM AI Engineering",
+  "team_alias": "Claudification",
+  "source": "https://job-boards.greenhouse.io/anthropic/jobs/5390966008",
+  "locations": [
+    "Remote-Friendly (Travel-Required)",
+    "San Francisco, CA",
+    "Seattle, WA"
+  ],
+  "listed_salary_usd": {
+    "min": 320000,
+    "max": 405000
+  },
+  "thesis": "GlacierEQ already contains the GTM workflow, agent coordination, governed MCP/tool, human-approval, outbound-transaction, evaluation, receipt/readback, continuity, and shared-capability layers; Claudification is the role-specific composition of those existing systems.",
+  "primary_evidence": [
+    {
+      "repo": "GlacierEQ/command-center",
+      "proves": [
+        "role-specific Claudification motion desk",
+        "human-gated outbound state machine",
+        "provider-backed sandbox execution",
+        "provider receipt/readback",
+        "behavior eval after execution"
+      ],
+      "boundary": "verified sandbox motion; not Anthropic production or revenue impact"
+    },
+    {
+      "repo": "GlacierEQ/anthropic-safety-monitor",
+      "proves": [
+        "human oversight states",
+        "tool-call policy",
+        "evaluation/regression discipline",
+        "receipt/transcript integrity"
+      ],
+      "boundary": "independent portfolio system; no Anthropic deployment claim"
+    },
+    {
+      "repo": "GlacierEQ/anthropic-agent-coordinator",
+      "proves": [
+        "multi-agent scheduling",
+        "dependency ordering",
+        "budget/capacity constraints",
+        "structured deferral"
+      ],
+      "boundary": "historical exact-revision test proof; no GTM production claim"
+    },
+    {
+      "repo": "GlacierEQ/glaciereq-mcp-stack",
+      "proves": [
+        "MCP/tool routing",
+        "mutation gating",
+        "credential-gated integration packages"
+      ],
+      "boundary": "local router verified; external packages implemented but credential/deployment claims remain bounded"
+    },
+    {
+      "repo": "GlacierEQ/apex-control-plane",
+      "proves": [
+        "continuity",
+        "execution-state integrity",
+        "retries/circuit breakers/dead-letter",
+        "provider receipts/readback"
+      ],
+      "boundary": "repository-local mechanisms; external provider state requires separate receipts"
+    },
+    {
+      "repo": "GlacierEQ/job-app-helix",
+      "proves": [
+        "shared evidence/release conventions",
+        "claim promotion",
+        "company-intelligence/application workflow"
+      ],
+      "boundary": "candidate portfolio control plane, not employer GTM platform"
+    },
+    {
+      "repo": "GlacierEQ/mega-skills",
+      "proves": [
+        "reusable agent skills",
+        "capability composition",
+        "architect-manager-worker pattern"
+      ],
+      "boundary": "capability framework; not Anthropic internal tooling"
+    }
+  ],
+  "explicit_nonclaims": [
+    "Anthropic affiliation, employment, endorsement, proprietary access, or internal production use",
+    "prior ownership of Anthropic seller or RevOps workflows",
+    "unsupported pipeline or revenue impact",
+    "production Claude Agent SDK deployment without native evidence",
+    "eight years of pure software-engineering tenure unless employment evidence establishes it"
+  ],
+  "system_map": "/applications/anthropic-gtm-ai-engineering/CLAUDIFICATION_SYSTEM_MAP.md",
+  "claudification_composition": {
+    "status": "PROVIDER_VERIFIED_SANDBOX_EXECUTION",
+    "motion": [
+      "signal_or_account_context",
+      "sales_workflow_and_context_recovery",
+      "agent_plan_and_dependency_coordination",
+      "governed_tool_or_mcp_proposal",
+      "policy_review_allow_confirm_deny",
+      "human_authority_boundary",
+      "bounded_outbound_transaction",
+      "provider_receipt_and_readback",
+      "eval_regression_telemetry",
+      "reusable_shared_capability"
+    ],
+    "gtm_surfaces": [
+      "GlacierEQ/monolith:skills/mega-sales/SKILL.md",
+      "GlacierEQ/mega-skills:skills/sales/SKILL.md",
+      "GlacierEQ/mega-skills:skills/analyze-account-signals",
+      "GlacierEQ/mega-skills:skills/prioritize-accounts",
+      "GlacierEQ/mega-skills:skills/plan-deal-strategy",
+      "GlacierEQ/mega-skills:skills/review-forecast",
+      "GlacierEQ/mega-skills:skills/email-sequence",
+      "GlacierEQ/mega-skills:skills/agent-evaluation",
+      "GlacierEQ/mega-skills:skills/mega-agent-evaluation"
+    ],
+    "control_surfaces": [
+      "GlacierEQ/anthropic-agent-coordinator",
+      "GlacierEQ/anthropic-safety-monitor",
+      "GlacierEQ/glaciereq-mcp-stack",
+      "GlacierEQ/apex-control-plane",
+      "GlacierEQ/operator-administration"
+    ],
+    "boundaries": [
+      "no_anthropic_internal_deployment_claim",
+      "no_unsupervised_send_claim",
+      "no_unsupported_pipeline_or_revenue_attribution",
+      "no_production_claude_agent_sdk_claim_without_native_receipt",
+      "no_real_customer_discovery_claim_while_retrieval_blocked"
+    ]
+  },
+  "claudification_runtime_proof": {
+    "observed_at": "2026-09-21T23:29:20.731412Z",
+    "motion_id": "d82a1c55-26dd-44c5-b4af-07522811d594",
+    "motion_type": "OUTBOUND",
+    "final_state": "VERIFIED",
+    "human_gate_decision": "APPROVE",
+    "provider": "Supabase Postgres",
+    "project_ref": "kjebemdgvjvuutzvhbtp",
+    "provider_receipt_sha256": "e1a4579496fbf47c0465e84f59d20c96d1966c6b0a475fae8f8f0058cb870eca",
+    "eval_gate": "SHIP_DEMO",
+    "readback_id_matches": true,
+    "provider_execution_observed": true,
+    "external_customer_contact": false,
+    "event_sequence": [
+      "CONTEXT_RECOVERED",
+      "TOOL_PLAN_BOUND",
+      "ACTION_PROPOSED",
+      "HUMAN_GATE_REQUIRED",
+      "HUMAN_APPROVE",
+      "BOUNDED_PROVIDER_ACTION_EXECUTED",
+      "PROVIDER_READBACK_REQUESTED",
+      "PROVIDER_READBACK_VERIFIED",
+      "EVAL_COMPLETED"
+    ],
+    "boundary": "Provider-backed sandbox ledger mutation only; no Anthropic production deployment, seller/customer contact, CRM/email mutation, revenue, or ROI claim."
+  },
+  "reviewer_safari": {
+    "owner": "GlacierEQ/monolith",
+    "route_id": "anthropic-5390966008-claudification",
+    "estimated_review_minutes": 12,
+    "rule": "Do not browse the estate; follow exact proof files through owning repositories.",
+    "public_stops": [
+      "GlacierEQ/command-center",
+      "GlacierEQ/apex-control-plane",
+      "GlacierEQ/glaciereq-mcp-stack",
+      "GlacierEQ/anthropic-safety-monitor",
+      "GlacierEQ/anthropic-agent-coordinator",
+      "GlacierEQ/job-app-helix",
+      "GlacierEQ/job-application"
+    ]
+  }
+}

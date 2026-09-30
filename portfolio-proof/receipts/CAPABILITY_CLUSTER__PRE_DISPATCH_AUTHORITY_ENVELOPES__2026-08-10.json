@@ -1,0 +1,75 @@
+{
+  "schema": "glaciereq.portfolio-capability-cluster.v1",
+  "cluster_id": "pre_dispatch_authority_envelopes",
+  "generated_at": "2026-08-10T14:49:36Z",
+  "base": {
+    "repository": "GlacierEQ/job-application",
+    "sha": "15cd3d8d28b517b05bd0a1fdcca73f3e39d257f9"
+  },
+  "claim": "Across independent tool-dispatch, CRM-mutation, and deployment-promotion systems, GlacierEQ repeatedly separates proposed intent from execution authority by validating explicit identity and operation scope before side effects and failing closed on invalid authority or request state.",
+  "claim_ceiling": "IMPLEMENTATION_INSPECTED_CROSS_DOMAIN_PATTERN",
+  "independence": {
+    "repository_count": 3,
+    "accomplishment_count": 1,
+    "forks_or_backups_counted_as_independent": false,
+    "integration_exercised": false,
+    "domains": [
+      "tool_dispatch",
+      "crm_mutation",
+      "deployment_promotion"
+    ]
+  },
+  "donors": [
+    {
+      "repository": "GlacierEQ/openai-tool-authority-matrix",
+      "sha": "e8b95ee5821d2438665930466dc6a9600ac703c2",
+      "principal_state": "EVOLVING",
+      "owns": "scoped_replay_safe_tool_authorization",
+      "evidence": [
+        {"path": "README.md", "blob": "6676f1a486dc19de336ae4413e9624b6872f7deb"},
+        {"path": "machine/excellence-state.json", "blob": "8efc4c43da888933b7691d0dc33ed25adbdddd99"}
+      ],
+      "proof_boundary": "Current excellence state records deterministic, adversarial, operability, proof-receipt, authority, projection-truth, and canonical-position gates PASS; provider deployment is not claimed."
+    },
+    {
+      "repository": "GlacierEQ/salesforce-crm-action-authority",
+      "sha": "0d1f49586def424fdf3cb234deba86006bb4c183",
+      "principal_state": "IMPLEMENTED",
+      "owns": "scoped_one_time_crm_mutation_authority",
+      "evidence": [
+        {"path": "README.md", "blob": "0934b6af4088ccde2e00486320cdc44b3a05b235"},
+        {"path": "machine/excellence-state.json", "blob": "0ea55bca7dcf53617d6f3f8d16e543d686da7f31"}
+      ],
+      "proof_boundary": "Central mechanism is implemented; fresh current-head deterministic, adversarial, operate, proof-receipt, external-authority, and canonical-position gates remain pending."
+    },
+    {
+      "repository": "GlacierEQ/vercel-deploy-preview-authority",
+      "sha": "296c173c5887a939c6cb99c1e7f670f1b5911c1d",
+      "principal_state": "IMPLEMENTED",
+      "owns": "scoped_revocable_environment_promotion_authority",
+      "evidence": [
+        {"path": "README.md", "blob": "0f306816517558c99b9017caf18b8ce3da690e8e"},
+        {"path": "machine/excellence-state.json", "blob": "9f4a6431d55964b6c675b098ef014d8fcc161aae"}
+      ],
+      "proof_boundary": "Central mechanism is implemented with synthetic deployment identities; fresh current-head CI, operate readback, proof receipt, external promotion authority, and projection-truth gates remain pending."
+    }
+  ],
+  "common_invariants": [
+    "requested_work_is_not_execution_authority",
+    "identity_and_operation_scope_are_checked_before_dispatch",
+    "invalid_or_missing_authority_fails_closed",
+    "authority_is_not_inferred_from_agent_intent",
+    "decision_evidence_is_preserved_where_implemented"
+  ],
+  "nonclaims": [
+    "OpenAI adoption affiliation endorsement proprietary access or production deployment",
+    "Salesforce adoption affiliation endorsement proprietary access or production deployment",
+    "Vercel adoption affiliation endorsement proprietary access or production deployment",
+    "three-repository integration",
+    "identical grant expiry revocation replay receipt or cryptographic semantics across donors",
+    "provider-scale reliability performance or customer impact",
+    "three repositories equal three independent accomplishments"
+  ],
+  "supersedes": "generic authorization or guardrail wording when these exact donors are cited together",
+  "next_gate": "Generate fresh current-head behavioral, adversarial, operate, and source-bound proof for Salesforce CRM Action Authority and Vercel Deploy Preview Authority; then re-evaluate the cluster ceiling without inheriting stale scaffold promotions."
+}

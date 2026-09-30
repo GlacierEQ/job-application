@@ -1,0 +1,19 @@
+{
+  "schema": "glaciereq.excellence-evolution-readback-request.v1",
+  "repository": "GlacierEQ/lockheed-dual-key-actuator-fence",
+  "consumed_cursor": "next:attenuating_multi_principal_quorum_hardware_backed_signers_provider_confirmation_reconciliation",
+  "merge_sha": "992964add70855fa18c885f84f777350885e2883",
+  "post_merge_workflow": 31542327367,
+  "post_merge_python": "PASS",
+  "expected_principal_state": "EVOLVING",
+  "expected_next_cursor": "next:externally_attested_hardware_provenance_signer_key_revocation_freshness_restart_safe_quorum_state_and_external_side_effect_confirmation_reconciliation",
+  "job_application_base_sha": "71bb6391b3573a38071d9ef2af502be95556d537",
+  "purpose": "Trigger a fresh hardened read-only governed census after the Lockheed dual-key quorum evolution and select the next least-evolved material cursor from current estate state.",
+  "truth_boundaries": [
+    "the signer-provider interface enforces configured hardware-backed requirements but does not independently attest physical HSM TPM or secure-enclave provenance",
+    "provider confirmation reconciliation currently covers signer authorization rather than an external side-effect provider confirmation",
+    "quorum and provider state remain in-memory reference state and are not restart-safe or distributed",
+    "no Lockheed Martin affiliation adoption production actuator deployment proprietary access or internal architecture knowledge is claimed",
+    "this receipt does not pre-assert the census result"
+  ]
+}

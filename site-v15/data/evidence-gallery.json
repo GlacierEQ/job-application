@@ -1,0 +1,626 @@
+{
+  "schema": "glaciereq.evidence-gallery.v1",
+  "source": {
+    "portfolio": "site-v15/data/portfolio.json",
+    "invention_map": "site-v15/data/invention-map.json",
+    "invention_map_receipt": "de6d91d7619372dc33fc006c23bcddf297a372cf55c0cdfc060401e3db4c3a33",
+    "evidence_policy": "claims-do-not-exceed-owning-repository-receipts"
+  },
+  "restoration_lineage": {
+    "donor_commit": "901fe77d2c6015feb1650133b751efff8aa0d24c",
+    "contraction_commit": "61042c4018db90589715fe1c7f6a2c58879ac2b2",
+    "recovered_mechanism": "filterable repository gallery",
+    "modernized_as": "script-free proof-bound gallery with deterministic per-system drilldowns",
+    "no_loss": [
+      "current flagship registry remains source of gallery membership",
+      "current evidence/state/ceiling values remain source-owned",
+      "script-free public CSP remains intact",
+      "invention map routes remain additive rather than replaced"
+    ]
+  },
+  "coverage": {
+    "systems": 9,
+    "routed_systems": 8,
+    "unrouted_systems": [
+      "cooling"
+    ],
+    "states": 4,
+    "levels": 3
+  },
+  "facets": {
+    "states": [
+      "BOUNDED_TEST_VERIFIED",
+      "PROMOTED",
+      "REFERENCE_ONLY",
+      "TEST_VERIFIED"
+    ],
+    "levels": [
+      "L4",
+      "L5",
+      "LEGACY_DEMO"
+    ],
+    "capabilities": [
+      {
+        "id": "application-intelligence",
+        "title": "Application intelligence"
+      },
+      {
+        "id": "agent-governance",
+        "title": "Agent and infrastructure governance"
+      },
+      {
+        "id": "multi-agent",
+        "title": "Deterministic multi-agent systems"
+      },
+      {
+        "id": "evidence-systems",
+        "title": "Document and evidence systems"
+      },
+      {
+        "id": "polyglot",
+        "title": "Evidence-based polyglot architecture"
+      },
+      {
+        "id": "human-machine",
+        "title": "Human and machine interfaces"
+      }
+    ],
+    "lenses": [
+      {
+        "id": "application-intelligence",
+        "title": "Application intelligence"
+      },
+      {
+        "id": "agent-assurance",
+        "title": "Dependable agent operations"
+      },
+      {
+        "id": "evidence-verification",
+        "title": "Evidence and verification"
+      },
+      {
+        "id": "architecture-federation",
+        "title": "Architecture and federation"
+      },
+      {
+        "id": "human-machine",
+        "title": "Human and machine review surfaces"
+      }
+    ]
+  },
+  "systems": [
+    {
+      "id": "helix",
+      "rank": 1,
+      "name": "Job Application Helix",
+      "repo": "https://github.com/GlacierEQ/job-app-helix",
+      "state": "PROMOTED",
+      "label": "Estate-promoted public system",
+      "summary": "Canonical release control plane",
+      "mechanisms": [],
+      "evidence": "148/148 plus lint, Protobuf, rollout, provenance and public-surface checks.",
+      "current_ceiling": "Next gate: Refresh exact current-SHA receipt and generate all company dossiers.",
+      "level": "L5",
+      "public_surface": "PUBLIC",
+      "routes": {
+        "lenses": [
+          {
+            "id": "application-intelligence",
+            "title": "Application intelligence",
+            "question": "How do you turn scattered role, repository, proof, and follow-up state into one usable hiring system?"
+          },
+          {
+            "id": "human-machine",
+            "title": "Human and machine review surfaces",
+            "question": "How do recruiters, engineers, and machines inspect different depths of one factual system without truth drift?"
+          }
+        ],
+        "capabilities": [
+          {
+            "id": "application-intelligence",
+            "title": "Application intelligence",
+            "detail": "Connects role research, verified repository evidence, truthful résumé generation, portfolio presentation, package state, and follow-up."
+          },
+          {
+            "id": "human-machine",
+            "title": "Human and machine interfaces",
+            "detail": "Presents one factual graph at different depths without allowing claims, uncertainty, or authority to drift."
+          }
+        ],
+        "workflows": [
+          {
+            "id": "role-to-package",
+            "title": "Role signal → application package",
+            "outcome": "Role evidence is routed through application state into a public package whose claims remain bounded by proof.",
+            "stage": 1,
+            "stage_count": 3
+          },
+          {
+            "id": "proof-to-human-machine",
+            "title": "Proof receipt → human and machine projection",
+            "outcome": "Bounded technical proof reaches recruiter and machine surfaces through one evidence-aware application graph.",
+            "stage": 3,
+            "stage_count": 3
+          }
+        ],
+        "roles": [
+          "Forward-Deployed AI Architect",
+          "Principal Agentic Systems Architect",
+          "Principal AI Platform / Automation Architect",
+          "Staff / Principal Applied AI Engineer"
+        ]
+      },
+      "route_kinds": 4,
+      "review_depth": 10,
+      "drilldown": "/evidence-gallery/helix/"
+    },
+    {
+      "id": "akos",
+      "rank": 2,
+      "name": "AKOS Authority Runtime",
+      "repo": "https://github.com/GlacierEQ/AKOS",
+      "state": "PROMOTED",
+      "label": "Estate-promoted public system",
+      "summary": "Authority/evidence/tool-state/closure runtime",
+      "mechanisms": [],
+      "evidence": "Diligence records 118/118 per interpreter, 10/10 Forge, 4/4 PSYSOC-X.",
+      "current_ceiling": "Next gate: Current connector/artifact lifecycle receipts; isolate case-specific paths.",
+      "level": "L5",
+      "public_surface": "PUBLIC_ALLOWLIST_REQUIRED",
+      "routes": {
+        "lenses": [
+          {
+            "id": "agent-assurance",
+            "title": "Dependable agent operations",
+            "question": "How do you let capable agents act without collapsing authority, replay safety, recovery, and evidence?"
+          },
+          {
+            "id": "human-machine",
+            "title": "Human and machine review surfaces",
+            "question": "How do recruiters, engineers, and machines inspect different depths of one factual system without truth drift?"
+          }
+        ],
+        "capabilities": [
+          {
+            "id": "agent-governance",
+            "title": "Agent and infrastructure governance",
+            "detail": "Separates capability, authority, proposal, execution, verification, persistence, and promotion state."
+          },
+          {
+            "id": "multi-agent",
+            "title": "Deterministic multi-agent systems",
+            "detail": "Coordinates ownership, dependencies, shared budgets, bounded retries, state transitions, and visible closure."
+          },
+          {
+            "id": "human-machine",
+            "title": "Human and machine interfaces",
+            "detail": "Presents one factual graph at different depths without allowing claims, uncertainty, or authority to drift."
+          }
+        ],
+        "workflows": [
+          {
+            "id": "agent-to-receipt",
+            "title": "Agent intent → recoverable execution evidence",
+            "outcome": "Authority, reversible execution, and independent convergence form a review path for dependable agent operations.",
+            "stage": 1,
+            "stage_count": 3
+          }
+        ],
+        "roles": [
+          "Forward-Deployed AI Architect",
+          "Principal Agentic Systems Architect",
+          "Principal AI Platform / Automation Architect",
+          "Staff / Principal Applied AI Engineer"
+        ]
+      },
+      "route_kinds": 4,
+      "review_depth": 10,
+      "drilldown": "/evidence-gallery/akos/"
+    },
+    {
+      "id": "doctor-strange",
+      "rank": 3,
+      "name": "Doctor Strange Convergence",
+      "repo": "https://github.com/GlacierEQ/Pro-DOCTOR-STRANGE",
+      "state": "PROMOTED",
+      "label": "Estate-promoted public system",
+      "summary": "Independent-reader convergence authority",
+      "mechanisms": [],
+      "evidence": "11/11 tests and cryptographic Receipt Zero replay; no fake consensus.",
+      "current_ceiling": "Next gate: Add independent providers and 20-run pilot before multi-provider claims.",
+      "level": "L4",
+      "public_surface": "PUBLIC",
+      "routes": {
+        "lenses": [
+          {
+            "id": "agent-assurance",
+            "title": "Dependable agent operations",
+            "question": "How do you let capable agents act without collapsing authority, replay safety, recovery, and evidence?"
+          },
+          {
+            "id": "evidence-verification",
+            "title": "Evidence and verification",
+            "question": "How do you make technical claims inspectable without confusing source presence with reproduced proof?"
+          }
+        ],
+        "capabilities": [
+          {
+            "id": "agent-governance",
+            "title": "Agent and infrastructure governance",
+            "detail": "Separates capability, authority, proposal, execution, verification, persistence, and promotion state."
+          },
+          {
+            "id": "multi-agent",
+            "title": "Deterministic multi-agent systems",
+            "detail": "Coordinates ownership, dependencies, shared budgets, bounded retries, state transitions, and visible closure."
+          },
+          {
+            "id": "evidence-systems",
+            "title": "Document and evidence systems",
+            "detail": "Preserves source material, extracts structure, links claims to evidence, validates outputs, and packages usable artifacts."
+          }
+        ],
+        "workflows": [
+          {
+            "id": "agent-to-receipt",
+            "title": "Agent intent → recoverable execution evidence",
+            "outcome": "Authority, reversible execution, and independent convergence form a review path for dependable agent operations.",
+            "stage": 3,
+            "stage_count": 3
+          }
+        ],
+        "roles": [
+          "Forward-Deployed AI Architect",
+          "Principal Agentic Systems Architect",
+          "Principal AI Platform / Automation Architect",
+          "Staff / Principal Applied AI Engineer"
+        ]
+      },
+      "route_kinds": 4,
+      "review_depth": 10,
+      "drilldown": "/evidence-gallery/doctor-strange/"
+    },
+    {
+      "id": "tower-of-babel",
+      "rank": 4,
+      "name": "Tower of Babel",
+      "repo": "https://github.com/GlacierEQ/the-tower-of-babel",
+      "state": "REFERENCE_ONLY",
+      "label": "Public reference surface",
+      "summary": "Governed polyglot architecture",
+      "mechanisms": [],
+      "evidence": "A- verified-with-hardening; external production references separate from local proof.",
+      "current_ceiling": "Next gate: Close Issue #26 and regenerate derived surfaces.",
+      "level": "L4",
+      "public_surface": "PUBLIC",
+      "routes": {
+        "lenses": [
+          {
+            "id": "architecture-federation",
+            "title": "Architecture and federation",
+            "question": "How do independent systems compose without erasing ownership, boundaries, or failure semantics?"
+          }
+        ],
+        "capabilities": [
+          {
+            "id": "polyglot",
+            "title": "Evidence-based polyglot architecture",
+            "detail": "Assigns language boundaries only where they create measurable implementation value."
+          }
+        ],
+        "workflows": [
+          {
+            "id": "architecture-to-runtime",
+            "title": "Architecture decision → implementation surface",
+            "outcome": "Polyglot architecture is connected to runnable implementation and orchestration without flattening repository ownership.",
+            "stage": 1,
+            "stage_count": 3
+          }
+        ],
+        "roles": [
+          "Forward-Deployed AI Architect",
+          "Principal Agentic Systems Architect",
+          "Principal AI Platform / Automation Architect",
+          "Staff / Principal Applied AI Engineer"
+        ]
+      },
+      "route_kinds": 4,
+      "review_depth": 7,
+      "drilldown": "/evidence-gallery/tower-of-babel/"
+    },
+    {
+      "id": "sigma-glue",
+      "rank": 5,
+      "name": "Sigma Glue Orchestration",
+      "repo": "https://github.com/GlacierEQ/sigma-glue",
+      "state": "PROMOTED",
+      "label": "Estate-promoted public system",
+      "summary": "Reversible approval-bound orchestration with provider ambiguity recovery",
+      "mechanisms": [],
+      "evidence": "Canonical 4a1ca8e5: 140/140 Node 22 tests; live GitHub Contents canary performed 2 writes/5 reads, recovered a deliberately lost success response to confirmed_applied, preserved restart-readable recovery evidence, and blocked replay before a third write.",
+      "current_ceiling": "Next gate: Add a second real provider contract and multi-host coordination before any distributed or provider-transactional exactly-once claim.",
+      "level": "L4",
+      "public_surface": "PUBLIC",
+      "routes": {
+        "lenses": [
+          {
+            "id": "agent-assurance",
+            "title": "Dependable agent operations",
+            "question": "How do you let capable agents act without collapsing authority, replay safety, recovery, and evidence?"
+          },
+          {
+            "id": "architecture-federation",
+            "title": "Architecture and federation",
+            "question": "How do independent systems compose without erasing ownership, boundaries, or failure semantics?"
+          }
+        ],
+        "capabilities": [
+          {
+            "id": "agent-governance",
+            "title": "Agent and infrastructure governance",
+            "detail": "Separates capability, authority, proposal, execution, verification, persistence, and promotion state."
+          },
+          {
+            "id": "multi-agent",
+            "title": "Deterministic multi-agent systems",
+            "detail": "Coordinates ownership, dependencies, shared budgets, bounded retries, state transitions, and visible closure."
+          },
+          {
+            "id": "polyglot",
+            "title": "Evidence-based polyglot architecture",
+            "detail": "Assigns language boundaries only where they create measurable implementation value."
+          }
+        ],
+        "workflows": [
+          {
+            "id": "agent-to-receipt",
+            "title": "Agent intent → recoverable execution evidence",
+            "outcome": "Authority, reversible execution, and independent convergence form a review path for dependable agent operations.",
+            "stage": 2,
+            "stage_count": 3
+          },
+          {
+            "id": "architecture-to-runtime",
+            "title": "Architecture decision → implementation surface",
+            "outcome": "Polyglot architecture is connected to runnable implementation and orchestration without flattening repository ownership.",
+            "stage": 3,
+            "stage_count": 3
+          }
+        ],
+        "roles": [
+          "Forward-Deployed AI Architect",
+          "Principal Agentic Systems Architect",
+          "Principal AI Platform / Automation Architect",
+          "Staff / Principal Applied AI Engineer"
+        ]
+      },
+      "route_kinds": 4,
+      "review_depth": 11,
+      "drilldown": "/evidence-gallery/sigma-glue/"
+    },
+    {
+      "id": "pro-code-runtime",
+      "rank": 6,
+      "name": "Pro-Code Runtime",
+      "repo": "https://github.com/GlacierEQ/pro-code",
+      "state": "REFERENCE_ONLY",
+      "label": "Public reference surface",
+      "summary": "Polyglot runtime implementation",
+      "mechanisms": [],
+      "evidence": "Python/TypeScript planes passed; Rust/Haskell blocked.",
+      "current_ceiling": "Next gate: Pinned all-language CI and root license.",
+      "level": "L4",
+      "public_surface": "PUBLIC",
+      "routes": {
+        "lenses": [
+          {
+            "id": "architecture-federation",
+            "title": "Architecture and federation",
+            "question": "How do independent systems compose without erasing ownership, boundaries, or failure semantics?"
+          }
+        ],
+        "capabilities": [
+          {
+            "id": "polyglot",
+            "title": "Evidence-based polyglot architecture",
+            "detail": "Assigns language boundaries only where they create measurable implementation value."
+          }
+        ],
+        "workflows": [
+          {
+            "id": "architecture-to-runtime",
+            "title": "Architecture decision → implementation surface",
+            "outcome": "Polyglot architecture is connected to runnable implementation and orchestration without flattening repository ownership.",
+            "stage": 2,
+            "stage_count": 3
+          }
+        ],
+        "roles": [
+          "Forward-Deployed AI Architect",
+          "Principal Agentic Systems Architect",
+          "Principal AI Platform / Automation Architect",
+          "Staff / Principal Applied AI Engineer"
+        ]
+      },
+      "route_kinds": 4,
+      "review_depth": 7,
+      "drilldown": "/evidence-gallery/pro-code-runtime/"
+    },
+    {
+      "id": "job-application",
+      "rank": 7,
+      "name": "Job Application Portal",
+      "repo": "https://github.com/GlacierEQ/job-application",
+      "state": "PROMOTED",
+      "label": "Estate-promoted public system",
+      "summary": "Canonical recruiter/runtime source",
+      "mechanisms": [],
+      "evidence": "Strong public/private contract and release-candidate website checks.",
+      "current_ceiling": "Next gate: Bind production bytes to canonical Git SHA.",
+      "level": "L4",
+      "public_surface": "PUBLIC",
+      "routes": {
+        "lenses": [
+          {
+            "id": "application-intelligence",
+            "title": "Application intelligence",
+            "question": "How do you turn scattered role, repository, proof, and follow-up state into one usable hiring system?"
+          },
+          {
+            "id": "evidence-verification",
+            "title": "Evidence and verification",
+            "question": "How do you make technical claims inspectable without confusing source presence with reproduced proof?"
+          },
+          {
+            "id": "human-machine",
+            "title": "Human and machine review surfaces",
+            "question": "How do recruiters, engineers, and machines inspect different depths of one factual system without truth drift?"
+          }
+        ],
+        "capabilities": [
+          {
+            "id": "application-intelligence",
+            "title": "Application intelligence",
+            "detail": "Connects role research, verified repository evidence, truthful résumé generation, portfolio presentation, package state, and follow-up."
+          },
+          {
+            "id": "evidence-systems",
+            "title": "Document and evidence systems",
+            "detail": "Preserves source material, extracts structure, links claims to evidence, validates outputs, and packages usable artifacts."
+          },
+          {
+            "id": "human-machine",
+            "title": "Human and machine interfaces",
+            "detail": "Presents one factual graph at different depths without allowing claims, uncertainty, or authority to drift."
+          }
+        ],
+        "workflows": [
+          {
+            "id": "role-to-package",
+            "title": "Role signal → application package",
+            "outcome": "Role evidence is routed through application state into a public package whose claims remain bounded by proof.",
+            "stage": 2,
+            "stage_count": 3
+          },
+          {
+            "id": "proof-to-human-machine",
+            "title": "Proof receipt → human and machine projection",
+            "outcome": "Bounded technical proof reaches recruiter and machine surfaces through one evidence-aware application graph.",
+            "stage": 2,
+            "stage_count": 3
+          }
+        ],
+        "roles": [
+          "Forward-Deployed AI Architect",
+          "Principal Agentic Systems Architect",
+          "Principal AI Platform / Automation Architect",
+          "Staff / Principal Applied AI Engineer"
+        ]
+      },
+      "route_kinds": 4,
+      "review_depth": 12,
+      "drilldown": "/evidence-gallery/job-application/"
+    },
+    {
+      "id": "receipt-router",
+      "rank": 8,
+      "name": "Portfolio Receipt Router",
+      "repo": "https://github.com/GlacierEQ/xai-colossus-2",
+      "state": "TEST_VERIFIED",
+      "label": "Executed public flagship",
+      "summary": "Replaced an overstated autonomous-control surface with a local, fail-closed evidence router that preserves compatibility while refusing unsupported promotion.",
+      "mechanisms": [
+        "validates source evidence states",
+        "reconciles tests and artifacts",
+        "routes bounded public claims",
+        "blocks unfinished candidates",
+        "performs no external actions"
+      ],
+      "evidence": "69/69 tests recorded in current-proof supporting_proof; local cold unittest path uses pytest.",
+      "current_ceiling": "Draft source hardening remains unmerged; no production datacenter control or company affiliation is claimed.",
+      "level": "LEGACY_DEMO",
+      "public_surface": "PUBLIC",
+      "routes": {
+        "lenses": [
+          {
+            "id": "application-intelligence",
+            "title": "Application intelligence",
+            "question": "How do you turn scattered role, repository, proof, and follow-up state into one usable hiring system?"
+          },
+          {
+            "id": "evidence-verification",
+            "title": "Evidence and verification",
+            "question": "How do you make technical claims inspectable without confusing source presence with reproduced proof?"
+          }
+        ],
+        "capabilities": [
+          {
+            "id": "application-intelligence",
+            "title": "Application intelligence",
+            "detail": "Connects role research, verified repository evidence, truthful résumé generation, portfolio presentation, package state, and follow-up."
+          },
+          {
+            "id": "evidence-systems",
+            "title": "Document and evidence systems",
+            "detail": "Preserves source material, extracts structure, links claims to evidence, validates outputs, and packages usable artifacts."
+          }
+        ],
+        "workflows": [
+          {
+            "id": "role-to-package",
+            "title": "Role signal → application package",
+            "outcome": "Role evidence is routed through application state into a public package whose claims remain bounded by proof.",
+            "stage": 3,
+            "stage_count": 3
+          },
+          {
+            "id": "proof-to-human-machine",
+            "title": "Proof receipt → human and machine projection",
+            "outcome": "Bounded technical proof reaches recruiter and machine surfaces through one evidence-aware application graph.",
+            "stage": 1,
+            "stage_count": 3
+          }
+        ],
+        "roles": [
+          "Forward-Deployed AI Architect",
+          "Principal Agentic Systems Architect",
+          "Principal AI Platform / Automation Architect",
+          "Staff / Principal Applied AI Engineer"
+        ]
+      },
+      "route_kinds": 4,
+      "review_depth": 10,
+      "drilldown": "/evidence-gallery/receipt-router/"
+    },
+    {
+      "id": "cooling",
+      "rank": 9,
+      "name": "Cooling Simulation Testbed",
+      "repo": "https://github.com/GlacierEQ/xai-colossus-cooling",
+      "state": "BOUNDED_TEST_VERIFIED",
+      "label": "Reference simulation testbed",
+      "summary": "Models bounded thermal scenarios, exercises controller behavior, and produces inspectable engineering artifacts.",
+      "mechanisms": [
+        "validates thermal inputs",
+        "evaluates bounded anomalies",
+        "runs deterministic controller paths",
+        "reports environment limits",
+        "generates blueprint artifacts"
+      ],
+      "evidence": "Local unittest green (13); no hardware control claimed.",
+      "current_ceiling": "No real GPU telemetry, hardware control, hyperscale performance, PUE, latency, or cost claim.",
+      "level": "LEGACY_DEMO",
+      "public_surface": "PUBLIC",
+      "routes": {
+        "lenses": [],
+        "capabilities": [],
+        "workflows": [],
+        "roles": []
+      },
+      "route_kinds": 0,
+      "review_depth": 0,
+      "drilldown": "/evidence-gallery/cooling/"
+    }
+  ],
+  "receipt_sha256": "b0c5faae3aefa58030166d3faa496f96f766f92cbd1bd44217fd75e4c2f5bcd6"
+}

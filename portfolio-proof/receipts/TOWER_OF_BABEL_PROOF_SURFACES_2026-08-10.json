@@ -1,0 +1,43 @@
+{
+  "proof_object": "tower-of-babel-bounded-cross-language-mission-pipeline",
+  "generated_on": "2026-08-10",
+  "system": "GlacierEQ/the-tower-of-babel",
+  "canonical_head_observed": "60625dc7dde95a69212c201ba8d79c991b88c39b",
+  "evidence": [
+    {
+      "path": "flagship/README.md",
+      "blob_sha": "d40e4794abd8a617479535530819c312d52825dd",
+      "supports": [
+        "typed staged mission pipeline",
+        "fail-closed registry-bound Rust authority gate",
+        "evidence-hash telemetry",
+        "constrained SQL state",
+        "capability-limited WebAssembly boundary",
+        "receipt sequence invariant",
+        "deterministic Tower Receipt",
+        "runner records unavailable toolchain blockers"
+      ]
+    },
+    {
+      "path": "PORTFOLIO_PROOF_REPOSITORY_COVERAGE.md",
+      "repository": "GlacierEQ/job-application",
+      "supports": [
+        "canonical donor classification",
+        "current source-contract / flagship-path evidence ceiling",
+        "no inference that unavailable toolchain stages executed"
+      ]
+    }
+  ],
+  "claim_ceiling": "IMPLEMENTED_BOUNDED_CROSS_LANGUAGE_MISSION_PIPELINE",
+  "accomplishment_count": 1,
+  "repository_count_inflation": false,
+  "retired_wording": "many-language showcase",
+  "current_wording": "typed, authority-preserving cross-language mission pipeline with hashed ingress, separate planning and fail-closed authority, evidence-bound telemetry, constrained state, capability-limited tooling, deterministic receipts, and explicit unavailable-toolchain blockers",
+  "nonclaims": [
+    "all toolchains executed on current head",
+    "production deployment",
+    "hosted-scale performance",
+    "external-provider integration"
+  ],
+  "next_cursor": "Run the flagship pipeline on canonical head 60625dc7dde95a69212c201ba8d79c991b88c39b in an environment with the intended toolchains; preserve the exact receipt and blocker set; promote only stages proven by that receipt."
+}

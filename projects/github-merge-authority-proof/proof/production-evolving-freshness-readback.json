@@ -1,0 +1,93 @@
+{
+  "schema": "glaciereq.production-evolving-freshness-readback.v1",
+  "status": "PASS",
+  "company": "GitHub",
+  "capability": "merge_authority_graph",
+  "observed_at_utc": "2026-08-12T20:46:22Z",
+  "repository_evolution": {
+    "canonical_anchor_head": "f791c85a81768e72446619b39b5312ef1c768a02",
+    "evolved_head": "346b330bbfd705579b3a4d10d298a89493a98ee6",
+    "helix_evolving_commit": "f2559a1581e77da05e564875bf50875d8f2c5686",
+    "evolution_receipt_path": "excellence/receipts/apex-github-worker-evolution-2026-08-12.json",
+    "evolution_receipt_git_blob_sha": "e5711d0afd61e521f0fd487287545240efaa355d",
+    "repository_state": "EVOLVING",
+    "next_gate": "NEXT_MEASURED_EVOLUTION"
+  },
+  "production_projection": {
+    "project": "casey-barton-glaciereq",
+    "deployment_id": "dpl_CSJrDfdYfiXYY7aWeQ8AwJ2v4KcQ",
+    "canonical_alias": "casey-barton-glaciereq.vercel.app",
+    "source_repository": "GlacierEQ/job-application",
+    "source_commit": "5cbb8c0656a4e8dfc32b4242308b14f25fdea60c",
+    "helix_repository": "GlacierEQ/job-app-helix",
+    "helix_commit": "63eb32b86d49328eebe02731852cc44345374c6d",
+    "current_helix_head_at_readback": "db2b7399aa80ce007b3d2cdaece61d1b3c322849",
+    "release": "V25-APPLICATION-COMPILER",
+    "title_release": "V27-ALGERIAN-MONUMENT"
+  },
+  "authority_freshness": {
+    "deployed_helix_commit": "63eb32b86d49328eebe02731852cc44345374c6d",
+    "current_helix_commit_at_readback": "db2b7399aa80ce007b3d2cdaece61d1b3c322849",
+    "require_deployed_commit_as_merge_base": true,
+    "allowed_delta_prefixes": ["excellence/receipts/", "manifests/portfolio_rollout.json"],
+    "semantic_delta_guards": {"manifests/portfolio_rollout.json":"scripts/validate-helix-rollout-equivalence.mjs"},
+    "projection_equivalence_rule": "Production is bound to exact deployed Helix 63eb32b86d49328eebe02731852cc44345374c6d. Later receipt-only changes may inherit freshness directly. Portfolio rollout-only progress may inherit freshness only when the executable semantic-equivalence guard proves unchanged policy, wave contracts, repository sets, immutable historical completion rows, monotonic progress, and absence of GitHub company identity. Any other Helix delta fails closed and requires a new production compile/readback."
+  },
+  "build_receipt": {
+    "github_actions_run_id": 31637912104,
+    "github_actions_artifact_id": 9158124025,
+    "github_actions_artifact_name": "v25-deployment-5cbb8c0656a4e8dfc32b4242308b14f25fdea60c",
+    "github_actions_artifact_digest": "sha256:2004679fbe5b3abe322cc0bc5225cb904af729b42cc5796e9ef0b8cd24646967",
+    "manifest_schema": "glaciereq.v25-deployment-bundle-manifest.v2",
+    "status": "PASS",
+    "api_index_bytes": 218363,
+    "api_index_sha256": "4876b908fd8788307c8fabe49e4285973d939e76f2547115d372592f104c0472",
+    "factory_bundle_sha256": "3094518ed9eaaf177a0e388e733ea7546cdc8ee2798ad911cb31867147d31fab",
+    "module_count": 11,
+    "deployment_file_count": 2,
+    "self_contained_executable_modules": true,
+    "bootstrap_network_fetch_required": false,
+    "runtime_string_evaluation_required": false,
+    "every_factory_sha256_verified_before_execution": true
+  },
+  "live_readback": {
+    "bundle_verifier": {"path":"/__v25_bundle_verify","http_status":200,"status":"PASS","source_commit":"5cbb8c0656a4e8dfc32b4242308b14f25fdea60c","factory_bundle_sha256":"3094518ed9eaaf177a0e388e733ea7546cdc8ee2798ad911cb31867147d31fab","module_count":11},
+    "v25_verifier": {"path":"/__v25_verify","http_status":200,"status":"PASS","compiler_helix_commit":"63eb32b86d49328eebe02731852cc44345374c6d","errors":[]},
+    "v26_verifier": {"path":"/__v26_verify","http_status":200,"status":"PASS","inherited_v25_status":"PASS","errors":[]},
+    "github_compiler_json": {"path":"/data/application-compiler.json?company=github&depth=senior_engineer","http_status":200,"stage":"CLAIM_PROMOTED","claim_ceiling":"proof_bound_company_specific","claim_receipts":2,"helix_commit":"63eb32b86d49328eebe02731852cc44345374c6d"},
+    "github_company_record": {"path":"/companies/github/record.json","http_status":200,"state":"effective_projection","stage":"CLAIM_PROMOTED","claim_ceiling":"proof_bound_company_specific","claim_receipts":2,"helix_commit":"63eb32b86d49328eebe02731852cc44345374c6d"},
+    "github_company_html": {"path":"/companies/github/","http_status":200,"stage":"CLAIM_PROMOTED","claim_ceiling":"proof_bound_company_specific","claim_receipts_visible":2,"independent_work_boundary_visible":true,"script_free":true}
+  },
+  "source_disclosure": {
+    "canonical_repository_visibility": "private",
+    "entire_private_repository_public": false,
+    "bounded_evolution_source_slice_publicly_disclosed": true,
+    "public_repository": "GlacierEQ/public-actions-runner-host",
+    "public_pull_request": 269,
+    "public_files": ["merge-authority.mjs","merge-authority.test.mjs","evolution-benchmark.test.mjs"],
+    "public_git_blobs": {"merge-authority.mjs":"b0634ee0f39ff5ef636a806a6d967385c614330d","merge-authority.test.mjs":"5db04e65163f183c1e906ac4a505ba9c73345a2e","evolution-benchmark.test.mjs":"16b68535908a0e04850a7afaf5979bfdc5038754"}
+  },
+  "claim_boundary": {
+    "company_stage": "CLAIM_PROMOTED",
+    "claim_ceiling": "proof_bound_company_specific",
+    "claim_receipts": 2,
+    "portfolio_projection_is_production_deployed": true,
+    "github_capability_production_deployment_claimed": false,
+    "github_adoption_claimed": false,
+    "github_affiliation_claimed": false,
+    "production_scale_reliability_claimed": false,
+    "public_nonclaim": "Independent GlacierEQ work; no GitHub affiliation, endorsement, employment, proprietary access, adoption, or production deployment is claimed."
+  },
+  "gate_decision": {
+    "repository_evolution_earned": true,
+    "winner_preserved_on_apex_main": true,
+    "production_projection_compiled_after_evolving_transition": true,
+    "production_build_matches_exact_source_artifact": true,
+    "current_helix_projection_equivalent_under_audited_nonprojection_delta": true,
+    "canonical_alias_readback_matches_deployed_authority": true,
+    "claim_boundary_preserved": true,
+    "company_claim_unchanged": true,
+    "production_freshness_closed": true,
+    "future_higher_company_claim_requires_new_evidence_gate": true
+  }
+}

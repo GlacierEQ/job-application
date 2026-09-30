@@ -1,0 +1,22 @@
+{
+  "schema": "glaciereq.operability-receipt.v1",
+  "repository": "GlacierEQ/job-application",
+  "at": "2026-08-10T04:12Z",
+  "source_sha": "09bd39b84f8656f2c074f76750584955d6b640e2b21dafff122b82fb9ec3e67b",
+  "entry": "scripts/operate.py",
+  "primary_output": {
+    "module": "portfolio_surface",
+    "ok": true,
+    "repository": "GlacierEQ/job-application",
+    "smoke": {
+      "args": [],
+      "content_checked": true,
+      "invoked": true,
+      "kind": "fn",
+      "name": "flagship_count",
+      "result": 3
+    }
+  },
+  "dual_run_ok": true,
+  "result": "PASS"
+}

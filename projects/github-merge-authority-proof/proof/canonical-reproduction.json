@@ -1,0 +1,61 @@
+{
+  "schema": "glaciereq.public-canonical-reproduction.v1",
+  "capability": "merge_authority_graph",
+  "result": "PASS",
+  "canonical_source_sha": "1a5331a0203e1273c1045589ea66f5bcf1080b55",
+  "canonical_promotion_head": "f791c85a81768e72446619b39b5312ef1c768a02",
+  "proof_host": {
+    "repository": "GlacierEQ/colossus-gateway",
+    "commit": "cbaea385cc875d860746dc9a97b564ebea68e509",
+    "vercel_deployment_id": "dpl_588xofXNTS8RBYcSbNw9QBPWtAsK",
+    "environment": "preview"
+  },
+  "preflight": {
+    "gateway_tests": "38/38",
+    "exact_merge_authority_tests": "26/26",
+    "production_dependency_high_severity_findings": 0
+  },
+  "provider_execution": {
+    "repository": "GlacierEQ/public-actions-runner-host",
+    "base_sha": "4ff1b382d58695e5f3a2f52816ac53155c50a96a",
+    "target_branch": "operability/merge-authority-v4",
+    "receipt_branch": "receipts/merge-authority-v4",
+    "patch_path": "proof-runtime/merge-authority-operable-v4.json",
+    "patch_blob_sha": "0cb0ee4520d0a47647d08292adee98be30b13a99",
+    "patch_sha256": "27c40028f1471dbc9d60eab4fbfd628151d3ffb93c19f57796c0d19cd385310a",
+    "idempotency_key": "34dd2370efa88e255c0647cf5b1bb224370024dbe536c1d099fbf15cd0fe92fb",
+    "merge_sha": "1ec5b60e46c1e5e706838d6291ac6523fdc18a5a",
+    "canonical_readback_sha": "1ec5b60e46c1e5e706838d6291ac6523fdc18a5a",
+    "merge_parent": "4ff1b382d58695e5f3a2f52816ac53155c50a96a",
+    "provider_commit_signature_verified": true,
+    "target_main_after_proof": "4ff1b382d58695e5f3a2f52816ac53155c50a96a",
+    "target_main_mutated": false
+  },
+  "canonical_receipt": {
+    "path": ".merge-authority-receipts/completed/34dd2370efa88e255c0647cf5b1bb224370024dbe536c1d099fbf15cd0fe92fb.json",
+    "blob_sha": "175d6e236eb460d2913b711f5d72c13c8c5ef4cd",
+    "result": "VERIFIED_COMPLETED"
+  },
+  "replay": {
+    "path": ".merge-authority-receipts/events/34dd2370efa88e255c0647cf5b1bb224370024dbe536c1d099fbf15cd0fe92fb/23c999825b46599f98bf877d.json",
+    "blob_sha": "166f4f86a095392fc38a7a6e657e9e2b172f3cc5",
+    "result": "DUPLICATE_ALREADY_COMPLETED",
+    "merge_attempted": false
+  },
+  "authority": {
+    "class": "short_lived_repository_scoped_github_app_installation_token",
+    "requested_permission": "contents:write",
+    "repository_allowlist_was_preexisting": true,
+    "allowlist_expanded": false,
+    "broad_pat_used": false,
+    "token_persisted": false,
+    "token_revoked": true,
+    "private_key_exported_to_proof_host": false
+  },
+  "conclusion": "The same exact implementation source that was canonical in apex-github-worker at the time of execution reproduced its governed mutation contract against the real GitHub provider, and the public provider state independently matches the receipt.",
+  "nonclaims": [
+    "This is independent GlacierEQ proof, not GitHub adoption evidence.",
+    "Disposable proof branches are not a production deployment.",
+    "No production-scale reliability, throughput, latency, or durability claim is made."
+  ]
+}

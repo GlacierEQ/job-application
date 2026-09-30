@@ -1,0 +1,64 @@
+{
+  "schema": "glaciereq.current-proof.v1",
+  "release": "V21 First Star Completion",
+  "state": "PRODUCTION_READY_VERIFIED",
+  "current_star": {
+    "id": "mission-agentic-ai-assurance",
+    "title": "Mission Agentic AI Assurance",
+    "implementation": {
+      "repository": "GlacierEQ/job-application",
+      "commit": "4328fa7078e6e4125f895768142c6af0c5ec1234",
+      "root": "projects/mission-agentic-ai-assurance/",
+      "state": "IMPLEMENTED_REFERENCE",
+      "acceptance_tests": 17,
+      "network_required_for_proof": false,
+      "credentials_required_for_proof": false,
+      "external_model_required_for_proof": false
+    },
+    "proof": {
+      "verification_state": "REPRODUCED",
+      "receipt_id": "b7a3e3cba968e19bb91ed8f6881b69e37efc97d7e8414be0aca431dff501123f"
+    },
+    "company_projection": {
+      "company_id": "lockheed_martin",
+      "stage": "CLAIM_PROMOTED",
+      "claim_ceiling": "proof_bound_company_specific",
+      "helix_repository": "GlacierEQ/job-app-helix",
+      "helix_commit": "83549cda4af3714304f202d0f4d35b29d28da9f7",
+      "evidence_topology": {
+        "role_evidence": 1,
+        "problem_evidence": 1,
+        "inspected_repositories": 4,
+        "bounded_remedy": 1,
+        "implementation_receipts": 1,
+        "proof_artifacts": 1,
+        "claim_receipts": 1
+      }
+    },
+    "allowed_claim": "Built and reproducibly tested an independent mission-agent assurance gateway combining content-bound public provenance snapshots, deterministic receipts, thread-safe single-process idempotency, finite-metric drift gating, policy decisions, and circuit breaking, using public mission-AI requirements as a bounded design lens.",
+    "prohibited_claims": [
+      "Lockheed Martin deployment or adoption",
+      "Lockheed Martin affiliation, employment, endorsement, or contract",
+      "security clearance or proprietary access",
+      "distributed exactly-once semantics",
+      "production-scale distributed assurance",
+      "aerospace or defense certification",
+      "validation on classified or proprietary systems"
+    ]
+  },
+  "supporting_proof": {
+    "portfolio_receipt_router_tests": 69,
+    "job_application_helix_recorded_tests": 148,
+    "agent_coordinator_recorded_tests": 62,
+    "bounded_source_tests": 166,
+    "energy_memory_tests": 19,
+    "receipt_router_external_actions": 0
+  },
+  "presentation": {
+    "recruiter": "/",
+    "master": "/master/",
+    "machine": "/machine/",
+    "mesh": "/mesh/",
+    "company_dossier": "/companies/lockheed-martin/"
+  }
+}

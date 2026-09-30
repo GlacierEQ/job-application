@@ -1,0 +1,122 @@
+{
+  "boundary": "Independent GlacierEQ work; no employer affiliation is implied by this internal cross-company authority track.",
+  "flagships": [],
+  "gate": "Cross-company personal systems; ECHO is admitted but remains BLOCKED from promotion pending current-head public-release evidence, while Sigma Glue is admitted as REFERENCE_ONLY until its executable Definition of Done closes.",
+  "id": "glaciereq_core",
+  "repos": [
+    {
+      "id": "GlacierEQ/AEON-777",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    },
+    {
+      "id": "GlacierEQ/AKOS",
+      "lvl": "L5",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "PROMOTED"
+    },
+    {
+      "id": "GlacierEQ/GlacierEQ_Swarm",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    },
+    {
+      "id": "GlacierEQ/apex-cli",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    },
+    {
+      "id": "GlacierEQ/apex-control-plane",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    },
+    {
+      "id": "GlacierEQ/colossus-gateway",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    },
+    {
+      "id": "GlacierEQ/colossus-training-flux",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    },
+    {
+      "id": "GlacierEQ/glaciereq-mcp-stack",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    },
+    {
+      "id": "GlacierEQ/job-application",
+      "lvl": "L4",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "PROMOTED"
+    },
+    {
+      "id": "GlacierEQ/pro-code",
+      "lvl": "L4",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    },
+    {
+      "id": "GlacierEQ/sigma-glue",
+      "lvl": "L4",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    },
+    {
+      "id": "GlacierEQ/spiral-engine",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    },
+    {
+      "id": "GlacierEQ/the-tower-of-babel",
+      "lvl": "L4",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    },
+    {
+      "id": "GlacierEQ/token_saver",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    }
+  ],
+  "roles": [
+    "Applied AI Systems Architect",
+    "Forward-Deployed AI Engineer",
+    "Agent Infrastructure Engineer"
+  ],
+  "route": "/companies/glaciereq-core/",
+  "schema": "glaciereq.company-intelligence.v1",
+  "second_depth": {
+    "blockers": [
+      "current_role_not_verified",
+      "company_problem_not_bounded",
+      "repository_code_not_inspected",
+      "proof_not_reproduced"
+    ],
+    "claim_ceiling": "company_alignment_only",
+    "evidence": {
+      "claim_receipts": [],
+      "gap_queue": [],
+      "implementation_receipts": [],
+      "inspected_repositories": [],
+      "problem_evidence": [],
+      "proof_artifacts": [],
+      "role_evidence": []
+    },
+    "next_gate": "Verify a current public role or operating context before making any company-specific problem or implementation claim.",
+    "ordinal": 0,
+    "stage": "MAPPED_ONLY"
+  },
+  "state": "repository-rich",
+  "track": "INTERNAL_CROSS_COMPANY_AUTHORITY"
+}

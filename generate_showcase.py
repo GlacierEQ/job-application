@@ -1,0 +1,314 @@
+"""Generate the public showcase from an evidence-bound manifest.
+
+The manifest is open-ended: it may contain zero, one, or many orientation
+systems. Public repositories become links. Private repositories, when present,
+remain clearly labeled so the generated surface cannot imply access or proof that
+is not available. Orientation order is presentation only, never a membership cap.
+"""
+
+from __future__ import annotations
+
+import json
+import re
+from pathlib import Path
+from typing import Any
+
+ROOT = Path(__file__).resolve().parent
+MANIFEST_PATH = ROOT / "portfolio_manifest.json"
+OUT = ROOT / "SHOWCASE.md"
+
+ALLOWED_VISIBILITY = {"public", "private"}
+ALLOWED_STATUS = {"hardening", "private-review", "ready"}
+LEGAL_BLOCK = re.compile(
+    r"\b\d?[A-Z]{2,4}-\d{2}-\d{5,7}\b|SUPERLUMINAL_CASE|FEDERAL.?WARFARE|court.?case|"
+    r"docket|civil.?rico|§1983|apex-legal|legal.?warfare",
+    re.IGNORECASE,
+)
+
+
+def load_manifest(path: Path = MANIFEST_PATH) -> dict[str, Any]:
+    if not path.is_file():
+        raise ValueError(f"portfolio manifest not found: {path}")
+
+    data = json.loads(path.read_text(encoding="utf-8"))
+    validate_manifest(data)
+    return data
+
+
+def validate_manifest(data: dict[str, Any]) -> None:
+    required_root = {
+        "schema_version",
+        "owner",
+        "identity",
+        "positioning",
+        "flagships",
+        "exclusions",
+    }
+    missing = sorted(required_root - data.keys())
+    if missing:
+        raise ValueError(f"manifest missing required fields: {', '.join(missing)}")
+
+    flagships = data["flagships"]
+    if not isinstance(flagships, list):
+        raise TypeError("manifest flagships must be a list")
+
+    seen_ids: set[str] = set()
+    for index, item in enumerate(flagships):
+        if not isinstance(item, dict):
+            raise TypeError(f"flagship {index} must be an object")
+
+        required = {
+            "id",
+            "name",
+            "visibility",
+            "status",
+            "demonstrates",
+            "evidence_paths",
+            "verified_proof",
+            "current_gaps",
+        }
+        missing_item = sorted(required - item.keys())
+        if missing_item:
+            raise ValueError(
+                f"flagship {index} missing fields: {', '.join(missing_item)}"
+            )
+
+        if item["id"] in seen_ids:
+            raise ValueError(f"duplicate flagship id: {item['id']}")
+        seen_ids.add(item["id"])
+
+        if item["visibility"] not in ALLOWED_VISIBILITY:
+            raise ValueError(f"unsupported visibility: {item['visibility']}")
+        if item["status"] not in ALLOWED_STATUS:
+            raise ValueError(f"unsupported status: {item['status']}")
+        if not item.get("repo") and not item.get("repos"):
+            raise ValueError(f"flagship {item['id']} requires repo or repos")
+
+        for field in (
+            "demonstrates",
+            "evidence_paths",
+            "verified_proof",
+            "current_gaps",
+        ):
+            value = item[field]
+            if not isinstance(value, list) or not value:
+                raise ValueError(
+                    f"flagship {item['id']} requires a non-empty {field} list"
+                )
+
+    serialized = json.dumps(data)
+    if LEGAL_BLOCK.search(serialized):
+        raise ValueError("legal or case material detected in recruiter manifest")
+
+
+def github_url(owner: str, repo: str) -> str:
+    return f"https://github.com/{owner}/{repo}"
+
+
+def repositories(item: dict[str, Any]) -> list[str]:
+    return [item["repo"]] if item.get("repo") else list(item["repos"])
+
+
+def repository_label(owner: str, item: dict[str, Any]) -> str:
+    repos = repositories(item)
+    if item["visibility"] == "public":
+        return " · ".join(f"[{repo}]({github_url(owner, repo)})" for repo in repos)
+    return " · ".join(f"`{repo}`" for repo in repos)
+
+
+def bullets(values: list[str]) -> str:
+    return "\n".join(f"- {value}" for value in values)
+
+
+def compact_signal(values: list[str]) -> str:
+    return ", ".join(values[:3])
+
+
+def visibility_summary(flagships: list[dict[str, Any]]) -> str:
+    if not flagships:
+        return "No orientation systems are currently listed; the full eligible estate remains reachable through the Atlas and machine contracts."
+
+    public_count = sum(item["visibility"] == "public" for item in flagships)
+    private_count = len(flagships) - public_count
+    if private_count == 0:
+        return "All listed orientation systems are public and directly inspectable."
+    return (
+        f"{public_count} orientation system(s) are public and directly inspectable; "
+        f"{private_count} remain explicitly labeled for curated review."
+    )
+
+
+def build(data: dict[str, Any]) -> str:
+    owner = data["owner"]
+    flagships = data["flagships"]
+    public_flagship = next(
+        (item for item in flagships if item["visibility"] == "public"), None
+    )
+    control_plane = data.get("integration_control_plane", "job-app-helix")
+
+    sections: list[str] = []
+    for index, item in enumerate(flagships, start=1):
+        access = (
+            "Public and directly inspectable"
+            if item["visibility"] == "public"
+            else "Private; curated review required"
+        )
+        sections.append(
+            f"""## {index}. {item["name"]}
+
+**Repository:** {repository_label(owner, item)}  
+**Access:** {access}  
+**Status:** `{item["status"]}`
+
+### What it demonstrates
+
+{bullets(item["demonstrates"])}
+
+### Verified proof
+
+{bullets(item["verified_proof"])}
+
+### Evidence path
+
+{bullets(item["evidence_paths"])}
+
+### Current gaps
+
+{bullets(item["current_gaps"])}
+"""
+        )
+
+    table_rows = "\n".join(
+        f"| **{item['name']}** | {item['visibility']} | {item['status']} | "
+        f"{compact_signal(item['demonstrates'])} |"
+        for item in flagships
+    )
+    joined_sections = "\n---\n\n".join(sections)
+
+    if public_flagship is None:
+        start_here = (
+            "1. Open the [full Systems Atlas](https://casey-barton-glaciereq.vercel.app/atlas/).\n"
+            "2. Follow any eligible public system into its owning repository and evidence path.\n"
+            f"3. Open the [control plane]({github_url(owner, control_plane)}) to inspect how portfolio evidence and repository relationships are governed."
+        )
+    else:
+        start_here = (
+            f"1. Open **[{public_flagship['name']}]({github_url(owner, repositories(public_flagship)[0])})** as one orientation entry.\n"
+            "2. Follow its listed evidence paths into the implementation and tests.\n"
+            "3. Compare the verified proof with the stated gaps; the gaps are part of the product record.\n"
+            f"4. Open **[{control_plane}]({github_url(owner, control_plane)})** to inspect how portfolio evidence, README contracts, and repository relationships are governed."
+        )
+
+    review_lines = []
+    for index, item in enumerate(flagships, start=1):
+        review_lines.append(
+            f"{index}. **{item['name']}:** inspect its listed implementation, tests, evidence path, and current gaps."
+        )
+    review_lines.extend(
+        [
+            f"{len(review_lines) + 1}. **Evidence discipline:** verify that each system separates public source, executable proof, deployment proof, and unresolved scope.",
+            f"{len(review_lines) + 2}. **Portfolio control:** inspect `{control_plane}` for deterministic inventory, planning, verification receipts, and the typed README Mesh.",
+        ]
+    )
+    review_text = "\n".join(review_lines)
+
+    role_lines = [
+        "job-application",
+        "├── recruiter-facing portfolio and application portal",
+        "├── open-ended orientation manifest and generated showcase",
+        "└── public machine and evidence entrypoints",
+        "",
+        control_plane,
+        "├── portfolio inventory and verification control plane",
+        "├── README contract and typed repository mesh",
+        "└── deterministic plans and atomic receipts",
+    ]
+    for item in flagships:
+        access_role = (
+            "public orientation system; inspect its repository-native evidence"
+            if item["visibility"] == "public"
+            else "private orientation system; curated review required"
+        )
+        item_repositories = repositories(item)
+        for index, repository in enumerate(item_repositories):
+            branch = "└──" if index == len(item_repositories) - 1 else "├──"
+            role_lines.extend(
+                [
+                    "",
+                    repository,
+                    f"{branch} {access_role}",
+                ]
+            )
+    private_operations = data.get("private_operations_repo")
+    if private_operations:
+        role_lines.extend(
+            [
+                "",
+                private_operations,
+                "└── private operations; excluded from the public inventory",
+            ]
+        )
+    repository_roles = "\n".join(role_lines)
+
+    return f"""# GlacierEQ — Engineering Portfolio
+
+> **{data["positioning"]}**
+
+{data["identity"]}
+
+This portfolio uses an orientation sequence over an open-ended estate. The listed systems are not a fixed flagship count or membership boundary. {visibility_summary(flagships)} Every claim below is paired with an evidence path and an explicit boundary.
+
+## Start here: a proof path
+
+{start_here}
+
+## Flagship and reference systems (orientation order)
+
+| System | Access | Readiness | Primary signal |
+|---|---|---|---|
+{table_rows}
+
+{joined_sections}
+
+---
+
+## Ten-minute engineering review
+
+{review_text}
+
+## Repository roles
+
+```text
+{repository_roles}
+```
+
+## Release gates
+
+- Regenerate `SHOWCASE.md` whenever `portfolio_manifest.json` changes.
+- Verify every public repository link before publishing the portal.
+- Require repository-native tests or receipts before promoting runtime claims.
+- Keep deployment, scale, and performance claims unverified until provider-backed evidence exists.
+- Keep private operations, personal contacts, and credentials outside this public repository.
+
+## Excluded by design
+
+{bullets(data["exclusions"])}
+
+---
+
+_Generated from `portfolio_manifest.json`. Edit the manifest, run `python3 generate_showcase.py`, then run `python3 test_showcase.py`._
+"""
+
+
+def main() -> int:
+    data = load_manifest()
+    text = build(data)
+    if LEGAL_BLOCK.search(text):
+        raise SystemExit("legal or case material detected in generated showcase")
+    OUT.write_text(text, encoding="utf-8")
+    print(f"wrote {OUT} bytes={OUT.stat().st_size}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

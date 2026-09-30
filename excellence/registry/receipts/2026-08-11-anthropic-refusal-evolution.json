@@ -1,0 +1,19 @@
+{
+  "schema": "glaciereq.excellence-evolution-readback-request.v1",
+  "repository": "GlacierEQ/anthropic-refusal-replay-harness",
+  "consumed_cursor": "next:structured_reason_taxonomy_mutation_fuzz_and_cross_version_diffing",
+  "merge_sha": "c2d1169ccba08aefc590925f7c5315d4de1fe1eb",
+  "post_merge_workflow": 31462985371,
+  "post_merge_python": "PASS",
+  "post_merge_go": "PASS",
+  "expected_principal_state": "EVOLVING",
+  "expected_next_cursor": "next:corpus_lineage_minimized_counterexamples_and_signed_regression_baselines",
+  "job_application_base_sha": "4b0b1243595592404f7dd6495c054659efb9bef5",
+  "purpose": "Trigger a fresh read-only governed census after the Anthropic refusal-replay evolution and select the next least-evolved material cursor from current estate state.",
+  "truth_boundaries": [
+    "mutation coverage is bounded deterministic regression evidence, not exhaustive fuzzing",
+    "no Anthropic affiliation, adoption, production policy-service deployment, or proprietary behavior is claimed",
+    "corpus lineage, minimized counterexamples, and signed regression baselines remain the next explicit evolution cursor",
+    "this receipt does not pre-assert the census result"
+  ]
+}

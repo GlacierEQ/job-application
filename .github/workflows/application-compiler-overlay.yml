@@ -1,0 +1,69 @@
+name: Application Compiler Overlay
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "deployment/vercel-source-bridge/api/compiler-proxy.js"
+      - "deployment/vercel-source-bridge/api/release-router.js"
+      - "deployment/vercel-source-bridge/compiler-proxy.test.js"
+      - "scripts/sync-helix-projection.mjs"
+      - "scripts/reconcile-helix-company-cardinality.mjs"
+      - "scripts/reconcile-v21-runtime-stars.mjs"
+      - "scripts/verify-v25-v26-runtime.mjs"
+      - "package.json"
+      - ".github/workflows/application-compiler-overlay.yml"
+  pull_request:
+    paths:
+      - "deployment/vercel-source-bridge/api/compiler-proxy.js"
+      - "deployment/vercel-source-bridge/api/release-router.js"
+      - "deployment/vercel-source-bridge/compiler-proxy.test.js"
+      - "scripts/sync-helix-projection.mjs"
+      - "scripts/reconcile-helix-company-cardinality.mjs"
+      - "scripts/reconcile-v21-runtime-stars.mjs"
+      - "scripts/verify-v25-v26-runtime.mjs"
+      - "package.json"
+      - ".github/workflows/application-compiler-overlay.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Refresh immutable Helix release authority
+        run: |
+          node scripts/sync-helix-projection.mjs
+          node scripts/reconcile-helix-company-cardinality.mjs
+          node scripts/reconcile-v21-runtime-stars.mjs
+      - name: Run repository and presentation release gates
+        run: npm test
+      - name: Verify V25 production overlay modules compile
+        run: |
+          node --check deployment/vercel-source-bridge/api/proxy.js
+          node --check deployment/vercel-source-bridge/api/compiler-proxy.js
+          node --check deployment/vercel-source-bridge/api/release-router.js
+      - name: Execute V21 through V26 runtime verifiers
+        run: node scripts/verify-v25-v26-runtime.mjs
+      - name: Verify no literal client-script or inline-style tag enters compiler markup
+        shell: bash
+        run: |
+          set -euo pipefail
+          file="deployment/vercel-source-bridge/api/compiler-proxy.js"
+          if grep -Fq '<script ' "${file}" || grep -Fq ' style="' "${file}"; then
+            echo "Compiler markup introduced a literal client script or inline style." >&2
+            exit 1
+          fi

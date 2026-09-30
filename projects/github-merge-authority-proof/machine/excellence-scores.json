@@ -1,0 +1,35 @@
+{
+  "schema": "glaciereq.repo-excellence-scores.v1",
+  "repository": "GlacierEQ/job-application/projects/github-merge-authority-proof",
+  "never_collapse": true,
+  "axes": {
+    "target_architecture": {
+      "grade": "A",
+      "dimensions": {
+        "bottleneck_fit": 10,
+        "technical_coherence": 9,
+        "originality": 9,
+        "composability": 9,
+        "authority_security": 10,
+        "observability_provenance": 9,
+        "recovery_failure_semantics": 9
+      },
+      "notes": "Transaction-shaped merge authority; failure semantics explicit"
+    },
+    "current_proof": {
+      "grade": "A",
+      "source_sha": "1a5331a0203e1273c1045589ea66f5bcf1080b55",
+      "notes": "Hash-bound private source + real provider disposable mutation + replay receipt; public tree holds receipts not private bytes"
+    },
+    "company_fit": {
+      "score": 9.5,
+      "company": "GitHub",
+      "bottleneck": "Safe autonomous/agent-driven repository mutation under expected-head and authority bounds"
+    },
+    "canonical_confidence": {
+      "score": 0.85,
+      "role": "REFERENCE (public proof) / implementation authority is apex-github-worker private"
+    }
+  },
+  "example_truth": "Target A / Proof A / Fit 9.5 / Canonical 0.85 \u2014 axes independent"
+}

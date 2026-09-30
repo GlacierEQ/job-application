@@ -1,0 +1,40 @@
+{
+  "schema": "glaciereq.portfolio-company-fit.v1",
+  "company": "Palantir",
+  "generated_at": "2026-08-10T12:50:00Z",
+  "base": {
+    "repository": "GlacierEQ/job-application",
+    "sha": "7e519a4554d629bd918a029ed4f5d4b44a106056"
+  },
+  "problem": {
+    "name": "governed_agent_operational_mutation",
+    "status": "PUBLICLY_BOUNDED_INFERENCE",
+    "statement": "Preserve authorization, attribution, and transactional semantics when agent reasoning crosses into operational mutation.",
+    "public_sources": [
+      "https://www.palantir.com/docs/foundry/agents/overview",
+      "https://www.palantir.com/docs/foundry/ontology-mcp/authentication-and-authorization",
+      "https://www.palantir.com/docs/foundry/action-types/overview",
+      "https://www.palantir.com/docs/foundry/action-types/permissions",
+      "https://www.palantir.com/docs/foundry/ai-fde/security-and-governance"
+    ]
+  },
+  "donors": [
+    {"repository":"GlacierEQ/palantir-action-lineage-graph","sha":"863d17fe691f5f5bdb45391a16a7d2d98fe9afca","owns":"causal_action_provenance","principal_state":"EVOLVING"},
+    {"repository":"GlacierEQ/palantir-object-authority-matrix","sha":"98d106ac56b36e798be37576ebfd0a381ffd0c8b","owns":"object_type_verb_authorization","principal_state":"EVOLVING"},
+    {"repository":"GlacierEQ/palantir-ontology-writeback-ledger","sha":"a4c29b3f7d55d80a50900206b63690a5be99bb2b","owns":"transactional_ontology_writeback","principal_state":"EVOLVING"}
+  ],
+  "donor_registry_receipt": "excellence/registry/refresh-receipts/palantir-triad-2026-08-10.json",
+  "integration_exercised": false,
+  "claim_ceiling": "BOUNDED_GOVERNED_AGENT_ACTION_ALIGNMENT",
+  "nonclaims": [
+    "Palantir adoption",
+    "Palantir employment or affiliation",
+    "proprietary Palantir access",
+    "production deployment",
+    "end-to-end triad integration",
+    "Palantir-scale performance",
+    "behavioral equivalence with Foundry or AIP"
+  ],
+  "supersedes": "generic company_alignment_only framing for the governed-agent-action problem when this receipt is cited",
+  "next_gate": "Execute a public-safe end-to-end triad composition fixture, bind exact revisions and transition receipts, reproduce in repository-native CI, then reassess integrated-system claim ceiling."
+}

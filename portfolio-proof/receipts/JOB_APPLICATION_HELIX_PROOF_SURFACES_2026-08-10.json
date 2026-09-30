@@ -1,0 +1,32 @@
+{
+  "schema": "glaciereq.portfolio-proof-surface-receipt.v1",
+  "proof_object": "job-application-helix",
+  "repository": "GlacierEQ/job-application",
+  "proof_surface": "portfolio-proof/JOB_APPLICATION_HELIX_PROOF_SURFACES_2026-08-10.md",
+  "observed_default_branch_head_before_surface": "6d70944814d592fac3a7dd5f1164f96e56b31d76",
+  "surface_commit": "bed3a0f165fce401e0bedf1d27c772773ebfdf9a",
+  "evidence": {
+    "excellence_state_path": "machine/excellence-state.json",
+    "excellence_state_blob": "4fdebd5e6a154f005505b9f4e101b4fd3e60fff8",
+    "principal_state": "PROMOTED",
+    "proof_ok": true,
+    "operable_ok": true,
+    "canonical_position_resolved": false,
+    "proof_receipt_path": "machine/proof_receipt.json",
+    "proof_receipt_blob": "ab04257d7a8df0c028c06990119e6d16724a36a1",
+    "proof_id": "elite-job-application-1786335149",
+    "proof_source_sha": "09bd39b84f8656f2c074f76750584955d6b640e2b21dafff122b82fb9ec3e67b",
+    "proof_result": "PASS",
+    "proof_runtime_dual_run_ok": true,
+    "proof_dual_run_ok": true
+  },
+  "claim_ceiling": "PROMOTED_LOCAL_REFERENCE_CONTROL_PLANE",
+  "nonclaims": [
+    "production deployment",
+    "external business impact",
+    "estate-wide canonical position resolved",
+    "repository count as accomplishment count"
+  ],
+  "durable_delta": "Converted the verified Job Application Helix control plane into canonical recruiter/master/machine/mesh proof surfaces with exact evidence bindings and explicit nonclaims.",
+  "next_cursor": "Resolve estate-wide canonical position only from independent estate-role evidence; otherwise preserve the current claim ceiling."
+}

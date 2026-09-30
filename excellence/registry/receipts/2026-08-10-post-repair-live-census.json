@@ -1,0 +1,42 @@
+{
+  "schema": "glaciereq.excellence-registry-refresh-request.v1",
+  "reason": "Refresh the live governed-repository census after closing the Vercel edge capability-token canonical blocker and reconciling three stale DISCOVERED demotions from existing canonical evidence.",
+  "requested_at": "2026-08-11T02:14:00Z",
+  "base_main_sha": "b20d4208da377ae1cc0cdae457b1624162dbfdae",
+  "closed_or_reconciled_gates": [
+    {
+      "repository": "GlacierEQ/vercel-edge-agent-cap-token",
+      "merge_sha": "1ed5946bb9430d20b4eee653b6ad12be28146275",
+      "post_merge_workflow": 31451200724,
+      "expected_state": "EVOLVING"
+    },
+    {
+      "repository": "GlacierEQ/anduril-lattice-dissent-freeze",
+      "merge_sha": "f7b8266aa6c89a0e5b17e1aec765b830b8acddc4",
+      "post_merge_workflow": 31451699012,
+      "expected_state": "EVOLVING"
+    },
+    {
+      "repository": "GlacierEQ/anduril-sensor-health-quorum",
+      "merge_sha": "c0d3949f8aa3614db7fcb52127ee05edcdcb38ab",
+      "post_merge_workflow": 31451713009,
+      "expected_state": "EVOLVING"
+    },
+    {
+      "repository": "GlacierEQ/anthropic-refusal-replay-harness",
+      "merge_sha": "89f57137ebe3a7e5786b58a3cda61a683bc4c734",
+      "post_merge_workflow": 31451721876,
+      "expected_state": "EVOLVING"
+    }
+  ],
+  "known_newer_state": {
+    "repository": "GlacierEQ/xai-claim-promotion-fence",
+    "main_sha": "b26e165504b42ed3e673a757160ca1234c494386",
+    "expected_state": "EVOLVING"
+  },
+  "truth_boundaries": [
+    "This receipt requests a fresh read-only live census and does not assert the resulting estate counts.",
+    "Historical gap receipts remain provenance and do not override later exact-head canonical proof.",
+    "No employer affiliation, adoption, or production deployment is inferred from an EVOLVING internal repository state."
+  ]
+}

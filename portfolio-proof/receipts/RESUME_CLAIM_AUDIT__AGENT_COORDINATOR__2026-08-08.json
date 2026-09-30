@@ -1,0 +1,48 @@
+{
+  "schema": "glaciereq.resume-claim-audit.v1",
+  "claim_surface": "RESUME.md#Selected-Proof",
+  "claim_text": "Agent Coordinator: deterministic multi-agent ownership, dependency, capacity, priority, and shared-budget scheduling with 62/62 recorded Python tests.",
+  "system": "GlacierEQ/anthropic-agent-coordinator",
+  "canonical_branch": "master",
+  "verified_executable_commit": "87438f57bdfd2cb380730cf51140611963d7c95b",
+  "repository_native_receipt": "receipts/wave-1-test-verification-2026-07-31.json",
+  "portfolio_proof_authority": "PROOF_SURFACES_AGENT_COORDINATOR.md",
+  "verification": {
+    "evidence_level": "TEST",
+    "runtime": "Python 3.13.5",
+    "tests": {
+      "collected": 62,
+      "executed": 62,
+      "passed": 62,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "verified_capability_boundary": [
+    "deterministic dependency-aware scheduling",
+    "full-funding assignment semantics",
+    "global token-budget conservation",
+    "aggregate role-capacity enforcement",
+    "stable declaration-order priority",
+    "structured deferral",
+    "fail-fast graph and resource validation",
+    "SHA-256-bound JUnit evidence"
+  ],
+  "nonclaims": [
+    "external agent execution",
+    "provider calls",
+    "distributed execution",
+    "production deployment",
+    "hosted cross-version matrix execution",
+    "production scale",
+    "latency",
+    "fairness",
+    "reliability"
+  ],
+  "audit_result": "SUPPORTED_BUT_PREVIOUSLY_UNPINNED_ON_RESUME",
+  "strengthened_claim": "Built and verified a deterministic multi-agent scheduler that preserves dependency integrity, shared-budget conservation, aggregate role limits, stable priority, and explicit deferral across 62/62 passing repository-native tests at immutable executable commit 87438f57bdfd2cb380730cf51140611963d7c95b.",
+  "claim_ceiling": "VERIFIED_DETERMINISTIC_SCHEDULER_AT_TEST_EVIDENCE",
+  "promotion_rule": "The strengthened wording may replace the shorter resume claim only while retaining the exact executable commit or an equal-or-stronger successor receipt. Do not infer deployment, provider execution, distributed runtime, scale, latency, fairness, or reliability.",
+  "base_job_application_sha": "b03daf42b23f9937938c7ce625d59bef0c4d1aef"
+}

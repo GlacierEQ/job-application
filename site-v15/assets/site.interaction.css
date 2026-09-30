@@ -1,0 +1,5 @@
+.cta-stage::after,
+.hero-proof-rail::before,
+.layer-deck a::before {
+  pointer-events: none;
+}

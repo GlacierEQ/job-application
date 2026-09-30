@@ -1,0 +1,19 @@
+{
+  "schema": "glaciereq.excellence-evolution-readback-request.v1",
+  "repository": "GlacierEQ/anduril-track-envelope-compiler",
+  "consumed_cursor": "next:temporal_decay_covariance_aware_growth_multi_sensor_fusion_preserve_residual_unknown_mass",
+  "merge_sha": "9544105a50ca4f622c5569352f62a4fe398c2138",
+  "post_merge_workflow": 31454953866,
+  "post_merge_python": "PASS",
+  "post_merge_native_c": "PASS",
+  "expected_principal_state": "EVOLVING",
+  "expected_next_cursor": "next:cross_covariance_rotation_motion_prediction_outlier_gating_and_durable_fusion_receipt_chain",
+  "purpose": "Trigger a fresh read-only governed census after the third material evolution cursor and verify least-evolved-first rotation across the estate.",
+  "truth_boundaries": [
+    "covariance_xy is validated in Python but is not yet used to rotate geometric bounds",
+    "native C currently represents diagonal covariance only",
+    "motion prediction, outlier gating, and durable fusion receipt chaining remain future work",
+    "no Anduril affiliation or production deployment is claimed",
+    "this receipt does not pre-assert the census result"
+  ]
+}

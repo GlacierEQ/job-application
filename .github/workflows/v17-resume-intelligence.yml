@@ -1,0 +1,104 @@
+name: V23 Resume Intelligence
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+
+on:
+  pull_request:
+    paths:
+      - 'RESUME.md'
+      - 'site-v15/resume/**'
+      - 'site-v15/master/**'
+      - 'site-v15/data/resume.json'
+      - 'site-v15/data/resume-artifacts.json'
+      - 'site-v15/llms.txt'
+      - 'site-v15/scripts/validate-site-v23.mjs'
+      - 'site-v15/scripts/validate-resume-v23.mjs'
+      - '.github/workflows/v17-resume-intelligence.yml'
+  push:
+    branches:
+      - main
+      - release/v16-signal-architecture
+    paths:
+      - 'RESUME.md'
+      - 'site-v15/resume/**'
+      - 'site-v15/master/**'
+      - 'site-v15/data/resume.json'
+      - 'site-v15/data/resume-artifacts.json'
+      - 'site-v15/llms.txt'
+      - 'site-v15/scripts/validate-site-v23.mjs'
+      - 'site-v15/scripts/validate-resume-v23.mjs'
+      - '.github/workflows/v17-resume-intelligence.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Validate whole V23 hiring surface
+        run: node site-v15/scripts/validate-site-v23.mjs
+
+      - name: Validate V23 Systems Atlas resume intelligence
+        run: |
+          set -o pipefail
+          mkdir -p .verification-artifacts
+          node site-v15/scripts/validate-resume-v23.mjs | tee .verification-artifacts/v23-resume-validation.json
+          test -s .verification-artifacts/v23-resume-validation.json
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const receipt = JSON.parse(fs.readFileSync('.verification-artifacts/v23-resume-validation.json', 'utf8'));
+          if (
+            receipt.status !== 'PASS' ||
+            receipt.schema !== 'glaciereq.resume-intelligence-validation.v23' ||
+            receipt.facts_invariant !== true ||
+            receipt.scraper_contract?.linear_dom !== true ||
+            receipt.scraper_contract?.html_tables !== 0 ||
+            receipt.scraper_contract?.scripts !== 0
+          ) {
+            throw new Error('V23 validation receipt contract failed');
+          }
+          NODE
+
+      - name: Verify retained legacy binary integrity without promoting it
+        run: |
+          python3 - <<'PY'
+          import json
+          from hashlib import sha256
+          from pathlib import Path
+          manifest = json.loads(Path('site-v15/data/resume-artifacts.json').read_text(encoding='utf-8'))
+          assert manifest['status'] == 'LEGACY_PRE_V23_NOT_CANONICAL'
+          for kind in ('pdf', 'docx'):
+              entry = manifest['artifacts'][kind]
+              data = Path('site-v15', entry['path']).read_bytes()
+              assert len(data) == entry['bytes']
+              assert sha256(data).hexdigest() == entry['sha256']
+              assert entry['status'] == 'LEGACY_GENERATED_V17'
+          print({'status': 'PASS', 'legacy_binary_integrity': True, 'canonical_v23': False})
+          PY
+
+      - name: Hash exact-head validation receipt
+        run: sha256sum .verification-artifacts/v23-resume-validation.json > .verification-artifacts/v23-resume-validation.sha256
+
+      - name: Upload V23 validation receipt
+        uses: actions/upload-artifact@v4
+        with:
+          name: v23-resume-intelligence-receipt
+          path: .verification-artifacts/
+          retention-days: 14
+          if-no-files-found: error
+          include-hidden-files: true

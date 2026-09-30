@@ -1,0 +1,34 @@
+{
+  "schema": "glaciereq.portfolio-proof-equivalence-receipt.v1",
+  "system": "GlacierEQ/AKOS",
+  "observed_canonical_head": "d9aeb424f4d99da6026719e1e58793f6a89efd86",
+  "verified_pr_head": "c507436e2523f668ae4a1e8e142f59e200f07a90",
+  "canonical_tree_sha": "2c82cf61b4f50a8391187f0e6c7b0bc8439f240b",
+  "verified_pr_tree_sha": "2c82cf61b4f50a8391187f0e6c7b0bc8439f240b",
+  "tree_equivalent": true,
+  "workflow_evidence": {
+    "verified_revision": "c507436e2523f668ae4a1e8e142f59e200f07a90",
+    "AKOS Integrity Gate": {
+      "run_id": 31294595571,
+      "conclusion": "success"
+    },
+    "AKOS Verification": {
+      "run_id": 31294595577,
+      "conclusion": "success"
+    }
+  },
+  "canonical_readback": {
+    "test_path": "tests/test_canonical_estate_schemas.py",
+    "blob_sha": "dba9c874e26f26e7045a19dec95ab2c6e2e99e5e",
+    "matches_verified_pr_blob": true
+  },
+  "claim_ceiling": "CURRENT_CANONICAL_TREE_EQUIVALENT_TO_VERIFIED_PR_TREE",
+  "decision": "Upgrade AKOS portfolio proof from stale split-source state to current canonical tree-equivalence for the PR #23 verification scope. This receipt does not project broader historical test counts or unrelated runtime/deployment claims onto current main.",
+  "nonclaims": [
+    "production deployment",
+    "provider-side connectivity",
+    "external-scale reliability",
+    "verification of behavior outside the workflows and tree proven here"
+  ],
+  "next_cursor": "Update the AKOS recruiter/master/machine/mesh proof surfaces and promotion receipt to replace the obsolete 0df3c3 split-source pointer with this exact canonical-tree equivalence boundary."
+}

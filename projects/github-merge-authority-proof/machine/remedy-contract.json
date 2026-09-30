@@ -1,0 +1,44 @@
+{
+  "schema": "glaciereq.public-remedy-contract.v1",
+  "capability": "merge_authority_graph",
+  "problem": "Autonomous or agent-generated repository changes can outrun safe human validation if authorization, current state, mutation identity, provider completion, and replay evidence are handled as separate weak signals.",
+  "invariant": "Treat consequential repository mutation as one evidence-bound transaction: exact intent and bytes must be authorized against expected canonical state; required gates must pass; provider mutation must execute once; canonical readback must reconcile to the provider identity; terminal outcome must be receipt-backed.",
+  "vertical_slice": [
+    "intent",
+    "exact patch bytes + SHA-256",
+    "required checks",
+    "bounded approval",
+    "expected-head guard",
+    "short-lived repository authority",
+    "provider commit/ref mutation",
+    "bounded eventual readback reconciliation",
+    "canonical completion receipt",
+    "idempotent replay suppression"
+  ],
+  "failure_semantics": {
+    "malformed_input": "reject before provider access",
+    "receipt_lookup_failure": "block before provider mutation",
+    "stale_head": "reject before provider mutation",
+    "authority_or_check_mismatch": "reject before provider mutation",
+    "provider_failure": "block completion and persist failure receipt",
+    "provider_readback_failure": "block completion",
+    "temporary_stale_readback": "boundedly reconcile using cache-busted repeated reads",
+    "persistent_readback_mismatch": "block completion",
+    "completed_replay": "return duplicate-completed receipt without reading mutable head or mutating again"
+  },
+  "authority_contract": {
+    "scope": "one already-allowlisted repository",
+    "credential": "short-lived GitHub App installation token",
+    "requested_permission": "contents:write",
+    "broad_PAT": false,
+    "token_persistence": false,
+    "revocation": "required after proof use and after post-mint audit failure"
+  },
+  "public_boundary": "Mechanism and proof contract are public-safe; implementation remains private and hash-bound through implementation-inspection.json.",
+  "next_composition_opportunities": [
+    "shared expected-head mutation guard",
+    "bounded provider reconciliation",
+    "exact-change approval binding",
+    "receipt-backed idempotent mutation primitive"
+  ]
+}

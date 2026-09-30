@@ -1,0 +1,22 @@
+{
+  "schema": "glaciereq.public-role-evidence.v1",
+  "company": "GitHub",
+  "job_id": "5611",
+  "title": "Staff Software Engineer",
+  "team": "Mission Control",
+  "location": "Remote, United States",
+  "source": "https://www.github.careers/careers-home/jobs/5611?lang=en-us",
+  "observed_at": "2026-08-08T20:27:00-10:00",
+  "verification_method": "Official GitHub Careers page readback",
+  "bounded_relevance": [
+    "Mission Control is described as the platform team behind Copilot Coding Agent and the wider agentic developer experience.",
+    "The role describes a system of record for agent sessions and tasks, including lifecycle tracking and authorization.",
+    "The role calls for security and authorization models governing who can do what, plus distributed-system and API design responsibilities.",
+    "The role describes staged and reversible rollout practices and cross-team security/IAM concerns."
+  ],
+  "fit_to_capability": "The Merge Authority Graph is transferable independent evidence for governed agentic repository mutation: exact-change authorization, current-state guards, bounded authority, provider confirmation, canonical readback, replay suppression, and receipt evidence.",
+  "nonclaims": [
+    "This role evidence does not establish employment, interview status, endorsement, proprietary access, or GitHub adoption of GlacierEQ work.",
+    "The role description is company context; the GlacierEQ implementation is independent work."
+  ]
+}

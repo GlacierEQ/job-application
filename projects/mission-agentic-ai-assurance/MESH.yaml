@@ -1,0 +1,74 @@
+schema: glaciereq.mesh-node.v1
+node:
+  id: mission_agentic_ai_assurance
+  status: REFERENCE_IMPLEMENTATION
+  public_safe: true
+
+relationships:
+  derives_mechanisms_from:
+    - repo: GlacierEQ/AKOS
+      relation: provenance_and_bounded_execution
+      commit: 89403272a76dda8e1f9f317e16bfce5b60c1a3f5
+    - repo: GlacierEQ/apex-control-plane
+      relation: deterministic_envelopes_idempotency_circuit_breaking_receipts
+      commit: 340834cf8d6c65832196b6cc0b6df281574842f8
+    - repo: GlacierEQ/the-tower-of-babel
+      relation: integrity_hashing_drift_and_release_receipts
+      commit: e3778353e92b404de43f41963a0c7bffb84897ac
+  governed_by:
+    - repo: GlacierEQ/job-app-helix
+      relation: company_second_depth_and_claim_ceiling
+  projected_by:
+    - repo: GlacierEQ/job-application
+      relation: recruiter_master_machine_mesh_public_surface
+
+company_lenses:
+  lockheed_martin:
+    relationship: independent_public_evidence_alignment
+    affiliation: false
+    adoption: false
+    proprietary_access: false
+
+aspiration:
+  target: production_grade_mission_agent_assurance_fabric
+  desired_properties:
+    - durable_distributed_state
+    - authenticated_workload_identity
+    - tamper_evident_signed_receipts
+    - telemetry_and_statistical_model_monitoring
+    - sandboxed_capability_execution
+    - cross_language_contract_conformance
+    - signed_supply_chain_attestations
+    - load_chaos_recovery_benchmarks
+
+evolution_checklist:
+  proven:
+    - deterministic_receipts
+    - immutable_public_evidence_refs
+    - idempotent_replay
+    - conflicting_replay_rejection
+    - bounded_policy_gate
+    - scalar_drift_gate
+    - circuit_breaker
+    - exact_demo_reproduction
+  missing:
+    - durable_distributed_state
+    - workload_identity_and_authorization
+    - durable_tamper_evident_store
+    - real_telemetry_adapters
+    - sandboxed_executor
+    - cross_language_conformance
+    - signed_release_provenance
+    - scale_and_recovery_benchmarks
+
+promotion_boundary:
+  allowed_claim: >-
+    Built and reproducibly tested an independent mission-agent assurance gateway
+    combining immutable provenance, deterministic receipts, idempotency, drift
+    gating, policy decisions, and circuit breaking.
+  prohibited_claims:
+    - Lockheed Martin deployment or adoption
+    - Lockheed Martin affiliation or endorsement
+    - production scale
+    - aerospace or defense certification
+    - classified or proprietary system validation

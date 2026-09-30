@@ -1,0 +1,42 @@
+{
+  "schema": "glaciereq.portfolio-claim-audit.v1",
+  "cycle_date": "2026-08-09",
+  "lane": 3,
+  "claim_surface": "RESUME.md",
+  "claim_id": "echo_continuity_orchestration_selected_proof",
+  "action": "STRENGTHEN_AND_REFRESH",
+  "job_application_base": "69dcd5707e177945704cf68f49df69f6d064c8ba",
+  "prior_claim": {
+    "source_commit": "d87276166041d655452abd4e992a755565f9201c",
+    "tests": "46/46",
+    "boundary": "tested repository behavior; no production deployment or scale"
+  },
+  "current_evidence": {
+    "repository": "GlacierEQ/ECHO",
+    "current_main": "6acdb3be1739f1659f3cec9f4b7d39d5799cd476",
+    "base_runtime_proof_commit": "d87276166041d655452abd4e992a755565f9201c",
+    "privacy_boundary_pr": 15,
+    "privacy_boundary_head": "5dded36d01427f13788a7a8141948f007fcb0e51",
+    "merge_commit": "6acdb3be1739f1659f3cec9f4b7d39d5799cd476",
+    "ci_run_id": 31340596648,
+    "ci_job_id": 93313601176,
+    "ci_conclusion": "success",
+    "compile": "success",
+    "ruff_correctness": "success",
+    "dependency_audit": "No known vulnerabilities found",
+    "tests_collected": 48,
+    "tests_passed": 48,
+    "cli_verify": "VERIFIED",
+    "new_verified_boundary": "public README excludes sensitive domain repository identifiers and declares that only separately admitted, sanitized transferable capabilities may cross into the public mesh"
+  },
+  "replacement_claim": "ECHO provides deterministic continuity/orchestration controls plus a regression-tested public/privacy admission boundary. Runtime proof remains anchored at d87276166041d655452abd4e992a755565f9201c; the merged privacy-boundary repair at 6acdb3be1739f1659f3cec9f4b7d39d5799cd476 passed PR-native ECHO CI with compile, Ruff correctness lint, dependency audit, 48/48 tests, and CLI VERIFIED. This proves tested repository and public-surface behavior, not production deployment, traffic, scale, adoption, or publication of private/domain-specific systems.",
+  "nonclaims": [
+    "production deployment",
+    "production traffic",
+    "production scale",
+    "third-party adoption",
+    "publication of private or case-specific systems"
+  ],
+  "durable_delta": "RESUME.md strengthened from stale 46/46 ECHO evidence to current merged 48/48 privacy-boundary proof with exact CI and merge receipts.",
+  "next_cursor": "Propagate this exact audited ECHO claim into RESUME_ATS.md and generated resume surfaces only if they can preserve the same source and nonclaim boundaries without introducing unrelated claim drift."
+}

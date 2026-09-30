@@ -1,0 +1,92 @@
+{
+  "schema": "glaciereq.portfolio-proof-reconciliation.v1",
+  "company": "Anthropic",
+  "cycle_date": "2026-08-09",
+  "delta_type": "CORRECT_AND_STRENGTHEN_COMPANY_FIT",
+  "job_application_base": "61042c4018db90589715fe1c7f6a2c58879ac2b2",
+  "helix_authority": {
+    "repository": "GlacierEQ/job-app-helix",
+    "commit": "ccc46f81792c5b90135e2a10c649fdb02b5be3cd",
+    "second_depth_source": "manifests/company_second_depth.json",
+    "observed_stage": "MAPPED_ONLY",
+    "observed_claim_ceiling": "company_alignment_only"
+  },
+  "current_role_evidence": {
+    "source_identity": "https://job-boards.greenhouse.io/anthropic/jobs/5113224008",
+    "observed_at": "2026-08-09",
+    "title": "Staff Software Engineer, AI Reliability",
+    "locations": [
+      "San Francisco, CA",
+      "New York City, NY",
+      "Seattle, WA"
+    ],
+    "bounded_problem": [
+      "Improve reliability across critical model-serving paths spanning SDK, network, API layers, serving infrastructure, accelerators, and return path.",
+      "Develop SLOs balancing availability, latency, and development velocity.",
+      "Design monitoring and observability across the token path.",
+      "Support high-availability serving infrastructure across regions and cloud providers.",
+      "Lead incident response, recovery, incident review, and systematic improvements.",
+      "Support reliability of safeguard model serving."
+    ],
+    "normalized_evidence_sha256": "c464de7c301e1ec4044d1ca7f43d25163e27c3cbb0c1a972a617159ad70a9e8a"
+  },
+  "verified_internal_evidence": [
+    {
+      "repository": "GlacierEQ/anthropic-agent-coordinator",
+      "canonical_head": "ac977563cfd59deb8e87177f53082184f6468aa8",
+      "inspected_path": "src/anthropic_agent_coordinator/coordinator.py",
+      "blob_sha": "795c8fcd94ec4e4ed65d1c3a4f8254281eaa9f8f",
+      "proof_receipt": "GlacierEQ/job-app-helix@ccc46f81792c5b90135e2a10c649fdb02b5be3cd:status/wave-1-anthropic-agent-coordinator-2026-07-31.json",
+      "test_boundary": "62 collected / 62 executed / 62 passed / 0 failures / 0 errors / 0 skips on the pinned Python 3.13.5 candidate; hosted cross-version matrix is not counted as passing.",
+      "mechanisms": [
+        "deterministic dependency-aware scheduling",
+        "full-funding admission",
+        "global budget conservation",
+        "aggregate role capacity enforcement",
+        "structured deferral",
+        "fail-closed graph/resource validation"
+      ]
+    },
+    {
+      "repository": "GlacierEQ/anthropic-safety-monitor",
+      "canonical_head": "a5c21172e32ce6054994402c38d86f7ef94bc56b",
+      "inspected_path": "src/anthropic_safety_monitor/policy.py",
+      "blob_sha": "f8f7fce09216b565141a05c115587f1a0334be22",
+      "proof_receipt": "GlacierEQ/job-app-helix@ccc46f81792c5b90135e2a10c649fdb02b5be3cd:status/wave-1-anthropic-safety-monitor-2026-07-31.json",
+      "test_boundary": "Python 3.11/3.12/3.13 matrix, 51 tests per version, 153 total executions, 0 failures / 0 errors / 0 skips.",
+      "mechanisms": [
+        "ALLOW/CONFIRM/DENY policy disposition",
+        "bounded argument review",
+        "shell segmentation and wrapper normalization",
+        "critical destructive-command denial",
+        "human-confirmation gates for destructive/high-risk operations",
+        "explicit non-execution and non-semantic-safety boundary"
+      ]
+    },
+    {
+      "repository": "GlacierEQ/job-app-helix",
+      "canonical_head": "ccc46f81792c5b90135e2a10c649fdb02b5be3cd",
+      "inspected_path": "src/job_app_helix/worker_science.py",
+      "blob_sha": "b8901f33775dd1bfe513386efd987c5a4d95bfa6",
+      "manifest": "manifests/worker_science_bridge.json",
+      "manifest_blob_sha": "bd6539aa0431279c2dfccbcece8eec0c9c6ffd5f",
+      "bounded_state": "The Anthropic worker-science series remains provider-blocked after an infrastructure-invalid attempt; infrastructure-invalid turns are excluded from learning and causal metrics require matched ablation evidence."
+    }
+  ],
+  "supersession": {
+    "retire": "Any wording that treats BEHAVIOR_TESTED_RELIABILITY_CONTROL_ALIGNMENT as an already-promoted canonical Anthropic company-second-depth stage.",
+    "replace_with": "Verified internal reliability-control evidence aligns strongly with the current Staff Software Engineer, AI Reliability role; canonical company-second-depth promotion remains governed separately and must not be inferred from the existence of this proof surface.",
+    "reason": "The prior detailed company-fit proof outran the Helix company_second_depth authority, which still reported MAPPED_ONLY/company_alignment_only at the observed authority head."
+  },
+  "nonclaims": [
+    "Anthropic affiliation, endorsement, employment, proprietary access, adoption, or deployment",
+    "Anthropic runtime integration",
+    "production reliability or SLO attainment by GlacierEQ systems",
+    "Anthropic-scale distributed operation",
+    "model-safety or alignment research equivalence",
+    "complete semantic safety coverage",
+    "automatic approval of tool execution",
+    "causal worker value without matched ablations"
+  ],
+  "next_canonical_gate": "Promote Helix company_second_depth sequentially only after role/problem evidence is persisted in its six-field immutable evidence contract; preserve the already-inspected coordinator and safety-monitor code evidence and do not skip prerequisites."
+}

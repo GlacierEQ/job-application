@@ -1,0 +1,46 @@
+{
+  "schema": "glaciereq.portfolio-proof-promotion-receipt.v1",
+  "artifact": "portfolio-proof/ECHO_PROOF_SURFACES_2026-08-08.md",
+  "system": "GlacierEQ/ECHO",
+  "source": {
+    "branch": "main",
+    "sha": "d87276166041d655452abd4e992a755565f9201c",
+    "readme_blob_sha": "271fd967866174be77e9388c43bf5fc956a06364"
+  },
+  "verification": {
+    "workflow": "ECHO CI",
+    "run_id": 31139090677,
+    "job_id": 92744931046,
+    "conclusion": "success",
+    "python": "3.12.13",
+    "compile": "passed",
+    "correctness_lint": "passed",
+    "dependency_audit": "no_known_vulnerabilities_found",
+    "pytest": {
+      "collected": 46,
+      "passed": 46,
+      "failed": 0,
+      "warnings": 1
+    },
+    "cli_verify": "VERIFIED"
+  },
+  "surfaces": [
+    "recruiter",
+    "master",
+    "machine",
+    "mesh"
+  ],
+  "capability_cluster": "receipt-backed continuity orchestration",
+  "claim_ceiling": "TEST_VERIFIED_REPOSITORY_BEHAVIOR",
+  "nonclaims": [
+    "production deployment",
+    "external provider connectivity",
+    "production scale",
+    "latency or throughput guarantees",
+    "third-party adoption"
+  ],
+  "promotion": {
+    "status": "PROMOTED",
+    "reason": "Current source and current CI at the same source head support a materially stronger synchronized proof surface without relying on repository count or deployment inference."
+  }
+}

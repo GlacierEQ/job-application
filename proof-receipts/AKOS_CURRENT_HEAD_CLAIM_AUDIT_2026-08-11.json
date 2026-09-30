@@ -1,0 +1,60 @@
+{
+  "schema": "glaciereq.portfolio.claim-audit.v1",
+  "claim_id": "AKOS_CURRENT_HEAD_VERIFICATION",
+  "claim_surface": [
+    "RESUME.md#Selected-Proof",
+    "RESUME_ATS.md#Selected-Execution-Proof"
+  ],
+  "prior_claim": "AKOS / PSYSOC-X are bounded verified surfaces for authority, evidence, closure, and deterministic audience calibration.",
+  "audit_result": "STRENGTHENED_WITH_EXACT_CURRENT_HEAD_PROOF",
+  "repository": "GlacierEQ/AKOS",
+  "canonical_head": "eac3cab001306225b99da41c37370528331966dd",
+  "head_commit_message": "Merge pull request #27: verify delegated computer-kernel callers",
+  "github_actions": {
+    "workflow_run": 31466410490,
+    "matrix": {
+      "python_3_11": {"job_id": 93700116681, "conclusion": "success"},
+      "python_3_12": {"job_id": 93700116583, "conclusion": "success"},
+      "python_3_13": {"job_id": 93700116645, "conclusion": "success"}
+    },
+    "python_3_12_receipt": {
+      "repository": "GlacierEQ/AKOS",
+      "commit": "eac3cab001306225b99da41c37370528331966dd",
+      "conclusion": "VERIFIED",
+      "collected": 200,
+      "passed": 199,
+      "skipped": 1,
+      "failures": 0,
+      "errors": 0,
+      "pytest_exit_code": 0,
+      "python": "3.12.13",
+      "artifact_id": 9091679985,
+      "artifact_sha256": "9bcdea24684dc1b02d5e47539f6b3bb50d6018791fdf4cf2a65a027509586805"
+    },
+    "executed_steps_confirmed": [
+      "checkout exact canonical head",
+      "install runtime and verification dependencies",
+      "strict lint of verification control surface",
+      "capture preexisting quality debt",
+      "compile executable Python surfaces",
+      "verify recruiter/expert/AI README contract",
+      "run exhaustive pytest collection",
+      "upload verification evidence"
+    ]
+  },
+  "quality_debt": {
+    "status": "RECORDED_NOT_HIDDEN",
+    "ruff_baseline_findings": 160,
+    "interpretation": "The targeted verification control surface passed strict lint, while broader preexisting AKOS Ruff debt remains explicitly recorded and is not represented as clean."
+  },
+  "supported_claim": "AKOS current canonical head eac3cab001306225b99da41c37370528331966dd has exact-head repository-native GitHub Actions verification across Python 3.11, 3.12, and 3.13. The Python 3.12 receipt reports VERIFIED with 200 collected, 199 passed, 1 skipped, 0 failures, and 0 errors, while 160 broader preexisting Ruff findings remain explicitly recorded as quality debt.",
+  "unsupported_claims": [
+    "production deployment",
+    "production traffic or scale",
+    "third-party adoption",
+    "zero repository-wide lint debt",
+    "external company affiliation"
+  ],
+  "claim_ceiling": "CURRENT_CANONICAL_HEAD_EXECUTED_MULTI_VERSION_CI_WITH_TEST_RECEIPT_AND_EXPLICIT_QUALITY_DEBT_NOT_PRODUCTION_DEPLOYMENT",
+  "next_cursor": "Propagate this exact revision-bound claim into recruiter and ATS resume surfaces; preserve PSYSOC-X semantics as a separately scoped subcomponent unless its own evidence ceiling is stated."
+}
