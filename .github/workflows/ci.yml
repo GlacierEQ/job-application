@@ -3,10 +3,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-
 on:
   push:
-    branches: [main, develop]
+    branches: [main]
     paths-ignore:
       - '**.md'
       - 'docs/**'
@@ -22,10 +21,27 @@ on:
       - '.agents/**'
       - 'LICENSE*'
 
+permissions:
+  contents: read
+
 jobs:
-  ci:
-    uses: GlacierEQ/public-actions-runner-host/.github/workflows/reusable-quick-ci.yml@main
-    with:
-      repo_name: ${{ github.event.repository.name }}
-      language: python
-      upload_artifacts: false
+  test:
+    name: Repository test suite
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run repository tests (npm test)
+        run: npm test
+
+      - name: Verify no dead GitHub links on the public site
+        run: node scripts/prune-unavailable-github-links.mjs --check
