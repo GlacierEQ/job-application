@@ -3,7 +3,7 @@
   "external_model_required": false,
   "governed_files": {
     ".github/workflows/ci.yml": "a0a3c0d006ac629df37309751705f98bd73227ba760a8856f8defc45e6fd1a1a",
-    "MASTER.md": "261a70eb8ffa9aef8c0237a121458eb044be8872dc4a115a649cd437b5d704aa",
+    "MASTER.md": "7d3389e60a89d1400a87d193981103530a5886b2034f6d71164252de92e726fa",
     "MESH.yaml": "07d552806475f4745e0acb5c924510429f4aeab9967ab78817e311ce71fb1613",
     "README.md": "c4381979c56609eac8d9831e76bc080b95f9e5a3bd892cd6bc0830d0c051de99",
     "buf.yaml": "4119b95afa784dde598a2893fbedccb51ff672f531f2da7f863f28d0b245b063",
