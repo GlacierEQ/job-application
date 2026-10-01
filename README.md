@@ -1,4 +1,55 @@
-\n> **Estate projection upgrade (2026-08-29):** company and repository views now consume the source-exhaustive Helix estate contract. Fixed counts are snapshot observations, never portfolio ceilings; recruiter filtering changes presentation, not membership.\n# GlacierEQ Hiring System
+# Casey Barton · Forward-Deployed AI Engineer
+
+**I make powerful AI dependable enough to use.** This repo is the live hiring surface for a verification-first agent-systems portfolio: compiled from commit-pinned control-plane truth, shipped as a script-free static site, and guarded so a dead link fails the build.
+
+[![CI](https://github.com/GlacierEQ/job-application/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/GlacierEQ/job-application/actions/workflows/ci.yml)
+![Live routes](https://img.shields.io/badge/live%20routes-441%20%C2%B7%20all%20200-2ea44f)
+![Dead links](https://img.shields.io/badge/dead%20GitHub%20links-0%20(build--guarded)-2ea44f)
+![Tests](https://img.shields.io/badge/node%20tests-57%20passing-2ea44f)
+
+**Live site → [casey-barton-glaciereq.vercel.app](https://casey-barton-glaciereq.vercel.app)** · [LinkedIn](https://www.linkedin.com/in/caseybartonai) · [GitHub](https://github.com/GlacierEQ) · glacier.equilibrium@gmail.com
+
+## What this proves
+
+- **Agent output is compiled, not hand-typed.** The site is a build-time projection of [Job-App Helix](https://github.com/GlacierEQ/job-app-helix), the control plane with 961 tests green on Python 3.11–3.13, pinned to an exact Helix commit.
+- **Fail-closed delivery.** Builds stop if a required Helix source is missing, inconsistent, unsafe for public release, or leaks a private record.
+- **Link integrity is enforced.** `scripts/prune-unavailable-github-links.mjs --check` runs in both CI and the Vercel build. Any GitHub link that stops resolving fails the deploy. Live result: 441 routes returning 200 and 0 dead links.
+- **Machine-readable by default.** Every recruiter page has a JSON twin: `/data/resume.json`, `/data/portfolio.json`, `/resume/ats.txt`, `/machine/`, `llms.txt` and `sitemap.xml`.
+- **Zero client script, locked CSP.** All 385 HTML pages ship with no `<script>` and no inline styles, and the build validators reject either one.
+- **Scale behind it:** 1,300+ repositories (810 originated, 503 forks), 530 ChatGPT plugins wired, ~112 curated connectors, and an Antigravity CLI routed through OpenRouter and Kilo with multi-agent delegation.
+
+## Architecture
+
+```mermaid
+flowchart LR
+  subgraph Estate["1,300+ GlacierEQ repositories"]
+    R1[Pro-Code] --- R2[Agent Coordinator] --- R3[Sigma Glue] --- R4[Tower of Babel]
+  end
+  Estate -->|repo-native tests + receipts| H[Job-App Helix<br/>control plane · 961 tests]
+  H -->|commit-pinned public-safe projection| B[vercel-build.mjs<br/>compile + validate]
+  B --> G{Guards}
+  G -->|dead-link check| G1[prune-unavailable-github-links --check]
+  G -->|public-surface + CSP + privacy| G2[validators]
+  G1 & G2 -->|pass| S[site-v15 static output<br/>385 pages · JSON twins]
+  G1 & G2 -.->|fail| X[build fails closed]
+  S --> V[casey-barton-glaciereq.vercel.app]
+```
+
+## Run it
+
+```bash
+# no npm dependencies: Node 22+ and Python 3 are enough
+npm test                                            # 57 node tests
+node scripts/prune-unavailable-github-links.mjs --check   # dead-link guard
+HELIX_ROOT_SHA=<job-app-helix commit sha> node scripts/vercel-build.mjs   # full production build
+npx serve site-v15                                  # preview locally
+```
+
+`HELIX_ROOT_SHA` pins the build to an exact Helix commit (and avoids the GitHub API rate limit). Without it, the build resolves Helix `main`.
+
+---
+
+## System details
 
 **One governed portfolio truth. Multiple evaluator-specific projections. Evidence stays with the system that earned it.**
 

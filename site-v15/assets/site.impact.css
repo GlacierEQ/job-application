@@ -1,0 +1,47 @@
+/* Recruiter impact layer: headline metrics, flagship systems, build method, background, contact. */
+.impact-band{padding:10px 0 34px}
+.impact-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.impact-metric{position:relative;padding:24px 22px 22px;border:1px solid var(--line-strong);border-radius:22px;background:linear-gradient(160deg,rgba(143,247,216,.08),rgba(4,14,18,.92) 60%);box-shadow:var(--shadow);overflow:hidden}
+.impact-metric:after{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,var(--mint),var(--cyan),var(--violet))}
+.impact-metric b{display:block;font-size:clamp(2.3rem,4.2vw,3.6rem);line-height:.95;letter-spacing:-.06em;color:#fff}
+.impact-metric b small{font-size:.42em;letter-spacing:-.02em;color:var(--mint);margin-left:4px}
+.impact-metric strong{display:block;margin-top:12px;font-size:.92rem;color:#e6f4f2}
+.impact-metric span{display:block;margin-top:6px;color:var(--muted);font-size:.78rem;line-height:1.45}
+.flagship-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.flagship{display:flex;flex-direction:column;gap:12px;padding:24px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(170deg,rgba(13,34,41,.78),rgba(4,14,18,.92));transition:border-color .2s ease,transform .2s ease}
+.flagship:hover{border-color:var(--line-strong);transform:translateY(-3px)}
+.flagship .flag-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.flagship .flag-kind{color:var(--mint);font-size:.66rem;font-weight:900;letter-spacing:.18em;text-transform:uppercase}
+.flagship .flag-proof{padding:5px 10px;border-radius:999px;border:1px solid rgba(134,239,189,.35);background:rgba(134,239,189,.08);color:var(--green);font-size:.68rem;font-weight:800;white-space:nowrap}
+.flagship h3{margin:0;font-size:1.45rem}
+.flagship p{margin:0;color:#c3d6d5;font-size:.92rem;line-height:1.55}
+.flagship ul{margin:0;padding-left:18px;color:#aac3c2;font-size:.84rem;line-height:1.5}
+.flagship .stack{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto}
+.flagship .stack span{padding:4px 9px;border-radius:8px;background:rgba(120,215,255,.07);border:1px solid rgba(120,215,255,.2);color:#cfe9f5;font-size:.7rem}
+.flagship .flag-links{display:flex;flex-wrap:wrap;gap:14px;font-size:.84rem;font-weight:800}
+.flagship .flag-links a{color:var(--mint)}
+.flagship .flag-links a:hover{color:#fff}
+.flagship.feature{grid-column:span 2;background:linear-gradient(150deg,rgba(143,247,216,.1),rgba(4,14,18,.94) 55%);border-color:var(--line-strong)}
+.flagship.wide{grid-column:1/-1}
+.method-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;counter-reset:method}
+.method-step{position:relative;padding:22px;border:1px solid var(--line);border-radius:20px;background:rgba(4,15,19,.8)}
+.method-step:before{counter-increment:method;content:"0" counter(method);display:block;color:var(--violet);font-weight:900;font-size:.78rem;letter-spacing:.14em;margin-bottom:10px}
+.method-step h3{font-size:1.12rem}
+.method-step p{margin:0;color:#b9cfce;font-size:.88rem}
+.kernel-line{margin-top:22px;padding:20px 24px;border-left:3px solid var(--mint);border-radius:0 18px 18px 0;background:rgba(143,247,216,.05);font-size:1.12rem;color:#e8f6f4}
+.kernel-line b{color:var(--mint)}
+.origin{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:22px;align-items:start}
+.origin-points{display:grid;gap:12px}
+.origin-point{padding:18px 20px;border:1px solid var(--line);border-radius:18px;background:rgba(4,15,19,.78)}
+.origin-point b{display:block;color:#fff;margin-bottom:4px}
+.origin-point span{color:#b3c9c8;font-size:.88rem}
+.contact-cta{padding:40px;border:1px solid var(--line-strong);border-radius:30px;background:radial-gradient(circle at 85% 0%,rgba(198,178,255,.16),transparent 45%),linear-gradient(150deg,rgba(13,34,41,.9),rgba(4,14,18,.95));text-align:left}
+.contact-cta h2{max-width:900px}
+.contact-cta p{color:#c3d6d5;max-width:760px}
+@media (max-width:1020px){.impact-grid,.method-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.flagship-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.origin{grid-template-columns:1fr}}
+@media (max-width:640px){.impact-grid,.method-grid,.flagship-grid{grid-template-columns:1fr}.flagship.feature{grid-column:auto}.contact-cta{padding:26px}}
+#flagships .flagship{text-align:left;align-items:stretch;justify-content:flex-start}
+#flagships .flagship .flag-top{width:100%;justify-content:space-between}
+#flagships .flagship h3,#flagships .flagship p,#flagships .flagship ul{text-align:left;margin-left:0;margin-right:0}
+#flagships .flagship .stack,#flagships .flagship .flag-links{justify-content:flex-start}
+#method .method-step,#origin .origin-point,#contact .contact-cta,#impact .impact-metric{text-align:left}
