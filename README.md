@@ -22,17 +22,21 @@
 
 ```mermaid
 flowchart LR
-  subgraph Estate["1,300+ GlacierEQ repositories"]
-    R1[Pro-Code] --- R2[Agent Coordinator] --- R3[Sigma Glue] --- R4[Tower of Babel]
+  subgraph EST["1,300+ GlacierEQ repositories"]
+    R1["Pro-Code"]
+    R2["Agent Coordinator"]
+    R3["Sigma Glue"]
+    R4["Tower of Babel"]
   end
-  Estate -->|repo-native tests + receipts| H[Job-App Helix<br/>control plane · 961 tests]
-  H -->|commit-pinned public-safe projection| B[vercel-build.mjs<br/>compile + validate]
-  B --> G{Guards}
-  G -->|dead-link check| G1[prune-unavailable-github-links --check]
-  G -->|public-surface + CSP + privacy| G2[validators]
-  G1 & G2 -->|pass| S[site-v15 static output<br/>385 pages · JSON twins]
-  G1 & G2 -.->|fail| X[build fails closed]
-  S --> V[casey-barton-glaciereq.vercel.app]
+  EST -->|repo-native tests and receipts| H["Job-App Helix<br/>control plane, 961 tests"]
+  H -->|commit-pinned public-safe projection| B["vercel-build.mjs<br/>compile and validate"]
+  B --> G1["Dead-link guard<br/>prune-unavailable-github-links"]
+  B --> G2["Validators<br/>public surface, CSP, privacy"]
+  G1 -->|pass| S["site-v15 static output<br/>385 pages plus JSON twins"]
+  G2 -->|pass| S
+  G1 -.->|fail| X["Build fails closed"]
+  G2 -.->|fail| X
+  S --> V["casey-barton-glaciereq.vercel.app"]
 ```
 
 ## Run it
