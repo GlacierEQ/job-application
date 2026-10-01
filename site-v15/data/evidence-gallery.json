@@ -3,7 +3,7 @@
   "source": {
     "portfolio": "site-v15/data/portfolio.json",
     "invention_map": "site-v15/data/invention-map.json",
-    "invention_map_receipt": "de6d91d7619372dc33fc006c23bcddf297a372cf55c0cdfc060401e3db4c3a33",
+    "invention_map_receipt": "8e6f8dd47be6b6e7ea91f56a715a13c1a2bd32acb4f9cdd3cc4ee14c3f0a107c",
     "evidence_policy": "claims-do-not-exceed-owning-repository-receipts"
   },
   "restoration_lineage": {
@@ -98,7 +98,7 @@
       "label": "Estate-promoted public system",
       "summary": "Canonical release control plane",
       "mechanisms": [],
-      "evidence": "148/148 plus lint, Protobuf, rollout, provenance and public-surface checks.",
+      "evidence": "961/961 tests plus lint, Protobuf, rollout, provenance and public-surface checks.",
       "current_ceiling": "Next gate: Refresh exact current-SHA receipt and generate all company dossiers.",
       "level": "L5",
       "public_surface": "PUBLIC",
@@ -622,5 +622,5 @@
       "drilldown": "/evidence-gallery/cooling/"
     }
   ],
-  "receipt_sha256": "b0c5faae3aefa58030166d3faa496f96f766f92cbd1bd44217fd75e4c2f5bcd6"
+  "receipt_sha256": "72354487904a268e35ac2b847daa58d0253e3ffe20d9e5bca6d303eb78551aae"
 }

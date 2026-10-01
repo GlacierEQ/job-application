@@ -19,6 +19,7 @@ const steps = [
   ['scripts/validate-evidence-gallery.mjs'],
   ['scripts/link-helix-atlas.mjs'],
   ['scripts/prune-unavailable-github-links.mjs'],
+  ['scripts/complete-sitemap.mjs'],
   ['scripts/validate-algerian-display.mjs'],
   ['--test', 'deployment/vercel-source-bridge/typography-proxy.test.js'],
   ['scripts/validate-estate-intelligence.mjs'],
@@ -26,6 +27,7 @@ const steps = [
   ['scripts/harden-public-proof-surface.mjs'],
   ['scripts/validate-public-proof-surface.mjs'],
   ['scripts/prune-unavailable-github-links.mjs', '--check'],
+  ['scripts/complete-sitemap.mjs', '--check'],
   ['site-v15/scripts/validate.mjs'],
 ];
 

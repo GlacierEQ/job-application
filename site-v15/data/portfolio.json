@@ -94,7 +94,7 @@
       "label": "Estate-promoted public system",
       "summary": "Canonical release control plane",
       "mechanism": [],
-      "evidence": "148/148 plus lint, Protobuf, rollout, provenance and public-surface checks.",
+      "evidence": "961/961 tests plus lint, Protobuf, rollout, provenance and public-surface checks.",
       "limit": "Next gate: Refresh exact current-SHA receipt and generate all company dossiers.",
       "level": "L5",
       "public_surface": "PUBLIC",

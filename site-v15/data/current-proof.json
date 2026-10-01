@@ -48,7 +48,7 @@
   },
   "supporting_proof": {
     "portfolio_receipt_router_tests": 69,
-    "job_application_helix_recorded_tests": 148,
+    "job_application_helix_recorded_tests": 961,
     "agent_coordinator_recorded_tests": 62,
     "bounded_source_tests": 166,
     "energy_memory_tests": 19,

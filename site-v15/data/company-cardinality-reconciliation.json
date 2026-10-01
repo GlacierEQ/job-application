@@ -2,8 +2,8 @@
   "schema": "glaciereq.public-company-cardinality-reconciliation.v8",
   "status": "PASS",
   "source": "site-v15/data/helix-root.json",
-  "source_sha256": "7f2eb9bc47f52d59828415ad96ca8993ee84b465d29f9c46117ce0e47cc7fda3",
-  "authoritative_helix_commit": "209fbf80803837ebcd802f6c8fb0319cb7233059",
+  "source_sha256": "bae9dd3881de0be7609289473135210ce59e8b020817bba84e8c6670f022d375",
+  "authoritative_helix_commit": "9c8c858628484d059a2b0db492918c0c41294863",
   "authoritative_company_tracks": 166,
   "authoritative_second_depth_stage_counts": {
     "MAPPED_ONLY": 163,
@@ -34,7 +34,40 @@
     "deployment/vercel-source-bridge/api/compiler-proxy.js"
   ],
   "compiler_authority_test_consumer": "deployment/vercel-source-bridge/compiler-proxy.test.js",
-  "patched_consumers": [],
+  "patched_consumers": [
+    {
+      "path": "deployment/vercel-source-bridge/api/proxy.js",
+      "replacements": 1,
+      "runtime_helix_pin_updated": true,
+      "historical_proof_boundary_updated": false,
+      "before_sha256": "14569fb5d1e87e1c677dd8572e9d18680b70eb2eeb5e28e89ed7eacf42bae921",
+      "after_sha256": "0fa588b7f2747e327af86e4cdea0c5577e3d85ea0ba4b0f831a15c76c5e05701"
+    },
+    {
+      "path": "deployment/vercel-source-bridge/api/design-proxy.js",
+      "replacements": 1,
+      "runtime_helix_pin_updated": true,
+      "historical_proof_boundary_updated": false,
+      "before_sha256": "278d352c092c4050019fccebe21246f839e31dc55be04070b3792c919930e958",
+      "after_sha256": "2ccb1873e05f7b495362d3945f2cd8e5dc0676090ab2c033691241fd1b23841e"
+    },
+    {
+      "path": "deployment/vercel-source-bridge/api/compiler-proxy.js",
+      "replacements": 1,
+      "runtime_helix_pin_updated": true,
+      "historical_proof_boundary_updated": false,
+      "before_sha256": "07796df8b14fa3593f4b7e736e0931368c85672a60393c74cef537769526f5a6",
+      "after_sha256": "cf59be74b3662d4f52aebc109d643eeb75d7a904246088117bf38c32078fc76d"
+    },
+    {
+      "path": "deployment/vercel-source-bridge/compiler-proxy.test.js",
+      "replacements": 1,
+      "runtime_helix_pin_updated": false,
+      "historical_proof_boundary_updated": false,
+      "before_sha256": "e8df66c30a41e87f084354d7f08c5c7b4c27efe5b8a8e96a9312c6dd5ab5de50",
+      "after_sha256": "e6ff5d0da8485dfab4e565677129fc2e12ef55999a72295bc0efad9fcb48c252"
+    }
+  ],
   "invariants": [
     "Downstream public consumers validate the freshly synced Helix company projection rather than a historical fixed track count.",
     "Second-depth stage-count assertions follow the freshly synced public projection and may not preserve obsolete historical distributions.",

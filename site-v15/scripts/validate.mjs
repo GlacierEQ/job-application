@@ -105,7 +105,7 @@ for (const token of [
   'PROOF_BOUND',
   'CLAIM_PROMOTED',
   '69/69',
-  '148/148',
+  '961/961',
   '62/62',
   'I make powerful AI <em>dependable enough to use.</em>',
 ]) assert(recruiter.includes(token), `recruiter missing ${token}`);

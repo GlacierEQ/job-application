@@ -48,7 +48,7 @@
           "label": "Estate-promoted public system",
           "summary": "Canonical release control plane",
           "mechanism": [],
-          "evidence": "148/148 plus lint, Protobuf, rollout, provenance and public-surface checks.",
+          "evidence": "961/961 tests plus lint, Protobuf, rollout, provenance and public-surface checks.",
           "limit": "Next gate: Refresh exact current-SHA receipt and generate all company dossiers.",
           "level": "L5",
           "public_surface": "PUBLIC"
@@ -270,7 +270,7 @@
           "label": "Estate-promoted public system",
           "summary": "Canonical release control plane",
           "mechanism": [],
-          "evidence": "148/148 plus lint, Protobuf, rollout, provenance and public-surface checks.",
+          "evidence": "961/961 tests plus lint, Protobuf, rollout, provenance and public-surface checks.",
           "limit": "Next gate: Refresh exact current-SHA receipt and generate all company dossiers.",
           "level": "L5",
           "public_surface": "PUBLIC"
@@ -305,7 +305,7 @@
           "repo": "https://github.com/GlacierEQ/job-app-helix",
           "state": "PROMOTED",
           "level": "L5",
-          "evidence": "148/148 plus lint, Protobuf, rollout, provenance and public-surface checks.",
+          "evidence": "961/961 tests plus lint, Protobuf, rollout, provenance and public-surface checks.",
           "limit": "Next gate: Refresh exact current-SHA receipt and generate all company dossiers."
         },
         {
@@ -428,7 +428,7 @@
           "repo": "https://github.com/GlacierEQ/job-app-helix",
           "state": "PROMOTED",
           "level": "L5",
-          "evidence": "148/148 plus lint, Protobuf, rollout, provenance and public-surface checks.",
+          "evidence": "961/961 tests plus lint, Protobuf, rollout, provenance and public-surface checks.",
           "limit": "Next gate: Refresh exact current-SHA receipt and generate all company dossiers."
         }
       ]
@@ -1166,5 +1166,5 @@
       ]
     }
   ],
-  "receipt_sha256": "de6d91d7619372dc33fc006c23bcddf297a372cf55c0cdfc060401e3db4c3a33"
+  "receipt_sha256": "8e6f8dd47be6b6e7ea91f56a715a13c1a2bd32acb4f9cdd3cc4ee14c3f0a107c"
 }
