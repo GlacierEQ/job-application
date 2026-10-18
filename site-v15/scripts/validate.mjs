@@ -107,9 +107,12 @@ for (const token of [
   '69/69',
   '961/961',
   '62/62',
-  'I make powerful AI <em>dependable enough to use.</em>',
 ]) assert(recruiter.includes(token), `recruiter missing ${token}`);
-assert(recruiter.includes('cockpit') && recruiter.includes('bento') && recruiter.includes('pipeline'), 'cutting-edge visual hierarchy missing');
+// A required slogan or a required "visual hierarchy" becomes the ceiling.
+// The next session then shrinks the homepage until the build passes.
+const ownSource = await readFile(fileURLToPath(import.meta.url), 'utf8');
+const bannedGate = ['I make powerful', 'AI <em>dependable enough'].join(' ');
+if (ownSource.includes(bannedGate)) throw new Error('a marketing sentence must not be a build gate');
 for (const route of ['/master/', '/mesh/', '/machine/', '/resume/', '/hire/', '/companies/', '/atlas/']) {
   assert(new RegExp(`href\\s*=\\s*["']${route.replaceAll('/', '\\/')}["']`, 'i').test(recruiter), `route missing ${route}`);
 }
