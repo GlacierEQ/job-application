@@ -16,9 +16,9 @@ assert(data.schema === 'glaciereq.public-mega-skills.v2', 'Mega-Skills public sc
 assert(data.source.commit === lock.source_commit, 'Mega-Skills source commit drift');
 assert(data.source.graph_sha256 === lock.source_graph_sha256, 'Mega-Skills graph hash drift');
 assert(digest === lock.root_manifest_sha256, 'Mega-Skills root manifest hash drift');
-assert(data.counts.atomic_skills === 709 && data.counts.compound_skills === 33 && data.counts.mega_skills === 29, 'Mega-Skills canonical count drift');
+assert(data.counts.atomic_skills === 723 && data.counts.compound_skills === 39 && data.counts.mega_skills === 34, 'Mega-Skills canonical count drift');
 assert(data.counts.unresolved_owned_references === 0 && data.counts.compound_cycles === 0, 'Mega-Skills graph must be resolved and acyclic');
-assert(data.mega_skills.length === 29 && new Set(data.mega_skills.map(x => x.id)).size === 29, 'Mega-Skills must expose 29 unique apexes');
+assert(data.mega_skills.length === 34 && new Set(data.mega_skills.map(x => x.id)).size === 34, 'Mega-Skills must expose 34 unique apexes');
 assert(home.includes('href="/mega-skills/"'), 'portfolio home must link Mega-Skills');
 const sitemapMegaRoutes = new Set(
   [...sitemap.matchAll(/<loc>https:\/\/casey-barton-glaciereq\.vercel\.app(\/mega-skills\/[^<]*)<\/loc>/g)].map((match) => match[1]),
@@ -51,5 +51,5 @@ for (const mega of data.mega_skills) {
   assert(page.includes('local_validation'), `${mega.id}: Atomic validation contract missing`);
   details += (page.match(/<details\b/g) || []).length;
 }
-assert(details >= 29, 'each Mega route must expose expandable Skill branches');
+assert(details >= 34, 'each Mega route must expose expandable Skill branches');
 console.log(JSON.stringify({status:'PASS',schema:data.schema,source_commit:data.source.commit,manifest_sha256:digest,mega_routes:data.mega_skills.length,details,counts:data.counts}));
