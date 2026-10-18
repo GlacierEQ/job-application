@@ -86,7 +86,7 @@ for (const [name, html] of Object.entries(pages)) {
 }
 
 const htmlFiles = await discoverHtml(rootPath);
-assert(htmlFiles.length >= 100, `complete surface unexpectedly small: ${htmlFiles.length} HTML files`);
+assert(htmlFiles.length >= 360, `complete surface unexpectedly small: ${htmlFiles.length} HTML files`);
 for (const file of htmlFiles) {
   const relative = path.relative(rootPath, file).replaceAll(path.sep, '/');
   const html = await readFile(file, 'utf8');
