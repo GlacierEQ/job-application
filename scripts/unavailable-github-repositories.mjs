@@ -3,27 +3,16 @@
 // site must not present them as links. Keep this list in step with the live
 // link check (every github.com/GlacierEQ href on the site must answer 200).
 export const UNAVAILABLE_GITHUB_REPOSITORIES = Object.freeze([
-  // private
+  // private (answer 404 to an anonymous reader as of 2026-10-23)
   'AKOS',
-  'GlacierEQ_Swarm',
   'Pro-DOCTOR-STRANGE',
-  'Pro-comet-agent',
-  'apex-cli',
-  'apex-control-plane',
   'apex-github-worker',
   'aspen-grove-supabase',
-  'colossus-gateway',
   'mega-skills',
   'monolith',
   'notion-mcp-empowerment-engine',
   'perplexity-enhancement-mcp',
-  'spiral-engine',
-  'xai-colossus-cooling',
-  'xai-colossus-energy',
   'xai-colossus-microcode',
-  'xai-colossus-nanosphere',
-  'xai-colossus-security',
-  'xai-colossus-servers',
   // not published
   'nvidia-blackwell-fp4-optimizer',
   'nvidia-cuda-graphs-conditional',
