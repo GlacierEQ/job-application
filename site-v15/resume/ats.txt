@@ -29,7 +29,7 @@ CURRENT PROOF SIGNAL
 - A reproduced guarded GitHub mutation path separately demonstrates exact patch/check preconditions, expected-head gating, canonical provider readback, and replay suppression.
 
 PROFESSIONAL EXPERIENCE
-GLACIEREQ | Founder / Applied AI Systems Builder | Honolulu, Hawaiʻi | January 2025-Present
+GLACIEREQ | Founder / Applied AI Systems Builder | Honolulu, Hawaiʻi | 2023-Present
 - Design and implement interconnected AI, agent, document, memory, evidence, infrastructure, and hiring systems with explicit control-plane, execution-plane, receipt-plane, source-authority, and projection boundaries.
 - Convert ambiguous missions into typed contracts, runnable vertical slices, deterministic tests, refusal behavior, recovery paths, machine interfaces, and reviewable completion receipts.
 - Build repeated reliability mechanisms across independent systems rather than counting repositories as accomplishments: evidence-carrying execution, fail-closed envelopes, bounded transitions, idempotent recovery, truth-preserving projections, and reversible verified change.

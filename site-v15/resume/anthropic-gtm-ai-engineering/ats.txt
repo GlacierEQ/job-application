@@ -24,7 +24,7 @@ ROLE-ALIGNED ENGINEERING PROOF
 - FULL-STACK / DATA — Python, TypeScript, JavaScript, SQL, Bash, Node.js, FastAPI, React/Next.js; REST, JSON-RPC, MCP, JSON Schema, PostgreSQL/SQLite concepts, Docker, GitHub Actions, Vercel.
 
 PROFESSIONAL EXPERIENCE
-GLACIEREQ | Founder / Applied AI Systems Builder | Honolulu, Hawaiʻi | January 2025-Present
+GLACIEREQ | Founder / Applied AI Systems Builder | Honolulu, Hawaiʻi | 2023-Present
 - Architect and implement interconnected AI-agent, tool, memory, browser, evidence, infrastructure, and workflow systems with explicit control-plane, execution-plane, receipt-plane, and source-authority boundaries.
 - Convert underspecified missions into executable contracts, working vertical slices, tests/evals, approval paths, recovery behavior, machine interfaces, and verified completion receipts.
 - Build multi-agent orchestration, context/continuity systems, governed connector/MCP layers, tool-use policy, provider readback, idempotent execution, retry/circuit-breaker behavior, and evidence-carrying workflows.

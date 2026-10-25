@@ -107,7 +107,7 @@ for i,(num,label) in enumerate(metrics):
     p=c.add_paragraph(); p.alignment=WD_ALIGN_PARAGRAPH.CENTER; para(p,line=.95); run(p,label,False,MUTED,7.1)
 
 section_title(doc,'Proof at work','Professional Experience')
-role(doc,'GlacierEQ','Founder / Applied AI Systems Builder','Jan 2025-Present',[
+role(doc,'GlacierEQ','Founder / Applied AI Systems Builder','2023-Present',[
 'Design and implement evidence-bound systems spanning agent orchestration, application intelligence, document and evidence pipelines, memory and continuity, infrastructure governance, and human-machine interfaces.',
 'Convert broad architecture into typed contracts, runnable slices, deterministic tests, explicit refusal behavior, machine-readable facts, and reviewable completion receipts.',
 'Built a public Portfolio Receipt Router that replaced unsupported autonomous-control semantics with a local fail-closed evidence system; 69/69 tests passed through direct and reusable CI with zero external actions.',
