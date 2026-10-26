@@ -24,7 +24,7 @@ Prior scientific computing: R and MATLAB.
 Additional evidence-bounded project exposure: Go, Rust, C, C++, CUDA, Swift/Metal, Julia, Verilog/SystemVerilog, WebAssembly.
 
 ## Professional Experience
-GLACIEREQ - Founder / Applied AI Systems Builder - Honolulu, Hawaii - January 2025-Present
+GLACIEREQ - Founder / Applied AI Systems Builder - Honolulu, Hawaii - 2023-Present
 - Design and implement evidence-bound systems spanning agent orchestration, application intelligence, document and evidence pipelines, memory and continuity, infrastructure governance, and human-machine interfaces.
 - Convert broad architecture into typed contracts, runnable slices, deterministic tests, explicit refusal behavior, machine-readable facts, and reviewable completion receipts.
 - Built a public Portfolio Receipt Router that replaced unsupported autonomous-control semantics with a local fail-closed evidence system; historical V15 release evidence records 69 of 69 tests passed with zero external actions. The changed current source head is `DISCOVERED` and is not represented as inheriting that historical verification.

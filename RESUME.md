@@ -33,7 +33,7 @@ The method comes from studying and diagnosing systems in different forms. Biolog
 ## Experience
 
 ### GlacierEQ — Founder / Applied AI Systems Builder
-**Honolulu, Hawaiʻi | January 2025–Present**
+**Honolulu, Hawaiʻi | 2023–Present**
 
 - Design and implement interconnected AI, agent, document, memory, evidence, infrastructure, and hiring systems with explicit control-plane, execution-plane, receipt-plane, source-authority, and projection boundaries.
 - Convert ambiguous missions into typed contracts, runnable vertical slices, deterministic tests, refusal behavior, recovery paths, machine interfaces, and reviewable completion receipts.
