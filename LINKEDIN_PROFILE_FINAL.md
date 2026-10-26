@@ -34,8 +34,8 @@ My primary stack is Python and TypeScript, with FastAPI, Node.js, SQL, Docker, G
 
 Recent public engineering proof includes:
 
-- An agent control-plane project verified across Python 3.11, 3.12, and 3.13; the reference Python 3.12 run records **199 passed, 1 skipped, 0 failures**.
-- A recovery/orchestration system with commit-pinned compile, correctness-lint, dependency-audit, **48/48 test**, and CLI verification.
+- An agent control-plane project whose current-head Python 3.12 reference run (head `2992b137`) records **363 collected, 349 passed, 13 failed, 1 skipped**; Ruff baseline debt (recorded, non-failing): **247 findings**.
+- A recovery/orchestration system with commit-pinned compile, correctness-lint, dependency-audit, **125/125 tests** (head `b6b004f`), and CLI verification.
 - A multi-language systems architecture that assigns technologies explicit responsibilities, interfaces, and proof gates instead of treating a long tool list as expertise.
 - An evidence-grounded hiring/portfolio system that separates implementation proof from recruiter-facing presentation.
 
@@ -63,8 +63,8 @@ Honolulu, Hawaiʻi | January 2025 – Present
 - Use AI-assisted development as an inspectable engineering workflow combining source review, implementation, deterministic validation, exact-revision proof, and human judgment.
 
 **Selected proof**
-- Agent control plane: current-head verification across Python 3.11/3.12/3.13; Python 3.12 reference run records 199 passed, 1 skipped, 0 failures.
-- Recovery/orchestration system: commit-pinned compile, lint, dependency-audit, 48/48-test, and CLI verification.
+- Agent control plane: current-head Python 3.12 reference run (head `2992b137`) records 363 collected, 349 passed, 13 failed, 1 skipped; Ruff baseline debt (recorded, non-failing): 247 findings.
+- Recovery/orchestration system: commit-pinned compile, lint, dependency-audit, 125/125-test (head `b6b004f`), and CLI verification.
 - Multi-language interoperability architecture: explicit technology responsibilities, interfaces, activation conditions, and proof gates.
 
 ### Diamond Head Home Inspections
