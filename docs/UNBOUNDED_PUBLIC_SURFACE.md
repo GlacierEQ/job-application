@@ -30,3 +30,11 @@ A project is not hidden merely because it is not a current orientation entry.
 Helix remains the portfolio authority. Mega-Skills, token-saving traversal, executable
 computer-use proof, and release-pipeline checks are capability and verification inputs;
 they do not become a reason to collapse the estate into a fixed shortlist.
+
+## Résumé and opportunity law
+
+- There is **no fixed page count** or two-page ceiling on any canonical, master, role-calibrated, or generated résumé.
+- Do not treat page count, a visual card limit, or compact layout as a reason to delete unique source-backed qualifications, employment, skills, or evidence.
+- Generate recruiter-friendly orientation and ATS-readable representations without losing the full record; the presentation can adapt to a job description but cannot erase qualified source facts.
+- Legacy V17 two-page artifacts remain historical receipts, not current format authority.
+- A correction to a presentation convention must propagate to the generator and its executable tests, not remain merely conversational.
