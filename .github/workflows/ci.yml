@@ -54,5 +54,10 @@ jobs:
           python3 -m coverage run -m unittest tests/test_workflow_evidence_manifest.py tests/test_workflow_evidence_freshness.py
           python3 -m coverage report --fail-under=80
 
+      # Production normalizes private/unpublished repository URLs before its
+      # final dead-link check. CI must validate that same delivered state.
+      - name: Normalize public GitHub links as in production
+        run: node scripts/prune-unavailable-github-links.mjs
+
       - name: Verify no dead GitHub links on the public site
         run: node scripts/prune-unavailable-github-links.mjs --check

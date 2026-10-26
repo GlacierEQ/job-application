@@ -87,7 +87,7 @@ The repository has progressed beyond the historical V12/V13 prototypes.
 
 - **V15 hiring-system foundation:** the current script-free public-site architecture and validation line.
 - **V16 signal architecture:** higher-impact recruiter presentation while preserving the underlying factual graph.
-- **V17 résumé intelligence:** two-page human résumé, editable DOCX, ATS text, structured résumé JSON, evidence IDs, and PSYSOC-X factual-invariance validation.
+- **Historical V17 résumé intelligence:** the original two-page human résumé, editable DOCX, ATS text, structured résumé JSON, evidence IDs, and PSYSOC-X factual-invariance validation. Its original pagination was a historical layout, not a requirement for current projections.
 - **Helix projection architecture:** the production hiring site is compiled from a commit-pinned public-safe snapshot of Job App Helix source truth rather than relying on live GitHub requests in the browser.
 - **Retained V17 source bridge:** the historical Node 24 compatibility bridge remains repaired and runtime-verified, but it is not the active production delivery mechanism.
 
@@ -146,10 +146,12 @@ It may change presentation. It may not silently change facts, evidence states, u
 
 ## Résumé Intelligence
 
-The V17 résumé system provides separate interfaces for different consumers while preserving one factual identity:
+**Current rule: no artificial page-count limit.** Source-qualified professional history and role-relevant accomplishments may not be omitted, hidden, truncated, or compressed merely to achieve a two-page format. Use natural pagination for generated PDF/DOCX output. A concise orientation document may coexist with a complete master and ATS version; it must not replace or redefine the record. Historical V17 binaries are preserved as historical artifacts, not imposed as the current format.
+
+The résumé system provides separate interfaces for different consumers while preserving one factual identity:
 
 - human résumé page;
-- two-page recruiter/hiring-manager PDF;
+- recruiter/hiring-manager PDF with content-driven pagination and no fixed page ceiling;
 - editable DOCX companion;
 - linear ATS text at `/resume/ats.txt`;
 - structured résumé JSON at `/data/resume.json`;

@@ -1,6 +1,6 @@
 from docx import Document
 from docx.enum.table import WD_TABLE_ALIGNMENT, WD_CELL_VERTICAL_ALIGNMENT
-from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_BREAK
+from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from docx.shared import Inches, Pt, RGBColor
@@ -134,8 +134,7 @@ for i,(label,val) in enumerate(cap_data):
     p=c.paragraphs[0]; para(p,after=2); run(p,label,True,TEAL,8.2)
     p=c.add_paragraph(); para(p,line=1.0); run(p,val,False,DARK,7.75)
 
-# Page 2
-p=doc.add_paragraph(); p.add_run().add_break(WD_BREAK.PAGE)
+# Natural pagination: never force a second page or truncate qualified material to fit a page target.
 section_title(doc,'Selected systems','Evidence states, not hype')
 rows=[
 ('Portfolio Receipt Router','TEST VERIFIED','Fail-closed evidence routing and compatibility-safe architecture repair.','69/69 tests; direct and reusable CI; artifact 8910423397; zero external actions.','Independent technical exhibit; no production-operation or company-affiliation claim.'),
