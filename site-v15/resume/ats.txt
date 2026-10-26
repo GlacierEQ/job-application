@@ -22,8 +22,8 @@ FRONTIER ENGINEERING SIGNAL
 
 CURRENT PROOF SIGNAL
 - AKOS current canonical head 2992b1372ea91eba8e57d483de07f8ae4b1b910d is measured on Python 3.12: 363 collected, 349 passed, 1 skipped, 13 failures, and 0 errors. GitHub Actions is blocked on a billing limit, so no multi-version CI run exists at this head. The same evidence preserves 247 broader preexisting Ruff findings as visible quality debt.
-- ECHO current head 6acdb3be1739f1659f3cec9f4b7d39d5799cd476 hardens the public/private admission boundary. The canonical hiring source binds the merged repair to compile, correctness lint, dependency audit, 48/48 tests, and CLI verification.
-- The Tower of Babel governs 40 technology floors and 80 easy/advanced exhibits, with 17 behavioral-proof floors, 3 formal-proof floors, and 9 explicitly gated floors. Technologies earn placement through a named boundary and proof gate rather than decorative language count.
+- ECHO current head b6b004f601a0e20b4fd4264b8262dc4ac9498245 (transactional job leases and stale-worker recovery, #30) hardens the public/private admission boundary. The canonical hiring source binds the current head to compile, correctness lint, dependency audit, 125/125 tests, and CLI verification (GitHub Actions ECHO CI run 33342434203, 2026-08-30: 125 passed, 0 failed).
+- The Tower of Babel governs 42 technology floors and 84 easy/advanced exhibits, with 17 behavioral-proof floors, 3 formal-proof floors, and 11 explicitly gated floors. Technologies earn placement through a named boundary and proof gate rather than decorative language count.
 - Current-head evidence includes 95/95 Agent Coordinator tests and a 153-execution three-version Safety Monitor matrix. Those receipts prove their bounded mechanisms, not production deployment.
 - Evidence-Carrying Execution is independently instantiated in public-actions-runner-host, Tower of Babel, and current-head AKOS, with AKOS providing an exact-head executed local verification.
 - A reproduced guarded GitHub mutation path separately demonstrates exact patch/check preconditions, expected-head gating, canonical provider readback, and replay suppression.
@@ -49,14 +49,14 @@ SELECTED SYSTEMS AND ARCHITECTURE
 AKOS + ECHO | Governance pillar + continuity/orchestration piston
 - AKOS owns identity, provenance, authority, maturity, and verified completion semantics; ECHO owns continuity, idempotent flow, recovery, and receipts through that governed boundary.
 - AKOS current canonical head: 2992b1372ea91eba8e57d483de07f8ae4b1b910d.
-- ECHO current canonical head: 6acdb3be1739f1659f3cec9f4b7d39d5799cd476.
+- ECHO current canonical head: b6b004f601a0e20b4fd4264b8262dc4ac9498245.
 
 JOB APPLICATION HELIX + HIRING SYSTEM | Portfolio authority + commit-pinned public projection
 - Child repositories own implementation and native proof; Job-App Helix owns portfolio admission, evidence state, company/role alignment, flagship hierarchy, freshness, and public-safe projection policy.
 - The public hiring repository renders recruiter, resume, master, mesh, atlas, and machine surfaces from governed truth and fails closed on stale, private, inconsistent, or over-promoted source state.
 
 THE TOWER OF BABEL | Executable technology placement and interoperability
-- Governs 40 technology floors and 80 exhibits. Each technology earns a unique responsibility, interface, activation condition, proof gate, and blocker.
+- Governs 42 technology floors and 84 exhibits. Each technology earns a unique responsibility, interface, activation condition, proof gate, and blocker.
 - Flagship composition includes TypeScript ingress, Python planning, Rust authority, Go telemetry, SQL canonical state, WebAssembly sandboxing, Lean proof, and deterministic receipts.
 
 COLOSSAL AGENT + SPIRAL ENGINE / DOUBLE HELIX | Biologically inspired systems architecture

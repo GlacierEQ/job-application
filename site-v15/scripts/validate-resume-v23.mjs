@@ -36,19 +36,19 @@ for (const href of ['/resume/ats.txt', '/data/resume.json']) {
 }
 assert(html.includes('itemscope') && html.includes('https://schema.org/Person'), 'schema.org Person microdata missing');
 assert(html.includes('rel="alternate" type="application/json"') && html.includes('rel="alternate" type="text/plain"'), 'machine alternates missing');
-for (const signal of ['systems atlas resume', 'evidence-carrying execution', 'fail-closed execution envelopes', 'bounded state transitions', 'idempotent recovery', 'truth-preserving public projections', 'reversible verified change', 'biological systems', '349/363', '48/48', '95/95']) {
+for (const signal of ['systems atlas resume', 'evidence-carrying execution', 'fail-closed execution envelopes', 'bounded state transitions', 'idempotent recovery', 'truth-preserving public projections', 'reversible verified change', 'biological systems', '349/363', '125/125', '95/95']) {
   assert(htmlFold.includes(signal), `V23 human signal missing: ${signal}`);
 }
-assert(!html.includes('148/148') && !html.includes('148 of 148'), 'stale Helix test-count framing remains in HTML');
+assert(!html.includes('148/148') && !html.includes('148 of 148') && !html.includes('48/48'), 'stale Helix/ECHO test-count framing remains in HTML');
 
 assert(ats.length > 10000, 'V23 ATS text too short');
 for (const heading of ['SYSTEMS ATLAS MASTER', 'PROFESSIONAL SUMMARY', 'FRONTIER ENGINEERING SIGNAL', 'CURRENT PROOF SIGNAL', 'PROFESSIONAL EXPERIENCE', 'SELECTED SYSTEMS AND ARCHITECTURE', 'BIOLOGICAL SYSTEMS -> ENGINEERED SYSTEMS', 'EDUCATION AND SYSTEMS LINEAGE', 'ARCHITECTURE CHRONOLOGY - TIMESTAMPED, BOUNDED', 'EVIDENCE BOUNDARY']) {
   assert(ats.includes(heading), `ATS heading missing: ${heading}`);
 }
-for (const exact of ['363 collected, 349 passed, 1 skipped', '48/48 tests', '40 technology floors', '95/95 Agent Coordinator tests']) {
+for (const exact of ['363 collected, 349 passed, 1 skipped', '125/125 tests', '42 technology floors', '95/95 Agent Coordinator tests']) {
   assert(ats.includes(exact), `ATS current proof missing: ${exact}`);
 }
-assert(!ats.includes('148/148') && !ats.includes('148 of 148'), 'stale Helix test-count framing remains in ATS');
+assert(!ats.includes('148/148') && !ats.includes('148 of 148') && !ats.includes('48/48') && !ats.includes('40 technology floors'), 'stale Helix/ECHO/Tower test-count framing remains in ATS');
 
 assert(resume.meta.schema === 'glaciereq.resume-intelligence.v23', 'machine schema must be V23');
 assert(resume.meta.version === '23.0.0-resource-grounded', 'machine version drift');
@@ -61,8 +61,8 @@ assert(resume.work.length >= 3, 'cross-domain work history incomplete');
 assert(resume.x_capability_clusters.length === 6, 'V23 must expose six capability clusters');
 assert(resume.x_systems_lineage.mappings.length >= 8, 'systems-lineage mappings incomplete');
 assert(resume.projects.some(project => project.name === 'AKOS' && project.keywords.includes('current_head:2992b1372ea91eba8e57d483de07f8ae4b1b910d')), 'AKOS current-head binding missing');
-assert(resume.projects.some(project => project.name === 'ECHO' && project.keywords.includes('current_head:6acdb3be1739f1659f3cec9f4b7d39d5799cd476')), 'ECHO current-head binding missing');
-assert(resume.projects.some(project => project.name === 'The Tower of Babel' && project.keywords.includes('technology_floors:40')), 'Tower proof summary missing');
+assert(resume.projects.some(project => project.name === 'ECHO' && project.keywords.includes('current_head:b6b004f601a0e20b4fd4264b8262dc4ac9498245')), 'ECHO current-head binding missing');
+assert(resume.projects.some(project => project.name === 'The Tower of Babel' && project.keywords.includes('technology_floors:42')), 'Tower proof summary missing');
 assert(resume.x_chronology.classification === 'DATED_SEMANTIC_CONVERGENCE_ONLY', 'chronology classification drift');
 assert(resume.x_chronology.nonclaims.includes('causation'), 'chronology non-causation boundary missing');
 assert(resume.x_evidence.limits.some(limit => limit.includes('Repository count is not accomplishment count')), 'repository-count boundary missing');

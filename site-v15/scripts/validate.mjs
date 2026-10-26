@@ -159,12 +159,12 @@ for (const token of [
   'Truth-preserving public projections',
   'Reversible verified change',
   '349/363',
-  '48/48',
-  '40 / 80',
+  '125/125',
+  '42 / 84',
   '95/95',
   'BIOLOGICAL SYSTEMS',
 ]) assert(resume.includes(token), `V23 resume proof drift: ${token}`);
-assert(!resume.includes('148/148') && !resume.includes('148 of 148'), 'resume contains retired Helix test-count framing');
+assert(!resume.includes('148/148') && !resume.includes('148 of 148') && !resume.includes('48/48') && !resume.includes('40 / 80'), 'resume contains retired Helix/ECHO/Tower framing');
 for (const token of [
   'REPEATED ENGINEERING PATTERNS',
   'SYSTEMS LINEAGE',
@@ -173,9 +173,10 @@ for (const token of [
   'Spiral Engine / Double Helix',
   'TOWER OF BABEL',
   '363 collected, 349 passed, 1 skipped',
-  '48/48',
+  '125/125',
   'dated semantic convergence',
 ]) assert(master.includes(token), `V23 master evidence drift: ${token}`);
+assert(!master.includes('48/48'), 'master contains retired ECHO 48/48 framing');
 assert(master.includes('The owning system keeps the proof.') && master.includes('Current heads do not inherit historical test receipts.'), 'master evidence policy missing');
 assert(machine.includes('/data/portfolio.json') && machine.includes('/data/company-families.json') && machine.includes('/data/psysoc-x-profiles.json'), 'machine links incomplete');
 assert(hire.includes('github.com/GlacierEQ/the-tower-of-babel'), 'hire missing Babel source');

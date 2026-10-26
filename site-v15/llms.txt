@@ -29,8 +29,8 @@ Primary capability patterns represented in the V23 resume:
 
 Current high-value proof anchors:
 - AKOS exact canonical head 2992b1372ea91eba8e57d483de07f8ae4b1b910d: local Python 3.12 verification records 363 collected, 349 passed, 1 skipped, 13 failures, 0 errors (GitHub Actions blocked on a billing limit); 247 broader preexisting Ruff findings remain explicit quality debt.
-- ECHO exact current head 6acdb3be1739f1659f3cec9f4b7d39d5799cd476: merged public/privacy-boundary repair; canonical hiring proof binds compile, correctness lint, dependency audit, 48/48 tests, and CLI verification.
-- The Tower of Babel: 40 governed technology floors, 80 easy/advanced exhibits, 17 behavioral-proof floors, 3 formal-proof floors, and 9 explicitly gated floors.
+- ECHO exact current head b6b004f601a0e20b4fd4264b8262dc4ac9498245: transactional job leases and stale-worker recovery (#30), built on the merged public/privacy-boundary repair; canonical hiring proof binds compile, correctness lint, dependency audit, 125/125 tests, and CLI verification (GitHub Actions ECHO CI run 33342434203, 2026-08-30: 125 passed, 0 failed).
+- The Tower of Babel: 42 governed technology floors, 84 easy/advanced exhibits, 17 behavioral-proof floors, 3 formal-proof floors, and 11 explicitly gated floors.
 - Agent Coordinator: 95/95 Python tests verified at current head bcdaa89b8a76bd1c1690c7a46458af0be0a49e95 (local verification; the repo's GitHub Actions workflow has never fired).
 
 Systems-lineage summary:

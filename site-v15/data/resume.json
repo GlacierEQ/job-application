@@ -211,9 +211,9 @@
       "url": "https://github.com/GlacierEQ/ECHO",
       "description": "Continuity, idempotent flow, recovery, provenance, and receipt-backed orchestration under an AKOS governance boundary.",
       "keywords": [
-        "current_head:6acdb3be1739f1659f3cec9f4b7d39d5799cd476",
+        "current_head:b6b004f601a0e20b4fd4264b8262dc4ac9498245",
         "privacy_boundary_hardened",
-        "tests:48/48",
+        "tests:125/125",
         "cli:VERIFIED"
       ]
     },
@@ -222,11 +222,11 @@
       "url": "https://github.com/GlacierEQ/the-tower-of-babel",
       "description": "Executable technology placement, interoperability, proof gates, and deterministic receipts.",
       "keywords": [
-        "technology_floors:40",
-        "easy_advanced_exhibits:80",
+        "technology_floors:42",
+        "easy_advanced_exhibits:84",
         "behavioral_proof_floors:17",
         "formal_proof_floors:3",
-        "explicitly_gated_floors:9"
+        "explicitly_gated_floors:11"
       ]
     },
     {
