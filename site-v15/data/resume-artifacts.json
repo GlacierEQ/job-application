@@ -10,15 +10,15 @@
   ],
   "artifacts": {
     "docx": {
-      "bytes": 42584,
+      "bytes": 42578,
       "path": "downloads/Casey_Barton_Resume.docx",
-      "sha256": "abf5835bc33ef4c978a684fda30a9b8539ec72510e9b45ee6a9399efe3deeaed",
+      "sha256": "99ade9976e55270bbb74ae2c3fc121352d284d1fba0073b9312beae0f286b44b",
       "status": "LEGACY_GENERATED_V17"
     },
     "pdf": {
-      "bytes": 79875,
+      "bytes": 68188,
       "path": "downloads/Casey_Barton_Resume.pdf",
-      "sha256": "c34c069999b9432f59e3a956183a1b07537a7d165a70d8eaa3ae173e61c46eca",
+      "sha256": "0154030e890411714d3a73997d3fbdba3c10481de568d39ab5b34cd90a43b887",
       "status": "LEGACY_GENERATED_V17"
     }
   },
