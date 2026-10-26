@@ -105,8 +105,8 @@ for (const token of [
   'PROOF_BOUND',
   'CLAIM_PROMOTED',
   '69/69',
-  '961/961',
-  '62/62',
+  '911/911',
+  '95/95',
 ]) assert(recruiter.includes(token), `recruiter missing ${token}`);
 // A required slogan or a required "visual hierarchy" becomes the ceiling.
 // The next session then shrinks the homepage until the build passes.
@@ -158,10 +158,10 @@ for (const token of [
   'Idempotent recovery',
   'Truth-preserving public projections',
   'Reversible verified change',
-  '199/200',
+  '349/363',
   '48/48',
   '40 / 80',
-  '62/62',
+  '95/95',
   'BIOLOGICAL SYSTEMS',
 ]) assert(resume.includes(token), `V23 resume proof drift: ${token}`);
 assert(!resume.includes('148/148') && !resume.includes('148 of 148'), 'resume contains retired Helix test-count framing');
@@ -172,7 +172,7 @@ for (const token of [
   'Colossal Agent',
   'Spiral Engine / Double Helix',
   'TOWER OF BABEL',
-  '200 collected, 199 passed, 1 skipped',
+  '363 collected, 349 passed, 1 skipped',
   '48/48',
   'dated semantic convergence',
 ]) assert(master.includes(token), `V23 master evidence drift: ${token}`);

@@ -48,7 +48,7 @@
           "label": "Estate-promoted public system",
           "summary": "Canonical release control plane",
           "mechanism": [],
-          "evidence": "961/961 tests plus lint, Protobuf, rollout, provenance and public-surface checks.",
+          "evidence": "911/911 tests plus lint, Protobuf, rollout, provenance and public-surface checks.",
           "limit": "Next gate: Refresh exact current-SHA receipt and generate all company dossiers.",
           "level": "L5",
           "public_surface": "PUBLIC"
@@ -270,7 +270,7 @@
           "label": "Estate-promoted public system",
           "summary": "Canonical release control plane",
           "mechanism": [],
-          "evidence": "961/961 tests plus lint, Protobuf, rollout, provenance and public-surface checks.",
+          "evidence": "911/911 tests plus lint, Protobuf, rollout, provenance and public-surface checks.",
           "limit": "Next gate: Refresh exact current-SHA receipt and generate all company dossiers.",
           "level": "L5",
           "public_surface": "PUBLIC"
@@ -305,7 +305,7 @@
           "repo": "https://github.com/GlacierEQ/job-app-helix",
           "state": "PROMOTED",
           "level": "L5",
-          "evidence": "961/961 tests plus lint, Protobuf, rollout, provenance and public-surface checks.",
+          "evidence": "911/911 tests plus lint, Protobuf, rollout, provenance and public-surface checks.",
           "limit": "Next gate: Refresh exact current-SHA receipt and generate all company dossiers."
         },
         {
@@ -428,7 +428,7 @@
           "repo": "https://github.com/GlacierEQ/job-app-helix",
           "state": "PROMOTED",
           "level": "L5",
-          "evidence": "961/961 tests plus lint, Protobuf, rollout, provenance and public-surface checks.",
+          "evidence": "911/911 tests plus lint, Protobuf, rollout, provenance and public-surface checks.",
           "limit": "Next gate: Refresh exact current-SHA receipt and generate all company dossiers."
         }
       ]

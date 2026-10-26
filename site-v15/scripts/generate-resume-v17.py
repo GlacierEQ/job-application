@@ -100,7 +100,7 @@ p=c.add_paragraph(); para(p,line=1.05); run(p,'Applied AI systems architect who 
 
 # Metrics
 m=doc.add_table(rows=1,cols=4); m.alignment=WD_TABLE_ALIGNMENT.CENTER; m.autofit=False; no_spacing(m)
-metrics=[('69/69','Receipt Router tests'),('166 + 19','source + memory tests'),('67','Helix admitted public set'),('62/62','Agent Coordinator tests')]
+metrics=[('69/69','Receipt Router tests'),('166 + 19','source + memory tests'),('67','Helix admitted public set'),('95/95','Agent Coordinator tests')]
 for i,(num,label) in enumerate(metrics):
     c=m.cell(0,i); shade(c,LIGHT2 if i%2==0 else LIGHT); cell_margins(c,55,35,55,35); borders(c)
     p=c.paragraphs[0]; p.alignment=WD_ALIGN_PARAGRAPH.CENTER; para(p,after=1); run(p,num,True,TEAL,14.2)
@@ -140,7 +140,7 @@ section_title(doc,'Selected systems','Evidence states, not hype')
 rows=[
 ('Portfolio Receipt Router','TEST VERIFIED','Fail-closed evidence routing and compatibility-safe architecture repair.','69/69 tests; direct and reusable CI; artifact 8910423397; zero external actions.','Independent technical exhibit; no production-operation or company-affiliation claim.'),
 ('Job Application Helix','PARTIALLY VERIFIED','Evidence-governed hiring and portfolio orchestration with an exact 67-repository admitted public proof boundary.','Fail-closed evidence levels, repository-state separation, promotion gates, machine contracts, and role-calibrated package generation.','The 67 admitted repositories are a public proof set, not accomplishment count or the full owned estate; child repositories retain independent evidence states.'),
-('Agent Coordinator','RECORDED 62/62','Deterministic task ownership, dependency order, capacity, stable priority, and shared budgets.','62/62 recorded Python tests.','Hosted matrix and broader promotion gates remain separate.'),
+('Agent Coordinator','RECORDED 95/95','Deterministic task ownership, dependency order, capacity, stable priority, and shared budgets.','95/95 recorded Python tests.','Hosted matrix and broader promotion gates remain separate.'),
 ('AKOS / PSYSOC-X','BOUNDED VERIFIED SURFACES','Authority, evidence, closure, and deterministic audience-calibration primitives.','Repository-native verification supports bounded current surfaces.','Presentation depth can change; facts, uncertainty, dignity, and authority may not.'),
 ]
 t=doc.add_table(rows=len(rows),cols=2); t.alignment=WD_TABLE_ALIGNMENT.CENTER; t.autofit=False; no_spacing(t); t.columns[0].width=Inches(3.25); t.columns[1].width=Inches(3.85)

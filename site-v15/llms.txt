@@ -28,10 +28,10 @@ Primary capability patterns represented in the V23 resume:
 - reversible verified change
 
 Current high-value proof anchors:
-- AKOS exact canonical head eac3cab001306225b99da41c37370528331966dd: GitHub Actions verification on Python 3.11, 3.12, and 3.13; Python 3.12 receipt records 200 collected, 199 passed, 1 skipped, 0 failures, 0 errors; 160 broader preexisting Ruff findings remain explicit quality debt.
+- AKOS exact canonical head 2992b1372ea91eba8e57d483de07f8ae4b1b910d: local Python 3.12 verification records 363 collected, 349 passed, 1 skipped, 13 failures, 0 errors (GitHub Actions blocked on a billing limit); 247 broader preexisting Ruff findings remain explicit quality debt.
 - ECHO exact current head 6acdb3be1739f1659f3cec9f4b7d39d5799cd476: merged public/privacy-boundary repair; canonical hiring proof binds compile, correctness lint, dependency audit, 48/48 tests, and CLI verification.
 - The Tower of Babel: 40 governed technology floors, 80 easy/advanced exhibits, 17 behavioral-proof floors, 3 formal-proof floors, and 9 explicitly gated floors.
-- Agent Coordinator: immutable historical 62/62 Python test receipt at the pinned executable revision; later heads do not inherit that result automatically.
+- Agent Coordinator: 95/95 Python tests verified at current head bcdaa89b8a76bd1c1690c7a46458af0be0a49e95 (local verification; the repo's GitHub Actions workflow has never fired).
 
 Systems-lineage summary:
 Marine biology -> interacting systems, feedback, selective boundaries, signal-response, homeostasis, adaptation, structure/function, and morphometric classification. Field inspection and compressed-gas work extend that reasoning into physical systems with real failure consequences. GlacierEQ carries the same systems discipline into computational architecture. Public sanitized architectural examples include AKOS + ECHO, Tower of Babel, Spiral Engine / Double Helix, Colossal Agent, Pillars & Pistons, and Job Application Helix.

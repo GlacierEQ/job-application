@@ -196,14 +196,14 @@
       "url": "https://github.com/GlacierEQ/AKOS",
       "description": "Current-head tested execution authority and delegated-identity verification.",
       "keywords": [
-        "current_head:eac3cab001306225b99da41c37370528331966dd",
-        "python:3.11-3.13",
-        "collected:200",
-        "passed:199",
+        "current_head:2992b1372ea91eba8e57d483de07f8ae4b1b910d",
+        "python:3.12",
+        "collected:363",
+        "passed:349",
         "skipped:1",
-        "failures:0",
+        "failures:13",
         "errors:0",
-        "ruff_quality_debt:160"
+        "ruff_quality_debt:247"
       ]
     },
     {
@@ -245,8 +245,8 @@
       "url": "https://github.com/GlacierEQ/anthropic-agent-coordinator",
       "description": "Deterministic dependency, capacity, priority, and shared-budget scheduling.",
       "keywords": [
-        "pinned_behavioral_evidence",
-        "tests:62/62"
+        "current_head:bcdaa89b8a76bd1c1690c7a46458af0be0a49e95",
+        "tests:95/95"
       ]
     },
     {

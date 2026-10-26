@@ -36,7 +36,7 @@ for (const href of ['/resume/ats.txt', '/data/resume.json']) {
 }
 assert(html.includes('itemscope') && html.includes('https://schema.org/Person'), 'schema.org Person microdata missing');
 assert(html.includes('rel="alternate" type="application/json"') && html.includes('rel="alternate" type="text/plain"'), 'machine alternates missing');
-for (const signal of ['systems atlas resume', 'evidence-carrying execution', 'fail-closed execution envelopes', 'bounded state transitions', 'idempotent recovery', 'truth-preserving public projections', 'reversible verified change', 'biological systems', '199/200', '48/48', '62/62']) {
+for (const signal of ['systems atlas resume', 'evidence-carrying execution', 'fail-closed execution envelopes', 'bounded state transitions', 'idempotent recovery', 'truth-preserving public projections', 'reversible verified change', 'biological systems', '349/363', '48/48', '95/95']) {
   assert(htmlFold.includes(signal), `V23 human signal missing: ${signal}`);
 }
 assert(!html.includes('148/148') && !html.includes('148 of 148'), 'stale Helix test-count framing remains in HTML');
@@ -45,7 +45,7 @@ assert(ats.length > 10000, 'V23 ATS text too short');
 for (const heading of ['SYSTEMS ATLAS MASTER', 'PROFESSIONAL SUMMARY', 'FRONTIER ENGINEERING SIGNAL', 'CURRENT PROOF SIGNAL', 'PROFESSIONAL EXPERIENCE', 'SELECTED SYSTEMS AND ARCHITECTURE', 'BIOLOGICAL SYSTEMS -> ENGINEERED SYSTEMS', 'EDUCATION AND SYSTEMS LINEAGE', 'ARCHITECTURE CHRONOLOGY - TIMESTAMPED, BOUNDED', 'EVIDENCE BOUNDARY']) {
   assert(ats.includes(heading), `ATS heading missing: ${heading}`);
 }
-for (const exact of ['200 collected, 199 passed, 1 skipped', '48/48 tests', '40 technology floors', '62/62 Agent Coordinator tests']) {
+for (const exact of ['363 collected, 349 passed, 1 skipped', '48/48 tests', '40 technology floors', '95/95 Agent Coordinator tests']) {
   assert(ats.includes(exact), `ATS current proof missing: ${exact}`);
 }
 assert(!ats.includes('148/148') && !ats.includes('148 of 148'), 'stale Helix test-count framing remains in ATS');
@@ -60,14 +60,14 @@ assert(resume.basics.label === 'Forward-Deployed AI Architect | Principal Agenti
 assert(resume.work.length >= 3, 'cross-domain work history incomplete');
 assert(resume.x_capability_clusters.length === 6, 'V23 must expose six capability clusters');
 assert(resume.x_systems_lineage.mappings.length >= 8, 'systems-lineage mappings incomplete');
-assert(resume.projects.some(project => project.name === 'AKOS' && project.keywords.includes('current_head:eac3cab001306225b99da41c37370528331966dd')), 'AKOS current-head binding missing');
+assert(resume.projects.some(project => project.name === 'AKOS' && project.keywords.includes('current_head:2992b1372ea91eba8e57d483de07f8ae4b1b910d')), 'AKOS current-head binding missing');
 assert(resume.projects.some(project => project.name === 'ECHO' && project.keywords.includes('current_head:6acdb3be1739f1659f3cec9f4b7d39d5799cd476')), 'ECHO current-head binding missing');
 assert(resume.projects.some(project => project.name === 'The Tower of Babel' && project.keywords.includes('technology_floors:40')), 'Tower proof summary missing');
 assert(resume.x_chronology.classification === 'DATED_SEMANTIC_CONVERGENCE_ONLY', 'chronology classification drift');
 assert(resume.x_chronology.nonclaims.includes('causation'), 'chronology non-causation boundary missing');
 assert(resume.x_evidence.limits.some(limit => limit.includes('Repository count is not accomplishment count')), 'repository-count boundary missing');
 
-for (const exact of ['Systems Atlas Master', 'Evidence-carrying execution', 'Biological Systems → Engineered Systems', 'eac3cab001306225b99da41c37370528331966dd']) {
+for (const exact of ['Systems Atlas Master', 'Evidence-carrying execution', 'Biological Systems → Engineered Systems', '2992b1372ea91eba8e57d483de07f8ae4b1b910d']) {
   assert(canonical.includes(exact), `canonical RESUME.md missing: ${exact}`);
 }
 for (const route of ['/resume/', '/resume/ats.txt', '/data/resume.json', '/master/', '/mesh/', '/machine/']) {

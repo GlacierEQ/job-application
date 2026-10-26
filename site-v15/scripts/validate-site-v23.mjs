@@ -37,14 +37,14 @@ for (const token of [
   'SYSTEMS ATLAS RESUME', '01 / HUMAN', '02 / MASTER', '03 / MACHINE', '04 / MESH',
   'Evidence-carrying execution', 'Fail-closed execution envelopes', 'Bounded state transitions',
   'Idempotent recovery', 'Truth-preserving public projections', 'Reversible verified change',
-  '199/200', '48/48', '40 / 80', '62/62', 'BIOLOGICAL SYSTEMS',
+  '349/363', '48/48', '40 / 80', '95/95', 'BIOLOGICAL SYSTEMS',
 ]) assert(resume.includes(token), `V23 resume token missing: ${token}`);
 assert(!resume.includes('148/148') && !resume.includes('148 of 148'), 'retired Helix 148/148 framing remains in resume');
 
 for (const token of [
   'REPEATED ENGINEERING PATTERNS', 'SYSTEMS LINEAGE', 'AKOS + ECHO', 'Colossal Agent',
   'Spiral Engine / Double Helix', 'TOWER OF BABEL', 'Pillars &amp; Pistons',
-  '200 collected, 199 passed, 1 skipped', '48/48', 'dated semantic convergence',
+  '363 collected, 349 passed, 1 skipped', '48/48', 'dated semantic convergence',
 ]) assert(master.includes(token), `V23 master token missing: ${token}`);
 
 assert(resumeJson.meta.schema === 'glaciereq.resume-intelligence.v23', 'resume JSON schema drift');
