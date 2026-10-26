@@ -1,11 +1,17 @@
 from __future__ import annotations
 
+import json
+import sys
+import tempfile
 import unittest
 from datetime import UTC, datetime
+from pathlib import Path
+from unittest import mock
 
 from tools.workflow_evidence_freshness import (
     EvidenceFreshnessError,
     build_evidence_freshness,
+    main,
 )
 
 AS_OF = datetime(2026, 8, 20, tzinfo=UTC)
@@ -71,6 +77,101 @@ class EvidenceFreshnessTests(unittest.TestCase):
         manifest = {"schema": "glaciereq.evidence-manifest.v1", "entries": [entry]}
         with self.assertRaisesRegex(EvidenceFreshnessError, "outside GlacierEQ"):
             build_evidence_freshness(manifest, as_of=AS_OF)
+
+    def test_rejects_invalid_timestamp(self) -> None:
+        manifest = {
+            "schema": "glaciereq.evidence-manifest.v1",
+            "entries": [_entry("bad-time", "not-a-timestamp")],
+        }
+        with self.assertRaisesRegex(
+            EvidenceFreshnessError, "invalid evidence timestamp"
+        ):
+            build_evidence_freshness(manifest, as_of=AS_OF)
+
+    def test_rejects_naive_timestamp(self) -> None:
+        manifest = {
+            "schema": "glaciereq.evidence-manifest.v1",
+            "entries": [_entry("naive", "2026-08-19T10:00:00")],
+        }
+        with self.assertRaisesRegex(
+            EvidenceFreshnessError, "must include timezone"
+        ):
+            build_evidence_freshness(manifest, as_of=AS_OF)
+
+    def test_scores_mid_age_bands(self) -> None:
+        manifest = {
+            "schema": "glaciereq.evidence-manifest.v1",
+            "entries": [
+                _entry("mid", "2026-04-22T00:00:00Z", "b" * 40),
+                _entry("older", "2026-01-22T00:00:00Z", "c" * 40),
+            ],
+        }
+        result = build_evidence_freshness(manifest, as_of=AS_OF)
+        weights = {entry["id"]: entry for entry in result["entries"]}
+        self.assertEqual(weights["mid"]["freshness_weight"], 0.65)
+        self.assertEqual(weights["mid"]["state"], "aging")
+        self.assertEqual(weights["older"]["freshness_weight"], 0.4)
+        self.assertEqual(weights["older"]["state"], "stale")
+
+    def test_rejects_unsupported_manifest_schema(self) -> None:
+        manifest = {
+            "schema": "something-else",
+            "entries": [_entry("x", "2026-08-19T00:00:00Z")],
+        }
+        with self.assertRaisesRegex(
+            EvidenceFreshnessError, "unsupported evidence manifest schema"
+        ):
+            build_evidence_freshness(manifest, as_of=AS_OF)
+
+    def test_rejects_naive_as_of(self) -> None:
+        manifest = {
+            "schema": "glaciereq.evidence-manifest.v1",
+            "entries": [_entry("x", "2026-08-19T00:00:00Z")],
+        }
+        with self.assertRaisesRegex(
+            EvidenceFreshnessError, "as_of must include timezone"
+        ):
+            build_evidence_freshness(manifest, as_of=datetime(2026, 8, 20))
+
+    def test_rejects_missing_entries(self) -> None:
+        for entries in ([], None):
+            manifest = {"schema": "glaciereq.evidence-manifest.v1", "entries": entries}
+            with self.assertRaisesRegex(
+                EvidenceFreshnessError, "requires entries"
+            ):
+                build_evidence_freshness(manifest, as_of=AS_OF)
+
+    def test_rejects_non_object_entry(self) -> None:
+        manifest = {
+            "schema": "glaciereq.evidence-manifest.v1",
+            "entries": ["not-an-object"],
+        }
+        with self.assertRaisesRegex(EvidenceFreshnessError, "must be an object"):
+            build_evidence_freshness(manifest, as_of=AS_OF)
+
+    def test_main_writes_scored_output(self) -> None:
+        manifest = {
+            "schema": "glaciereq.evidence-manifest.v1",
+            "entries": [_entry("fresh", "2026-08-19T00:00:00Z")],
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            manifest_path = Path(tmp) / "manifest.json"
+            output_path = Path(tmp) / "freshness.json"
+            manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+            argv = [
+                "workflow_evidence_freshness",
+                "--manifest",
+                str(manifest_path),
+                "--as-of",
+                "2026-08-20T00:00:00Z",
+                "--output",
+                str(output_path),
+            ]
+            with mock.patch.object(sys, "argv", argv):
+                self.assertEqual(main(), 0)
+            scored = json.loads(output_path.read_text(encoding="utf-8"))
+            self.assertEqual(scored["schema"], "glaciereq.evidence-freshness.v1")
+            self.assertEqual(scored["entries"][0]["id"], "fresh")
 
 
 if __name__ == "__main__":

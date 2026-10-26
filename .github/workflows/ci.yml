@@ -43,5 +43,16 @@ jobs:
       - name: Run repository tests (npm test)
         run: npm test
 
+      # Local coverage gate (replaces the former external Codecov upload):
+      # coverage.py measures tools/ and the report fails below the 80%
+      # threshold configured in .coveragerc. No data leaves the runner.
+      - name: Install coverage.py
+        run: python3 -m pip install coverage
+
+      - name: Enforce Python coverage threshold (tools, 80%)
+        run: |
+          python3 -m coverage run -m unittest tests/test_workflow_evidence_manifest.py tests/test_workflow_evidence_freshness.py
+          python3 -m coverage report --fail-under=80
+
       - name: Verify no dead GitHub links on the public site
         run: node scripts/prune-unavailable-github-links.mjs --check

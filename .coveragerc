@@ -1,0 +1,11 @@
+# Local coverage gate replacing the former external Codecov upload.
+# No coverage data leaves the runner: `coverage report --fail-under`
+# enforces the threshold in CI and the run fails below it.
+[run]
+source = tools
+
+[report]
+fail_under = 80
+exclude_lines =
+    pragma: no cover
+    if __name__ == "__main__":
