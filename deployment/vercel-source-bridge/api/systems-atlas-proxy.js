@@ -7,6 +7,19 @@ const FETCH_TIMEOUT_MS = 12_000;
 const MAX_BYTES = 4 * 1024 * 1024;
 const COMMIT_RE = /^[a-f0-9]{40}$/;
 
+// NOTE (2026-10-25): the AKOS pytest-count strings in the PATHS markers below
+// are HISTORICAL SNAPSHOT MARKERS, not a live credential. They are the test-run
+// receipt recorded at the V23 systems-atlas snapshot pinned by SOURCE_COMMIT,
+// checked by validate() as plain substrings of the fetched snapshot bytes.
+// No token, key, or secret is stored here and nothing authenticates against
+// these strings. Do NOT "update" them to current-head counts: that would break
+// verification of the pinned snapshot. (The pinned commit no longer resolves
+// upstream as of 2026-10-25, so the proxy currently fails closed with 503
+// until the snapshot is re-pinned.) The v25 deployment bundle embeds a copy
+// of this file; that bundle is sealed to its production receipt, so this note
+// reaches the bundle at the next authorized rebuild/re-seal — do not
+// hand-edit the bundle.
+
 const PATHS = Object.freeze({
   'resume/index.html': { type: 'text/html; charset=utf-8', markers: ['SYSTEMS ATLAS RESUME', 'Evidence-carrying execution', 'BIOLOGICAL SYSTEMS', '199/200'] },
   'master/index.html': { type: 'text/html; charset=utf-8', markers: ['REPEATED ENGINEERING PATTERNS', 'SYSTEMS LINEAGE', 'TOWER OF BABEL', '200 collected, 199 passed, 1 skipped'] },
