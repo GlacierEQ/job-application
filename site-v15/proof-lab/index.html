@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Inspect live GitHub execution and source evidence for GlacierEQ systems. Public provider reads, exact receipts, explicit limitations.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://casey-barton-glaciereq.vercel.app/proof-lab/">
+  <title>Live Proof Inspector | Casey Barton · GlacierEQ</title>
+  <link rel="stylesheet" href="/assets/site.css">
+  <link rel="stylesheet" href="/assets/site.systems.css">
+  <link rel="stylesheet" href="/assets/site.complete.css">
+  <link rel="stylesheet" href="/assets/proof-lab.css">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="signal-bar"><div class="shell signal-inner"><span class="signal-live">GLACIEREQ PROOF LAB</span><span>Live provider checks · no sign-in</span></div></div>
+<header class="site-header">
+  <div class="shell nav">
+    <a class="brand" href="/" aria-label="Back to Casey Barton portfolio"><span class="mark">CB</span><span><strong>CASEY BARTON</strong><small>APPLIED AI SYSTEMS · GLACIEREQ</small></span></a>
+    <a class="nav-cta" href="/master/">Technical evidence</a>
+  </div>
+</header>
+<main id="main">
+  <section class="shell proof-lab proof-hero">
+    <p class="eyebrow">INTERACTIVE ENGINEERING PRODUCT · REAL PROVIDER RESPONSES</p>
+    <h1>Proof you can <em>inspect yourself.</em></h1>
+    <p class="lead">A claim is useful only if someone else can check it. Select a real public evidence record and run a live, read-only GitHub verification. The result names exactly what was observed, and what remains outside the proof.</p>
+    <div class="proof-grid">
+      <section class="proof-panel proof-action" aria-label="Run a proof inspection">
+        <div class="proof-chip">LIVE · READ ONLY</div>
+        <h2>Inspect an execution or source receipt</h2>
+        <p>Every option is pinned to one known public repository and exact GitHub identifier. Arbitrary URLs, private repositories and writes are not accepted.</p>
+        <form method="get" action="/api/verify-proof">
+          <label for="claim">Choose evidence</label>
+          <select id="claim" name="claim" required>
+            <option value="public-action">Governed APEX public action · GitHub Actions result</option>
+            <option value="provider-recovery">Sigma Glue · provider recovery source</option>
+            <option value="dispatch-fencing">Sigma Glue · at-most-once dispatch source</option>
+          </select>
+          <button type="submit" class="button primary">Run live verification</button>
+        </form>
+        <p class="proof-note">No sign-in. No uploaded data. No résumé scoring. Failed GitHub reads are reported as unavailable, never disguised as verified success.</p>
+      </section>
+      <section class="proof-panel proof-how" aria-label="Verification protocol">
+        <p class="eyebrow">ACTUAL PROVIDER CONTRACT</p>
+        <h2>Not another screenshot of a green check.</h2>
+        <ol class="proof-steps">
+          <li><b>Bind</b><span>Choose an allowlisted evidence ID and immutable expected SHA.</span></li>
+          <li><b>Read</b><span>Query GitHub's public REST API with an explicit timeout. No credential required.</span></li>
+          <li><b>Compare</b><span>Match exact commit identity; for a workflow, also require completed and successful provider status.</span></li>
+          <li><b>Explain</b><span>Return the observation, provider link, UTC timestamp, and a precise claim boundary.</span></li>
+        </ol>
+      </section>
+    </div>
+  </section>
+  <section class="shell proof-lab proof-details">
+    <div class="proof-grid">
+      <article class="proof-panel">
+        <h2>Why this exists</h2>
+        <p>Many portfolio pages make their readers trust large numbers and dense technical language. This product offers a simpler experience: choose a claim, execute a real provider check, inspect a bounded result.</p>
+        <p>The live inspection is a service/API integration with failure handling and a script-free, accessible HTML interface. The GitHub sources remain the authorities for recorded execution and source identity.</p>
+      </article>
+      <article class="proof-panel">
+        <h2>What this does not prove</h2>
+        <p>A matching commit proves the commit exists. It does not prove customer adoption, production traffic, latency, cost, or business impact. A successful workflow receipt proves that one recorded run, not every possible workload.</p>
+        <p>Provider checks are sampled on demand and cached briefly when successful. If an upstream service is unavailable or rate-limited, the result stays explicitly unresolved.</p>
+      </article>
+    </div>
+    <p class="proof-bottom"><a class="button secondary" href="/resume/">Experience & résumé</a><a class="button ghost" href="/master/">Explore technical evidence</a><a class="button ghost" href="https://github.com/GlacierEQ/job-application" rel="noopener noreferrer" target="_blank">Inspect this product's source</a></p>
+  </section>
+</main>
+<footer class="shell proof-footer">© GlacierEQ · Independent source-backed engineering demonstration · No affiliation with employers referenced in applications.</footer>
+</body>
+</html>

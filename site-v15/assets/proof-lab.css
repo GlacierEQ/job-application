@@ -1,0 +1,27 @@
+.proof-lab{padding-top:74px;padding-bottom:35px}
+.proof-hero h1{max-width:890px;font-size:clamp(3rem,6.5vw,6rem)}
+.proof-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;margin-top:38px}
+.proof-panel{border:1px solid rgba(143,247,216,.22);border-radius:26px;padding:30px;background:linear-gradient(155deg,rgba(13,34,41,.9),rgba(5,14,18,.97));box-shadow:0 16px 48px rgba(0,0,0,.2)}
+.proof-panel h2{font-size:clamp(1.55rem,2.5vw,2.4rem);line-height:1.12;max-width:670px}
+.proof-panel p,.proof-steps span{color:#c2d6d5;line-height:1.7}
+.proof-panel p:last-child{margin-bottom:0}
+.proof-chip{display:inline-block;color:#041a17;background:#8ff7d8;font-size:.68rem;font-weight:900;letter-spacing:.12em;border-radius:80px;padding:7px 12px;margin-bottom:21px}
+.proof-warn .proof-chip{background:#ffd48a}
+.proof-neutral .proof-chip{background:#c6b2ff}
+.proof-lab form{margin:25px 0 10px;display:flex;flex-direction:column;gap:14px}
+.proof-lab label{font-weight:850;font-size:.87rem;color:#e5fff5}
+.proof-lab select{width:100%;border:1px solid rgba(143,247,216,.38);border-radius:12px;padding:14px 13px;background:#092027;color:#fff;font:inherit}
+.proof-lab select:focus-visible,.proof-lab a:focus-visible,.proof-lab button:focus-visible{outline:3px solid #8ff7d8;outline-offset:3px}
+.proof-lab button{cursor:pointer;max-width:300px}
+.proof-note{font-size:.81rem}
+.proof-steps{counter-reset:proofsteps;list-style:none;display:grid;gap:19px;padding:0;margin:30px 0 0}
+.proof-steps li{display:grid;grid-template-columns:75px 1fr;gap:18px;border-top:1px solid rgba(143,247,216,.15);padding-top:17px}
+.proof-steps b{font-size:1rem;color:#8ff7d8}
+.proof-details{padding-top:5px;padding-bottom:60px}
+.proof-bottom{display:flex;gap:12px;flex-wrap:wrap;margin:27px 0}
+.proof-footer{color:#9db6b6;font-size:.8rem;padding-top:25px;padding-bottom:35px;border-top:1px solid rgba(143,247,216,.12)}
+.proof-panel dl{display:grid;grid-template-columns:minmax(130px,.4fr) minmax(0,1fr);gap:12px 22px;margin:25px 0}
+.proof-panel dt{font-size:.8rem;font-weight:850;color:#8ff7d8}
+.proof-panel dd{margin:0;overflow-wrap:anywhere;font-size:.91rem;color:#e9f7f5}
+.proof-panel code{white-space:normal;overflow-wrap:anywhere;font-size:.79rem}
+@media(max-width:760px){.proof-grid{grid-template-columns:1fr}.proof-lab{padding-top:48px}.proof-panel{padding:22px}.proof-lab button{max-width:none}.proof-steps li{grid-template-columns:1fr;gap:6px}.proof-panel dl{grid-template-columns:1fr;gap:6px}.proof-panel dd{margin-bottom:12px}}
