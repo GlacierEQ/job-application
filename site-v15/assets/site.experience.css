@@ -1,0 +1,27 @@
+/* Engineering and operations review paths; no client runtime required. */
+.experience-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-bottom:28px}
+.experience-card{display:flex;flex-direction:column;min-width:0;padding:26px;border:1px solid var(--line-strong);border-radius:22px;background:rgba(8,26,31,.82);text-align:left}
+.experience-card h3{font-size:1.4rem;line-height:1.2;margin:4px 0 16px}
+.experience-card p,.experience-card dd{color:#c3d6d5;font-size:.91rem;line-height:1.6}
+.experience-card dl{margin:10px 0 24px}
+.experience-card dt{color:var(--mint);font-size:.74rem;font-weight:800;margin:14px 0 5px}
+.experience-card dd{margin:0}
+.experience-review{margin-top:auto;color:var(--mint);font-weight:800;font-size:.86rem}
+.experience-intro h1{font-size:clamp(2.7rem,5.5vw,5.4rem);line-height:1.04;max-width:1050px}
+.experience-intro .lead{max-width:850px}
+.experience-lenses{display:flex;flex-wrap:wrap;gap:12px;margin:28px 0}
+.experience-lenses a{border:1px solid var(--line-strong);border-radius:12px;padding:12px 16px;color:var(--mint)}
+.experience-note{max-width:850px;font-size:.86rem;color:var(--muted)}
+.experience-case{padding:40px 0;border-top:1px solid var(--line);scroll-margin-top:120px}
+.experience-case h2{max-width:900px;font-size:clamp(1.8rem,3.5vw,3rem)}
+.experience-case-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:38px;margin-top:28px}
+.experience-case h3{font-size:1.08rem;margin:22px 0 8px}
+.experience-case p{color:#c3d6d5;overflow-wrap:anywhere}
+.experience-evidence{padding:8px 26px 24px;border:1px solid var(--line-strong);border-radius:22px;background:rgba(8,26,31,.82)}
+.experience-evidence details{margin:20px 0;padding:16px 0;border-top:1px solid var(--line)}
+.experience-evidence summary{cursor:pointer;color:var(--mint);font-weight:750}
+.experience-evidence summary:focus-visible{outline:2px solid var(--mint);outline-offset:5px}
+.experience-evidence .actions{gap:10px}
+@media(max-width:1000px){.experience-grid{grid-template-columns:1fr}.experience-card{padding:22px}.experience-case-grid{grid-template-columns:1fr;gap:16px}}
+@media(max-width:600px){.experience-lenses{flex-direction:column;align-items:stretch}.experience-evidence{padding:6px 18px 18px}.experience-intro h1{font-size:2.7rem}}
+@media(max-width:480px){.bento-card .status{white-space:normal;max-width:100%;overflow-wrap:anywhere}.micro-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.micro-grid>span{min-width:0;overflow-wrap:anywhere}}

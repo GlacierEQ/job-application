@@ -17,6 +17,8 @@ const steps = [
   ['scripts/validate-invention-evidence-map.mjs'],
   ['scripts/render-evidence-gallery.mjs'],
   ['scripts/validate-evidence-gallery.mjs'],
+  ['scripts/render-engineering-experience.mjs'],
+  ['scripts/render-engineering-experience.mjs', '--check'],
   ['scripts/link-helix-atlas.mjs'],
   ['scripts/prune-unavailable-github-links.mjs'],
   ['scripts/complete-sitemap.mjs'],

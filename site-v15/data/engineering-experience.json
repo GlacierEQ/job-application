@@ -1,0 +1,65 @@
+{
+  "schema": "glaciereq.engineering-experience.v1",
+  "sources": [
+    "data/portfolio.json",
+    "data/current-proof.json",
+    "api/verify-proof.js"
+  ],
+  "evidence_policy": "Recorded source evidence, not a new test run or a live provider observation. Each system keeps its evidence and limits.",
+  "cases": [
+    {
+      "id": "programmatic-delivery",
+      "title": "Turn a complex workflow into a repeatable delivery system.",
+      "system": "Job Application Helix",
+      "focus": "Programmatic delivery",
+      "problem": "Company intelligence, candidate evidence, application state, and public hiring pages need to stay connected as the source changes.",
+      "implementation": "Build a Python control plane and a Node build pipeline that projects commit-pinned public data into HTML, structured JSON, and résumé surfaces.",
+      "operations": "Separate source ownership from presentation; reject inconsistent or unsafe inputs; validate the output before release; leave machine-readable state for the next operator.",
+      "value": "Makes a complicated workflow reproducible and gives reviewers a path from the presentation to its source.",
+      "evidence": "911/911 tests plus lint, Protobuf, rollout, provenance and public-surface checks.",
+      "boundary": "Next gate: Refresh exact current-SHA receipt and generate all company dossiers.",
+      "source": "https://github.com/GlacierEQ/job-app-helix",
+      "review": "/machine/",
+      "review_label": "Inspect the machine contracts",
+      "code": "https://github.com/GlacierEQ/job-application/blob/main/scripts/vercel-build.mjs"
+    },
+    {
+      "id": "provider-recovery",
+      "title": "Recover an uncertain write before deciding to retry.",
+      "system": "Sigma Glue Orchestration",
+      "focus": "Reliability & operations",
+      "problem": "A provider may apply a write and lose the success response. Retrying blindly can repeat a side effect.",
+      "implementation": "Use provider-aware recovery, restart-readable evidence, and replay guards to reconcile an ambiguous execution.",
+      "operations": "Treat an unknown outcome as a decision to investigate. Read provider state, preserve the recovery trail, and block a repeat action once completion is established.",
+      "value": "Shows the judgment behind dependable automation: knowing when to act, when to inspect, and when to stop.",
+      "evidence": "Canonical 4a1ca8e5: 140/140 Node 22 tests; live GitHub Contents canary performed 2 writes/5 reads, recovered a deliberately lost success response to confirmed_applied, preserved restart-readable recovery evidence, and blocked replay before a third write.",
+      "boundary": "Next gate: Add a second real provider contract and multi-host coordination before any distributed or provider-transactional exactly-once claim.",
+      "source": "https://github.com/GlacierEQ/sigma-glue",
+      "review": "/evidence-gallery/sigma-glue/",
+      "review_label": "Inspect the recovery evidence",
+      "code": "https://github.com/GlacierEQ/sigma-glue/commit/4a1ca8e5c88a62e8a94a43213b2c509af6afcea3",
+      "live_check": {
+        "url": "/api/verify-proof?claim=provider-recovery",
+        "observation": "The exact provider-recovery source commit exists on GitHub",
+        "boundary": "Source existence is not a live production, throughput or customer-outcome measurement."
+      }
+    },
+    {
+      "id": "agent-assurance",
+      "title": "Make an agent action pass explicit execution gates.",
+      "system": "Mission Agentic AI Assurance",
+      "focus": "Applied AI engineering",
+      "problem": "An agent recommendation needs policy, evidence, drift, and replay checks before it can become an allowed action.",
+      "implementation": "Built and reproducibly tested an independent mission-agent assurance gateway combining content-bound public provenance snapshots, deterministic receipts, thread-safe single-process idempotency, finite-metric drift gating, policy decisions, and circuit breaking, using public mission-AI requirements as a bounded design lens.",
+      "operations": "Make refusal and failure visible; guard concurrent replays; reject invalid metrics; bind the result to an inspectable receipt.",
+      "value": "Turns operating requirements into executable checks and exposes the failure cases alongside the successful path.",
+      "evidence": "17 recorded acceptance tests; proof state: REPRODUCED; implementation commit: 4328fa7078e6e4125f895768142c6af0c5ec1234.",
+      "boundary": "Independent single-process reference implementation. Excluded claims: Lockheed Martin deployment or adoption; Lockheed Martin affiliation, employment, endorsement, or contract; security clearance or proprietary access; distributed exactly-once semantics; production-scale distributed assurance; aerospace or defense certification; validation on classified or proprietary systems.",
+      "source": "https://github.com/GlacierEQ/job-application/tree/main/projects/mission-agentic-ai-assurance/",
+      "review": "/master/",
+      "review_label": "Review architecture and proof",
+      "code": "https://github.com/GlacierEQ/job-application/tree/main/projects/mission-agentic-ai-assurance/src/mission_assurance/",
+      "source_note": "Code links open the current main branch. The recorded implementation commit above is historical source metadata; these links do not verify that commit or reproduce its test run."
+    }
+  ]
+}

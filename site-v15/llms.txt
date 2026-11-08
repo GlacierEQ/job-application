@@ -43,4 +43,8 @@ Evidence rule: claims must not exceed the owning repository's current source rev
 - Mega-Skills capability pyramids: https://casey-barton-glaciereq.vercel.app/mega-skills/ — structural projection of 709 registered atomic Skills, 33 compound workflow Skills, and 29 Mega Skill apexes. Every pyramid node is a proper Skill at its scale; registry counts are not external adoption or production-deployment claims. Machine projection: /data/mega-skills.json
 
 Apex route contract: each manifest Mega-Skill has its own script-free route at /mega-skills/&lt;skill-id&gt;/ with composition counts, mission artifact, local_validation boundary, and expandable claim-boundary detail.
+
+## Engineering and operations experience
+- /experience/ — Programmatic engineering and operational decisions, with source-linked case studies and explicit evidence limits.
+- /data/engineering-experience.json — Machine-readable version of the engineering and operations review.
 - Company Atlas: https://casey-barton-glaciereq.vercel.app/atlas/ (76 real company routes under /companies/<slug>/; Recruiter + Master + Machine + Mesh depth; Helix-governed second-depth stage, claim ceiling, blockers, next gate, and pinned public evidence)

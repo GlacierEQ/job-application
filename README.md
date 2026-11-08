@@ -98,6 +98,7 @@ Release names describe compatible layers of one hiring system; they are not inde
 | Surface | Audience | Purpose |
 |---|---|---|
 | **Recruiter** ([`/`](https://casey-barton-glaciereq.vercel.app/)) | Recruiters and hiring managers | Fast identity, strongest proof, role fit, and bounded outcomes |
+| **Engineering & Operations** (`/experience/`) | Technical hiring managers | Source-linked case studies connecting implementation, operational decisions, evidence, and remaining gates |
 | **Résumé** ([`/resume/`](https://casey-barton-glaciereq.vercel.app/resume/)) | Recruiters, ATS workflows, and hiring teams | Evidence-forward professional history and selected systems |
 | **Technical Master** ([`/master/`](https://casey-barton-glaciereq.vercel.app/master/)) | Senior engineers and technical leaders | Architecture, executed evidence, blockers, non-claims, and promotion state |
 | **Evidence Mesh** ([`/mesh/`](https://casey-barton-glaciereq.vercel.app/mesh/)) | Systems reviewers | Typed relationships among systems, repositories, evidence, and company tracks |
@@ -248,6 +249,8 @@ Repository workflows and validators cover the current release surfaces. Relevant
 - Node 24 compatibility regression coverage for the retained bridge.
 
 Use the repository-native scripts and workflows for the release being changed rather than copying historical test counts into a new claim.
+
+The engineering and operations review is generated with `node scripts/render-engineering-experience.mjs` from the existing public portfolio, assurance record, and proof-inspector allowlist. `npm run test:experience` checks source boundaries, accessible review paths, and generated-output consistency. The production build regenerates this review; recorded evidence is labeled separately from an on-demand source check.
 
 ## Evidence Boundary
 
