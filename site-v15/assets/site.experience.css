@@ -22,6 +22,23 @@
 .experience-evidence summary{cursor:pointer;color:var(--mint);font-weight:750}
 .experience-evidence summary:focus-visible{outline:2px solid var(--mint);outline-offset:5px}
 .experience-evidence .actions{gap:10px}
+#flagships .flagship{min-width:0}
+#flagships .flag-top{flex-wrap:wrap}
+#flagships .flag-proof{white-space:normal}
+.experience-role-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.experience-coverage-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;align-items:start}
+.experience-role,.experience-coverage{min-width:0;padding:24px;border:1px solid var(--line-strong);border-radius:20px;background:rgba(8,26,31,.82);overflow-wrap:anywhere}
+.experience-role h3{font-size:1.3rem;line-height:1.25;margin-top:0}
+.experience-role p,.experience-role li,.experience-coverage dd{font-size:.9rem;color:#c3d6d5;line-height:1.6}
+.experience-role ul{padding-left:20px}
+.experience-role code{font-size:.8rem}
+.experience-coverage{scroll-margin-top:140px}
+.experience-coverage summary{cursor:pointer;font-weight:800;color:var(--mint)}
+.experience-coverage summary span{display:block;margin-top:8px;font-size:.7rem;letter-spacing:.08em;color:var(--muted)}
+.experience-coverage summary:focus-visible{outline:2px solid var(--mint);outline-offset:5px}
+.experience-coverage dt{font-weight:800;font-size:.8rem;margin-top:18px}
+.experience-coverage dd{margin:8px 0 0}
+@media(max-width:1000px){.experience-role-grid,.experience-coverage-grid{grid-template-columns:1fr}}
 @media(max-width:1000px){.experience-grid{grid-template-columns:1fr}.experience-card{padding:22px}.experience-case-grid{grid-template-columns:1fr;gap:16px}}
 @media(max-width:600px){.experience-lenses{flex-direction:column;align-items:stretch}.experience-evidence{padding:6px 18px 18px}.experience-intro h1{font-size:2.7rem}}
 @media(max-width:480px){.bento-card .status{white-space:normal;max-width:100%;overflow-wrap:anywhere}.micro-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.micro-grid>span{min-width:0;overflow-wrap:anywhere}}

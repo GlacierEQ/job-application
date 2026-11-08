@@ -205,7 +205,7 @@ test('review pages expose semantic headings, working case anchors, and keyboard-
   for (const match of html.matchAll(/href="#([^"]+)"/g)) assert.ok(ids.includes(match[1]), `broken in-page anchor: ${match[1]}`);
   for (const match of overview.matchAll(/href="\/experience\/#([^"]+)"/g)) assert.ok(ids.includes(match[1]), `broken overview anchor: ${match[1]}`);
   assert.equal([...html.matchAll(/<summary>Scope and remaining gates<\/summary>/g)].length, result.cases.length);
-  assert.equal([...html.matchAll(/<details>/g)].length, [...html.matchAll(/<summary>/g)].length);
+  assert.equal([...html.matchAll(/<details\b/g)].length, [...html.matchAll(/<summary>/g)].length);
   for (const output of [html, overview]) assert.doesNotMatch(output, /<script\b|\sstyle\s*=|\sonclick\s*=/i);
 });
 

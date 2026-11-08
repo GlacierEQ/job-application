@@ -3,9 +3,165 @@
   "sources": [
     "data/portfolio.json",
     "data/current-proof.json",
+    "data/implementation-reviews.json",
     "api/verify-proof.js"
   ],
   "evidence_policy": "Recorded source evidence, not a new test run or a live provider observation. Each system keeps its evidence and limits.",
+  "review_paths": {
+    "roles": [
+      {
+        "id": "applied-ai",
+        "title": "Applied AI engineering",
+        "responsibility": "Connect model behavior to a usable workflow, define execution gates, and make the result inspectable.",
+        "case_ids": [
+          "agent-assurance",
+          "programmatic-delivery"
+        ],
+        "system_ids": [
+          "helix",
+          "pro-code-runtime",
+          "tower-of-babel"
+        ]
+      },
+      {
+        "id": "platform",
+        "title": "Platform engineering",
+        "responsibility": "Define runtime contracts, investigate uncertain provider outcomes, and design recovery before retrying a side effect.",
+        "case_ids": [
+          "provider-recovery"
+        ],
+        "system_ids": [
+          "sigma-glue",
+          "pro-code-runtime",
+          "akos"
+        ]
+      },
+      {
+        "id": "technical-operations",
+        "title": "Technical operations",
+        "responsibility": "Turn changing inputs into repeatable delivery, preserve source ownership, and make verification and handoff explicit.",
+        "case_ids": [
+          "programmatic-delivery"
+        ],
+        "system_ids": [
+          "helix",
+          "job-application",
+          "receipt-router"
+        ]
+      }
+    ],
+    "systems": [
+      {
+        "id": "helix",
+        "name": "Job Application Helix",
+        "state": "PROMOTED",
+        "evidence": "911/911 tests plus lint, Protobuf, rollout, provenance and public-surface checks.",
+        "boundary": "Next gate: Refresh exact current-SHA receipt and generate all company dossiers.",
+        "review": "/evidence-gallery/helix/",
+        "source": "https://github.com/GlacierEQ/job-app-helix"
+      },
+      {
+        "id": "akos",
+        "name": "AKOS Authority Runtime",
+        "state": "PROMOTED",
+        "evidence": "Diligence records 118/118 per interpreter, 10/10 Forge, 4/4 PSYSOC-X.",
+        "boundary": "Next gate: Current connector/artifact lifecycle receipts; isolate case-specific paths.",
+        "review": "/evidence-gallery/akos/"
+      },
+      {
+        "id": "doctor-strange",
+        "name": "Doctor Strange Convergence",
+        "state": "PROMOTED",
+        "evidence": "11/11 tests and cryptographic Receipt Zero replay; no fake consensus.",
+        "boundary": "Next gate: Add independent providers and 20-run pilot before multi-provider claims.",
+        "review": "/evidence-gallery/doctor-strange/"
+      },
+      {
+        "id": "tower-of-babel",
+        "name": "Tower of Babel",
+        "state": "REFERENCE_ONLY",
+        "evidence": "A- verified-with-hardening; external production references separate from local proof.",
+        "boundary": "Next gate: Close Issue #26 and regenerate derived surfaces.",
+        "review": "/evidence-gallery/tower-of-babel/",
+        "source": "https://github.com/GlacierEQ/the-tower-of-babel"
+      },
+      {
+        "id": "sigma-glue",
+        "name": "Sigma Glue Orchestration",
+        "state": "PROMOTED",
+        "evidence": "Canonical 4a1ca8e5: 140/140 Node 22 tests; live GitHub Contents canary performed 2 writes/5 reads, recovered a deliberately lost success response to confirmed_applied, preserved restart-readable recovery evidence, and blocked replay before a third write.",
+        "boundary": "Next gate: Add a second real provider contract and multi-host coordination before any distributed or provider-transactional exactly-once claim.",
+        "review": "/evidence-gallery/sigma-glue/",
+        "source": "https://github.com/GlacierEQ/sigma-glue"
+      },
+      {
+        "id": "pro-code-runtime",
+        "name": "Pro-Code Runtime",
+        "state": "REFERENCE_ONLY",
+        "evidence": "Python/TypeScript planes passed; Rust/Haskell blocked.",
+        "boundary": "Next gate: Pinned all-language CI and root license.",
+        "review": "/evidence-gallery/pro-code-runtime/",
+        "source": "https://github.com/GlacierEQ/pro-code"
+      },
+      {
+        "id": "job-application",
+        "name": "Job Application Portal",
+        "state": "PROMOTED",
+        "evidence": "Strong public/private contract and release-candidate website checks.",
+        "boundary": "Next gate: Bind production bytes to canonical Git SHA.",
+        "review": "/evidence-gallery/job-application/",
+        "source": "https://github.com/GlacierEQ/job-application"
+      },
+      {
+        "id": "receipt-router",
+        "name": "Portfolio Receipt Router",
+        "state": "TEST_VERIFIED",
+        "evidence": "69/69 tests recorded in current-proof supporting_proof; local cold unittest path uses pytest.",
+        "boundary": "Draft source hardening remains unmerged; no production datacenter control or company affiliation is claimed.",
+        "review": "/evidence-gallery/receipt-router/",
+        "source": "https://github.com/GlacierEQ/xai-colossus-2"
+      },
+      {
+        "id": "cooling",
+        "name": "Cooling Simulation Testbed",
+        "state": "BOUNDED_TEST_VERIFIED",
+        "evidence": "Local unittest green (13); no hardware control claimed.",
+        "boundary": "No real GPU telemetry, hardware control, hyperscale performance, PUE, latency, or cost claim.",
+        "review": "/evidence-gallery/cooling/"
+      }
+    ]
+  },
+  "implementation_reviews": {
+    "schema": "glaciereq.implementation-reviews.v1",
+    "reviewed_on": "2026-11-08",
+    "policy": "Bounded local verification at named revisions. These checks do not promote portfolio states or establish deployment, adoption, or business outcomes.",
+    "reviews": [
+      {
+        "system_id": "pro-code-runtime",
+        "title": "Compiler-aware refactoring with guarded file changes",
+        "repository": "GlacierEQ/pro-code",
+        "commit": "8f4ab60a4b067566060f15efec67f1eeb7e44998",
+        "path": "scripts/code-refactor.mjs",
+        "implementation": "The TypeScript language service locates rename targets across files. Previews bind the intended edits to source hashes, limit the change scope, and check for new diagnostics before guarded application.",
+        "operations": "Refuse a stale preview, lock the write, verify the resulting digest, and recover from partial failures while preserving concurrent edits.",
+        "verification": "24/24 tests passed locally at this revision: 8 compiler-aware refactoring, 10 guarded file-transaction, and 6 semantic symbol-knowledge tests. Node 24.22.1 with isolated TypeScript 5.8.3.",
+        "command": "node --test scripts/code-refactor.test.mjs scripts/refactor-transaction.test.mjs scripts/code-knowledge.test.mjs",
+        "boundary": "Temporary local fixtures verify these components. Portfolio classification remains REFERENCE_ONLY; no all-language CI, crash-safe transaction, production deployment, or customer outcome claim."
+      },
+      {
+        "system_id": "helix",
+        "title": "Recompile changed inputs without losing prior work",
+        "repository": "GlacierEQ/job-app-helix",
+        "commit": "e6f2874e4b71b1af43cbde6817acdd7995e8a289",
+        "path": "src/job_app_helix/freshness_aware_batch.py",
+        "implementation": "Bind generated application packets to source-content digests, reuse unchanged packets, and quarantine superseded artifacts before recompilation.",
+        "operations": "Preserve prior lineage, distinguish stale work from current work, and write the input receipt atomically so a later run can make a defensible reuse decision.",
+        "verification": "3/3 freshness-aware batch tests passed locally at this revision: unchanged-input reuse, changed-input quarantine, and legacy-packet preservation.",
+        "command": "PYTHONPATH=src python -m pytest -q tests/test_freshness_aware_batch.py",
+        "boundary": "Temporary local fixtures verify packet lifecycle behavior. No external application submission or production throughput is measured."
+      }
+    ]
+  },
   "cases": [
     {
       "id": "programmatic-delivery",

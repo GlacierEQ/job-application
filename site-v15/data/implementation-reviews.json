@@ -1,0 +1,31 @@
+{
+  "schema": "glaciereq.implementation-reviews.v1",
+  "reviewed_on": "2026-11-08",
+  "policy": "Bounded local verification at named revisions. These checks do not promote portfolio states or establish deployment, adoption, or business outcomes.",
+  "reviews": [
+    {
+      "system_id": "pro-code-runtime",
+      "title": "Compiler-aware refactoring with guarded file changes",
+      "repository": "GlacierEQ/pro-code",
+      "commit": "8f4ab60a4b067566060f15efec67f1eeb7e44998",
+      "path": "scripts/code-refactor.mjs",
+      "implementation": "The TypeScript language service locates rename targets across files. Previews bind the intended edits to source hashes, limit the change scope, and check for new diagnostics before guarded application.",
+      "operations": "Refuse a stale preview, lock the write, verify the resulting digest, and recover from partial failures while preserving concurrent edits.",
+      "verification": "24/24 tests passed locally at this revision: 8 compiler-aware refactoring, 10 guarded file-transaction, and 6 semantic symbol-knowledge tests. Node 24.22.1 with isolated TypeScript 5.8.3.",
+      "command": "node --test scripts/code-refactor.test.mjs scripts/refactor-transaction.test.mjs scripts/code-knowledge.test.mjs",
+      "boundary": "Temporary local fixtures verify these components. Portfolio classification remains REFERENCE_ONLY; no all-language CI, crash-safe transaction, production deployment, or customer outcome claim."
+    },
+    {
+      "system_id": "helix",
+      "title": "Recompile changed inputs without losing prior work",
+      "repository": "GlacierEQ/job-app-helix",
+      "commit": "e6f2874e4b71b1af43cbde6817acdd7995e8a289",
+      "path": "src/job_app_helix/freshness_aware_batch.py",
+      "implementation": "Bind generated application packets to source-content digests, reuse unchanged packets, and quarantine superseded artifacts before recompilation.",
+      "operations": "Preserve prior lineage, distinguish stale work from current work, and write the input receipt atomically so a later run can make a defensible reuse decision.",
+      "verification": "3/3 freshness-aware batch tests passed locally at this revision: unchanged-input reuse, changed-input quarantine, and legacy-packet preservation.",
+      "command": "PYTHONPATH=src python -m pytest -q tests/test_freshness_aware_batch.py",
+      "boundary": "Temporary local fixtures verify packet lifecycle behavior. No external application submission or production throughput is measured."
+    }
+  ]
+}

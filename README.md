@@ -1,40 +1,37 @@
 # Casey Barton · Forward-Deployed AI Engineer
 
-**I make powerful AI dependable enough to use.** This repo is the live hiring surface for a verification-first agent-systems portfolio: compiled from commit-pinned control-plane truth, shipped as a script-free static site, and guarded so a dead link fails the build.
+**I make powerful AI dependable enough to use.** This repo is the live hiring surface for a verification-first agent-systems portfolio: compiled from commit-pinned control-plane truth, shipped as a script-free static site, with checks for source integrity, public access boundaries, and known unavailable links.
 
 [![CI](https://github.com/GlacierEQ/job-application/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/GlacierEQ/job-application/actions/workflows/ci.yml)
-![Live routes](https://img.shields.io/badge/live%20routes-441%20%C2%B7%20all%20200-2ea44f)
-![Dead links](https://img.shields.io/badge/dead%20GitHub%20links-0%20(build--guarded)-2ea44f)
-![Tests](https://img.shields.io/badge/node%20tests-57%20passing-2ea44f)
 
 **Live site → [casey-barton-glaciereq.vercel.app](https://casey-barton-glaciereq.vercel.app)** · [LinkedIn](https://www.linkedin.com/in/caseybartonai) · [GitHub](https://github.com/GlacierEQ) · glacier.equilibrium@gmail.com
 
 ## What this proves
 
-- **Agent output is compiled, not hand-typed.** The site is a build-time projection of [Job-App Helix](https://github.com/GlacierEQ/job-app-helix), the control plane with 961 tests green on Python 3.11–3.13, pinned to an exact Helix commit.
+- **Portfolio data is compiled.** The site is a build-time projection of [Job-App Helix](https://github.com/GlacierEQ/job-app-helix), the control plane, pinned to an exact Helix commit. Recorded source evidence and local component checks retain their revision and scope.
 - **Fail-closed delivery.** Builds stop if a required Helix source is missing, inconsistent, unsafe for public release, or leaks a private record.
-- **Link integrity is enforced.** `scripts/prune-unavailable-github-links.mjs --check` runs in both CI and the Vercel build. Any GitHub link that stops resolving fails the deploy. Live result: 441 routes returning 200 and 0 dead links.
-- **Machine-readable by default.** Every recruiter page has a JSON twin: `/data/resume.json`, `/data/portfolio.json`, `/resume/ats.txt`, `/machine/`, `llms.txt` and `sitemap.xml`.
-- **Zero client script, locked CSP.** All 385 HTML pages ship with no `<script>` and no inline styles, and the build validators reject either one.
-- **Scale behind it:** 1,300+ repositories (810 originated, 503 forks), 530 ChatGPT plugins wired, ~112 curated connectors, and an Antigravity CLI routed through OpenRouter and Kilo with multi-agent delegation.
+- **Known unavailable sources are blocked.** `scripts/prune-unavailable-github-links.mjs --check` runs in CI and the Vercel build against a maintained denylist. Live source inspection is a separate read-only operation through the proof inspector.
+- **Machine-readable by default.** Structured review interfaces include: `/data/resume.json`, `/data/portfolio.json`, `/resume/ats.txt`, `/machine/`, `llms.txt` and `sitemap.xml`.
+- **Zero client script, locked CSP.** Public HTML pages ship with no `<script>` and no inline styles, and the build validators reject either one.
+- **Review paths:** three responsibility-based routes connect case studies, current admitted portfolio records, and exact-revision implementation reviews. Inventory and fork totals remain background context.
 
 ## Architecture
 
 ```mermaid
 flowchart LR
     subgraph Estate["Engineering estate"]
-        E["1,300+ GlacierEQ repositories<br/>Pro-Code · Agent Coordinator · Sigma Glue · Tower of Babel"]
+        E["GlacierEQ engineering systems<br/>Pro-Code · Agent Coordinator · Sigma Glue · Tower of Babel"]
     end
     subgraph Helix["job-app-helix"]
-        H["Control plane<br/>961 tests · commit-pinned projection"]
+        H["Control plane<br/>commit-pinned projection"]
     end
     subgraph Build["job-application build (this repo)"]
         B["vercel-build.mjs<br/>compile + validate"]
-        G1["Dead-link guard<br/>fails the build on any dead GitHub link"]
+        G1["Known-unavailable-link guard<br/>maintained source-access policy"]
         G2["Validators<br/>public surface · CSP · privacy"]
-        S["site-v15 static output<br/>385 pages + JSON twins"]
+        S["site-v15 static output<br/>HTML + structured review data"]
     end
-    V["casey-barton-glaciereq.vercel.app<br/>441 live routes"]
+    V["casey-barton-glaciereq.vercel.app"]
     E --> H --> B
     B --> G1 --> S
     B --> G2 --> S
@@ -45,7 +42,7 @@ flowchart LR
 
 ```bash
 # no npm dependencies: Node 22+ and Python 3 are enough
-npm test                                            # 57 node tests
+npm test                                            # repository regression tests
 node scripts/prune-unavailable-github-links.mjs --check   # dead-link guard
 HELIX_ROOT_SHA=<job-app-helix commit sha> node scripts/vercel-build.mjs   # full production build
 npx serve site-v15                                  # preview locally
@@ -250,7 +247,7 @@ Repository workflows and validators cover the current release surfaces. Relevant
 
 Use the repository-native scripts and workflows for the release being changed rather than copying historical test counts into a new claim.
 
-The engineering and operations review is generated with `node scripts/render-engineering-experience.mjs` from the existing public portfolio, assurance record, and proof-inspector allowlist. `npm run test:experience` checks source boundaries, accessible review paths, and generated-output consistency. The production build regenerates this review; recorded evidence is labeled separately from an on-demand source check.
+The engineering and operations review is generated with `node scripts/render-engineering-experience.mjs` from the existing public portfolio, assurance record, implementation reviews, and proof-inspector allowlist. It connects role responsibilities to case studies and every admitted system, preserving source-access limits and reference classifications. Implementation reviews record scoped local checks at exact revisions separately from portfolio promotion or live-provider observations. `npm run test:experience` checks source boundaries, accessible review paths, and generated-output consistency. The production build regenerates this review.
 
 ## Evidence Boundary
 

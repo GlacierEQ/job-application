@@ -3,9 +3,11 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
+import { buildReviewPaths, renderReviewPaths } from './engineering-review-paths.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const { CLAIMS } = createRequire(import.meta.url)('../api/verify-proof.js');
+const implementationReviews = JSON.parse(await readFile(path.join(ROOT, 'site-v15/data/implementation-reviews.json'), 'utf8'));
 const escape = value => String(value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 // Presentation draws evidence and limits from the existing public sources.
@@ -39,8 +41,10 @@ export function buildExperience(portfolio, currentProof, claims = CLAIMS) {
   }
   return {
     schema: 'glaciereq.engineering-experience.v1',
-    sources: ['data/portfolio.json', 'data/current-proof.json', 'api/verify-proof.js'],
+    sources: ['data/portfolio.json', 'data/current-proof.json', 'data/implementation-reviews.json', 'api/verify-proof.js'],
     evidence_policy: 'Recorded source evidence, not a new test run or a live provider observation. Each system keeps its evidence and limits.',
+    review_paths: buildReviewPaths(portfolio),
+    implementation_reviews: implementationReviews,
     cases: [
       {
         id: 'programmatic-delivery', title: 'Turn a complex workflow into a repeatable delivery system.',
@@ -92,6 +96,10 @@ export function renderOverview(experience) {
 }
 
 export function renderPage(experience) {
+  const reviews = experience.implementation_reviews.reviews.map(review => {
+    const source = `https://github.com/${review.repository}/blob/${review.commit}/${review.path}`;
+    return `<article class="experience-role"><p class="eyebrow">LOCALLY VERIFIED COMPONENT · ${escape(review.repository)}</p><h3>${escape(review.title)}</h3><p>${escape(review.implementation)}</p><h4>Operational judgment</h4><p>${escape(review.operations)}</p><h4>Executed verification</h4><p>${escape(review.verification)}</p><p><code>${escape(review.command)}</code></p><p class="experience-note">${escape(review.boundary)}</p><a href="${escape(source)}">Inspect the reviewed implementation ↗</a><p class="experience-note">Revision <code>${escape(review.commit)}</code></p></article>`;
+  }).join('\n');
   const cases = experience.cases.map(item => `<article class="experience-case" id="${escape(item.id)}" aria-labelledby="${escape(item.id)}-title">
 <p class="eyebrow">${escape(item.focus)} · ${escape(item.system)}</p><h2 id="${escape(item.id)}-title">${escape(item.title)}</h2>
 <div class="experience-case-grid"><div><h3>The problem</h3><p>${escape(item.problem)}</p><h3>What I built</h3><p>${escape(item.implementation)}</p><h3>The operating decisions</h3><p>${escape(item.operations)}</p><h3>Why it matters</h3><p>${escape(item.value)}</p></div>
@@ -107,7 +115,10 @@ ${['site', 'site.systems', 'site.complete', 'site.interaction', 'site.algerian',
 <a class="skip" href="#main">Skip to experience</a><header class="site-header"><div class="shell nav"><a class="brand" href="/"><span class="mark">CB</span><span><strong>CASEY BARTON</strong><small>ENGINEERING &amp; OPERATIONS</small></span></a><nav class="links" aria-label="Primary navigation"><a href="/">Home</a><a href="/hire/">Hire</a><a href="/resume/">Résumé</a><a href="/proof-lab/">Live proof</a><a href="/atlas/">Atlas</a></nav><a class="nav-cta" href="mailto:glacier.equilibrium@gmail.com">Email Casey</a></div></header>
 <main id="main"><section class="section experience-intro"><div class="shell"><p class="eyebrow">GLACIEREQ · INDEPENDENT SYSTEMS ENGINEERING</p><h1>Hands-on engineering.<br>Operational judgment.</h1><p class="lead">I turn ambiguous work into executable systems and carry the work through verification, recovery, and handoff. These examples connect the code to the decisions that make it useful.</p>
 <nav class="experience-lenses" aria-label="Choose an experience review path"><a href="#programmatic-delivery">Technical operations → delivery</a><a href="#provider-recovery">Platform engineering → recovery</a><a href="#agent-assurance">Applied AI → assurance</a></nav>
+<div class="actions"><a class="button secondary" href="#review-paths">Choose a role review path</a><a class="button ghost" href="#portfolio-coverage">Explore the full admitted portfolio</a></div>
 <p class="experience-note">${escape(experience.evidence_policy)}</p></div></section><div class="shell">${cases}</div>
+<section class="section" id="implementation-reviews"><div class="shell"><div class="section-head"><div><p class="eyebrow">PROGRAMMING DEPTH · SOURCE REVIEW + EXECUTED CHECKS</p><h2>Inspect the mechanism, then the failure cases.</h2></div><p>Reviewed ${escape(experience.implementation_reviews.reviewed_on)}. ${escape(experience.implementation_reviews.policy)}</p></div><div class="experience-coverage-grid">${reviews}</div></div></section>
+${renderReviewPaths(experience.review_paths)}
 <section class="section"><div class="shell"><div class="section-head"><div><p class="eyebrow">OPERATING EXPERIENCE</p><h2>Scope the work. Sequence it. Own the closeout.</h2></div><p>Running a residential services business and inspecting building systems meant working with incomplete requirements, estimates, client priorities, safety constraints, and practical handoffs. That discipline carries into how I design software.</p></div><div class="actions"><a class="button secondary" href="/resume/">Review professional experience</a><a class="button ghost" href="/data/engineering-experience.json">Machine-readable evidence</a><a class="button primary" href="mailto:glacier.equilibrium@gmail.com">Discuss a role</a></div></div></section></main>
 <footer class="footer"><div class="shell"><p>Casey Del Carpio Barton · Honolulu, Hawaiʻi · <a href="/hire/">Role fit and contact</a></p></div></footer></body></html>\n`;
 }
