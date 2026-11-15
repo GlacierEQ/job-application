@@ -44,10 +44,37 @@ function writeAtomic(file, content) {
   fs.renameSync(temp, file);
 }
 
+function curateEstate(html){
+  const section=html.match(/<section\b[^>]*\bid="estate"[^>]*>[\s\S]*?<\/section>/);
+  if(!section) throw new Error("estate_discovery_source_missing");
+  if(section[0].includes('data-estate-curated="true"')) return html;
+  const inner=section[0].match(/^<section\b[^>]*><div class="shell">([\s\S]*)<\/div><\/section>$/);
+  if(!inner) throw new Error("estate_discovery_shell_invalid");
+  const catalog=inner[1];
+  for(const title of ["Companies","Mega-skill apexes","Public repositories named on the company dossiers"]){
+    if(!catalog.includes(title))throw new Error(`estate_discovery_category_missing:${title}`);
+  }
+  const counts=catalog.match(/(\d+) company lenses\.\s*(\d+) apexes\.\s*(\d+) public repositories/);
+  if(!counts)throw new Error("estate_discovery_counts_missing");
+  const newSection=`<section id="estate" class="section estate-discovery" data-estate-curated="true"><div class="shell">
+<div class="section-head estate-discovery-intro"><div><p class="eyebrow">EXPLORE THE WORK · CHOOSE YOUR ENTRY</p><h2>Different doors into one connected engineering system.</h2></div><p>The deep catalogue is still here. Start with the problem, the capability, or the original evidence instead of scrolling through an inventory.</p></div>
+<div class="estate-discovery-grid" aria-label="Explore the engineering estate">
+<a class="estate-path estate-path--problem" href="/inventions/"><span class="estate-path-label">01 / PROBLEM → SYSTEM</span><span class="estate-path-diagram" aria-hidden="true"><i>problem</i><i>mechanism</i><i>result</i></span><h3>Start with what the software is built to solve.</h3><p>Trace concrete engineering problems to implemented mechanisms, working demonstrations and evidence.</p><strong>Explore inventions <span aria-hidden="true">↗</span></strong></a>
+<a class="estate-path estate-path--capability" href="/mega-skills/"><span class="estate-path-label">02 / CAPABILITY → DEPTH</span><span class="estate-path-count">${counts[2]}<small>capability apexes</small></span><h3>Explore the engineering disciplines behind the systems.</h3><p>Follow the capability hierarchy from architectural judgment to specific technical implementations.</p><strong>Explore capabilities <span aria-hidden="true">↗</span></strong></a>
+<a class="estate-path estate-path--evidence" href="/atlas/"><span class="estate-path-label">03 / CONTEXT → EVIDENCE</span><span class="estate-path-count">${counts[1]}<small>company lenses</small></span><h3>Navigate company research and source-linked work.</h3><p>Use the atlas to see the targets, relationships, and evidence depths rather than a flat list.</p><strong>Open company atlas <span aria-hidden="true">↗</span></strong></a>
+</div>
+<div class="estate-discovery-footer"><a href="/monolith/">Browse the technical monolith <span aria-hidden="true">↗</span></a><a href="/proof-lab/">Inspect live proof <span aria-hidden="true">↗</span></a><span>${counts[3]} public repositories indexed in the complete directory</span></div>
+<details class="estate-full-index"><summary><span>Open complete on-page directory</span><small>${counts[1]} companies · ${counts[2]} apexes · ${counts[3]} repositories</small></summary><div class="estate-full-index-body">${catalog}</div></details>
+</div></section>`;
+  const result=html.replace(section[0],newSection);
+  if(result===html)throw new Error("estate_discovery_not_applied");
+  return result;
+}
+
 function normalizeHome(source) {
   const match = source.match(PRIMARY_NAV_RE);
   if (!match) throw new Error('recruiter_primary_nav_missing');
-  return source.replace(PRIMARY_NAV_RE, RECRUITER_NAV);
+  return curateEstate(source.replace(PRIMARY_NAV_RE, RECRUITER_NAV));
 }
 
 function normalizeResume(source) {
@@ -69,6 +96,7 @@ function extractPrimaryNav(source) {
 }
 
 function validate(home, resume) {
+  if (!home.includes('data-estate-curated="true"') || !home.includes('class="estate-full-index"')) throw new Error('curated_estate_discovery_missing');
   const nav = extractPrimaryNav(home);
   const hrefs = [...nav.matchAll(/<a\b[^>]*href=["']([^"']+)["']/g)].map((match) => match[1]);
   const expected = ['#proof', '#flagships', '/inventions/', '/mega-skills/', '/monolith/', '/atlas/', '/mesh/', '/machine/', '/companies/', '/hire/', '/resume/', '/master/'];
