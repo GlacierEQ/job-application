@@ -61,6 +61,28 @@
       ]
     }
   ],
+  "rewrites": [
+    {
+      "source": "/compiler",
+      "destination": "/api/compiler?__view=html"
+    },
+    {
+      "source": "/compiler/",
+      "destination": "/api/compiler?__view=html"
+    },
+    {
+      "source": "/data/application-compiler.json",
+      "destination": "/api/compiler?__view=json"
+    },
+    {
+      "source": "/assets/application-compiler.css",
+      "destination": "/api/compiler?__view=css"
+    },
+    {
+      "source": "/assets/site.emerald-motion.css",
+      "destination": "/api/compiler?__view=motion"
+    }
+  ],
   "redirects": [
     {
       "source": "/oauth/consent",
