@@ -360,7 +360,7 @@ function repoUrl(repository) {
 function sourceList(route) {
   const sources = route.observed_pressure?.official_sources || [];
   if (!sources.length) return '<p class="compiler-empty">No external source-bound pressure dossier is available for this route.</p>';
-  return `<ul class="compiler-sources">${sources.slice(0, 4).map((source) => `<li><a href="${esc(source.url)}" target="_blank" rel="noopener">${esc(source.title)}</a><small>${esc(source.publisher)} · ${esc(source.observed_signal)}</small></li>`).join('')}</ul>`;
+  return `<ul class="compiler-sources">${sources.map((source) => `<li><a href="${esc(source.url)}" target="_blank" rel="noopener">${esc(source.title)}</a><small>${esc(source.publisher)} · ${esc(source.observed_signal)}</small></li>`).join('')}</ul>`;
 }
 
 function donorCards(route) {
