@@ -11,6 +11,7 @@ import { readdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { UNAVAILABLE_GITHUB_REPOSITORIES } from './unavailable-github-repositories.mjs';
+import { rewriteForwardDeployedSourceAnchors } from './recovered-forward-deployed-source-links.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SITE = path.join(ROOT, 'site-v15');
@@ -31,7 +32,9 @@ function isCta(attrs, inner) {
 }
 
 function pruneHtml(html) {
-  let out = html;
+  // Preserve source-backed capabilities before pruning truly inaccessible links.
+  // A missing standalone GitHub repository is not a reason to erase its evidence.
+  let out = rewriteForwardDeployedSourceAnchors(html);
   // 1. list rows that exist only to name the repository
   const li = new RegExp(`<li\\b[^>]*>${NOT('li')}</li>`, 'gi');
   out = out.replace(li, (row) => {
