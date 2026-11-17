@@ -43,3 +43,24 @@ export function rewriteForwardDeployedSourceAnchors(html) {
     return `<a${safeAttributes}>${labelWithoutFalseClaim}${explanation}</a>`;
   });
 }
+
+/**
+ * Public, source-backed capability identities are evidence projections,
+ * NOT standalone repository membership and NOT a publication cap.
+ * Adding a validated source identity to the lineage registry automatically
+ * extends the company dossier and its machine-readable companion.
+ */
+export function sourceBackedCapabilitiesForCompany(companyId) {
+  const family = String(companyId || '').toLowerCase();
+  const names = BUNDLED_CAPABILITIES[family];
+  if (!names) return [];
+  return [...names].map((name) => ({
+    name,
+    family,
+    evidence_state: 'SOURCE_CODE_PRESENT_RUNTIME_NOT_VERIFIED',
+    standalone_repository_state: 'NOT_PUBLISHED',
+    source_repository: 'GlacierEQ/job-app-helix',
+    source_commit: HELIX_SOURCE_SHA,
+    source_url: recoveredForwardDeployedSource(name).url,
+  }));
+}
