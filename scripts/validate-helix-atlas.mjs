@@ -3,6 +3,7 @@
 import { access, readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { sourceBackedCapabilitiesForCompany } from "./recovered-forward-deployed-source-links.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SITE = path.join(ROOT, "site-v15");
@@ -202,6 +203,25 @@ async function main() {
       Array.isArray(record.repos) && record.repos.length === company.repositories.length,
       `${company.company_id}: machine repository count mismatch`,
     );
+    const expectedBundled = sourceBackedCapabilitiesForCompany(company.company_id);
+    assert(
+      Array.isArray(record.bundled_capabilities) &&
+        record.bundled_capabilities.length === expectedBundled.length &&
+        record.bundled_capabilities.every((row, i) =>
+          JSON.stringify(Object.entries(row).sort()) === JSON.stringify(Object.entries(expectedBundled[i]).sort())),
+      `${company.company_id}: source-backed capability lineage missing or drifted`,
+    );
+    assert(
+      (page.match(/class="source-backed-capability"/g) ?? []).length === expectedBundled.length,
+      `${company.company_id}: source-backed capability cards were lost during rendering`,
+    );
+    if (expectedBundled.length) {
+      assert(page.includes('id="source-backed-capabilities"'), `${company.company_id}: bundled source section missing`);
+      for (const capability of expectedBundled) {
+        assert(page.includes(capability.name) && page.includes(capability.source_url), `${company.company_id}: bundled evidence not publicly inspectable: ${capability.name}`);
+        assert(!record.repos.some((repo) => repo.id === `GlacierEQ/${capability.name}`), `${company.company_id}: fictional standalone repository admitted`);
+      }
+    }
     validateMachineDepth(company, record);
   }
 
