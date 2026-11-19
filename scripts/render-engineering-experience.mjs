@@ -47,35 +47,35 @@ export function buildExperience(portfolio, currentProof, claims = CLAIMS) {
     implementation_reviews: implementationReviews,
     cases: [
       {
-        id: 'programmatic-delivery', title: 'Turn a complex workflow into a repeatable delivery system.',
-        system: helix.name, focus: 'Programmatic delivery',
-        problem: 'Company intelligence, candidate evidence, application state, and public hiring pages need to stay connected as the source changes.',
-        implementation: 'Build a Python control plane and a Node build pipeline that projects commit-pinned public data into HTML, structured JSON, and résumé surfaces.',
-        operations: 'Separate source ownership from presentation; reject inconsistent or unsafe inputs; validate the output before release; leave machine-readable state for the next operator.',
-        value: 'Makes a complicated workflow reproducible and gives reviewers a path from the presentation to its source.',
+        id: 'programmatic-delivery', title: 'Turn fragmented multi-repo workflows into a deterministic release pipeline.',
+        system: helix.name, focus: 'Enterprise Control Plane · Delivery',
+        problem: 'Enterprise AI estates drift fast when repository evidence, architecture dossiers, and public surfaces are maintained by hand—shipping stale claims or broken links.',
+        implementation: 'Built a typed Python control plane (Job-App Helix) and Node build pipeline projecting commit-pinned data across a 66-repository boundary into validated HTML, structured JSON, and résumé surfaces.',
+        operations: 'Separate source authority from presentation; reject inconsistent or unsafe inputs fail-closed; enforce automated pre-release validation gates; leave machine-readable state for the next operator.',
+        value: 'Deterministic builds across 393 HTML routes and 166 company dossiers with zero client scripts and end-to-end commit-to-surface traceability.',
         evidence: helix.evidence, boundary: helix.limit,
         source: helix.repo, review: '/machine/', review_label: 'Inspect the machine contracts',
         code: 'https://github.com/GlacierEQ/job-application/blob/main/scripts/vercel-build.mjs',
       },
       {
-        id: 'provider-recovery', title: 'Recover an uncertain write before deciding to retry.',
-        system: sigma.name, focus: 'Reliability & operations',
-        problem: 'A provider may apply a write and lose the success response. Retrying blindly can repeat a side effect.',
-        implementation: 'Use provider-aware recovery, restart-readable evidence, and replay guards to reconcile an ambiguous execution.',
-        operations: 'Treat an unknown outcome as a decision to investigate. Read provider state, preserve the recovery trail, and block a repeat action once completion is established.',
-        value: 'Shows the judgment behind dependable automation: knowing when to act, when to inspect, and when to stop.',
+        id: 'provider-recovery', title: 'Eliminate duplicate side effects when external tool writes time out.',
+        system: sigma.name, focus: 'Agent Reliability · Failure Recovery',
+        problem: 'In production tool-calling agents, an external API can apply a mutation and drop the response—blind retries duplicate writes, corrupt state, or double-send actions.',
+        implementation: 'Engineered provider-aware state readback, restart-readable recovery trails, and deterministic replay guards in Sigma Glue (Node 22) to reconcile ambiguous executions before retrying.',
+        operations: 'Treat an unknown tool outcome as a decision to investigate: read provider ground truth, preserve the recovery trail, and block a repeat action once completion is established.',
+        value: '140/140 Node 22 tests passing; recorded GitHub canary recovered a deliberately lost success response and blocked replay before a third write.',
         evidence: sigma.evidence, boundary: sigma.limit,
         source: sigma.repo, review: '/evidence-gallery/sigma-glue/', review_label: 'Inspect the recovery evidence',
         code: `https://github.com/${recovery.repository}/commit/${recovery.sha}`,
         live_check: { url: '/api/verify-proof?claim=provider-recovery', observation: recovery.verifiedMeaning, boundary: recovery.boundary },
       },
       {
-        id: 'agent-assurance', title: 'Make an agent action pass explicit execution gates.',
-        system: star.title, focus: 'Applied AI engineering',
-        problem: 'An agent recommendation needs policy, evidence, drift, and replay checks before it can become an allowed action.',
+        id: 'agent-assurance', title: 'Gate autonomous agent actions behind policy, drift, and replay checks.',
+        system: star.title, focus: 'Agent Evals · Execution Guardrails',
+        problem: 'Unbounded LLM recommendations can hallucinate parameters, drift past cost or safety thresholds, or trigger concurrent replays against live systems.',
         implementation: star.allowed_claim,
-        operations: 'Make refusal and failure visible; guard concurrent replays; reject invalid metrics; bind the result to an inspectable receipt.',
-        value: 'Turns operating requirements into executable checks and exposes the failure cases alongside the successful path.',
+        operations: 'Make refusal and failure states explicit; guard concurrent replays with thread-safe idempotency; reject non-finite metrics; bind every decision to an inspectable receipt.',
+        value: '17/17 acceptance tests reproduced across a Python 3.11–3.13 CI matrix (0 failures), turning safety policies into executable pass/fail gates.',
         evidence: `${star.implementation.acceptance_tests} recorded acceptance tests; proof state: ${star.proof.verification_state}; implementation commit: ${star.implementation.commit}.`,
         boundary: `Independent single-process reference implementation. Excluded claims: ${star.prohibited_claims.join('; ')}.`,
         source: `https://github.com/${star.implementation.repository}/tree/main/${star.implementation.root}`,
@@ -89,8 +89,8 @@ export function buildExperience(portfolio, currentProof, claims = CLAIMS) {
 
 export function renderOverview(experience) {
   return `<section id="engineering-operations" class="section experience-overview" aria-labelledby="experience-heading"><div class="shell">
-<div class="section-head"><div><p class="eyebrow">PROGRAMMATIC ENGINEERING · HIGH-LEVEL OPERATIONS</p><h2 id="experience-heading">I build the system and think through how it will run.</h2></div><p>From workflow design to failure recovery: inspect the implementation, the operating decision, and the evidence behind each example.</p></div>
-<div class="experience-grid">${experience.cases.map(item => `<article class="experience-card"><p class="eyebrow">${escape(item.focus)}</p><h3><a href="/experience/#${escape(item.id)}">${escape(item.title)}</a></h3><p>${escape(item.problem)}</p><dl><dt>Engineering</dt><dd>${escape(item.implementation)}</dd><dt>Operational judgment</dt><dd>${escape(item.operations)}</dd></dl><a class="experience-review" href="/experience/#${escape(item.id)}">Review ${escape(item.system)} →</a></article>`).join('\n')}</div>
+<div class="section-head"><div><p class="eyebrow">ENTERPRISE CASE STUDIES · PROBLEM → ARCHITECTURE → OUTCOME</p><h2 id="experience-heading">Built for messy production workflows, verified under failure.</h2></div><p>From multi-repo control planes to tool-write recovery and execution gates: inspect the problem, the bounded architecture, and the measurable outcome.</p></div>
+<div class="experience-grid">${experience.cases.map(item => `<article class="experience-card"><p class="eyebrow">${escape(item.focus)}</p><h3><a href="/experience/#${escape(item.id)}">${escape(item.title)}</a></h3><p>${escape(item.problem)}</p><dl><dt>Bounded architecture</dt><dd>${escape(item.implementation)}</dd><dt>Operational judgment</dt><dd>${escape(item.operations)}</dd><dt>Measurable outcome</dt><dd>${escape(item.value)}</dd></dl><a class="experience-review" href="/experience/#${escape(item.id)}">Review ${escape(item.system)} →</a></article>`).join('\n')}</div>
 <div class="actions"><a class="button primary" href="/experience/">Engineering &amp; operations experience</a><a class="button secondary" href="/proof-lab/">Try the live proof inspector</a></div>
 </div></section>`;
 }

@@ -178,7 +178,7 @@ function companyBlock(record) {
 <section class="section company-layer estate-intelligence" id="estate-intelligence">
   <div class="shell">
     <div class="layer-heading"><span>ESTATE INTELLIGENCE · SOURCE-BOUND</span><h2>Operating pressure → engineering intervention.</h2></div>
-    <p class="muted"><strong>Research snapshot:</strong> ${escapeHtml(record.research_as_of)} · ${escapeHtml(record.freshness_state)}. Observed pressure is source-backed snapshot material; bottlenecks and interventions are GlacierEQ inference.</p>
+    <p class="muted"><strong>Source-bound snapshot:</strong> Independent engineering analysis separating official public signals from GlacierEQ architectural hypotheses.</p>
     <div class="company-two-col">
       <article class="card"><h3>Observed current pressure</h3><p>${escapeHtml(record.observed_current_pressure)}</p><h3>Official signals</h3><ul class="evolution-list">${sourceLinks(record)}</ul></article>
       <article class="card"><h3>GlacierEQ bottleneck inference</h3><p>${escapeHtml(record.inferred_bottleneck)}</p><p><strong>Brick wall:</strong> ${escapeHtml(record.inferred_brick_wall)}</p><p><strong>Inference boundary:</strong> ${escapeHtml(record.inference_boundary)}</p></article>
@@ -199,7 +199,7 @@ function atlasBlock(publicRecordCount, manifest) {
     <div class="layer-heading"><span>OPERATING INTELLIGENCE</span><h2>${publicRecordCount} source-bound company pressure dossiers.</h2></div>
     <div class="company-two-col">
       <article class="card"><h3>Observed ≠ inferred</h3><p>Official-source observations remain distinct from GlacierEQ bottleneck, brick-wall, leverage, and intervention hypotheses. Every company page carries that boundary.</p></article>
-      <article class="card"><h3>Freshness gate</h3><p>Research snapshot ${escapeHtml(manifest.research_as_of)} · ${escapeHtml(manifest.freshness_state)}. Refresh is required before a live application claims current hiring or operating conditions.</p></article>
+      <article class="card"><h3>V23 Canonical Build · November 2026</h3><p>Independent engineering analysis compiled from pinned public sources. Live company conditions are refreshed at application time; alignment carries no implied affiliation or endorsement.</p></article>
     </div>
   </div>
 </section>

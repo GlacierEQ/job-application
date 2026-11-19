@@ -98,7 +98,7 @@ for (const file of htmlFiles) {
 assert(/<\/footer>\s*<\/body>\s*<\/html>\s*$/i.test(recruiter), 'recruiter footer must close cleanly');
 assert(!recruiter.includes('&#250493;'), 'recruiter contains corrupted footer text');
 for (const token of [
-  'V21 FIRST STAR COMPLETION',
+  'V23 CANONICAL BUILD',
   'Mission Agentic AI Assurance',
   '17/17',
   'REPRODUCED',
