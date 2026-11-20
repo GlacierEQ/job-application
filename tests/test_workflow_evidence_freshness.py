@@ -4,7 +4,8 @@ import json
 import sys
 import tempfile
 import unittest
-from datetime import UTC, datetime
+from datetime import datetime, timezone
+UTC = timezone.utc
 from pathlib import Path
 from unittest import mock
 
