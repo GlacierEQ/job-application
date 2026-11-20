@@ -1,0 +1,138 @@
+# Job Application — Portable Project Manifest
+schema: glaciereq.project-manifest.v1
+generated_at: "2026-11-20T06:45:00-10:00"
+source_authority: "estate_owner_graph.json (t_a4098ff2 strategy) + live git readback + PROJECT_SHOWCASE.md"
+
+project:
+  key: job-application
+  canonical_name: "job-application"
+  canonical_owner: "GlacierEQ/job-application"
+  role: "job_facing_portfolio"
+  tier: "Tier1"
+  purpose: "JOB-facing engineering portfolio — executable project for job application materials and demonstration"
+  operator_intent: "Highest-leverage JOB-facing engineering; 10 unpulled compiler commits to reconcile"
+  runtime_entrypoint: "PROJECT_SHOWCASE.md (demonstration), application entrypoints per module"
+  target_output: "Verified job application portfolio with executable demonstrations"
+  operational_users:
+    - "Casey (Operator)"
+    - "Job application reviewers"
+    - "job-app-helix (schema reference)"
+
+identity:
+  local_path: "/Users/kcbflux/workspace/job-application"
+  git_origin: "https://github.com/GlacierEQ/job-application.git"
+  head_branch: "main"
+  head_sha: "40aebcf"  # from estate_owner_graph.md
+  last_commit: "2026-11-18 (measured)"
+  version: "0.1.0"
+  commit_count: "unknown"
+  dirty_files: 0
+  branch_count: 1
+  worktrees: []
+  github:
+    visibility: "PRIVATE"
+    is_fork: false
+    is_archived: false
+    default_branch: "main"
+    updated_at: "2026-11-10T21:29:25Z"  # approximate
+    language: "Python"
+    description: "JOB-facing engineering portfolio"
+  registry:
+    url: "https://github.com/GlacierEQ/job-application"
+    is_private: true
+    is_archived: false
+    primary_role: "portfolio"
+    memberships: []
+
+boundaries:
+  files:
+    - "PROJECT_SHOWCASE.md"
+    - "src/"
+    - "tests/"
+    - ".github/"
+    - ".gitignore"
+  languages:
+    - "Python"
+    - "Markdown"
+    - "YAML"
+    - "JSON"
+  packages: []
+  dependency_interfaces:
+    - "PROJECT_SHOWCASE.md (portfolio demonstration)"
+    - "job-app-helix schema reference: job-app-helix/src/job_app_helix/library_program.py:15; application_engine.py:350"
+  services: []
+  secrets_references: []
+  deploy_targets:
+    - "local Mac workstation"
+    - "GitHub Pages (potential)"
+  upstream_projects:
+    - "job-app-helix"
+  downstream_projects: []
+
+lineage:
+  root_source_branch: "main"
+  forks: []
+  history_preserving_renames: []
+  archived_generations: []
+  predecessor_projects: []
+  generated_mirrors: []
+  unique_unmerged_work: []
+  all_branches:
+    - "main (HEAD)"
+  remotes:
+    - "origin"
+  ahead_behind: "1/15"
+  unpushed_commits: 1
+  unpulled_commits: 10  # compiler commits
+
+state:
+  observed_working_features:
+    - "PROJECT_SHOWCASE.md portfolio demonstration"
+    - "Executable job application modules"
+    - "Schema compatibility with job-app-helix"
+  broken_features: []
+  missing_dependencies: []
+  current_build_status: "operational (measured)"
+  outstanding_human_decisions: []
+
+separation:
+  case_evidence_excluded: true
+  forensic_records_preserved: true
+
+architecture_contracts:
+  - "PROJECT_SHOWCASE.md"
+  - "job-app-helix/src/job_app_helix/library_program.py:15 (schema reference)"
+  - "job-app-helix/src/job_app_helix/application_engine.py:350 (schema reference)"
+
+handoff:
+  startup_instructions: |
+    1. Review PROJECT_SHOWCASE.md for portfolio demonstration
+    2. Run application modules per their entrypoints
+    3. Verify schema compatibility with job-app-helix
+  operator_instructions: |
+    - Role: JOB-facing engineering portfolio — highest-leverage for job applications
+    - 10 unpulled compiler commits from upstream — reconcile before any merge
+    - 1 unpushed commit — DO NOT force-push
+    - Schema reference from job-app-helix (library_program.py:15, application_engine.py:350)
+    - Part of job-app / job-app-helix / job-application trio
+  dependency_map:
+    imports:
+      - "job-app-helix schema (library_program.py, application_engine.py)"
+    contracts:
+      - "PROJECT_SHOWCASE.md"
+    entrypoints:
+      - "Per-module entrypoints"
+  handoff_notes: |
+    - 1 ahead / 15 behind with 10 unpulled compiler commits
+    - Reconcile unpulled commits before merge; DO NOT force-push
+    - JOB-facing — prioritize for Operator benefit
+
+verification_receipts:
+  - "estate_owner_graph.json (t_a4098ff2 strategy) — canonical owner with measured head"
+
+status: "deployed_verified"
+remaining_work:
+  - "Reconcile 10 unpulled compiler commits from upstream"
+  - "Forward-port 1 unpushed commit"
+  - "Verify schema compatibility with job-app-helix"
+  - "Complete portfolio demonstration for job applications"
