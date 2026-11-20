@@ -250,3 +250,23 @@ test('emerald motion injection is idempotent', () => {
   assert.equal(once.split('site.emerald-motion.css').length - 1, 1);
   assert.equal(twice, once);
 });
+
+test('official evidence sources are not silently truncated at four', () => {
+  const data = fixture();
+  const source = data.pressureRecords.get('openai');
+  source.official_sources = Array.from({ length: 11 }, (_, index) => ({
+    title: 'Independent official evidence ' + (index + 1),
+    publisher: 'Official publisher',
+    url: 'https://example.test/official-' + (index + 1),
+    observed_signal: 'Source-bounded fact ' + (index + 1),
+  }));
+  const route = compiler.compileRoute(data, {
+    company: data.company,
+    role: 'Agent Infrastructure Engineer',
+    depth: 'recruiter',
+  });
+  const html = compiler.compilerHtml(data, route);
+  for (const entry of source.official_sources) {
+    assert.ok(html.includes(entry.url), 'Official evidence omitted: ' + entry.url);
+  }
+});

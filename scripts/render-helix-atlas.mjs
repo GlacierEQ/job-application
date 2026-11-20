@@ -3,6 +3,7 @@
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { sourceBackedCapabilitiesForCompany } from "./recovered-forward-deployed-source-links.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SNAPSHOT = path.join(ROOT, "site-v15", "data", "helix-root.json");
@@ -258,6 +259,10 @@ function repoEvidence(repo) {
   return `<li><div><a href="${repoUrl(repo.repository)}" target="_blank" rel="noopener">${escapeHtml(name)}</a><small>${escapeHtml(repo.repository)}</small></div><span class="status ${statusClass(repo.promotion_state)}">${escapeHtml(repo.level)} · ${escapeHtml(repo.promotion_state)}</span></li>`;
 }
 
+function bundledCapabilityEvidence(capability) {
+  return `<li class="source-backed-capability"><div><a href="${escapeHtml(capability.source_url)}" target="_blank" rel="noopener">${escapeHtml(capability.name)}</a><small>${escapeHtml(capability.source_repository)} · Bundled source; standalone repository not published</small></div><span class="status reviewed">${escapeHtml(capability.evidence_state)}</span></li>`;
+}
+
 function compactMachineRecord(company, state) {
   const depth = requireSecondDepth(company);
   return {
@@ -274,6 +279,7 @@ function compactMachineRecord(company, state) {
       provenance: repo.provenance_state,
     })),
     flagships: company.applicable_flagships ?? [],
+    bundled_capabilities: sourceBackedCapabilitiesForCompany(company.company_id),
     second_depth: depth,
     gate: company.gap_or_next_gate,
     boundary: company.non_affiliation,
@@ -288,7 +294,8 @@ function machineWire(company, state) {
   const roles = record.roles.join("|") || "∅";
   const flagships = record.flagships.join("|") || "∅";
   const blockers = record.second_depth.blockers.join("|") || "∅";
-  return `GEQ.CI/1 id=${record.id} state=${state} track=${record.track}\nROLE[${roles}]\nREPO[${repos}]\nFLAGSHIP[${flagships}]\nDEPTH[${record.second_depth.stage}|${record.second_depth.claim_ceiling}]\nBLOCKER[${blockers}]\nHOOK route=${record.route} json=${record.route}record.json\nNEXT ${record.second_depth.next_gate}`;
+  const bundledSources = record.bundled_capabilities.map((entry) => `${entry.name}|${entry.evidence_state}|${entry.source_url}`).join(";") || "∅";
+  return `GEQ.CI/1 id=${record.id} state=${state} track=${record.track}\nROLE[${roles}]\nREPO[${repos}]\nBUNDLED_SOURCE[${bundledSources}]\nFLAGSHIP[${flagships}]\nDEPTH[${record.second_depth.stage}|${record.second_depth.claim_ceiling}]\nBLOCKER[${blockers}]\nHOOK route=${record.route} json=${record.route}record.json\nNEXT ${record.second_depth.next_gate}`;
 }
 
 function depthTimeline(company, stageOrder) {
@@ -312,6 +319,10 @@ function companyPage(company, stageOrder) {
   const state = evidenceState(company);
   const depth = requireSecondDepth(company);
   const repos = company.repositories.map(repoEvidence).join("");
+  const bundledCapabilities = sourceBackedCapabilitiesForCompany(company.company_id);
+  const bundledSection = bundledCapabilities.length
+    ? `<section class="section company-layer" id="source-backed-capabilities"><div class="shell"><div class="layer-heading"><span>SOURCE LINEAGE · NOT STANDALONE REPOSITORIES</span><h2>Additional public implementations recovered from the Helix codebase.</h2></div><p>These are historical capability names with source code bundled inside job-app-helix, not separate GitHub repositories or verified vehicle/GPU deployments. They are preserved independently of direct repository membership and recruiter promotion.</p><ul class="company-repo-ledger">${bundledCapabilities.map(bundledCapabilityEvidence).join("")}</ul></div></section>`
+    : "";
   const flagships = Array.isArray(company.applicable_flagships) ? company.applicable_flagships : [];
   const roleChips = (company.target_roles ?? []).map((role) => `<span>${escapeHtml(role)}</span>`).join("");
   const meshLinks = [
@@ -345,6 +356,7 @@ function companyPage(company, stageOrder) {
 <section class="company-hero"><div class="shell company-hero-grid"><div><p class="eyebrow">INDEPENDENT COMPANY LENS · ${escapeHtml(evidenceLabel(state).toUpperCase())}</p><h1>${escapeHtml(company.display_name)}</h1><p class="lead">${escapeHtml(company.recruiter_thesis)}</p><div class="company-role-chips">${roleChips}</div></div><aside class="card company-state-card"><span class="evidence-state ${state}">${evidenceLabel(state)}</span><strong>${company.repositories.length}</strong><p>direct public evidence ${company.repositories.length === 1 ? "repository" : "repositories"}</p><small>${escapeHtml(company.track_state)}</small><p><strong>Second depth:</strong> ${escapeHtml(depthLabel(depth.stage))}</p><small>claim ceiling · ${escapeHtml(depth.claim_ceiling)}</small></aside></div></section>
 <section class="section company-layer" id="recruiter"><div class="shell"><div class="layer-heading"><span>01 · RECRUITER</span><h2>What matters to this operating environment.</h2></div><div class="company-two-col"><article class="card"><h3>Alignment thesis</h3><p>${escapeHtml(company.recruiter_thesis)}</p><p>${escapeHtml(evidenceSummary)}</p></article><article class="card boundary-card"><h3>Truth boundary</h3><p>${escapeHtml(company.non_affiliation)}</p><p><strong>Current public claim ceiling:</strong> ${escapeHtml(depth.claim_ceiling)}</p></article></div></div></section>
 <section class="section alt company-layer" id="master"><div class="shell"><div class="layer-heading"><span>02 · MASTER</span><h2>Innovation, architecture, and the governed second-depth gate.</h2></div><div class="company-two-col"><article class="card"><h3>Role-specific engineering frame</h3><p>The current dossier identifies the domain and public evidence subset without pretending that company-level bottlenecks have already been proven. Second depth advances only through pinned public evidence: role → externally supportable problem → inspected repository → bounded remedy → implementation receipt → reproduced proof → promoted claim.</p><h3>Current repository evidence</h3>${repos ? `<ul class="company-repo-ledger">${repos}</ul>` : `<p class="empty-state">No direct repository is recruiter-admitted yet. This is an engineering queue, not a reason to invent proof.</p>`}</article><article class="card aspiration-card"><p class="eyebrow">SECOND-DEPTH STATE</p><h3>${escapeHtml(depthLabel(depth.stage))}</h3><p><strong>Claim ceiling:</strong> ${escapeHtml(depth.claim_ceiling)}</p><h3>Blocking conditions</h3>${blockerList(company)}<p><strong>Next gate:</strong> ${escapeHtml(depth.next_gate)}</p></article></div></div></section>
+${bundledSection}
 <section class="section company-layer" id="machine"><div class="shell"><div class="layer-heading"><span>03 · MACHINE</span><h2>Dense integration contract.</h2></div><div class="card machine-contract"><div class="machine-contract-head"><p>Compact wire view for agents and tooling. The structured record carries the same second-depth state and public-safe evidence references.</p><a class="button ghost small" href="/companies/${companySlug(company.company_id)}/record.json">record.json</a></div><pre>${escapeHtml(machineWire(company, state))}</pre><p class="machine-hook">Consumer path: discover route → inspect record → follow pinned public evidence → verify native receipts/tests → respect stage prerequisites, blockers, claim ceiling, and non-affiliation boundary.</p></div></div></section>
 <section class="section alt company-layer" id="mesh"><div class="shell"><div class="layer-heading"><span>04 · MESH</span><h2>One node in the larger GlacierEQ system.</h2></div><div class="company-two-col"><article class="card"><h3>Relationships</h3>${meshLinks ? `<ul class="mesh-edge-list">${meshLinks}</ul>` : `<p class="empty-state">No direct public repository edge is admitted yet.</p>`}<p><a href="/mesh/">Open the estate-wide Mesh →</a></p><h3>Current blockers</h3>${blockerList(company)}</article><article class="card evolution-card"><p class="eyebrow">ASPIRATION &amp; EVOLUTION</p><h3>Governed promotion path</h3><ol class="evolution-list">${depthTimeline(company, stageOrder)}</ol><p><strong>Current stage:</strong> ${escapeHtml(depth.stage)}</p><p><strong>Next gate:</strong> ${escapeHtml(depth.next_gate)}</p><p>The path does not advance because a company name, repository, or aspiration exists. It advances only when the upstream Helix state carries the required pinned public evidence.</p></article></div></div></section>
 <section class="section tight"><div class="shell callout"><p class="eyebrow">RETURN TO THE CONSTELLATION</p><h2>Company intelligence is one projection of the same governed portfolio.</h2><div class="actions"><a class="button primary" href="/atlas/">Open Company Atlas</a><a class="button ghost" href="/machine/">Machine contracts</a><a class="button ghost" href="/mesh/">System mesh</a></div></div></section>
