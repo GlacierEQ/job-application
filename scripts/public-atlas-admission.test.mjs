@@ -1,0 +1,11 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { admittedAtlasCompany } from './public-atlas-admission.mjs';
+const repo = (visibility = 'public', inventory_scope = 'HELIX_ADMITTED', repository = 'GlacierEQ/proof') => ({visibility, inventory_scope, repository});
+const company = (repositories, stage = 'MAPPED_ONLY', track_state = 'MAPPED_WITH_RECRUITER_READY_PUBLIC_SUBSET') => ({repositories, second_depth:{stage}, track_state});
+test('admits two public source-admitted repositories', () => assert.equal(admittedAtlasCompany(company([repo(),repo('public','HELIX_ADMITTED','GlacierEQ/proof2')])),true));
+test('admits proven stage with one public repository', () => assert.equal(admittedAtlasCompany(company([repo()], 'CODE_INSPECTED')),true));
+test('rejects private or estate-only repository count inflation', () => assert.equal(admittedAtlasCompany(company([repo('private'),repo('public','ESTATE_DISCOVERED_NOT_HELIX_ADMITTED')])),false));
+test('rejects proven stage without public admitted repository', () => assert.equal(admittedAtlasCompany(company([repo('private')], 'CLAIM_PROMOTED')),false));
+test('rejects blocked track even with two public repositories', () => assert.equal(admittedAtlasCompany(company([repo(),repo('public','HELIX_ADMITTED','GlacierEQ/proof2')], 'CODE_INSPECTED', 'MAPPED_NOT_RECRUITER_READY')),false));
+test('rejects malformed repository identities and non-object rows', () => assert.equal(admittedAtlasCompany(company([repo('public','HELIX_ADMITTED','../../private'),null])),false));
