@@ -2,6 +2,7 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { admittedAtlasCompany } from "./public-atlas-admission.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SITE = path.join(ROOT, "site-v15");
@@ -156,14 +157,15 @@ async function main() {
   assert(lenses.schema === "glaciereq.starmap-lenses.v1" && lenses.authority === "PRESENTATION_ONLY", "starmap lens authority is invalid");
   assert(typeof lenses.boundary === "string" && lenses.boundary.includes("not evidence"), "starmap lens boundary must explicitly deny evidence authority");
 
-  const companies = [...snapshot.companies].sort((a, b) => a.display_name.localeCompare(b.display_name));
+  const companies = snapshot.companies.filter(admittedAtlasCompany).sort((a, b) => a.display_name.localeCompare(b.display_name));
+  assert(companies.length > 0, "no recruiter-admitted companies available for public starmap");
   const companyById = new Map(companies.map((company) => [company.company_id, company]));
   assert(companyById.size === companies.length, "duplicate company ids detected");
   for (const company of companies) { slug(company.company_id); requireSecondDepth(company); }
 
   const flagshipById = new Map();
   for (const flagship of snapshot.flagships) { systemSlug(flagship.system_id); assert(!flagshipById.has(flagship.system_id), `duplicate flagship ${flagship.system_id}`); flagshipById.set(flagship.system_id, flagship); }
-  for (const [id, text] of Object.entries(lenses.onomastics ?? {})) { assert(companyById.has(id), `lens references unknown company ${id}`); assert(typeof text === "string" && text.length > 0 && text.length <= 280, `${id}: invalid lens text`); assert(!LENS_CLAIM_BLACKLIST.test(text), `${id}: interpretive lens contains affiliation/adoption language`); }
+  for (const [id, text] of Object.entries(lenses.onomastics ?? {})) { if (!companyById.has(id)) continue; assert(typeof text === "string" && text.length > 0 && text.length <= 280, `${id}: invalid lens text`); assert(!LENS_CLAIM_BLACKLIST.test(text), `${id}: interpretive lens contains affiliation/adoption language`); }
 
   const layout = companyLayout(companies);
   const companyPos = layout.positions;
