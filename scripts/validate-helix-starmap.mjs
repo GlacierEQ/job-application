@@ -52,6 +52,12 @@ async function main() {
   const detailTargets = [...page.matchAll(/<section id="d-([a-z0-9_]+)" class="starmap-detail">/g)].map((match) => match[1]);
   assert(detailTargets.length === publicCompanies.length, "detail panel count differs from governed company count");
   assert(new Set(detailTargets).size === detailTargets.length, "duplicate detail target ids found");
+  const admittedIds = new Set(publicCompanies.map((company) => company.company_id));
+  assert(detailTargets.every((id) => admittedIds.has(id)), "unadmitted company detail panel leaked into public starmap");
+  for (const company of snapshot.companies.filter((row) => !admittedIds.has(row.company_id))) {
+    assert(!page.includes(`id="d-${company.company_id}"`), `${company.company_id}: excluded detail anchor leaked`);
+    assert(!page.includes(`class="starmap-star star-${company.company_id} `), `${company.company_id}: excluded star leaked`);
+  }
   for (const company of publicCompanies) { assert(detailTargets.includes(company.company_id), `${company.company_id}: detail target missing`); assert(page.includes(`/companies/${company.company_id.replaceAll("_", "-")}/`), `${company.company_id}: full company route missing`); assert(page.includes(company.second_depth.stage), `${company.company_id}: stage absent from rendered Starmap`); assert(page.includes(company.second_depth.claim_ceiling), `${company.company_id}: claim ceiling absent from rendered Starmap`); assert(page.includes(company.second_depth.next_gate), `${company.company_id}: next gate absent from rendered Starmap`); assert(page.includes(company.non_affiliation), `${company.company_id}: non-affiliation boundary absent from rendered Starmap`); }
 
   const flagshipById = new Map(snapshot.flagships.map((flagship) => [flagship.system_id, flagship]));
