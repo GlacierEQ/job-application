@@ -95,7 +95,7 @@ jobs:
               repo && repo.visibility === 'public' &&
               repo.inventory_scope === 'HELIX_ADMITTED' &&
               typeof repo.repository === 'string' &&
-              /^GlacierEQ\\/[A-Za-z0-9_.-]+$/.test(repo.repository)
+              repo.repository.startsWith('GlacierEQ/') && /^[A-Za-z0-9_.-]+$/.test(repo.repository.slice('GlacierEQ/'.length))
             ),
           }));
           writeFileSync(path, JSON.stringify(snapshot, null, 2) + '\n');
