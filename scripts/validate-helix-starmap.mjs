@@ -2,6 +2,7 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { admittedAtlasCompany } from "./public-atlas-admission.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SITE = path.join(ROOT, "site-v15");
@@ -36,23 +37,26 @@ async function main() {
   assert(page.includes('href="/atlas/"'), "Proof Starmap has no Atlas return path");
   assert(page.includes('href="/data/helix-root.json"'), "Proof Starmap has no root snapshot inspection path");
 
+  const publicCompanies = snapshot.companies.filter(admittedAtlasCompany);
+  assert(publicCompanies.length > 0, "no admitted public company stars");
   const starMatches = [...page.matchAll(/class="starmap-star star-([a-z0-9_]+) sd-([0-7])"/g)];
-  assert(starMatches.length === snapshot.companies.length, `star count differs from live governed snapshot: expected ${snapshot.companies.length}, rendered ${starMatches.length}`);
+  assert(starMatches.length === publicCompanies.length, `star count differs from live governed snapshot: expected ${publicCompanies.length}, rendered ${starMatches.length}`);
   assert(new Set(starMatches.map(([, id]) => id)).size === starMatches.length, "duplicate company stars found");
-  for (const [, id, ordinal] of starMatches) { const company = snapshot.companies.find((row) => row.company_id === id); assert(company, `unknown company star ${id}`); assert(Number(ordinal) === company.second_depth.ordinal, `${id}: visual proof state differs from Helix ordinal`); }
+  assert(starMatches.every(([, id]) => publicCompanies.some((company) => company.company_id === id)), "unadmitted company leaked into public starmap");
+  for (const [, id, ordinal] of starMatches) { const company = publicCompanies.find((row) => row.company_id === id); assert(company, `unknown company star ${id}`); assert(Number(ordinal) === company.second_depth.ordinal, `${id}: visual proof state differs from Helix ordinal`); }
 
-  const promoted = snapshot.companies.filter((company) => company.second_depth.ordinal === 7);
+  const promoted = publicCompanies.filter((company) => company.second_depth.ordinal === 7);
   const crowns = (page.match(/class="crown"/g) ?? []).length;
   assert(crowns === promoted.length, "gold crown count differs from CLAIM_PROMOTED count");
 
   const detailTargets = [...page.matchAll(/<section id="d-([a-z0-9_]+)" class="starmap-detail">/g)].map((match) => match[1]);
-  assert(detailTargets.length === snapshot.companies.length, "detail panel count differs from governed company count");
+  assert(detailTargets.length === publicCompanies.length, "detail panel count differs from governed company count");
   assert(new Set(detailTargets).size === detailTargets.length, "duplicate detail target ids found");
-  for (const company of snapshot.companies) { assert(detailTargets.includes(company.company_id), `${company.company_id}: detail target missing`); assert(page.includes(`/companies/${company.company_id.replaceAll("_", "-")}/`), `${company.company_id}: full company route missing`); assert(page.includes(company.second_depth.stage), `${company.company_id}: stage absent from rendered Starmap`); assert(page.includes(company.second_depth.claim_ceiling), `${company.company_id}: claim ceiling absent from rendered Starmap`); assert(page.includes(company.second_depth.next_gate), `${company.company_id}: next gate absent from rendered Starmap`); assert(page.includes(company.non_affiliation), `${company.company_id}: non-affiliation boundary absent from rendered Starmap`); }
+  for (const company of publicCompanies) { assert(detailTargets.includes(company.company_id), `${company.company_id}: detail target missing`); assert(page.includes(`/companies/${company.company_id.replaceAll("_", "-")}/`), `${company.company_id}: full company route missing`); assert(page.includes(company.second_depth.stage), `${company.company_id}: stage absent from rendered Starmap`); assert(page.includes(company.second_depth.claim_ceiling), `${company.company_id}: claim ceiling absent from rendered Starmap`); assert(page.includes(company.second_depth.next_gate), `${company.company_id}: next gate absent from rendered Starmap`); assert(page.includes(company.non_affiliation), `${company.company_id}: non-affiliation boundary absent from rendered Starmap`); }
 
   const flagshipById = new Map(snapshot.flagships.map((flagship) => [flagship.system_id, flagship]));
   const expectedDonorEdges = []; const referencedDonors = new Set();
-  for (const company of snapshot.companies) for (const donor of Array.isArray(company.applicable_flagships) ? company.applicable_flagships : []) if (flagshipById.has(donor)) { expectedDonorEdges.push([company.company_id, donor]); referencedDonors.add(donor); }
+  for (const company of publicCompanies) for (const donor of Array.isArray(company.applicable_flagships) ? company.applicable_flagships : []) if (flagshipById.has(donor)) { expectedDonorEdges.push([company.company_id, donor]); referencedDonors.add(donor); }
   const renderedEdges = (page.match(/class="donor-edge"/g) ?? []).length; const renderedDonors = (page.match(/class="donor-node"/g) ?? []).length;
   assert(renderedEdges === expectedDonorEdges.length, `donor edge count drift: expected ${expectedDonorEdges.length}, rendered ${renderedEdges}`);
   assert(renderedDonors === referencedDonors.size, `canonical donor node count drift: expected ${referencedDonors.size}, rendered ${renderedDonors}`);
@@ -64,7 +68,7 @@ async function main() {
   assert(css.includes("prefers-reduced-motion"), "Starmap reduced-motion contract missing");
   assert(css.includes("overflow-wrap:anywhere"), "Starmap long-identity containment missing");
 
-  const stageCounts = Object.fromEntries(SECOND_DEPTH_STAGES.map((stage) => [stage, 0])); for (const company of snapshot.companies) stageCounts[company.second_depth.stage] += 1;
+  const stageCounts = Object.fromEntries(SECOND_DEPTH_STAGES.map((stage) => [stage, 0])); for (const company of publicCompanies) stageCounts[company.second_depth.stage] += 1;
   console.log(JSON.stringify({ schema: "glaciereq.proof-starmap-validation.v3", status: "PASS", company_stars: starMatches.length, canonical_donors: referencedDonors.size, donor_edges: expectedDonorEdges.length, claim_promoted_crowns: crowns, stage_counts: stageCounts, lens_entries: Object.keys(lenses.onomastics ?? {}).length, client_scripts: 0 }, null, 2));
 }
 main().catch((error) => { console.error(`Proof Starmap validation: FAIL: ${error instanceof Error ? error.message : String(error)}`); process.exitCode = 1; });
