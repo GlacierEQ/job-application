@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 
 import { createHash } from "node:crypto";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
+import { admittedAtlasCompany } from "./public-atlas-admission.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SITE = path.join(ROOT, "site-v15");
@@ -268,6 +269,8 @@ function mainPage(tracks, snapshot, sourceDigest) {
 async function addCompanyUrlsToSitemap(tracks) {
   const sitemapPath = path.join(SITE, "sitemap.xml");
   let sitemap = await readFile(sitemapPath, "utf8");
+  // Remove old generated company routes before adding the admitted set.
+  sitemap = sitemap.replace(/\s*<url><loc>https:\/\/casey-barton-glaciereq\.vercel\.app\/atlas\/[a-z0-9-]+\/<\/loc><\/url>/g, "");
   const closing = sitemap.lastIndexOf("</urlset>");
   assert(closing >= 0, "sitemap.xml has no closing urlset element");
   const additions = [];
@@ -277,6 +280,8 @@ async function addCompanyUrlsToSitemap(tracks) {
   }
   if (additions.length) {
     sitemap = `${sitemap.slice(0, closing)}${additions.join("\n")}\n${sitemap.slice(closing)}`;
+    await writeFile(sitemapPath, sitemap, "utf8");
+  } else {
     await writeFile(sitemapPath, sitemap, "utf8");
   }
 }
@@ -319,10 +324,11 @@ async function main() {
   }
 
   const publicIds = new Set(snapshot.companies.map((company) => company.company_id));
+  const admittedCompanies = snapshot.companies.filter(admittedAtlasCompany);
   assert(mappedCounts.size === publicIds.size, `canonical dossier count ${mappedCounts.size} differs from public projection count ${publicIds.size}`);
   for (const id of mappedCounts.keys()) assert(publicIds.has(id), `canonical dossier track ${id} is missing from public projection`);
 
-  const tracks = snapshot.companies.map((company) => {
+  const tracks = admittedCompanies.map((company) => {
     assert(mappedCounts.has(company.company_id), `mapped count missing for ${company.company_id}`);
     const repositoryRecordCount = mappedCounts.get(company.company_id);
     assert(repositoryRecordCount >= company.repositories.length, `${company.company_id}: recruiter-admissible repositories exceed mapped records`);
@@ -363,6 +369,9 @@ async function main() {
   await writeFile(SUMMARY_PATH, stableJson(summary), "utf8");
   await mkdir(ATLAS_DIR, { recursive: true });
   await writeFile(path.join(ATLAS_DIR, "index.html"), mainPage(tracks, snapshot, dossierDigest), "utf8");
+  for (const company of snapshot.companies.filter((row) => !admittedAtlasCompany(row))) {
+    await rm(path.join(ATLAS_DIR, slug(company.company_id), "index.html"), { force: true });
+  }
   for (const company of tracks) {
     const dir = path.join(ATLAS_DIR, slug(company.company_id));
     await mkdir(dir, { recursive: true });

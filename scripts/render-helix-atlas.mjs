@@ -4,6 +4,7 @@ import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { sourceBackedCapabilitiesForCompany } from "./recovered-forward-deployed-source-links.mjs";
+import { admittedAtlasCompany } from "./public-atlas-admission.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SNAPSHOT = path.join(ROOT, "site-v15", "data", "helix-root.json");
@@ -409,7 +410,7 @@ async function main() {
     throw new Error("Helix projection must contain the eight-stage company second-depth contract");
   }
 
-  const companies = [...snapshot.companies].sort((a, b) => a.display_name.localeCompare(b.display_name));
+  const companies = snapshot.companies.filter(admittedAtlasCompany).sort((a, b) => a.display_name.localeCompare(b.display_name));
   for (const company of companies) {
     companySlug(company.company_id);
     if (!Array.isArray(company.repositories)) {
