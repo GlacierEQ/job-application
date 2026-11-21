@@ -48,6 +48,12 @@ jobs:
       - name: Render Company Atlas and real company routes
         run: node scripts/render-helix-atlas.mjs
 
+      - name: Render recruiter-admitted Proof Starmap
+        run: node scripts/render-helix-starmap.mjs
+
+      - name: Validate Proof Starmap admission boundary
+        run: node scripts/validate-helix-starmap.mjs
+
       - name: Link Atlas across public surfaces
         run: node scripts/link-helix-atlas.mjs
 
