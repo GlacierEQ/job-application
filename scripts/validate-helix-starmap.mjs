@@ -35,7 +35,7 @@ async function main() {
   assert(page.includes('href="/assets/helix-atlas.css"'), "Proof Starmap did not inherit current Atlas layer");
   assert(page.includes('href="/assets/helix-starmap.css"'), "Proof Starmap stylesheet missing");
   assert(page.includes('href="/atlas/"'), "Proof Starmap has no Atlas return path");
-  assert(page.includes('href="/data/helix-root.json"'), "Proof Starmap has no root snapshot inspection path");
+  assert(!page.includes('href="/data/helix-root.json"'), "Proof Starmap must not link to the internal Helix source snapshot");
 
   const publicCompanies = snapshot.companies.filter(admittedAtlasCompany);
   assert(publicCompanies.length > 0, "no admitted public company stars");
