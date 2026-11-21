@@ -98,7 +98,7 @@ jobs:
               repo.repository.startsWith('GlacierEQ/') && /^[A-Za-z0-9_.-]+$/.test(repo.repository.slice('GlacierEQ/'.length))
             ),
           }));
-          writeFileSync(path, JSON.stringify(snapshot, null, 2) + '\n');
+          // The priority wave is company-indexed metadata, not a public allowlist.\n          // Remove excluded company identifiers without changing the canonical source.\n          if (snapshot.company_second_depth?.priority_wave !== undefined) {\n            if (!Array.isArray(snapshot.company_second_depth.priority_wave)) throw new Error('Invalid second-depth priority wave');\n            const admittedIds = new Set(admitted.map(company => company.company_id));\n            snapshot.company_second_depth.priority_wave = snapshot.company_second_depth.priority_wave.filter(id => admittedIds.has(id));\n          }\n          writeFileSync(path, JSON.stringify(snapshot, null, 2) + '\n');
           console.log('Deployable company records: ' + admitted.length + ' of ' + sourceCount);
           NODE
 
@@ -109,7 +109,7 @@ jobs:
           import { admittedAtlasCompany } from './scripts/public-atlas-admission.mjs';
           const snapshot = JSON.parse(readFileSync('site-v15/data/helix-root.json', 'utf8'));
           if (!Array.isArray(snapshot.companies)) throw new Error('Public Helix companies array missing');
-          const excluded = snapshot.companies.filter(company => !admittedAtlasCompany(company));
+          const admittedIds = new Set(snapshot.companies.map(company => company.company_id));\n          if (snapshot.company_second_depth?.priority_wave?.some(id => !admittedIds.has(id))) {\n            throw new Error('Public Helix JSON priority wave references an excluded company');\n          }\n          const excluded = snapshot.companies.filter(company => !admittedAtlasCompany(company));
           if (excluded.length) {
             throw new Error(`Public Helix JSON contains ${excluded.length} unadmitted companies; publication blocked until a safe projection is generated`);
           }
