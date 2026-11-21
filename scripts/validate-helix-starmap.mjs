@@ -45,6 +45,12 @@ async function main() {
   assert(starMatches.every(([, id]) => publicCompanies.some((company) => company.company_id === id)), "unadmitted company leaked into public starmap");
   for (const [, id, ordinal] of starMatches) { const company = publicCompanies.find((row) => row.company_id === id); assert(company, `unknown company star ${id}`); assert(Number(ordinal) === company.second_depth.ordinal, `${id}: visual proof state differs from Helix ordinal`); }
 
+  // Reject excluded company links even outside star/detail markup.
+  for (const company of snapshot.companies.filter((row) => !admittedAtlasCompany(row))) {
+    const route = `/companies/${company.company_id.replaceAll("_", "-")}/`;
+    assert(!page.includes(`href="${route}"`), `${company.company_id}: excluded company route leaked into Starmap`);
+  }
+
   const promoted = publicCompanies.filter((company) => company.second_depth.ordinal === 7);
   const crowns = (page.match(/class="crown"/g) ?? []).length;
   assert(crowns === promoted.length, "gold crown count differs from CLAIM_PROMOTED count");
