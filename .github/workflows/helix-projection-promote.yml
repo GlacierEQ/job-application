@@ -78,6 +78,30 @@ jobs:
       - name: Validate existing V17 hiring surface
         run: node site-v15/scripts/validate.mjs
 
+      - name: Project recruiter-admitted company records into deployable JSON
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFileSync, writeFileSync } from 'node:fs';
+          import { admittedAtlasCompany } from './scripts/public-atlas-admission.mjs';
+          const path = 'site-v15/data/helix-root.json';
+          const snapshot = JSON.parse(readFileSync(path, 'utf8'));
+          if (!Array.isArray(snapshot.companies)) throw new Error('Helix companies array missing');
+          const sourceCount = snapshot.companies.length;
+          const admitted = snapshot.companies.filter(admittedAtlasCompany);
+          if (!admitted.length) throw new Error('No recruiter-admitted companies; refusing empty projection');
+          snapshot.companies = admitted.map(company => ({
+            ...company,
+            repositories: company.repositories.filter(repo =>
+              repo && repo.visibility === 'public' &&
+              repo.inventory_scope === 'HELIX_ADMITTED' &&
+              typeof repo.repository === 'string' &&
+              /^GlacierEQ\\/[A-Za-z0-9_.-]+$/.test(repo.repository)
+            ),
+          }));
+          writeFileSync(path, JSON.stringify(snapshot, null, 2) + '\n');
+          console.log('Deployable company records: ' + admitted.length + ' of ' + sourceCount);
+          NODE
+
       - name: Reject unadmitted companies in deployable Helix JSON
         run: |
           node --input-type=module <<'NODE'
