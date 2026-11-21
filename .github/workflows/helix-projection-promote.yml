@@ -24,10 +24,10 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
-      - name: Checkout canonical portal main without persisted credentials
+      - name: Checkout selected workflow ref without persisted credentials
         uses: actions/checkout@v4
         with:
-          ref: main
+          ref: ${{ github.ref }}
           persist-credentials: false
           fetch-depth: 1
 
