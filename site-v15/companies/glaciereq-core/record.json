@@ -1,5 +1,6 @@
 {
   "boundary": "Independent GlacierEQ work; no employer affiliation is implied by this internal cross-company authority track.",
+  "bundled_capabilities": [],
   "flagships": [],
   "gate": "Cross-company personal systems; ECHO is admitted but remains BLOCKED from promotion pending current-head public-release evidence, while Sigma Glue is admitted as REFERENCE_ONLY until its executable Definition of Done closes.",
   "id": "glaciereq_core",

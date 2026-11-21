@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { sourceBackedCapabilitiesForCompany } from "./recovered-forward-deployed-source-links.mjs";
@@ -463,6 +463,19 @@ async function main() {
   await mkdir(path.dirname(ATLAS_OUTPUT), { recursive: true });
   await writeFile(ATLAS_OUTPUT, html, "utf8");
   await writeCompanyRoutes(companies, stageOrder);
+  // Retire only generated legacy company redirects; preserve unrelated Atlas routes.
+  const admittedSlugs = new Set(companies.map((company) => companySlug(company.company_id)));
+  for (const entry of await readdir(path.join(SITE, "atlas"), { withFileTypes: true })) {
+    if (!entry.isDirectory() || admittedSlugs.has(entry.name)) continue;
+    const directory = path.join(SITE, "atlas", entry.name);
+    let legacyPage;
+    try { legacyPage = await readFile(path.join(directory, "index.html"), "utf8"); }
+    catch (error) { if (error?.code === "ENOENT") continue; throw error; }
+    if (legacyPage.includes('http-equiv="refresh"') &&
+        legacyPage.includes(`url=/companies/${entry.name}/`)) {
+      await rm(directory, { recursive: true, force: true });
+    }
+  }
   console.log(
     `Company Atlas rendered: ${path.relative(ROOT, ATLAS_OUTPUT)} + ${companies.length} company routes; ${advancedDepth} past MAPPED_ONLY`,
   );

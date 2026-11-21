@@ -47,4 +47,4 @@ Apex route contract: each manifest Mega-Skill has its own script-free route at /
 ## Engineering and operations experience
 - /experience/ — Programmatic engineering and operational decisions, with source-linked case studies and explicit evidence limits.
 - /data/engineering-experience.json — Machine-readable version of the engineering and operations review.
-- Company Atlas: https://casey-barton-glaciereq.vercel.app/atlas/ (76 real company routes under /companies/<slug>/; Recruiter + Master + Machine + Mesh depth; Helix-governed second-depth stage, claim ceiling, blockers, next gate, and pinned public evidence)
+- Company Atlas: https://casey-barton-glaciereq.vercel.app/atlas/ (admitted evidence-backed company routes under /companies/<slug>/; Recruiter + Master + Machine + Mesh depth; Helix-governed second-depth stage, claim ceiling, blockers, next gate, and pinned public evidence)

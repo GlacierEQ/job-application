@@ -4,6 +4,7 @@ import { existsSync } from "node:fs";
 import { readdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { admittedAtlasCompany } from "./public-atlas-admission.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SITE = path.join(ROOT, "site-v15");
@@ -117,11 +118,11 @@ async function main() {
   if (snapshot.company_second_depth?.schema !== "glaciereq.company-second-depth.v1") {
     throw new Error("Helix snapshot second-depth contract is missing");
   }
-  const companyIds = snapshot.companies.map((company) => company.company_id);
+  const companyIds = snapshot.companies.filter(admittedAtlasCompany).map((company) => company.company_id);
   if (new Set(companyIds).size !== companyIds.length) {
     throw new Error("duplicate company ids in Helix snapshot");
   }
-  if (!companyIds.includes("lockheed_martin")) {
+  if (!snapshot.companies.some((company) => company.company_id === "lockheed_martin")) {
     throw new Error("Lockheed Martin is absent from the canonical company projection");
   }
 
@@ -132,7 +133,7 @@ async function main() {
   await patchTextFile(
     "llms.txt",
     "- Company Atlas:",
-    "- Company Atlas: https://casey-barton-glaciereq.vercel.app/atlas/ (76 real company routes under /companies/<slug>/; Recruiter + Master + Machine + Mesh depth; Helix-governed second-depth stage, claim ceiling, blockers, next gate, and pinned public evidence)",
+    "- Company Atlas: https://casey-barton-glaciereq.vercel.app/atlas/ (admitted evidence-backed company routes under /companies/<slug>/; Recruiter + Master + Machine + Mesh depth; Helix-governed second-depth stage, claim ceiling, blockers, next gate, and pinned public evidence)",
   );
   await updateSitemap(companyIds);
   console.log(
