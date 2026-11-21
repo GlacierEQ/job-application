@@ -78,6 +78,20 @@ jobs:
       - name: Validate existing V17 hiring surface
         run: node site-v15/scripts/validate.mjs
 
+      - name: Reject unadmitted companies in deployable Helix JSON
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFileSync } from 'node:fs';
+          import { admittedAtlasCompany } from './scripts/public-atlas-admission.mjs';
+          const snapshot = JSON.parse(readFileSync('site-v15/data/helix-root.json', 'utf8'));
+          if (!Array.isArray(snapshot.companies)) throw new Error('Public Helix companies array missing');
+          const excluded = snapshot.companies.filter(company => !admittedAtlasCompany(company));
+          if (excluded.length) {
+            throw new Error(`Public Helix JSON contains ${excluded.length} unadmitted companies; publication blocked until a safe projection is generated`);
+          }
+          console.log(`Public Helix JSON admission verified: ${snapshot.companies.length} companies`);
+          NODE
+
       - name: Stage only deterministic validator and generated public projection
         run: |
           git add scripts/validate-helix-projection.mjs site-v15
