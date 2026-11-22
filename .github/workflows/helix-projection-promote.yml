@@ -171,6 +171,13 @@ jobs:
             git status --short >&2
             exit 1
           fi
+          # git diff ignores untracked files: reject unexpected generated outputs too.
+          unexpected_untracked="$(git ls-files --others --exclude-standard | grep -v '^site-v15/' || true)"
+          if [ -n "$unexpected_untracked" ]; then
+            echo "Unexpected untracked output outside site-v15 projection:" >&2
+            printf '%s\\n' "$unexpected_untracked" >&2
+            exit 1
+          fi
 
       - name: Open generated projection pull request when state changed
         env:
