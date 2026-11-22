@@ -175,7 +175,7 @@ jobs:
           unexpected_untracked="$(git ls-files --others --exclude-standard | grep -v '^site-v15/' || true)"
           if [ -n "$unexpected_untracked" ]; then
             echo "Unexpected untracked output outside site-v15 projection:" >&2
-            printf '%s\\n' "$unexpected_untracked" >&2
+            echo "$unexpected_untracked" >&2
             exit 1
           fi
 
