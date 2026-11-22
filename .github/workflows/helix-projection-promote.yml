@@ -140,8 +140,11 @@ jobs:
           if (priorityWave !== undefined && !Array.isArray(priorityWave)) {
             throw new Error('Public Helix JSON priority wave must be an array');
           }
-          if (priorityWave?.some(id => !admittedIds.has(id))) {
-            throw new Error('Public Helix JSON priority wave references an excluded company');
+          if (priorityWave?.some(id => typeof id !== 'string' || !id.trim() || !admittedIds.has(id))) {
+            throw new Error('Public Helix JSON priority wave contains an invalid or excluded company ID');
+          }
+          if (priorityWave && new Set(priorityWave).size !== priorityWave.length) {
+            throw new Error('Public Helix JSON priority wave contains duplicate company IDs');
           }
           const excluded = snapshot.companies.filter(company => !admittedAtlasCompany(company));
           if (excluded.length) {
