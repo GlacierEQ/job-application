@@ -75,8 +75,15 @@ function statusClass(state) {
 }
 
 function evidenceState(company) {
-  const count = company.repositories.length;
-  const advanced = company.repositories.some((repo) => repo.level === "L4" || repo.level === "L5");
+  // Count distinct, publicly admitted repository identities, not duplicated
+  // snapshot rows or internal-only inventory entries.
+  const eligible = company.repositories.filter((repo) =>
+    repo && repo.visibility === "public" &&
+    repo.inventory_scope === "HELIX_ADMITTED" &&
+    typeof repo.repository === "string" &&
+    REPOSITORY_PATTERN.test(repo.repository));
+  const count = new Set(eligible.map((repo) => repo.repository.toLowerCase())).size;
+  const advanced = eligible.some((repo) => repo.level === "L4" || repo.level === "L5");
   if (count >= 2 || advanced) return "repository-rich";
   if (count === 1) return "seeded";
   return "scaffold";
