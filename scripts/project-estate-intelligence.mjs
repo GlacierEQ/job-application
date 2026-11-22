@@ -105,9 +105,17 @@ function companySlug(companyId) {
 }
 
 function replaceOrInsert(html, block) {
-  const expression = new RegExp(`${START}[\\s\\S]*?${END}`, "m");
-  if (expression.test(html)) return html.replace(expression, block);
+  // Refuse malformed or duplicated managed regions rather than leaving stale
+  // intelligence in a second block or appending into a broken page.
+  const starts = html.split(START).length - 1;
+  const ends = html.split(END).length - 1;
+  requireValue(starts === ends && starts <= 1, "generated page has malformed or duplicate estate intelligence markers");
   requireValue(html.includes("</main>"), "generated company page has no </main> boundary");
+  if (starts === 1) {
+    requireValue(html.indexOf(START) < html.indexOf(END), "estate intelligence markers are reversed");
+    const expression = new RegExp(`${START}[\\s\\S]*?${END}`, "m");
+    return html.replace(expression, block);
+  }
   return html.replace("</main>", `${block}\n</main>`);
 }
 
