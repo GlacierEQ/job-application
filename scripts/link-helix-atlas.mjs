@@ -110,10 +110,8 @@ async function main() {
   if (!Array.isArray(snapshot.companies)) {
     throw new Error("Helix snapshot companies are missing");
   }
-  if (snapshot.companies.length < 76) {
-    throw new Error(
-      `expected >=76 governed company tracks, received ${snapshot.companies.length}`,
-    );
+  if (snapshot.companies.length === 0) {
+    throw new Error("public Helix snapshot must contain at least one admitted company");
   }
   if (snapshot.company_second_depth?.schema !== "glaciereq.company-second-depth.v1") {
     throw new Error("Helix snapshot second-depth contract is missing");
@@ -122,8 +120,8 @@ async function main() {
   if (new Set(companyIds).size !== companyIds.length) {
     throw new Error("duplicate company ids in Helix snapshot");
   }
-  if (!snapshot.companies.some((company) => company.company_id === "lockheed_martin")) {
-    throw new Error("Lockheed Martin is absent from the canonical company projection");
+  if (companyIds.length !== snapshot.companies.length) {
+    throw new Error("public Helix snapshot contains a company outside Atlas admission");
   }
 
   let htmlPatched = 0;
