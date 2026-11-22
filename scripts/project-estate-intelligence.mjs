@@ -110,17 +110,19 @@ function replaceOrInsert(html, block) {
   const starts = html.split(START).length - 1;
   const ends = html.split(END).length - 1;
   requireValue(starts === ends && starts <= 1, "generated page has malformed or duplicate estate intelligence markers");
-  requireValue(html.includes("</main>"), "generated company page has no </main> boundary");
+  const mainOpenTags = [...html.matchAll(/<main(?:\s[^>]*)?>/gi)];
+  const mainCloseTags = [...html.matchAll(/<\/main\s*>/gi)];
+  requireValue(mainOpenTags.length === 1 && mainCloseTags.length === 1, "generated page must have exactly one <main> region");
+  const mainStart = mainOpenTags[0].index + mainOpenTags[0][0].length;
+  const mainEnd = mainCloseTags[0].index;
+  requireValue(mainStart <= mainEnd, "generated page has reversed <main> boundaries");
   if (starts === 1) {
     requireValue(html.indexOf(START) < html.indexOf(END), "estate intelligence markers are reversed");
-    const mainOpen = html.indexOf("<main");
-    const mainStart = mainOpen < 0 ? -1 : html.indexOf(">", mainOpen);
-    const mainEnd = html.indexOf("</main>");
-    requireValue(mainStart >= 0 && mainStart < html.indexOf(START) && html.indexOf(END) < mainEnd, "estate intelligence markers must be inside <main>");
+    requireValue(mainStart <= html.indexOf(START) && html.indexOf(END) + END.length <= mainEnd, "estate intelligence markers must be inside <main>");
     const expression = new RegExp(`${START}[\\s\\S]*?${END}`, "m");
     return html.replace(expression, block);
   }
-  return html.replace("</main>", `${block}\n</main>`);
+  return `${html.slice(0, mainEnd)}${block}\n${html.slice(mainEnd)}`;
 }
 
 function validateSource(source, companyId) {
