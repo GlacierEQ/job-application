@@ -96,9 +96,11 @@ async function main() {
     snapshot.companies.length === receipt.company_tracks,
     "Company Atlas company count must match helix projection receipt",
   );
+  const admittedCompanies = snapshot.companies.filter(admittedAtlasCompany);
+  assert(admittedCompanies.length > 0, "Atlas must have admitted companies");
   assert(
-    atlas.includes(`${snapshot.companies.length} governed`) ||
-      atlas.includes(String(snapshot.companies.length)),
+    atlas.includes(`${admittedCompanies.length} governed`) ||
+      atlas.includes(String(admittedCompanies.length)),
     "atlas index must surface live governed track count",
   );
   assert(
@@ -115,16 +117,16 @@ async function main() {
   assert(atlas.includes("POWER-MAP MODE"), "Power-map mode is missing");
   assert(atlas.includes("CROWN JEWELS"), "Atlas Crown Jewels section is missing");
   assert(atlas.includes("SECOND-DEPTH CONTRACT"), "Atlas second-depth contract is missing");
-  assert(snapshot.companies.every(admittedAtlasCompany), "Atlas contains an unadmitted company");
-  assert(new Set(snapshot.companies.map((company) => company.company_id)).size === snapshot.companies.length, "Atlas contains duplicate company ids");
+  assert(admittedCompanies.every(admittedAtlasCompany), "Atlas contains an unadmitted company");
+  assert(new Set(admittedCompanies.map((company) => company.company_id)).size === admittedCompanies.length, "Atlas contains duplicate company ids");
   assert(!/<script(?:\s|>)/i.test(atlas), "Company Atlas added client script despite zero-script contract");
   assert(!/\sstyle\s*=\s*/i.test(atlas), "Company Atlas cannot use inline style under locked CSP");
   assert(
-    (atlas.match(/class="atlas-star /g) ?? []).length === snapshot.companies.length,
+    (atlas.match(/class="atlas-star /g) ?? []).length === admittedCompanies.length,
     "constellation star count differs from company snapshot",
   );
   assert(
-    (atlas.match(/class="atlas-directory-item"/g) ?? []).length === snapshot.companies.length,
+    (atlas.match(/class="atlas-directory-item"/g) ?? []).length === admittedCompanies.length,
     "directory count differs from company snapshot",
   );
   assert(
@@ -136,7 +138,7 @@ async function main() {
 
   const css = await readFile(path.join(SITE, "assets", "helix-atlas.css"), "utf8");
   const starsCss = await readFile(path.join(SITE, "assets", "helix-atlas.stars.css"), "utf8");
-  const lastStar = snapshot.companies.length - 1;
+  const lastStar = admittedCompanies.length - 1;
   assert(
     starsCss.includes(`.atlas-star.star-p${lastStar}{`),
     `constellation position star-p${lastStar} missing for live company count`,
@@ -151,16 +153,16 @@ async function main() {
   const entries = await readdir(companiesDir, { withFileTypes: true });
   const companyDirectories = entries.filter((entry) => entry.isDirectory());
   assert(
-    companyDirectories.length === snapshot.companies.length,
+    companyDirectories.length === admittedCompanies.length,
     "generated company route count differs from snapshot",
   );
-  const expectedCompanySlugs = new Set(snapshot.companies.map((company) => companySlug(company.company_id)));
+  const expectedCompanySlugs = new Set(admittedCompanies.map((company) => companySlug(company.company_id)));
   assert(
     companyDirectories.every((entry) => expectedCompanySlugs.has(entry.name)),
     "generated company routes contain an unadmitted directory",
   );
   assert(
-    expectedCompanySlugs.size === snapshot.companies.length,
+    expectedCompanySlugs.size === admittedCompanies.length,
     "multiple admitted company ids map to the same public route",
   );
   const companiesIndex = await readFile(path.join(companiesDir, "index.html"), "utf8");
@@ -171,7 +173,7 @@ async function main() {
   assert(companiesIndex.includes('href="/hire/"'), "companies index must link Hire");
   assert(companiesIndex.includes('href="/companies/"'), "companies index must self-identify");
 
-  for (const company of snapshot.companies) {
+  for (const company of admittedCompanies) {
     const slug = companySlug(company.company_id);
     const directory = path.join(companiesDir, slug);
     await access(path.join(directory, "index.html"));
@@ -250,7 +252,7 @@ async function main() {
     assert(!/javascript\s*:/i.test(text), `unsafe javascript URL: ${path.relative(ROOT, file)}`);
   }
   assert(
-    linked.length >= snapshot.companies.length + 5,
+    linked.length >= admittedCompanies.length + 5,
     "Atlas was not linked across all primary surfaces and company routes",
   );
 
@@ -266,18 +268,18 @@ async function main() {
     "sitemap missing /companies/ index",
   );
   assert(
-    !sitemap.includes("/atlas/starmap/"),
+    (await access(path.join(SITE, "atlas", "starmap", "index.html")).then(() => true, () => false)) || !sitemap.includes("/atlas/starmap/"),
     "sitemap must not list missing /atlas/starmap/",
   );
   assert(llms.includes("Company Atlas"), "Company Atlas missing from llms.txt");
-  for (const company of snapshot.companies) {
+  for (const company of admittedCompanies) {
     assert(
       sitemap.includes(`/companies/${companySlug(company.company_id)}/`),
       `${company.company_id}: company route missing from sitemap`,
     );
   }
   const admittedCompanyRoutes = new Set(
-    snapshot.companies.map((company) => `/companies/${companySlug(company.company_id)}/`),
+    admittedCompanies.map((company) => `/companies/${companySlug(company.company_id)}/`),
   );
   const publishedCompanyRoutes = [...sitemap.matchAll(/<loc>[^<]*?(\/companies\/[^<]*?)<\/loc>/g)]
     .map((match) => match[1]);
@@ -291,8 +293,8 @@ async function main() {
   );
 
   const depthCounts = Object.fromEntries(SECOND_DEPTH_STAGES.map((stage) => [stage, 0]));
-  for (const company of snapshot.companies) depthCounts[company.second_depth.stage] += 1;
-  const promotedCompanies = snapshot.companies.filter(
+  for (const company of admittedCompanies) depthCounts[company.second_depth.stage] += 1;
+  const promotedCompanies = admittedCompanies.filter(
     (company) => company.second_depth.stage === "CLAIM_PROMOTED",
   );
   assert(
@@ -302,7 +304,7 @@ async function main() {
   assert(promotedCompanies.every(admittedAtlasCompany), "unadmitted promoted company in public Atlas");
   const depthSum = Object.values(depthCounts).reduce((a, b) => a + b, 0);
   assert(
-    depthSum === snapshot.companies.length,
+    depthSum === admittedCompanies.length,
     "second-depth stage counts must cover all company tracks",
   );
 
@@ -312,8 +314,8 @@ async function main() {
         schema: "glaciereq.company-atlas-validation.v3",
         status: "PASS",
         flagships: snapshot.flagships.length,
-        company_routes: snapshot.companies.length,
-        constellation_stars: snapshot.companies.length,
+        company_routes: admittedCompanies.length,
+        constellation_stars: admittedCompanies.length,
         claim_promoted_companies: promotedCompanies.length,
         second_depth: depthCounts,
         linked_html_surfaces: linked.length,

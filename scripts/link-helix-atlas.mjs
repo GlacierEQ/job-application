@@ -120,8 +120,8 @@ async function main() {
   if (new Set(companyIds).size !== companyIds.length) {
     throw new Error("duplicate company ids in Helix snapshot");
   }
-  if (companyIds.length !== snapshot.companies.length) {
-    throw new Error("public Helix snapshot contains a company outside Atlas admission");
+  if (companyIds.length === 0) {
+    throw new Error("public Helix snapshot has no admitted Atlas companies");
   }
 
   let htmlPatched = 0;

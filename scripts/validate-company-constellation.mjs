@@ -3,6 +3,7 @@
 import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { admittedAtlasCompany } from "./public-atlas-admission.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SITE = path.join(ROOT, "site-v15");
@@ -39,10 +40,12 @@ async function main() {
   assert(summary.source?.source_digest === snapshot.source?.source_digest, "atlas summary source digest differs from public projection");
   assert(typeof summary.source?.dossier_digest === "string" && /^[a-f0-9]{64}$/.test(summary.source.dossier_digest), "atlas dossier digest is missing");
   assert(Array.isArray(summary.tracks), "atlas summary tracks must be an array");
-  assert(summary.counts?.governed_tracks === snapshot.companies.length, "governed-track count differs from Helix projection");
-  assert(summary.tracks.length === snapshot.companies.length, "summary track count differs from Helix projection");
+  const admittedCompanies = snapshot.companies.filter(admittedAtlasCompany);
+  assert(admittedCompanies.length > 0, "no admitted public company tracks");
+  assert(summary.counts?.governed_tracks === admittedCompanies.length, "governed-track count differs from Helix projection");
+  assert(summary.tracks.length === admittedCompanies.length, "summary track count differs from Helix projection");
 
-  const snapshotById = new Map(snapshot.companies.map((company) => [company.company_id, company]));
+  const snapshotById = new Map(admittedCompanies.map((company) => [company.company_id, company]));
   const ids = summary.tracks.map((track) => track.company_id);
   assert(new Set(ids).size === ids.length, "duplicate company IDs in atlas summary");
   const mappedTotal = summary.tracks.reduce((sum, track) => sum + track.mapped_repository_records, 0);
@@ -96,6 +99,7 @@ async function main() {
 
   const dirs = (await readdir(ATLAS, { withFileTypes: true })).filter((entry) => entry.isDirectory()).map((entry) => entry.name);
   for (const dir of dirs) {
+    if (dir === "starmap") continue;
     assert(summary.tracks.some((track) => slug(track.company_id) === dir), `stale company directory ${dir}`);
   }
 
