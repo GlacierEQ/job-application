@@ -130,6 +130,10 @@ jobs:
             if (!Array.isArray(company.repositories) || company.repositories.length === 0) {
               throw new Error('Public Helix JSON company has no admitted repositories');
             }
+            const repositoryNames = new Set(company.repositories.map(repo => repo?.repository));
+            if (repositoryNames.size !== company.repositories.length) {
+              throw new Error('Public Helix JSON contains duplicate repository references');
+            }
             for (const repo of company.repositories) {
               if (!repo || typeof repo !== 'object' || Array.isArray(repo) ||
                   repo.visibility !== 'public' || repo.inventory_scope !== 'HELIX_ADMITTED' ||
