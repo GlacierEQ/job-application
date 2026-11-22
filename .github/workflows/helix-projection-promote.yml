@@ -150,6 +150,9 @@ jobs:
           console.log(`Public Helix JSON admission verified: ${snapshot.companies.length} companies`);
           NODE
 
+      - name: Revalidate final sanitized public site
+        run: node site-v15/scripts/validate.mjs
+
       - name: Stage only deterministic validator and generated public projection
         run: |
           git add scripts/validate-helix-projection.mjs site-v15
