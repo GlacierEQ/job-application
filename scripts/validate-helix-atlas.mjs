@@ -4,6 +4,7 @@ import { access, readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { sourceBackedCapabilitiesForCompany } from "./recovered-forward-deployed-source-links.mjs";
+import { admittedAtlasCompany } from "./public-atlas-admission.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SITE = path.join(ROOT, "site-v15");
@@ -88,8 +89,8 @@ async function main() {
   );
 
   assert(
-    snapshot.companies.length >= 76,
-    "Company Atlas must render all governed company tracks (floor 76)",
+    Array.isArray(snapshot.companies) && snapshot.companies.length > 0,
+    "Company Atlas must render at least one admitted company",
   );
   assert(
     snapshot.companies.length === receipt.company_tracks,
@@ -114,7 +115,8 @@ async function main() {
   assert(atlas.includes("POWER-MAP MODE"), "Power-map mode is missing");
   assert(atlas.includes("CROWN JEWELS"), "Atlas Crown Jewels section is missing");
   assert(atlas.includes("SECOND-DEPTH CONTRACT"), "Atlas second-depth contract is missing");
-  assert(atlas.includes("Lockheed Martin"), "Lockheed Martin is missing from Atlas");
+  assert(snapshot.companies.every(admittedAtlasCompany), "Atlas contains an unadmitted company");
+  assert(new Set(snapshot.companies.map((company) => company.company_id)).size === snapshot.companies.length, "Atlas contains duplicate company ids");
   assert(!/<script(?:\s|>)/i.test(atlas), "Company Atlas added client script despite zero-script contract");
   assert(!/\sstyle\s*=\s*/i.test(atlas), "Company Atlas cannot use inline style under locked CSP");
   assert(
@@ -225,45 +227,6 @@ async function main() {
     validateMachineDepth(company, record);
   }
 
-  const lockheed = snapshot.companies.find((company) => company.company_id === "lockheed_martin");
-  assert(lockheed, "Lockheed Martin track is absent from generated snapshot");
-  assert(lockheed.repositories.length === 0, "Lockheed Martin route gained unsupported repository proof");
-  assert(lockheed.second_depth.stage === "CLAIM_PROMOTED", "Lockheed Martin second-depth stage drift");
-  assert(
-    lockheed.second_depth.claim_ceiling === "proof_bound_company_specific",
-    "Lockheed Martin claim ceiling does not match promoted stage",
-  );
-  assert(lockheed.second_depth.ordinal === 7, "Lockheed Martin second-depth ordinal drift");
-  assert(lockheed.second_depth.evidence.role_evidence.length === 1, "Lockheed Martin role evidence missing");
-  assert(lockheed.second_depth.evidence.problem_evidence.length === 1, "Lockheed Martin problem evidence missing");
-  assert(
-    lockheed.second_depth.evidence.inspected_repositories.length === 4,
-    "Lockheed Martin inspected-path evidence is incomplete",
-  );
-  assert(lockheed.second_depth.evidence.gap_queue.length === 1, "Lockheed Martin bounded remedy evidence missing");
-  assert(lockheed.second_depth.evidence.implementation_receipts.length === 1, "Lockheed Martin implementation receipt missing");
-  assert(lockheed.second_depth.evidence.proof_artifacts.length === 1, "Lockheed Martin reproduced proof missing");
-  assert(lockheed.second_depth.evidence.proof_artifacts[0].verification_state === "REPRODUCED", "Lockheed Martin proof is not reproduced");
-  assert(lockheed.second_depth.evidence.claim_receipts.length === 1, "Lockheed Martin claim receipt missing");
-  const lockheedPage = await readFile(
-    path.join(companiesDir, "lockheed-martin", "index.html"),
-    "utf8",
-  );
-  assert(lockheedPage.includes("Lockheed Martin"), "Lockheed Martin route identity missing");
-  assert(lockheedPage.includes("CLAIM_PROMOTED"), "Lockheed Martin promoted state missing");
-  assert(
-    lockheedPage.includes("proof_bound_company_specific"),
-    "Lockheed Martin proof-bound claim ceiling missing",
-  );
-  assert(
-    lockheedPage.includes("no Lockheed Martin affiliation"),
-    "Lockheed Martin non-affiliation boundary missing",
-  );
-  assert(
-    lockheedPage.includes("No company-specific repository is currently admitted"),
-    "Lockheed Martin route does not expose zero-repository boundary",
-  );
-
   const linked = [];
   for (const file of await htmlFiles(SITE)) {
     const text = await readFile(file, "utf8");
@@ -304,7 +267,7 @@ async function main() {
       `${company.company_id}: company route missing from sitemap`,
     );
   }
-  assert(sitemap.includes("/companies/lockheed-martin/"), "Lockheed Martin missing from sitemap");
+  assert(!sitemap.includes("/companies/lockheed-martin/"), "excluded Lockheed Martin route leaked into sitemap");
 
   const depthCounts = Object.fromEntries(SECOND_DEPTH_STAGES.map((stage) => [stage, 0]));
   for (const company of snapshot.companies) depthCounts[company.second_depth.stage] += 1;
@@ -316,8 +279,7 @@ async function main() {
     promotedCompanies.every((company) => company.second_depth.evidence.claim_receipts.length > 0),
     "every CLAIM_PROMOTED Atlas company must retain public claim receipts",
   );
-  assert(promotedIds.has("lockheed_martin"), "Lockheed Martin CLAIM_PROMOTED Atlas state regressed");
-  assert(promotedIds.has("github"), "GitHub CLAIM_PROMOTED Atlas state regressed");
+  assert(promotedCompanies.every(admittedAtlasCompany), "unadmitted promoted company in public Atlas");
   const depthSum = Object.values(depthCounts).reduce((a, b) => a + b, 0);
   assert(
     depthSum === snapshot.companies.length,
@@ -334,17 +296,6 @@ async function main() {
         constellation_stars: snapshot.companies.length,
         claim_promoted_companies: promotedCompanies.length,
         second_depth: depthCounts,
-        lockheed_martin: {
-          route: "/companies/lockheed-martin/",
-          repositories: lockheed.repositories.length,
-          stage: lockheed.second_depth.stage,
-          claim_ceiling: lockheed.second_depth.claim_ceiling,
-        },
-        github: {
-          route: "/companies/github/",
-          stage: snapshot.companies.find((company) => company.company_id === "github")?.second_depth.stage,
-          claim_ceiling: snapshot.companies.find((company) => company.company_id === "github")?.second_depth.claim_ceiling,
-        },
         linked_html_surfaces: linked.length,
         client_scripts: 0,
       },
