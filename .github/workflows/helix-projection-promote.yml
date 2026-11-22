@@ -120,6 +120,22 @@ jobs:
           if (admittedIds.size !== snapshot.companies.length || admittedIds.has(undefined)) {
             throw new Error('Public Helix JSON has missing or duplicate company IDs');
           }
+          for (const company of snapshot.companies) {
+            if (typeof company.company_id !== 'string' || !company.company_id.trim()) {
+              throw new Error('Public Helix JSON company ID must be a nonblank string');
+            }
+            if (!Array.isArray(company.repositories) || company.repositories.length === 0) {
+              throw new Error('Public Helix JSON company has no admitted repositories');
+            }
+            for (const repo of company.repositories) {
+              if (!repo || typeof repo !== 'object' || Array.isArray(repo) ||
+                  repo.visibility !== 'public' || repo.inventory_scope !== 'HELIX_ADMITTED' ||
+                  typeof repo.repository !== 'string' ||
+                  !/^GlacierEQ\/[A-Za-z0-9_.-]+$/.test(repo.repository)) {
+                throw new Error('Public Helix JSON contains an unadmitted repository');
+              }
+            }
+          }
           const priorityWave = snapshot.company_second_depth?.priority_wave;
           if (priorityWave !== undefined && !Array.isArray(priorityWave)) {
             throw new Error('Public Helix JSON priority wave must be an array');
