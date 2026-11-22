@@ -267,7 +267,19 @@ async function main() {
       `${company.company_id}: company route missing from sitemap`,
     );
   }
-  assert(!sitemap.includes("/companies/lockheed-martin/"), "excluded Lockheed Martin route leaked into sitemap");
+  const admittedCompanyRoutes = new Set(
+    snapshot.companies.map((company) => `/companies/${companySlug(company.company_id)}/`),
+  );
+  const publishedCompanyRoutes = [...sitemap.matchAll(/<loc>[^<]*?(\/companies\/[^<]*?)<\/loc>/g)]
+    .map((match) => match[1]);
+  assert(
+    publishedCompanyRoutes.every((route) => admittedCompanyRoutes.has(route) || route === "/companies/"),
+    "sitemap contains an unadmitted company route",
+  );
+  assert(
+    new Set(publishedCompanyRoutes).size === publishedCompanyRoutes.length,
+    "sitemap contains duplicate company routes",
+  );
 
   const depthCounts = Object.fromEntries(SECOND_DEPTH_STAGES.map((stage) => [stage, 0]));
   for (const company of snapshot.companies) depthCounts[company.second_depth.stage] += 1;
