@@ -154,6 +154,15 @@ async function main() {
     companyDirectories.length === snapshot.companies.length,
     "generated company route count differs from snapshot",
   );
+  const expectedCompanySlugs = new Set(snapshot.companies.map((company) => companySlug(company.company_id)));
+  assert(
+    companyDirectories.every((entry) => expectedCompanySlugs.has(entry.name)),
+    "generated company routes contain an unadmitted directory",
+  );
+  assert(
+    expectedCompanySlugs.size === snapshot.companies.length,
+    "multiple admitted company ids map to the same public route",
+  );
   const companiesIndex = await readFile(path.join(companiesDir, "index.html"), "utf8");
   assert((companiesIndex.match(/<h1\b/g) ?? []).length === 1, "companies index must contain one h1");
   assert(!/<script\b/i.test(companiesIndex), "companies index must remain script-free");
