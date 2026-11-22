@@ -323,9 +323,9 @@ async function main() {
     },
   };
 
-  await mkdir(path.dirname(OUTPUT_PATH), { recursive: true });
-  await writeFile(OUTPUT_PATH, stableJson(output), "utf8");
-
+  // Preflight every destination before changing any public artifact. A missing
+  // admitted route or malformed HTML must not leave a partially published bundle.
+  const companyUpdates = [];
   for (const record of orderedRecords) {
     const companyPath = path.join(
       SITE,
@@ -334,15 +334,17 @@ async function main() {
       "index.html",
     );
     const html = await readFile(companyPath, "utf8");
-    await writeFile(companyPath, replaceOrInsert(html, companyBlock(record)), "utf8");
+    companyUpdates.push([companyPath, replaceOrInsert(html, companyBlock(record))]);
   }
-
   const atlasHtml = await readFile(ATLAS_PATH, "utf8");
-  await writeFile(
-    ATLAS_PATH,
-    replaceOrInsert(atlasHtml, atlasBlock(orderedRecords.length, manifest)),
-    "utf8",
-  );
+  const updatedAtlasHtml = replaceOrInsert(atlasHtml, atlasBlock(orderedRecords.length, manifest));
+
+  await mkdir(path.dirname(OUTPUT_PATH), { recursive: true });
+  for (const [companyPath, html] of companyUpdates) {
+    await writeFile(companyPath, html, "utf8");
+  }
+  await writeFile(ATLAS_PATH, updatedAtlasHtml, "utf8");
+  await writeFile(OUTPUT_PATH, stableJson(output), "utf8");
 
   console.log(
     `Public estate intelligence projected: ${orderedRecords.length} companies · Helix ${commit}`,
