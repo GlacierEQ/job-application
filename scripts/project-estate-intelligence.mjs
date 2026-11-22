@@ -113,6 +113,10 @@ function replaceOrInsert(html, block) {
   requireValue(html.includes("</main>"), "generated company page has no </main> boundary");
   if (starts === 1) {
     requireValue(html.indexOf(START) < html.indexOf(END), "estate intelligence markers are reversed");
+    const mainOpen = html.indexOf("<main");
+    const mainStart = mainOpen < 0 ? -1 : html.indexOf(">", mainOpen);
+    const mainEnd = html.indexOf("</main>");
+    requireValue(mainStart >= 0 && mainStart < html.indexOf(START) && html.indexOf(END) < mainEnd, "estate intelligence markers must be inside <main>");
     const expression = new RegExp(`${START}[\\s\\S]*?${END}`, "m");
     return html.replace(expression, block);
   }
