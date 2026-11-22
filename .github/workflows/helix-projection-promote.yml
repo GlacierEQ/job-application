@@ -117,6 +117,9 @@ jobs:
           const snapshot = JSON.parse(readFileSync('site-v15/data/helix-root.json', 'utf8'));
           if (!Array.isArray(snapshot.companies)) throw new Error('Public Helix companies array missing');
           const admittedIds = new Set(snapshot.companies.map(company => company.company_id));
+          if (snapshot.companies.length === 0) {
+            throw new Error('Public Helix JSON must contain at least one admitted company');
+          }
           if (admittedIds.size !== snapshot.companies.length || admittedIds.has(undefined)) {
             throw new Error('Public Helix JSON has missing or duplicate company IDs');
           }
