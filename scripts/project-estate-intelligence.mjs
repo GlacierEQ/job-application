@@ -5,6 +5,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
+import { admittedAtlasCompany } from "./public-atlas-admission.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SITE = path.join(ROOT, "site-v15");
@@ -257,9 +258,10 @@ async function main() {
   requireValue(Array.isArray(manifest.shards) && manifest.shards.length > 0, "external company-intelligence shards missing");
   requireValue(Array.isArray(manifest.excluded_company_ids), "excluded company list is invalid");
 
-  const governedCompanies = new Set(
-    (snapshot.companies ?? []).map((company) => company.company_id),
-  );
+  requireValue(Array.isArray(snapshot.companies), "public projection companies are missing");
+  const governedCompanies = new Set(snapshot.companies.map((company) => company.company_id));
+  const admittedCompanies = new Set(snapshot.companies.filter(admittedAtlasCompany).map((company) => company.company_id));
+  requireValue(admittedCompanies.size > 0, "public projection has no admitted Atlas companies");
   requireValue(governedCompanies.size === (snapshot.companies ?? []).length, "public projection has duplicate company tracks");
   const records = new Map();
 
@@ -286,7 +288,9 @@ async function main() {
     requireValue(!records.has(excluded), `excluded company intelligence leaked: ${excluded}`);
   }
 
-  const orderedRecords = [...records.values()].sort((a, b) =>
+  // Validate every acquired record above, but publish only recruiter-admitted routes.
+  // Internal company intelligence remains in the pinned upstream source.
+  const orderedRecords = [...records.values()].filter((record) => admittedCompanies.has(record.company_id)).sort((a, b) =>
     a.company_id.localeCompare(b.company_id),
   );
   const output = {
