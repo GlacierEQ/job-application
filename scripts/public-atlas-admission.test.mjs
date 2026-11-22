@@ -9,3 +9,6 @@ test('rejects private or estate-only repository count inflation', () => assert.e
 test('rejects proven stage without public admitted repository', () => assert.equal(admittedAtlasCompany(company([repo('private')], 'CLAIM_PROMOTED')),false));
 test('rejects blocked track even with two public repositories', () => assert.equal(admittedAtlasCompany(company([repo(),repo('public','HELIX_ADMITTED','GlacierEQ/proof2')], 'CODE_INSPECTED', 'MAPPED_NOT_RECRUITER_READY')),false));
 test('rejects malformed repository identities and non-object rows', () => assert.equal(admittedAtlasCompany(company([repo('public','HELIX_ADMITTED','../../private'),null])),false));
+
+test('duplicate repository rows cannot inflate recruiter admission', () => assert.equal(admittedAtlasCompany(company([repo(),repo()])), false));
+test('case-variant repository duplicates cannot inflate recruiter admission', () => assert.equal(admittedAtlasCompany(company([repo(),repo('public','HELIX_ADMITTED','GlacierEQ/PROOF')])), false));
