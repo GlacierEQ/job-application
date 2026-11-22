@@ -185,8 +185,13 @@ function generateStarPositionCss(count) {
 function directoryCard(company) {
   const state = evidenceState(company);
   const depth = requireSecondDepth(company);
-  const repoSummary = company.repositories.length > 0
-    ? `${company.repositories.length} public ${company.repositories.length === 1 ? "repo" : "repos"}`
+  const publicRepoCount = new Set(company.repositories
+    .filter((repo) => repo && repo.visibility === "public" &&
+      repo.inventory_scope === "HELIX_ADMITTED" &&
+      typeof repo.repository === "string" && REPOSITORY_PATTERN.test(repo.repository))
+    .map((repo) => repo.repository.toLowerCase())).size;
+  const repoSummary = publicRepoCount > 0
+    ? `${publicRepoCount} public ${publicRepoCount === 1 ? "repo" : "repos"}`
     : depth.ordinal > 0
       ? "Promoted reference track"
       : "Target domain lens";
