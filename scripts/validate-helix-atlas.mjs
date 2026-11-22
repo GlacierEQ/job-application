@@ -274,7 +274,6 @@ async function main() {
   const promotedCompanies = snapshot.companies.filter(
     (company) => company.second_depth.stage === "CLAIM_PROMOTED",
   );
-  const promotedIds = new Set(promotedCompanies.map((company) => company.company_id));
   assert(
     promotedCompanies.every((company) => company.second_depth.evidence.claim_receipts.length > 0),
     "every CLAIM_PROMOTED Atlas company must retain public claim receipts",
