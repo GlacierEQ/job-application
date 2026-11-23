@@ -238,7 +238,7 @@ async function main() {
     const admittedIds = new Set(expectedPublicRepos.map((repo) => repo.repository.toLowerCase()));
     for (const repo of company.repositories) {
       if (typeof repo?.repository !== "string" ||
-          !/^GlacierEQ\\/[A-Za-z0-9_.-]+$/.test(repo.repository) ||
+          !/^GlacierEQ\/[A-Za-z0-9_.-]+$/.test(repo.repository) ||
           admittedIds.has(repo.repository.toLowerCase())) continue;
       const [owner, name] = repo.repository.split("/");
       const forbiddenUrl = `https://github.com/${encodeURIComponent(owner)}/${encodeURIComponent(name)}`;
