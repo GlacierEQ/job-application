@@ -22,11 +22,8 @@ export function activateAtlasHtml(input) {
   if (!html.includes('class="atlas-directory"')) {
     throw new Error("Atlas directory anchor missing; refusing partial activation");
   }
-  for (const state of FILTER_STATES) {
-    if (!html.includes(`class="evidence-state ${state}"`)) {
-      throw new Error(`Atlas evidence state '${state}' missing; refusing misleading filters`);
-    }
-  }
+  const presentStates = FILTER_STATES.filter((state) => html.includes(`class="evidence-state ${state}"`));
+  if (presentStates.length === 0) throw new Error("Atlas has no admitted evidence states");
   if (/<script\b/i.test(html)) {
     throw new Error("Atlas must remain script-free before interaction activation");
   }
@@ -40,9 +37,7 @@ export function activateAtlasHtml(input) {
     const controls = `<fieldset class="atlas-filters" aria-label="Filter company lenses by evidence depth">
 <legend>Evidence depth</legend>
 <label class="atlas-filter-option"><input type="radio" name="atlas-evidence" value="all" checked>All company lenses</label>
-<label class="atlas-filter-option"><input type="radio" name="atlas-evidence" value="repository-rich">Repository-rich</label>
-<label class="atlas-filter-option"><input type="radio" name="atlas-evidence" value="seeded">Seeded</label>
-<label class="atlas-filter-option"><input type="radio" name="atlas-evidence" value="scaffold">Scaffold</label>
+${presentStates.map((state) => `<label class="atlas-filter-option"><input type="radio" name="atlas-evidence" value="${state}">${state === 'repository-rich' ? 'Repository-rich' : state === 'seeded' ? 'Seeded' : 'Scaffold'}</label>`).join('\n')}
 <p class="atlas-filter-note">Filter by evidence depth without JavaScript. Browser Find remains available for company, stage, and state lookup.</p>
 </fieldset>`;
     html = html.replace('<div class="atlas-directory">', `${controls}<div class="atlas-directory" aria-live="polite">`);
