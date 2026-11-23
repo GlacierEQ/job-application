@@ -36,3 +36,10 @@ test('rejects estate-only and malformed repository records', () => {
   assert.equal(admittedAtlasCompany(company([{ repository: '../../private', visibility: 'public', inventory_scope: 'HELIX_ADMITTED' }])), false);
   assert.equal(admittedAtlasCompany({}), false);
 });
+
+test('rejects dot-segment pseudo repositories even with verified depth', () => {
+  for (const name of ['.', '..']) {
+    assert.equal(admittedAtlasCompany(company([repo(name)], 'CLAIM_PROMOTED')), false);
+    assert.equal(admittedAtlasCompany(company([repo('valid'), repo(name)])), false);
+  }
+});
