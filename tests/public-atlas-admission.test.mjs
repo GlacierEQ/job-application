@@ -49,3 +49,14 @@ test('rejects dot-segment pseudo repositories even with verified depth', () => {
     assert.equal(admittedAtlasCompany(company([repo('valid'), repo(name)])), false);
   }
 });
+
+test('recognizes GitHub organization identities case-insensitively', () => {
+  assert.equal(admittedAtlasCompany(company([
+    { repository: 'glaciereq/one', visibility: 'public', inventory_scope: 'HELIX_ADMITTED' },
+    repo('two'),
+  ])), true);
+  assert.equal(admittedAtlasCompany(company([
+    { repository: 'GLACIEREQ/One', visibility: 'public', inventory_scope: 'HELIX_ADMITTED' },
+    repo('one'),
+  ])), false);
+});
