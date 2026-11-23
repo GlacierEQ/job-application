@@ -13,6 +13,12 @@ test('excludes blocked recruiter states despite qualifying repositories and stag
   }
 });
 
+test('rejects case-variant blocked recruiter states', () => {
+  for (const state of ['mapped_not_recruiter_ready', 'Candidate_Target_Requires_Direct_Evidence', 'no_direct_exhibit_verified']) {
+    assert.equal(admittedAtlasCompany(company([repo('one'), repo('two')], 'CLAIM_PROMOTED', state)), false);
+  }
+});
+
 test('admits two distinct source-admitted public repositories', () => {
   assert.equal(admittedAtlasCompany(company([repo('one'), repo('two')])), true);
 });
