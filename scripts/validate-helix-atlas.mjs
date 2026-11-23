@@ -217,7 +217,7 @@ async function main() {
       repo && repo.visibility === "public" &&
       repo.inventory_scope === "HELIX_ADMITTED" &&
       typeof repo.repository === "string" &&
-      /^GlacierEQ\\/[A-Za-z0-9_.-]+$/.test(repo.repository) &&
+      /^GlacierEQ\/[A-Za-z0-9_.-]+$/.test(repo.repository) &&
       all.findIndex((candidate) => typeof candidate?.repository === "string" &&
         candidate.repository.toLowerCase() === repo.repository.toLowerCase() &&
         candidate.visibility === "public" && candidate.inventory_scope === "HELIX_ADMITTED") === index);
