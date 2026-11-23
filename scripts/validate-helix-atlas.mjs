@@ -212,11 +212,14 @@ async function main() {
     assert(record.schema === "glaciereq.company-intelligence.v1", `${company.company_id}: machine record schema mismatch`);
     assert(record.id === company.company_id, `${company.company_id}: machine record identity mismatch`);
     assert(record.route === `/companies/${slug}/`, `${company.company_id}: machine route mismatch`);
-    const expectedPublicRepos = company.repositories.filter((repo) =>
+    const expectedPublicRepos = company.repositories.filter((repo, index, all) =>
       repo && repo.visibility === "public" &&
       repo.inventory_scope === "HELIX_ADMITTED" &&
       typeof repo.repository === "string" &&
-      /^GlacierEQ\\/[A-Za-z0-9_.-]+$/.test(repo.repository));
+      /^GlacierEQ\\/[A-Za-z0-9_.-]+$/.test(repo.repository) &&
+      all.findIndex((candidate) => typeof candidate?.repository === "string" &&
+        candidate.repository.toLowerCase() === repo.repository.toLowerCase() &&
+        candidate.visibility === "public" && candidate.inventory_scope === "HELIX_ADMITTED") === index);
     assert(
       Array.isArray(record.repos) &&
         record.repos.length === expectedPublicRepos.length &&
