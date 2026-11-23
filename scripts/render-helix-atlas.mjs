@@ -426,10 +426,13 @@ async function main() {
   // An admitted company can still carry private/internal repository rows.
   const companies = snapshot.companies.filter(admittedAtlasCompany).map((company) => ({
     ...company,
-    repositories: company.repositories.filter((repo) =>
+    repositories: company.repositories.filter((repo, index, all) =>
       repo && repo.visibility === "public" &&
       repo.inventory_scope === "HELIX_ADMITTED" &&
-      typeof repo.repository === "string" && REPOSITORY_PATTERN.test(repo.repository)),
+      typeof repo.repository === "string" && REPOSITORY_PATTERN.test(repo.repository) &&
+      all.findIndex((candidate) => typeof candidate?.repository === "string" &&
+        candidate.repository.toLowerCase() === repo.repository.toLowerCase() &&
+        candidate.visibility === "public" && candidate.inventory_scope === "HELIX_ADMITTED") === index),
   })).sort((a, b) => a.display_name.localeCompare(b.display_name));
   for (const company of companies) {
     companySlug(company.company_id);
