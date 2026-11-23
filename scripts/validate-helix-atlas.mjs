@@ -130,6 +130,18 @@ async function main() {
     (atlas.match(/class="atlas-directory-item"/g) ?? []).length === admittedCompanies.length,
     "directory count differs from company snapshot",
   );
+  // A correct aggregate count can still hide duplicated links and missing
+  // company destinations. Require one star and one directory link per ID.
+  for (const company of admittedCompanies) {
+    const route = `/companies/${companySlug(company.company_id)}/`;
+    // The same route legitimately appears in power-map and other links;
+    // isolate the anchor tags for each navigational surface instead.
+    const anchors = [...atlas.matchAll(/<a\\b[^>]*>/g)].map((match) => match[0]);
+    const stars = anchors.filter((anchor) => anchor.includes('class="atlas-star ') && anchor.includes(`href="${route}"`));
+    const directory = anchors.filter((anchor) => anchor.includes('class="atlas-directory-item"') && anchor.includes(`href="${route}"`));
+    assert(stars.length === 1, `${company.company_id}: Atlas star route missing or duplicated`);
+    assert(directory.length === 1, `${company.company_id}: Atlas directory route missing or duplicated`);
+  }
   assert(
     (atlas.match(/class="card atlas-flagship"/g) ?? []).length === snapshot.flagships.length,
     "Atlas flagship count differs from snapshot",
