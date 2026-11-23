@@ -60,3 +60,9 @@ test('recognizes GitHub organization identities case-insensitively', () => {
     repo('one'),
   ])), false);
 });
+
+test('rejects repository identities exceeding GitHub name length limits', () => {
+  assert.equal(admittedAtlasCompany(company([repo('a'.repeat(101))], 'CLAIM_PROMOTED')), false);
+  assert.equal(admittedAtlasCompany(company([repo('a'.repeat(100))], 'CLAIM_PROMOTED')), true);
+  assert.equal(admittedAtlasCompany(company([repo('valid'), repo('a'.repeat(101))])), false);
+});
