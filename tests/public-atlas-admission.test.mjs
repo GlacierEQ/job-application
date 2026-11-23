@@ -21,6 +21,10 @@ test('rejects duplicate evidence rows as a substitute for distinct repositories'
   assert.equal(admittedAtlasCompany(company([repo('one'), repo('one')])), false);
 });
 
+test('rejects GitHub repository identities differing only by case', () => {
+  assert.equal(admittedAtlasCompany(company([repo('One'), repo('one')])), false);
+});
+
 test('admits verified depth only when at least one public repository is admitted', () => {
   assert.equal(admittedAtlasCompany(company([repo('one')], 'PROOF_REPRODUCED')), true);
   assert.equal(admittedAtlasCompany(company([], 'PROOF_REPRODUCED')), false);
