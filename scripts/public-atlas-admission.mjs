@@ -4,7 +4,7 @@ const PROVEN_STAGES = new Set(['CODE_INSPECTED', 'PROOF_REPRODUCED', 'CLAIM_PROM
 export function admittedAtlasCompany(company) {
   if (!company || typeof company !== 'object' || Array.isArray(company) || !Array.isArray(company.repositories)) return false;
   if (BLOCKED.test(String(company.track_state ?? '').toUpperCase())) return false;
-  const publicRepositories = company.repositories.filter((repo) => repo && typeof repo === 'object' && !Array.isArray(repo) && repo.visibility === 'public' && repo.inventory_scope === 'HELIX_ADMITTED' && typeof repo.repository === 'string' && /^GlacierEQ\/(?!\.{1,2}$)[A-Za-z0-9_.-]+$/.test(repo.repository));
+  const publicRepositories = company.repositories.filter((repo) => repo && typeof repo === 'object' && !Array.isArray(repo) && repo.visibility === 'public' && repo.inventory_scope === 'HELIX_ADMITTED' && typeof repo.repository === 'string' && /^GlacierEQ\/(?!\.{1,2}$)[A-Za-z0-9_.-]+$/i.test(repo.repository));
   const distinctPublicRepositories = new Set(publicRepositories.map((repo) => repo.repository.toLowerCase()));
   if (distinctPublicRepositories.size === 0) return false;
   const stage = company.second_depth?.stage;
