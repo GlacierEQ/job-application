@@ -422,7 +422,15 @@ async function main() {
     throw new Error("Helix projection must contain the eight-stage company second-depth contract");
   }
 
-  const companies = snapshot.companies.filter(admittedAtlasCompany).sort((a, b) => a.display_name.localeCompare(b.display_name));
+  // Publish only eligible public repository evidence. Keep the source snapshot intact.
+  // An admitted company can still carry private/internal repository rows.
+  const companies = snapshot.companies.filter(admittedAtlasCompany).map((company) => ({
+    ...company,
+    repositories: company.repositories.filter((repo) =>
+      repo && repo.visibility === "public" &&
+      repo.inventory_scope === "HELIX_ADMITTED" &&
+      typeof repo.repository === "string" && REPOSITORY_PATTERN.test(repo.repository)),
+  })).sort((a, b) => a.display_name.localeCompare(b.display_name));
   for (const company of companies) {
     companySlug(company.company_id);
     if (!Array.isArray(company.repositories)) {
