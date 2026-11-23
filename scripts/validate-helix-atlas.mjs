@@ -213,7 +213,12 @@ async function main() {
     assert(record.id === company.company_id, `${company.company_id}: machine record identity mismatch`);
     assert(record.route === `/companies/${slug}/`, `${company.company_id}: machine route mismatch`);
     assert(
-      Array.isArray(record.repos) && record.repos.length === company.repositories.length,
+      Array.isArray(record.repos) &&
+        record.repos.length === company.repositories.filter((repo) =>
+          repo && repo.visibility === "public" &&
+          repo.inventory_scope === "HELIX_ADMITTED" &&
+          typeof repo.repository === "string" &&
+          /^GlacierEQ\\/[A-Za-z0-9_.-]+$/.test(repo.repository)).length,
       `${company.company_id}: machine repository count mismatch`,
     );
     const expectedBundled = sourceBackedCapabilitiesForCompany(company.company_id);
