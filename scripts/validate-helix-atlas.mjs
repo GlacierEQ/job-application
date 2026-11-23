@@ -233,6 +233,18 @@ async function main() {
         }),
       `${company.company_id}: machine repository evidence mismatch`,
     );
+    // Machine-record checks alone cannot detect a private repository link
+    // accidentally rendered into the public HTML dossier.
+    const admittedIds = new Set(expectedPublicRepos.map((repo) => repo.repository.toLowerCase()));
+    for (const repo of company.repositories) {
+      if (typeof repo?.repository !== "string" ||
+          !/^GlacierEQ\\/[A-Za-z0-9_.-]+$/.test(repo.repository) ||
+          admittedIds.has(repo.repository.toLowerCase())) continue;
+      const [owner, name] = repo.repository.split("/");
+      const forbiddenUrl = `https://github.com/${encodeURIComponent(owner)}/${encodeURIComponent(name)}`;
+      assert(!page.toLowerCase().includes(forbiddenUrl.toLowerCase()),
+        `${company.company_id}: unadmitted repository link leaked into public dossier`);
+    }
     const expectedBundled = sourceBackedCapabilitiesForCompany(company.company_id);
     assert(
       Array.isArray(record.bundled_capabilities) &&
