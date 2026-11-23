@@ -212,14 +212,22 @@ async function main() {
     assert(record.schema === "glaciereq.company-intelligence.v1", `${company.company_id}: machine record schema mismatch`);
     assert(record.id === company.company_id, `${company.company_id}: machine record identity mismatch`);
     assert(record.route === `/companies/${slug}/`, `${company.company_id}: machine route mismatch`);
+    const expectedPublicRepos = company.repositories.filter((repo) =>
+      repo && repo.visibility === "public" &&
+      repo.inventory_scope === "HELIX_ADMITTED" &&
+      typeof repo.repository === "string" &&
+      /^GlacierEQ\\/[A-Za-z0-9_.-]+$/.test(repo.repository));
     assert(
       Array.isArray(record.repos) &&
-        record.repos.length === company.repositories.filter((repo) =>
-          repo && repo.visibility === "public" &&
-          repo.inventory_scope === "HELIX_ADMITTED" &&
-          typeof repo.repository === "string" &&
-          /^GlacierEQ\\/[A-Za-z0-9_.-]+$/.test(repo.repository)).length,
-      `${company.company_id}: machine repository count mismatch`,
+        record.repos.length === expectedPublicRepos.length &&
+        record.repos.every((repo, index) => {
+          const expected = expectedPublicRepos[index];
+          return repo && repo.id === expected.repository &&
+            repo.lvl === expected.level &&
+            repo.state === expected.promotion_state &&
+            repo.provenance === expected.provenance_state;
+        }),
+      `${company.company_id}: machine repository evidence mismatch`,
     );
     const expectedBundled = sourceBackedCapabilitiesForCompany(company.company_id);
     assert(
