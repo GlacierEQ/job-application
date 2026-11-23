@@ -98,10 +98,11 @@ async function main() {
   );
   const admittedCompanies = snapshot.companies.filter(admittedAtlasCompany);
   assert(admittedCompanies.length > 0, "Atlas must have admitted companies");
+  // Match the actual generated proof-strip field, not an unrelated number in
+  // CSS, a link, or another section of stale Atlas HTML.
   assert(
-    atlas.includes(`${admittedCompanies.length} governed`) ||
-      atlas.includes(String(admittedCompanies.length)),
-    "atlas index must surface live governed track count",
+    atlas.includes(`<b>${admittedCompanies.length}</b><span>governed company lenses</span>`),
+    "atlas index governed company count differs from admitted snapshot",
   );
   assert(
     Array.isArray(snapshot.company_second_depth?.stage_order) &&
