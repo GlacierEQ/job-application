@@ -22,13 +22,13 @@ const affected = {
   ],
 };
 
-test('every source-backed capability survives fresh Helix projection regeneration', async () => {
+test('blocked company dossiers stay private after Helix projection regeneration', async () => {
   const temp = await mkdtemp(path.join(tmpdir(), 'glaciereq-source-surface-'));
   try {
     await mkdir(path.join(temp, 'scripts'));
     await mkdir(path.join(temp, 'site-v15', 'data'), { recursive: true });
     await mkdir(path.join(temp, 'site-v15', 'assets'));
-    for (const file of ['render-helix-atlas.mjs', 'recovered-forward-deployed-source-links.mjs']) {
+    for (const file of ['render-helix-atlas.mjs', 'recovered-forward-deployed-source-links.mjs', 'public-atlas-admission.mjs']) {
       await copyFile(path.join(root, 'scripts', file), path.join(temp, 'scripts', file));
     }
     const snapshot = JSON.parse(await readFile(path.join(root, 'site-v15/data/helix-root.json'), 'utf8'));
@@ -41,24 +41,18 @@ test('every source-backed capability survives fresh Helix projection regeneratio
     const run = spawnSync(process.execPath, [path.join(temp, 'scripts/render-helix-atlas.mjs')], { encoding: 'utf8' });
     assert.equal(run.status, 0, run.stderr);
 
+    // Blocked company dossiers remain in the private Helix source, not public routes.
+    const source = JSON.parse(await readFile(path.join(temp, 'site-v15/data/helix-root.json'), 'utf8'));
     for (const [companyId, names] of Object.entries(affected)) {
-      const site = path.join(temp, 'site-v15/companies', companyId);
-      const html = await readFile(path.join(site, 'index.html'), 'utf8');
-      const record = JSON.parse(await readFile(path.join(site, 'record.json'), 'utf8'));
       const original = snapshot.companies.find(c => c.company_id === companyId);
-      assert.equal(record.repos.length, original.repositories.length, 'real repo count unchanged');
-      assert.deepEqual(record.bundled_capabilities.map(x => x.name), names);
-      assert.match(html, /id="source-backed-capabilities"/);
-      for (const name of names) {
-        assert.ok(html.includes(name), name + ' missing in public dossier');
-        assert.ok(html.includes('Bundled source; standalone repository not published'));
-        assert.doesNotMatch(html, new RegExp('href="https://github\\.com/GlacierEQ/' + name + '"'));
-      }
-      assert.equal((html.match(/class="source-backed-capability"/g) || []).length, names.length);
-      assert.match(html, new RegExp('forward_deployed/' + companyId + '/__init__\\.py'));
+      const retained = source.companies.find(c => c.company_id === companyId);
+      assert.deepEqual(retained.repositories, original.repositories, 'internal source remains intact');
+      assert.equal(retained.track_state, 'MAPPED_NOT_RECRUITER_READY');
+      for (const name of names) assert.ok(!retained.repositories.some(r => r.repository.endsWith('/' + name)));
+      await assert.rejects(readFile(path.join(temp, 'site-v15/companies', companyId, 'index.html'), 'utf8'), { code: 'ENOENT' });
     }
-    const other = JSON.parse(await readFile(path.join(temp, 'site-v15/companies/openai/record.json'), 'utf8'));
-    assert.deepEqual(other.bundled_capabilities, []);
+    await assert.rejects(readFile(path.join(temp, 'site-v15/companies/openai/record.json'), 'utf8'), { code: 'ENOENT' });
+
   } finally {
     await rm(temp, { recursive: true, force: true });
   }
