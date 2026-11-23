@@ -253,8 +253,22 @@ async function main() {
           !/^GlacierEQ\/[A-Za-z0-9_.-]+$/.test(repo.repository) ||
           admittedIds.has(repo.repository.toLowerCase())) continue;
       const [owner, name] = repo.repository.split("/");
-      const forbiddenUrl = `https://github.com/${encodeURIComponent(owner)}/${encodeURIComponent(name)}`;
-      assert(!page.toLowerCase().includes(forbiddenUrl.toLowerCase()),
+      // Match a complete href target, not a substring of another repository
+      // (e.g. repo versus repo-tools). Decode URL path components so escaped
+      // hrefs cannot bypass the publication guard.
+      const links = [...page.matchAll(/\\bhref\\s*=\\s*["']([^"']+)["']/gi)];
+      const leaked = links.some((match) => {
+        try {
+          const url = new URL(match[1], "https://casey-barton-glaciereq.vercel.app");
+          const segments = url.pathname.split("/").filter(Boolean).map(decodeURIComponent);
+          return url.hostname.toLowerCase() === "github.com" &&
+            segments.length === 2 && segments[0].toLowerCase() === owner.toLowerCase() &&
+            segments[1].toLowerCase() === name.toLowerCase();
+        } catch {
+          return false;
+        }
+      });
+      assert(!leaked,
         `${company.company_id}: unadmitted repository link leaked into public dossier`);
     }
     const expectedBundled = sourceBackedCapabilitiesForCompany(company.company_id);
