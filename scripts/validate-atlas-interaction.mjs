@@ -25,6 +25,7 @@ for (const state of ["repository-rich", "seeded", "scaffold"]) {
   requireContract(atlas.includes(`value="${state}"`) === (counts[state] > 0), `final Atlas ${state} control does not match its cohort`);
   requireContract(css.includes(`evidence-state.${state}`), `interaction CSS missing ${state} selector`);
 }
+requireContract(counts.seeded === 0 && counts.scaffold === 0, "public Atlas must not expose seeded or scaffold company entries");
 requireContract(Object.values(counts).some(Boolean), "final Atlas has no admitted company entries");
 requireContract(css.includes(":has("), "interaction CSS must bind controls to directory evidence badges");
 requireContract(css.includes("focus-within"), "interaction CSS missing keyboard focus treatment");
