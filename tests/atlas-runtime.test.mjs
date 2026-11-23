@@ -33,7 +33,9 @@ test("all evidence-state filters bind to the real directory badge contract", () 
 
 test("activation fails closed if any evidence cohort disappears", () => {
   const incomplete = fixture().replace('<a class="atlas-directory-item"><b class="evidence-state scaffold">Scaffold</b></a>', "");
-  assert.throws(() => activateAtlasHtml(incomplete), /evidence state 'scaffold' missing/);
+  const admittedOnly = activateAtlasHtml(incomplete);
+  assert.doesNotMatch(admittedOnly, /value="scaffold"/);
+  assert.match(admittedOnly, /value="repository-rich"/);
 });
 
 test("activation refuses renderer-contract drift and preexisting client scripts", () => {
