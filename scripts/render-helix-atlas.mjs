@@ -431,7 +431,14 @@ async function main() {
     requireSecondDepth(company);
   }
 
-  const publicMemberships = companies.reduce((count, company) => count + company.repositories.length, 0);
+  const publicMemberships = companies.reduce((count, company) => {
+    const identities = company.repositories
+      .filter((repo) => repo && repo.visibility === "public" &&
+        repo.inventory_scope === "HELIX_ADMITTED" &&
+        typeof repo.repository === "string" && REPOSITORY_PATTERN.test(repo.repository))
+      .map((repo) => repo.repository.toLowerCase());
+    return count + new Set(identities).size;
+  }, 0);
   const rich = companies.filter((company) => evidenceState(company) === "repository-rich").length;
   const seeded = companies.filter((company) => evidenceState(company) === "seeded").length;
   const scaffold = companies.filter((company) => evidenceState(company) === "scaffold").length;
