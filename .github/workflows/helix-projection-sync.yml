@@ -80,6 +80,8 @@ jobs:
         run: node scripts/render-helix-atlas.mjs
       - name: Link Atlas across public surfaces
         run: node scripts/link-helix-atlas.mjs
+      - name: Regenerate route index after public Atlas admission
+        run: node scripts/complete-sitemap.mjs
       - name: Validate generated Atlas, company routes, and links
         run: node scripts/validate-helix-atlas.mjs
       - name: Reconcile constellation taxonomy to governed Helix tracks
@@ -118,3 +120,4 @@ jobs:
             site-v15/companies/
           if-no-files-found: error
           retention-days: 30
+

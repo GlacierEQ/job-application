@@ -118,7 +118,7 @@ async function main() {
   assert(atlas.includes("POWER-MAP MODE"), "Power-map mode is missing");
   assert(atlas.includes("CROWN JEWELS"), "Atlas Crown Jewels section is missing");
   assert(atlas.includes("SECOND-DEPTH CONTRACT"), "Atlas second-depth contract is missing");
-  assert(atlas.includes("Lockheed Martin"), "Lockheed Martin is missing from Atlas");
+  assert(!atlas.includes("Lockheed Martin"), "unadmitted Lockheed Martin track leaked into public Atlas");
   assert(!/<script(?:\s|>)/i.test(atlas), "Company Atlas added client script despite zero-script contract");
   assert(!/\sstyle\s*=\s*/i.test(atlas), "Company Atlas cannot use inline style under locked CSP");
   assert(
@@ -249,24 +249,11 @@ async function main() {
   assert(lockheed.second_depth.evidence.proof_artifacts.length === 1, "Lockheed Martin reproduced proof missing");
   assert(lockheed.second_depth.evidence.proof_artifacts[0].verification_state === "REPRODUCED", "Lockheed Martin proof is not reproduced");
   assert(lockheed.second_depth.evidence.claim_receipts.length === 1, "Lockheed Martin claim receipt missing");
-  const lockheedPage = await readFile(
-    path.join(companiesDir, "lockheed-martin", "index.html"),
-    "utf8",
-  );
-  assert(lockheedPage.includes("Lockheed Martin"), "Lockheed Martin route identity missing");
-  assert(lockheedPage.includes("CLAIM_PROMOTED"), "Lockheed Martin promoted state missing");
-  assert(
-    lockheedPage.includes("proof_bound_company_specific"),
-    "Lockheed Martin proof-bound claim ceiling missing",
-  );
-  assert(
-    lockheedPage.includes("no Lockheed Martin affiliation"),
-    "Lockheed Martin non-affiliation boundary missing",
-  );
-  assert(
-    lockheedPage.includes("No company-specific repository is currently admitted"),
-    "Lockheed Martin route does not expose zero-repository boundary",
-  );
+  // Promoted proof in the internal snapshot does not override the explicit
+  // NO_DIRECT_EXHIBIT_VERIFIED public gate. Retain proof, withhold the route.
+  assert(!admittedAtlasCompany(lockheed), "Lockheed Martin lacks public admission");
+  assert(!companyDirectories.some((entry) => entry.name === "lockheed-martin"),
+    "unadmitted Lockheed Martin company route leaked");
 
   const linked = [];
   for (const file of await htmlFiles(SITE)) {
@@ -308,7 +295,7 @@ async function main() {
       `${company.company_id}: company route missing from sitemap`,
     );
   }
-  assert(sitemap.includes("/companies/lockheed-martin/"), "Lockheed Martin missing from sitemap");
+  assert(!sitemap.includes("/companies/lockheed-martin/"), "unadmitted Lockheed Martin sitemap route leaked");
 
   const depthCounts = Object.fromEntries(SECOND_DEPTH_STAGES.map((stage) => [stage, 0]));
   for (const company of snapshot.companies) depthCounts[company.second_depth.stage] += 1;
@@ -339,7 +326,7 @@ async function main() {
         claim_promoted_companies: promotedCompanies.length,
         second_depth: depthCounts,
         lockheed_martin: {
-          route: "/companies/lockheed-martin/",
+          route: null,
           repositories: lockheed.repositories.length,
           stage: lockheed.second_depth.stage,
           claim_ceiling: lockheed.second_depth.claim_ceiling,
