@@ -107,7 +107,8 @@ assert(Array.isArray(before.waves) && Array.isArray(after.waves), 'rollout waves
 if (migrated) {
   assert(after.policy?.direction === 'MAXIMUM_COHERENT_ADVANCE', 'v2 capability-evolution direction is missing');
   assert(after.policy?.retirement_requires_verified_capability_preservation === true, 'v2 capability-preservation gate missing');
-  assert(after.policy?.remote_ref_deletion_allowed === false, 'v2 remote-ref deletion boundary missing');
+  assert(after.policy?.retirement_requires_operator_authorization === true, 'v2 retirement requires operator authorization');
+  assert(after.policy?.remote_ref_deletion_allowed !== true, 'v2 must not authorize remote ref deletion');
   assert(after.root_status?.source_commit === before.root_status?.canonical_commit, 'root verification receipt changed during migration');
 } else {
   assert(JSON.stringify(after.policy) === JSON.stringify(before.policy), 'rollout policy changed without schema migration');

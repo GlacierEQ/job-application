@@ -5,6 +5,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
+import { admittedAtlasCompany } from "./public-atlas-admission.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SITE = path.join(ROOT, "site-v15");
@@ -286,9 +287,14 @@ async function main() {
     requireValue(!records.has(excluded), `excluded company intelligence leaked: ${excluded}`);
   }
 
-  const orderedRecords = [...records.values()].sort((a, b) =>
-    a.company_id.localeCompare(b.company_id),
-  );
+  // Validate and retain every source-bound research row in Helix. Publish
+  // employer-specific company exhibits only for source-admitted public tracks.
+  const admittedIds = new Set((snapshot.companies ?? [])
+    .filter(admittedAtlasCompany)
+    .map((company) => company.company_id));
+  const orderedRecords = [...records.values()]
+    .filter((record) => admittedIds.has(record.company_id))
+    .sort((a, b) => a.company_id.localeCompare(b.company_id));
   const output = {
     schema: OUTPUT_SCHEMA,
     source: {

@@ -4,6 +4,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
+import { admittedAtlasCompany } from "./public-atlas-admission.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SITE = path.join(ROOT, "site-v15");
@@ -102,8 +103,8 @@ async function main() {
   requireValue(intelligence.truth_boundary?.source_snapshot_requires_refresh_for_live_application === true, "freshness truth boundary missing");
 
   scanForbiddenKeys(intelligence);
-  requireValue(Array.isArray(intelligence.records) && intelligence.records.length === 47, "public estate intelligence must contain 47 external company records");
-  const governed = new Set((snapshot.companies ?? []).map((company) => company.company_id));
+  const governed = new Set((snapshot.companies ?? []).filter(admittedAtlasCompany).map((company) => company.company_id));
+  requireValue(Array.isArray(intelligence.records) && intelligence.records.length <= governed.size, "public estate intelligence exceeds admitted company tracks");
   const seen = new Set();
   for (const record of intelligence.records) {
     requireValue(record && typeof record === "object" && !Array.isArray(record), "estate intelligence record invalid");
@@ -153,7 +154,7 @@ async function main() {
 
   const atlasHtml = await readFile(ATLAS_PATH, "utf8");
   requireValue(markerCount(atlasHtml, START) === 1 && markerCount(atlasHtml, END) === 1, "Atlas estate-intelligence summary is not exactly-once");
-  requireValue(atlasHtml.includes("47 source-bound company pressure dossiers"), "Atlas external-intelligence count missing");
+  requireValue(atlasHtml.includes(`${intelligence.records.length} source-bound company pressure dossiers`), "Atlas public-intelligence count missing");
   requireValue(!/<script\b/i.test(atlasHtml), "Atlas estate projection introduced client script");
   requireValue(!/\sstyle\s*=\s*/i.test(atlasHtml), "Atlas estate projection introduced inline style");
 
