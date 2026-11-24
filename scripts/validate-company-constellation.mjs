@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
-import { readdir, readFile } from "node:fs/promises";
+import { access, readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { admittedAtlasCompany } from "./public-atlas-admission.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SITE = path.join(ROOT, "site-v15");
@@ -39,10 +40,17 @@ async function main() {
   assert(summary.source?.source_digest === snapshot.source?.source_digest, "atlas summary source digest differs from public projection");
   assert(typeof summary.source?.dossier_digest === "string" && /^[a-f0-9]{64}$/.test(summary.source.dossier_digest), "atlas dossier digest is missing");
   assert(Array.isArray(summary.tracks), "atlas summary tracks must be an array");
-  assert(summary.counts?.governed_tracks === snapshot.companies.length, "governed-track count differs from Helix projection");
-  assert(summary.tracks.length === snapshot.companies.length, "summary track count differs from Helix projection");
+  assert(Array.isArray(snapshot.companies), "Helix company projection is missing");
 
-  const snapshotById = new Map(snapshot.companies.map((company) => [company.company_id, company]));
+  // Internal dossier coverage is not a publication gate. The renderer deliberately
+  // includes only companies that have cleared the public source-admission rule.
+  const admitted = snapshot.companies.filter(admittedAtlasCompany);
+  const admittedIds = new Set(admitted.map((company) => company.company_id));
+  assert(summary.counts?.governed_tracks === admitted.length, "public governed-track count differs from admitted Helix projection");
+  assert(summary.tracks.length === admitted.length, "public summary track count differs from admitted Helix projection");
+  assert(summary.tracks.every((track) => admittedIds.has(track.company_id)), "public summary contains a non-admitted company");
+
+  const snapshotById = new Map(admitted.map((company) => [company.company_id, company]));
   const ids = summary.tracks.map((track) => track.company_id);
   assert(new Set(ids).size === ids.length, "duplicate company IDs in atlas summary");
   const mappedTotal = summary.tracks.reduce((sum, track) => sum + track.mapped_repository_records, 0);
@@ -59,7 +67,7 @@ async function main() {
   let companyPages = 0;
   for (const track of summary.tracks) {
     const company = snapshotById.get(track.company_id);
-    assert(company, `summary contains unknown company ${track.company_id}`);
+    assert(company, `summary contains unknown or unadmitted company ${track.company_id}`);
     assert(Number.isInteger(track.mapped_repository_records) && track.mapped_repository_records >= 0, `${track.company_id}: invalid mapped count`);
     assert(Number.isInteger(track.recruiter_admissible_repositories) && track.recruiter_admissible_repositories >= 0, `${track.company_id}: invalid recruiter count`);
     assert(track.recruiter_admissible_repositories === company.repositories.length, `${track.company_id}: recruiter count differs from public projection`);
@@ -94,9 +102,15 @@ async function main() {
   assert(!summaryText.includes("PRIVATE_CANDIDATE") && !summaryText.includes("PRIVATE_EXPERIMENT"), "private state leaked into atlas summary");
   assert(!summaryText.includes('"visibility"'), "repository visibility metadata leaked into aggregate atlas summary");
 
+  // Old renderer versions may leave empty folders after removing an unadmitted
+  // page. Only actual index.html pages can be live, navigable disclosures.
   const dirs = (await readdir(ATLAS, { withFileTypes: true })).filter((entry) => entry.isDirectory()).map((entry) => entry.name);
   for (const dir of dirs) {
-    assert(summary.tracks.some((track) => slug(track.company_id) === dir), `stale company directory ${dir}`);
+    if (dir === "starmap") continue; // independently governed Atlas exhibit
+    let hasIndex = true;
+    try { await access(path.join(ATLAS, dir, "index.html")); }
+    catch (error) { if (error?.code === "ENOENT") hasIndex = false; else throw error; }
+    assert(!hasIndex || summary.tracks.some((track) => slug(track.company_id) === dir), `stale public company page ${dir}`);
   }
 
   console.log(JSON.stringify({

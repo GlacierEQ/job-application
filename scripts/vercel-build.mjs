@@ -10,9 +10,11 @@ const steps = [
   ['scripts/render-helix-atlas.mjs'],
   ['scripts/link-helix-atlas.mjs'],
   ['scripts/project-estate-intelligence.mjs'],
+  ['scripts/render-role-fit-briefs.mjs'],
   ['scripts/apply-complete-web-design.mjs'],
   ['scripts/compress-recruiter-surface.mjs'],
   ['scripts/compress-recruiter-surface.mjs', '--check'],
+  ['scripts/render-role-fit-briefs.mjs', '--check'],
   ['scripts/render-invention-evidence-map.mjs'],
   ['scripts/validate-invention-evidence-map.mjs'],
   ['scripts/render-evidence-gallery.mjs'],
@@ -37,3 +39,4 @@ for (const args of steps) {
   const result = spawnSync(process.execPath, args, { stdio: 'inherit' });
   if (result.status !== 0) process.exit(result.status ?? 1);
 }
+

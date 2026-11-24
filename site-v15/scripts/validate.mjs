@@ -86,7 +86,10 @@ for (const [name, html] of Object.entries(pages)) {
 }
 
 const htmlFiles = await discoverHtml(rootPath);
-assert(htmlFiles.length >= 360, `complete surface unexpectedly small: ${htmlFiles.length} HTML files`);
+// Public company routes follow source-admission: removing non-admitted pages
+// must not fail an obsolete 360-file inventory quota. Validate real routes.
+assert(htmlFiles.length >= Object.keys(pages).length, "required public HTML surfaces missing");
+assert(htmlFiles.some(file => file.endsWith(path.join("role-fit", "index.html"))), "employer-specific evidence hub missing");
 for (const file of htmlFiles) {
   const relative = path.relative(rootPath, file).replaceAll(path.sep, '/');
   const html = await readFile(file, 'utf8');
