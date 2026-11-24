@@ -9,6 +9,7 @@ on:
       - "scripts/reconcile-helix-company-cardinality.mjs"
       - "scripts/reconcile-company-constellation-taxonomy.mjs"
       - "scripts/project-estate-intelligence.mjs"
+      - "scripts/complete-sitemap.mjs"
       - "scripts/render-helix-atlas.mjs"
       - "scripts/render-company-constellation.mjs"
       - "scripts/link-helix-atlas.mjs"
@@ -31,6 +32,7 @@ on:
       - "scripts/reconcile-helix-company-cardinality.mjs"
       - "scripts/reconcile-company-constellation-taxonomy.mjs"
       - "scripts/project-estate-intelligence.mjs"
+      - "scripts/complete-sitemap.mjs"
       - "scripts/render-helix-atlas.mjs"
       - "scripts/render-company-constellation.mjs"
       - "scripts/link-helix-atlas.mjs"
@@ -90,6 +92,8 @@ jobs:
         run: node scripts/render-company-constellation.mjs
       - name: Link company constellation across public surfaces
         run: node scripts/link-company-constellation.mjs
+      - name: Reconcile final sitemap after constellation rendering
+        run: node scripts/complete-sitemap.mjs
       - name: Validate company constellation and evidence boundaries
         run: node scripts/validate-company-constellation.mjs
       - name: Project source-bound estate intelligence
