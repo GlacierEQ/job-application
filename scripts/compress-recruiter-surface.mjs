@@ -29,6 +29,7 @@ const REQUIRED_STATIC_DEEP_ROUTES = [
   'atlas/index.html',
   'inventions/index.html',
   'hire/index.html',
+  'role-fit/index.html',
   'resume/index.html',
   'companies/index.html',
   'mega-skills/index.html',
@@ -74,7 +75,15 @@ function curateEstate(html){
 function normalizeHome(source) {
   const match = source.match(PRIMARY_NAV_RE);
   if (!match) throw new Error('recruiter_primary_nav_missing');
-  return curateEstate(source.replace(PRIMARY_NAV_RE, RECRUITER_NAV));
+  let html = curateEstate(source.replace(PRIMARY_NAV_RE, RECRUITER_NAV));
+  // Make evidence-based employer conversations reachable without burying the
+  // complete systems catalogue or adding another navigation inventory item.
+  if (!html.includes('href="/role-fit/"')) {
+    const actions = '<div class="hero-actions">';
+    if (!html.includes(actions)) throw new Error('recruiter_hero_actions_missing');
+    html = html.replace(actions, `${actions}<a class="button ghost" href="/role-fit/">Employer-specific engineering briefs</a>`);
+  }
+  return html;
 }
 
 function normalizeResume(source) {
@@ -97,6 +106,7 @@ function extractPrimaryNav(source) {
 
 function validate(home, resume) {
   if (!home.includes('data-estate-curated="true"') || !home.includes('class="estate-full-index"')) throw new Error('curated_estate_discovery_missing');
+  if (!home.includes('href="/role-fit/"')) throw new Error('role_fit_recruiter_link_missing');
   const nav = extractPrimaryNav(home);
   const hrefs = [...nav.matchAll(/<a\b[^>]*href=["']([^"']+)["']/g)].map((match) => match[1]);
   const expected = ['#proof', '#flagships', '/inventions/', '/mega-skills/', '/monolith/', '/atlas/', '/mesh/', '/machine/', '/companies/', '/hire/', '/resume/', '/master/'];
@@ -149,3 +159,4 @@ console.log(JSON.stringify({
   mode: VERIFY_ONLY ? 'check' : 'apply',
   ...result,
 }, null, 2));
+
