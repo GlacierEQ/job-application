@@ -284,10 +284,10 @@ async function main() {
     sitemap.includes("https://casey-barton-glaciereq.vercel.app/companies/</loc>"),
     "sitemap missing /companies/ index",
   );
-  assert(
-    !sitemap.includes("/atlas/starmap/"),
-    "sitemap must not list missing /atlas/starmap/",
-  );
+  // The starmap is a shipped, independently rendered route. Preserve its
+  // discoverability when regenerating the sitemap from real static files.
+  await access(path.join(SITE, "atlas", "starmap", "index.html"));
+  assert(sitemap.includes("/atlas/starmap/"), "existing Atlas starmap missing from sitemap");
   assert(llms.includes("Company Atlas"), "Company Atlas missing from llms.txt");
   for (const company of publicCompanies) {
     assert(
