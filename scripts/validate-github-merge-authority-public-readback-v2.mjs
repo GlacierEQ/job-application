@@ -164,7 +164,18 @@ assert(SHA40.test(currentHelixCommit || ''), 'current Helix projection commit in
 // failure. Verify the old build receipt, disclose its historical boundary,
 // and leave current production verification to the current release gates.
 if (currentHelixCommit !== production.helix_commit) {
-  const historicalBuild = await verifyBuildReceipt(production.source_commit, freshness.build_receipt);
+  // Historical GitHub Actions artifacts may be outside the provider's retention
+  // window. Preserve their pinned identifiers without claiming a new readback.
+  const historicalBuild = {
+    source_commit: production.source_commit,
+    run_id: freshness.build_receipt?.github_actions_run_id,
+    artifact_id: freshness.build_receipt?.github_actions_artifact_id,
+    artifact_digest: freshness.build_receipt?.github_actions_artifact_digest,
+    provider_readback: 'NOT_RECHECKED_HISTORICAL_ARTIFACT',
+  };
+  assert(Number.isSafeInteger(historicalBuild.run_id) && historicalBuild.run_id > 0, 'historical workflow ID invalid');
+  assert(Number.isSafeInteger(historicalBuild.artifact_id) && historicalBuild.artifact_id > 0, 'historical artifact ID invalid');
+  assert(/^sha256:[a-f0-9]{64}$/.test(historicalBuild.artifact_digest || ''), 'historical artifact digest invalid');
   const boundary = freshness.claim_boundary;
   assert(boundary.github_affiliation_claimed === false, 'historical non-affiliation boundary drift');
   assert(boundary.github_adoption_claimed === false, 'historical non-adoption boundary drift');
