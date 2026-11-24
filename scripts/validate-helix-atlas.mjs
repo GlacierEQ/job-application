@@ -4,6 +4,7 @@ import { access, readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { sourceBackedCapabilitiesForCompany } from "./recovered-forward-deployed-source-links.mjs";
+import { admittedAtlasCompany } from "./public-atlas-admission.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SITE = path.join(ROOT, "site-v15");
@@ -95,10 +96,13 @@ async function main() {
     snapshot.companies.length === receipt.company_tracks,
     "Company Atlas company count must match helix projection receipt",
   );
+  // Internal intelligence preserves the complete estate. Public rendering is
+  // intentionally limited to evidence-admitted company tracks.
+  const publicCompanies = snapshot.companies.filter(admittedAtlasCompany);
+  assert(publicCompanies.length > 0, "Company Atlas has no publicly admitted tracks");
   assert(
-    atlas.includes(`${snapshot.companies.length} governed`) ||
-      atlas.includes(String(snapshot.companies.length)),
-    "atlas index must surface live governed track count",
+    atlas.includes(`${publicCompanies.length} governed`),
+    "atlas index must surface admitted public track count",
   );
   assert(
     Array.isArray(snapshot.company_second_depth?.stage_order) &&
@@ -118,12 +122,12 @@ async function main() {
   assert(!/<script(?:\s|>)/i.test(atlas), "Company Atlas added client script despite zero-script contract");
   assert(!/\sstyle\s*=\s*/i.test(atlas), "Company Atlas cannot use inline style under locked CSP");
   assert(
-    (atlas.match(/class="atlas-star /g) ?? []).length === snapshot.companies.length,
-    "constellation star count differs from company snapshot",
+    (atlas.match(/class="atlas-star /g) ?? []).length === publicCompanies.length,
+    "constellation star count differs from public admission",
   );
   assert(
-    (atlas.match(/class="atlas-directory-item"/g) ?? []).length === snapshot.companies.length,
-    "directory count differs from company snapshot",
+    (atlas.match(/class="atlas-directory-item"/g) ?? []).length === publicCompanies.length,
+    "directory count differs from public admission",
   );
   assert(
     (atlas.match(/class="card atlas-flagship"/g) ?? []).length === snapshot.flagships.length,
@@ -134,7 +138,7 @@ async function main() {
 
   const css = await readFile(path.join(SITE, "assets", "helix-atlas.css"), "utf8");
   const starsCss = await readFile(path.join(SITE, "assets", "helix-atlas.stars.css"), "utf8");
-  const lastStar = snapshot.companies.length - 1;
+  const lastStar = publicCompanies.length - 1;
   assert(
     starsCss.includes(`.atlas-star.star-p${lastStar}{`),
     `constellation position star-p${lastStar} missing for live company count`,
@@ -149,8 +153,8 @@ async function main() {
   const entries = await readdir(companiesDir, { withFileTypes: true });
   const companyDirectories = entries.filter((entry) => entry.isDirectory());
   assert(
-    companyDirectories.length === snapshot.companies.length,
-    "generated company route count differs from snapshot",
+    companyDirectories.length === publicCompanies.length,
+    "generated company route count differs from public admission",
   );
   const companiesIndex = await readFile(path.join(companiesDir, "index.html"), "utf8");
   assert((companiesIndex.match(/<h1\b/g) ?? []).length === 1, "companies index must contain one h1");
@@ -160,7 +164,7 @@ async function main() {
   assert(companiesIndex.includes('href="/hire/"'), "companies index must link Hire");
   assert(companiesIndex.includes('href="/companies/"'), "companies index must self-identify");
 
-  for (const company of snapshot.companies) {
+  for (const company of publicCompanies) {
     const slug = companySlug(company.company_id);
     const directory = path.join(companiesDir, slug);
     await access(path.join(directory, "index.html"));
@@ -278,7 +282,7 @@ async function main() {
     assert(!/javascript\s*:/i.test(text), `unsafe javascript URL: ${path.relative(ROOT, file)}`);
   }
   assert(
-    linked.length >= snapshot.companies.length + 5,
+    linked.length >= publicCompanies.length + 5,
     "Atlas was not linked across all primary surfaces and company routes",
   );
 
@@ -298,7 +302,7 @@ async function main() {
     "sitemap must not list missing /atlas/starmap/",
   );
   assert(llms.includes("Company Atlas"), "Company Atlas missing from llms.txt");
-  for (const company of snapshot.companies) {
+  for (const company of publicCompanies) {
     assert(
       sitemap.includes(`/companies/${companySlug(company.company_id)}/`),
       `${company.company_id}: company route missing from sitemap`,
@@ -330,8 +334,8 @@ async function main() {
         schema: "glaciereq.company-atlas-validation.v3",
         status: "PASS",
         flagships: snapshot.flagships.length,
-        company_routes: snapshot.companies.length,
-        constellation_stars: snapshot.companies.length,
+        company_routes: publicCompanies.length,
+        constellation_stars: publicCompanies.length,
         claim_promoted_companies: promotedCompanies.length,
         second_depth: depthCounts,
         lockheed_martin: {
@@ -358,3 +362,4 @@ main().catch((error) => {
   console.error(`Company Atlas validation: FAIL: ${error instanceof Error ? error.message : String(error)}`);
   process.exitCode = 1;
 });
+
