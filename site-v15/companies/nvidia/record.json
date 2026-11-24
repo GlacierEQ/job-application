@@ -1,0 +1,115 @@
+{
+  "boundary": "Independent GlacierEQ work; no NVIDIA affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
+  "bundled_capabilities": [
+    {
+      "evidence_state": "SOURCE_CODE_PRESENT_RUNTIME_NOT_VERIFIED",
+      "family": "nvidia",
+      "name": "nvidia-blackwell-fp4-optimizer",
+      "source_commit": "8dfcc29cb21886fa0486204ff1b5e2d7fc91bde9",
+      "source_repository": "GlacierEQ/job-app-helix",
+      "source_url": "https://github.com/GlacierEQ/job-app-helix/blob/8dfcc29cb21886fa0486204ff1b5e2d7fc91bde9/src/job_app_helix/forward_deployed/nvidia/__init__.py",
+      "standalone_repository_state": "NOT_PUBLISHED"
+    },
+    {
+      "evidence_state": "SOURCE_CODE_PRESENT_RUNTIME_NOT_VERIFIED",
+      "family": "nvidia",
+      "name": "nvidia-cuda-graphs-conditional",
+      "source_commit": "8dfcc29cb21886fa0486204ff1b5e2d7fc91bde9",
+      "source_repository": "GlacierEQ/job-app-helix",
+      "source_url": "https://github.com/GlacierEQ/job-app-helix/blob/8dfcc29cb21886fa0486204ff1b5e2d7fc91bde9/src/job_app_helix/forward_deployed/nvidia/__init__.py",
+      "standalone_repository_state": "NOT_PUBLISHED"
+    },
+    {
+      "evidence_state": "SOURCE_CODE_PRESENT_RUNTIME_NOT_VERIFIED",
+      "family": "nvidia",
+      "name": "nvidia-moe-grouped-gemm",
+      "source_commit": "8dfcc29cb21886fa0486204ff1b5e2d7fc91bde9",
+      "source_repository": "GlacierEQ/job-app-helix",
+      "source_url": "https://github.com/GlacierEQ/job-app-helix/blob/8dfcc29cb21886fa0486204ff1b5e2d7fc91bde9/src/job_app_helix/forward_deployed/nvidia/__init__.py",
+      "standalone_repository_state": "NOT_PUBLISHED"
+    },
+    {
+      "evidence_state": "SOURCE_CODE_PRESENT_RUNTIME_NOT_VERIFIED",
+      "family": "nvidia",
+      "name": "nvidia-nvlink-scaler",
+      "source_commit": "8dfcc29cb21886fa0486204ff1b5e2d7fc91bde9",
+      "source_repository": "GlacierEQ/job-app-helix",
+      "source_url": "https://github.com/GlacierEQ/job-app-helix/blob/8dfcc29cb21886fa0486204ff1b5e2d7fc91bde9/src/job_app_helix/forward_deployed/nvidia/__init__.py",
+      "standalone_repository_state": "NOT_PUBLISHED"
+    },
+    {
+      "evidence_state": "SOURCE_CODE_PRESENT_RUNTIME_NOT_VERIFIED",
+      "family": "nvidia",
+      "name": "nvidia-tensorrt-llm-tuner",
+      "source_commit": "8dfcc29cb21886fa0486204ff1b5e2d7fc91bde9",
+      "source_repository": "GlacierEQ/job-app-helix",
+      "source_url": "https://github.com/GlacierEQ/job-app-helix/blob/8dfcc29cb21886fa0486204ff1b5e2d7fc91bde9/src/job_app_helix/forward_deployed/nvidia/__init__.py",
+      "standalone_repository_state": "NOT_PUBLISHED"
+    },
+    {
+      "evidence_state": "SOURCE_CODE_PRESENT_RUNTIME_NOT_VERIFIED",
+      "family": "nvidia",
+      "name": "nvidia-kernel-autotuner",
+      "source_commit": "8dfcc29cb21886fa0486204ff1b5e2d7fc91bde9",
+      "source_repository": "GlacierEQ/job-app-helix",
+      "source_url": "https://github.com/GlacierEQ/job-app-helix/blob/8dfcc29cb21886fa0486204ff1b5e2d7fc91bde9/src/job_app_helix/forward_deployed/nvidia/__init__.py",
+      "standalone_repository_state": "NOT_PUBLISHED"
+    },
+    {
+      "evidence_state": "SOURCE_CODE_PRESENT_RUNTIME_NOT_VERIFIED",
+      "family": "nvidia",
+      "name": "nvidia-power-perf-profiler",
+      "source_commit": "8dfcc29cb21886fa0486204ff1b5e2d7fc91bde9",
+      "source_repository": "GlacierEQ/job-app-helix",
+      "source_url": "https://github.com/GlacierEQ/job-app-helix/blob/8dfcc29cb21886fa0486204ff1b5e2d7fc91bde9/src/job_app_helix/forward_deployed/nvidia/__init__.py",
+      "standalone_repository_state": "NOT_PUBLISHED"
+    }
+  ],
+  "flagships": [],
+  "gate": "Twelve direct NVIDIA-named repos exist; all mapped with forward-deployed Blackwell/ CUDA capabilities.",
+  "id": "nvidia",
+  "repos": [
+    {
+      "id": "GlacierEQ/nvidia-deep-reasoning",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    },
+    {
+      "id": "GlacierEQ/nvidia-gpu-health",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    }
+  ],
+  "roles": [
+    "AI Infrastructure Engineer",
+    "GPU Reliability Engineer",
+    "Applied Deep Learning Engineer"
+  ],
+  "route": "/companies/nvidia/",
+  "schema": "glaciereq.company-intelligence.v1",
+  "second_depth": {
+    "blockers": [
+      "current_role_not_verified",
+      "company_problem_not_bounded",
+      "repository_code_not_inspected",
+      "proof_not_reproduced"
+    ],
+    "claim_ceiling": "company_alignment_only",
+    "evidence": {
+      "claim_receipts": [],
+      "gap_queue": [],
+      "implementation_receipts": [],
+      "inspected_repositories": [],
+      "problem_evidence": [],
+      "proof_artifacts": [],
+      "role_evidence": []
+    },
+    "next_gate": "Verify a current public NVIDIA role/team, identify one externally supportable infrastructure problem, then inspect the relevant source-bound NVIDIA-aligned records that could materially address it.",
+    "ordinal": 0,
+    "stage": "MAPPED_ONLY"
+  },
+  "state": "repository-rich",
+  "track": "MAPPED_NOT_RECRUITER_READY"
+}

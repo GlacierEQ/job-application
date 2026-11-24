@@ -2,7 +2,7 @@ const crypto = require('crypto');
 const { URL } = require('node:url');
 
 const SOURCE_COMMIT = '95a91fd9b51c77babf51b3bed7c156acfd9d06f7';
-const HELIX_COMMIT = '9c8c858628484d059a2b0db492918c0c41294863';
+const HELIX_COMMIT = '1e4d35419b6a23d6d9ce1e85a8850ced2bf27e8b';
 const RAW_ROOT = `https://raw.githubusercontent.com/GlacierEQ/job-application/${SOURCE_COMMIT}/site-v15/`;
 const HELIX_ROOT = `https://raw.githubusercontent.com/GlacierEQ/job-app-helix/${HELIX_COMMIT}/`;
 const PUBLIC_ORIGIN = 'https://casey-barton-glaciereq.vercel.app';

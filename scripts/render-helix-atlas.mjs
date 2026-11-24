@@ -4,7 +4,6 @@ import { mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { sourceBackedCapabilitiesForCompany } from "./recovered-forward-deployed-source-links.mjs";
-import { admittedAtlasCompany } from "./public-atlas-admission.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SNAPSHOT = path.join(ROOT, "site-v15", "data", "helix-root.json");
@@ -392,6 +391,46 @@ async function loadSnapshot() {
   }
 }
 
+function recordPage(company, state) {
+  const record = compactMachineRecord(company, state);
+  const wire = machineWire(company, state);
+  const slug = companySlug(company.company_id);
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#03080b">
+  <meta name="description" content="Machine contract record for ${escapeHtml(company.display_name)}: structured company intelligence record, second-depth state, and public evidence references.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://casey-barton-glaciereq.vercel.app/companies/${slug}/record.html">
+  <title>${escapeHtml(company.display_name)} · Machine Contract Record · GlacierEQ</title>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/site.css">
+  <link rel="stylesheet" href="/assets/site.systems.css">
+  <link rel="stylesheet" href="/assets/helix-atlas.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header"><div class="shell nav"><a class="brand" href="/" aria-label="Casey Barton portfolio home"><span class="mark">CB</span><span><strong>CASEY BARTON</strong><small>APPLIED AI SYSTEMS ARCHITECT</small></span></a><nav class="links" aria-label="Primary navigation"><a href="/">Recruiter</a><a href="/hire/">Hire</a><a href="/resume/">Résumé</a><a href="/master/">Master</a><a href="/mesh/">Mesh</a><a href="/atlas/">Atlas</a><a href="/machine/">Machine</a></nav><a class="nav-cta" href="mailto:glacier.equilibrium@gmail.com">Start a conversation</a></div></header>
+<main id="main">
+<section class="section company-layer" id="machine-record">
+<div class="shell">
+<div class="layer-heading"><span>MACHINE CONTRACT RECORD</span><h1>${escapeHtml(company.display_name)} · Record</h1></div>
+<div class="card machine-contract">
+<div class="machine-contract-head"><p>Structured machine contract for this company lens. Same state as the company dossier, rendered as a browsable record page.</p><a class="button ghost small" href="record.json">record.json</a> · <a class="button ghost small" href="../">Company dossier</a></div>
+<pre>${escapeHtml(wire)}</pre>
+<pre class="record-json">${escapeHtml(JSON.stringify(record, null, 2))}</pre>
+<p class="machine-hook">Consumer path: inspect record → follow pinned public evidence → verify native receipts/tests → respect stage prerequisites, blockers, claim ceiling, and non-affiliation boundary.</p>
+</div>
+</div>
+</section>
+</main>
+<footer class="site-footer"><div class="shell"><p><strong>Casey Barton · GlacierEQ</strong></p><p>${escapeHtml(company.non_affiliation)}</p></div></footer>
+</body>
+</html>\n`;
+}
+
 async function writeCompanyRoutes(companies, stageOrder) {
   await rm(COMPANIES_OUTPUT, { recursive: true, force: true });
   for (const company of companies) {
@@ -405,6 +444,7 @@ async function writeCompanyRoutes(companies, stageOrder) {
       stableJson(compactMachineRecord(company, state)),
       "utf8",
     );
+    await writeFile(path.join(directory, "record.html"), recordPage(company, state), "utf8");
   }
   await writeFile(path.join(COMPANIES_OUTPUT, "index.html"), companyIndexPage(companies), "utf8");
 }
@@ -422,18 +462,8 @@ async function main() {
     throw new Error("Helix projection must contain the eight-stage company second-depth contract");
   }
 
-  // Publish only eligible public repository evidence. Keep the source snapshot intact.
-  // An admitted company can still carry private/internal repository rows.
-  const companies = snapshot.companies.filter(admittedAtlasCompany).map((company) => ({
-    ...company,
-    repositories: company.repositories.filter((repo, index, all) =>
-      repo && repo.visibility === "public" &&
-      repo.inventory_scope === "HELIX_ADMITTED" &&
-      typeof repo.repository === "string" && REPOSITORY_PATTERN.test(repo.repository) &&
-      all.findIndex((candidate) => typeof candidate?.repository === "string" &&
-        candidate.repository.toLowerCase() === repo.repository.toLowerCase() &&
-        candidate.visibility === "public" && candidate.inventory_scope === "HELIX_ADMITTED") === index),
-  })).sort((a, b) => a.display_name.localeCompare(b.display_name));
+  const allCompanies = snapshot.companies.sort((a, b) => a.display_name.localeCompare(b.display_name));
+  const companies = allCompanies;
   for (const company of companies) {
     companySlug(company.company_id);
     if (!Array.isArray(company.repositories)) {
@@ -492,7 +522,7 @@ async function main() {
 
   await mkdir(path.dirname(ATLAS_OUTPUT), { recursive: true });
   await writeFile(ATLAS_OUTPUT, html, "utf8");
-  await writeCompanyRoutes(companies, stageOrder);
+  await writeCompanyRoutes(allCompanies, stageOrder);
   // Retire only generated legacy company redirects; preserve unrelated Atlas routes.
   const admittedSlugs = new Set(companies.map((company) => companySlug(company.company_id)));
   for (const entry of await readdir(path.join(SITE, "atlas"), { withFileTypes: true })) {
@@ -507,7 +537,7 @@ async function main() {
     }
   }
   console.log(
-    `Company Atlas rendered: ${path.relative(ROOT, ATLAS_OUTPUT)} + ${companies.length} company routes; ${advancedDepth} past MAPPED_ONLY`,
+    `Company Atlas rendered: ${path.relative(ROOT, ATLAS_OUTPUT)} + ${allCompanies.length} company routes; ${advancedDepth} past MAPPED_ONLY`,
   );
 }
 

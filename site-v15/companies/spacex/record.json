@@ -1,0 +1,175 @@
+{
+  "boundary": "Independent GlacierEQ work; no SpaceX affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
+  "bundled_capabilities": [
+    {
+      "evidence_state": "SOURCE_CODE_PRESENT_RUNTIME_NOT_VERIFIED",
+      "family": "spacex",
+      "name": "spacex-starship-flight-software",
+      "source_commit": "8dfcc29cb21886fa0486204ff1b5e2d7fc91bde9",
+      "source_repository": "GlacierEQ/job-app-helix",
+      "source_url": "https://github.com/GlacierEQ/job-app-helix/blob/8dfcc29cb21886fa0486204ff1b5e2d7fc91bde9/src/job_app_helix/forward_deployed/spacex/__init__.py",
+      "standalone_repository_state": "NOT_PUBLISHED"
+    },
+    {
+      "evidence_state": "SOURCE_CODE_PRESENT_RUNTIME_NOT_VERIFIED",
+      "family": "spacex",
+      "name": "spacex-ai-flight-controller",
+      "source_commit": "8dfcc29cb21886fa0486204ff1b5e2d7fc91bde9",
+      "source_repository": "GlacierEQ/job-app-helix",
+      "source_url": "https://github.com/GlacierEQ/job-app-helix/blob/8dfcc29cb21886fa0486204ff1b5e2d7fc91bde9/src/job_app_helix/forward_deployed/spacex/__init__.py",
+      "standalone_repository_state": "NOT_PUBLISHED"
+    },
+    {
+      "evidence_state": "SOURCE_CODE_PRESENT_RUNTIME_NOT_VERIFIED",
+      "family": "spacex",
+      "name": "spacex-engine-out-compensator",
+      "source_commit": "8dfcc29cb21886fa0486204ff1b5e2d7fc91bde9",
+      "source_repository": "GlacierEQ/job-app-helix",
+      "source_url": "https://github.com/GlacierEQ/job-app-helix/blob/8dfcc29cb21886fa0486204ff1b5e2d7fc91bde9/src/job_app_helix/forward_deployed/spacex/__init__.py",
+      "standalone_repository_state": "NOT_PUBLISHED"
+    },
+    {
+      "evidence_state": "SOURCE_CODE_PRESENT_RUNTIME_NOT_VERIFIED",
+      "family": "spacex",
+      "name": "spacex-stage-separation-optimizer",
+      "source_commit": "8dfcc29cb21886fa0486204ff1b5e2d7fc91bde9",
+      "source_repository": "GlacierEQ/job-app-helix",
+      "source_url": "https://github.com/GlacierEQ/job-app-helix/blob/8dfcc29cb21886fa0486204ff1b5e2d7fc91bde9/src/job_app_helix/forward_deployed/spacex/__init__.py",
+      "standalone_repository_state": "NOT_PUBLISHED"
+    },
+    {
+      "evidence_state": "SOURCE_CODE_PRESENT_RUNTIME_NOT_VERIFIED",
+      "family": "spacex",
+      "name": "spacex-flight-termination-hardener",
+      "source_commit": "8dfcc29cb21886fa0486204ff1b5e2d7fc91bde9",
+      "source_repository": "GlacierEQ/job-app-helix",
+      "source_url": "https://github.com/GlacierEQ/job-app-helix/blob/8dfcc29cb21886fa0486204ff1b5e2d7fc91bde9/src/job_app_helix/forward_deployed/spacex/__init__.py",
+      "standalone_repository_state": "NOT_PUBLISHED"
+    },
+    {
+      "evidence_state": "SOURCE_CODE_PRESENT_RUNTIME_NOT_VERIFIED",
+      "family": "spacex",
+      "name": "spacex-hitl-testbed-automation",
+      "source_commit": "8dfcc29cb21886fa0486204ff1b5e2d7fc91bde9",
+      "source_repository": "GlacierEQ/job-app-helix",
+      "source_url": "https://github.com/GlacierEQ/job-app-helix/blob/8dfcc29cb21886fa0486204ff1b5e2d7fc91bde9/src/job_app_helix/forward_deployed/spacex/__init__.py",
+      "standalone_repository_state": "NOT_PUBLISHED"
+    },
+    {
+      "evidence_state": "SOURCE_CODE_PRESENT_RUNTIME_NOT_VERIFIED",
+      "family": "spacex",
+      "name": "spacex-in-space-refueling-planner",
+      "source_commit": "8dfcc29cb21886fa0486204ff1b5e2d7fc91bde9",
+      "source_repository": "GlacierEQ/job-app-helix",
+      "source_url": "https://github.com/GlacierEQ/job-app-helix/blob/8dfcc29cb21886fa0486204ff1b5e2d7fc91bde9/src/job_app_helix/forward_deployed/spacex/__init__.py",
+      "standalone_repository_state": "NOT_PUBLISHED"
+    }
+  ],
+  "flagships": [],
+  "gate": "Twenty-one direct SpaceX-named repos exist; all mapped with forward-deployed Starship flight software capabilities.",
+  "id": "spacex",
+  "repos": [
+    {
+      "id": "GlacierEQ/spacex-autonomy",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    },
+    {
+      "id": "GlacierEQ/spacex-conjunction-sentinel",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    },
+    {
+      "id": "GlacierEQ/spacex-cryogenics",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    },
+    {
+      "id": "GlacierEQ/spacex-ground-network",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    },
+    {
+      "id": "GlacierEQ/spacex-launch-sequencer",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    },
+    {
+      "id": "GlacierEQ/spacex-mission-control",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    },
+    {
+      "id": "GlacierEQ/spacex-orbital-mechanics",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    },
+    {
+      "id": "GlacierEQ/spacex-pad-weather-gate",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    },
+    {
+      "id": "GlacierEQ/spacex-propulsion-monitor",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    },
+    {
+      "id": "GlacierEQ/spacex-satellite-mesh",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    },
+    {
+      "id": "GlacierEQ/spacex-telemetry",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    },
+    {
+      "id": "GlacierEQ/spacex-thermal-protection",
+      "lvl": "L3",
+      "provenance": "ORIGINAL_CANDIDATE",
+      "state": "REFERENCE_ONLY"
+    }
+  ],
+  "roles": [
+    "Software Engineer, Avionics",
+    "Mission Systems Engineer",
+    "Infrastructure/Automation Engineer"
+  ],
+  "route": "/companies/spacex/",
+  "schema": "glaciereq.company-intelligence.v1",
+  "second_depth": {
+    "blockers": [
+      "current_role_not_verified",
+      "company_problem_not_bounded",
+      "repository_code_not_inspected",
+      "proof_not_reproduced"
+    ],
+    "claim_ceiling": "company_alignment_only",
+    "evidence": {
+      "claim_receipts": [],
+      "gap_queue": [],
+      "implementation_receipts": [],
+      "inspected_repositories": [],
+      "problem_evidence": [],
+      "proof_artifacts": [],
+      "role_evidence": []
+    },
+    "next_gate": "Verify a current public SpaceX role/team and operating problem, then reconcile it against the governed SpaceX repository family and existing README Mesh before any implementation claim.",
+    "ordinal": 0,
+    "stage": "MAPPED_ONLY"
+  },
+  "state": "repository-rich",
+  "track": "MAPPED_NOT_RECRUITER_READY"
+}

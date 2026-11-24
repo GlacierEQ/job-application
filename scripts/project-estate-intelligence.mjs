@@ -347,8 +347,17 @@ async function main() {
       companySlug(record.company_id),
       "index.html",
     );
-    const html = await readFile(companyPath, "utf8");
-    companyUpdates.push([companyPath, replaceOrInsert(html, companyBlock(record))]);
+   let html;
+   try {
+     html = await readFile(companyPath, "utf8");
+   } catch (error) {
+     if (error?.code === "ENOENT") {
+       console.warn(`Public estate intelligence: no rendered page for ${record.company_id}, skipping projection`);
+       continue;
+     }
+     throw error;
+   }
+   companyUpdates.push([companyPath, replaceOrInsert(html, companyBlock(record))]);
   }
   const atlasHtml = await readFile(ATLAS_PATH, "utf8");
   const updatedAtlasHtml = replaceOrInsert(atlasHtml, atlasBlock(orderedRecords.length, manifest));
