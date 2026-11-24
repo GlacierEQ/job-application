@@ -56,6 +56,16 @@ The method comes from studying and diagnosing systems in different forms. Biolog
 
 ## Selected Systems
 
+### Independent Colossus-Class Power and Infrastructure Models
+**Physical-system constraints + deterministic response to simulated shortfalls**
+
+[xAI Colossus Energy](https://github.com/GlacierEQ/xai-colossus-energy) contains a Rust model for power demand, PUE-derived overhead and reserve headroom, plus a Python reference check and a pinned Alpha/Omega scenario verifier for demand budgeting and priority-ordered simulated load shedding. It is a software engineering demonstration of physical constraints, typed inputs, explicit failure states and cross-repository verification—not a claim to operate xAI's facility or deploy to real electrical infrastructure.
+
+### Independent SpaceX-Class Autonomy and Mission-Operations Simulations
+**State estimation + bounded control + mission state coordination**
+
+[SpaceX Autonomy](https://github.com/GlacierEQ/spacex-autonomy) implements deterministic Python mode selection, one-dimensional state estimation, bounded control and synthetic mission-thread GO/HOLD quorum, alongside a Go phase-state and threshold model. [SpaceX Mission Control](https://github.com/GlacierEQ/spacex-mission-control) adds local event fan-out, telemetry aggregation and synthetic phase orchestration; [SpaceX Launch Sequencer](https://github.com/GlacierEQ/spacex-launch-sequencer) exercises ordered countdown milestones, holds, resumptions and fail-closed aborts. These are independent local simulation projects, with repository-owned tests and clearly bounded claim states—not SpaceX employment, proprietary systems, real-vehicle authority or flight certification.
+
 ### AKOS + ECHO
 **Governance pillar + continuity/orchestration piston**
 
