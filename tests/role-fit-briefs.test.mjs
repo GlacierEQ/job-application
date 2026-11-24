@@ -1,14 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { renderIndex, renderTarget, validateTargets } from '../scripts/render-role-fit-briefs.mjs';
+import { renderIndex, renderTarget, renderResume, renderResumeText, validateTargets } from '../scripts/render-role-fit-briefs.mjs';
 
 const source = JSON.parse(await readFile(new URL('../site-v15/data/role-fit-targets.json', import.meta.url), 'utf8'));
 
 test('five researched roles produce source-bound employer-specific briefs', () => {
   const registry = validateTargets(source);
   assert.equal(registry.targets.length, 5);
-  const pages = [renderIndex(registry), ...registry.targets.map(target => renderTarget(target, registry.researched_on))];
+  const pages = [renderIndex(registry), ...registry.targets.map(target => renderTarget(target, registry.researched_on)), ...registry.targets.map(renderResume)];
   for (const page of pages) {
     assert.equal([...page.matchAll(/<h1\b/g)].length, 1);
     assert.match(page, /href="\/resume\/"/);
@@ -27,6 +27,14 @@ test('five researched roles produce source-bound employer-specific briefs', () =
     assert.match(page, /not employer work, affiliation or endorsement/);
     assert.match(page, /Published role researched 2026-11-23/);
     for (const proof of target.proofs) assert.ok(page.includes(proof.url));
+    const resume = renderResume(target);
+    const ats = renderResumeText(target);
+    assert.match(resume, /CASEY|Casey del Carpio Barton/);
+    assert.match(resume, /University of Hawaiʻi at Mānoa/);
+    assert.match(resume, /href="\/role-fit\/[^" ]+\/resume\.txt"/);
+    assert.match(ats, /GLACIEREQ \| Founder/);
+    assert.match(ats, /TARGET:/);
+    for (const proof of target.proofs) assert.ok(resume.includes(proof.url) && ats.includes(proof.url));
   }
   assert.ok(!registry.targets.flatMap(target => target.proofs).some(proof => proof.url.includes('/apex-control-plane')));
 });
