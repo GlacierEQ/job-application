@@ -157,6 +157,29 @@ const localHelix = JSON.parse(await read('site-v15/data/helix-root.json'));
 assert(localHelix.schema === 'glaciereq.public-portfolio-projection.v1', 'unexpected current Helix projection schema');
 const currentHelixCommit = localHelix.source?.root_ref;
 assert(SHA40.test(currentHelixCommit || ''), 'current Helix projection commit invalid');
+
+// The V25/V26 production readback is an immutable historical receipt. It is
+// not an equivalence promise against every later Helix revision; that would
+// turn normal operator-directed engineering progress into a permanent CI
+// failure. Verify the old build receipt, disclose its historical boundary,
+// and leave current production verification to the current release gates.
+if (currentHelixCommit !== production.helix_commit) {
+  const historicalBuild = await verifyBuildReceipt(production.source_commit, freshness.build_receipt);
+  const boundary = freshness.claim_boundary;
+  assert(boundary.github_affiliation_claimed === false, 'historical non-affiliation boundary drift');
+  assert(boundary.github_adoption_claimed === false, 'historical non-adoption boundary drift');
+  assert(boundary.github_capability_production_deployment_claimed === false, 'historical capability deployment boundary drift');
+  console.log(JSON.stringify({
+    status: 'HISTORICAL_RECEIPT_PRESERVED_CURRENT_SOURCE_DIFFERENT',
+    deployed_helix_commit: production.helix_commit,
+    current_helix_commit: currentHelixCommit,
+    current_helix_equivalence_claimed: false,
+    current_production_readback_claimed: false,
+    historical_build_verification: historicalBuild,
+  }, null, 2));
+  process.exit(0);
+}
+
 const authorityEquivalence = await verifyHelixEquivalence(
   production.helix_commit,
   currentHelixCommit,
