@@ -4,6 +4,7 @@ import { mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { sourceBackedCapabilitiesForCompany } from "./recovered-forward-deployed-source-links.mjs";
+import { admittedAtlasCompany } from "./public-atlas-admission.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SNAPSHOT = path.join(ROOT, "site-v15", "data", "helix-root.json");
@@ -87,7 +88,6 @@ function evidenceState(company) {
   if (count === 1) return "seeded";
   return "scaffold";
 }
-
 function evidenceLabel(state) {
   return {
     "repository-rich": "Verified Track",
@@ -284,12 +284,21 @@ function compactMachineRecord(company, state) {
     state,
     track: company.track_state,
     roles: company.target_roles ?? [],
-    repos: company.repositories.map((repo) => ({
-      id: repo.repository,
-      lvl: repo.level,
-      state: repo.promotion_state,
-      provenance: repo.provenance_state,
-    })),
+    repos: company.repositories
+      .filter((repo, index, all) =>
+        repo && repo.visibility === "public" &&
+        repo.inventory_scope === "HELIX_ADMITTED" &&
+        typeof repo.repository === "string" &&
+        /^GlacierEQ\/[A-Za-z0-9_.-]+$/.test(repo.repository) &&
+        all.findIndex((candidate) => typeof candidate?.repository === "string" &&
+          candidate.repository.toLowerCase() === repo.repository.toLowerCase() &&
+          candidate.visibility === "public" && candidate.inventory_scope === "HELIX_ADMITTED") === index)
+      .map((repo) => ({
+        id: repo.repository,
+        lvl: repo.level,
+        state: repo.promotion_state,
+        provenance: repo.provenance_state,
+      })),
     flagships: company.applicable_flagships ?? [],
     bundled_capabilities: sourceBackedCapabilitiesForCompany(company.company_id),
     second_depth: depth,
@@ -338,7 +347,16 @@ function companyPage(company, stageOrder) {
   const flagships = Array.isArray(company.applicable_flagships) ? company.applicable_flagships : [];
   const roleChips = (company.target_roles ?? []).map((role) => `<span>${escapeHtml(role)}</span>`).join("");
   const meshLinks = [
-    ...company.repositories.map((repo) => `<li><span>ALIGNS_WITH</span><a href="${repoUrl(repo.repository)}" target="_blank" rel="noopener">${escapeHtml(repo.repository)}</a></li>`),
+    ...company.repositories
+      .filter((repo, index, all) =>
+        repo && repo.visibility === "public" &&
+        repo.inventory_scope === "HELIX_ADMITTED" &&
+        typeof repo.repository === "string" &&
+        /^GlacierEQ\/[A-Za-z0-9_.-]+$/.test(repo.repository) &&
+        all.findIndex((candidate) => typeof candidate?.repository === "string" &&
+          candidate.repository.toLowerCase() === repo.repository.toLowerCase() &&
+          candidate.visibility === "public" && candidate.inventory_scope === "HELIX_ADMITTED") === index)
+      .map((repo) => `<li><span>ALIGNS_WITH</span><a href="${repoUrl(repo.repository)}" target="_blank" rel="noopener">${escapeHtml(repo.repository)}</a></li>`),
     ...flagships.map((flagship) => `<li><span>TRANSFERABLE_CAPABILITY</span><a href="/atlas/#crown-jewels">${escapeHtml(flagship)}</a></li>`),
   ].join("");
   const evidenceSummary = company.repositories.length
@@ -463,6 +481,7 @@ async function main() {
   }
 
   const allCompanies = snapshot.companies.sort((a, b) => a.display_name.localeCompare(b.display_name));
+  const admittedCompanies = snapshot.companies.filter(admittedAtlasCompany).sort((a, b) => a.display_name.localeCompare(b.display_name));
   const companies = allCompanies;
   for (const company of companies) {
     companySlug(company.company_id);
@@ -485,8 +504,22 @@ async function main() {
   const scaffold = companies.filter((company) => evidenceState(company) === "scaffold").length;
   const advancedDepth = companies.filter((company) => company.second_depth.ordinal > 0).length;
 
+  // Atlas index stats: computed from admitted companies only (governed view).
+  const admittedRich = admittedCompanies.filter((company) => evidenceState(company) === "repository-rich").length;
+  const admittedSeeded = admittedCompanies.filter((company) => evidenceState(company) === "seeded").length;
+  const admittedScaffold = admittedCompanies.filter((company) => evidenceState(company) === "scaffold").length;
+  const admittedAdvancedDepth = admittedCompanies.filter((company) => company.second_depth.ordinal > 0).length;
+  const admittedPublicMemberships = admittedCompanies.reduce((count, company) => {
+    const identities = company.repositories
+      .filter((repo) => repo && repo.visibility === "public" &&
+        repo.inventory_scope === "HELIX_ADMITTED" &&
+        typeof repo.repository === "string" && REPOSITORY_PATTERN.test(repo.repository))
+      .map((repo) => repo.repository.toLowerCase());
+    return count + new Set(identities).size;
+  }, 0);
+
   const starsCssPath = path.join(SITE, "assets", "helix-atlas.stars.css");
-  await writeFile(starsCssPath, generateStarPositionCss(companies.length), "utf8");
+  await writeFile(starsCssPath, generateStarPositionCss(admittedCompanies.length), "utf8");
 
   const html = `<!doctype html>
 <html lang="en">
@@ -506,12 +539,12 @@ async function main() {
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<div class="signal-bar"><div class="shell signal-inner"><span class="signal-live">HELIX ROOT TRUTH · COMPANY ATLAS</span><span>${companies.length} governed company lenses · ${advancedDepth} past mapping · zero client scripts</span></div></div>
+<div class="signal-bar"><div class="shell signal-inner"><span class="signal-live">HELIX ROOT TRUTH · COMPANY ATLAS</span><span>${admittedCompanies.length} governed company lenses · ${admittedAdvancedDepth} past mapping · zero client scripts</span></div></div>
 <header class="site-header"><div class="shell nav"><a class="brand" href="/" aria-label="Casey Barton portfolio home"><span class="mark">CB</span><span><strong>CASEY BARTON</strong><small>APPLIED AI SYSTEMS ARCHITECT</small></span></a><nav class="links" aria-label="Primary navigation"><a href="/">Recruiter</a><a href="/resume/">Résumé</a><a href="/master/">Master</a><a href="/mesh/">Mesh</a><a aria-current="page" href="/atlas/">Atlas</a><a href="/machine/">Machine</a></nav><a class="nav-cta" href="mailto:glacier.equilibrium@gmail.com">Start a conversation</a></div></header>
 <main id="main">
-<section class="hero atlas-hero"><div class="shell"><p class="eyebrow">COMPANY INTELLIGENCE · V23 CANONICAL BUILD · GOVERNED PROOF</p><h1>Choose a star. <em>Follow the proof.</em></h1><p class="lead">The constellation maps independent technical alignment dossiers across the AI ecosystem. Active evidence tracks are promoted to the top of the directory; every dossier carries pinned public repository proof and explicit verification boundaries.</p><div class="proof-strip" aria-label="Atlas scope"><div><b>${companies.length}</b><span>governed company lenses</span></div><div><b>${publicMemberships}</b><span>direct public repos</span></div><div><b>${rich}</b><span>verified tracks</span></div><div><b>${seeded}</b><span>active lenses</span></div><div><b>${advancedDepth}</b><span>promoted tracks</span></div></div><div class="actions"><a class="button primary" href="#constellation">Enter constellation</a><a class="button secondary" href="#power-map">Open power map</a><a class="button ghost" href="/data/helix-root.json">Inspect root snapshot</a></div></div></section>
-<section id="constellation" class="section constellation-section"><div class="shell"><div class="section-head"><div><p class="eyebrow">CONSTELLATION MODE</p><h2>The ecosystem as a navigable field.</h2></div><p>Stars are positioned across multi-ring orbits for dense scanning (${companies.length} live tracks). Pointer precision is optional: the directory is the complete accessibility fallback and browser find provides instant text lookup without weakening the site’s no-script CSP.</p></div><div class="constellation-layout"><div class="constellation-stage" aria-label="Company constellation">${companies.map((company, index) => constellationNode(company, index)).join("")}<div class="constellation-core" aria-hidden="true"><span>GLACIEREQ</span><b>COMPANY<br>ATLAS</b></div><div class="orbit orbit-1" aria-hidden="true"></div><div class="orbit orbit-2" aria-hidden="true"></div><div class="orbit orbit-3" aria-hidden="true"></div></div><aside class="constellation-directory"><div class="directory-head"><p class="eyebrow">DIRECTORY</p><h3>Verified &amp; active tracks</h3><p>${evidenceLabel("repository-rich")} = multiple or advanced public repositories; ${evidenceLabel("seeded")} = direct public repository. Additional target domains are tucked inside the expandable research queue below.</p></div><div class="atlas-directory">${renderDirectoryList(companies)}</div></aside></div></div></section>
-<section id="power-map" class="section alt"><div class="shell"><div class="section-head"><div><p class="eyebrow">POWER-MAP MODE</p><h2>See where each target sits in the operating stack.</h2></div><p>This is an orientation layer, not a claim that the categories are exclusive or that GlacierEQ has company access. Each name resolves to the same governed company intelligence route.</p></div><div class="power-map">${powerMap(companies)}</div></div></section>
+<section class="hero atlas-hero"><div class="shell"><p class="eyebrow">COMPANY INTELLIGENCE · V23 CANONICAL BUILD · GOVERNED PROOF</p><h1>Choose a star. <em>Follow the proof.</em></h1><p class="lead">The constellation maps independent technical alignment dossiers across the AI ecosystem. Active evidence tracks are promoted to the top of the directory; every dossier carries pinned public repository proof and explicit verification boundaries.</p><div class="proof-strip" aria-label="Atlas scope"><div><b>${admittedCompanies.length}</b><span>governed company lenses</span></div><div><b>${admittedPublicMemberships}</b><span>direct public repos</span></div><div><b>${admittedRich}</b><span>verified tracks</span></div><div><b>${admittedSeeded}</b><span>active lenses</span></div><div><b>${admittedAdvancedDepth}</b><span>promoted tracks</span></div></div><div class="actions"><a class="button primary" href="#constellation">Enter constellation</a><a class="button secondary" href="#power-map">Open power map</a><a class="button ghost" href="/data/helix-root.json">Inspect root snapshot</a></div></div></section>
+<section id="constellation" class="section constellation-section"><div class="shell"><div class="section-head"><div><p class="eyebrow">CONSTELLATION MODE</p><h2>The ecosystem as a navigable field.</h2></div><p>Stars are positioned across multi-ring orbits for dense scanning (${admittedCompanies.length} live tracks). Pointer precision is optional: the directory is the complete accessibility fallback and browser find provides instant text lookup without weakening the site’s no-script CSP.</p></div><div class="constellation-layout"><div class="constellation-stage" aria-label="Company constellation">${admittedCompanies.map((company, index) => constellationNode(company, index)).join("")}<div class="constellation-core" aria-hidden="true"><span>GLACIEREQ</span><b>COMPANY<br>ATLAS</b></div><div class="orbit orbit-1" aria-hidden="true"></div><div class="orbit orbit-2" aria-hidden="true"></div><div class="orbit orbit-3" aria-hidden="true"></div></div><aside class="constellation-directory"><div class="directory-head"><p class="eyebrow">DIRECTORY</p><h3>Verified &amp; active tracks</h3><p>${evidenceLabel("repository-rich")} = multiple or advanced public repositories; ${evidenceLabel("seeded")} = direct public repository. Additional target domains are tucked inside the expandable research queue below.</p></div><div class="atlas-directory">${renderDirectoryList(admittedCompanies)}</div></aside></div></div></section>
+<section id="power-map" class="section alt"><div class="shell"><div class="section-head"><div><p class="eyebrow">POWER-MAP MODE</p><h2>See where each target sits in the operating stack.</h2></div><p>This is an orientation layer, not a claim that the categories are exclusive or that GlacierEQ has company access. Each name resolves to the same governed company intelligence route.</p></div><div class="power-map">${powerMap(admittedCompanies)}</div></div></section>
 <section id="crown-jewels" class="section"><div class="shell"><div class="section-head"><div><p class="eyebrow">CROWN JEWELS</p><h2>Systems with a governed public proof path.</h2></div><p>The company constellation does not replace native repository proof. It points back into systems whose evidence state and next promotion gate are explicit.</p></div><div class="atlas-grid">${snapshot.flagships.map(flagshipCard).join("")}</div></div></section>
 <section class="section tight"><div class="shell callout"><p class="eyebrow">SECOND-DEPTH CONTRACT</p><h2>Mapping is not proof. Progress is a governed state transition.</h2><p>${escapeHtml(snapshot.company_second_depth.boundary)}</p><p>The eight stages are ${stageOrder.map((row) => escapeHtml(row.id)).join(" → ")}. A missing upstream override means MAPPED_ONLY, never completion.</p></div></section>
 <section class="section tight"><div class="shell callout"><p class="eyebrow">PUBLICATION CONTRACT</p><h2>Beauty on top. Truth underneath.</h2><p>Company names identify independent target domains. The build publishes only public-safe Helix fields; no affiliation, endorsement, employment, proprietary access, contract relationship, clearance, production adoption, or unsupported business impact is implied.</p><div class="actions"><a class="button primary" href="https://github.com/GlacierEQ/job-app-helix" target="_blank" rel="noopener">Inspect Job App Helix</a><a class="button ghost" href="/machine/">Read machine contracts</a><a class="button ghost" href="/mesh/">Open the Mesh</a></div></div></section>
@@ -524,7 +557,7 @@ async function main() {
   await writeFile(ATLAS_OUTPUT, html, "utf8");
   await writeCompanyRoutes(allCompanies, stageOrder);
   // Retire only generated legacy company redirects; preserve unrelated Atlas routes.
-  const admittedSlugs = new Set(companies.map((company) => companySlug(company.company_id)));
+  const admittedSlugs = new Set(admittedCompanies.map((company) => companySlug(company.company_id)));
   for (const entry of await readdir(path.join(SITE, "atlas"), { withFileTypes: true })) {
     if (!entry.isDirectory() || admittedSlugs.has(entry.name)) continue;
     const directory = path.join(SITE, "atlas", entry.name);

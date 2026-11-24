@@ -40,12 +40,6 @@
       "lvl": "L3",
       "provenance": "ORIGINAL_CANDIDATE",
       "state": "REFERENCE_ONLY"
-    },
-    {
-      "id": "GlacierEQ/xai-colossal-cooling",
-      "lvl": "L2",
-      "provenance": "ORIGINAL_CANDIDATE",
-      "state": "REFERENCE_ONLY"
     }
   ],
   "roles": [

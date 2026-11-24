@@ -166,17 +166,17 @@ async function main() {
   const entries = await readdir(companiesDir, { withFileTypes: true });
   const companyDirectories = entries.filter((entry) => entry.isDirectory());
   assert(
-    companyDirectories.length === admittedCompanies.length,
+    companyDirectories.length === snapshot.companies.length,
     "generated company route count differs from snapshot",
   );
-  const expectedCompanySlugs = new Set(admittedCompanies.map((company) => companySlug(company.company_id)));
+  const expectedCompanySlugs = new Set(snapshot.companies.map((company) => companySlug(company.company_id)));
   assert(
     companyDirectories.every((entry) => expectedCompanySlugs.has(entry.name)),
     "generated company routes contain an unadmitted directory",
   );
   assert(
-    expectedCompanySlugs.size === admittedCompanies.length,
-    "multiple admitted company ids map to the same public route",
+    expectedCompanySlugs.size === snapshot.companies.length,
+    "multiple company ids map to the same public route",
   );
   const companiesIndex = await readFile(path.join(companiesDir, "index.html"), "utf8");
   assert((companiesIndex.match(/<h1\b/g) ?? []).length === 1, "companies index must contain one h1");
@@ -327,14 +327,14 @@ async function main() {
     "sitemap must not list missing /atlas/starmap/",
   );
   assert(llms.includes("Company Atlas"), "Company Atlas missing from llms.txt");
-  for (const company of admittedCompanies) {
+  for (const company of snapshot.companies) {
     assert(
       sitemap.includes(`/companies/${companySlug(company.company_id)}/`),
       `${company.company_id}: company route missing from sitemap`,
     );
   }
   const admittedCompanyRoutes = new Set(
-    admittedCompanies.map((company) => `/companies/${companySlug(company.company_id)}/`),
+    snapshot.companies.map((company) => `/companies/${companySlug(company.company_id)}/`),
   );
   const publishedCompanyRoutes = [...sitemap.matchAll(/<loc>[^<]*?(\/companies\/[^<]*?)<\/loc>/g)]
     .map((match) => match[1]);
