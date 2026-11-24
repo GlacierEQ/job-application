@@ -29,6 +29,12 @@ test('five researched roles produce source-bound employer-specific briefs', () =
     for (const proof of target.proofs) assert.ok(page.includes(proof.url));
     const resume = renderResume(target);
     const ats = renderResumeText(target);
+    const escapeHtml = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    assert.equal(target.experience.length, 3);
+    for (const bullet of target.experience) assert.ok(ats.includes(bullet) && resume.includes(escapeHtml(bullet)));
+    assert.doesNotMatch(ats, /source-governed engineering proof|machine-facing portfolio surfaces/);
+    assert.doesNotMatch(resume, /source-governed engineering proof|machine-facing portfolio surfaces/);
+    for (const proof of target.proofs) assert.ok(!proof.url.includes('job-app-helix') && !proof.url.includes('job-application'));
     assert.match(resume, /CASEY|Casey del Carpio Barton/);
     assert.match(resume, /University of Hawaiʻi at Mānoa/);
     assert.match(resume, /href="\/role-fit\/[^" ]+\/resume\.txt"/);

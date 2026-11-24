@@ -10,17 +10,17 @@ Founder-engineer building source-traceable autonomous AI systems, durable contex
 
 EXPERIENCE
 GLACIEREQ | Founder / Applied AI Systems Builder | 2023–Present
-- Architect and implement Python/TypeScript agent infrastructure with explicit identity, tool authority, workflow state, durable receipts, and validation.
-- Develop recovery mechanisms for ambiguous provider outcomes, idempotent execution, evidence binding, and continuity across interrupted sessions.
-- Compile source-governed engineering proof into recruiter and machine-facing portfolio surfaces, testing public/private admission and release integrity.
+- Turned multi-agent scheduling into an executable contract in the Anthropic Agent Coordinator: the task DAG is validated, cycles are detected with the failing path in the error, and work is assigned only when it fits the global token budget and the role's remaining capacity.
+- Made agent execution durable in ECHO: deterministic identities, bounded retries, durable jobs, and runtime receipts, with lease claiming and stale-job recovery so interrupted work resumes instead of restarting.
+- Built a bounded micro-agent engine in tasklet: admission-validated payloads on a priority heap, async execution under deadlines with suspend and resume, and duplicate active IDs rejected instead of re-run.
 
 SELECTED TECHNICAL EVIDENCE
 - Agent Coordinator — Multi-Agent Scheduling: Multi-agent ownership, dependencies, capacity and shared resource budgets as explicit scheduler inputs.
   https://github.com/GlacierEQ/anthropic-agent-coordinator
 - ECHO — Persistent Agent Service: Bounded retries, deterministic identities, durable jobs and runtime receipts.
   https://github.com/GlacierEQ/ECHO
-- Job-App Helix — Typed Workflow Engine: Typed evidence, acquisition state, source ownership and renderable machine contracts.
-  https://github.com/GlacierEQ/job-app-helix
+- Tasklet — Bounded Micro-Agent Engine: Admission-validated payloads on a priority heap with deadlines, suspend/resume/complete lifecycle, per-tasklet metrics, and duplicate active IDs rejected instead of re-run.
+  https://github.com/GlacierEQ/tasklet-micro-agent-engine
 
 ADDITIONAL PROFESSIONAL EXPERIENCE
 DIAMOND HEAD HOME INSPECTIONS | Certified Home Inspector | 2020–2024

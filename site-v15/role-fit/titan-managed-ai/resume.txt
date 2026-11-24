@@ -10,15 +10,15 @@ Founder-engineer building source-traceable autonomous AI systems, durable contex
 
 EXPERIENCE
 GLACIEREQ | Founder / Applied AI Systems Builder | 2023–Present
-- Architect and implement Python/TypeScript agent infrastructure with explicit identity, tool authority, workflow state, durable receipts, and validation.
-- Develop recovery mechanisms for ambiguous provider outcomes, idempotent execution, evidence binding, and continuity across interrupted sessions.
-- Compile source-governed engineering proof into recruiter and machine-facing portfolio surfaces, testing public/private admission and release integrity.
+- Built repeatable agent state in the AI Personalization Kernel: memory-to-policy binding, context continuity, and correction-aware state management so the same agent behaves the same way across customer engagements.
+- Built a multi-tool MCP gateway in colossus-gateway: StreamableHTTP MCP with tool dispatch and owned-model invocation behind operator auth, connecting Box, Notion, GitHub, Dropbox, and more through one governed surface.
+- Built provider-state readback in Sigma Glue: plan-fingerprint integrity, exact approval and permit binding, and replay controls across ambiguous external action responses.
 
 SELECTED TECHNICAL EVIDENCE
 - AI Personalization Kernel: Memory-to-policy binding, context continuity and correction-aware state management for repeatable agents.
   https://github.com/GlacierEQ/Ai-Personalization_Kernel
-- Job-App Helix — Opening Discovery: Public job-board API ingestion and source metadata normalized into typed operational records.
-  https://github.com/GlacierEQ/job-app-helix/blob/23ac70cf0a451f14b2fdb25179477be97dc11d66/src/job_app_helix/ashby_opening_discovery.py
+- Colossus Gateway — MCP Tool Bridge: StreamableHTTP MCP server with tool dispatch and owned-model invocation behind operator auth, connecting Box, Notion, GitHub, Dropbox, and more through one governed surface.
+  https://github.com/GlacierEQ/colossus-gateway
 - Sigma Glue — Recoverable Integration: Provider-state readback and replay controls across ambiguous external action responses.
   https://github.com/GlacierEQ/sigma-glue
 
