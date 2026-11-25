@@ -6,21 +6,21 @@ Portfolio: https://casey-barton-glaciereq.vercel.app/role-fit/ashby/
 GitHub: https://github.com/GlacierEQ
 
 PROFESSIONAL PROFILE
-Founder-engineer building source-traceable autonomous AI systems, durable context, typed workflows, agent coordination, and failure-aware integrations. Ashby's expanding platform needs strong architectural judgment, operable systems, and engineering processes that detect drift. I built a source-to-release system that separates evidence ownership, compiled public surfaces, privacy boundaries and verified release gates.
+Founder-engineer building source-traceable autonomous AI systems, durable context, typed workflows, agent coordination, and failure-aware integrations. Ashby's expanding platform needs strong architectural judgment, operable systems, and engineering processes that detect drift. I build delivery infrastructure the same way: identity-brokered workloads that run only what is allowlisted, hash-linked audit evidence for every operation, and readback after ambiguous external writes.
 
 EXPERIENCE
 GLACIEREQ | Founder / Applied AI Systems Builder | 2023–Present
-- Architect and implement Python/TypeScript agent infrastructure with explicit identity, tool authority, workflow state, durable receipts, and validation.
-- Develop recovery mechanisms for ambiguous provider outcomes, idempotent execution, evidence binding, and continuity across interrupted sessions.
-- Compile source-governed engineering proof into recruiter and machine-facing portfolio surfaces, testing public/private admission and release integrity.
+- Built an identity-brokered workload runner in public-actions-runner-host: OIDC identity exchanged for short-lived single-repo tokens, allowlisted workloads in ephemeral checkouts, duplicate-job replay guard, and receipted status.
+- Built a hash-linked audit ledger in Genius-Verification: every operation record bound to the SHA-256 of its canonical payload, previous-hash continuity enforced on append, and precondition contracts checked before recording.
+- Built provider-boundary recovery in Sigma Glue: readback and replay protection when an external write may have succeeded despite a lost response.
 
 SELECTED TECHNICAL EVIDENCE
-- Job-App Helix — Typed Delivery Control Plane: Python company/role/evidence records compiled into governed recruiter and machine surfaces.
-  https://github.com/GlacierEQ/job-app-helix/blob/23ac70cf0a451f14b2fdb25179477be97dc11d66/src/job_app_helix/ashby_opening_discovery.py
-- Job Application — Production Build Pipeline: Deterministic build sequence, public-surface validation and regression enforcement.
-  https://github.com/GlacierEQ/job-application/blob/49a6a3f61d8266a360afa394f522f5f4dbe3530a/scripts/vercel-build.mjs
+- Public Actions Runner Host — Identity-Brokered Delivery: OIDC identity exchanged for short-lived single-repo tokens, allowlisted workloads in ephemeral checkouts, duplicate-job replay guard, token revocation, and receipted status.
+  https://github.com/GlacierEQ/public-actions-runner-host/tree/ecf67366cd3a0658d993e0b947724a707237a3ba
+- Genius-Verification — Hash-Linked Audit Ledger: Every operation record bound to a SHA-256 of its canonical payload, previous-hash continuity enforced on append, chain re-verification, and precondition contracts checked before recording.
+  https://github.com/GlacierEQ/Genius-Verification/tree/0aa4540543aa685410e8515ceda3c746752d454d
 - Sigma Glue — Failure Recovery: Readback and replay protection when an external write may have succeeded despite a lost response.
-  https://github.com/GlacierEQ/sigma-glue
+  https://github.com/GlacierEQ/sigma-glue/tree/a8cfc1c416a0bc7d90a0cf6f672b9ee6652a11e2
 
 ADDITIONAL PROFESSIONAL EXPERIENCE
 DIAMOND HEAD HOME INSPECTIONS | Certified Home Inspector | 2020–2024

@@ -1,77 +1,162 @@
 {
-  "schema": "glaciereq.role-fit-targets.v1",
-  "researched_on": "2026-11-23",
   "policy": "Independent role alignment only. Public source links are inspectable; no employer affiliation or actual application is implied.",
+  "researched_on": "2026-11-23",
+  "schema": "glaciereq.role-fit-targets.v1",
   "targets": [
     {
-      "slug": "inflection-ai",
       "company": "Inflection AI",
-      "role": "Principal Engineer, Agentic AI Systems",
+      "experience": [
+        "Built persistent agent continuity in ECHO: session identity, durable SQLite/WAL state, idempotent jobs, bounded retries, and execution receipts that survive interrupted sessions.",
+        "Built typed memory-to-policy decisions in the AI Personalization Kernel: correction-weighted action scoring, context-first routing with a re-ingestion guard, and a 12-step boot contract that produces a signed receipt.",
+        "Built verified checkpoint storage in the cognition-execution-checkpoint-lattice: digest-addressed immutable blobs, verified-parents-only storage, cross-digest consistency, and integrity re-verification across the whole store."
+      ],
+      "first_move": "Walk through one end-to-end agent trace, identify the point where a timed-out tool response becomes ambiguous, and specify a replay-safe state transition plus a targeted evaluation that reproduces the failure.",
       "job_url": "https://job-boards.greenhouse.io/inflectionai/jobs/4693056006",
       "problem": "Design agent systems that remember, act, and recover.",
-      "solution": "Inflection's agentic stack needs context retrieval, reliable tool use, observability, and evaluation. My work connects those problems: identity-bound durable sessions, typed memory-to-policy decisions, and receipt-bound action orchestration.",
-      "first_move": "Walk through one end-to-end agent trace, identify the point where a timed-out tool response becomes ambiguous, and specify a replay-safe state transition plus a targeted evaluation that reproduces the failure.",
       "proofs": [
-        {"name":"ECHO — Persistent Agent Continuity", "mechanism":"FastAPI session identity, durable SQLite/WAL state, idempotent jobs, bounded retries, and execution receipts.", "url":"https://github.com/GlacierEQ/ECHO"},
-        {"name":"AI Personalization Kernel", "mechanism":"Typed memory, context-first routing, policy binding, correction replay, and drift detection.", "url":"https://github.com/GlacierEQ/Ai-Personalization_Kernel"},
-        {"name":"Job-App Helix — Source-Bound Workflow", "mechanism":"Typed opening, candidate and evidence workflows that compile auditable artifacts from governed inputs.", "url":"https://github.com/GlacierEQ/job-app-helix"}
-      ]
+        {
+          "mechanism": "FastAPI session identity, durable SQLite/WAL state, idempotent jobs, bounded retries, and execution receipts.",
+          "name": "ECHO — Persistent Agent Continuity",
+          "url": "https://github.com/GlacierEQ/ECHO/tree/08d5622e7081a17c3cd0fe96c4fdc97000acc74f"
+        },
+        {
+          "mechanism": "Typed memory, context-first routing, policy binding, correction replay, and drift detection.",
+          "name": "AI Personalization Kernel",
+          "url": "https://github.com/GlacierEQ/Ai-Personalization_Kernel/tree/04baf4517b205f5202aad74abb87c8949d39b5de"
+        },
+        {
+          "mechanism": "Verified checkpoints with proof and workspace archives stored as digest-addressed immutable blobs, with cross-digest consistency, verified-parents-only storage, and full integrity re-verification.",
+          "name": "Checkpoint Lattice — Verified Execution State",
+          "url": "https://github.com/GlacierEQ/cognition-execution-checkpoint-lattice/tree/10e3c76e4c12f8b10cc49ab3b699cb7be8724914"
+        }
+      ],
+      "role": "Principal Engineer, Agentic AI Systems",
+      "slug": "inflection-ai",
+      "solution": "Inflection's agentic stack needs context retrieval, reliable tool use, observability, and evaluation. My work connects those problems: identity-bound durable sessions, typed memory-to-policy decisions, and receipt-bound action orchestration."
     },
     {
-      "slug": "origin",
       "company": "Origin",
-      "role": "Forward Deployed Engineer",
+      "experience": [
+        "Built provider-boundary recovery in Sigma Glue: plan-fingerprint integrity checks, exact approval and permit binding, and idempotent claim recording, so an ambiguous provider write is read back before it can execute twice.",
+        "Built explicit multi-agent scheduling in the Anthropic Agent Coordinator: every task carries ownership, dependencies, and a token estimate, and the scheduler assigns work in deterministic waves only when budget and role capacity allow.",
+        "Built durable continuity in ECHO: deterministic identity and durable execution evidence across interrupted sessions, with lease claiming, stale-job recovery, and hash-chained receipts."
+      ],
+      "first_move": "Instrument one representative agent-to-tool operation with an identity, a source-bound action receipt, and a readback after an intentionally dropped provider acknowledgment; expose the difference between attempted, applied, and verified outcomes.",
       "job_url": "https://jobs.ashbyhq.com/originhq/aa35cc3c-8364-4cea-8057-b50251275684",
       "problem": "Make AI work observable from intent to actual effects.",
-      "solution": "Origin builds endpoint AI observability. I have implemented the complementary agent-side mechanisms: correlate instructions to tool actions, preserve provider receipts, distinguish proposed from applied state, and recover after lost acknowledgments.",
-      "first_move": "Instrument one representative agent-to-tool operation with an identity, a source-bound action receipt, and a readback after an intentionally dropped provider acknowledgment; expose the difference between attempted, applied, and verified outcomes.",
       "proofs": [
-        {"name":"Sigma Glue — Provider Readback", "mechanism":"Ambiguous provider-write recovery, restart-readable trails, and replay guards designed to prevent duplicate side effects.", "url":"https://github.com/GlacierEQ/sigma-glue"},
-        {"name":"Anthropic Agent Coordinator — Scheduler", "mechanism":"Explicit agent ownership, dependencies, capacity and shared-resource budget scheduling.", "url":"https://github.com/GlacierEQ/anthropic-agent-coordinator"},
-        {"name":"ECHO — Durable Continuity", "mechanism":"Deterministic identity and durable execution evidence across interrupted sessions.", "url":"https://github.com/GlacierEQ/ECHO"}
-      ]
+        {
+          "mechanism": "Ambiguous provider-write recovery, restart-readable trails, and replay guards designed to prevent duplicate side effects.",
+          "name": "Sigma Glue — Provider Readback",
+          "url": "https://github.com/GlacierEQ/sigma-glue/tree/a8cfc1c416a0bc7d90a0cf6f672b9ee6652a11e2"
+        },
+        {
+          "mechanism": "Explicit agent ownership, dependencies, capacity and shared-resource budget scheduling.",
+          "name": "Anthropic Agent Coordinator — Scheduler",
+          "url": "https://github.com/GlacierEQ/anthropic-agent-coordinator/tree/5de3e534ffe7782db64390134355fc436fb174ad"
+        },
+        {
+          "mechanism": "Deterministic identity and durable execution evidence across interrupted sessions.",
+          "name": "ECHO — Durable Continuity",
+          "url": "https://github.com/GlacierEQ/ECHO/tree/08d5622e7081a17c3cd0fe96c4fdc97000acc74f"
+        }
+      ],
+      "role": "Forward Deployed Engineer",
+      "slug": "origin",
+      "solution": "Origin builds endpoint AI observability. I have implemented the complementary agent-side mechanisms: correlate instructions to tool actions, preserve provider receipts, distinguish proposed from applied state, and recover after lost acknowledgments."
     },
     {
-      "slug": "emergence-ai",
       "company": "Emergence AI",
-      "role": "Principal Engineer, Agent Framework",
+      "experience": [
+        "Turned multi-agent scheduling into an executable contract in the Anthropic Agent Coordinator: the task DAG is validated, cycles are detected with the failing path in the error, and work is assigned only when it fits the global token budget and the role's remaining capacity.",
+        "Made agent execution durable in ECHO: deterministic identities, bounded retries, durable jobs, and runtime receipts, with lease claiming and stale-job recovery so interrupted jobs are reclaimed and retried.",
+        "Built a bounded micro-agent engine in Tasklet: admission-validated payloads on a priority heap, async execution under deadlines with suspend and resume, and duplicate active IDs rejected instead of re-run."
+      ],
+      "first_move": "Map the agent framework's public interfaces to a small set of lifecycle invariants—identity, tool authority, retry semantics and receipt verification—then implement a failure-injection fixture covering one high-cost class of duplicate action.",
       "job_url": "https://job-boards.greenhouse.io/emergenceai/jobs/4476987009",
       "problem": "Turn agent framework abstractions into runtime guarantees.",
-      "solution": "An agent platform needs executable contracts, coordinated work, stable identity, recovery, and evals that catch adverse states. GlacierEQ provides inspectable examples of these mechanisms across multiple independent systems.",
-      "first_move": "Map the agent framework's public interfaces to a small set of lifecycle invariants—identity, tool authority, retry semantics and receipt verification—then implement a failure-injection fixture covering one high-cost class of duplicate action.",
       "proofs": [
-        {"name":"Agent Coordinator — Multi-Agent Scheduling", "mechanism":"Multi-agent ownership, dependencies, capacity and shared resource budgets as explicit scheduler inputs.", "url":"https://github.com/GlacierEQ/anthropic-agent-coordinator"},
-        {"name":"ECHO — Persistent Agent Service", "mechanism":"Bounded retries, deterministic identities, durable jobs and runtime receipts.", "url":"https://github.com/GlacierEQ/ECHO"},
-        {"name":"Job-App Helix — Typed Workflow Engine", "mechanism":"Typed evidence, acquisition state, source ownership and renderable machine contracts.", "url":"https://github.com/GlacierEQ/job-app-helix"}
-      ]
+        {
+          "mechanism": "Multi-agent ownership, dependencies, capacity and shared resource budgets as explicit scheduler inputs.",
+          "name": "Agent Coordinator — Multi-Agent Scheduling",
+          "url": "https://github.com/GlacierEQ/anthropic-agent-coordinator/tree/5de3e534ffe7782db64390134355fc436fb174ad"
+        },
+        {
+          "mechanism": "Bounded retries, deterministic identities, durable jobs and runtime receipts.",
+          "name": "ECHO — Persistent Agent Service",
+          "url": "https://github.com/GlacierEQ/ECHO/tree/08d5622e7081a17c3cd0fe96c4fdc97000acc74f"
+        },
+        {
+          "mechanism": "Admission-validated payloads on a priority heap with deadlines, suspend/resume/complete lifecycle, per-tasklet metrics, and duplicate active IDs rejected instead of re-run.",
+          "name": "Tasklet — Bounded Micro-Agent Engine",
+          "url": "https://github.com/GlacierEQ/tasklet-micro-agent-engine/tree/817a694c41c2802b7a59f4a50c58d37b89ef603d"
+        }
+      ],
+      "role": "Principal Engineer, Agent Framework",
+      "slug": "emergence-ai",
+      "solution": "An agent platform needs executable contracts, coordinated work, stable identity, recovery, and evals that catch adverse states. GlacierEQ provides inspectable examples of these mechanisms across multiple independent systems."
     },
     {
-      "slug": "ashby",
       "company": "Ashby",
-      "role": "Head of Platform & Infrastructure Engineering",
+      "experience": [
+        "Built an identity-brokered workload runner in public-actions-runner-host: OIDC identity exchanged for short-lived single-repo tokens, allowlisted workloads in ephemeral checkouts, duplicate-job replay guard, and receipted status.",
+        "Built a hash-linked audit ledger in Genius-Verification: every operation record bound to the SHA-256 of its canonical payload, previous-hash continuity enforced on append, and precondition contracts checked before recording.",
+        "Built provider-boundary recovery in Sigma Glue: readback and replay protection when an external write may have succeeded despite a lost response."
+      ],
+      "first_move": "Select a high-impact release failure mode, trace the data and deployment dependencies, and produce an executable improvement with an automated regression and a readback of the resulting production behavior.",
       "job_url": "https://jobs.ashbyhq.com/Ashby/5d4863d7-e1d9-4f4e-aed4-79d558185ac9",
       "problem": "Increase platform delivery speed without losing operational truth.",
-      "solution": "Ashby's expanding platform needs strong architectural judgment, operable systems, and engineering processes that detect drift. I built a source-to-release system that separates evidence ownership, compiled public surfaces, privacy boundaries and verified release gates.",
-      "first_move": "Select a high-impact release failure mode, trace the data and deployment dependencies, and produce an executable improvement with an automated regression and a readback of the resulting production behavior.",
       "proofs": [
-        {"name":"Job-App Helix — Typed Delivery Control Plane", "mechanism":"Python company/role/evidence records compiled into governed recruiter and machine surfaces.", "url":"https://github.com/GlacierEQ/job-app-helix/blob/23ac70cf0a451f14b2fdb25179477be97dc11d66/src/job_app_helix/ashby_opening_discovery.py"},
-        {"name":"Job Application — Production Build Pipeline", "mechanism":"Deterministic build sequence, public-surface validation and regression enforcement.", "url":"https://github.com/GlacierEQ/job-application/blob/49a6a3f61d8266a360afa394f522f5f4dbe3530a/scripts/vercel-build.mjs"},
-        {"name":"Sigma Glue — Failure Recovery", "mechanism":"Readback and replay protection when an external write may have succeeded despite a lost response.", "url":"https://github.com/GlacierEQ/sigma-glue"}
-      ]
+        {
+          "mechanism": "OIDC identity exchanged for short-lived single-repo tokens, allowlisted workloads in ephemeral checkouts, duplicate-job replay guard, token revocation, and receipted status.",
+          "name": "Public Actions Runner Host — Identity-Brokered Delivery",
+          "url": "https://github.com/GlacierEQ/public-actions-runner-host/tree/ecf67366cd3a0658d993e0b947724a707237a3ba"
+        },
+        {
+          "mechanism": "Every operation record bound to a SHA-256 of its canonical payload, previous-hash continuity enforced on append, chain re-verification, and precondition contracts checked before recording.",
+          "name": "Genius-Verification — Hash-Linked Audit Ledger",
+          "url": "https://github.com/GlacierEQ/Genius-Verification/tree/0aa4540543aa685410e8515ceda3c746752d454d"
+        },
+        {
+          "mechanism": "Readback and replay protection when an external write may have succeeded despite a lost response.",
+          "name": "Sigma Glue — Failure Recovery",
+          "url": "https://github.com/GlacierEQ/sigma-glue/tree/a8cfc1c416a0bc7d90a0cf6f672b9ee6652a11e2"
+        }
+      ],
+      "role": "Head of Platform & Infrastructure Engineering",
+      "slug": "ashby",
+      "solution": "Ashby's expanding platform needs strong architectural judgment, operable systems, and engineering processes that detect drift. I build delivery infrastructure the same way: identity-brokered workloads that run only what is allowlisted, hash-linked audit evidence for every operation, and readback after ambiguous external writes."
     },
     {
-      "slug": "titan-managed-ai",
       "company": "Titan",
-      "role": "Forward Deployed Engineer — Managed AI",
+      "experience": [
+        "Built repeatable agent state in the AI Personalization Kernel: memory-to-policy binding, context continuity, and correction-aware state management for repeatable behavior across interrupted sessions.",
+        "Built a multi-tool MCP gateway in colossus-gateway: StreamableHTTP MCP with tool dispatch and owned-model invocation behind operator auth, connecting Box, Notion, GitHub, Dropbox, and more through one governed surface.",
+        "Built provider-state readback in Sigma Glue: plan-fingerprint integrity, exact approval and permit binding, and replay controls across ambiguous external action responses."
+      ],
+      "first_move": "Scope a single Microsoft 365-to-action workflow by its user, data contracts, permissions, expected result, and measurable baseline; prototype the connector and exercise both success and ambiguous-failure paths before a customer-facing handoff.",
       "job_url": "https://jobs.ashbyhq.com/titan-msp/48ef0ba9-2bd4-4b5e-a131-acf0a9a5bcf2",
       "problem": "Make enterprise agents usable across fragmented customer systems.",
-      "solution": "Titan's managed AI work joins business workflows with identity, Microsoft 365 data, MCP tooling, and operational handoff. My connector and orchestration systems emphasize declared authority, recoverable steps, and source-traceable outputs.",
-      "first_move": "Scope a single Microsoft 365-to-action workflow by its user, data contracts, permissions, expected result, and measurable baseline; prototype the connector and exercise both success and ambiguous-failure paths before a customer-facing handoff.",
       "proofs": [
-        {"name":"AI Personalization Kernel", "mechanism":"Memory-to-policy binding, context continuity and correction-aware state management for repeatable agents.", "url":"https://github.com/GlacierEQ/Ai-Personalization_Kernel"},
-        {"name":"Job-App Helix — Opening Discovery", "mechanism":"Public job-board API ingestion and source metadata normalized into typed operational records.", "url":"https://github.com/GlacierEQ/job-app-helix/blob/23ac70cf0a451f14b2fdb25179477be97dc11d66/src/job_app_helix/ashby_opening_discovery.py"},
-        {"name":"Sigma Glue — Recoverable Integration", "mechanism":"Provider-state readback and replay controls across ambiguous external action responses.", "url":"https://github.com/GlacierEQ/sigma-glue"}
-      ]
+        {
+          "mechanism": "Memory-to-policy binding, context continuity and correction-aware state management for repeatable agents.",
+          "name": "AI Personalization Kernel",
+          "url": "https://github.com/GlacierEQ/Ai-Personalization_Kernel/tree/04baf4517b205f5202aad74abb87c8949d39b5de"
+        },
+        {
+          "mechanism": "StreamableHTTP MCP plus /v1/dispatch, /v1/hydrate and /v1/invoke endpoints with operator auth; ~28 tool modules (Box, Notion, GitHub, Dropbox, and more) behind one governed surface.",
+          "name": "Colossus Gateway — MCP Tool Bridge",
+          "url": "https://github.com/GlacierEQ/colossus-gateway/tree/55a8b151c7fa9cc81b1bd06e1ae02eb3a050b5f9"
+        },
+        {
+          "mechanism": "Provider-state readback and replay controls across ambiguous external action responses.",
+          "name": "Sigma Glue — Recoverable Integration",
+          "url": "https://github.com/GlacierEQ/sigma-glue/tree/a8cfc1c416a0bc7d90a0cf6f672b9ee6652a11e2"
+        }
+      ],
+      "role": "Forward Deployed Engineer — Managed AI",
+      "slug": "titan-managed-ai",
+      "solution": "Titan's managed AI work joins business workflows with identity, Microsoft 365 data, MCP tooling, and operational handoff. My connector and orchestration systems emphasize declared authority, recoverable steps, and source-traceable outputs."
     }
   ]
 }

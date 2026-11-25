@@ -10,17 +10,17 @@ Founder-engineer building source-traceable autonomous AI systems, durable contex
 
 EXPERIENCE
 GLACIEREQ | Founder / Applied AI Systems Builder | 2023–Present
-- Architect and implement Python/TypeScript agent infrastructure with explicit identity, tool authority, workflow state, durable receipts, and validation.
-- Develop recovery mechanisms for ambiguous provider outcomes, idempotent execution, evidence binding, and continuity across interrupted sessions.
-- Compile source-governed engineering proof into recruiter and machine-facing portfolio surfaces, testing public/private admission and release integrity.
+- Built provider-boundary recovery in Sigma Glue: plan-fingerprint integrity checks, exact approval and permit binding, and idempotent claim recording, so an ambiguous provider write is read back before it can execute twice.
+- Built explicit multi-agent scheduling in the Anthropic Agent Coordinator: every task carries ownership, dependencies, and a token estimate, and the scheduler assigns work in deterministic waves only when budget and role capacity allow.
+- Built durable continuity in ECHO: deterministic identity and durable execution evidence across interrupted sessions, with lease claiming, stale-job recovery, and hash-chained receipts.
 
 SELECTED TECHNICAL EVIDENCE
 - Sigma Glue — Provider Readback: Ambiguous provider-write recovery, restart-readable trails, and replay guards designed to prevent duplicate side effects.
-  https://github.com/GlacierEQ/sigma-glue
+  https://github.com/GlacierEQ/sigma-glue/tree/a8cfc1c416a0bc7d90a0cf6f672b9ee6652a11e2
 - Anthropic Agent Coordinator — Scheduler: Explicit agent ownership, dependencies, capacity and shared-resource budget scheduling.
-  https://github.com/GlacierEQ/anthropic-agent-coordinator
+  https://github.com/GlacierEQ/anthropic-agent-coordinator/tree/5de3e534ffe7782db64390134355fc436fb174ad
 - ECHO — Durable Continuity: Deterministic identity and durable execution evidence across interrupted sessions.
-  https://github.com/GlacierEQ/ECHO
+  https://github.com/GlacierEQ/ECHO/tree/08d5622e7081a17c3cd0fe96c4fdc97000acc74f
 
 ADDITIONAL PROFESSIONAL EXPERIENCE
 DIAMOND HEAD HOME INSPECTIONS | Certified Home Inspector | 2020–2024

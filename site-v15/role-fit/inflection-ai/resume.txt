@@ -10,17 +10,17 @@ Founder-engineer building source-traceable autonomous AI systems, durable contex
 
 EXPERIENCE
 GLACIEREQ | Founder / Applied AI Systems Builder | 2023–Present
-- Architect and implement Python/TypeScript agent infrastructure with explicit identity, tool authority, workflow state, durable receipts, and validation.
-- Develop recovery mechanisms for ambiguous provider outcomes, idempotent execution, evidence binding, and continuity across interrupted sessions.
-- Compile source-governed engineering proof into recruiter and machine-facing portfolio surfaces, testing public/private admission and release integrity.
+- Built persistent agent continuity in ECHO: session identity, durable SQLite/WAL state, idempotent jobs, bounded retries, and execution receipts that survive interrupted sessions.
+- Built typed memory-to-policy decisions in the AI Personalization Kernel: correction-weighted action scoring, context-first routing with a re-ingestion guard, and a 12-step boot contract that produces a signed receipt.
+- Built verified checkpoint storage in the cognition-execution-checkpoint-lattice: digest-addressed immutable blobs, verified-parents-only storage, cross-digest consistency, and integrity re-verification across the whole store.
 
 SELECTED TECHNICAL EVIDENCE
 - ECHO — Persistent Agent Continuity: FastAPI session identity, durable SQLite/WAL state, idempotent jobs, bounded retries, and execution receipts.
-  https://github.com/GlacierEQ/ECHO
+  https://github.com/GlacierEQ/ECHO/tree/08d5622e7081a17c3cd0fe96c4fdc97000acc74f
 - AI Personalization Kernel: Typed memory, context-first routing, policy binding, correction replay, and drift detection.
-  https://github.com/GlacierEQ/Ai-Personalization_Kernel
-- Job-App Helix — Source-Bound Workflow: Typed opening, candidate and evidence workflows that compile auditable artifacts from governed inputs.
-  https://github.com/GlacierEQ/job-app-helix
+  https://github.com/GlacierEQ/Ai-Personalization_Kernel/tree/04baf4517b205f5202aad74abb87c8949d39b5de
+- Checkpoint Lattice — Verified Execution State: Verified checkpoints with proof and workspace archives stored as digest-addressed immutable blobs, with cross-digest consistency, verified-parents-only storage, and full integrity re-verification.
+  https://github.com/GlacierEQ/cognition-execution-checkpoint-lattice/tree/10e3c76e4c12f8b10cc49ab3b699cb7be8724914
 
 ADDITIONAL PROFESSIONAL EXPERIENCE
 DIAMOND HEAD HOME INSPECTIONS | Certified Home Inspector | 2020–2024

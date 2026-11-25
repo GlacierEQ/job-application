@@ -37,9 +37,9 @@ for (const token of [
   'SYSTEMS ATLAS RESUME', '01 / HUMAN', '02 / MASTER', '03 / MACHINE', '04 / MESH',
   'Evidence-carrying execution', 'Fail-closed execution envelopes', 'Bounded state transitions',
   'Idempotent recovery', 'Truth-preserving public projections', 'Reversible verified change',
-  '349/363', '125/125', '42 / 84', '95/95', 'BIOLOGICAL SYSTEMS',
+  '9-phase pipeline', 'Hash-chained receipts', 'Proof-gated placement', 'Deterministic waves', 'BIOLOGICAL SYSTEMS',
 ]) assert(resume.includes(token), `V23 resume token missing: ${token}`);
-assert(!resume.includes('148/148') && !resume.includes('148 of 148') && !resume.includes('48/48') && !resume.includes('40 / 80'), 'retired Helix/ECHO/Tower framing remains in resume');
+assert(!resume.includes('148/148') && !resume.includes('148 of 148') && !resume.includes('48/48') && !resume.includes('40 / 80') && !resume.includes('349/363') && !resume.includes('125/125') && !resume.includes('42 / 84') && !resume.includes('95/95'), 'retired Helix/ECHO/Tower framing remains in resume');
 
 for (const token of [
   'REPEATED ENGINEERING PATTERNS', 'SYSTEMS LINEAGE', 'AKOS + ECHO', 'Colossal Agent',
