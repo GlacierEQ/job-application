@@ -161,10 +161,10 @@ for (const token of [
   'Idempotent recovery',
   'Truth-preserving public projections',
   'Reversible verified change',
-  '349/363',
-  '125/125',
-  '42 / 84',
-  '95/95',
+  '9-phase pipeline',
+  'Hash-chained receipts',
+  'Proof-gated placement',
+  'Deterministic waves',
   'BIOLOGICAL SYSTEMS',
 ]) assert(resume.includes(token), `V23 resume proof drift: ${token}`);
 assert(!resume.includes('148/148') && !resume.includes('148 of 148') && !resume.includes('48/48') && !resume.includes('40 / 80'), 'resume contains retired Helix/ECHO/Tower framing');

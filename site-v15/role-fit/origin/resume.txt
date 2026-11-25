@@ -16,11 +16,11 @@ GLACIEREQ | Founder / Applied AI Systems Builder | 2023–Present
 
 SELECTED TECHNICAL EVIDENCE
 - Sigma Glue — Provider Readback: Ambiguous provider-write recovery, restart-readable trails, and replay guards designed to prevent duplicate side effects.
-  https://github.com/GlacierEQ/sigma-glue
+  https://github.com/GlacierEQ/sigma-glue/tree/a8cfc1c416a0bc7d90a0cf6f672b9ee6652a11e2
 - Anthropic Agent Coordinator — Scheduler: Explicit agent ownership, dependencies, capacity and shared-resource budget scheduling.
-  https://github.com/GlacierEQ/anthropic-agent-coordinator
+  https://github.com/GlacierEQ/anthropic-agent-coordinator/tree/5de3e534ffe7782db64390134355fc436fb174ad
 - ECHO — Durable Continuity: Deterministic identity and durable execution evidence across interrupted sessions.
-  https://github.com/GlacierEQ/ECHO
+  https://github.com/GlacierEQ/ECHO/tree/08d5622e7081a17c3cd0fe96c4fdc97000acc74f
 
 ADDITIONAL PROFESSIONAL EXPERIENCE
 DIAMOND HEAD HOME INSPECTIONS | Certified Home Inspector | 2020–2024

@@ -36,19 +36,21 @@ for (const href of ['/resume/ats.txt', '/data/resume.json']) {
 }
 assert(html.includes('itemscope') && html.includes('https://schema.org/Person'), 'schema.org Person microdata missing');
 assert(html.includes('rel="alternate" type="application/json"') && html.includes('rel="alternate" type="text/plain"'), 'machine alternates missing');
-for (const signal of ['systems atlas resume', 'evidence-carrying execution', 'fail-closed execution envelopes', 'bounded state transitions', 'idempotent recovery', 'truth-preserving public projections', 'reversible verified change', 'biological systems', '349/363', '125/125', '95/95']) {
+for (const signal of ['systems atlas resume', 'evidence-carrying execution', 'fail-closed execution envelopes', 'bounded state transitions', 'idempotent recovery', 'truth-preserving public projections', 'reversible verified change', 'biological systems', '9-phase pipeline', 'hash-chained receipts', 'deterministic waves']) {
   assert(htmlFold.includes(signal), `V23 human signal missing: ${signal}`);
 }
 assert(!html.includes('148/148') && !html.includes('148 of 148') && !html.includes('48/48'), 'stale Helix/ECHO test-count framing remains in HTML');
+assert(!html.includes('349/363') && !html.includes('125/125') && !html.includes('42 / 84') && !html.includes('95/95'), 'test-count metric grid framing remains in HTML');
 
 assert(ats.length > 10000, 'V23 ATS text too short');
 for (const heading of ['SYSTEMS ATLAS MASTER', 'PROFESSIONAL SUMMARY', 'FRONTIER ENGINEERING SIGNAL', 'CURRENT PROOF SIGNAL', 'PROFESSIONAL EXPERIENCE', 'SELECTED SYSTEMS AND ARCHITECTURE', 'BIOLOGICAL SYSTEMS -> ENGINEERED SYSTEMS', 'EDUCATION AND SYSTEMS LINEAGE', 'ARCHITECTURE CHRONOLOGY - TIMESTAMPED, BOUNDED', 'EVIDENCE BOUNDARY']) {
   assert(ats.includes(heading), `ATS heading missing: ${heading}`);
 }
-for (const exact of ['363 collected, 349 passed, 1 skipped', '125/125 tests', '42 technology floors', '95/95 Agent Coordinator tests']) {
+for (const exact of ['9-phase pipeline from intake to ledger', 'hash-chained receipts over durable jobs', '42 technology floors', 'deterministic DAG scheduling']) {
   assert(ats.includes(exact), `ATS current proof missing: ${exact}`);
 }
 assert(!ats.includes('148/148') && !ats.includes('148 of 148') && !ats.includes('48/48') && !ats.includes('40 technology floors'), 'stale Helix/ECHO/Tower test-count framing remains in ATS');
+assert(!ats.includes('363 collected') && !ats.includes('Ruff') && !ats.includes('billing limit') && !ats.includes('PostgreSQL concepts') && !ats.includes('Evidence-bounded exposure') && !ats.includes('Not represented as formal professional') && !ats.includes('No access, copying, transmission'), 'removed defensive/test-count phrasing remains in ATS');
 
 assert(resume.meta.schema === 'glaciereq.resume-intelligence.v23', 'machine schema must be V23');
 assert(resume.meta.version === '23.0.0-resource-grounded', 'machine version drift');

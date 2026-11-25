@@ -10,17 +10,17 @@ Founder-engineer building source-traceable autonomous AI systems, durable contex
 
 EXPERIENCE
 GLACIEREQ | Founder / Applied AI Systems Builder | 2023–Present
-- Built repeatable agent state in the AI Personalization Kernel: memory-to-policy binding, context continuity, and correction-aware state management so the same agent behaves the same way across customer engagements.
+- Built repeatable agent state in the AI Personalization Kernel: memory-to-policy binding, context continuity, and correction-aware state management for repeatable behavior across interrupted sessions.
 - Built a multi-tool MCP gateway in colossus-gateway: StreamableHTTP MCP with tool dispatch and owned-model invocation behind operator auth, connecting Box, Notion, GitHub, Dropbox, and more through one governed surface.
 - Built provider-state readback in Sigma Glue: plan-fingerprint integrity, exact approval and permit binding, and replay controls across ambiguous external action responses.
 
 SELECTED TECHNICAL EVIDENCE
 - AI Personalization Kernel: Memory-to-policy binding, context continuity and correction-aware state management for repeatable agents.
-  https://github.com/GlacierEQ/Ai-Personalization_Kernel
-- Colossus Gateway — MCP Tool Bridge: StreamableHTTP MCP server with tool dispatch and owned-model invocation behind operator auth, connecting Box, Notion, GitHub, Dropbox, and more through one governed surface.
-  https://github.com/GlacierEQ/colossus-gateway
+  https://github.com/GlacierEQ/Ai-Personalization_Kernel/tree/04baf4517b205f5202aad74abb87c8949d39b5de
+- Colossus Gateway — MCP Tool Bridge: StreamableHTTP MCP plus /v1/dispatch, /v1/hydrate and /v1/invoke endpoints with operator auth; ~28 tool modules (Box, Notion, GitHub, Dropbox, and more) behind one governed surface.
+  https://github.com/GlacierEQ/colossus-gateway/tree/55a8b151c7fa9cc81b1bd06e1ae02eb3a050b5f9
 - Sigma Glue — Recoverable Integration: Provider-state readback and replay controls across ambiguous external action responses.
-  https://github.com/GlacierEQ/sigma-glue
+  https://github.com/GlacierEQ/sigma-glue/tree/a8cfc1c416a0bc7d90a0cf6f672b9ee6652a11e2
 
 ADDITIONAL PROFESSIONAL EXPERIENCE
 DIAMOND HEAD HOME INSPECTIONS | Certified Home Inspector | 2020–2024

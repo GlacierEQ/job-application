@@ -12,7 +12,6 @@ export const UNAVAILABLE_GITHUB_REPOSITORIES = Object.freeze([
   'apex-control-plane',
   'apex-github-worker',
   'aspen-grove-supabase',
-  'colossus-gateway',
   'mega-skills',
   'monolith',
   'notion-mcp-empowerment-engine',

@@ -6,7 +6,7 @@ Portfolio: https://casey-barton-glaciereq.vercel.app/role-fit/ashby/
 GitHub: https://github.com/GlacierEQ
 
 PROFESSIONAL PROFILE
-Founder-engineer building source-traceable autonomous AI systems, durable context, typed workflows, agent coordination, and failure-aware integrations. Ashby's expanding platform needs strong architectural judgment, operable systems, and engineering processes that detect drift. I build delivery infrastructure the same way: identity-brokered workloads that run only what is allowlisted, hash-linked audit evidence for every operation, and readback after every ambiguous external write.
+Founder-engineer building source-traceable autonomous AI systems, durable context, typed workflows, agent coordination, and failure-aware integrations. Ashby's expanding platform needs strong architectural judgment, operable systems, and engineering processes that detect drift. I build delivery infrastructure the same way: identity-brokered workloads that run only what is allowlisted, hash-linked audit evidence for every operation, and readback after ambiguous external writes.
 
 EXPERIENCE
 GLACIEREQ | Founder / Applied AI Systems Builder | 2023–Present
@@ -16,11 +16,11 @@ GLACIEREQ | Founder / Applied AI Systems Builder | 2023–Present
 
 SELECTED TECHNICAL EVIDENCE
 - Public Actions Runner Host — Identity-Brokered Delivery: OIDC identity exchanged for short-lived single-repo tokens, allowlisted workloads in ephemeral checkouts, duplicate-job replay guard, token revocation, and receipted status.
-  https://github.com/GlacierEQ/public-actions-runner-host
+  https://github.com/GlacierEQ/public-actions-runner-host/tree/ecf67366cd3a0658d993e0b947724a707237a3ba
 - Genius-Verification — Hash-Linked Audit Ledger: Every operation record bound to a SHA-256 of its canonical payload, previous-hash continuity enforced on append, chain re-verification, and precondition contracts checked before recording.
-  https://github.com/GlacierEQ/Genius-Verification
+  https://github.com/GlacierEQ/Genius-Verification/tree/0aa4540543aa685410e8515ceda3c746752d454d
 - Sigma Glue — Failure Recovery: Readback and replay protection when an external write may have succeeded despite a lost response.
-  https://github.com/GlacierEQ/sigma-glue
+  https://github.com/GlacierEQ/sigma-glue/tree/a8cfc1c416a0bc7d90a0cf6f672b9ee6652a11e2
 
 ADDITIONAL PROFESSIONAL EXPERIENCE
 DIAMOND HEAD HOME INSPECTIONS | Certified Home Inspector | 2020–2024

@@ -22,9 +22,9 @@ FRONTIER ENGINEERING SIGNAL
 
 CURRENT PROOF SIGNAL
 - AKOS, head 2992b1372ea91eba8e57d483de07f8ae4b1b910d: evidence-bound coordination — operator intents, claims, and capabilities bound through a 9-phase pipeline from intake to ledger, with evidence classes, operation classes, and quality and receipt blockers.
-- ECHO current head b6b004f601a0e20b4fd4264b8262dc4ac9498245 (transactional job leases and stale-worker recovery, #30) hardens the public/private admission boundary. The canonical hiring source binds the current head to compile, correctness lint, dependency audit, 125/125 tests, and CLI verification (GitHub Actions ECHO CI run 33342434203, 2026-08-30: 125 passed, 0 failed).
+- ECHO current head b6b004f601a0e20b4fd4264b8262dc4ac9498245 (transactional job leases and stale-worker recovery, #30) hardens the public/private admission boundary. The canonical hiring source binds the current head to compile, correctness lint, dependency audit, and CLI verification, with hash-chained receipts over durable jobs.
 - The Tower of Babel governs 42 technology floors and 84 easy/advanced exhibits, with 17 behavioral-proof floors, 3 formal-proof floors, and 11 explicitly gated floors. Technologies earn placement through a named boundary and proof gate rather than decorative language count.
-- Current-head evidence includes 95/95 Agent Coordinator tests and a 153-execution three-version Safety Monitor matrix. Those receipts prove their bounded mechanisms, not production deployment.
+- Current-head evidence includes the Agent Coordinator's deterministic DAG scheduling under global and per-role token budgets, and a three-version Safety Monitor policy matrix (ALLOW / CONFIRM / DENY with explicit reasons). Those receipts prove their bounded mechanisms, not production deployment.
 - Evidence-Carrying Execution is independently instantiated in public-actions-runner-host, Tower of Babel, and current-head AKOS, with AKOS providing an exact-head executed local verification.
 - A reproduced guarded GitHub mutation path separately demonstrates exact patch/check preconditions, expected-head gating, canonical provider readback, and replay suppression.
 
@@ -79,7 +79,7 @@ Primary implementation: Python; TypeScript; JavaScript; SQL; Bash; Node.js; Reac
 Interfaces and architecture: REST; JSON-RPC; MCP; JSON Schema; Protocol Buffers; events; state machines; idempotency; authority models; evidence models.
 Data and documents: SQLite; relational data modeling; structured extraction; document generation; provenance; SHA-256 integrity; machine-readable receipts.
 Delivery and verification: Git; GitHub Actions; Docker; Vercel; automated testing; static analysis; dependency auditing; deterministic release gates.
-Additional languages with working exhibits: Go; Rust; C; C++; CUDA; Swift/Metal; Julia; R; Verilog/SystemVerilog; WebAssembly; Lean 4.
+Additional languages: Go; Rust; C; C++; CUDA; Swift/Metal; Julia; R; Verilog/SystemVerilog; WebAssembly; Lean 4.
 
 EDUCATION AND SYSTEMS LINEAGE
 UNIVERSITY OF HAWAIʻI AT MĀNOA | Bachelor of Science, Marine Biology | 2016
@@ -92,7 +92,7 @@ AWS CLOUD INSTITUTE | Cloud Application Developer program | 2025-2026, in progre
 SAFETY-CRITICAL AND FIELD FOUNDATION
 - Scuba Tank Technician, Hawaiian Diving Adventures and UH Dive Office, 2016-2017: tank filling, transport, inspection and repair support, and gas mixing under safety-critical procedures.
 - Historical technical certifications recorded in prior resumes: PSI Visual Cylinder Inspector; PSI Eddy Current Technician; PSI Valve Repair Technician; PSI Oxygen Cleaning Cylinder Technician; NAUI Rescue Diver; NAUI Master Diver; PADI Enriched Air Diver. Current status is not represented as active without updated documentation.
-- Civil Air Patrol, 2007-2011: Cadet Commander and Search-and-Rescue Ground Team Leader; an official 2009 certificate documents appointment as a Cadet Officer.
+- Civil Air Patrol, 2007-2011 (historical): Cadet Commander and Search-and-Rescue Ground Team Leader; an official 2009 certificate documents appointment as a Cadet Officer.
 
 ARCHITECTURE CHRONOLOGY - TIMESTAMPED, BOUNDED
 Public GlacierEQ anchors include Pillars & Pistons on March 16, 2026 and a public Spiral Engine artifact on March 24, 2026. A later May 27, 2026 OpenAI public three-pillar/self-improvement comparator falls 72 and 64 days later, respectively. This is presented only as dated semantic convergence.
@@ -116,4 +116,4 @@ Machine: https://casey-barton-glaciereq.vercel.app/machine/
 Source: https://github.com/GlacierEQ
 
 EVIDENCE BOUNDARY
-Independent GlacierEQ work and bounded technical exhibits. Every system named here links to inspectable public source, and claims apply to the stated repository and revision.
+Independent GlacierEQ work and bounded technical exhibits. Public systems named here link to inspectable source; private systems are described from their governed internal record. Claims apply to the stated repository and revision.

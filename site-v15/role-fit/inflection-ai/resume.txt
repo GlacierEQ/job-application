@@ -16,11 +16,11 @@ GLACIEREQ | Founder / Applied AI Systems Builder | 2023–Present
 
 SELECTED TECHNICAL EVIDENCE
 - ECHO — Persistent Agent Continuity: FastAPI session identity, durable SQLite/WAL state, idempotent jobs, bounded retries, and execution receipts.
-  https://github.com/GlacierEQ/ECHO
+  https://github.com/GlacierEQ/ECHO/tree/08d5622e7081a17c3cd0fe96c4fdc97000acc74f
 - AI Personalization Kernel: Typed memory, context-first routing, policy binding, correction replay, and drift detection.
-  https://github.com/GlacierEQ/Ai-Personalization_Kernel
+  https://github.com/GlacierEQ/Ai-Personalization_Kernel/tree/04baf4517b205f5202aad74abb87c8949d39b5de
 - Checkpoint Lattice — Verified Execution State: Verified checkpoints with proof and workspace archives stored as digest-addressed immutable blobs, with cross-digest consistency, verified-parents-only storage, and full integrity re-verification.
-  https://github.com/GlacierEQ/cognition-execution-checkpoint-lattice
+  https://github.com/GlacierEQ/cognition-execution-checkpoint-lattice/tree/10e3c76e4c12f8b10cc49ab3b699cb7be8724914
 
 ADDITIONAL PROFESSIONAL EXPERIENCE
 DIAMOND HEAD HOME INSPECTIONS | Certified Home Inspector | 2020–2024

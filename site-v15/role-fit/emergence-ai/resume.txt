@@ -11,16 +11,16 @@ Founder-engineer building source-traceable autonomous AI systems, durable contex
 EXPERIENCE
 GLACIEREQ | Founder / Applied AI Systems Builder | 2023–Present
 - Turned multi-agent scheduling into an executable contract in the Anthropic Agent Coordinator: the task DAG is validated, cycles are detected with the failing path in the error, and work is assigned only when it fits the global token budget and the role's remaining capacity.
-- Made agent execution durable in ECHO: deterministic identities, bounded retries, durable jobs, and runtime receipts, with lease claiming and stale-job recovery so interrupted work resumes instead of restarting.
-- Built a bounded micro-agent engine in tasklet: admission-validated payloads on a priority heap, async execution under deadlines with suspend and resume, and duplicate active IDs rejected instead of re-run.
+- Made agent execution durable in ECHO: deterministic identities, bounded retries, durable jobs, and runtime receipts, with lease claiming and stale-job recovery so interrupted jobs are reclaimed and retried.
+- Built a bounded micro-agent engine in Tasklet: admission-validated payloads on a priority heap, async execution under deadlines with suspend and resume, and duplicate active IDs rejected instead of re-run.
 
 SELECTED TECHNICAL EVIDENCE
 - Agent Coordinator — Multi-Agent Scheduling: Multi-agent ownership, dependencies, capacity and shared resource budgets as explicit scheduler inputs.
-  https://github.com/GlacierEQ/anthropic-agent-coordinator
+  https://github.com/GlacierEQ/anthropic-agent-coordinator/tree/5de3e534ffe7782db64390134355fc436fb174ad
 - ECHO — Persistent Agent Service: Bounded retries, deterministic identities, durable jobs and runtime receipts.
-  https://github.com/GlacierEQ/ECHO
+  https://github.com/GlacierEQ/ECHO/tree/08d5622e7081a17c3cd0fe96c4fdc97000acc74f
 - Tasklet — Bounded Micro-Agent Engine: Admission-validated payloads on a priority heap with deadlines, suspend/resume/complete lifecycle, per-tasklet metrics, and duplicate active IDs rejected instead of re-run.
-  https://github.com/GlacierEQ/tasklet-micro-agent-engine
+  https://github.com/GlacierEQ/tasklet-micro-agent-engine/tree/817a694c41c2802b7a59f4a50c58d37b89ef603d
 
 ADDITIONAL PROFESSIONAL EXPERIENCE
 DIAMOND HEAD HOME INSPECTIONS | Certified Home Inspector | 2020–2024
