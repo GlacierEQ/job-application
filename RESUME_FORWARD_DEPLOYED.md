@@ -15,6 +15,11 @@ I translate incomplete real-world requirements into narrow systems that operator
 | **Sigma Glue — Reversible Orchestration** | Integration / Reliability | Node 22, GitHub API, provider-aware recovery, restart-readable trails, deterministic replay guards. 140/140 tests. Recovered lost success response, blocked replay. [GitHub ↗](https://github.com/GlacierEQ/sigma-glue) |
 | **Job-App Helix — Application Intelligence Control Plane** | Applied AI Platform / Delivery | 225 deserving repos → 61 admitted boundary → 8 VERIFIED anchors. Typed Python control plane, machine-readable contracts, commit-pinned projection to live site. 961 recorded tests. [GitHub ↗](https://github.com/GlacierEQ/job-app-helix) |
 
+## Additional Domain Engineering — Independent Simulations
+
+- **xAI / Colossus-class physical infrastructure:** [Energy Scenario Model](https://github.com/GlacierEQ/xai-colossus-energy) pairs Rust power-demand/PUE/headroom calculations with pinned Alpha/Omega simulated load-shed verification. Shows the transfer from field systems diagnosis to typed software constraints; no xAI facility access or production control claim.
+- **SpaceX-class mission operations:** [Autonomy](https://github.com/GlacierEQ/spacex-autonomy), [Mission Control](https://github.com/GlacierEQ/spacex-mission-control), and [Launch Sequencer](https://github.com/GlacierEQ/spacex-launch-sequencer) address synthetic telemetry, bounded decisions, state transitions, quorum, holds and failure handling in Python and Go. Local test/simulation scope only; no affiliation, proprietary knowledge or vehicle command authority.
+
 ## Core Competencies
 
 **Applied AI Architecture** — Design contracts and operating boundaries that make AI capability dependable: system interfaces, state, authority, evaluation models, multi-repo architecture, completion design.

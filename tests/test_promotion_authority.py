@@ -38,8 +38,21 @@ class PromotionAuthTests(unittest.TestCase):
         file_digest = hashlib.sha256(proof_path.read_bytes()).hexdigest()
         self.assertEqual(grant["proof_receipt_digest"], file_digest)
         self.assertEqual(grant["source_sha"], proof["source_sha"])
-        ok, reason = verify_bound_grant(grant, proof_path, secret=LOCAL_OPERATOR_SECRET)
+        ok, reason = verify_bound_grant(
+            grant,
+            proof_path,
+            secret=LOCAL_OPERATOR_SECRET,
+            now=float(grant["not_after"]) - 1.0,
+        )
         self.assertTrue(ok, reason)
+        expired_ok, expired_reason = verify_bound_grant(
+            grant,
+            proof_path,
+            secret=LOCAL_OPERATOR_SECRET,
+            now=float(grant["not_after"]) + 1.0,
+        )
+        self.assertFalse(expired_ok)
+        self.assertEqual(expired_reason, "GRANT_EXPIRED")
 
 
 if __name__ == "__main__":

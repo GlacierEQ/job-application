@@ -3,9 +3,10 @@ const BLOCKED = /MAPPED_NOT_RECRUITER_READY|CANDIDATE_TARGET_REQUIRES_DIRECT_EVI
 const PROVEN_STAGES = new Set(['CODE_INSPECTED', 'PROOF_REPRODUCED', 'CLAIM_PROMOTED']);
 export function admittedAtlasCompany(company) {
   if (!company || typeof company !== 'object' || Array.isArray(company) || !Array.isArray(company.repositories)) return false;
-  if (BLOCKED.test(String(company.track_state ?? ''))) return false;
-  const publicRepositories = company.repositories.filter((repo) => repo && typeof repo === 'object' && !Array.isArray(repo) && repo.visibility === 'public' && repo.inventory_scope === 'HELIX_ADMITTED' && typeof repo.repository === 'string' && /^GlacierEQ\/[A-Za-z0-9_.-]+$/.test(repo.repository));
-  if (publicRepositories.length === 0) return false;
+  if (BLOCKED.test(String(company.track_state ?? '').toUpperCase())) return false;
+  const publicRepositories = company.repositories.filter((repo) => repo && typeof repo === 'object' && !Array.isArray(repo) && repo.visibility === 'public' && repo.inventory_scope === 'HELIX_ADMITTED' && typeof repo.repository === 'string' && repo.repository.slice(repo.repository.indexOf('/') + 1).length <= 100 && /^GlacierEQ\/(?!\.{1,2}$)[A-Za-z0-9_.-]+$/i.test(repo.repository));
+  const distinctPublicRepositories = new Set(publicRepositories.map((repo) => repo.repository.toLowerCase()));
+  if (distinctPublicRepositories.size === 0) return false;
   const stage = company.second_depth?.stage;
-  return new Set(publicRepositories.map((repo) => repo.repository.toLowerCase())).size >= 2 || PROVEN_STAGES.has(stage);
+  return distinctPublicRepositories.size >= 2 || PROVEN_STAGES.has(stage);
 }

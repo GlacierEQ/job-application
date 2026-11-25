@@ -1,16 +1,68 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { admittedAtlasCompany } from '../scripts/public-atlas-admission.mjs';
-const row = (track_state, count, stage='MAPPED_ONLY') => ({track_state, repositories:Array.from({length:count},()=>({})), second_depth:{stage}});
-test('excludes scaffold, seeded, and blocked states even when repo count or stage is high',()=>{
-  for (const state of ['MAPPED_NOT_RECRUITER_READY','CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE','NO_DIRECT_EXHIBIT_VERIFIED']) {
-    assert.equal(admittedAtlasCompany(row(state, 10, 'CLAIM_PROMOTED')),false);
+
+const repo = (name, visibility = 'public', inventory_scope = 'HELIX_ADMITTED') =>
+  ({ repository: `GlacierEQ/${name}`, visibility, inventory_scope });
+const company = (repositories, stage = 'MAPPED_ONLY', track_state = 'MAPPED_WITH_RECRUITER_READY_PUBLIC_SUBSET') =>
+  ({ repositories, second_depth: { stage }, track_state });
+
+test('excludes blocked recruiter states despite qualifying repositories and stage', () => {
+  for (const state of ['MAPPED_NOT_RECRUITER_READY', 'CANDIDATE_TARGET_REQUIRES_DIRECT_EVIDENCE', 'NO_DIRECT_EXHIBIT_VERIFIED']) {
+    assert.equal(admittedAtlasCompany(company([repo('one'), repo('two')], 'CLAIM_PROMOTED', state)), false);
   }
-  assert.equal(admittedAtlasCompany(row('OTHER',0)),false);
-  assert.equal(admittedAtlasCompany(row('OTHER',1)),false);
 });
-test('admits nonblocked repository-rich and verified-depth tracks',()=>{
-  assert.equal(admittedAtlasCompany(row('MAPPED_WITH_RECRUITER_READY_PUBLIC_SUBSET',2,'CODE_INSPECTED')),true);
-  assert.equal(admittedAtlasCompany(row('OTHER',0,'PROOF_REPRODUCED')),true);
+
+test('rejects case-variant blocked recruiter states', () => {
+  for (const state of ['mapped_not_recruiter_ready', 'Candidate_Target_Requires_Direct_Evidence', 'no_direct_exhibit_verified']) {
+    assert.equal(admittedAtlasCompany(company([repo('one'), repo('two')], 'CLAIM_PROMOTED', state)), false);
+  }
 });
-test('fails closed on malformed rows',()=>assert.equal(admittedAtlasCompany({}),false));
+
+test('admits two distinct source-admitted public repositories', () => {
+  assert.equal(admittedAtlasCompany(company([repo('one'), repo('two')])), true);
+});
+
+test('rejects duplicate evidence rows as a substitute for distinct repositories', () => {
+  assert.equal(admittedAtlasCompany(company([repo('one'), repo('one')])), false);
+});
+
+test('rejects GitHub repository identities differing only by case', () => {
+  assert.equal(admittedAtlasCompany(company([repo('One'), repo('one')])), false);
+});
+
+test('admits verified depth only when at least one public repository is admitted', () => {
+  assert.equal(admittedAtlasCompany(company([repo('one')], 'PROOF_REPRODUCED')), true);
+  assert.equal(admittedAtlasCompany(company([], 'PROOF_REPRODUCED')), false);
+  assert.equal(admittedAtlasCompany(company([repo('one', 'private')], 'CLAIM_PROMOTED')), false);
+});
+
+test('rejects estate-only and malformed repository records', () => {
+  assert.equal(admittedAtlasCompany(company([repo('one'), repo('two', 'public', 'ESTATE_DISCOVERED_NOT_HELIX_ADMITTED')])), false);
+  assert.equal(admittedAtlasCompany(company([{ repository: '../../private', visibility: 'public', inventory_scope: 'HELIX_ADMITTED' }])), false);
+  assert.equal(admittedAtlasCompany({}), false);
+});
+
+test('rejects dot-segment pseudo repositories even with verified depth', () => {
+  for (const name of ['.', '..']) {
+    assert.equal(admittedAtlasCompany(company([repo(name)], 'CLAIM_PROMOTED')), false);
+    assert.equal(admittedAtlasCompany(company([repo('valid'), repo(name)])), false);
+  }
+});
+
+test('recognizes GitHub organization identities case-insensitively', () => {
+  assert.equal(admittedAtlasCompany(company([
+    { repository: 'glaciereq/one', visibility: 'public', inventory_scope: 'HELIX_ADMITTED' },
+    repo('two'),
+  ])), true);
+  assert.equal(admittedAtlasCompany(company([
+    { repository: 'GLACIEREQ/One', visibility: 'public', inventory_scope: 'HELIX_ADMITTED' },
+    repo('one'),
+  ])), false);
+});
+
+test('rejects repository identities exceeding GitHub name length limits', () => {
+  assert.equal(admittedAtlasCompany(company([repo('a'.repeat(101))], 'CLAIM_PROMOTED')), false);
+  assert.equal(admittedAtlasCompany(company([repo('a'.repeat(100))], 'CLAIM_PROMOTED')), true);
+  assert.equal(admittedAtlasCompany(company([repo('valid'), repo('a'.repeat(101))])), false);
+});

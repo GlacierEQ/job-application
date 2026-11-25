@@ -37,7 +37,7 @@
   ],
   "schema": "glaciereq.public-estate-intelligence.v1",
   "source": {
-    "authority_commit": "1e4d35419b6a23d6d9ce1e85a8850ced2bf27e8b",
+    "authority_commit": "7cbb2e1000edc254ed1990a12e4e145937ee153a",
     "external_manifest_path": "manifests/application_intelligence/company_bottleneck_atlas.external.json",
     "external_manifest_sha256": "2d93f4e0c736426dcf6904be6d0139075a48c78f3051278becf05703ee67f654",
     "freshness_state": "HISTORICAL_SOURCE_SNAPSHOT_REQUIRES_REFRESH_BEFORE_LIVE_APPLICATION",

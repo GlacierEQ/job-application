@@ -256,7 +256,7 @@ async function main() {
       // Match a complete href target, not a substring of another repository
       // (e.g. repo versus repo-tools). Decode URL path components so escaped
       // hrefs cannot bypass the publication guard.
-      const links = [...page.matchAll(/\\bhref\\s*=\\s*["']([^"']+)["']/gi)];
+      const links = [...page.matchAll(/\bhref\s*=\s*["']([^"']+)["']/gi)];
       const leaked = links.some((match) => {
         try {
           const url = new URL(match[1], "https://casey-barton-glaciereq.vercel.app");

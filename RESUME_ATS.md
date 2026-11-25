@@ -12,6 +12,8 @@ Applied AI systems architect and agent infrastructure engineer who builds the op
 - ECHO continuity/orchestration engine: deterministic identity, SHA-256 integrity, idempotent execution, bounded retries, execution receipts, provenance-bearing exports, authority-envelope validation, runtime hardening, and a regression-tested public/privacy admission boundary. Runtime proof remains anchored at exact verified source `d87276166041d655452abd4e992a755565f9201c`; current head `b6b004f601a0e20b4fd4264b8262dc4ac9498245` (transactional job leases, #30, built on the merged privacy-boundary repair) passed ECHO CI on main with compile, Ruff correctness lint, dependency audit reporting no known vulnerabilities, 125/125 tests, and CLI `VERIFIED` (GitHub Actions run 33342434203, 2026-08-30).
 - Portfolio Receipt Router: local, fail-closed metadata/evidence router. Historical V15 release evidence at release-candidate head `07d3d33aaf75dd1d780c24af39a00b998f87da76` records 69 of 69 tests passed and zero external actions; current `xai-colossus-2` head `726583355c14197eaeed2398eb28eb3e242d8b74` is `DISCOVERED` and does not inherit that historical verification.
 - Bounded infrastructure source systems: Cooling, Energy, Servers, Security, and Nanosphere are retained as independently scoped technical systems only at each repository's exact canonical promotion-receipt ceiling. Historical aggregate test and artifact totals are not represented as current-head verification; hardware behavior, production deployment, scale, and company affiliation remain unclaimed without direct current receipts.
+- Independent xAI / Colossus-class engineering: `GlacierEQ/xai-colossus-energy` contains a Rust scenario model of electrical demand, PUE-derived overhead and reserve headroom, Python formula checks, and a pinned Alpha/Omega verification path connecting budget analysis to priority-ordered simulated load shedding. Source and native test paths are present; no measured hardware, real-grid controls, company affiliation, or current-head pass count is inferred.
+- Independent SpaceX-class engineering: `GlacierEQ/spacex-autonomy` provides Python mode selection, bounded state estimation and control, a synthetic GO/HOLD quorum, and a Go phase-state model. `GlacierEQ/spacex-mission-control` provides local event fan-out, telemetry aggregation and simulated mission phases; `GlacierEQ/spacex-launch-sequencer` models countdown hold/resume, readiness votes and fail-closed aborts. Repository-native tests and reproduction commands exist; no flight authority, hardware validation, SpaceX affiliation, or measured production performance is claimed.
 - Job Application Helix: evidence-governed hiring and portfolio orchestration for an exact 67-repository admitted public proof boundary. The Helix package is PARTIALLY_VERIFIED; child repositories retain independent evidence states. The 67-repository number is not an accomplishment count and is not the full owned-estate count.
 - Agent Coordinator: deterministic ownership, dependency ordering, capacity, stable priority, and shared-budget scheduling has a 95/95 Python test verification at current head `bcdaa89b8a76bd1c1690c7a46458af0be0a49e95`, verified locally; the repo's GitHub Actions verification workflow has never fired, so hosted multi-version promotion remains explicitly pending. The result is presented as current-head verification for the scheduler mechanism, not as runtime, deployment, or production proof.
 
@@ -28,6 +30,7 @@ GLACIEREQ - Founder / Applied AI Systems Builder - Honolulu, Hawaii - 2023-Prese
 - Design and implement evidence-bound systems spanning agent orchestration, application intelligence, document and evidence pipelines, memory and continuity, infrastructure governance, and human-machine interfaces.
 - Convert broad architecture into typed contracts, runnable slices, deterministic tests, explicit refusal behavior, machine-readable facts, and reviewable completion receipts.
 - Built a public Portfolio Receipt Router that replaced unsupported autonomous-control semantics with a local fail-closed evidence system; historical V15 release evidence records 69 of 69 tests passed with zero external actions. The changed current source head is `DISCOVERED` and is not represented as inheriting that historical verification.
+- Built independent Colossus-class power/compute-infrastructure scenario models and SpaceX-class autonomy/mission-operation simulations; separated synthetic test behavior from hardware, employer affiliation, and operational authority.
 - Govern a multi-repository engineering estate by separating source presence, review, execution, deployment, authority, and verified completion so public claims cannot outrun proof.
 - Use AI-assisted development as an inspectable engineering process combining source review, bounded generation, adversarial checking, deterministic validation, and human judgment.
 
@@ -41,7 +44,7 @@ HI-CLASS HOME SERVICES / HI CLASS MAINTENANCE OAHU LLC - Owner-Operator, Buildin
 - Translate incomplete real-world requirements into bounded work packages, explicit assumptions, and usable closeout artifacts.
 
 ## Selected Systems
-AKOS - CURRENT-HEAD EXECUTED MULTI-VERSION CI
+AKOS - LOCAL PYTHON 3.12 VERIFICATION; MULTI-VERSION CI BLOCKED
 Execution authority and delegated-identity verification at exact canonical head `2992b1372ea91eba8e57d483de07f8ae4b1b910d`. Local Python 3.12 verification records 363 collected, 349 passed, 1 skipped, 13 failures, 0 errors (GitHub Actions is blocked on a billing limit). Delegated caller, task/trace context, executor identity, completion/verification state, and receipt hash are checked before result acceptance. Boundary: current-head local test behavior established; 247 broader preexisting Ruff findings remain explicit quality debt; no repository-wide lint-clean, production deployment, traffic/scale, third-party adoption, or PSYSOC-X verification claim.
 
 ECHO - TESTED REPOSITORY + PUBLIC/PRIVACY BOUNDARY
@@ -49,6 +52,14 @@ Receipt-backed continuity and orchestration with deterministic identity, integri
 
 Portfolio Receipt Router - HISTORICAL RELEASE TEST RECEIPT / CURRENT HEAD NOT PROMOTED
 Local, fail-closed metadata/evidence routing. Historical V15 evidence: 69/69 tests and zero external actions at release-candidate head `07d3d33aaf75dd1d780c24af39a00b998f87da76`; artifact `8910423397`. Current `xai-colossus-2` head `726583355c14197eaeed2398eb28eb3e242d8b74` is `DISCOVERED`, with `proof_ok=false`, `operable_ok=false`, blocker `OPERATE_THEATER`, and evidence state `LOCAL_METADATA_ROUTER_NOT_RUNTIME_ORCHESTRATOR`.
+
+Independent xAI / Colossus-Class Power Scenarios - SOURCE AND TEST SURFACES
+https://github.com/GlacierEQ/xai-colossus-energy - Rust demand/PUE/headroom scenario model and Python formula parity tests; pinned Alpha/Omega budget-to-simulated-shed verifier. Public simulation/research scope only; no live facility, utility integration, or hardware evidence.
+
+Independent SpaceX-Class Autonomy and Mission Operations - LOCAL SIMULATION SURFACES
+https://github.com/GlacierEQ/spacex-autonomy - deterministic Python modes, estimator, bounded control, GO/HOLD quorum; Go phase-state tests.
+https://github.com/GlacierEQ/spacex-mission-control - local event-bus, telemetry, callback and synthetic mission-phase components.
+https://github.com/GlacierEQ/spacex-launch-sequencer - deterministic Python/Go countdown, hold/resume, readiness votes and abort behavior. Company names describe independent target-domain portfolios, not employer roles, proprietary access or flight operations.
 
 Job Application Helix - PARTIALLY_VERIFIED
 Evidence-governed hiring and portfolio orchestration with an exact 67-repository admitted public proof boundary, fail-closed evidence levels, repository-state separation, promotion gates, machine contracts, and role-calibrated package generation.

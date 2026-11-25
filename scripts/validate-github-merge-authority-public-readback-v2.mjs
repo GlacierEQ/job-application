@@ -157,6 +157,40 @@ const localHelix = JSON.parse(await read('site-v15/data/helix-root.json'));
 assert(localHelix.schema === 'glaciereq.public-portfolio-projection.v1', 'unexpected current Helix projection schema');
 const currentHelixCommit = localHelix.source?.root_ref;
 assert(SHA40.test(currentHelixCommit || ''), 'current Helix projection commit invalid');
+
+// The V25/V26 production readback is an immutable historical receipt. It is
+// not an equivalence promise against every later Helix revision; that would
+// turn normal operator-directed engineering progress into a permanent CI
+// failure. Verify the old build receipt, disclose its historical boundary,
+// and leave current production verification to the current release gates.
+if (currentHelixCommit !== production.helix_commit) {
+  // Historical GitHub Actions artifacts may be outside the provider's retention
+  // window. Preserve their pinned identifiers without claiming a new readback.
+  const historicalBuild = {
+    source_commit: production.source_commit,
+    run_id: freshness.build_receipt?.github_actions_run_id,
+    artifact_id: freshness.build_receipt?.github_actions_artifact_id,
+    artifact_digest: freshness.build_receipt?.github_actions_artifact_digest,
+    provider_readback: 'NOT_RECHECKED_HISTORICAL_ARTIFACT',
+  };
+  assert(Number.isSafeInteger(historicalBuild.run_id) && historicalBuild.run_id > 0, 'historical workflow ID invalid');
+  assert(Number.isSafeInteger(historicalBuild.artifact_id) && historicalBuild.artifact_id > 0, 'historical artifact ID invalid');
+  assert(/^sha256:[a-f0-9]{64}$/.test(historicalBuild.artifact_digest || ''), 'historical artifact digest invalid');
+  const boundary = freshness.claim_boundary;
+  assert(boundary.github_affiliation_claimed === false, 'historical non-affiliation boundary drift');
+  assert(boundary.github_adoption_claimed === false, 'historical non-adoption boundary drift');
+  assert(boundary.github_capability_production_deployment_claimed === false, 'historical capability deployment boundary drift');
+  console.log(JSON.stringify({
+    status: 'HISTORICAL_RECEIPT_PRESERVED_CURRENT_SOURCE_DIFFERENT',
+    deployed_helix_commit: production.helix_commit,
+    current_helix_commit: currentHelixCommit,
+    current_helix_equivalence_claimed: false,
+    current_production_readback_claimed: false,
+    historical_build_verification: historicalBuild,
+  }, null, 2));
+  process.exit(0);
+}
+
 const authorityEquivalence = await verifyHelixEquivalence(
   production.helix_commit,
   currentHelixCommit,

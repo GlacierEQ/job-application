@@ -116,11 +116,12 @@ async function main() {
   if (snapshot.company_second_depth?.schema !== "glaciereq.company-second-depth.v1") {
     throw new Error("Helix snapshot second-depth contract is missing");
   }
-  const companyIds = snapshot.companies.filter(admittedAtlasCompany).map((company) => company.company_id);
+  const admittedIds = snapshot.companies.filter(admittedAtlasCompany).map((company) => company.company_id);
+  const companyIds = snapshot.companies.map((company) => company.company_id);
   if (new Set(companyIds).size !== companyIds.length) {
     throw new Error("duplicate company ids in Helix snapshot");
   }
-  if (companyIds.length === 0) {
+  if (admittedIds.length === 0) {
     throw new Error("public Helix snapshot has no admitted Atlas companies");
   }
 
