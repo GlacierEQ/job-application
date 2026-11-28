@@ -50,9 +50,9 @@
       "applicable_flagships": [],
       "company_id": "anthropic",
       "display_name": "Anthropic",
-      "gap_or_next_gate": "Current official Applied AI roles are source-verified. Public recruiter evidence is now limited to provider-resolvable Anthropic-oriented systems; build the next Forward Deployed Engineer / Applied AI Architect proof by integrating customer-system delivery, evaluation, reliability, reusable deployment patterns, and explicit safety boundaries without claiming Anthropic affiliation or production use.",
+      "gap_or_next_gate": "Ten direct Anthropic-named repos exist; all mapped with forward-deployed capabilities.",
       "non_affiliation": "Independent GlacierEQ work; no Anthropic affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
-      "recruiter_thesis": "Forward-deployed AI architecture and engineering: build inside ambiguous customer environments, integrate models/tools into real systems, preserve reliability and safety boundaries, and turn repeatable deployment patterns into reusable capability.",
+      "recruiter_thesis": "Deterministic coordination, fail-closed safety, human escalation, and honest limitations.",
       "repositories": [
         {
           "inventory_scope": "HELIX_ADMITTED",
@@ -105,7 +105,7 @@
             {
               "id": "anthropic_problem_ai_reliability_serving_path",
               "kind": "problem",
-              "source_identity": "https://github.com/GlacierEQ/job-application/blob/main/portfolio-proof/receipts/ANTHROPIC_AI_RELIABILITY_RECONCILIATION__2026-08-09.json",
+              "source_identity": "https://github.com/GlacierEQ/job-application/blob/440e353a6eb6073aaca724a6402ae5329d0e9be6/portfolio-proof/receipts/ANTHROPIC_AI_RELIABILITY_RECONCILIATION__2026-08-09.json",
               "source_ref": "commit:440e353a6eb6073aaca724a6402ae5329d0e9be6",
               "verification_state": "VERIFIED",
               "visibility": "public"
@@ -116,37 +116,21 @@
             {
               "id": "anthropic_role_staff_software_engineer_ai_reliability_5113224008",
               "kind": "role",
-              "source_identity": "https://github.com/GlacierEQ/job-application/blob/main/portfolio-proof/receipts/ANTHROPIC_AI_RELIABILITY_RECONCILIATION__2026-08-09.json",
+              "source_identity": "https://github.com/GlacierEQ/job-application/blob/440e353a6eb6073aaca724a6402ae5329d0e9be6/portfolio-proof/receipts/ANTHROPIC_AI_RELIABILITY_RECONCILIATION__2026-08-09.json",
               "source_ref": "commit:440e353a6eb6073aaca724a6402ae5329d0e9be6",
-              "verification_state": "VERIFIED",
-              "visibility": "public"
-            },
-            {
-              "id": "anthropic_role_forward_deployed_engineer_5302966008",
-              "kind": "role",
-              "source_identity": "https://job-boards.greenhouse.io/anthropic/jobs/5302966008",
-              "source_ref": "sha256:21f1c0938619e8b536d0e0e7102c3be480143d9420eb9e30d77b8d1ea1e0264f",
-              "verification_state": "VERIFIED",
-              "visibility": "public"
-            },
-            {
-              "id": "anthropic_role_applied_ai_architect_strategic_enterprise_5409008008",
-              "kind": "role",
-              "source_identity": "https://job-boards.greenhouse.io/anthropic/jobs/5409008008",
-              "source_ref": "sha256:7590c48e40e3b692c887ab8c49125dd139b55eff20f7fa5b532c283203dfebd4",
               "verification_state": "VERIFIED",
               "visibility": "public"
             }
           ]
         },
-        "next_gate": "Bound and implement one current Anthropic Applied AI remedy that directly demonstrates the live Forward Deployed Engineer / Applied AI Architect requirements: customer-system integration, Claude/agent deployment architecture, MCP or agent-skill delivery, evaluation, reliability, reusable deployment patterns, and explicit safety boundaries. Preserve the historical AI Reliability evidence as lineage rather than treating it as the current role target.",
+        "next_gate": "Bound one company-specific reliability remedy against the verified Staff Software Engineer, AI Reliability problem using the inspected coordinator and safety-monitor mechanisms; preserve the non-deployment and non-semantic-safety boundaries before any IMPLEMENTED or reproduced-proof claim.",
         "ordinal": 3,
         "stage": "CODE_INSPECTED"
       },
       "source_shard": "manifests/company_dossiers/frontier_ai.json",
       "target_roles": [
-        "Forward Deployed Engineer",
-        "Applied AI Architect",
+        "Agent Infrastructure Engineer",
+        "Safety Systems Engineer",
         "Applied AI Engineer"
       ],
       "track_state": "MAPPED_WITH_RECRUITER_READY_PUBLIC_SUBSET"
@@ -494,62 +478,6 @@
           "provenance_state": "ORIGINAL_CANDIDATE",
           "repository": "GlacierEQ/spacex-thermal-protection",
           "visibility": "public"
-        },
-        {
-          "inventory_scope": "HELIX_ADMITTED",
-          "level": "L4",
-          "promotion_state": "PROMOTED",
-          "provenance_state": "ORIGINAL_CANDIDATE",
-          "repository": "GlacierEQ/spacex-starship-flight-software",
-          "visibility": "public"
-        },
-        {
-          "inventory_scope": "HELIX_ADMITTED",
-          "level": "L4",
-          "promotion_state": "PROMOTED",
-          "provenance_state": "ORIGINAL_CANDIDATE",
-          "repository": "GlacierEQ/spacex-ai-flight-controller",
-          "visibility": "public"
-        },
-        {
-          "inventory_scope": "HELIX_ADMITTED",
-          "level": "L4",
-          "promotion_state": "PROMOTED",
-          "provenance_state": "ORIGINAL_CANDIDATE",
-          "repository": "GlacierEQ/spacex-engine-out-compensator",
-          "visibility": "public"
-        },
-        {
-          "inventory_scope": "HELIX_ADMITTED",
-          "level": "L4",
-          "promotion_state": "PROMOTED",
-          "provenance_state": "ORIGINAL_CANDIDATE",
-          "repository": "GlacierEQ/spacex-stage-separation-optimizer",
-          "visibility": "public"
-        },
-        {
-          "inventory_scope": "HELIX_ADMITTED",
-          "level": "L4",
-          "promotion_state": "PROMOTED",
-          "provenance_state": "ORIGINAL_CANDIDATE",
-          "repository": "GlacierEQ/spacex-flight-termination-hardener",
-          "visibility": "public"
-        },
-        {
-          "inventory_scope": "HELIX_ADMITTED",
-          "level": "L4",
-          "promotion_state": "PROMOTED",
-          "provenance_state": "ORIGINAL_CANDIDATE",
-          "repository": "GlacierEQ/spacex-hitl-testbed-automation",
-          "visibility": "public"
-        },
-        {
-          "inventory_scope": "HELIX_ADMITTED",
-          "level": "L4",
-          "promotion_state": "PROMOTED",
-          "provenance_state": "ORIGINAL_CANDIDATE",
-          "repository": "GlacierEQ/spacex-in-space-refueling-planner",
-          "visibility": "public"
         }
       ],
       "second_depth": {
@@ -603,62 +531,6 @@
           "promotion_state": "REFERENCE_ONLY",
           "provenance_state": "ORIGINAL_CANDIDATE",
           "repository": "GlacierEQ/nvidia-gpu-health",
-          "visibility": "public"
-        },
-        {
-          "inventory_scope": "HELIX_ADMITTED",
-          "level": "L4",
-          "promotion_state": "PROMOTED",
-          "provenance_state": "ORIGINAL_CANDIDATE",
-          "repository": "GlacierEQ/nvidia-blackwell-fp4-optimizer",
-          "visibility": "public"
-        },
-        {
-          "inventory_scope": "HELIX_ADMITTED",
-          "level": "L4",
-          "promotion_state": "PROMOTED",
-          "provenance_state": "ORIGINAL_CANDIDATE",
-          "repository": "GlacierEQ/nvidia-cuda-graphs-conditional",
-          "visibility": "public"
-        },
-        {
-          "inventory_scope": "HELIX_ADMITTED",
-          "level": "L4",
-          "promotion_state": "PROMOTED",
-          "provenance_state": "ORIGINAL_CANDIDATE",
-          "repository": "GlacierEQ/nvidia-moe-grouped-gemm",
-          "visibility": "public"
-        },
-        {
-          "inventory_scope": "HELIX_ADMITTED",
-          "level": "L4",
-          "promotion_state": "PROMOTED",
-          "provenance_state": "ORIGINAL_CANDIDATE",
-          "repository": "GlacierEQ/nvidia-nvlink-scaler",
-          "visibility": "public"
-        },
-        {
-          "inventory_scope": "HELIX_ADMITTED",
-          "level": "L4",
-          "promotion_state": "PROMOTED",
-          "provenance_state": "ORIGINAL_CANDIDATE",
-          "repository": "GlacierEQ/nvidia-tensorrt-llm-tuner",
-          "visibility": "public"
-        },
-        {
-          "inventory_scope": "HELIX_ADMITTED",
-          "level": "L4",
-          "promotion_state": "PROMOTED",
-          "provenance_state": "ORIGINAL_CANDIDATE",
-          "repository": "GlacierEQ/nvidia-kernel-autotuner",
-          "visibility": "public"
-        },
-        {
-          "inventory_scope": "HELIX_ADMITTED",
-          "level": "L4",
-          "promotion_state": "PROMOTED",
-          "provenance_state": "ORIGINAL_CANDIDATE",
-          "repository": "GlacierEQ/nvidia-power-perf-profiler",
           "visibility": "public"
         }
       ],
@@ -967,7 +839,7 @@
       "applicable_flagships": [],
       "company_id": "notion",
       "display_name": "Notion",
-      "gap_or_next_gate": "Two admitted prototypes; upstream delta and archive excluded.",
+      "gap_or_next_gate": "Three admitted prototypes; upstream delta and archive excluded.",
       "non_affiliation": "Independent GlacierEQ work; no Notion affiliation, endorsement, employment, proprietary access, or production deployment is claimed.",
       "recruiter_thesis": "Workspace intelligence, MCP empowerment, and governed workflow optimization.",
       "repositories": [
@@ -2379,7 +2251,7 @@
             {
               "id": "lockheed_claim_mission_agentic_ai_assurance",
               "kind": "claim_receipt",
-              "source_identity": "https://github.com/GlacierEQ/job-application/blob/main/projects/mission-agentic-ai-assurance/proof/claim_receipt.json",
+              "source_identity": "https://github.com/GlacierEQ/job-application/blob/4328fa7078e6e4125f895768142c6af0c5ec1234/projects/mission-agentic-ai-assurance/proof/claim_receipt.json",
               "source_ref": "commit:4328fa7078e6e4125f895768142c6af0c5ec1234",
               "verification_state": "VERIFIED",
               "visibility": "public"
@@ -2389,7 +2261,7 @@
             {
               "id": "lockheed_remedy_mission_agentic_ai_assurance",
               "kind": "bounded_gap",
-              "source_identity": "https://github.com/GlacierEQ/job-application/blob/main/projects/mission-agentic-ai-assurance/machine/remedy.json",
+              "source_identity": "https://github.com/GlacierEQ/job-application/blob/4328fa7078e6e4125f895768142c6af0c5ec1234/projects/mission-agentic-ai-assurance/machine/remedy.json",
               "source_ref": "commit:4328fa7078e6e4125f895768142c6af0c5ec1234",
               "verification_state": "VERIFIED",
               "visibility": "public"
@@ -2399,7 +2271,7 @@
             {
               "id": "lockheed_implementation_mission_agentic_ai_assurance",
               "kind": "implementation_receipt",
-              "source_identity": "https://github.com/GlacierEQ/job-application/blob/main/projects/mission-agentic-ai-assurance/proof/implementation_receipt.json",
+              "source_identity": "https://github.com/GlacierEQ/job-application/blob/4328fa7078e6e4125f895768142c6af0c5ec1234/projects/mission-agentic-ai-assurance/proof/implementation_receipt.json",
               "source_ref": "commit:4328fa7078e6e4125f895768142c6af0c5ec1234",
               "verification_state": "VERIFIED",
               "visibility": "public"
@@ -2453,7 +2325,7 @@
             {
               "id": "lockheed_proof_mission_agentic_ai_assurance",
               "kind": "proof_artifact",
-              "source_identity": "https://github.com/GlacierEQ/job-application/blob/main/projects/mission-agentic-ai-assurance/proof/reproduced_receipt.json",
+              "source_identity": "https://github.com/GlacierEQ/job-application/blob/4328fa7078e6e4125f895768142c6af0c5ec1234/projects/mission-agentic-ai-assurance/proof/reproduced_receipt.json",
               "source_ref": "commit:4328fa7078e6e4125f895768142c6af0c5ec1234",
               "verification_state": "REPRODUCED",
               "visibility": "public"
@@ -2726,7 +2598,7 @@
             {
               "id": "github_claim_bounded_public_claim",
               "kind": "claim_receipt",
-              "source_identity": "https://github.com/GlacierEQ/job-application/blob/main/projects/github-merge-authority-proof/proof/claim-receipt.json",
+              "source_identity": "https://github.com/GlacierEQ/job-application/blob/577f63c506c6c4df9c1751a0ff5b8fa07822e491/projects/github-merge-authority-proof/proof/claim-receipt.json",
               "source_ref": "commit:577f63c506c6c4df9c1751a0ff5b8fa07822e491",
               "verification_state": "VERIFIED",
               "visibility": "public"
@@ -2734,7 +2606,7 @@
             {
               "id": "github_claim_production_projection_closure",
               "kind": "claim_receipt",
-              "source_identity": "https://github.com/GlacierEQ/job-application/blob/main/projects/github-merge-authority-proof/proof/production-projection-closure.json",
+              "source_identity": "https://github.com/GlacierEQ/job-application/blob/577f63c506c6c4df9c1751a0ff5b8fa07822e491/projects/github-merge-authority-proof/proof/production-projection-closure.json",
               "source_ref": "commit:577f63c506c6c4df9c1751a0ff5b8fa07822e491",
               "verification_state": "VERIFIED",
               "visibility": "public"
@@ -2744,7 +2616,7 @@
             {
               "id": "github_remedy_merge_authority_contract",
               "kind": "bounded_gap",
-              "source_identity": "https://github.com/GlacierEQ/job-application/blob/main/projects/github-merge-authority-proof/machine/remedy-contract.json",
+              "source_identity": "https://github.com/GlacierEQ/job-application/blob/7d41cfd84eb9e98fbdeb9fd7ca5be10515397c13/projects/github-merge-authority-proof/machine/remedy-contract.json",
               "source_ref": "commit:7d41cfd84eb9e98fbdeb9fd7ca5be10515397c13",
               "verification_state": "VERIFIED",
               "visibility": "public"
@@ -2754,7 +2626,7 @@
             {
               "id": "github_implementation_merge_authority",
               "kind": "implementation_receipt",
-              "source_identity": "https://github.com/GlacierEQ/job-application/blob/main/projects/github-merge-authority-proof/proof/implementation-receipt.json",
+              "source_identity": "https://github.com/GlacierEQ/job-application/blob/7d41cfd84eb9e98fbdeb9fd7ca5be10515397c13/projects/github-merge-authority-proof/proof/implementation-receipt.json",
               "source_ref": "commit:7d41cfd84eb9e98fbdeb9fd7ca5be10515397c13",
               "verification_state": "VERIFIED",
               "visibility": "public"
@@ -2764,7 +2636,7 @@
             {
               "id": "github_inspection_merge_authority_private_hash_boundary",
               "kind": "repository_inspection",
-              "source_identity": "https://github.com/GlacierEQ/job-application/blob/main/projects/github-merge-authority-proof/machine/implementation-inspection.json",
+              "source_identity": "https://github.com/GlacierEQ/job-application/blob/7d41cfd84eb9e98fbdeb9fd7ca5be10515397c13/projects/github-merge-authority-proof/machine/implementation-inspection.json",
               "source_ref": "commit:7d41cfd84eb9e98fbdeb9fd7ca5be10515397c13",
               "verification_state": "VERIFIED",
               "visibility": "public"
@@ -2774,7 +2646,7 @@
             {
               "id": "github_problem_agentic_repository_promotion",
               "kind": "problem",
-              "source_identity": "https://github.com/GlacierEQ/job-application/blob/main/projects/github-merge-authority-proof/evidence/github-problem.json",
+              "source_identity": "https://github.com/GlacierEQ/job-application/blob/7d41cfd84eb9e98fbdeb9fd7ca5be10515397c13/projects/github-merge-authority-proof/evidence/github-problem.json",
               "source_ref": "commit:7d41cfd84eb9e98fbdeb9fd7ca5be10515397c13",
               "verification_state": "VERIFIED",
               "visibility": "public"
@@ -2784,7 +2656,7 @@
             {
               "id": "github_proof_merge_authority_reference_reproduction",
               "kind": "proof_artifact",
-              "source_identity": "https://github.com/GlacierEQ/job-application/blob/main/projects/github-merge-authority-proof/proof/canonical-reproduction.json",
+              "source_identity": "https://github.com/GlacierEQ/job-application/blob/7d41cfd84eb9e98fbdeb9fd7ca5be10515397c13/projects/github-merge-authority-proof/proof/reference-reproduction.json",
               "source_ref": "commit:7d41cfd84eb9e98fbdeb9fd7ca5be10515397c13",
               "verification_state": "REPRODUCED",
               "visibility": "public"
@@ -2794,7 +2666,7 @@
             {
               "id": "github_role_mission_control_5611",
               "kind": "role",
-              "source_identity": "https://github.com/GlacierEQ/job-application/blob/main/projects/github-merge-authority-proof/evidence/github-role-5611.json",
+              "source_identity": "https://github.com/GlacierEQ/job-application/blob/7d41cfd84eb9e98fbdeb9fd7ca5be10515397c13/projects/github-merge-authority-proof/evidence/github-role-5611.json",
               "source_ref": "commit:7d41cfd84eb9e98fbdeb9fd7ca5be10515397c13",
               "verification_state": "VERIFIED",
               "visibility": "public"
@@ -7292,14 +7164,6 @@
         },
         {
           "inventory_scope": "HELIX_ADMITTED",
-          "level": "L3",
-          "promotion_state": "REFERENCE_ONLY",
-          "provenance_state": "ORIGINAL_CANDIDATE",
-          "repository": "GlacierEQ/spiral-engine",
-          "visibility": "public"
-        },
-        {
-          "inventory_scope": "HELIX_ADMITTED",
           "level": "L4",
           "promotion_state": "REFERENCE_ONLY",
           "provenance_state": "ORIGINAL_CANDIDATE",
@@ -7347,7 +7211,7 @@
   ],
   "company_second_depth": {
     "boundary": "Second-depth state is Helix-governed. Public claim ceilings advance only when pinned public evidence satisfies every cumulative stage prerequisite.",
-    "content_sha256": "2646cae8c0804279b53b78ed46721a1eeabd3d0acd812a14d2a5ae145096ee1a",
+    "content_sha256": "7eba15263ab1a872a7a6bb0eefd2b150badc140105d400ecfa6d31e8155ad74f",
     "priority_wave": [
       "lockheed_martin",
       "openai",
@@ -7411,12 +7275,12 @@
   },
   "flagships": [
     {
-      "evidence": "Diligence records 118/118 per interpreter, 10/10 Forge, 4/4 PSYSOC-X.",
+      "evidence": "Diligence records 118/118 per interpreter, 10/10 Forge, 4/4 PSYSOC-X. Repository self-description (README v0.9.0): a support framework, not an enforcement layer.",
       "level": "L5",
       "next_gate": "Current connector/artifact lifecycle receipts; isolate case-specific paths.",
       "public_surface": "PUBLIC_ALLOWLIST_REQUIRED",
       "repository": "GlacierEQ/AKOS",
-      "role": "Authority/evidence/tool-state/closure runtime",
+      "role": "Operational reasoning and evidence framework: identity, sessions, evidence routing, receipts and completion states - a support framework, not an enforcement layer",
       "state": "PROMOTED",
       "system_id": "akos"
     },
@@ -7481,8 +7345,8 @@
     "identities_withheld_from_public_bundle": true,
     "portfolio_root": "job-app-helix",
     "root_repositories": 1,
-    "total_repositories": 77,
-    "workspace_repositories": 76
+    "total_repositories": 62,
+    "workspace_repositories": 61
   },
   "language_fit": {
     "entries": [
@@ -7493,7 +7357,7 @@
         "interface_contract": "Console entry points, typed Python models, JSON receipts, and Protobuf-backed repository records.",
         "kind": "programming_language",
         "name": "Python",
-        "responsibility": "Campaign decisions, manifest validation, CLI surfaces, README rendering, and controlled audit orchestration.",
+        "responsibility": "Campaign decisions, manifest validation, CLI surfaces, README rendering, and bounded audit orchestration.",
         "test_command": "python -m pytest -q",
         "verification_state": "PARTIALLY_VERIFIED"
       },
@@ -7542,26 +7406,26 @@
       "raw_url": "https://raw.githubusercontent.com/GlacierEQ/job-app-helix/main/manifests/portfolio_root_truth.json",
       "repository": "GlacierEQ/job-app-helix"
     },
-    "root_ref": "9c8c858628484d059a2b0db492918c0c41294863",
+    "root_ref": "7cbb2e1000edc254ed1990a12e4e145937ee153a",
     "root_version": "1.2.0",
-    "source_digest": "cfca7ee6fcdde81cfe3c5c22190fd83258bd84f0e03f8436ac5efc9613cb1d18",
+    "source_digest": "637c3174beae01a18adefd5f559d9e02c06f65ee0eee69f0a9539bcab896b884",
     "source_hashes": {
-      "manifests/application_intelligence/company_bottleneck_atlas.external.json": "c63e52a7f993ae7e4a2d93cc88164ac66abbaf788021a1557f79a8451f77a93d",
-      "manifests/company_dossiers.json": "f74371573b6db90b1f79cface3113b0a5e0b4496fd4e5a5dd3c0d587e90f441a",
+      "manifests/application_intelligence/company_bottleneck_atlas.external.json": "2d93f4e0c736426dcf6904be6d0139075a48c78f3051278becf05703ee67f654",
+      "manifests/company_dossiers.json": "ba686d5f26d77098ae64c8df33ac9ec397a68169ec9a026ddecd0a07fe5d3ac1",
       "manifests/company_dossiers/additional_targets.json": "26da02d94c412cd4d0ffa0da923a2f9ff8629fe5568af0aef4d81f3cd11a4fd8",
       "manifests/company_dossiers/expansion_targets.json": "5c6022ba97839460d6ef481a0b479bdb27a6f9b3905fc63766d8828dc584f750",
-      "manifests/company_dossiers/frontier_ai.json": "3ccfab3243e3854ca6f898a6d6176020cc1ee21d3407184d4e35e15256a9689c",
-      "manifests/company_dossiers/glaciereq_core.json": "b1f816b145cb9e15e84a8987420caf538677021af788222b28bcbf776d91bf80",
+      "manifests/company_dossiers/frontier_ai.json": "10dc3d86f6ab6e4d2ac9d789115fc2d1d5d19421f8c71e0dbf9cddda34b86ff7",
+      "manifests/company_dossiers/glaciereq_core.json": "a866309ccae6fc721d2136e63774a7db28e1d9837d480bf8f05a6636efeb376d",
       "manifests/company_dossiers/innovation_expansion_2026_08_09.json": "2c7cc61cbc85c2a59456d738b01fb14e4ba1e602fab662a43ed45dda5ccd2d63",
-      "manifests/company_dossiers/model_product_companies.json": "a32f79c75a364c9b311b5d0df40f896570c244e4535b47138729733c99b44a38",
-      "manifests/company_dossiers/platform_infrastructure.json": "29dbc4da7480d2614bf90a9029435cde5ca29a458427dc8f76c3ca88a3b2c897",
-      "manifests/company_second_depth.json": "2646cae8c0804279b53b78ed46721a1eeabd3d0acd812a14d2a5ae145096ee1a",
-      "manifests/estate_compiler.json": "6016e149058388a30f10824e497ea2fb1f7b8d555a23097c6ea83d9f8c291f09",
+      "manifests/company_dossiers/model_product_companies.json": "447806e62a45e182a4030a14e0705222d07bce70dc5c6b683aee911bdcfed67a",
+      "manifests/company_dossiers/platform_infrastructure.json": "a0379d2051871baf45b6bc83d521e8072a80f8539c6c1504c83c3d0744e5701e",
+      "manifests/company_second_depth.json": "7eba15263ab1a872a7a6bb0eefd2b150badc140105d400ecfa6d31e8155ad74f",
+      "manifests/estate_compiler.json": "51c5efffc945ee65e4f9fda2945099fb548227351d9290d50bb967abc6e7ea2d",
       "manifests/estate_projection_policy.json": "515dbd39e35f25a8c5eea414d94fd99a92b01adbb9df03ba09036de2d868ce8c",
-      "manifests/flagship_registry.json": "1e5ffd7dc36caf5cd79ca0d64504786cd60fd883e2c0a04f37545db9078e9ed0",
-      "manifests/language_fit.json": "99fabd07653dcb26f48e8bce416e92b175181c0465b0173fe1c8f887117dcea8",
+      "manifests/flagship_registry.json": "3e0a395fd8bb08456648348c7c0b07f277c1c28024579c3a4dcbb3d3b588f88d",
+      "manifests/language_fit.json": "ecd1e164a8ffbbaae203a570dfc5e698521a8b8f9f7e6fa0f001f16775b4fba3",
       "manifests/live_repository_evidence.json": "6e64fb3753ab18dc57a12bb7873c423105ee466c3569129ce22bbe958e6e2d99",
-      "manifests/portfolio_repositories.json": "e24c305f602d020ffc7d630e37acc0fff230ca18545f9ff8ffcd0820fa713a62",
+      "manifests/portfolio_repositories.json": "f391c9128107289d17a4ae298ce2a6fc4d232bed985a86313ba9d3ef6415e2c9",
       "manifests/portfolio_root_truth.json": "928a4c25a24750109633fff02e81128b2ab41cf24e9d18b1b72909181b013002"
     }
   }

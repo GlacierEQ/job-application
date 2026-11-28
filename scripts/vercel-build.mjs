@@ -10,9 +10,12 @@ const steps = [
   ['scripts/render-helix-atlas.mjs'],
   ['scripts/link-helix-atlas.mjs'],
   ['scripts/project-estate-intelligence.mjs'],
+  ['scripts/render-role-fit-briefs.mjs'],
   ['scripts/apply-complete-web-design.mjs'],
+  ['scripts/activate-atlas-runtime.mjs'],
   ['scripts/compress-recruiter-surface.mjs'],
   ['scripts/compress-recruiter-surface.mjs', '--check'],
+  ['scripts/render-role-fit-briefs.mjs', '--check'],
   ['scripts/render-invention-evidence-map.mjs'],
   ['scripts/validate-invention-evidence-map.mjs'],
   ['scripts/render-evidence-gallery.mjs'],
@@ -26,6 +29,7 @@ const steps = [
   ['--test', 'deployment/vercel-source-bridge/typography-proxy.test.js'],
   ['scripts/validate-estate-intelligence.mjs'],
   ['scripts/validate-helix-atlas.mjs'],
+  ['scripts/validate-atlas-interaction.mjs'],
   ['scripts/harden-public-proof-surface.mjs'],
   ['scripts/validate-public-proof-surface.mjs'],
   ['scripts/prune-unavailable-github-links.mjs', '--check'],
@@ -37,3 +41,4 @@ for (const args of steps) {
   const result = spawnSync(process.execPath, args, { stdio: 'inherit' });
   if (result.status !== 0) process.exit(result.status ?? 1);
 }
+

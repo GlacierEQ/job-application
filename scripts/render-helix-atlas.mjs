@@ -88,7 +88,6 @@ function evidenceState(company) {
   if (count === 1) return "seeded";
   return "scaffold";
 }
-
 function evidenceLabel(state) {
   return {
     "repository-rich": "Verified Track",
@@ -276,6 +275,17 @@ function bundledCapabilityEvidence(capability) {
   return `<li class="source-backed-capability"><div><a href="${escapeHtml(capability.source_url)}" target="_blank" rel="noopener">${escapeHtml(capability.name)}</a><small>${escapeHtml(capability.source_repository)} · Bundled source; standalone repository not published</small></div><span class="status reviewed">${escapeHtml(capability.evidence_state)}</span></li>`;
 }
 
+function admittedPublicRepositories(company) {
+  return company.repositories.filter((repo, index, all) =>
+    repo && repo.visibility === "public" &&
+    repo.inventory_scope === "HELIX_ADMITTED" &&
+    typeof repo.repository === "string" &&
+    REPOSITORY_PATTERN.test(repo.repository) &&
+    all.findIndex((candidate) => typeof candidate?.repository === "string" &&
+      candidate.repository.toLowerCase() === repo.repository.toLowerCase() &&
+      candidate.visibility === "public" && candidate.inventory_scope === "HELIX_ADMITTED") === index);
+}
+
 function compactMachineRecord(company, state) {
   const depth = requireSecondDepth(company);
   return {
@@ -285,12 +295,13 @@ function compactMachineRecord(company, state) {
     state,
     track: company.track_state,
     roles: company.target_roles ?? [],
-    repos: company.repositories.map((repo) => ({
-      id: repo.repository,
-      lvl: repo.level,
-      state: repo.promotion_state,
-      provenance: repo.provenance_state,
-    })),
+    repos: admittedPublicRepositories(company)
+      .map((repo) => ({
+        id: repo.repository,
+        lvl: repo.level,
+        state: repo.promotion_state,
+        provenance: repo.provenance_state,
+      })),
     flagships: company.applicable_flagships ?? [],
     bundled_capabilities: sourceBackedCapabilitiesForCompany(company.company_id),
     second_depth: depth,
@@ -331,7 +342,8 @@ function blockerList(company) {
 function companyPage(company, stageOrder) {
   const state = evidenceState(company);
   const depth = requireSecondDepth(company);
-  const repos = company.repositories.map(repoEvidence).join("");
+  const publicRepos = admittedPublicRepositories(company);
+  const repos = publicRepos.map(repoEvidence).join("");
   const bundledCapabilities = sourceBackedCapabilitiesForCompany(company.company_id);
   const bundledSection = bundledCapabilities.length
     ? `<section class="section company-layer" id="source-backed-capabilities"><div class="shell"><div class="layer-heading"><span>SOURCE LINEAGE · NOT STANDALONE REPOSITORIES</span><h2>Additional public implementations recovered from the Helix codebase.</h2></div><p>These are historical capability names with source code bundled inside job-app-helix, not separate GitHub repositories or verified vehicle/GPU deployments. They are preserved independently of direct repository membership and recruiter promotion.</p><ul class="company-repo-ledger">${bundledCapabilities.map(bundledCapabilityEvidence).join("")}</ul></div></section>`
@@ -339,11 +351,12 @@ function companyPage(company, stageOrder) {
   const flagships = Array.isArray(company.applicable_flagships) ? company.applicable_flagships : [];
   const roleChips = (company.target_roles ?? []).map((role) => `<span>${escapeHtml(role)}</span>`).join("");
   const meshLinks = [
-    ...company.repositories.map((repo) => `<li><span>ALIGNS_WITH</span><a href="${repoUrl(repo.repository)}" target="_blank" rel="noopener">${escapeHtml(repo.repository)}</a></li>`),
+    ...publicRepos
+      .map((repo) => `<li><span>ALIGNS_WITH</span><a href="${repoUrl(repo.repository)}" target="_blank" rel="noopener">${escapeHtml(repo.repository)}</a></li>`),
     ...flagships.map((flagship) => `<li><span>TRANSFERABLE_CAPABILITY</span><a href="/atlas/#crown-jewels">${escapeHtml(flagship)}</a></li>`),
   ].join("");
-  const evidenceSummary = company.repositories.length
-    ? `${company.repositories.length} recruiter-admitted public ${company.repositories.length === 1 ? "repository" : "repositories"} currently map to this company lens.`
+  const evidenceSummary = publicRepos.length
+    ? `${publicRepos.length} recruiter-admitted public ${publicRepos.length === 1 ? "repository" : "repositories"} currently map to this company lens.`
     : "No company-specific repository is currently admitted to the public recruiter surface. Transferable personal flagships may still be relevant, but they are not company adoption evidence.";
 
   return `<!doctype html>
@@ -364,9 +377,9 @@ function companyPage(company, stageOrder) {
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="signal-bar"><div class="shell signal-inner"><span class="signal-live">COMPANY INTELLIGENCE · ${escapeHtml(evidenceLabel(state).toUpperCase())}</span><span>${escapeHtml(depth.stage)} · claim ceiling ${escapeHtml(depth.claim_ceiling)}</span></div></div>
-<header class="site-header"><div class="shell nav"><a class="brand" href="/" aria-label="Casey Barton portfolio home"><span class="mark">CB</span><span><strong>CASEY BARTON</strong><small>APPLIED AI SYSTEMS ARCHITECT</small></span></a><nav class="links" aria-label="Primary navigation"><a href="/">Recruiter</a><a href="/hire/">Hire</a><a href="/resume/">Résumé</a><a href="/master/">Master</a><a href="/mesh/">Mesh</a><a href="/atlas/">Atlas</a><a href="/machine/">Machine</a></nav><a class="nav-cta" href="mailto:glacier.equilibrium@gmail.com">Start a conversation</a></div></header>
+<header class="site-header"><div class="shell nav"><a class="brand" href="/" aria-label="Casey Barton portfolio home"><span class="mark">CB</span><span><strong>CASEY BARTON</strong><small>APPLIED AI SYSTEMS ARCHITECT</small></span></a><nav class="links" aria-label="Primary navigation"><a href="/">Recruiter</a><a href="/hire/">Hire</a><a href="/resume/">Résumé</a><a href="/master/">Master</a><a href="/mesh/">Mesh</a><a href="/companies/">Companies</a><a href="/atlas/">Atlas</a><a href="/machine/">Machine</a></nav><a class="nav-cta" href="mailto:glacier.equilibrium@gmail.com">Start a conversation</a></div></header>
 <main id="main">
-<section class="company-hero"><div class="shell company-hero-grid"><div><p class="eyebrow">INDEPENDENT COMPANY LENS · ${escapeHtml(evidenceLabel(state).toUpperCase())}</p><h1>${escapeHtml(company.display_name)}</h1><p class="lead">${escapeHtml(company.recruiter_thesis)}</p><div class="company-role-chips">${roleChips}</div></div><aside class="card company-state-card"><span class="evidence-state ${state}">${evidenceLabel(state)}</span><strong>${company.repositories.length}</strong><p>direct public evidence ${company.repositories.length === 1 ? "repository" : "repositories"}</p><small>${escapeHtml(company.track_state)}</small><p><strong>Second depth:</strong> ${escapeHtml(depthLabel(depth.stage))}</p><small>claim ceiling · ${escapeHtml(depth.claim_ceiling)}</small></aside></div></section>
+<section class="company-hero"><div class="shell company-hero-grid"><div><p class="eyebrow">INDEPENDENT COMPANY LENS · ${escapeHtml(evidenceLabel(state).toUpperCase())}</p><h1>${escapeHtml(company.display_name)}</h1><p class="lead">${escapeHtml(company.recruiter_thesis)}</p><div class="company-role-chips">${roleChips}</div></div><aside class="card company-state-card"><span class="evidence-state ${state}">${evidenceLabel(state)}</span><strong>${publicRepos.length}</strong><p>direct public evidence ${publicRepos.length === 1 ? "repository" : "repositories"}</p><small>${escapeHtml(company.track_state)}</small><p><strong>Second depth:</strong> ${escapeHtml(depthLabel(depth.stage))}</p><small>claim ceiling · ${escapeHtml(depth.claim_ceiling)}</small></aside></div></section>
 <section class="section company-layer" id="recruiter"><div class="shell"><div class="layer-heading"><span>01 · RECRUITER</span><h2>What matters to this operating environment.</h2></div><div class="company-two-col"><article class="card"><h3>Alignment thesis</h3><p>${escapeHtml(company.recruiter_thesis)}</p><p>${escapeHtml(evidenceSummary)}</p></article><article class="card boundary-card"><h3>Truth boundary</h3><p>${escapeHtml(company.non_affiliation)}</p><p><strong>Current public claim ceiling:</strong> ${escapeHtml(depth.claim_ceiling)}</p></article></div></div></section>
 <section class="section alt company-layer" id="master"><div class="shell"><div class="layer-heading"><span>02 · MASTER</span><h2>Innovation, architecture, and the governed second-depth gate.</h2></div><div class="company-two-col"><article class="card"><h3>Role-specific engineering frame</h3><p>The current dossier identifies the domain and public evidence subset without pretending that company-level bottlenecks have already been proven. Second depth advances only through pinned public evidence: role → externally supportable problem → inspected repository → bounded remedy → implementation receipt → reproduced proof → promoted claim.</p><h3>Current repository evidence</h3>${repos ? `<ul class="company-repo-ledger">${repos}</ul>` : `<p class="empty-state">No direct repository is recruiter-admitted yet. This is an engineering queue, not a reason to invent proof.</p>`}</article><article class="card aspiration-card"><p class="eyebrow">SECOND-DEPTH STATE</p><h3>${escapeHtml(depthLabel(depth.stage))}</h3><p><strong>Claim ceiling:</strong> ${escapeHtml(depth.claim_ceiling)}</p><h3>Blocking conditions</h3>${blockerList(company)}<p><strong>Next gate:</strong> ${escapeHtml(depth.next_gate)}</p></article></div></div></section>
 ${bundledSection}
@@ -392,6 +405,46 @@ async function loadSnapshot() {
   }
 }
 
+function recordPage(company, state) {
+  const record = compactMachineRecord(company, state);
+  const wire = machineWire(company, state);
+  const slug = companySlug(company.company_id);
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#03080b">
+  <meta name="description" content="Machine contract record for ${escapeHtml(company.display_name)}: structured company intelligence record, second-depth state, and public evidence references.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://casey-barton-glaciereq.vercel.app/companies/${slug}/record.html">
+  <title>${escapeHtml(company.display_name)} · Machine Contract Record · GlacierEQ</title>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/site.css">
+  <link rel="stylesheet" href="/assets/site.systems.css">
+  <link rel="stylesheet" href="/assets/helix-atlas.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header"><div class="shell nav"><a class="brand" href="/" aria-label="Casey Barton portfolio home"><span class="mark">CB</span><span><strong>CASEY BARTON</strong><small>APPLIED AI SYSTEMS ARCHITECT</small></span></a><nav class="links" aria-label="Primary navigation"><a href="/">Recruiter</a><a href="/hire/">Hire</a><a href="/resume/">Résumé</a><a href="/master/">Master</a><a href="/mesh/">Mesh</a><a href="/companies/">Companies</a><a href="/atlas/">Atlas</a><a href="/machine/">Machine</a></nav><a class="nav-cta" href="mailto:glacier.equilibrium@gmail.com">Start a conversation</a></div></header>
+<main id="main">
+<section class="section company-layer" id="machine-record">
+<div class="shell">
+<div class="layer-heading"><span>MACHINE CONTRACT RECORD</span><h1>${escapeHtml(company.display_name)} · Record</h1></div>
+<div class="card machine-contract">
+<div class="machine-contract-head"><p>Structured machine contract for this company lens. Same state as the company dossier, rendered as a browsable record page.</p><a class="button ghost small" href="record.json">record.json</a> · <a class="button ghost small" href="../">Company dossier</a></div>
+<pre>${escapeHtml(wire)}</pre>
+<pre class="record-json">${escapeHtml(JSON.stringify(record, null, 2))}</pre>
+<p class="machine-hook">Consumer path: inspect record → follow pinned public evidence → verify native receipts/tests → respect stage prerequisites, blockers, claim ceiling, and non-affiliation boundary.</p>
+</div>
+</div>
+</section>
+</main>
+<footer class="site-footer"><div class="shell"><p><strong>Casey Barton · GlacierEQ</strong></p><p>${escapeHtml(company.non_affiliation)}</p></div></footer>
+</body>
+</html>\n`;
+}
+
 async function writeCompanyRoutes(companies, stageOrder) {
   await rm(COMPANIES_OUTPUT, { recursive: true, force: true });
   for (const company of companies) {
@@ -405,6 +458,7 @@ async function writeCompanyRoutes(companies, stageOrder) {
       stableJson(compactMachineRecord(company, state)),
       "utf8",
     );
+    await writeFile(path.join(directory, "record.html"), recordPage(company, state), "utf8");
   }
   await writeFile(path.join(COMPANIES_OUTPUT, "index.html"), companyIndexPage(companies), "utf8");
 }
@@ -422,18 +476,9 @@ async function main() {
     throw new Error("Helix projection must contain the eight-stage company second-depth contract");
   }
 
-  // Publish only eligible public repository evidence. Keep the source snapshot intact.
-  // An admitted company can still carry private/internal repository rows.
-  const companies = snapshot.companies.filter(admittedAtlasCompany).map((company) => ({
-    ...company,
-    repositories: company.repositories.filter((repo, index, all) =>
-      repo && repo.visibility === "public" &&
-      repo.inventory_scope === "HELIX_ADMITTED" &&
-      typeof repo.repository === "string" && REPOSITORY_PATTERN.test(repo.repository) &&
-      all.findIndex((candidate) => typeof candidate?.repository === "string" &&
-        candidate.repository.toLowerCase() === repo.repository.toLowerCase() &&
-        candidate.visibility === "public" && candidate.inventory_scope === "HELIX_ADMITTED") === index),
-  })).sort((a, b) => a.display_name.localeCompare(b.display_name));
+  const allCompanies = snapshot.companies.sort((a, b) => a.display_name.localeCompare(b.display_name));
+  const admittedCompanies = snapshot.companies.filter(admittedAtlasCompany).sort((a, b) => a.display_name.localeCompare(b.display_name));
+  const companies = allCompanies;
   for (const company of companies) {
     companySlug(company.company_id);
     if (!Array.isArray(company.repositories)) {
@@ -455,8 +500,22 @@ async function main() {
   const scaffold = companies.filter((company) => evidenceState(company) === "scaffold").length;
   const advancedDepth = companies.filter((company) => company.second_depth.ordinal > 0).length;
 
+  // Atlas index stats: computed from admitted companies only (governed view).
+  const admittedRich = admittedCompanies.filter((company) => evidenceState(company) === "repository-rich").length;
+  const admittedSeeded = admittedCompanies.filter((company) => evidenceState(company) === "seeded").length;
+  const admittedScaffold = admittedCompanies.filter((company) => evidenceState(company) === "scaffold").length;
+  const admittedAdvancedDepth = admittedCompanies.filter((company) => company.second_depth.ordinal > 0).length;
+  const admittedPublicMemberships = admittedCompanies.reduce((count, company) => {
+    const identities = company.repositories
+      .filter((repo) => repo && repo.visibility === "public" &&
+        repo.inventory_scope === "HELIX_ADMITTED" &&
+        typeof repo.repository === "string" && REPOSITORY_PATTERN.test(repo.repository))
+      .map((repo) => repo.repository.toLowerCase());
+    return count + new Set(identities).size;
+  }, 0);
+
   const starsCssPath = path.join(SITE, "assets", "helix-atlas.stars.css");
-  await writeFile(starsCssPath, generateStarPositionCss(companies.length), "utf8");
+  await writeFile(starsCssPath, generateStarPositionCss(admittedCompanies.length), "utf8");
 
   const html = `<!doctype html>
 <html lang="en">
@@ -476,12 +535,12 @@ async function main() {
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<div class="signal-bar"><div class="shell signal-inner"><span class="signal-live">HELIX ROOT TRUTH · COMPANY ATLAS</span><span>${companies.length} governed company lenses · ${advancedDepth} past mapping · zero client scripts</span></div></div>
-<header class="site-header"><div class="shell nav"><a class="brand" href="/" aria-label="Casey Barton portfolio home"><span class="mark">CB</span><span><strong>CASEY BARTON</strong><small>APPLIED AI SYSTEMS ARCHITECT</small></span></a><nav class="links" aria-label="Primary navigation"><a href="/">Recruiter</a><a href="/resume/">Résumé</a><a href="/master/">Master</a><a href="/mesh/">Mesh</a><a aria-current="page" href="/atlas/">Atlas</a><a href="/machine/">Machine</a></nav><a class="nav-cta" href="mailto:glacier.equilibrium@gmail.com">Start a conversation</a></div></header>
+<div class="signal-bar"><div class="shell signal-inner"><span class="signal-live">HELIX ROOT TRUTH · COMPANY ATLAS</span><span>${admittedCompanies.length} of ${allCompanies.length} governed lenses admitted · ${admittedAdvancedDepth} past mapping · zero client scripts</span></div></div>
+<header class="site-header"><div class="shell nav"><a class="brand" href="/" aria-label="Casey Barton portfolio home"><span class="mark">CB</span><span><strong>CASEY BARTON</strong><small>APPLIED AI SYSTEMS ARCHITECT</small></span></a><nav class="links" aria-label="Primary navigation"><a href="/">Recruiter</a><a href="/resume/">Résumé</a><a href="/master/">Master</a><a href="/mesh/">Mesh</a><a href="/companies/">Companies</a><a aria-current="page" href="/atlas/">Atlas</a><a href="/machine/">Machine</a></nav><a class="nav-cta" href="mailto:glacier.equilibrium@gmail.com">Start a conversation</a></div></header>
 <main id="main">
-<section class="hero atlas-hero"><div class="shell"><p class="eyebrow">COMPANY INTELLIGENCE · V23 CANONICAL BUILD · GOVERNED PROOF</p><h1>Choose a star. <em>Follow the proof.</em></h1><p class="lead">The constellation maps independent technical alignment dossiers across the AI ecosystem. Active evidence tracks are promoted to the top of the directory; every dossier carries pinned public repository proof and explicit verification boundaries.</p><div class="proof-strip" aria-label="Atlas scope"><div><b>${companies.length}</b><span>governed company lenses</span></div><div><b>${publicMemberships}</b><span>direct public repos</span></div><div><b>${rich}</b><span>verified tracks</span></div><div><b>${seeded}</b><span>active lenses</span></div><div><b>${advancedDepth}</b><span>promoted tracks</span></div></div><div class="actions"><a class="button primary" href="#constellation">Enter constellation</a><a class="button secondary" href="#power-map">Open power map</a><a class="button ghost" href="/data/helix-root.json">Inspect root snapshot</a></div></div></section>
-<section id="constellation" class="section constellation-section"><div class="shell"><div class="section-head"><div><p class="eyebrow">CONSTELLATION MODE</p><h2>The ecosystem as a navigable field.</h2></div><p>Stars are positioned across multi-ring orbits for dense scanning (${companies.length} live tracks). Pointer precision is optional: the directory is the complete accessibility fallback and browser find provides instant text lookup without weakening the site’s no-script CSP.</p></div><div class="constellation-layout"><div class="constellation-stage" aria-label="Company constellation">${companies.map((company, index) => constellationNode(company, index)).join("")}<div class="constellation-core" aria-hidden="true"><span>GLACIEREQ</span><b>COMPANY<br>ATLAS</b></div><div class="orbit orbit-1" aria-hidden="true"></div><div class="orbit orbit-2" aria-hidden="true"></div><div class="orbit orbit-3" aria-hidden="true"></div></div><aside class="constellation-directory"><div class="directory-head"><p class="eyebrow">DIRECTORY</p><h3>Verified &amp; active tracks</h3><p>${evidenceLabel("repository-rich")} = multiple or advanced public repositories; ${evidenceLabel("seeded")} = direct public repository. Additional target domains are tucked inside the expandable research queue below.</p></div><div class="atlas-directory">${renderDirectoryList(companies)}</div></aside></div></div></section>
-<section id="power-map" class="section alt"><div class="shell"><div class="section-head"><div><p class="eyebrow">POWER-MAP MODE</p><h2>See where each target sits in the operating stack.</h2></div><p>This is an orientation layer, not a claim that the categories are exclusive or that GlacierEQ has company access. Each name resolves to the same governed company intelligence route.</p></div><div class="power-map">${powerMap(companies)}</div></div></section>
+<section class="hero atlas-hero"><div class="shell"><p class="eyebrow">COMPANY INTELLIGENCE · V23 CANONICAL BUILD · GOVERNED PROOF</p><h1>Choose a star. <em>Follow the proof.</em></h1><p class="lead">The constellation maps recruiter-admitted technical alignment dossiers across the AI ecosystem (${admittedCompanies.length} admitted stars out of ${allCompanies.length} total target-domain dossiers). Active evidence tracks are promoted here only when backed by multiple public Helix-admitted repositories or reproduced/inspected second-depth proof; all ${allCompanies.length} dossiers remain browsable in the Company Index.</p><div class="proof-strip" aria-label="Atlas scope"><div><b>${admittedCompanies.length}</b><span>governed company lenses</span></div><div><b>${admittedPublicMemberships}</b><span>direct public repos</span></div><div><b>${admittedRich}</b><span>verified tracks</span></div><div><b>${admittedSeeded}</b><span>active lenses</span></div><div><b>${admittedAdvancedDepth}</b><span>promoted tracks</span></div></div><div class="actions"><a class="button primary" href="#constellation">Enter constellation</a><a class="button secondary" href="/companies/">Browse all ${allCompanies.length} dossiers</a><a class="button ghost" href="#power-map">Open power map</a><a class="button ghost" href="/data/helix-root.json">Inspect root snapshot</a></div></div></section>
+<section id="constellation" class="section constellation-section"><div class="shell"><div class="section-head"><div><p class="eyebrow">CONSTELLATION MODE</p><h2>The ecosystem as a navigable field.</h2></div><p>Stars are positioned across multi-ring orbits for dense scanning (${admittedCompanies.length} live tracks). Pointer precision is optional: the directory is the complete accessibility fallback and browser find provides instant text lookup without weakening the site’s no-script CSP.</p></div><div class="constellation-layout"><div class="constellation-stage" aria-label="Company constellation">${admittedCompanies.map((company, index) => constellationNode(company, index)).join("")}<div class="constellation-core" aria-hidden="true"><span>GLACIEREQ</span><b>COMPANY<br>ATLAS</b></div><div class="orbit orbit-1" aria-hidden="true"></div><div class="orbit orbit-2" aria-hidden="true"></div><div class="orbit orbit-3" aria-hidden="true"></div></div><aside class="constellation-directory"><div class="directory-head"><p class="eyebrow">DIRECTORY · ADMISSION GOVERNANCE</p><h3>Verified &amp; active tracks</h3><p>${evidenceLabel("repository-rich")} = multiple or advanced public repositories; ${evidenceLabel("seeded")} = direct public repository. Atlas enforces strict recruiter-ready admission (${admittedCompanies.length} of ${allCompanies.length} lenses); the remaining ${allCompanies.length - admittedCompanies.length} target-domain dossiers and machine records are open in the <a href="/companies/">complete Company Index</a>.</p></div><div class="atlas-directory">${renderDirectoryList(admittedCompanies)}</div></aside></div></div></section>
+<section id="power-map" class="section alt"><div class="shell"><div class="section-head"><div><p class="eyebrow">POWER-MAP MODE</p><h2>See where each target sits in the operating stack.</h2></div><p>This is an orientation layer, not a claim that the categories are exclusive or that GlacierEQ has company access. Each name resolves to the same governed company intelligence route.</p></div><div class="power-map">${powerMap(admittedCompanies)}</div></div></section>
 <section id="crown-jewels" class="section"><div class="shell"><div class="section-head"><div><p class="eyebrow">CROWN JEWELS</p><h2>Systems with a governed public proof path.</h2></div><p>The company constellation does not replace native repository proof. It points back into systems whose evidence state and next promotion gate are explicit.</p></div><div class="atlas-grid">${snapshot.flagships.map(flagshipCard).join("")}</div></div></section>
 <section class="section tight"><div class="shell callout"><p class="eyebrow">SECOND-DEPTH CONTRACT</p><h2>Mapping is not proof. Progress is a governed state transition.</h2><p>${escapeHtml(snapshot.company_second_depth.boundary)}</p><p>The eight stages are ${stageOrder.map((row) => escapeHtml(row.id)).join(" → ")}. A missing upstream override means MAPPED_ONLY, never completion.</p></div></section>
 <section class="section tight"><div class="shell callout"><p class="eyebrow">PUBLICATION CONTRACT</p><h2>Beauty on top. Truth underneath.</h2><p>Company names identify independent target domains. The build publishes only public-safe Helix fields; no affiliation, endorsement, employment, proprietary access, contract relationship, clearance, production adoption, or unsupported business impact is implied.</p><div class="actions"><a class="button primary" href="https://github.com/GlacierEQ/job-app-helix" target="_blank" rel="noopener">Inspect Job App Helix</a><a class="button ghost" href="/machine/">Read machine contracts</a><a class="button ghost" href="/mesh/">Open the Mesh</a></div></div></section>
@@ -492,9 +551,9 @@ async function main() {
 
   await mkdir(path.dirname(ATLAS_OUTPUT), { recursive: true });
   await writeFile(ATLAS_OUTPUT, html, "utf8");
-  await writeCompanyRoutes(companies, stageOrder);
+  await writeCompanyRoutes(allCompanies, stageOrder);
   // Retire only generated legacy company redirects; preserve unrelated Atlas routes.
-  const admittedSlugs = new Set(companies.map((company) => companySlug(company.company_id)));
+  const admittedSlugs = new Set(admittedCompanies.map((company) => companySlug(company.company_id)));
   for (const entry of await readdir(path.join(SITE, "atlas"), { withFileTypes: true })) {
     if (!entry.isDirectory() || admittedSlugs.has(entry.name)) continue;
     const directory = path.join(SITE, "atlas", entry.name);
@@ -507,7 +566,7 @@ async function main() {
     }
   }
   console.log(
-    `Company Atlas rendered: ${path.relative(ROOT, ATLAS_OUTPUT)} + ${companies.length} company routes; ${advancedDepth} past MAPPED_ONLY`,
+    `Company Atlas rendered: ${path.relative(ROOT, ATLAS_OUTPUT)} + ${allCompanies.length} company routes; ${advancedDepth} past MAPPED_ONLY`,
   );
 }
 

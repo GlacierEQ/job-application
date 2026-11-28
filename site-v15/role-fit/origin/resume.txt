@@ -1,0 +1,40 @@
+CASEY DEL CARPIO BARTON
+AI SYSTEMS ARCHITECT | FOUNDER, GLACIEREQ
+TARGET: Forward Deployed Engineer — Origin
+Honolulu, Hawaiʻi | +1 808-936-5654 | glacier.equilibrium@gmail.com
+Portfolio: https://casey-barton-glaciereq.vercel.app/role-fit/origin/
+GitHub: https://github.com/GlacierEQ
+
+PROFESSIONAL PROFILE
+Founder-engineer building source-traceable autonomous AI systems, durable context, typed workflows, agent coordination, and failure-aware integrations. Origin builds endpoint AI observability. I have implemented the complementary agent-side mechanisms: correlate instructions to tool actions, preserve provider receipts, distinguish proposed from applied state, and recover after lost acknowledgments.
+
+EXPERIENCE
+GLACIEREQ | Founder / Applied AI Systems Builder | 2023–Present
+- Architect and implement Python/TypeScript agent infrastructure with explicit identity, tool authority, workflow state, durable receipts, and validation.
+- Develop recovery mechanisms for ambiguous provider outcomes, idempotent execution, evidence binding, and continuity across interrupted sessions.
+- Compile source-governed engineering proof into recruiter and machine-facing portfolio surfaces, testing public/private admission and release integrity.
+
+SELECTED TECHNICAL EVIDENCE
+- Sigma Glue — Provider Readback: Ambiguous provider-write recovery, restart-readable trails, and replay guards designed to prevent duplicate side effects.
+  https://github.com/GlacierEQ/sigma-glue
+- Anthropic Agent Coordinator — Scheduler: Explicit agent ownership, dependencies, capacity and shared-resource budget scheduling.
+  https://github.com/GlacierEQ/anthropic-agent-coordinator
+- ECHO — Durable Continuity: Deterministic identity and durable execution evidence across interrupted sessions.
+  https://github.com/GlacierEQ/ECHO
+
+ADDITIONAL PROFESSIONAL EXPERIENCE
+DIAMOND HEAD HOME INSPECTIONS | Certified Home Inspector | 2020–2024
+- Diagnosed interacting structural, electrical, plumbing, HVAC and safety systems; communicated evidence, uncertainty, risks, and repair priorities.
+HI-CLASS HOME SERVICES / HI CLASS MAINTENANCE OAHU LLC | Owner-Operator | 2017–Present
+- Scope, sequence, coordinate, and deliver field-service work under real constraints and ambiguous requirements.
+
+TECHNICAL SKILLS
+Python · TypeScript · JavaScript · FastAPI · Node.js · REST · MCP · JSON Schema · SQLite · GitHub Actions · Docker · Vercel · Automated tests · Source integrity
+
+EDUCATION
+University of Hawaiʻi at Mānoa | B.S. Marine Biology | 2016
+AWS Cloud Institute | Cloud Application Developer program | In progress (2025–2026)
+
+SOURCE AND STATUS
+Master career source: /resume/ats.txt. Selected mechanisms link to inspectable public repositories; proposed role alignment is independent of the employer.
+No employment, customer engagement, adoption, or affiliation with Origin is implied.

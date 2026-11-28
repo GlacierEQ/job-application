@@ -130,6 +130,18 @@ async function main() {
     (atlas.match(/class="atlas-directory-item"/g) ?? []).length === admittedCompanies.length,
     "directory count differs from company snapshot",
   );
+  // A correct aggregate count can still hide duplicated links and missing
+  // company destinations. Require one star and one directory link per ID.
+  for (const company of admittedCompanies) {
+    const route = `/companies/${companySlug(company.company_id)}/`;
+    // The same route legitimately appears in power-map and other links;
+    // isolate the anchor tags for each navigational surface instead.
+    const anchors = [...atlas.matchAll(/<a\b[^>]*>/g)].map((match) => match[0]);
+    const stars = anchors.filter((anchor) => anchor.includes('class="atlas-star ') && anchor.includes(`href="${route}"`));
+    const directory = anchors.filter((anchor) => anchor.includes('class="atlas-directory-item"') && anchor.includes(`href="${route}"`));
+    assert(stars.length === 1, `${company.company_id}: Atlas star route missing or duplicated`);
+    assert(directory.length === 1, `${company.company_id}: Atlas directory route missing or duplicated`);
+  }
   assert(
     (atlas.match(/class="card atlas-flagship"/g) ?? []).length === snapshot.flagships.length,
     "Atlas flagship count differs from snapshot",
@@ -154,17 +166,17 @@ async function main() {
   const entries = await readdir(companiesDir, { withFileTypes: true });
   const companyDirectories = entries.filter((entry) => entry.isDirectory());
   assert(
-    companyDirectories.length === admittedCompanies.length,
+    companyDirectories.length === snapshot.companies.length,
     "generated company route count differs from snapshot",
   );
-  const expectedCompanySlugs = new Set(admittedCompanies.map((company) => companySlug(company.company_id)));
+  const expectedCompanySlugs = new Set(snapshot.companies.map((company) => companySlug(company.company_id)));
   assert(
     companyDirectories.every((entry) => expectedCompanySlugs.has(entry.name)),
     "generated company routes contain an unadmitted directory",
   );
   assert(
-    expectedCompanySlugs.size === admittedCompanies.length,
-    "multiple admitted company ids map to the same public route",
+    expectedCompanySlugs.size === snapshot.companies.length,
+    "multiple company ids map to the same public route",
   );
   const companiesIndex = await readFile(path.join(companiesDir, "index.html"), "utf8");
   assert((companiesIndex.match(/<h1\b/g) ?? []).length === 1, "companies index must contain one h1");
@@ -241,8 +253,22 @@ async function main() {
           !/^GlacierEQ\/[A-Za-z0-9_.-]+$/.test(repo.repository) ||
           admittedIds.has(repo.repository.toLowerCase())) continue;
       const [owner, name] = repo.repository.split("/");
-      const forbiddenUrl = `https://github.com/${encodeURIComponent(owner)}/${encodeURIComponent(name)}`;
-      assert(!page.toLowerCase().includes(forbiddenUrl.toLowerCase()),
+      // Match a complete href target, not a substring of another repository
+      // (e.g. repo versus repo-tools). Decode URL path components so escaped
+      // hrefs cannot bypass the publication guard.
+      const links = [...page.matchAll(/\bhref\s*=\s*["']([^"']+)["']/gi)];
+      const leaked = links.some((match) => {
+        try {
+          const url = new URL(match[1], "https://casey-barton-glaciereq.vercel.app");
+          const segments = url.pathname.split("/").filter(Boolean).map(decodeURIComponent);
+          return url.hostname.toLowerCase() === "github.com" &&
+            segments.length === 2 && segments[0].toLowerCase() === owner.toLowerCase() &&
+            segments[1].toLowerCase() === name.toLowerCase();
+        } catch {
+          return false;
+        }
+      });
+      assert(!leaked,
         `${company.company_id}: unadmitted repository link leaked into public dossier`);
     }
     const expectedBundled = sourceBackedCapabilitiesForCompany(company.company_id);
@@ -301,14 +327,14 @@ async function main() {
     "sitemap must not list missing /atlas/starmap/",
   );
   assert(llms.includes("Company Atlas"), "Company Atlas missing from llms.txt");
-  for (const company of admittedCompanies) {
+  for (const company of snapshot.companies) {
     assert(
       sitemap.includes(`/companies/${companySlug(company.company_id)}/`),
       `${company.company_id}: company route missing from sitemap`,
     );
   }
   const admittedCompanyRoutes = new Set(
-    admittedCompanies.map((company) => `/companies/${companySlug(company.company_id)}/`),
+    snapshot.companies.map((company) => `/companies/${companySlug(company.company_id)}/`),
   );
   const publishedCompanyRoutes = [...sitemap.matchAll(/<loc>[^<]*?(\/companies\/[^<]*?)<\/loc>/g)]
     .map((match) => match[1]);

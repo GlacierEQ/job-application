@@ -169,7 +169,7 @@
       "system": "Job Application Helix",
       "focus": "Enterprise Control Plane · Delivery",
       "problem": "Enterprise AI estates drift fast when repository evidence, architecture dossiers, and public surfaces are maintained by hand—shipping stale claims or broken links.",
-      "implementation": "Built a typed Python control plane (Job-App Helix) and Node build pipeline projecting commit-pinned data across a 66-repository boundary into validated HTML, structured JSON, and résumé surfaces.",
+      "implementation": "Built a typed Python control plane (Job-App Helix) and Node build pipeline projecting commit-pinned data across a 166-company / 67-repository Helix boundary into validated HTML, structured JSON, and résumé surfaces.",
       "operations": "Separate source authority from presentation; reject inconsistent or unsafe inputs fail-closed; enforce automated pre-release validation gates; leave machine-readable state for the next operator.",
       "value": "Deterministic builds across 393 HTML routes and 166 company dossiers with zero client scripts and end-to-end commit-to-surface traceability.",
       "evidence": "911/911 tests plus lint, Protobuf, rollout, provenance and public-surface checks.",

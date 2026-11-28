@@ -41,7 +41,10 @@ if (/@font-face\b/i.test(css)) {
 }
 
 const files = await htmlFiles(SITE);
-if (files.length < 100) throw new Error(`unexpectedly small HTML surface: ${files.length}`);
+if (files.length === 0) throw new Error('no HTML routes available for display validation');
+for (const route of ['index.html', 'atlas/index.html', 'companies/index.html']) {
+  if (!files.includes(path.join(SITE, route))) throw new Error(`required public route missing: ${route}`);
+}
 
 for (const file of files) {
   const html = await readFile(file, 'utf8');

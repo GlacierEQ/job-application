@@ -28,7 +28,7 @@ test('every source-backed capability survives fresh Helix projection regeneratio
     await mkdir(path.join(temp, 'scripts'));
     await mkdir(path.join(temp, 'site-v15', 'data'), { recursive: true });
     await mkdir(path.join(temp, 'site-v15', 'assets'));
-    for (const file of ['render-helix-atlas.mjs', 'recovered-forward-deployed-source-links.mjs']) {
+    for (const file of ['render-helix-atlas.mjs', 'recovered-forward-deployed-source-links.mjs', 'public-atlas-admission.mjs']) {
       await copyFile(path.join(root, 'scripts', file), path.join(temp, 'scripts', file));
     }
     const snapshot = JSON.parse(await readFile(path.join(root, 'site-v15/data/helix-root.json'), 'utf8'));
@@ -46,7 +46,15 @@ test('every source-backed capability survives fresh Helix projection regeneratio
       const html = await readFile(path.join(site, 'index.html'), 'utf8');
       const record = JSON.parse(await readFile(path.join(site, 'record.json'), 'utf8'));
       const original = snapshot.companies.find(c => c.company_id === companyId);
-      assert.equal(record.repos.length, original.repositories.length, 'real repo count unchanged');
+      const expectedAdmitted = original.repositories.filter((repo, index, all) =>
+        repo && repo.visibility === 'public' &&
+        repo.inventory_scope === 'HELIX_ADMITTED' &&
+        typeof repo.repository === 'string' &&
+        /^GlacierEQ\/[A-Za-z0-9_.-]+$/.test(repo.repository) &&
+        all.findIndex(candidate => typeof candidate?.repository === 'string' &&
+          candidate.repository.toLowerCase() === repo.repository.toLowerCase() &&
+          candidate.visibility === 'public' && candidate.inventory_scope === 'HELIX_ADMITTED') === index);
+      assert.equal(record.repos.length, expectedAdmitted.length, 'admitted public repo count matches contract');
       assert.deepEqual(record.bundled_capabilities.map(x => x.name), names);
       assert.match(html, /id="source-backed-capabilities"/);
       for (const name of names) {
