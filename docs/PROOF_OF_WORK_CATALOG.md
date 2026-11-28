@@ -7,79 +7,81 @@ This is the master catalog of all verifiable proof-of-work assets: repositories,
 
 ## Repository Inventory
 
-### Primary Infrastructure Repos
+### Primary Infrastructure Simulation & Control-Plane Repos
 
-| Repository | Domain | Depth | Status | Send To |
-|---|---|---|---|---|
-| `GlacierEQ/xai-colossus-cooling` | Thermal management | Deep | Active | xAI, NVIDIA |
-| `GlacierEQ/xai-colossus-energy` | Power architecture | Deep | Active | xAI, NVIDIA |
-| `GlacierEQ/xai-colossus-security` | Security + audit | Deep | Active | xAI, SpaceX |
-| `GlacierEQ/xai-colossus-build` | Deployment automation | Deep | Active | xAI, SpaceX, NVIDIA |
-| `GlacierEQ/colossus-gateway` | API gateway, routing | Deep | Active | All |
-| `GlacierEQ/apex-stack` | M2A protocol, Aspen memory | Deep | Active | All |
+| Repository | Visibility | Domain | Scope Boundary |
+|---|---|---|---|
+| `GlacierEQ/xai-colossus-cooling` | Public | Thermal modeling exhibit | Independent thermal simulation & control-loop model |
+| `GlacierEQ/xai-colossus-energy` | Public | Power budget exhibit | Independent Rust/Python power demand & load-shedding model |
+| `GlacierEQ/xai-colossus-security` | Public | Security & audit exhibit | Independent zone-access & chained audit simulation |
+| `GlacierEQ/colossus-gateway` | Public | API gateway & routing | Independent service-health & routing prototype |
+| `GlacierEQ/xai-colossus-build` | Private | Deployment pipeline study | Internal staging/rollout prototype (not public source) |
+| `GlacierEQ/apex-stack` | Private | M2A protocol & Aspen memory | Internal architecture & routing prototype (not public source) |
 
 ### Application Hub
 
 | Repository | Purpose | Visibility |
 |---|---|---|
-| `GlacierEQ/job-application` | This repo — master application packet | Public |
+| `GlacierEQ/job-application` | This repo — public hiring surface & projection consumer | Public |
+| `GlacierEQ/job-app-helix` | Portfolio authority & evidence control plane | Public |
 
 ---
 
 ## Document Inventory
 
-### Tier 1 — Lead Documents (Send First)
+> [!NOTE]
+> Canonical public truth lives in [`README.md`](../README.md), [`RESUME.md`](../RESUME.md), [`SHOWCASE.md`](../SHOWCASE.md), and [`docs/OUTREACH_PACKET_INDEX.md`](OUTREACH_PACKET_INDEX.md). Earlier June/July 2026 strategy and outreach templates listed under Tier 2–4 below are retained only as retired historical drafts and must not override canonical evidence boundaries.
 
-These are the primary door-openers. Each stands alone and drives the conversation.
+### Tier 1 — Lead Documents (Current + Domain Studies)
 
-| Document | Best For | Strength |
+| Document | Best For | Scope |
 |---|---|---|
-| `docs/applications/xai_statement_of_exceptional_work.md` | xAI | Colossus-specific, M2A protocol, complete proof |
-| `docs/applications/spacex_proof_of_work.md` | SpaceX | Mission-critical framing, telemetry, control plane |
-| `docs/applications/nvidia_ai_infra_pitch.md` | NVIDIA | AI factory, NIM, platform orchestration framing |
-| `docs/applications/anthropic_reliable_agents_pitch.md` | Anthropic | Agent memory, audit trails, reliability-first |
-| `XAI_COLOSSUS_AUDIT.md` | xAI deep review | Independent domain audit, layer-by-layer |
+| [`RESUME.md`](../RESUME.md) | All applications | Canonical evidence-bound résumé |
+| [`SHOWCASE.md`](../SHOWCASE.md) | All technical reviews | Manifest-generated orientation showcase |
+| [`docs/OUTREACH_PACKET_INDEX.md`](OUTREACH_PACKET_INDEX.md) | All outreach packets | Minimum verifiable packet selection rules |
+| `docs/applications/xai_statement_of_exceptional_work.md` | xAI | Independent Colossus-inspired simulation narrative |
+| `docs/applications/spacex_proof_of_work.md` | SpaceX | Independent autonomy, mission-control, and sequencer simulations |
+| `docs/applications/nvidia_ai_infra_pitch.md` | NVIDIA | Independent AI infrastructure & routing study |
+| `docs/applications/anthropic_reliable_agents_pitch.md` | Anthropic | Agent coordination, safety monitor, and auditability |
+| `XAI_COLOSSUS_AUDIT.md` | xAI deep review | Independent first-principles facility architecture study |
 
-### Tier 2 — Supporting Documents (Send With Lead)
+### Tier 2 — Retired Historical Supporting Drafts (Superseded)
 
-These add credibility and depth after the lead doc lands.
-
-| Document | Adds | Send With |
+| Document | Historical Role | Current Status |
 |---|---|---|
-| `RESUME_STRATEGIC.md` | Positioned credentials | All leads |
-| `TECHNICAL_BRIEF.md` | Technical overview, stack summary | All leads |
-| `ENGINEERING_INNOVATIONS.md` | Novel patterns and original designs | xAI, NVIDIA |
-| `ENGINEERING_VERIFIED.md` | Reliability discipline, proven approaches | SpaceX, Anthropic |
-| `PROJECT_SHOWCASE.md` | Portfolio breadth | NVIDIA, general |
-| `SKILLS_MATRIX.md` | Full technical depth map | NVIDIA, Anthropic |
+| `RESUME_STRATEGIC.md` | Early strategic résumé draft | Retired historical draft — use `RESUME.md` |
+| `TECHNICAL_BRIEF.md` | Early simulation summary | Retired historical draft — reconciled to simulation scope |
+| `ENGINEERING_INNOVATIONS.md` | Early concept notes | Retired historical draft — superseded by `ENGINEERING_VERIFIED.md` |
+| `ENGINEERING_VERIFIED.md` | Evidence-boundary narrowing | Active boundary correction record |
+| `PROJECT_SHOWCASE.md` | Early showcase draft | Retired historical draft — use `SHOWCASE.md` |
+| `SKILLS_MATRIX.md` | Early skills table | Retired historical draft — use `RESUME.md` |
 
-### Tier 3 — Operational Docs (Internal Use)
+### Tier 3 — Retired Historical Operational Drafts (Internal History Only)
 
-These support execution but are not sent to companies.
-
-| Document | Purpose |
+| Document | Historical Role |
 |---|---|
-| `STRATEGIC_APPLICATION_PLAN.md` | Master strategy and prioritization |
-| `JOB_SEARCH_STRATEGY.md` | Status tracking and pipeline management |
-| `OUTREACH_STRATEGY.md` | Channel and timing strategy |
-| `INTERVIEW_PREP.md` | Preparation for technical and behavioral questions |
-| `SALARY_NEGOTIATION.md` | Negotiation strategy and floor/ceiling targets |
-| `FOLLOW_UP_TEMPLATES.md` | Message templates for all outreach stages |
+| `STRATEGIC_APPLICATION_PLAN.md` | Retired June 2026 outreach ideation draft |
+| `JOB_SEARCH_STRATEGY.md` | Retired June 2026 role-mapping draft |
+| `OUTREACH_STRATEGY.md` | Retired June 2026 outreach template draft |
+| `INTERVIEW_PREP.md` | Retired June 2026 interview worksheet |
+| `SALARY_NEGOTIATION.md` | Retired June 2026 compensation research notes |
+| `FOLLOW_UP_TEMPLATES.md` | Retired June 2026 follow-up email drafts |
 
 ### Tier 4 — Profile Assets
 
 | Document | Purpose | Status |
 |---|---|---|
-| `LINKEDIN_PROFILE_FINAL.md` | LinkedIn profile copy | Ready to publish |
-| `COVER_LETTERS_CUSTOM.md` | Custom cover letter variants | Multiple versions |
-| `REFERENCE_LETTER_TEMPLATE.md` | Reference request templates | Ready |
+| `LINKEDIN_PROFILE_FINAL.md` | Evidence-bounded LinkedIn profile copy | Current |
+| `LINKEDIN_PROFILE.md` | Early LinkedIn draft | Retired historical draft |
+| `COVER_LETTERS_CUSTOM.md` | Early cover letter drafts | Retired historical draft |
+| `REFERENCE_LETTER_TEMPLATE.md` | Early reference template | Retired historical draft |
 
 ---
 
 ## What Makes This Proof Stack Strong
 
-1. **It is verifiable** — every claim links to a public GitHub repo with commits, code, and documentation
-2. **It is layered** — Tier 1 opens doors, Tier 2 closes them, Tier 3 keeps operations clean
+1. **It is verifiable** — public claims link to inspectable GitHub repositories (`job-app-helix`, `the-tower-of-babel`, `anthropic-agent-coordinator`, `anthropic-safety-monitor`, `xai-colossus-energy`, `spacex-autonomy`), while private repositories are explicitly labeled as private rather than dead-linked.
+2. **It is layered** — canonical résumé and `SHOWCASE.md` anchor technical truth, while domain studies explain systems reasoning without inflating simulation into production deployment.
 3. **It is company-specific** — each company gets a proof document written for their problems, not a generic portfolio
 4. **It is auditable** — `XAI_COLOSSUS_AUDIT.md` demonstrates domain mastery through analysis, not just claims
 5. **It is complete** — covers the application lifecycle from first outreach through negotiation and follow-up

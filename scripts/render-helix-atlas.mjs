@@ -8,11 +8,15 @@ import { admittedAtlasCompany } from "./public-atlas-admission.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SNAPSHOT = path.join(ROOT, "site-v15", "data", "helix-root.json");
+const ESTATE_INTELLIGENCE = path.join(ROOT, "site-v15", "data", "estate-intelligence.json");
 const SITE = path.join(ROOT, "site-v15");
 const ATLAS_OUTPUT = path.join(SITE, "atlas", "index.html");
 const COMPANIES_OUTPUT = path.join(SITE, "companies");
 const REPOSITORY_PATTERN = /^GlacierEQ\/[A-Za-z0-9_.-]+$/;
 const COMPANY_ID_PATTERN = /^[a-z0-9_]+$/;
+const CHECK = process.argv.includes("--check");
+const ESTATE_START = "<!-- ESTATE_INTELLIGENCE_START -->";
+const ESTATE_END = "<!-- ESTATE_INTELLIGENCE_END -->";
 
 const POWER_LAYERS = [
   ["Silicon + compute", ["nvidia", "amd", "intel", "qualcomm", "groq", "cerebras", "coreweave"]],
@@ -339,7 +343,68 @@ function blockerList(company) {
     : `<p class="empty-state">No unresolved blocker is recorded at the current stage.</p>`;
 }
 
-function companyPage(company, stageOrder) {
+function estateIntelligenceCompanyBlock(record) {
+  if (!record) return "";
+  const sourceLinks = (record.official_sources ?? [])
+    .map(
+      (source) => `<li><a href="${escapeHtml(source.url)}" target="_blank" rel="noopener">${escapeHtml(source.title)}</a><br><small>${escapeHtml(source.publisher)} · observed signal: ${escapeHtml(source.observed_signal)}</small></li>`,
+    )
+    .join("");
+  return `\n${ESTATE_START}
+<section class="section company-layer estate-intelligence" id="estate-intelligence">
+  <div class="shell">
+    <div class="layer-heading"><span>ESTATE INTELLIGENCE · SOURCE-BOUND</span><h2>Operating pressure → engineering intervention.</h2></div>
+    <p class="muted"><strong>Source-bound snapshot:</strong> Independent engineering analysis separating official public signals from GlacierEQ architectural hypotheses.</p>
+    <div class="company-two-col">
+      <article class="card"><h3>Observed current pressure</h3><p>${escapeHtml(record.observed_current_pressure)}</p><h3>Official signals</h3><ul class="evolution-list">${sourceLinks}</ul></article>
+      <article class="card"><h3>GlacierEQ bottleneck inference</h3><p>${escapeHtml(record.inferred_bottleneck)}</p><p><strong>Brick wall:</strong> ${escapeHtml(record.inferred_brick_wall)}</p><p><strong>Inference boundary:</strong> ${escapeHtml(record.inference_boundary)}</p></article>
+    </div>
+    <div class="company-two-col">
+      <article class="card"><h3>Intervention mechanism</h3><p>${escapeHtml(record.leverage_mechanism)}</p><p><strong>Expected impact:</strong> ${escapeHtml(record.expected_impact)}</p></article>
+      <article class="card"><h3>Application move</h3><p>${escapeHtml(record.application_move)}</p><p><strong>Next deep dive:</strong> ${escapeHtml(record.next_deep_dive)}</p></article>
+    </div>
+  </div>
+</section>
+${ESTATE_END}`;
+}
+
+function estateIntelligenceAtlasBlock(publicRecordCount) {
+  if (publicRecordCount === null) return "";
+  return `\n${ESTATE_START}
+<section class="section company-layer estate-intelligence" id="operating-intelligence">
+  <div class="shell">
+    <div class="layer-heading"><span>OPERATING INTELLIGENCE</span><h2>${publicRecordCount} source-bound company pressure dossiers.</h2></div>
+    <div class="company-two-col">
+      <article class="card"><h3>Observed ≠ inferred</h3><p>Official-source observations remain distinct from GlacierEQ bottleneck, brick-wall, leverage, and intervention hypotheses. Every company page carries that boundary.</p></article>
+      <article class="card"><h3>V23 Canonical Build · November 2026</h3><p>Independent engineering analysis compiled from pinned public sources. Live company conditions are refreshed at application time; alignment carries no implied affiliation or endorsement.</p></article>
+    </div>
+  </div>
+</section>
+${ESTATE_END}`;
+}
+
+async function loadEstateIntelligence(expectedCommit) {
+  try {
+    const text = await readFile(ESTATE_INTELLIGENCE, "utf8");
+    const parsed = JSON.parse(text);
+    if (
+      parsed?.schema !== "glaciereq.public-estate-intelligence.v1" ||
+      parsed?.source?.authority_commit !== expectedCommit ||
+      !Array.isArray(parsed.records)
+    ) {
+      return { byCompany: new Map(), count: null };
+    }
+    return {
+      byCompany: new Map(parsed.records.map((row) => [row.company_id, row])),
+      count: parsed.records.length,
+    };
+  } catch (error) {
+    if (error?.code === "ENOENT") return { byCompany: new Map(), count: null };
+    throw error;
+  }
+}
+
+function companyPage(company, stageOrder, estateRecord = null) {
   const state = evidenceState(company);
   const depth = requireSecondDepth(company);
   const publicRepos = admittedPublicRepositories(company);
@@ -385,7 +450,7 @@ function companyPage(company, stageOrder) {
 ${bundledSection}
 <section class="section company-layer" id="machine"><div class="shell"><div class="layer-heading"><span>03 · MACHINE</span><h2>Dense integration contract.</h2></div><div class="card machine-contract"><div class="machine-contract-head"><p>Compact wire view for agents and tooling. The structured record carries the same second-depth state and public-safe evidence references.</p><a class="button ghost small" href="/companies/${companySlug(company.company_id)}/record.json">record.json</a></div><pre>${escapeHtml(machineWire(company, state))}</pre><p class="machine-hook">Consumer path: discover route → inspect record → follow pinned public evidence → verify native receipts/tests → respect stage prerequisites, blockers, claim ceiling, and non-affiliation boundary.</p></div></div></section>
 <section class="section alt company-layer" id="mesh"><div class="shell"><div class="layer-heading"><span>04 · MESH</span><h2>One node in the larger GlacierEQ system.</h2></div><div class="company-two-col"><article class="card"><h3>Relationships</h3>${meshLinks ? `<ul class="mesh-edge-list">${meshLinks}</ul>` : `<p class="empty-state">No direct public repository edge is admitted yet.</p>`}<p><a href="/mesh/">Open the estate-wide Mesh →</a></p><h3>Current blockers</h3>${blockerList(company)}</article><article class="card evolution-card"><p class="eyebrow">ASPIRATION &amp; EVOLUTION</p><h3>Governed promotion path</h3><ol class="evolution-list">${depthTimeline(company, stageOrder)}</ol><p><strong>Current stage:</strong> ${escapeHtml(depth.stage)}</p><p><strong>Next gate:</strong> ${escapeHtml(depth.next_gate)}</p><p>The path does not advance because a company name, repository, or aspiration exists. It advances only when the upstream Helix state carries the required pinned public evidence.</p></article></div></div></section>
-<section class="section tight"><div class="shell callout"><p class="eyebrow">RETURN TO THE CONSTELLATION</p><h2>Company intelligence is one projection of the same governed portfolio.</h2><div class="actions"><a class="button primary" href="/atlas/">Open Company Atlas</a><a class="button ghost" href="/machine/">Machine contracts</a><a class="button ghost" href="/mesh/">System mesh</a></div></div></section>
+<section class="section tight"><div class="shell callout"><p class="eyebrow">RETURN TO THE CONSTELLATION</p><h2>Company intelligence is one projection of the same governed portfolio.</h2><div class="actions"><a class="button primary" href="/atlas/">Open Company Atlas</a><a class="button ghost" href="/machine/">Machine contracts</a><a class="button ghost" href="/mesh/">System mesh</a></div></div></section>${estateIntelligenceCompanyBlock(estateRecord)}
 </main>
 <footer class="site-footer"><div class="shell"><p><strong>Casey Barton · GlacierEQ</strong></p><p>${escapeHtml(company.non_affiliation)}</p></div></footer>
 </body>
@@ -445,14 +510,17 @@ function recordPage(company, state) {
 </html>\n`;
 }
 
-async function writeCompanyRoutes(companies, stageOrder) {
+async function writeCompanyRoutes(companies, stageOrder, estateByCompany) {
   await rm(COMPANIES_OUTPUT, { recursive: true, force: true });
   for (const company of companies) {
     const slug = companySlug(company.company_id);
     const directory = path.join(COMPANIES_OUTPUT, slug);
     await mkdir(directory, { recursive: true });
     const state = evidenceState(company);
-    await writeFile(path.join(directory, "index.html"), companyPage(company, stageOrder), "utf8");
+    const estateRecord = admittedAtlasCompany(company)
+      ? estateByCompany.get(company.company_id) ?? null
+      : null;
+    await writeFile(path.join(directory, "index.html"), companyPage(company, stageOrder, estateRecord), "utf8");
     await writeFile(
       path.join(directory, "record.json"),
       stableJson(compactMachineRecord(company, state)),
@@ -461,6 +529,96 @@ async function writeCompanyRoutes(companies, stageOrder) {
     await writeFile(path.join(directory, "record.html"), recordPage(company, state), "utf8");
   }
   await writeFile(path.join(COMPANIES_OUTPUT, "index.html"), companyIndexPage(companies), "utf8");
+}
+
+async function checkAtlasOutputs({
+  allCompanies,
+  admittedCompanies,
+  stageOrder,
+  estateByCompany,
+  starsCssPath,
+  expectedStarsCss,
+  rawAtlasHtml,
+}) {
+  const [{ injectDesignHtml }, { activateAtlasHtml }, { pruneHtml }] = await Promise.all([
+    import("./apply-complete-web-design.mjs"),
+    import("./activate-atlas-runtime.mjs"),
+    import("./prune-unavailable-github-links.mjs"),
+  ]);
+
+  const drifted = [];
+  const checkText = async (targetPath, expectedContent) => {
+    const actual = await readFile(targetPath, "utf8").catch(() => null);
+    if (actual !== expectedContent) {
+      drifted.push(path.relative(ROOT, targetPath).replaceAll(path.sep, "/"));
+    }
+  };
+
+  await checkText(starsCssPath, expectedStarsCss);
+
+  const expectedAtlas = pruneHtml(
+    activateAtlasHtml(injectDesignHtml(rawAtlasHtml, "site-v15/atlas/index.html").html),
+  );
+  await checkText(ATLAS_OUTPUT, expectedAtlas);
+
+  const expectedCompaniesIndex = pruneHtml(
+    injectDesignHtml(companyIndexPage(allCompanies), "site-v15/companies/index.html").html,
+  );
+  await checkText(path.join(COMPANIES_OUTPUT, "index.html"), expectedCompaniesIndex);
+
+  const expectedSlugs = new Set();
+  for (const company of allCompanies) {
+    const slug = companySlug(company.company_id);
+    expectedSlugs.add(slug);
+    const directory = path.join(COMPANIES_OUTPUT, slug);
+    const state = evidenceState(company);
+    const estateRecord = admittedAtlasCompany(company)
+      ? estateByCompany.get(company.company_id) ?? null
+      : null;
+
+    const expectedCompanyHtml = pruneHtml(
+      injectDesignHtml(
+        companyPage(company, stageOrder, estateRecord),
+        `site-v15/companies/${slug}/index.html`,
+      ).html,
+    );
+    const expectedRecordHtml = pruneHtml(
+      injectDesignHtml(
+        recordPage(company, state),
+        `site-v15/companies/${slug}/record.html`,
+      ).html,
+    );
+    const expectedRecordJson = stableJson(compactMachineRecord(company, state));
+
+    await checkText(path.join(directory, "index.html"), expectedCompanyHtml);
+    await checkText(path.join(directory, "record.json"), expectedRecordJson);
+    await checkText(path.join(directory, "record.html"), expectedRecordHtml);
+  }
+
+  const companyEntries = await readdir(COMPANIES_OUTPUT, { withFileTypes: true }).catch(() => []);
+  for (const entry of companyEntries) {
+    if (entry.isDirectory() && !expectedSlugs.has(entry.name)) {
+      drifted.push(`site-v15/companies/${entry.name}`);
+    }
+  }
+
+  const admittedSlugs = new Set(admittedCompanies.map((company) => companySlug(company.company_id)));
+  const atlasEntries = await readdir(path.join(SITE, "atlas"), { withFileTypes: true }).catch(() => []);
+  for (const entry of atlasEntries) {
+    if (!entry.isDirectory() || admittedSlugs.has(entry.name)) continue;
+    const legacyPage = await readFile(path.join(SITE, "atlas", entry.name, "index.html"), "utf8").catch(() => null);
+    if (
+      legacyPage &&
+      legacyPage.includes('http-equiv="refresh"') &&
+      legacyPage.includes(`url=/companies/${entry.name}/`)
+    ) {
+      drifted.push(`site-v15/atlas/${entry.name}/index.html`);
+    }
+  }
+
+  if (drifted.length > 0) {
+    throw new Error(`Company Atlas generated files out of sync (${drifted.length}): ${drifted.slice(0, 10).join(", ")}`);
+  }
 }
 
 async function main() {
@@ -514,8 +672,9 @@ async function main() {
     return count + new Set(identities).size;
   }, 0);
 
+  const estate = await loadEstateIntelligence(snapshot.source?.root_ref);
   const starsCssPath = path.join(SITE, "assets", "helix-atlas.stars.css");
-  await writeFile(starsCssPath, generateStarPositionCss(admittedCompanies.length), "utf8");
+  const expectedStarsCss = generateStarPositionCss(admittedCompanies.length);
 
   const html = `<!doctype html>
 <html lang="en">
@@ -543,15 +702,32 @@ async function main() {
 <section id="power-map" class="section alt"><div class="shell"><div class="section-head"><div><p class="eyebrow">POWER-MAP MODE</p><h2>See where each target sits in the operating stack.</h2></div><p>This is an orientation layer, not a claim that the categories are exclusive or that GlacierEQ has company access. Each name resolves to the same governed company intelligence route.</p></div><div class="power-map">${powerMap(admittedCompanies)}</div></div></section>
 <section id="crown-jewels" class="section"><div class="shell"><div class="section-head"><div><p class="eyebrow">CROWN JEWELS</p><h2>Systems with a governed public proof path.</h2></div><p>The company constellation does not replace native repository proof. It points back into systems whose evidence state and next promotion gate are explicit.</p></div><div class="atlas-grid">${snapshot.flagships.map(flagshipCard).join("")}</div></div></section>
 <section class="section tight"><div class="shell callout"><p class="eyebrow">SECOND-DEPTH CONTRACT</p><h2>Mapping is not proof. Progress is a governed state transition.</h2><p>${escapeHtml(snapshot.company_second_depth.boundary)}</p><p>The eight stages are ${stageOrder.map((row) => escapeHtml(row.id)).join(" → ")}. A missing upstream override means MAPPED_ONLY, never completion.</p></div></section>
-<section class="section tight"><div class="shell callout"><p class="eyebrow">PUBLICATION CONTRACT</p><h2>Beauty on top. Truth underneath.</h2><p>Company names identify independent target domains. The build publishes only public-safe Helix fields; no affiliation, endorsement, employment, proprietary access, contract relationship, clearance, production adoption, or unsupported business impact is implied.</p><div class="actions"><a class="button primary" href="https://github.com/GlacierEQ/job-app-helix" target="_blank" rel="noopener">Inspect Job App Helix</a><a class="button ghost" href="/machine/">Read machine contracts</a><a class="button ghost" href="/mesh/">Open the Mesh</a></div></div></section>
+<section class="section tight"><div class="shell callout"><p class="eyebrow">PUBLICATION CONTRACT</p><h2>Beauty on top. Truth underneath.</h2><p>Company names identify independent target domains. The build publishes only public-safe Helix fields; no affiliation, endorsement, employment, proprietary access, contract relationship, clearance, production adoption, or unsupported business impact is implied.</p><div class="actions"><a class="button primary" href="https://github.com/GlacierEQ/job-app-helix" target="_blank" rel="noopener">Inspect Job App Helix</a><a class="button ghost" href="/machine/">Read machine contracts</a><a class="button ghost" href="/mesh/">Open the Mesh</a></div></div></section>${estateIntelligenceAtlasBlock(estate.count)}
 </main>
 <footer class="site-footer"><div class="shell"><p><strong>Casey Barton · GlacierEQ</strong></p><p>Independent systems work. Company alignment does not imply affiliation, endorsement, employment, proprietary access, contract relationship, clearance, or production deployment.</p></div></footer>
 </body>
 </html>\n`;
 
+  if (CHECK) {
+    await checkAtlasOutputs({
+      allCompanies,
+      admittedCompanies,
+      stageOrder,
+      estateByCompany: estate.byCompany,
+      starsCssPath,
+      expectedStarsCss,
+      rawAtlasHtml: html,
+    });
+    console.log(
+      `Company Atlas verified (non-writing): ${path.relative(ROOT, ATLAS_OUTPUT)} + ${allCompanies.length} company routes; ${advancedDepth} past MAPPED_ONLY`,
+    );
+    return;
+  }
+
+  await writeFile(starsCssPath, expectedStarsCss, "utf8");
   await mkdir(path.dirname(ATLAS_OUTPUT), { recursive: true });
   await writeFile(ATLAS_OUTPUT, html, "utf8");
-  await writeCompanyRoutes(allCompanies, stageOrder);
+  await writeCompanyRoutes(allCompanies, stageOrder, estate.byCompany);
   // Retire only generated legacy company redirects; preserve unrelated Atlas routes.
   const admittedSlugs = new Set(admittedCompanies.map((company) => companySlug(company.company_id)));
   for (const entry of await readdir(path.join(SITE, "atlas"), { withFileTypes: true })) {

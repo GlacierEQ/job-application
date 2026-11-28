@@ -300,13 +300,39 @@ _Generated from `portfolio_manifest.json`. Edit the manifest, run `python3 gener
 """
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Generate or verify SHOWCASE.md")
+    parser.add_argument(
+        "--check",
+        action="store_true",
+        help="Verify SHOWCASE.md matches portfolio_manifest.json without writing to disk",
+    )
+    parser.add_argument(
+        "--output",
+        type=Path,
+        default=OUT,
+        help="Target path for generated showcase output",
+    )
+    args = parser.parse_args(argv)
+
     data = load_manifest()
     text = build(data)
     if LEGAL_BLOCK.search(text):
         raise SystemExit("legal or case material detected in generated showcase")
-    OUT.write_text(text, encoding="utf-8")
-    print(f"wrote {OUT} bytes={OUT.stat().st_size}")
+    if args.check:
+        if not args.output.is_file():
+            print(f"showcase check failed: missing {args.output}")
+            return 1
+        actual = args.output.read_text(encoding="utf-8")
+        if actual != text:
+            print(f"showcase check failed: {args.output} drifted from portfolio_manifest.json")
+            return 1
+        print(f"verified {args.output} bytes={len(actual.encode('utf-8'))}")
+        return 0
+    args.output.write_text(text, encoding="utf-8")
+    print(f"wrote {args.output} bytes={args.output.stat().st_size}")
     return 0
 
 

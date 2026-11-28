@@ -43,6 +43,9 @@ jobs:
       - name: Run repository tests (npm test)
         run: npm test
 
+      - name: Assert npm test did not mutate tracked or untracked files
+        run: test -z "$(git status --porcelain)"
+
       # Local coverage gate (replaces the former external Codecov upload):
       # coverage.py measures tools/ and the report fails below the 80%
       # threshold configured in .coveragerc. No data leaves the runner.
@@ -54,7 +57,8 @@ jobs:
           python3 -m coverage run -m unittest tests/test_workflow_evidence_manifest.py tests/test_workflow_evidence_freshness.py
           python3 -m coverage report --fail-under=80
 
-      - name: Normalize public links and verify zero dead GitHub links
-        run: |
-          node scripts/prune-unavailable-github-links.mjs
-          node scripts/prune-unavailable-github-links.mjs --check
+      - name: Verify zero dead GitHub links (non-writing)
+        run: node scripts/prune-unavailable-github-links.mjs --check
+
+      - name: Assert CI verification left worktree clean
+        run: test -z "$(git status --porcelain)"

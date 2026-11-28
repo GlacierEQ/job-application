@@ -1,5 +1,10 @@
 # Technical Deep-Dive — Power Systems at Scale
 
+> [!IMPORTANT]
+> **RETIRED HISTORICAL DRAFT (JUNE 2026) — SUPERSEDED BY CANONICAL EVIDENCE SURFACES**
+> This early outreach/planning draft is retired and retained only for historical continuity. Unsupported third-party compute-rental assertions, unverified CI/deploy-time claims, and unqualified scale language have been removed. Use [`docs/OUTREACH_PACKET_INDEX.md`](docs/OUTREACH_PACKET_INDEX.md), [`RESUME.md`](RESUME.md), and [`SHOWCASE.md`](SHOWCASE.md) for all active outreach.
+
+
 ## The Problem
 
 Colossus requires 250MW of power — approximately 3% of Memphis's entire power grid. This isn't just about getting enough power. It's about getting reliable, clean, redundant power.

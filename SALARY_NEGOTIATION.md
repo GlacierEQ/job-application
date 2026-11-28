@@ -1,88 +1,38 @@
 # Salary Negotiation Guide
 
-## Research
+> [!IMPORTANT]
+> **RETIRED HISTORICAL DRAFT (JUNE 2026) — PERSONAL RESEARCH NOTES ONLY**
+> This document is a retired personal compensation worksheet. Earlier draft bullets referencing raw repository counts, aggregate LOC totals, or unqualified cluster-deployment phrasing have been reconciled to match [`RESUME.md`](RESUME.md).
 
-### Market Rates (2026)
-| Role | Base Salary | Total Comp |
-|------|-------------|------------|
-| Senior Infrastructure Engineer | $180k-$220k | $250k-$350k |
-| AI Systems Architect | $200k-$250k | $300k-$400k |
-| Staff Engineer | $220k-$280k | $350k-$500k |
-| Principal Engineer | $250k-$350k | $400k-$600k |
+## Market Band Reference (General Industry Ranges)
 
-### Factors That Increase Value
-1. **Unique expertise** — Colossus-scale infrastructure (rare)
-2. **Full-stack knowledge** — Physical + digital (rare)
-3. **Proven output** — 1,052 repos, 43k LOC (documented)
-4. **Problem-solving ability** — "Shark laser" approach (differentiated)
+| Role Family | Typical Base Range | Typical Total Compensation Range |
+|-------------|--------------------|----------------------------------|
+| Senior Infrastructure / Platform Engineer | $180k–$220k | $250k–$350k |
+| Applied AI / Agent Systems Engineer | $200k–$250k | $300k–$400k |
+| Staff Systems / Forward-Deployed Engineer | $220k–$280k | $350k–$500k |
 
-## Negotiation Strategy
+## Evidence-Backed Value Drivers
 
-### Before the Offer
-1. **Don't discuss salary** until you have an offer
-2. **Research the company's** compensation structure
-3. **Know your worth** — You have unique expertise
-4. **Have alternatives** — Don't negotiate from desperation
+1. **Dependable agent & workflow control planes** — authority binding before action, idempotent recovery, and receipt-verified completion (`AKOS`, `ECHO`, `job-app-helix`).
+2. **Physical-to-digital systems diagnosis** — real-world field inspection and compressed-gas safety discipline translated into deterministic software state machines and independent physical-constraint simulations (`xai-colossus-energy`, `spacex-autonomy`).
+3. **Inspectable engineering proof** — commit-pinned public repositories, reproducible test suites, and explicit scope/non-claim boundaries rather than unverified volume metrics.
 
-### During the Offer
-1. **Express enthusiasm** — "I'm excited about this opportunity"
-2. **Ask for time** — "I'd like to review the full package"
-3. **Negotiate total comp** — Base + bonus + equity + benefits
-4. **Use your leverage** — "I have other opportunities"
+## Negotiation Principles
 
-### Key Phrases
-- "I'm looking for a package that reflects my experience and the value I'll bring"
-- "I'd like to discuss the base salary, bonus structure, and equity"
-- "Based on my research and the value I'll bring, I'm targeting [X]"
-- "I'm flexible on the mix, but the total comp needs to be competitive"
+### Before an Offer
+1. Defer compensation specifics until mutual role fit and level are established.
+2. Research role-specific bands using current public compensation disclosures on the employer's job posting.
+3. Anchor value discussions in concrete problems you can own and verify in the first 90 days.
 
-### What to Negotiate
-| Item | Priority | Notes |
-|------|----------|-------|
-| Base Salary | High | Most important for cash flow |
-| Signing Bonus | High | One-time, easy to negotiate |
-| Equity/Stock | Medium | Depends on company stage |
-| Annual Bonus | Medium | Usually 10-20% of base |
-| Vacation | Low | Easy to get, low cost to employer |
-| Remote Work | Medium | High value, low cost |
-| Title | Low | Can negotiate later |
+### Evaluating an Offer
+| Component | Priority | Notes |
+|-----------|----------|-------|
+| Role Scope & Technical Ownership | High | Alignment with agent infrastructure, reliability, or forward-deployed systems |
+| Base Salary | High | Predictable baseline aligned with published role band |
+| Equity / Long-Term Alignment | Medium | Evaluate vesting schedule and stage risk |
+| Signing / Relocation Support | Medium | One-time bridge when applicable |
 
-## Red Flags
+## Evidence-Bounded Framing
 
-### Don't Negotiate If:
-- They say "this is our final offer" (may be bluffing, but risky)
-- You have no alternatives
-- The company is known for lowballing
-- You're desperate for the job
-
-### Walk Away If:
-- Total comp is below market by >20%
-- They refuse to negotiate at all
-- The culture doesn't match your values
-- The role isn't what was described
-
-## Your Unique Value Proposition
-
-### What You Bring
-1. **Colossus-scale expertise** — Built infrastructure for 200k GPUs
-2. **Full-stack knowledge** — Thermal, power, water, firmware, security
-3. **Proven output** — 1,052 repos, 43k LOC, documented
-4. **Problem-solving ability** — Identify and fix blockers fast
-
-### How to Articulate
-"I've built complete infrastructure simulations for Colossus — the world's largest AI supercomputer. I understand what it takes to deploy and manage 200k+ GPUs at scale. This is a rare expertise, and I'm looking for a package that reflects that."
-
-## Counter-Offer Strategy
-
-### If They Offer Below Market
-"I appreciate the offer. Based on my research and the value I'll bring, I was expecting a package in the range of [X-Y]. Is there flexibility in the base salary or signing bonus?"
-
-### If They Say No
-"I understand. Is there flexibility in other areas — signing bonus, equity, or vacation? I'm looking for a package that reflects the value I'll bring."
-
-### If They Budge
-"Thank you for working with me. I'm excited about this opportunity and look forward to joining the team."
-
----
-
-*Casey Barton | Honolulu, HI | June 2026*
+"My background combines hands-on systems diagnosis with inspectable software engineering across agent coordination, fail-closed policy enforcement, recovery pipelines, and independent physical-constraint simulations. I focus on turning ambiguous operational problems into tested, maintainable systems, and I'm looking for compensation aligned with the published band for that scope."

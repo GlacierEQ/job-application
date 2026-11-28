@@ -19,7 +19,7 @@ project:
     - "job-app-helix (schema reference)"
 
 identity:
-  local_path: "/Users/kcbflux/workspace/job-application"
+  local_path: "<workspace>/job-application"
   git_origin: "https://github.com/GlacierEQ/job-application.git"
   head_branch: "main"
   head_sha: "40aebcf"  # from estate_owner_graph.md
@@ -30,7 +30,7 @@ identity:
   branch_count: 1
   worktrees: []
   github:
-    visibility: "PRIVATE"
+    visibility: "PUBLIC"
     is_fork: false
     is_archived: false
     default_branch: "main"
@@ -39,7 +39,7 @@ identity:
     description: "JOB-facing engineering portfolio"
   registry:
     url: "https://github.com/GlacierEQ/job-application"
-    is_private: true
+    is_private: false
     is_archived: false
     primary_role: "portfolio"
     memberships: []

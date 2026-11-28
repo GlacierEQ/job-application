@@ -1,5 +1,10 @@
 # Cover Letter — Casey Barton
 
+> [!IMPORTANT]
+> **RETIRED HISTORICAL DRAFT (JUNE 2026) — SUPERSEDED BY CANONICAL EVIDENCE SURFACES**
+> This early outreach/planning draft is retired and retained only for historical continuity. Unsupported third-party compute-rental assertions, unverified CI/deploy-time claims, and unqualified scale language have been removed. Use [`docs/OUTREACH_PACKET_INDEX.md`](docs/OUTREACH_PACKET_INDEX.md), [`RESUME.md`](RESUME.md), and [`SHOWCASE.md`](SHOWCASE.md) for all active outreach.
+
+
 Dear Hiring Manager,
 
 I'm writing to express my interest in a senior infrastructure role at [Company].
@@ -13,7 +18,7 @@ During this work, I engineered solutions across every layer:
 - **Firmware**: GPU driver matrix with automated audit CLI
 - **Security**: Zero-trust physical + cyber perimeter
 
-I also built a 9-agent AI orchestration system, automated CI/CD across 27 repositories, and analyzed the Grok-1 source code (314B MoE, JAX/Haiku).
+I also built a 9-agent AI orchestration system, automated CI/CD across modular architectural repositories, and analyzed the Grok-1 source code (314B MoE, JAX/Haiku).
 
 **What I bring to your team:**
 
@@ -32,5 +37,5 @@ I'd welcome the opportunity to discuss how my experience can contribute to [Comp
 Best regards,
 Casey Barton
 Honolulu, HI
-casey@hi-classhomeservices.com
+casey.barton@glaciereq.com
 github.com/GlacierEQ

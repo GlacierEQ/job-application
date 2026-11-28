@@ -20,8 +20,8 @@ Bind via `job-app/helix_registry.json` when a co-star leaf is ready.
 ## Runtime
 
 ```bash
-python3 ~/GlacierEQ_Swarm/automations/jobapp_helix_spiral.py run --all
-python3 ~/GlacierEQ_Swarm/automations/jobapp_solidify_flipper.py
+python3 automations/jobapp_helix_spiral.py run --all
+python3 automations/jobapp_solidify_flipper.py
 ```
 
-Portfolio doctrine: `~/job-app/HELIX.md`
+Portfolio doctrine: `HELIX.md`

@@ -1,5 +1,10 @@
 # Case Study: Solving Colossus's Water Treatment Challenge
 
+> [!IMPORTANT]
+> **RETIRED HISTORICAL DRAFT (JUNE 2026) — SUPERSEDED BY CANONICAL EVIDENCE SURFACES**
+> This early outreach/planning draft is retired and retained only for historical continuity. Unsupported third-party compute-rental assertions, unverified CI/deploy-time claims, and unqualified scale language have been removed. Use [`docs/OUTREACH_PACKET_INDEX.md`](docs/OUTREACH_PACKET_INDEX.md), [`RESUME.md`](RESUME.md), and [`SHOWCASE.md`](SHOWCASE.md) for all active outreach.
+
+
 ## The Problem
 
 Colossus requires 5 million gallons of water per day for cooling. Memphis's municipal supply can't guarantee that volume. The $80M wastewater treatment plant was on indefinite pause.

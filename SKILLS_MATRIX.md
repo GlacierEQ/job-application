@@ -1,5 +1,10 @@
 # Skills Matrix — Casey Barton
 
+> [!IMPORTANT]
+> **RETIRED HISTORICAL DRAFT (JUNE 2026) — SUPERSEDED BY CANONICAL EVIDENCE SURFACES**
+> This early outreach/planning draft is retired and retained only for historical continuity. Unsupported third-party compute-rental assertions, unverified CI/deploy-time claims, and unqualified scale language have been removed. Use [`docs/OUTREACH_PACKET_INDEX.md`](docs/OUTREACH_PACKET_INDEX.md), [`RESUME.md`](RESUME.md), and [`SHOWCASE.md`](SHOWCASE.md) for all active outreach.
+
+
 ## Infrastructure Engineering
 
 | Skill | Level | Evidence |
@@ -37,7 +42,7 @@
 
 | Skill | Level | Evidence |
 |-------|-------|----------|
-| GitHub Actions | Expert | Self-hosted CI fleet (27 repos) |
+| GitHub Actions | Expert | Self-hosted CI fleet (modular architectural repositories) |
 | Docker | Advanced | Containerized runners |
 | Kubernetes | Intermediate | Deployment patterns |
 | Terraform | Intermediate | Infrastructure as Code |
@@ -51,7 +56,7 @@
 | Systems Thinking | Expert | Full-stack infrastructure design |
 | Problem Solving | Expert | "Shark laser" approach |
 | Communication | Advanced | Technical documentation |
-| Self-Direction | Expert | 1,052 repos, zero team |
+| Self-Direction | Expert | verified public commits repos, zero team |
 | Scale Awareness | Expert | 200k GPU infrastructure |
 
 ---

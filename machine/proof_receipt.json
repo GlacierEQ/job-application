@@ -4,12 +4,12 @@
   "source_sha": "09bd39b84f8656f2c074f76750584955d6b640e2b21dafff122b82fb9ec3e67b",
   "proof_id": "elite-job-application-1786335149",
   "environment": {
-    "python": "/Users/kcbflux/job-app/excellence/.venv-elite/bin/python",
-    "PYTHONPATH": "/Users/kcbflux/job-app/repos/job-application:/Users/kcbflux/job-app/repos/job-application/src",
+    "python": "python",
+    "PYTHONPATH": "src",
     "entry": "unittest"
   },
   "tests": [
-    "/Users/kcbflux/job-app/excellence/.venv-elite/bin/python -m unittest discover -s tests -v (x2)"
+    "python -m unittest discover -s tests -v (x2)"
   ],
   "adversarial_tests": [
     "tests/test_adversarial.py"

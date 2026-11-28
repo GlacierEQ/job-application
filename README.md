@@ -42,13 +42,14 @@ flowchart LR
 
 ```bash
 # no npm dependencies: Node 22+ and Python 3 are enough
-npm test                                            # repository regression tests
+npm test                                            # non-writing repository regression tests + checks
+npm run generate:site                               # regenerate static HTML/JSON surfaces in write mode
 node scripts/prune-unavailable-github-links.mjs --check   # dead-link guard
-HELIX_ROOT_SHA=<job-app-helix commit sha> node scripts/vercel-build.mjs   # full production build
+node scripts/vercel-build.mjs                       # full production build (uses authority.pinned_commit by default)
 npx serve site-v15                                  # preview locally
 ```
 
-`HELIX_ROOT_SHA` pins the build to an exact Helix commit (and avoids the GitHub API rate limit). Without it, the build resolves Helix `main`.
+`portfolio-source.json` pins `authority.pinned_commit` so every `job-application` revision deterministically reproduces against one immutable Helix commit without querying moving `commits/main`. Set `HELIX_ROOT_SHA=<job-app-helix commit sha>` to override for a specific commit, or pass `--refresh-latest` / `HELIX_REFRESH_LATEST=1` (with `--write-pin` when promoting) to pull the latest Helix `main`.
 
 ---
 

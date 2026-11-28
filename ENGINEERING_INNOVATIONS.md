@@ -1,10 +1,15 @@
 # Engineering Innovations — Crystallized
 
+> [!IMPORTANT]
+> **RETIRED HISTORICAL DRAFT (JUNE 2026) — SUPERSEDED BY CANONICAL EVIDENCE SURFACES**
+> This early outreach/planning draft is retired and retained only for historical continuity. Unsupported third-party compute-rental assertions, unverified CI/deploy-time claims, and unqualified scale language have been removed. Use [`docs/OUTREACH_PACKET_INDEX.md`](docs/OUTREACH_PACKET_INDEX.md), [`RESUME.md`](RESUME.md), and [`SHOWCASE.md`](SHOWCASE.md) for all active outreach.
+
+
 > "Super pro elite humanized code engineering" — each innovation, one line.
 
 ---
 
-## xAI Colossus (26 repos, 43,874 lines)
+## xAI Colossus (26 repos, substantial multi-repo codebase lines)
 
 ### Thermal Management
 - **Bio-inspired CFD**: Mimics blood vessel dilation for coolant flow — 40% more efficient than static manifolds

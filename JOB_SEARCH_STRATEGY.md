@@ -1,5 +1,10 @@
 # Job Search Strategy — Casey Barton
 
+> [!IMPORTANT]
+> **RETIRED HISTORICAL DRAFT (JUNE 2026) — SUPERSEDED BY CANONICAL EVIDENCE SURFACES**
+> This early outreach/planning draft is retired and retained only for historical continuity. Unsupported third-party compute-rental assertions, unverified CI/deploy-time claims, and unqualified scale language have been removed. Use [`docs/OUTREACH_PACKET_INDEX.md`](docs/OUTREACH_PACKET_INDEX.md), [`RESUME.md`](RESUME.md), and [`SHOWCASE.md`](SHOWCASE.md) for all active outreach.
+
+
 ## Target Companies & Roles
 
 ### xAI (Primary Target)
@@ -25,7 +30,7 @@
 
 | Company | Role | Why It Fits |
 |---------|------|-------------|
-| **NVIDIA** | GPU Systems Engineer | 200k GPU experience, thermal management |
+| **NVIDIA** | GPU Systems Engineer | high-density cluster modeling experience, thermal management |
 | **Anthropic** | Infrastructure Engineer | AI systems, safety architecture |
 | **Google DeepMind** | Site Reliability Engineer | Large-scale compute, reliability |
 | **Amazon (AWS)** | Senior Solutions Architect | Infrastructure, cloud, scale |
@@ -67,7 +72,7 @@
 
 1. **"How I Built a Colossus-Scale Infrastructure Simulation"**
    - Technical deep-dive with architecture diagrams
-   - Showcases 26 repos, 43k lines, real physics
+   - Showcases 26 repos, substantial multi-repo codebase, real physics
    - Tags: #AIInfrastructure #xAI #Colossus #SystemsEngineering
 
 2. **"PINN Digital Twins for Thermal Management"**
@@ -98,7 +103,7 @@
 ```
 Hi [Name],
 
-I built a complete infrastructure simulation for xAI's Colossus — 26 repos, 43k lines, covering thermal management to firmware. I'm looking for a Senior Infrastructure Engineer role where I can apply this systems-level thinking.
+I built a complete infrastructure simulation for xAI's Colossus — 26 repos, substantial multi-repo codebase, covering thermal management to firmware. I'm looking for a Senior Infrastructure Engineer role where I can apply this systems-level thinking.
 
 Portfolio: github.com/GlacierEQ/Pro-xAI
 Technical Brief: [attached]

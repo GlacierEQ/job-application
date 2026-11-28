@@ -38,15 +38,11 @@ Stale old URL `linkedin.com/in/casey-barton-8a1264320` remains in at least:
 - `mega-skills/missions/anthropic-applied-ai/LINKEDIN_PROFILE_SOURCE.md`
 - `casey-ai-engineering-signal/client/src/pages/Home.tsx`
 
-## High-risk stale artifact
+## High-risk stale artifact (reconciled)
 
-`job-application/LINKEDIN_PROFILE.md` remains present and contains legacy claims that should not control any public projection:
+`job-application/LINKEDIN_PROFILE.md` previously contained retired June 2026 draft claims (raw repository totals, unqualified large-cluster GPU scale statements, and facility-level blueprint phrasing) and has now been explicitly marked as a retired historical draft superseded by `LINKEDIN_PROFILE_FINAL.md` and `RESUME.md`.
 
-- `Senior AI Infrastructure Engineer | Built Colossus-Scale Systems | 1,052 GitHub Repos`
-- `I build infrastructure that scales to 200,000+ GPUs.`
-- claims of complete Colossus infrastructure blueprints, gigawatt-scale power, Memphis WWTP / $80M facility design, and related production-scale implications.
-
-This file conflicts with the current evidence-bound guardrails in `LINKEDIN_PROFILE_FINAL.md`.
+It does not control any public projection and must remain subordinate to the evidence-bound guardrails in `LINKEDIN_PROFILE_FINAL.md`.
 
 ## Public-positioning conflict with current Operator doctrine
 

@@ -1,5 +1,10 @@
 # Technical Deep-Dive — Colossus Thermal Management
 
+> [!IMPORTANT]
+> **RETIRED HISTORICAL DRAFT (JUNE 2026) — SUPERSEDED BY CANONICAL EVIDENCE SURFACES**
+> This early outreach/planning draft is retired and retained only for historical continuity. Unsupported third-party compute-rental assertions, unverified CI/deploy-time claims, and unqualified scale language have been removed. Use [`docs/OUTREACH_PACKET_INDEX.md`](docs/OUTREACH_PACKET_INDEX.md), [`RESUME.md`](RESUME.md), and [`SHOWCASE.md`](SHOWCASE.md) for all active outreach.
+
+
 ## The Problem
 
 230,000 GPUs generate approximately 150MW of heat. At this scale, thermal management isn't just about cooling — it's about preventing cascading failures that can take down the entire cluster.

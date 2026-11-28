@@ -2,9 +2,11 @@
 
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
+import process from "node:process";
 import { fileURLToPath } from "node:url";
 
-const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const THIS_FILE = fileURLToPath(import.meta.url);
+const ROOT = path.resolve(path.dirname(THIS_FILE), "..");
 const DEFAULT_ATLAS = path.join(ROOT, "site-v15", "atlas", "index.html");
 const FILTER_STATES = ["repository-rich", "seeded", "scaffold"];
 
@@ -56,17 +58,36 @@ ${presentStates.map((state) => `<label class="atlas-filter-option"><input type="
   return html;
 }
 
-export async function activateAtlasFile(filePath = DEFAULT_ATLAS) {
+export async function activateAtlasFile(filePath = DEFAULT_ATLAS, { check = false } = {}) {
   const before = await readFile(filePath, "utf8");
   const after = activateAtlasHtml(before);
-  await writeFile(filePath, after, "utf8");
-  return { changed: before !== after, path: filePath };
+  const changed = before !== after;
+  if (check) {
+    if (changed) {
+      throw new Error(`Atlas evidence filtering out of sync: ${path.relative(ROOT, filePath)}`);
+    }
+    return { changed: false, path: filePath, mode: "check" };
+  }
+  if (changed) {
+    await writeFile(filePath, after, "utf8");
+  }
+  return { changed, path: filePath, mode: "write" };
 }
 
-if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  activateAtlasFile()
-    .then(({ changed, path: target }) => {
-      console.log(`Atlas evidence filtering ${changed ? "activated" : "already active"}: ${path.relative(ROOT, target)}`);
+if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(THIS_FILE)) {
+  const check = process.argv.includes("--check");
+  const fileIndex = process.argv.indexOf("--file");
+  const targetFile = fileIndex >= 0 && process.argv[fileIndex + 1]
+    ? path.resolve(process.argv[fileIndex + 1])
+    : DEFAULT_ATLAS;
+
+  activateAtlasFile(targetFile, { check })
+    .then(({ changed, path: target, mode }) => {
+      if (mode === "check") {
+        console.log(`Atlas evidence filtering verified: ${path.relative(ROOT, target)}`);
+      } else {
+        console.log(`Atlas evidence filtering ${changed ? "activated" : "already active"}: ${path.relative(ROOT, target)}`);
+      }
     })
     .catch((error) => {
       console.error(error instanceof Error ? error.stack : error);

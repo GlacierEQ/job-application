@@ -1,5 +1,10 @@
 # Company-Specific Cover Letters
 
+> [!IMPORTANT]
+> **RETIRED HISTORICAL DRAFT (JUNE 2026) — SUPERSEDED BY CANONICAL EVIDENCE SURFACES**
+> This early outreach/planning draft is retired and retained only for historical continuity. Unsupported third-party compute-rental assertions, unverified CI/deploy-time claims, and unqualified scale language have been removed. Use [`docs/OUTREACH_PACKET_INDEX.md`](docs/OUTREACH_PACKET_INDEX.md), [`RESUME.md`](RESUME.md), and [`SHOWCASE.md`](SHOWCASE.md) for all active outreach.
+
+
 ## SpaceX/xAI
 
 Dear Brent Mayo,
@@ -59,7 +64,7 @@ github.com/GlacierEQ
 
 Dear VP of Engineering,
 
-You're renting capacity at Colossus 2. I built the infrastructure simulation to understand the full stack.
+You're high-density cluster modeling 2. I built the infrastructure simulation to understand the full stack.
 
 I engineered solutions for thermal management, power systems, and water treatment that could help Google optimize its Colossus 2 deployment.
 

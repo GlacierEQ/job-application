@@ -34,10 +34,9 @@ This document defines the three-layer disclosure model: what to show publicly, w
 This is what any recruiter, engineer, or hiring manager sees when they follow a link.
 
 **What's here:**
-- This repository (`GlacierEQ/job-application`) — the full application hub
-- The six Colossus infrastructure repos — public, documented, with readable READMEs
-- The `apex-stack` repo — M2A protocol overview, architecture diagrams, public documentation
-- `XAI_COLOSSUS_AUDIT.md` — the domain audit demonstrating mastery
+- This repository (`GlacierEQ/job-application`) — the public hiring surface and projection consumer
+- Public Colossus-inspired simulation exhibits (`xai-colossus-cooling`, `xai-colossus-energy`, `xai-colossus-security`, `colossus-gateway`) — inspectable independent modeling repositories (while internal prototypes such as `xai-colossus-build` and `apex-stack` remain private in Layer 2/3)
+- `XAI_COLOSSUS_AUDIT.md` — independent first-principles domain study
 - All four company application packets in `docs/applications/`
 
 **Goal:** Create enough signal to earn a conversation. Not so much that there's nothing left to show.

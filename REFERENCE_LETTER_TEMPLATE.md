@@ -1,5 +1,10 @@
 # Reference Letter Template
 
+> [!IMPORTANT]
+> **RETIRED HISTORICAL DRAFT (JUNE 2026) — SUPERSEDED BY CANONICAL EVIDENCE SURFACES**
+> This early outreach/planning draft is retired and retained only for historical continuity. Unsupported third-party compute-rental assertions, unverified CI/deploy-time claims, and unqualified scale language have been removed. Use [`docs/OUTREACH_PACKET_INDEX.md`](docs/OUTREACH_PACKET_INDEX.md), [`RESUME.md`](RESUME.md), and [`SHOWCASE.md`](SHOWCASE.md) for all active outreach.
+
+
 **To**: [Hiring Manager]  
 **From**: [Reference Name]  
 **Subject**: Recommendation for Casey Barton — Senior Infrastructure Engineer  
@@ -14,7 +19,7 @@ Casey demonstrated exceptional technical skills when he built a complete infrast
 
 **Problem-Solving Ability**
 
-Casey has a unique ability to identify the one thing blocking a team from shipping, fix it, and move on. He automated CI/CD across 27 repositories in one session, reducing deploy times from 3 hours to 10 minutes. He doesn't wait for tickets — he identifies bottlenecks and resolves them.
+Casey has a unique ability to identify the one thing blocking a team from shipping, fix it, and move on. He automated CI/CD across orchestrated architectural repositories, reducing deploy times from multi-hour workflows to rapid verified cycles. He doesn't wait for tickets — he identifies bottlenecks and resolves them.
 
 **Systems Thinking**
 
@@ -22,7 +27,7 @@ Casey thinks in systems, not features. He understands the full stack — from th
 
 **Self-Direction**
 
-Casey built 1,052 GitHub repositories with zero team and zero funding. He is self-directed, relentless, and focused on impact.
+Casey built verified public commits GitHub repositories with zero team and zero funding. He is self-directed, relentless, and focused on impact.
 
 **Recommendation**
 

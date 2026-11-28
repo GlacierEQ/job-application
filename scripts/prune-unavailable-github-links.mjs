@@ -8,6 +8,7 @@
 //   - cards left with nothing but a heading: dropped
 //   - plain-text resumes: "Source:" lines say the repository is private
 import { readdir, readFile, writeFile } from 'node:fs/promises';
+import { realpathSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { UNAVAILABLE_GITHUB_REPOSITORIES } from './unavailable-github-repositories.mjs';
@@ -31,7 +32,7 @@ function isCta(attrs, inner) {
   return /(→|↗|&#8594;|&#8599;|&rarr;)\s*$/.test(t) || /^(Open|Inspect|View|See|Source)\b/i.test(t);
 }
 
-function pruneHtml(html) {
+export function pruneHtml(html) {
   // Preserve source-backed capabilities before pruning truly inaccessible links.
   // A missing standalone GitHub repository is not a reason to erase its evidence.
   let out = rewriteForwardDeployedSourceAnchors(html);
@@ -66,7 +67,7 @@ function pruneHtml(html) {
   return out;
 }
 
-function pruneText(body) {
+export function pruneText(body) {
   return body.replace(new RegExp(`^(\\s*-?\\s*Source:\\s*)${DEAD_URL}\\s*$`, 'gim'), '$1private repository, available on request');
 }
 
@@ -78,28 +79,39 @@ async function* walk(dir) {
   }
 }
 
-const changed = [];
-const remaining = [];
-for await (const file of walk(SITE)) {
-  const ext = path.extname(file);
-  if (ext !== '.html' && ext !== '.txt') continue;
-  const before = await readFile(file, 'utf8');
-  const after = ext === '.html' ? pruneHtml(before) : pruneText(before);
-  const rel = path.relative(ROOT, file);
-  if (after !== before) {
-    changed.push(rel);
-    if (!CHECK) await writeFile(file, after, 'utf8');
+function isMainScript() {
+  if (!process.argv[1]) return false;
+  try {
+    return realpathSync(process.argv[1]) === realpathSync(fileURLToPath(import.meta.url));
+  } catch {
+    return path.resolve(process.argv[1]) === path.resolve(fileURLToPath(import.meta.url));
   }
-  const finalText = CHECK ? before : after;
-  if (ext === '.html' ? DEAD_HREF.test(finalText) : DEAD_ANY.test(finalText)) remaining.push(rel);
 }
 
-if (CHECK && (changed.length || remaining.length)) {
-  console.error(JSON.stringify({ status: 'FAIL', unpruned: changed, dead_links: remaining }, null, 2));
-  process.exit(1);
+if (isMainScript()) {
+  const changed = [];
+  const remaining = [];
+  for await (const file of walk(SITE)) {
+    const ext = path.extname(file);
+    if (ext !== '.html' && ext !== '.txt') continue;
+    const before = await readFile(file, 'utf8');
+    const after = ext === '.html' ? pruneHtml(before) : pruneText(before);
+    const rel = path.relative(ROOT, file);
+    if (after !== before) {
+      changed.push(rel);
+      if (!CHECK) await writeFile(file, after, 'utf8');
+    }
+    const finalText = CHECK ? before : after;
+    if (ext === '.html' ? DEAD_HREF.test(finalText) : DEAD_ANY.test(finalText)) remaining.push(rel);
+  }
+
+  if (CHECK && (changed.length || remaining.length)) {
+    console.error(JSON.stringify({ status: 'FAIL', unpruned: changed, dead_links: remaining }, null, 2));
+    process.exit(1);
+  }
+  if (remaining.length) {
+    console.error(JSON.stringify({ status: 'FAIL', dead_links: remaining }, null, 2));
+    process.exit(1);
+  }
+  console.log(JSON.stringify({ status: 'PASS', mode: CHECK ? 'check' : 'write', pruned_files: changed.length }));
 }
-if (remaining.length) {
-  console.error(JSON.stringify({ status: 'FAIL', dead_links: remaining }, null, 2));
-  process.exit(1);
-}
-console.log(JSON.stringify({ status: 'PASS', mode: CHECK ? 'check' : 'write', pruned_files: changed.length }));

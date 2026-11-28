@@ -5,6 +5,7 @@
   "authority": {
     "repository": "GlacierEQ/job-app-helix",
     "branch": "main",
+    "pinned_commit": "7cbb2e1000edc254ed1990a12e4e145937ee153a",
     "manifest_path": "manifests/portfolio_root_truth.json",
     "raw_base_url": "https://raw.githubusercontent.com/GlacierEQ/job-app-helix",
     "commit_api_url": "https://api.github.com/repos/GlacierEQ/job-app-helix/commits/main"

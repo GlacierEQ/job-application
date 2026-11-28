@@ -1,80 +1,67 @@
 # Job Application Outreach Strategy
 
-## Target Companies (AI Infrastructure Focus)
+> [!IMPORTANT]
+> **RETIRED HISTORICAL DRAFT (JUNE 2026) — SUPERSEDED BY CANONICAL EVIDENCE SURFACES**
+> This early outreach draft is retired and retained only for historical continuity. Unsupported third-party compute-rental assertions, unverified CI/deploy-time claims, and unqualified scale language have been removed. Use [`docs/OUTREACH_PACKET_INDEX.md`](docs/OUTREACH_PACKET_INDEX.md), [`RESUME.md`](RESUME.md), and [`SHOWCASE.md`](SHOWCASE.md) for all active outreach.
 
-### Tier 1: Direct Colossus Relevance
-| Company | Why | Who to Contact |
-|---------|-----|----------------|
-| **SpaceX/xAI** | Colossus is THEIR project | Brent Mayo (Infrastructure), Ted Townsend (Ops) |
-| **NVIDIA** | They supply the GPUs | VP of Data Center Solutions |
-| **Dell Technologies** | Colossus hardware partner | VP of HPC/AI Infrastructure |
+## Target Companies (AI Infrastructure & Agent Systems Focus)
 
-### Tier 2: AI Infrastructure
-| Company | Why | Who to Contact |
-|---------|-----|----------------|
-| **Anthropic** | Renting Colossus compute | Head of Infrastructure |
-| **Google DeepMind** | Renting Colossus 2 | VP of Engineering |
-| **OpenAI** | Azure-scale infrastructure | Head of Supercomputing |
-| **Meta AI** | RSC cluster builders | Director of AI Infrastructure |
+### Tier 1: Physical-Constraint & Autonomy Simulation Relevance
+| Company | Alignment Focus | Relevant Public Proof |
+|---------|-----------------|-----------------------|
+| **xAI** | Power/thermal constraint modeling & deterministic load shedding | `GlacierEQ/xai-colossus-energy`, `GlacierEQ/xai-colossus-cooling` |
+| **SpaceX** | State estimation, countdown sequencing, fail-closed abort logic | `GlacierEQ/spacex-autonomy`, `GlacierEQ/spacex-launch-sequencer` |
+| **NVIDIA** | Compute/power envelope modeling & polyglot systems boundaries | `GlacierEQ/xai-colossus-energy`, `GlacierEQ/the-tower-of-babel` |
 
-### Tier 3: Infrastructure Companies
-| Company | Why | Who to Contact |
-|---------|-----|----------------|
-| **CoreWeave** | GPU cloud infrastructure | CTO |
-| **Lambda Labs** | GPU clusters | Head of Engineering |
-| **Together AI** | Inference infrastructure | VP of Engineering |
-| **Anyscale/Ray** | Distributed computing | Head of Platform |
+### Tier 2: Agent Infrastructure & Reliability
+| Company | Alignment Focus | Relevant Public Proof |
+|---------|-----------------|-----------------------|
+| **Anthropic** | Deterministic multi-agent scheduling & ALLOW/CONFIRM/DENY policy | `GlacierEQ/anthropic-agent-coordinator`, `GlacierEQ/anthropic-safety-monitor` |
+| **Google DeepMind** | Uncertainty-aware governed execution & polyglot verification | `GlacierEQ/AKOS`, `GlacierEQ/the-tower-of-babel` |
+| **OpenAI** | Evidence-carrying agent infrastructure & delegated identity | `GlacierEQ/AKOS`, `GlacierEQ/ECHO` |
+
+### Tier 3: Cloud & GPU Platforms
+| Company | Alignment Focus | Relevant Public Proof |
+|---------|-----------------|-----------------------|
+| **CoreWeave** | Reversible verified change & infrastructure control models | `GlacierEQ/ECHO`, `GlacierEQ/xai-colossus-energy` |
+| **Cloudflare / Vercel** | Zero-script static projections & deterministic release gates | `GlacierEQ/job-application`, `GlacierEQ/job-app-helix` |
 
 ---
 
-## Outreach Templates
+## Reconciled Outreach Templates (Historical Structure, Evidence-Bounded)
 
-### Template 1: Direct Technical Value
-```
-Subject: Infrastructure insight for [Company]'s [specific challenge]
+### Template 1: Problem-First Engineering Proof
+```text
+Subject: Technical proof path for [Company] — [role/problem area]
 
 Hi [Name],
 
-I built a complete infrastructure simulation for xAI's Colossus — from thermal management to wastewater treatment — because I wanted to understand what it takes to run 200k+ GPUs at scale.
+I build control layers between capable models and dependable real-world outcomes: authority checks before execution, explicit failure/hold states, and commit-pinned verification receipts.
 
-During this work, I identified [specific insight relevant to their challenge]. I think this could help [Company] with [specific problem].
+For [Company]'s work on [specific problem], the closest inspectable examples in my public portfolio are:
+- [Repository 1] — [specific mechanism and verified test boundary]
+- [Repository 2] — [specific mechanism and non-claim boundary]
 
-Would you have 15 minutes to discuss? I can share the technical details.
+Full portfolio and machine-readable proof: https://casey-barton-glaciereq.vercel.app/
+
+Would a brief technical conversation be useful?
 
 Best,
 Casey Barton
-GitHub: github.com/GlacierEQ
+https://github.com/GlacierEQ
 ```
 
-### Template 2: Fix a Specific Problem
-```
-Subject: Quick fix for [specific technical challenge]
+### Template 2: Independent Simulation Exhibit
+```text
+Subject: Independent systems modeling relevant to [Company]
 
 Hi [Name],
 
-I noticed [Company] is dealing with [specific challenge]. I've solved a similar problem before:
+To study physical and operational failure modes in large-scale compute environments from first principles, I built independent software simulations covering power demand/headroom budgeting (`xai-colossus-energy`) and thermal control loops (`xai-colossus-cooling`).
 
-[One sentence describing the solution]
+These are independent software models with repository-native tests—not claims of employer affiliation or facility deployment—and they reflect how I translate ambiguous physical/software constraints into testable code.
 
-Here's the approach: [Two sentences max]
-
-Would this be useful? Happy to elaborate.
-
-Best,
-Casey Barton
-```
-
-### Template 3: Cross-Team Impact
-```
-Subject: Infrastructure bottleneck resolution
-
-Hi [Name],
-
-I'm the type of engineer who identifies the one thing blocking a team from shipping, fixes it, and moves on.
-
-Recent example: I automated CI/CD across 27 repositories in one session — self-hosted runners, zero GitHub minutes, full test coverage. The team went from 3-hour deploys to 10-minute deploys.
-
-I'm looking for similar impact opportunities at [Company].
+Portfolio: https://casey-barton-glaciereq.vercel.app/
 
 Best,
 Casey Barton
@@ -82,44 +69,8 @@ Casey Barton
 
 ---
 
-## Who to Contact (Specific Roles)
+## Scope & Non-Affiliation Guardrails
 
-### SpaceX/xAI
-- **Brent Mayo** — Senior infrastructure official (built Colossus)
-- **Ted Townsend** — Operations
-- **LinkedIn search**: "xAI infrastructure" or "SpaceX data center"
-
-### NVIDIA
-- **VP of Data Center Solutions** — They sell to Colossus
-- **LinkedIn search**: "NVIDIA data center" or "NVIDIA HPC"
-
-### Anthropic
-- **Head of Infrastructure** — They rent Colossus compute
-- **LinkedIn search**: "Anthropic infrastructure"
-
-### Google
-- **VP of Engineering, Cloud AI** — They rent Colossus 2
-- **LinkedIn search**: "Google AI infrastructure"
-
----
-
-## Application Strategy
-
-### Don't Apply Through the Front Door
-1. **Find the right person** on LinkedIn
-2. **Send a direct message** with the outreach template
-3. **Follow up** with the technical brief
-4. **Reference specific work** (Colossus, Mastermind, Grok-1)
-
-### The Pitch
-"I built a complete Colossus simulation because I wanted to understand what it takes to run 200k GPUs at scale. I have the infrastructure blueprints, the CI/CD automation, and the AI orchestration system. I'm looking for a team where I can apply this at scale."
-
-### Follow-Up Cadence
-- Day 1: Initial outreach
-- Day 3: Follow-up if no response
-- Day 7: Final follow-up with new insight
-- Day 14: Move to next target
-
----
-
-*Strategy created: Jun 25 2026*
+1. Always cite exact public repositories and tested revisions from [`RESUME.md`](RESUME.md).
+2. Never assert unverified internal commercial relationships (such as third-party compute rental arrangements) as outreach premises.
+3. Explicitly distinguish independent simulations and local reference implementations from employer production deployments.

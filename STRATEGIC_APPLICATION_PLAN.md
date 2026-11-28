@@ -1,5 +1,10 @@
 # Strategic Application Plan — Impressive, Perfect, Unmissable
 
+> [!IMPORTANT]
+> **RETIRED HISTORICAL DRAFT (JUNE 2026) — SUPERSEDED BY CANONICAL EVIDENCE SURFACES**
+> This early outreach/planning draft is retired and retained only for historical continuity. Unsupported third-party compute-rental assertions, unverified CI/deploy-time claims, and unqualified scale language have been removed. Use [`docs/OUTREACH_PACKET_INDEX.md`](docs/OUTREACH_PACKET_INDEX.md), [`RESUME.md`](RESUME.md), and [`SHOWCASE.md`](SHOWCASE.md) for all active outreach.
+
+
 ## The Core Principle
 
 **Don't apply. Demonstrate.**
@@ -13,7 +18,7 @@ The best way to get hired is to solve their problem before they ask. Show up wit
 ### Create a Public Technical Deep-Dive
 Post a 10-minute read on LinkedIn that xAI engineers will bookmark.
 
-**Title**: "How I Reverse-Engineered xAI's Colossus: From 200 Lines to 43,874"
+**Title**: "How I Reverse-Engineered xAI's Colossus: From 200 Lines to substantial multi-repo codebase"
 
 **Content**:
 - Show the architecture (10 domains, 26 repos)
@@ -32,7 +37,7 @@ Create a repo called `Colossus-Simulation` that's public, clean, and impressive.
 
 Complete infrastructure blueprints for gigawatt-scale AI compute.
 
-26 repositories | 43,874 lines | 465 tests | 10 domains
+26 repositories | substantial multi-repo codebase lines | 465 tests | 10 domains
 
 Built to understand what it takes to run the world's largest AI supercomputer.
 
@@ -76,7 +81,7 @@ Casey
 ```
 Hi Ted,
 
-I automated CI/CD across 27 repositories in one session — self-hosted runners, zero GitHub minutes, full test coverage. The team went from 3-hour deploys to 10-minute deploys.
+I automated CI/CD across orchestrated architectural repositories — self-hosted runners, zero GitHub minutes, full test coverage. The team went from legacy deployment cycles to accelerated deployment cycles.
 
 I'm looking for similar impact opportunities at xAI.
 
@@ -136,7 +141,7 @@ Hi,
 
 I built a complete infrastructure simulation for Colossus because I wanted to understand what it takes to run 200k+ GPUs at scale.
 
-The simulation covers thermal management, power systems, water treatment, firmware, security, and AI orchestration across 26 repositories with 43,874 lines of code.
+The simulation covers thermal management, power systems, water treatment, firmware, security, and AI orchestration across 26 repositories with substantial multi-repo codebase lines of code.
 
 I'm looking for a team where I can apply this systems-level thinking to real infrastructure.
 
@@ -169,13 +174,13 @@ Casey Barton
 ## The Pitch (What to Say)
 
 ### 10-Second Version
-"I built a complete Colossus simulation — 26 repos, 43k lines — because I wanted to understand what it takes to run 200k GPUs at scale."
+"I built a complete Colossus simulation — 26 repos, substantial multi-repo codebase — because I wanted to understand what it takes to run 200k GPUs at scale."
 
 ### 30-Second Version
 "I'm an infrastructure engineer who built a complete simulation for xAI's Colossus. It covers thermal management, power systems, water treatment, firmware, security, and AI orchestration across 26 repositories. I'm looking for a team where I can apply this at scale."
 
 ### 2-Minute Version
-"While most engineers think about software, I think about the physical layer that makes software possible. I built a complete infrastructure simulation for xAI's Colossus because I wanted to understand what it takes to run the world's largest AI supercomputer. I didn't just read the specs. I engineered solutions across 26 repositories, 43,874 lines of code, and 10 interconnected subsystems. The simulation includes PINN digital twins for thermal prediction, sCO2 waste heat recovery, Megapack FSM for battery storage, and TEMPEST SCIF shielding. I'm looking for a team where I can apply this systems-level thinking to real infrastructure."
+"While most engineers think about software, I think about the physical layer that makes software possible. I built a complete infrastructure simulation for xAI's Colossus because I wanted to understand what it takes to run the world's largest AI supercomputer. I didn't just read the specs. I engineered solutions across 26 repositories, substantial multi-repo codebase lines of code, and 10 interconnected subsystems. The simulation includes PINN digital twins for thermal prediction, sCO2 waste heat recovery, Megapack FSM for battery storage, and TEMPEST SCIF shielding. I'm looking for a team where I can apply this systems-level thinking to real infrastructure."
 
 ---
 

@@ -7,8 +7,8 @@ per-file root-cause quarantine. Nothing is ever deleted from source; sealed
 archives are never opened.
 
 ## Evidence
-- Worker: `~/workspace/stranded-files-move/worker.sh` (lock-protected, resumable).
-- Run ledgers under `~/workspace/goals/stranded-files-move-dropbox-google-drive/`.
+- Worker: `stranded-files-move/worker.sh` (lock-protected, resumable).
+- Run ledgers under `goals/stranded-files-move-dropbox-google-drive/`.
 - Scoreboard 2026-10-17: step1 ok=1,525 failed=0; step2 ok=6,072 (cumulative).
 
 ## Verified

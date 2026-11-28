@@ -5,6 +5,7 @@ from __future__ import annotations
 import copy
 import re
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -73,10 +74,14 @@ class ShowcaseTests(unittest.TestCase):
         )
 
     def test_generate_writes_concentrated_showcase(self) -> None:
-        rc = generate_showcase.main()
-        self.assertEqual(rc, 0)
+        self.assertEqual(generate_showcase.main(["--check"]), 0)
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            out_path = Path(tmp_dir) / "SHOWCASE.md"
+            rc = generate_showcase.main(["--output", str(out_path)])
+            self.assertEqual(rc, 0)
+            text = out_path.read_text(encoding="utf-8")
 
-        text = (ROOT / "SHOWCASE.md").read_text(encoding="utf-8")
+        self.assertEqual(text, (ROOT / "SHOWCASE.md").read_text(encoding="utf-8"))
         self.assertGreater(len(text), 2_000)
         self.assertIn("proof path", text.lower())
         self.assertIn("Ten-minute engineering review", text)

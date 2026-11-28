@@ -3,7 +3,9 @@ import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-await import('../../scripts/apply-complete-web-design.mjs');
+import { runCompleteWebDesign } from '../../scripts/apply-complete-web-design.mjs';
+
+await runCompleteWebDesign({ check: true });
 
 const root = new URL('../', import.meta.url);
 const rootPath = fileURLToPath(root);

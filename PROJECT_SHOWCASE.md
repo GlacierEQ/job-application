@@ -1,140 +1,48 @@
-# Project Showcase — Casey Barton
+# Project Showcase — Historical Draft (Superseded by `SHOWCASE.md`)
 
-## Project 1: xAI Colossus Infrastructure Suite
+> [!IMPORTANT]
+> **RETIRED HISTORICAL DRAFT (JUNE 2026) — SUPERSEDED BY [`SHOWCASE.md`](SHOWCASE.md)**
+> This manual showcase draft has been retired. Unsupported aggregate line/repository counts, unverified deploy-time reduction claims, and "production-grade" labels on independent simulations have been removed. Use [`SHOWCASE.md`](SHOWCASE.md) (deterministically generated from `portfolio_manifest.json`) and [`RESUME.md`](RESUME.md) as the authoritative portfolio showcase.
 
-**Scale**: 26 repositories, 43,874 lines of code, 26/26 documentation complete
+## 1. Independent Colossus-Class Infrastructure Simulations
 
-**Problem**: xAI built the world's largest AI supercomputer (230k GPUs) in 122 days. The infrastructure challenges are immense: 250MW power, 5M gallons/day water, thermal management for 230k GPUs.
+**Public Exhibits**: [`GlacierEQ/xai-colossus-energy`](https://github.com/GlacierEQ/xai-colossus-energy), [`GlacierEQ/xai-colossus-cooling`](https://github.com/GlacierEQ/xai-colossus-cooling), [`GlacierEQ/xai-colossus-security`](https://github.com/GlacierEQ/xai-colossus-security)
 
-**Solution**: I built complete engineering blueprints for every subsystem:
+**Problem Explored**: Large-scale AI compute clusters face tightly coupled power, thermal, and security constraints where component faults must be isolated deterministically.
 
-| Subsystem | Key Innovation | Impact |
-|-----------|---------------|--------|
-| Cooling | Bio-inspired CFD with liquid-to-air heat exchangers | PUE <1.05 target |
-| Energy | Hybrid grid + gas turbines + Tesla Megapacks | 250MW delivery |
-| Water | Memphis WWTP integration, $80M facility | 5M gallons/day |
-| Microcode | Centralized firmware manifest with audit CLI | Zero drift |
-| Security | Multi-zone zero-trust perimeter | Physical + cyber |
-| Community | Political clearance and licensing hub | Project enabler |
-
-**Technical Depth**:
-- Thermal simulation using Navier-Stokes equations
-- Power grid analysis with load balancing across 168 Megapacks
-- Water treatment chemistry and permitting compliance
-- GPU firmware versioning and rollback mechanisms
-- Multi-factor authentication with biometric + network segmentation
-
-**Why It Matters**: This isn't documentation. It's production-grade engineering that could be deployed tomorrow.
+**Independent Software Modeling**:
+| Domain | Modeling Focus | Boundary |
+|--------|----------------|----------|
+| Power (`xai-colossus-energy`) | Rust power demand, PUE overhead, reserve headroom, and priority-ordered simulated load shedding with Python parity checks | Software simulation only; not deployed facility hardware |
+| Thermal (`xai-colossus-cooling`) | Zone-level thermal telemetry, threshold escalation, and cooling control-loop simulation | Independent engineering exhibit; no xAI affiliation |
+| Security (`xai-colossus-security`) | Zone access events and hash-chained audit log simulation | Reference simulation only |
 
 ---
 
-## Project 2: Mastermind AI Orchestration
+## 2. Deterministic Agent Coordination & Safety Policy
 
-**Scale**: 162 Python files, 19,418 lines of code, 9 specialized agents
+**Public Exhibits**: [`GlacierEQ/anthropic-agent-coordinator`](https://github.com/GlacierEQ/anthropic-agent-coordinator), [`GlacierEQ/anthropic-safety-monitor`](https://github.com/GlacierEQ/anthropic-safety-monitor)
 
-**Problem**: Multi-agent AI systems need coordination, task routing, and self-healing capabilities.
+**Problem Explored**: Multi-agent workflows require explicit dependency ordering, capacity limits, and pre-execution tool-policy gates before actions run.
 
-**Solution**: Built a production-grade orchestration engine:
-
-| Component | Description |
-|-----------|-------------|
-| Architect Agent | System design and decomposition |
-| Coder Agent | Code generation with style enforcement |
-| Debugger Agent | Root cause analysis and fix suggestions |
-| Tester Agent | Test generation and coverage analysis |
-| DevOps Agent | Deployment and monitoring |
-| Security Agent | Vulnerability scanning and remediation |
-| Documentation Agent | Auto-generated docs from code |
-| Review Agent | Code review with quality gates |
-| Orchestrator | Task routing, dependency resolution, health monitoring |
-
-**Technical Depth**:
-- Task graph with dependency resolution
-- Real-time health monitoring with self-healing
-- Message passing with priority queues
-- Agent memory (episodic + semantic + procedural)
-- Load balancing across agent instances
-
-**Why It Matters**: This system can generate, test, and deploy microservices in 45 minutes. That's not a demo. That's production capability.
+**Verified Mechanisms**:
+- Dependency-aware DAG scheduling, per-role capacity, token budget accounting, and explicit blocked/deferred states (`anthropic-agent-coordinator`, 95/95 local Python tests at pinned head `bcdaa89b8a76bd1c1690c7a46458af0be0a49e95`).
+- Deterministic `ALLOW` / `CONFIRM` / `DENY` tool-action dispositions (`anthropic-safety-monitor`, 51 tests × 3 Python versions = 153 executions at documented promotion).
+- Independent GlacierEQ work; no Anthropic affiliation or production deployment is claimed.
 
 ---
 
-## Project 3: Grok-1 Source Code Analysis
+## 3. AKOS, ECHO & Job Application Helix
 
-**Scale**: 1,398 lines in model.py, full architecture analysis
+**Public Exhibits**: [`GlacierEQ/AKOS`](https://github.com/GlacierEQ/AKOS), [`GlacierEQ/job-app-helix`](https://github.com/GlacierEQ/job-app-helix), [`GlacierEQ/the-tower-of-babel`](https://github.com/GlacierEQ/the-tower-of-babel)
 
-**Problem**: Understanding how xAI built their 314B parameter model.
+**Problem Explored**: Keeping identity, authority, continuity, polyglot interfaces, and public claims synchronized with executable verification receipts.
 
-**Solution**: Deep analysis of the official Grok-1 release:
-
-| Aspect | Finding |
-|--------|---------|
-| Architecture | Mixture of 8 Experts (MoE), 2 active per token |
-| Framework | JAX/Haiku (not PyTorch) — unusual and significant |
-| Parameters | 314B total, ~86B active per token |
-| Training | DeepSpeed Stage 3, FP16, AdamW optimizer |
-| Optimization | 8-bit quantization, activation sharding |
-
-**Technical Depth**:
-- JAX sharding with `jax.experimental.shard_map`
-- Haiku functional neural network design
-- DeepSpeed Stage 3 ZeRO optimization
-- MoE routing and expert utilization
-- 8-bit quantization for inference efficiency
-
-**Why It Matters**: I can read, understand, and modify the actual Grok model code. This is a capability very few engineers have.
+**Verified Mechanisms**:
+- **ECHO**: Transactional job leases, stale-worker recovery, and privacy-boundary regression tests (125/125 tests in GitHub Actions run `33342434203` at head `b6b004f601a0e20b4fd4264b8262dc4ac9498245`).
+- **Job Application Helix**: Commit-pinned portfolio control plane governing public projection admission and second-depth evidence stages.
+- **The Tower of Babel**: 42 governed technology floors and 84 exhibits with explicit interface contracts and proof gates.
 
 ---
 
-## Project 4: CI/CD Fleet Automation
-
-**Scale**: 27 repositories, self-hosted runners, zero GitHub minutes
-
-**Problem**: GitHub Actions minutes are expensive at scale. Need self-hosted CI/CD.
-
-**Solution**: Built a complete CI/CD automation system:
-
-| Component | Description |
-|-----------|-------------|
-| Reusable Workflows | `reusable-ci.yml` and `reusable-quick-ci.yml` |
-| Self-Hosted Runner | Docker image with Python, Node, tools |
-| Batch Deployment | `ci-deploy-fleet.sh` for bulk setup |
-| Health Monitoring | `key-dashboard.py` for service status |
-
-**Technical Depth**:
-- GitHub Actions `workflow_call` for reusable pipelines
-- Docker containerization for runner environments
-- Bash scripting for batch operations
-- API integration for health checks
-
-**Why It Matters**: I automated CI/CD across 27 repositories in one session. The team went from 3-hour deploys to 10-minute deploys.
-
----
-
-## Project 5: Memory Architecture (Aspen Grove)
-
-**Scale**: 4-tier memory system with pgvector, Pinecone, Neo4j, Supermemory
-
-**Problem**: AI agents need persistent memory across sessions.
-
-**Solution**: Built a 4-tier memory architecture:
-
-| Tier | Technology | Purpose |
-|------|-----------|---------|
-| Episodic | pgvector | Recent events, short-term context |
-| Semantic | Pinecone | Long-term knowledge, facts |
-| Graph | Neo4j | Relationships, connections |
-| Knowledge | Supermemory | Durable insights, patterns |
-
-**Technical Depth**:
-- Vector similarity search with pgvector
-- Semantic search with Pinecone
-- Graph traversal with Neo4j
-- Memory consolidation and decay
-- Cross-session persistence
-
-**Why It Matters**: This system allows AI agents to remember, learn, and improve over time. It's the foundation for autonomous AI systems.
-
----
-
-*Casey Barton | Honolulu, HI | June 2026*
+_For the live manifest-generated showcase, open [`SHOWCASE.md`](SHOWCASE.md)._

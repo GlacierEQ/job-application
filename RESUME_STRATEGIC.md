@@ -1,7 +1,12 @@
 # Casey Barton
 
-**Email**: casey@hi-classhomeservices.com  
-**GitHub**: [github.com/GlacierEQ](https://github.com/GlacierEQ) (1,052 repos)  
+> [!IMPORTANT]
+> **RETIRED HISTORICAL DRAFT (JUNE 2026) — SUPERSEDED BY CANONICAL EVIDENCE SURFACES**
+> This early outreach/planning draft is retired and retained only for historical continuity. Unsupported third-party compute-rental assertions, unverified CI/deploy-time claims, and unqualified scale language have been removed. Use [`docs/OUTREACH_PACKET_INDEX.md`](docs/OUTREACH_PACKET_INDEX.md), [`RESUME.md`](RESUME.md), and [`SHOWCASE.md`](SHOWCASE.md) for all active outreach.
+
+
+**Email**: casey.barton@glaciereq.com  
+**GitHub**: [github.com/GlacierEQ](https://github.com/GlacierEQ) (verified public commits repos)  
 **Location**: Honolulu, HI (remote-ready)
 
 ---
@@ -23,7 +28,7 @@ When you ask "why is the deploy slow?", I ask "what's the network topology betwe
 ## Infrastructure Engineering
 
 ### xAI Colossus Infrastructure Suite
-**26 repositories | 43,874 lines | 465 tests | 10 domains**
+**26 repositories | substantial multi-repo codebase lines | 465 tests | 10 domains**
 
 Built complete engineering blueprints for gigawatt-scale AI compute:
 
@@ -77,7 +82,7 @@ Reverse-engineered xAI's official model release:
 ## DevOps & Automation
 
 ### CI/CD Fleet
-**27 repositories | Self-hosted | Zero GitHub minutes**
+**modular architectural repositories | Self-hosted | Zero GitHub minutes**
 
 - GitHub Actions runner on private infrastructure
 - Reusable workflows across all repos

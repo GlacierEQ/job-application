@@ -7,9 +7,9 @@ Watchdogs self-heal sshd and hook daemons after VM replacements; monitoring is
 silent-when-healthy so anomalies surface instead of hiding in noise.
 
 ## Evidence
-- Watchdog: `~/workspace/moshi/watchdog.sh` (verified recovering sshd + moshi-hook
+- Watchdog: `moshi/watchdog.sh` (verified recovering sshd + moshi-hook
   after VM replacement, 2026-10-17; apt-timeout hardening same day).
-- Cron contracts under `~/workspace/cron.d/` and goal-owned crons.
+- Cron contracts under `cron.d/` and goal-owned crons.
 
 ## Verified
 2026-10-17 (live recovery observed).

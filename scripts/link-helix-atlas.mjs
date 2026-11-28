@@ -3,6 +3,7 @@
 import { existsSync } from "node:fs";
 import { readdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
+import process from "node:process";
 import { fileURLToPath } from "node:url";
 import { admittedAtlasCompany } from "./public-atlas-admission.mjs";
 
@@ -10,6 +11,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SITE = path.join(ROOT, "site-v15");
 const SNAPSHOT = path.join(SITE, "data", "helix-root.json");
 const COMPANY_ID_PATTERN = /^[a-z0-9_]+$/;
+const CHECK = process.argv.includes("--check");
 
 function companySlug(companyId) {
   if (typeof companyId !== "string" || !COMPANY_ID_PATTERN.test(companyId)) {
@@ -41,7 +43,7 @@ async function htmlFiles(directory) {
   return files;
 }
 
-async function patchHtml(file) {
+async function patchHtml(file, { check, drifted }) {
   if (path.resolve(file) === path.join(SITE, "index.html")) return false;
   let text = await readFile(file, "utf8");
   const navStart = text.indexOf('<nav class="links"');
@@ -53,47 +55,71 @@ async function patchHtml(file) {
   const nav = text.slice(navStart, navEnd);
   if (nav.includes('href="/atlas/"')) return false;
   text = `${text.slice(0, navEnd)}<a href="/atlas/">Atlas</a>${text.slice(navEnd)}`;
-  await writeFile(file, text, "utf8");
+  if (check) {
+    drifted.push(path.relative(ROOT, file).replaceAll(path.sep, "/"));
+  } else {
+    await writeFile(file, text, "utf8");
+  }
   return true;
 }
 
-async function patchTextFile(relative, linePrefix, replacement) {
+async function patchTextFile(relative, linePrefix, replacement, { check, drifted }) {
   const file = path.join(SITE, relative);
-  let text = await readFile(file, "utf8");
+  const text = await readFile(file, "utf8");
   const lines = text.split("\n").filter((line) => !line.startsWith(linePrefix));
   while (lines.length && lines.at(-1) === "") lines.pop();
   lines.push(replacement, "");
-  await writeFile(file, lines.join("\n"), "utf8");
+  const next = lines.join("\n");
+  if (next === text) return;
+  if (check) {
+    drifted.push(path.relative(ROOT, file).replaceAll(path.sep, "/"));
+  } else {
+    await writeFile(file, next, "utf8");
+  }
 }
 
-async function updateSitemap(companyIds) {
+async function updateSitemap(companyIds, { check, drifted }) {
   const sitemap = path.join(SITE, "sitemap.xml");
-  let text = await readFile(sitemap, "utf8");
-  if (!text.includes("</urlset>")) throw new Error("sitemap.xml has no closing urlset element");
+  const source = await readFile(sitemap, "utf8");
+  if (!source.includes("</urlset>")) throw new Error("sitemap.xml has no closing urlset element");
 
-  text = text.replace(
-    /\s*<url><loc>https:\/\/casey-barton-glaciereq\.vercel\.app\/companies\/[^\/<]+\/<\/loc>(?:<priority>[^<]+<\/priority>)?<\/url>/g,
-    "",
+  const expectedCompanyUrls = new Set(
+    companyIds.map(
+      (id) => `https://casey-barton-glaciereq.vercel.app/companies/${companySlug(id)}/`,
+    ),
   );
-  if (!existsSync(path.join(SITE, "atlas", "starmap", "index.html"))) {
-    text = text.replace(
-      /\s*<url><loc>https:\/\/casey-barton-glaciereq\.vercel\.app\/atlas\/starmap\/<\/loc>(?:<priority>[^<]+<\/priority>)?<\/url>/g,
-      "",
-    );
-  }
+  const starmapExists = existsSync(path.join(SITE, "atlas", "starmap", "index.html"));
+
   const wanted = [
     "https://casey-barton-glaciereq.vercel.app/atlas/",
     "https://casey-barton-glaciereq.vercel.app/companies/",
     "https://casey-barton-glaciereq.vercel.app/inventions/",
     "https://casey-barton-glaciereq.vercel.app/evidence-gallery/",
     "https://casey-barton-glaciereq.vercel.app/visualizer/",
-    ...companyIds.map(
-      (id) => `https://casey-barton-glaciereq.vercel.app/companies/${companySlug(id)}/`,
-    ),
+    ...expectedCompanyUrls,
   ];
-  if (existsSync(path.join(SITE, "atlas", "starmap", "index.html"))) {
+  if (starmapExists) {
     wanted.splice(1, 0, "https://casey-barton-glaciereq.vercel.app/atlas/starmap/");
   }
+
+  let text = source;
+  // Remove only stale/duplicate /companies/<slug>/ entries so existing order stays stable.
+  const seenCompanyUrls = new Set();
+  text = text.replace(
+    /\s*<url><loc>(https:\/\/casey-barton-glaciereq\.vercel\.app\/companies\/[^\/<]+\/)<\/loc>(?:<priority>[^<]+<\/priority>)?<\/url>/g,
+    (match, url) => {
+      if (!expectedCompanyUrls.has(url) || seenCompanyUrls.has(url)) return "";
+      seenCompanyUrls.add(url);
+      return match;
+    },
+  );
+  if (!starmapExists) {
+    text = text.replace(
+      /\s*<url><loc>https:\/\/casey-barton-glaciereq\.vercel\.app\/atlas\/starmap\/<\/loc>(?:<priority>[^<]+<\/priority>)?<\/url>/g,
+      "",
+    );
+  }
+
   const insertion = wanted
     .filter((url) => !text.includes(`<loc>${url}</loc>`))
     .map((url) => `  <url><loc>${url}</loc></url>`)
@@ -102,7 +128,13 @@ async function updateSitemap(companyIds) {
   if (insertion) {
     text = `${text.slice(0, closing).trimEnd()}\n${insertion}\n${text.slice(closing)}`;
   }
-  await writeFile(sitemap, text.endsWith("\n") ? text : `${text}\n`, "utf8");
+  const normalized = text.endsWith("\n") ? text : `${text}\n`;
+  if (normalized === source) return;
+  if (check) {
+    drifted.push(path.relative(ROOT, sitemap).replaceAll(path.sep, "/"));
+  } else {
+    await writeFile(sitemap, normalized, "utf8");
+  }
 }
 
 async function main() {
@@ -125,18 +157,27 @@ async function main() {
     throw new Error("public Helix snapshot has no admitted Atlas companies");
   }
 
+  const drifted = [];
   let htmlPatched = 0;
   for (const file of await htmlFiles(SITE)) {
-    if (await patchHtml(file)) htmlPatched += 1;
+    if (await patchHtml(file, { check: CHECK, drifted })) htmlPatched += 1;
   }
   await patchTextFile(
     "llms.txt",
     "- Company Atlas:",
     "- Company Atlas: https://casey-barton-glaciereq.vercel.app/atlas/ (admitted evidence-backed company routes under /companies/<slug>/; Recruiter + Master + Machine + Mesh depth; Helix-governed second-depth stage, claim ceiling, blockers, next gate, and pinned public evidence)",
+    { check: CHECK, drifted },
   );
-  await updateSitemap(companyIds);
+  await updateSitemap(companyIds, { check: CHECK, drifted });
+
+  if (CHECK && drifted.length > 0) {
+    console.error(JSON.stringify({ status: "FAIL", mode: "check", drifted_files: drifted }, null, 2));
+    process.exitCode = 1;
+    return;
+  }
+
   console.log(
-    `Company Atlas linked across ${htmlPatched} existing HTML surfaces; ${companyIds.length} company routes indexed`,
+    `Company Atlas ${CHECK ? "link check PASS" : `linked across ${htmlPatched} existing HTML surfaces`}; ${companyIds.length} company routes indexed`,
   );
 }
 

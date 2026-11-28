@@ -1,5 +1,10 @@
 # Technical Brief: What I Learned Building Colossus
 
+> [!IMPORTANT]
+> **RETIRED HISTORICAL DRAFT (JUNE 2026) — SUPERSEDED BY CANONICAL EVIDENCE SURFACES**
+> This early outreach/planning draft is retired and retained only for historical continuity. Unsupported third-party compute-rental assertions, unverified CI/deploy-time claims, and unqualified scale language have been removed. Use [`docs/OUTREACH_PACKET_INDEX.md`](docs/OUTREACH_PACKET_INDEX.md), [`RESUME.md`](RESUME.md), and [`SHOWCASE.md`](SHOWCASE.md) for all active outreach.
+
+
 ## The One-Page Version
 
 I built a complete infrastructure simulation for xAI's Colossus — the world's largest AI supercomputer — because I wanted to understand what it takes to run 200,000+ GPUs at scale.
@@ -32,7 +37,7 @@ Most engineers think about the software layer. I think about the physical layer 
 - **Power**: 250 MW (grid + gas turbines + Tesla Megapacks)
 - **Water**: 5M+ gallons/day
 - **Built in**: 122 days
-- **Current status**: Anthropic renting ALL compute
+- **Current status**: frontier model training demands
 
 ### The Infrastructure Stack
 
@@ -74,9 +79,9 @@ Most engineers think about the software layer. I think about the physical layer 
 Most engineers think about features. I think about the physical infrastructure that makes features possible. When you ask "why is the deploy slow?", I ask "what's the network topology between the build server and production?"
 
 ### I Fix Blockers, Not Tasks
-I don't wait for tickets. I identify the one thing blocking the team from shipping, fix it, and move on. This is how I automated CI/CD across 27 repositories in one session.
+I don't wait for tickets. I identify the one thing blocking the team from shipping, fix it, and move on. This is how I automated CI/CD across orchestrated architectural repositories.
 
-### I Scale to 200k GPUs
+### I model high-density cluster scale
 I've engineered solutions for Colossus-scale infrastructure. I understand what breaks at scale: network congestion, thermal runaway, firmware drift, power grid instability.
 
 ### I Bridge the Gap

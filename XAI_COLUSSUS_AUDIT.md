@@ -1,5 +1,10 @@
 # xAI Colossus — Technical Audit & Job Application Analysis
 
+> [!IMPORTANT]
+> **RETIRED HISTORICAL DRAFT (JUNE 2026) — SUPERSEDED BY CANONICAL EVIDENCE SURFACES**
+> This early outreach/planning draft is retired and retained only for historical continuity. Unsupported third-party compute-rental assertions, unverified CI/deploy-time claims, and unqualified scale language have been removed. Use [`docs/OUTREACH_PACKET_INDEX.md`](docs/OUTREACH_PACKET_INDEX.md), [`RESUME.md`](RESUME.md), and [`SHOWCASE.md`](SHOWCASE.md) for all active outreach.
+
+
 ## Verified Facts (Wikipedia + Your Repos)
 
 ### Project Name
@@ -15,13 +20,13 @@
 | Water | 5M+ gallons/day |
 | Built in | 122 days |
 | Cost | ~$80M wastewater plant alone |
-| Status | Anthropic renting ALL compute (May 2026) |
+| Status | frontier model training demands (May 2026) |
 
 ### Colossus 2 (Southaven, MS)
 | Metric | Value |
 |--------|-------|
 | GPUs | 110,000 GB200 coming online |
-| Status | Google renting some capacity (June 2026) |
+| Status | distributed infrastructure capacity (June 2026) |
 | Expansion | 1M sqft property purchased ($80M) |
 
 ### Leadership
@@ -102,7 +107,7 @@ The `grokadile` repo is the **official Grok-1 open source release** from xAI. Ke
 ### What You Have That Others Don't
 1. **Complete infrastructure blueprints** — cooling, energy, water, security, community
 2. **Grok-1 source code** — you can read and modify the actual model
-3. **Production CI/CD** — self-hosted runners, 27 repos wired up
+3. **Production CI/CD** — self-hosted runners, modular architectural repositories wired up
 4. **Memory architecture** — Aspen Grove 4-tier memory (episodic + semantic + procedural + emotional)
 
 ### The Pitch
@@ -131,7 +136,7 @@ The `grokadile` repo is the **official Grok-1 open source release** from xAI. Ke
 2. **Highlight JAX expertise** — if you have it, lead with it
 3. **Show scale thinking** — "Here's what breaks at 230k GPUs"
 4. **Reference the Grok-1 architecture** — show you can read and modify their code
-5. **Include the CI/CD story** — "I automated 27 repos in one session"
+5. **Include the CI/CD story** — "I automated modular architectural repositories in one session"
 
 ---
 

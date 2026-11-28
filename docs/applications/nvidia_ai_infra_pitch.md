@@ -13,9 +13,9 @@ I am the engineer who builds the systems that sit on top of your hardware and ma
 
 ## What I Built
 
-### AI Infrastructure Orchestration
+### AI Infrastructure Orchestration Prototype
 
-The `GlacierEQ/apex-stack` system is a production-grade AI operations control plane. Core capabilities:
+The `GlacierEQ/apex-stack` architecture (private prototype) models an AI operations control plane. Core design mechanisms:
 
 **MCP-to-All (M2A) Protocol**
 - A broadcast routing protocol that dispatches AI agent requests to relevant service nodes
@@ -90,7 +90,7 @@ NVIDIA is the platform. Every AI application in production runs on your hardware
 
 - GitHub Organization: [github.com/GlacierEQ](https://github.com/GlacierEQ)
 - Application Hub: [github.com/GlacierEQ/job-application](https://github.com/GlacierEQ/job-application)
-- Skills Matrix: [SKILLS_MATRIX.md](../SKILLS_MATRIX.md)
-- Project Showcase: [PROJECT_SHOWCASE.md](../PROJECT_SHOWCASE.md)
+- Skills Overview: [RESUME.md](../../RESUME.md)
+- Portfolio Showcase: [SHOWCASE.md](../../SHOWCASE.md)
 
-*AI infrastructure. Deployed. Auditable. Production-ready.*
+*Independent AI infrastructure prototypes and simulations — bounded by repository-native verification receipts.*

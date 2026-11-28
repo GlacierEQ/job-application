@@ -6,10 +6,10 @@ human approval gates on consequential actions, and a 961-test suite. No agent
 completion claim is made without independent provider readback.
 
 ## Evidence
-- Estate census 2026-10-13 (`~/workspace/estate-map/ESTATE_MAP.md`): connector
+- Estate census 2026-10-13 (`estate-map/ESTATE_MAP.md`): connector
   inventory across the GlacierEQ estate.
 - Test suite count from the estate's own test runs; skill docs under
-  `~/workspace/custom-skills/`.
+  `custom-skills/`.
 
 ## Verified
 2026-10-13 (census). Re-verify test count before citing in a new resume.

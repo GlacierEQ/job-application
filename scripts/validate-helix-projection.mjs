@@ -166,6 +166,10 @@ async function main() {
   assert(pointer.authority?.repository === "GlacierEQ/job-app-helix", "authority repository mismatch");
   assert(pointer.authority?.branch === "main", "portal must consume canonical Helix main");
   assert(
+    typeof pointer.authority?.pinned_commit === "string" && SHA40.test(pointer.authority.pinned_commit),
+    "portfolio-source.json authority.pinned_commit must be a 40-character lowercase commit SHA",
+  );
+  assert(
     pointer.authority?.commit_api_url === "https://api.github.com/repos/GlacierEQ/job-app-helix/commits/main",
     "commit API URL mismatch",
   );
@@ -181,6 +185,13 @@ async function main() {
     typeof snapshot.source?.root_ref === "string" && SHA40.test(snapshot.source.root_ref),
     "snapshot must be bound to an immutable Helix commit",
   );
+  if (process.env.HELIX_REFRESH_LATEST !== "1") {
+    const expectedCommit = process.env.HELIX_ROOT_SHA?.trim() || pointer.authority.pinned_commit;
+    assert(
+      snapshot.source.root_ref === expectedCommit,
+      `snapshot root_ref (${snapshot.source.root_ref}) does not match expected pinned commit (${expectedCommit})`,
+    );
+  }
   assert(
     snapshot.source?.source_hashes &&
       typeof snapshot.source.source_hashes === "object" &&

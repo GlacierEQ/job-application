@@ -6,7 +6,8 @@ import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
 
-const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
+const THIS_FILE = fileURLToPath(import.meta.url);
+const SCRIPT_DIR = path.dirname(THIS_FILE);
 const ROOT = path.resolve(SCRIPT_DIR, "..");
 const POINTER_PATH = path.join(ROOT, "portfolio-source.json");
 const SHA_PATTERN = /^[a-f0-9]{40}$/;
@@ -137,16 +138,16 @@ function parseJson(text, label) {
   }
 }
 
-async function fetchText(url, accept = "application/json") {
+async function fetchText(url, accept = "application/json", fetchImpl = globalThis.fetch, env = process.env) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 15_000);
   const headers = {
     Accept: accept,
     "User-Agent": "GlacierEQ-job-application",
   };
-  if (process.env.GITHUB_TOKEN) headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
+  if (env.GITHUB_TOKEN) headers.Authorization = `Bearer ${env.GITHUB_TOKEN}`;
   try {
-    const response = await fetch(url, { headers, signal: controller.signal });
+    const response = await fetchImpl(url, { headers, signal: controller.signal });
     requireValue(response.ok, `${url} returned ${response.status}`);
     return await response.text();
   } catch (error) {
@@ -191,20 +192,60 @@ function resolveOutput(relative, label) {
   return output;
 }
 
-async function resolveHelixSha(authority) {
-  const supplied = process.env.HELIX_ROOT_SHA?.trim().toLowerCase();
-  if (supplied) {
+export async function resolveHelixSha(
+  authority,
+  { argv = process.argv, env = process.env, fetchImpl = globalThis.fetch } = {},
+) {
+  const rawSupplied = env.HELIX_ROOT_SHA?.trim();
+  if (rawSupplied) {
     requireValue(
-      SHA_PATTERN.test(supplied),
+      SHA_PATTERN.test(rawSupplied),
       "HELIX_ROOT_SHA must be a full 40-character lowercase commit SHA",
     );
-    return supplied;
+    return rawSupplied;
   }
-  const commitText = await fetchText(authority.commit_api_url, "application/vnd.github+json");
+
+  const refreshLatest = argv.includes("--refresh-latest") || env.HELIX_REFRESH_LATEST === "1";
+  if (!refreshLatest) {
+    const pinned = authority?.pinned_commit;
+    requireValue(
+      typeof pinned === "string" && SHA_PATTERN.test(pinned),
+      "authority.pinned_commit must be a full 40-character lowercase commit SHA",
+    );
+    return pinned;
+  }
+
+  if (!argv.includes("--write-pin") && authority?.pinned_commit !== undefined) {
+    requireValue(
+      typeof authority.pinned_commit === "string" && SHA_PATTERN.test(authority.pinned_commit),
+      "authority.pinned_commit must be a full 40-character lowercase commit SHA",
+    );
+  }
+
+  const commitText = await fetchText(
+    authority.commit_api_url,
+    "application/vnd.github+json",
+    fetchImpl,
+    env,
+  );
   const commit = parseJson(commitText, "Helix commit response");
   const sha = String(commit.sha ?? "").toLowerCase();
   requireValue(SHA_PATTERN.test(sha), "Helix commit API did not return a full commit SHA");
   return sha;
+}
+
+export async function writePinnedCommit(pointerPath, sha) {
+  requireValue(
+    typeof sha === "string" && SHA_PATTERN.test(sha),
+    "pinned_commit must be a full 40-character lowercase commit SHA",
+  );
+  const pointer = parseJson(await readFile(pointerPath, "utf8"), "portfolio-source.json");
+  requireValue(
+    pointer.authority && typeof pointer.authority === "object" && !Array.isArray(pointer.authority),
+    "portfolio-source.json authority object is missing",
+  );
+  pointer.authority.pinned_commit = sha;
+  await writeFile(pointerPath, `${JSON.stringify(pointer, null, 2)}\n`, "utf8");
 }
 
 function validateEvidenceReference(companyId, field, item) {
@@ -377,8 +418,13 @@ function validateSecondDepthContract(registry, companiesIndex, companyIds) {
   return resolved;
 }
 
-async function main() {
-  const pointer = parseJson(await readFile(POINTER_PATH, "utf8"), "portfolio-source.json");
+export async function runSyncHelixProjection({
+  argv = process.argv,
+  env = process.env,
+  fetchImpl = globalThis.fetch,
+  pointerPath = POINTER_PATH,
+} = {}) {
+  const pointer = parseJson(await readFile(pointerPath, "utf8"), "portfolio-source.json");
   requireValue(pointer.schema === "glaciereq.portfolio-consumer-pointer.v1", "unexpected pointer schema");
   requireValue(pointer.consumer === "GlacierEQ/job-application", "consumer identity mismatch");
   requireValue(pointer.projection_id === "public_portal", "projection identity mismatch");
@@ -407,9 +453,9 @@ async function main() {
     "unexpected Helix commit API URL",
   );
 
-  const resolvedCommit = await resolveHelixSha(authority);
+  const resolvedCommit = await resolveHelixSha(authority, { argv, env, fetchImpl });
   const rawBase = `${authority.raw_base_url}/${resolvedCommit}`;
-  const rootText = await fetchText(`${rawBase}/${authority.manifest_path}`);
+  const rootText = await fetchText(`${rawBase}/${authority.manifest_path}`, "application/json", fetchImpl, env);
   const root = parseJson(rootText, "Helix root manifest");
   requireValue(root.schema === "glaciereq.portfolio-root-truth.v1", "unexpected Helix root schema");
   requireValue(root.authority?.repository === authority.repository, "unexpected Helix root authority");
@@ -452,7 +498,7 @@ async function main() {
     if (sourceObjects.has(sourceId)) return sourceObjects.get(sourceId);
     const source = sourcesById.get(sourceId);
     requireValue(source, `missing source definition ${sourceId}`);
-    const text = await fetchText(`${rawBase}/${source.path}`);
+    const text = await fetchText(`${rawBase}/${source.path}`, "application/json", fetchImpl, env);
     const value = parseJson(text, source.path);
     sourceTexts.set(source.path, text);
     sourceObjects.set(sourceId, value);
@@ -551,7 +597,7 @@ async function main() {
       typeof shardPath === "string" && shardPath.startsWith("manifests/company_dossiers/"),
       `invalid dossier path ${String(shardPath)}`,
     );
-    const text = await fetchText(`${rawBase}/${shardPath}`);
+    const text = await fetchText(`${rawBase}/${shardPath}`, "application/json", fetchImpl, env);
     const shard = parseJson(text, shardPath);
     sourceTexts.set(shardPath, text);
     requireValue(Array.isArray(shard.companies), `${shardPath}: companies must be an array`);
@@ -789,8 +835,8 @@ async function main() {
     invariants: pointer.invariants,
   };
 
-  const outputArg = process.argv.indexOf("--output");
-  const outputRelative = outputArg >= 0 ? process.argv[outputArg + 1] : pointer.sync.output;
+  const outputArg = argv.indexOf("--output");
+  const outputRelative = outputArg >= 0 ? argv[outputArg + 1] : pointer.sync.output;
   const output = resolveOutput(outputRelative, "projection output");
   const bundleText = stableJson(bundle);
   await mkdir(path.dirname(output), { recursive: true });
@@ -813,6 +859,11 @@ async function main() {
   await mkdir(path.dirname(receiptOutput), { recursive: true });
   await writeFile(receiptOutput, stableJson(receipt), "utf8");
 
+  if (argv.includes("--write-pin")) {
+    await writePinnedCommit(pointerPath, resolvedCommit);
+    console.log(`Helix pinned_commit updated in ${path.relative(ROOT, pointerPath)}: ${resolvedCommit}`);
+  }
+
   console.log(`Helix public projection written: ${path.relative(ROOT, output)}`);
   console.log(`Helix projection receipt written: ${path.relative(ROOT, receiptOutput)}`);
   console.log(`source_commit=${resolvedCommit} source_digest=${sourceDigest}`);
@@ -825,7 +876,10 @@ async function main() {
   );
 }
 
-main().catch((error) => {
-  console.error(error instanceof Error ? error.stack : error);
-  process.exitCode = 1;
-});
+const invokedDirectly = process.argv[1] && path.resolve(process.argv[1]) === path.resolve(THIS_FILE);
+if (invokedDirectly) {
+  runSyncHelixProjection().catch((error) => {
+    console.error(error instanceof Error ? error.stack : error);
+    process.exitCode = 1;
+  });
+}

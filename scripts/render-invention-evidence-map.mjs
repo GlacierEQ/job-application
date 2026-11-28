@@ -376,19 +376,42 @@ function renderHtml(map) {
 </html>`;
 }
 
-export async function renderInventionEvidenceMap() {
+export async function renderInventionEvidenceMap({ check = false } = {}) {
   const portfolio = JSON.parse(await readFile(PORTFOLIO_PATH, "utf8"));
   const map = buildMap(portfolio);
+  const expectedJson = `${JSON.stringify(map, null, 2)}\n`;
+  const expectedHtml = `${renderHtml(map)}\n`;
+
+  if (check) {
+    const drifted = [];
+    const [actualJson, actualHtml] = await Promise.all([
+      readFile(OUTPUT_JSON, "utf8").catch(() => null),
+      readFile(OUTPUT_HTML, "utf8").catch(() => null),
+    ]);
+    if (actualJson !== expectedJson) drifted.push("site-v15/data/invention-map.json");
+    if (actualHtml !== expectedHtml) drifted.push("site-v15/inventions/index.html");
+    if (drifted.length > 0) {
+      throw new Error(`Invention evidence map out of sync: ${drifted.join(", ")}`);
+    }
+    return map;
+  }
+
   await mkdir(dirname(OUTPUT_HTML), { recursive: true });
-  await writeFile(OUTPUT_JSON, `${JSON.stringify(map, null, 2)}\n`, "utf8");
-  await writeFile(OUTPUT_HTML, `${renderHtml(map)}\n`, "utf8");
+  await writeFile(OUTPUT_JSON, expectedJson, "utf8");
+  await writeFile(OUTPUT_HTML, expectedHtml, "utf8");
   return map;
 }
 
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  const map = await renderInventionEvidenceMap();
-  console.log(
-    `Rendered ${map.lenses.length} problem lenses, ${map.topology.length} topology routes, ` +
-      `${map.capability_routes.length} capability routes; receipt ${map.receipt_sha256}`,
-  );
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  const check = process.argv.includes("--check");
+  try {
+    const map = await renderInventionEvidenceMap({ check });
+    console.log(
+      `${check ? "Checked" : "Rendered"} ${map.lenses.length} problem lenses, ${map.topology.length} topology routes, ` +
+        `${map.capability_routes.length} capability routes; receipt ${map.receipt_sha256}`,
+    );
+  } catch (error) {
+    console.error(error instanceof Error ? error.message : String(error));
+    process.exitCode = 1;
+  }
 }

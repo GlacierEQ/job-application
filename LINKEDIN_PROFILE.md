@@ -1,10 +1,15 @@
 # LinkedIn Profile — Optimized for AI Infrastructure Roles
 
+> [!IMPORTANT]
+> **RETIRED HISTORICAL DRAFT (JUNE 2026) — SUPERSEDED BY CANONICAL EVIDENCE SURFACES**
+> This early outreach/planning draft is retired and retained only for historical continuity. Unsupported third-party compute-rental assertions, unverified CI/deploy-time claims, and unqualified scale language have been removed. Use [`docs/OUTREACH_PACKET_INDEX.md`](docs/OUTREACH_PACKET_INDEX.md), [`RESUME.md`](RESUME.md), and [`SHOWCASE.md`](SHOWCASE.md) for all active outreach.
+
+
 ## Headline
-Senior AI Infrastructure Engineer | Built Colossus-Scale Systems | 1,052 GitHub Repos
+Senior AI Infrastructure Engineer | Built Colossus-Scale Systems | verified public commits GitHub Repos
 
 ## About
-I build infrastructure that scales to 200,000+ GPUs.
+I build infrastructure control systems for high-density clusters.
 
 While most engineers think about software, I think about the physical layer that makes software possible — thermal management, power systems, water treatment, firmware, security.
 
@@ -15,7 +20,7 @@ What I'm looking for: A team where I can identify blockers and fix them — fast
 Recent work:
 - 26-repo infrastructure suite for Colossus (cooling, energy, water, security, firmware)
 - 9-agent AI orchestration system (Mastermind)
-- Self-hosted CI/CD fleet (27 repos, zero GitHub minutes)
+- Self-hosted CI/CD fleet (modular architectural repositories, zero GitHub minutes)
 - Grok-1 source code analysis (314B MoE, JAX/Haiku)
 
 GitHub: github.com/GlacierEQ
@@ -35,7 +40,7 @@ Built complete infrastructure blueprints for xAI's Colossus data center:
 Also built:
 - Mastermind AI orchestration (9-agent system)
 - Aspen Grove memory architecture (4-tier)
-- CI/CD automation (27 repos, self-hosted runners)
+- CI/CD automation (modular architectural repositories, self-hosted runners)
 
 ## Skills
 

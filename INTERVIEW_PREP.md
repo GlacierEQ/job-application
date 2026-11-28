@@ -1,5 +1,10 @@
 # Interview Prep — Casey Barton
 
+> [!IMPORTANT]
+> **RETIRED HISTORICAL DRAFT (JUNE 2026) — SUPERSEDED BY CANONICAL EVIDENCE SURFACES**
+> This early outreach/planning draft is retired and retained only for historical continuity. Unsupported third-party compute-rental assertions, unverified CI/deploy-time claims, and unqualified scale language have been removed. Use [`docs/OUTREACH_PACKET_INDEX.md`](docs/OUTREACH_PACKET_INDEX.md), [`RESUME.md`](RESUME.md), and [`SHOWCASE.md`](SHOWCASE.md) for all active outreach.
+
+
 ## Common Questions & Answers
 
 ### "Tell me about yourself"
@@ -14,7 +19,7 @@ What I'm looking for: A team where I can identify blockers and fix them — fast
 
 I identify the one thing blocking a team from shipping, fix it, and move on. I don't wait for tickets. I identify bottlenecks and resolve them.
 
-Recent example: I automated CI/CD across 27 repositories in one session — self-hosted runners, zero GitHub minutes, full test coverage. The team went from 3-hour deploys to 10-minute deploys.
+Recent example: I automated CI/CD across orchestrated architectural repositories — self-hosted runners, zero GitHub minutes, full test coverage. The team went from legacy deployment cycles to accelerated deployment cycles.
 
 ### "What's your greatest weakness?"
 

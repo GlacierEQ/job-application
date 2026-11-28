@@ -8,9 +8,14 @@ on:
   workflow_dispatch:
     inputs:
       helix_sha:
-        description: "Exact canonical GlacierEQ/job-app-helix commit to project"
-        required: true
-        default: "82ab13cad82d005b1b9631fe32fa233443288268"
+        description: "Optional exact 40-char GlacierEQ/job-app-helix commit to project (leave blank with refresh_latest=true to resolve latest main)"
+        required: false
+        default: ""
+      refresh_latest:
+        description: "Resolve latest GlacierEQ/job-app-helix main commit when helix_sha is blank and advance portfolio-source.json pinned_commit"
+        required: false
+        type: boolean
+        default: true
 
 permissions:
   contents: write
@@ -18,6 +23,7 @@ permissions:
 
 env:
   HELIX_ROOT_SHA: ${{ inputs.helix_sha }}
+  HELIX_REFRESH_LATEST: ${{ inputs.refresh_latest && '1' || '0' }}
 
 jobs:
   compile-validate-open-pr:
@@ -40,7 +46,7 @@ jobs:
         run: node scripts/upgrade-helix-projection-stage-validator.mjs
 
       - name: Compile exact effective Helix projection
-        run: node scripts/sync-helix-projection-effective.mjs
+        run: node scripts/sync-helix-projection-effective.mjs --write-pin
 
       - name: Validate public-safe projection and receipt
         run: node scripts/validate-helix-projection.mjs
@@ -165,9 +171,9 @@ jobs:
 
       - name: Stage only deterministic validator and generated public projection
         run: |
-          git add scripts/validate-helix-projection.mjs site-v15
+          git add portfolio-source.json scripts/validate-helix-projection.mjs site-v15
           if ! git diff --quiet; then
-            echo "Unexpected unstaged mutation outside validator + site-v15 projection:" >&2
+            echo "Unexpected unstaged mutation outside pointer, validator, and site-v15 projection:" >&2
             git status --short >&2
             exit 1
           fi
@@ -183,8 +189,9 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          resolved_sha="$(node -e "console.log(JSON.parse(require('node:fs').readFileSync('portfolio-source.json','utf8')).authority.pinned_commit)")"
           if git diff --cached --quiet; then
-            echo "Projection already matches Helix $HELIX_ROOT_SHA"
+            echo "Projection already matches Helix $resolved_sha"
             exit 0
           fi
 
@@ -192,11 +199,11 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b "$branch"
-          git commit -m "Sync effective Helix projection ${HELIX_ROOT_SHA}"
+          git commit -m "Sync effective Helix projection ${resolved_sha}"
           git push "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "$branch"
 
           gh pr create \
             --base main \
             --head "$branch" \
-            --title "Sync effective Helix projection ${HELIX_ROOT_SHA:0:12}" \
-            --body "Generated from exact canonical GlacierEQ/job-app-helix SHA \`${HELIX_ROOT_SHA}\` using the base + modular company second-depth compiler. The same run upgraded the stale stage-distribution validator, validated the public projection/receipt, rendered and validated Atlas + company constellation + estate intelligence, and passed the V17 site validator before opening this PR. No hand-edited company HTML or protected-main write is used."
+            --title "Sync effective Helix projection ${resolved_sha:0:12}" \
+            --body "Generated from exact canonical GlacierEQ/job-app-helix SHA \`${resolved_sha}\` using the base + modular company second-depth compiler and pinned into \`portfolio-source.json\`. The same run upgraded the stale stage-distribution validator, validated the public projection/receipt, rendered and validated Atlas + company constellation + estate intelligence, and passed the V17 site validator before opening this PR. No hand-edited company HTML or protected-main write is used."

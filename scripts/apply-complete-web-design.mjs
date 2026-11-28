@@ -2,6 +2,7 @@
 
 import { readdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 
 const THIS_FILE = fileURLToPath(import.meta.url);
@@ -35,7 +36,7 @@ function isMetaRefreshRedirect(html) {
   ));
 }
 
-function inject(html, relative) {
+export function injectDesignHtml(html, relative) {
   const completeMatches = [...html.matchAll(COMPLETE_PATTERN)];
   const interactionMatches = [...html.matchAll(INTERACTION_PATTERN)];
   const algerianMatches = [...html.matchAll(ALGERIAN_PATTERN)];
@@ -85,30 +86,65 @@ function inject(html, relative) {
   return { html: next, changed: true };
 }
 
-const files = await htmlFiles(SITE);
-let changed = 0;
-for (const file of files) {
-  const relative = path.relative(ROOT, file).replaceAll(path.sep, '/');
-  const source = await readFile(file, 'utf8');
-  const result = inject(source, relative);
-  if (result.changed) {
-    await writeFile(file, result.html, 'utf8');
-    changed += 1;
+export async function runCompleteWebDesign({ siteDir = SITE, rootDir = ROOT, check = false } = {}) {
+  const files = await htmlFiles(siteDir);
+  if (!files.length) throw new Error('no HTML files discovered');
+
+  const driftedFiles = [];
+  let changed = 0;
+  for (const file of files) {
+    const relative = path.relative(rootDir, file).replaceAll(path.sep, '/');
+    const source = await readFile(file, 'utf8');
+    const injected = injectDesignHtml(source, relative);
+    if (injected.changed) {
+      changed += 1;
+      if (check) {
+        driftedFiles.push(relative);
+      } else {
+        await writeFile(file, injected.html, 'utf8');
+      }
+    }
   }
+
+  const summary = {
+    status: check && driftedFiles.length > 0 ? 'FAIL' : 'PASS',
+    mode: check ? 'check' : 'write',
+    html_files: files.length,
+    ...(check ? { drifted: driftedFiles.length, drifted_files: driftedFiles } : { injected: changed }),
+    stylesheets: [
+      '/assets/site.complete.css',
+      '/assets/site.interaction.css',
+      '/assets/site.algerian.css',
+    ],
+  };
+
+  if (check && driftedFiles.length > 0) {
+    const error = new Error(`complete web design drift in ${driftedFiles.length} file(s): ${driftedFiles.join(', ')}`);
+    error.summary = summary;
+    throw error;
+  }
+  return summary;
 }
 
-if (!files.length) throw new Error('no HTML files discovered');
-const result = {
-  status: 'PASS',
-  html_files: files.length,
-  injected: changed,
-  stylesheets: [
-    '/assets/site.complete.css',
-    '/assets/site.interaction.css',
-    '/assets/site.algerian.css',
-  ],
-};
 const invokedDirectly = process.argv[1] && path.resolve(process.argv[1]) === path.resolve(THIS_FILE);
-if (invokedDirectly) console.log(JSON.stringify(result));
+if (invokedDirectly) {
+  const check = process.argv.includes('--check');
+  const siteArgIndex = process.argv.indexOf('--site');
+  const siteDir = siteArgIndex >= 0 && process.argv[siteArgIndex + 1]
+    ? path.resolve(process.argv[siteArgIndex + 1])
+    : SITE;
+  const rootDir = siteDir === SITE ? ROOT : path.dirname(siteDir);
 
-export { result };
+  runCompleteWebDesign({ siteDir, rootDir, check })
+    .then(summary => {
+      console.log(JSON.stringify(summary));
+    })
+    .catch(error => {
+      if (error?.summary) {
+        console.error(JSON.stringify(error.summary, null, 2));
+      } else {
+        console.error(error instanceof Error ? error.message : String(error));
+      }
+      process.exitCode = 1;
+    });
+}

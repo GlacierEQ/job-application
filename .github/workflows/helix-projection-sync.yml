@@ -49,6 +49,16 @@ on:
   schedule:
     - cron: "47 16 * * *"
   workflow_dispatch:
+    inputs:
+      refresh_latest:
+        description: "Query moving GlacierEQ/job-app-helix commits/main instead of reproducing pinned_commit"
+        required: false
+        type: boolean
+        default: true
+      helix_sha:
+        description: "Optional exact 40-character GlacierEQ/job-app-helix commit SHA override"
+        required: false
+        default: ""
 
 permissions:
   contents: read
@@ -73,10 +83,16 @@ jobs:
         with:
           node-version: "24"
       - name: Compile effective public-safe Helix projection and receipt
+        env:
+          HELIX_ROOT_SHA: ${{ inputs.helix_sha || '' }}
+          HELIX_REFRESH_LATEST: ${{ (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.refresh_latest != false)) && '1' || '0' }}
         run: node scripts/sync-helix-projection-effective.mjs
       - name: Reconcile downstream company cardinality to fresh Helix authority
         run: node scripts/reconcile-helix-company-cardinality.mjs
       - name: Validate public-safe projection and receipt
+        env:
+          HELIX_ROOT_SHA: ${{ inputs.helix_sha || '' }}
+          HELIX_REFRESH_LATEST: ${{ (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.refresh_latest != false)) && '1' || '0' }}
         run: node scripts/validate-helix-projection.mjs
       - name: Render Company Atlas and real company routes
         run: node scripts/render-helix-atlas.mjs
